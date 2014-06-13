@@ -102,8 +102,10 @@ file(GLOB_RECURSE cnc_turtlebots_behaviours_SOURCES "src/*.cpp")
 	${cnc_turtlebots_behaviours_SOURCES};
  )
 
+add_dependencies(cnc_turtlebots_behaviours ${catkin_LIBRARIES})
+
  target_link_libraries(cnc_turtlebots_behaviours ${catkin_LIBRARIES})
- add_dependencies(cnc_turtlebots_behaviours ${catkin_LIBRARIES})
+ 
 
 ## Add cmake target dependencies of the executable/library
 ## as an example, message headers may need to be generated before nodes

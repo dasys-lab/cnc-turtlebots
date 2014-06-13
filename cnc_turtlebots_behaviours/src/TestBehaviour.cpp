@@ -6,19 +6,20 @@
  */
 
 #include "TestBehaviour.h"
-
-TestBehaviour::TestBehaviour()
+namespace turtlebots
 {
-	this->callCounter = 0;
+	TestBehaviour::TestBehaviour()
+	{
+		this->callCounter = 0;
+	}
+
+	TestBehaviour::~TestBehaviour()
+	{
+
+	}
+
+	void TestBehaviour::run(void* msg)
+	{
+		cout << "TestBehaviour was called " << callCounter++ << " times!" << endl;
+	}
 }
-
-TestBehaviour::~TestBehaviour()
-{
-
-}
-
-void TestBehaviour::Run()
-{
-	cout << "TestBehaviour was called " << callCounter++ << " times!" << endl;
-}
-

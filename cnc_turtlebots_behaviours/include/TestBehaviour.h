@@ -11,16 +11,20 @@
 using namespace std;
 
 #include <iostream>
+#include <engine/BasicBehaviour.h>
 
-class TestBehaviour
+namespace turtlebots
 {
-public:
-	TestBehaviour();
-	virtual ~TestBehaviour();
-	void Run();
+	class TestBehaviour : public virtual alica::BasicBehaviour
+	{
+	public:
+		TestBehaviour();
+		virtual ~TestBehaviour();
+		virtual void run(void* msg);
 
-protected:
-	int callCounter;
-};
+	protected:
+		int callCounter;
+	};
+}
 
 #endif /* TESTBEHAVIOUR_H_ */
