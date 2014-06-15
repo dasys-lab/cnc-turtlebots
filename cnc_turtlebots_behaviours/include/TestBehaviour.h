@@ -21,10 +21,18 @@ namespace turtlebots
 		TestBehaviour();
 		virtual ~TestBehaviour();
 		virtual void run(void* msg);
-
+		static BasicBehaviour * create() { return new TestBehaviour(); }
 	protected:
 		int callCounter;
+		static bool registered;
+		//static alica::DerivedRegister<TestBehaviour> reg;
+	private:
 	};
+
+
+
 }
+
+
 
 #endif /* TESTBEHAVIOUR_H_ */

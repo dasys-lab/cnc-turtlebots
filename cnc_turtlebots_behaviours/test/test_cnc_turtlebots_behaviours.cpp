@@ -1,13 +1,30 @@
+#include <engine/AlicaEngine.h>
+#include <engine/BasicBehaviour.h>
+#include <engine/IBehaviourPool.h>
+#include <engine/model/Behaviour.h>
+#include <engine/PlanRepository.h>
+#include <FileSystem.h>
+#include <gtest/gtest.h>
+#include <gtest/gtest-message.h>
+#include <SystemConfig.h>
+#include <TestBehaviour.h>
+#include <cstdbool>
+#include <iostream>
+#include <map>
+#include <memory>
+#include <string>
+#include <utility>
+
 using namespace std;
 
-#include <SystemConfig.h>
-#include <engine/AlicaEngine.h>
-#include <gtest/gtest.h>
+
 
 /**
- * Tests the plan parser with some nice plans
+ * \brief Tests the behaviour pool
+ *
+ * Tests the behaviour pool by initialising an AlicaEngine and retrieve the parsed behaviours.
  */
-TEST(TurtleBotsBehaviours, threadPool)
+TEST(Turtlebots, behaviourPool)
 {
 	// determine the path to the test config
 	string path = supplementary::FileSystem::getSelfPath();
@@ -20,11 +37,23 @@ TEST(TurtleBotsBehaviours, threadPool)
 	sc->setRootPath(path);
 	sc->setConfigPath(path + "/etc");
 
-	// setup the engine
 	alica::AlicaEngine* ae = alica::AlicaEngine::getInstance();
-	ae->init("WM09", "WM09", "WM09", false);
+	ae->init("Roleset", "MasterPlan", ".", false);
 
-	//ae->start();
+	std::map<long int, alica::Behaviour*> behaviours = ae->getPlanRepository()->getBehaviours();
+
+	unique_ptr<alica::IBehaviourPool> bp = ae->getBehaviourPool();
+	for(auto behaviourPair : behaviours) {
+		cout << "Behaviour: " << behaviourPair.second->getName() << endl;
+		EXPECT_TRUE(bp->isBehaviourAvailable(behaviourPair.second)) << "Did not find the Behaviour " << behaviourPair.second->getName();
+	}
+
+	turtlebots::TestBehaviour* test = new turtlebots::TestBehaviour();
+
+	cout << "DEBUG: " << endl;
+	alica::BasicBehaviour* beh = alica::BasicBehaviour::createInstance("TestBehaviour");
+	cout << "DEBUG: 1" << beh << endl;
+	beh->run(nullptr);
 }
 
 // Run all the tests that were declared with TEST()

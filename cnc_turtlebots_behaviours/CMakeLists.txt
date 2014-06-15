@@ -81,7 +81,7 @@ find_package(catkin REQUIRED COMPONENTS system_config alica)
 catkin_package(
   INCLUDE_DIRS include
   LIBRARIES cnc_turtlebots_behaviours
-  CATKIN_DEPENDS system_config
+  CATKIN_DEPENDS system_config alica
 #  DEPENDS tinyxml
 )
 
@@ -102,8 +102,9 @@ file(GLOB_RECURSE cnc_turtlebots_behaviours_SOURCES "src/*.cpp")
 	${cnc_turtlebots_behaviours_SOURCES};
  )
 
-add_dependencies(cnc_turtlebots_behaviours ${catkin_LIBRARIES})
+ add_dependencies(cnc_turtlebots_behaviours ${catkin_LIBRARIES})
 
+#message ("TEEEST " ${catkin_LIBRARIES})
  target_link_libraries(cnc_turtlebots_behaviours ${catkin_LIBRARIES})
  
 
