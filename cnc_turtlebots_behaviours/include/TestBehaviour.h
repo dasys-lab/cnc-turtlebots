@@ -21,7 +21,7 @@ namespace turtlebots
 		TestBehaviour();
 		virtual ~TestBehaviour();
 		virtual void run(void* msg);
-		static BasicBehaviour * create() { return new TestBehaviour(); }
+		virtual BasicBehaviour * create() { return new TestBehaviour(); }
 	protected:
 		int callCounter;
 		static bool registered;

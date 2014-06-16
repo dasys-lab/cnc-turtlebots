@@ -51,9 +51,9 @@ TEST(Turtlebots, behaviourPool)
 	turtlebots::TestBehaviour* test = new turtlebots::TestBehaviour();
 
 	cout << "DEBUG: " << endl;
-	alica::BasicBehaviour* beh = alica::BasicBehaviour::createInstance("TestBehaviour");
-	cout << "DEBUG: 1" << beh << endl;
-	beh->run(nullptr);
+	//alica::BasicBehaviour* beh = alica::BasicBehaviour::createInstance("TestBehaviour");
+	//cout << "DEBUG: 1" << beh << endl;
+	//beh->run(nullptr);
 }
 
 // Run all the tests that were declared with TEST()
