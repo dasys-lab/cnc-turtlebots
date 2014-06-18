@@ -1,23 +1,14 @@
-#include <engine/AlicaEngine.h>
-#include <engine/BasicBehaviour.h>
-#include <engine/IBehaviourPool.h>
-#include <engine/model/Behaviour.h>
-#include <engine/PlanRepository.h>
-#include <FileSystem.h>
-#include <gtest/gtest.h>
-#include <gtest/gtest-message.h>
-#include <SystemConfig.h>
-#include <TestBehaviour.h>
-#include <cstdbool>
-#include <iostream>
-#include <map>
-#include <memory>
-#include <string>
-#include <utility>
-
 using namespace std;
 
-
+#include <gtest/gtest.h>
+#include <FileSystem.h>
+#include <SystemConfig.h>
+#include <engine/AlicaEngine.h>
+#include <engine/model/Behaviour.h>
+#include <engine/BasicBehaviour.h>
+#include <engine/PlanRepository.h>
+#include <engine/IBehaviourPool.h>
+#include <BehaviourCreator.h>
 
 /**
  * \brief Tests the behaviour pool
@@ -38,22 +29,17 @@ TEST(Turtlebots, behaviourPool)
 	sc->setConfigPath(path + "/etc");
 
 	alica::AlicaEngine* ae = alica::AlicaEngine::getInstance();
-	ae->init("Roleset", "MasterPlan", ".", false);
-
-	std::map<long int, alica::Behaviour*> behaviours = ae->getPlanRepository()->getBehaviours();
-
+	EXPECT_TRUE(ae->init(new turtlebots::BehaviourCreator(), "Roleset", "MasterPlan", ".", false)) << "Unable to initialise the Alica Engine!";
+	//ae->init(new turtlebots::BehaviourCreator(), "Roleset", "MasterPlan", ".", false);
+	cout << "Debug 0" << endl;
+	map<long int, alica::Behaviour*> behaviours = ae->getPlanRepository()->getBehaviours();
+	cout << "Debug 1" << endl;
 	unique_ptr<alica::IBehaviourPool> bp = ae->getBehaviourPool();
+	cout << "Debug 2" << endl;
 	for(auto behaviourPair : behaviours) {
 		cout << "Behaviour: " << behaviourPair.second->getName() << endl;
 		EXPECT_TRUE(bp->isBehaviourAvailable(behaviourPair.second)) << "Did not find the Behaviour " << behaviourPair.second->getName();
 	}
-
-	turtlebots::TestBehaviour* test = new turtlebots::TestBehaviour();
-
-	cout << "DEBUG: " << endl;
-	//alica::BasicBehaviour* beh = alica::BasicBehaviour::createInstance("TestBehaviour");
-	//cout << "DEBUG: 1" << beh << endl;
-	//beh->run(nullptr);
 }
 
 // Run all the tests that were declared with TEST()

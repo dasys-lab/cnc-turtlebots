@@ -15,22 +15,15 @@ using namespace std;
 
 namespace turtlebots
 {
-	class TestBehaviour : public virtual alica::BasicBehaviour
+	class TestBehaviour : public alica::BasicBehaviour
 	{
 	public:
 		TestBehaviour();
 		virtual ~TestBehaviour();
 		virtual void run(void* msg);
-		virtual BasicBehaviour * create() { return new TestBehaviour(); }
 	protected:
 		int callCounter;
-		static bool registered;
-		//static alica::DerivedRegister<TestBehaviour> reg;
-	private:
 	};
-
-
-
 }
 
 
