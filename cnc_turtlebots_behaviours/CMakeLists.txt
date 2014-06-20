@@ -151,10 +151,10 @@ file(GLOB_RECURSE cnc_turtlebots_behaviours_SOURCES "src/*.cpp")
 #############
 
 ## Add gtest based cpp test target and link libraries
- catkin_add_gtest(${PROJECT_NAME}-test test/test_cnc_turtlebots_behaviours.cpp)
- if(TARGET ${PROJECT_NAME}-test)
-   target_link_libraries(${PROJECT_NAME}-test ${PROJECT_NAME} ${catkin_LIBRARIES})
- endif()
+# catkin_add_gtest(${PROJECT_NAME}-test test/test_cnc_turtlebots_behaviours.cpp)
+# if(TARGET ${PROJECT_NAME}-test)
+#   target_link_libraries(${PROJECT_NAME}-test ${PROJECT_NAME} ${catkin_LIBRARIES})
+# endif()
 
 ## Add folders to be run by python nosetests
 # catkin_add_nosetests(test)
