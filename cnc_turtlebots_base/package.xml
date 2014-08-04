@@ -40,10 +40,10 @@
   <!-- Use test_depend for packages you need only for testing: -->
   <!--   <test_depend>gtest</test_depend> -->
   <buildtool_depend>catkin</buildtool_depend>
-  <build_depend>alica</build_depend>
+  <build_depend>alica_engine</build_depend>
   <build_depend>fsystem</build_depend>
   <build_depend>system_config</build_depend>
-  <run_depend>alica</run_depend>
+  <run_depend>alica_engine</run_depend>
   <run_depend>fsystem</run_depend>
   <run_depend>system_config</run_depend>
 

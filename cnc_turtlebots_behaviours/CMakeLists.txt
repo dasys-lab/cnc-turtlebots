@@ -7,7 +7,7 @@ set(CMAKE_CXX_FLAGS "-std=c++11 ${CMAKE_CXX_FLAGS}")
 ## Find catkin macros and libraries
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
-find_package(catkin REQUIRED COMPONENTS system_config alica)
+find_package(catkin REQUIRED COMPONENTS system_config alica_engine)
 
 ## System dependencies are found with CMake's conventions
 #find_package(Boost REQUIRED COMPONENTS program_options)
@@ -81,7 +81,7 @@ find_package(catkin REQUIRED COMPONENTS system_config alica)
 catkin_package(
   INCLUDE_DIRS include
   LIBRARIES cnc_turtlebots_behaviours
-  CATKIN_DEPENDS system_config alica
+  CATKIN_DEPENDS system_config alica_engine
 #  DEPENDS tinyxml
 )
 
