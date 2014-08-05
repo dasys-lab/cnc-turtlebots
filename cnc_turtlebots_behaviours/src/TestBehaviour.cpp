@@ -10,7 +10,7 @@
 namespace turtlebots
 {
 
-	TestBehaviour::TestBehaviour()
+	TestBehaviour::TestBehaviour() : BasicBehaviour("TestBehaviour")
 	{
 
 		this->callCounter = 0;
