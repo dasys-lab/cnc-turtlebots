@@ -1,0 +1,9 @@
+<!-- Starts up the Gazebo Simulator -->
+<launch>
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+    <arg name="use_sim_time" value="true"/>
+    <arg name="debug" value="false"/>
+    <arg name="world_name" value="$(find turtle_szenario1)/worlds/playground.world"/>
+    <arg name="gui" value="false"/>
+  </include>
+</launch>

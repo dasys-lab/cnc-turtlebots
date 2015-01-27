@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+
+<launch>
+
+    <node name="rgbd_server" pkg="rgbd" type="rgbd_server" output="screen">
+    
+        <remap from="cam_info" to="/camera/rgb/camera_info"/>
+        
+        <remap from="rgb_image" to="/camera/rgb/image_raw"/>
+        
+		<remap from="depth_image" to="/camera/depth/image_raw"/>
+		
+        <remap from="output" to="/kinect/rgbd"/>
+    </node>
+
+</launch>

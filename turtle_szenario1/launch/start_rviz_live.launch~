@@ -1,0 +1,9 @@
+<launch>
+
+  <!-- setup robot_description -->
+  <arg name="urdf_file" default="$(find xacro)/xacro.py '$(find turtle_szenario1)/descriptions/robots/kobuki_hexagons_kinect.urdf.xacro'" />
+  <param name="robot_description" command="$(arg urdf_file)" />
+
+  <!--  **************** Visualisation ****************  -->
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find turtle_szenario1)/rviz/stage_navigation.rviz"/>
+</launch>

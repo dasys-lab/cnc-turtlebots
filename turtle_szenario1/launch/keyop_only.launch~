@@ -1,0 +1,8 @@
+<launch>
+  
+  <!-- Startup Keyop Teleop -->
+  <include file="$(arg includes)/keyop_teleop.launch.xml" >
+    <arg name="keyop_vel_output" value="/velocity_smoother/raw_cmd_vel" />
+  </include>
+
+</launch>

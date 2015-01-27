@@ -1,0 +1,4 @@
+<!-- Starts up the NodeletManager alias mobile_base -->
+<launch>
+  <node pkg="nodelet" type="nodelet" name="mobile_base_nodelet_manager" args="manager"/>
+</launch>

@@ -1,0 +1,4 @@
+<!-- Starts up the ED-Server -->
+<launch>
+  <node pkg="ed" type="ed_server" args="$(find turtle_szenario1)/param/ed_config.yaml" name="ed_server"/>
+</launch>

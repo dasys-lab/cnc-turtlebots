@@ -1,0 +1,6 @@
+<launch>
+
+  <!-- Startup Rviz with parameters -->
+  <include file="$(arg includes)/rviz_navigation.launch.xml" />
+
+</launch>

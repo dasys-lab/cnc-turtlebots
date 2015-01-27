@@ -1,0 +1,43 @@
+<!-- Standalone Launcher for the cnc-turtlebots this runs the following nodes:
+
+	Default Kobuki:
+		- mobile_base_nodelet_manager (Nodelet Manager)
+		- mobile_base (Kobuki Driver Wrapper Nodelet)
+		- diagnostic_aggregator (Diagnostic Tool)
+		
+<launch>
+
+	<!-- Startup Params -->
+	<arg name="start_with_diagnostic" default="false"/>
+	<arg name="simulated" default="false" />
+	
+	<!-- Kobuki Params -->
+	<arg name="kobuki_publish_tf" default="true"/>
+
+	<!-- Nodelets -->
+	<node pkg="nodelet" type="nodelet" name="mobile_base_nodelet_manager" args="manager" unless="$(arg simulated)"/>
+	<node pkg="nodelet" type="nodelet" name="mobile_base" args="load kobuki_node/KobukiNodelet mobile_base_nodelet_manager" unless="$(arg simulated)">
+		<rosparam file="$(find kobuki_node)/param/base.yaml" command="load"/>
+		<param name="publish_tf" value="$(arg kobuki_publish_tf)"/>
+		
+		<!-- initially do not remap any parameters -->
+		<!--
+		    <remap from="mobile_base/odom" to="odom"/>
+    		<remap from="mobile_base/joint_states" to="joint_states"/>
+		-->
+		 
+	</node>
+	
+	<!-- diagnostic Node -->
+	<node if="$(arg start_with_diagnostic)" pkg="diagnostic_aggregator" type="aggregator_node" name="diagnostic_aggregator" >
+		<rosparam command="load" file="$(find kobuki_node)/param/diagnostics.yaml" />
+	</node>
+	
+	<!-- Velocity Muxer -->
+	<node pkg="nodelet" type="nodelet" name="cmd_vel_mux"
+        	args="load yocs_cmd_vel_mux/CmdVelMuxNodelet mobile_base_nodelet_manager">
+    	<param name="yaml_cfg_file" value="$(find turtle_szenario1)/param/mux.yaml" />
+    	<remap from="cmd_vel_mux/output" to="mobile_base/commands/velocity"/>
+  	</node>
+
+</launch>

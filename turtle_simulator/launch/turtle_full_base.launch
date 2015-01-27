@@ -1,0 +1,18 @@
+
+<launch>
+
+	<include file="$(find turtle_simulator)/launch/turtle_empty_world.launch">
+	</include>
+
+	<include file="$(find turtle_bringup)/launch/minimal.launch">
+		<arg name="start_with_diagnostic" value="false"/>
+		<arg name="start_with_alica" value="false" />
+		<arg name="simulated" value="true" />
+		<arg name="kobuki_publish_tf" value="true" />
+	</include>
+	
+	<node pkg="robot_state_publisher" type="robot_state_publisher" name="robot_state_publisher">
+    	<param name="publish_frequency" type="double" value="30.0" />
+  	</node>
+
+</launch>
