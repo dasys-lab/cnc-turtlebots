@@ -1,7 +1,7 @@
 <!-- Starts up the Gazebo Simulator -->
 <launch>
 
-  <arg name="world" default="$(find turtle_bringup)/worlds/playground.world" />
+  <arg name="world" default="$(find turtle_simulator)/worlds/playground.world" />
   <arg name="gui" default="false" />
 
   <include file="$(find gazebo_ros)/launch/empty_world.launch">

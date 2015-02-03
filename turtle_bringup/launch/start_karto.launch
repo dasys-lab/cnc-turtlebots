@@ -3,7 +3,7 @@
   <arg name="includes" default="$(find turtle_bringup)/launch/includes" />
   <arg name="nodelet_manager_name" default="mobile_base_nodelet_manager" />
   <arg name="scan_topic" default="/scan" />
-  <arg name="world" default="$(find turtle_bringup)/worlds/navigation_training1.world" />
+  <arg name="world" default="$(find turtle_simulator)/worlds/navigation_training1.world" />
 
   <param name="use_sim_time" value="true" />
 
