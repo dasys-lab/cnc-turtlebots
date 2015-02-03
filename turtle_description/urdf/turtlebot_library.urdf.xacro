@@ -4,16 +4,16 @@
  -->
 <robot xmlns:xacro="http://ros.org/wiki/xacro">
   <!-- General -->
-  <xacro:include filename="$(find turtle_description)/urdf/common_properties.urdf.xacro"/>
-  <xacro:include filename="$(find turtle_description)/urdf/turtlebot_properties.urdf.xacro"/>
+  <xacro:include filename="$(find turtle_szenario1)/descriptions/urdf/common_properties.urdf.xacro"/>
+  <xacro:include filename="$(find turtle_szenario1)/descriptions/urdf/turtlebot_properties.urdf.xacro"/>
   <!-- Bases -->
-  <!--<xacro:include filename="$(find create_description)/urdf/create.urdf.xacro"/>-->
-  <xacro:include filename="$(find kobuki_description)/urdf/kobuki.urdf.xacro" />
-  <xacro:include filename="$(find kobuki_description)/urdf/kobuki_gazebo.urdf.xacro" />
+  <xacro:include filename="$(find turtle_szenario1)/descriptions/urdf/kobuki.urdf.xacro" />
+  <xacro:include filename="$(find turtle_szenario1)/descriptions/urdf/kobuki_gazebo.urdf.xacro" />
   <!-- Stacks -->
-  <xacro:include filename="$(find turtle_description)/urdf/stacks/circles.urdf.xacro"/>
-  <xacro:include filename="$(find turtle_description)/urdf/stacks/hexagons.urdf.xacro"/>
+  <xacro:include filename="$(find turtle_szenario1)/descriptions/urdf/stacks/circles.urdf.xacro"/>
+  <xacro:include filename="$(find turtle_szenario1)/descriptions/urdf/stacks/hexagons.urdf.xacro"/>
   <!-- 3D Sensors -->
-  <xacro:include filename="$(find turtle_description)/urdf/sensors/kinect.urdf.xacro"/>
-  <xacro:include filename="$(find turtle_description)/urdf/sensors/asus_xtion_pro.urdf.xacro"/>
+  <xacro:include filename="$(find turtle_szenario1)/descriptions/urdf/sensors/kinect.urdf.xacro"/>
+  <xacro:include filename="$(find turtle_szenario1)/descriptions/urdf/sensors/asus_xtion_pro.urdf.xacro"/>
+  <xacro:include filename="$(find turtle_szenario1)/descriptions/urdf/sensors/hokuyu_laser.urdf.xacro" />
 </robot>
