@@ -1,4 +1,0 @@
-<!-- Rviz Startup with the configuration for the Navigation -->
-<launch>
-  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find turtle_szenario1)/rviz/navigation.rviz"/>
-</launch>
