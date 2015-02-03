@@ -5,6 +5,7 @@ Panels:
     Property Tree Widget:
       Expanded:
         - /TF1/Tree1
+        - /LaserScan (kinect)1/Status1
         - /Global Planning1/Planner1
       Splitter Ratio: 0.5
     Tree Height: 531
@@ -235,83 +236,81 @@ Visualization Manager:
       Frames:
         All Enabled: false
         base_footprint:
-          Value: false
-        base_laser_link:
-          Value: false
+          Value: true
         base_link:
           Value: true
         camera_depth_frame:
-          Value: false
+          Value: true
         camera_depth_optical_frame:
-          Value: false
+          Value: true
         camera_link:
-          Value: false
+          Value: true
         camera_rgb_frame:
-          Value: false
+          Value: true
         camera_rgb_optical_frame:
-          Value: false
+          Value: true
         caster_back_link:
-          Value: false
+          Value: true
         caster_front_link:
-          Value: false
+          Value: true
         cliff_sensor_front_link:
-          Value: false
+          Value: true
         cliff_sensor_left_link:
-          Value: false
+          Value: true
         cliff_sensor_right_link:
-          Value: false
+          Value: true
         gyro_link:
-          Value: false
+          Value: true
         hokuyu_laser_link:
           Value: true
         map:
-          Value: false
+          Value: true
         odom:
-          Value: false
+          Value: true
         offset:
-          Value: false
+          Value: true
         plate_bottom_link:
-          Value: false
+          Value: true
         plate_middle_link:
-          Value: false
+          Value: true
         plate_top_link:
-          Value: false
+          Value: true
         pole_bottom_0_link:
-          Value: false
+          Value: true
         pole_bottom_1_link:
-          Value: false
+          Value: true
         pole_bottom_2_link:
-          Value: false
+          Value: true
         pole_bottom_3_link:
-          Value: false
+          Value: true
         pole_bottom_4_link:
-          Value: false
+          Value: true
         pole_bottom_5_link:
-          Value: false
+          Value: true
         pole_kinect_0_link:
-          Value: false
+          Value: true
         pole_kinect_1_link:
-          Value: false
+          Value: true
         pole_middle_0_link:
-          Value: false
+          Value: true
         pole_middle_1_link:
-          Value: false
+          Value: true
         pole_middle_2_link:
-          Value: false
+          Value: true
         pole_middle_3_link:
-          Value: false
+          Value: true
         pole_top_0_link:
-          Value: false
+          Value: true
         pole_top_1_link:
-          Value: false
+          Value: true
         pole_top_2_link:
-          Value: false
+          Value: true
         pole_top_3_link:
-          Value: false
+          Value: true
         wheel_left_link:
-          Value: false
+          Value: true
         wheel_right_link:
-          Value: false
+          Value: true
       Marker Scale: 1
       Name: TF
       Show Arrows: true
@@ -323,8 +322,6 @@ Visualization Manager:
             odom:
               base_footprint:
                 base_link:
-                  base_laser_link:
-                    {}
                   camera_rgb_frame:
                     camera_depth_frame:
                       camera_depth_optical_frame:
@@ -403,7 +400,7 @@ Visualization Manager:
       Color: 255; 255; 255
       Color Transformer: Intensity
       Decay Time: 0
-      Enabled: false
+      Enabled: true
       Invert Rainbow: false
       Max Color: 255; 255; 255
       Max Intensity: 1
@@ -416,10 +413,10 @@ Visualization Manager:
       Size (Pixels): 3
       Size (m): 0.1
       Style: Squares
-      Topic: /scan
+      Topic: /scan_kinect
       Use Fixed Frame: true
       Use rainbow: true
-      Value: false
+      Value: true
     - Alpha: 1
       Autocompute Intensity Bounds: true
       Autocompute Value Bounds:
@@ -685,7 +682,7 @@ Visualization Manager:
       Size (Pixels): 3
       Size (m): 0.01
       Style: Flat Squares
-      Topic: /scan
+      Topic: /scan_hokuyo
       Use Fixed Frame: true
       Use rainbow: true
       Value: true
@@ -709,7 +706,7 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/Orbit
-      Distance: 4.83842
+      Distance: 4.13607
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.06
         Stereo Focal Distance: 1
@@ -721,10 +718,10 @@ Visualization Manager:
         Z: 0.0174713
       Name: Current View
       Near Clip Distance: 0.01
-      Pitch: 0.0748019
+      Pitch: 0.319802
       Target Frame: <Fixed Frame>
       Value: Orbit (rviz)
-      Yaw: 0.160029
+      Yaw: 1.01003
     Saved: ~
 Window Geometry:
   Displays:
