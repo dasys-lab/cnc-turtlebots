@@ -1,7 +1,7 @@
 <launch>
 
   <!-- launchfile specific setup -->
-  <arg name="includes" default="$(find turtle_szenario1)/launch/includes" />
+  <arg name="includes" default="$(find turtle_bringup)/launch/includes" />
   <arg name="nodelet_manager_name" default="mobile_base_nodelet_manager" />
   <arg name="scan_topic_kinect" default="/scan_kinect" />
   <arg name="scan_topic_hokuyo" default="/scan_hokuyo" />
@@ -28,7 +28,7 @@
   </include>
 
   <!-- setup robot_description -->
-  <arg name="urdf_file" default="$(find xacro)/xacro.py '$(find turtle_szenario1)/descriptions/robots/kobuki_hexagons_kinect.urdf.xacro'" />
+  <arg name="urdf_file" default="$(find xacro)/xacro.py '$(find turtle_description)/robots/kobuki_hexagons_kinect.urdf.xacro'" />
   <param name="robot_description" command="$(arg urdf_file)" />
 
   <!-- Start the Kobuki Base -->
@@ -83,19 +83,19 @@
   <node name="Operator" pkg="nav2d_operator" type="operator" >
     <remap from="scan" to="$(arg scan_topic_hokuyo)"/>
     <remap from="cmd_vel" to="cmd_vel_mux/navigation" />
-    <rosparam file="$(find turtle_szenario1)/param/nav2d/operator.yaml"/>
-    <rosparam file="$(find turtle_szenario1)/param/nav2d/costmap.yaml" ns="local_map" />
+    <rosparam file="$(find turtle_bringup)/param/nav2d/operator.yaml"/>
+    <rosparam file="$(find turtle_bringup)/param/nav2d/costmap.yaml" ns="local_map" />
   </node>
 
   <!-- Start Mapper to genreate map from laser scans -->
   <node name="Mapper" pkg="nav2d_karto" type="mapper">
     <remap from="scan" to="$(arg scan_topic_hokuyo)"/>
-    <rosparam file="$(find turtle_szenario1)/param/nav2d/mapper.yaml"/>
+    <rosparam file="$(find turtle_bringup)/param/nav2d/mapper.yaml"/>
   </node>
 
   <!-- Start the Navigator to move the robot autonomously -->
   <node name="Navigator" pkg="nav2d_navigator" type="navigator">
-    <rosparam file="$(find turtle_szenario1)/param/nav2d/navigator.yaml"/>
+    <rosparam file="$(find turtle_bringup)/param/nav2d/navigator.yaml"/>
   </node>
 
   <node name="GetMap" pkg="nav2d_navigator" type="get_map_client" />

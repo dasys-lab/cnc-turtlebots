@@ -4,7 +4,7 @@
 
   <!-- diagnostic Node -->
   <node if="$(arg start_with_diagnostic)" pkg="diagnostic_aggregator" type="aggregator_node" name="diagnostic_aggregator" >
-    <rosparam command="load" file="$(find turtle_szenario1)/param/defaults/diagnostics.yaml" />
+    <rosparam command="load" file="$(find turtle_bringup)/param/defaults/diagnostics.yaml" />
   </node>
 
 </launch>

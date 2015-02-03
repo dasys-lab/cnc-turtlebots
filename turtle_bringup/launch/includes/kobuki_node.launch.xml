@@ -4,7 +4,7 @@
   <arg name="nodelet_manager_name" default="mobile_base_nodelet_manager"/>
 
   <node pkg="nodelet" type="nodelet" name="mobile_base" args="load kobuki_node/KobukiNodelet $(arg nodelet_manager_name)">
-    <rosparam file="$(find turtle_szenario1)/param/defaults/base.yaml" command="load"/>
+    <rosparam file="$(find turtle_bringup)/param/defaults/base.yaml" command="load"/>
     <param name="publish_tf" value="$(arg kobuki_publish_tf)"/>
 
     <remap from="mobile_base/odom" to="odom" />

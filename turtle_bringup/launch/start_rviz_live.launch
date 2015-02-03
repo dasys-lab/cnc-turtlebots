@@ -1,5 +1,5 @@
 <launch>
 
   <!--  **************** Visualisation ****************  -->
-  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find turtle_szenario1)/rviz/stage_navigation.rviz"/>
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find turtle_bringup)/rviz/stage_navigation.rviz"/>
 </launch>

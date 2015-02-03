@@ -1,7 +1,7 @@
 <launch>
 
   <!-- launchfile specific setup -->
-  <arg name="includes" default="$(find turtle_szenario1)/launch/includes" />
+  <arg name="includes" default="$(find turtle_bringup)/launch/includes" />
   <arg name="nodelet_manager_name" default="mobile_base_nodelet_manager" />
   <arg name="scan_topic" default="/scan" />
   <arg name="scan_fake_topic" default ="/scan_fake" />
@@ -23,7 +23,7 @@
   <param name="map_service" value="static_map" />
 
   <!-- setup robot_description -->
-  <arg name="urdf_file" default="$(find xacro)/xacro.py '$(find turtle_szenario1)/descriptions/robots/kobuki_hexagons_kinect.urdf.xacro'" />
+  <arg name="urdf_file" default="$(find xacro)/xacro.py '$(find turtle_description)/robots/kobuki_hexagons_kinect.urdf.xacro'" />
   <param name="robot_description" command="$(arg urdf_file)" />
 
   <node pkg="stage_ros" type="stageros" name="stageros" args="$(find nav2d_tutorials)/world/tutorial.world">
@@ -70,21 +70,21 @@
   <node name="Operator" pkg="nav2d_operator" type="operator" >
     <remap from="scan" to="/scan"/>
     <remap from="cmd_vel" to="cmd_vel_mux/navigation" />
-    <rosparam file="$(find turtle_szenario1)/param/nav2d/operator.yaml"/>
-    <rosparam file="$(find turtle_szenario1)/param/nav2d/costmap.yaml" ns="local_map" />
+    <rosparam file="$(find turtle_bringup)/param/nav2d/operator.yaml"/>
+    <rosparam file="$(find turtle_bringup)/param/nav2d/costmap.yaml" ns="local_map" />
   </node>
 
   <!-- Start Mapper to genreate map from laser scans -->
   <node name="Mapper" pkg="nav2d_karto" type="mapper">
     <remap from="scan" to="$(arg scan_fake_topic)"/>
-    <rosparam file="$(find turtle_szenario1)/param/nav2d/mapper.yaml"/>
+    <rosparam file="$(find turtle_bringup)/param/nav2d/mapper.yaml"/>
   </node>
 
   <!-- <include file="$(find turtlebot_navigation)/launch/includes/gmapping.launch.xml" /> -->
 
   <!-- Start the Navigator to move the robot autonomously -->
   <node name="Navigator" pkg="nav2d_navigator" type="navigator">
-    <rosparam file="$(find turtle_szenario1)/param/nav2d/navigator.yaml"/>
+    <rosparam file="$(find turtle_bringup)/param/nav2d/navigator.yaml"/>
   </node>
 
   <node name="GetMap" pkg="nav2d_navigator" type="get_map_client" />
@@ -103,6 +103,6 @@
   </node> -->
 
   <!--  **************** Visualisation ****************  -->
-  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find turtle_szenario1)/rviz/stage_navigation.rviz"/>
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find turtle_bringup)/rviz/stage_navigation.rviz"/>
 
 </launch>
