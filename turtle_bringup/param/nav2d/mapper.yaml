@@ -1,12 +1,12 @@
 ### Mapper ################################################
 
-grid_resolution: 0.1
+grid_resolution: 0.05
 range_threshold: 45.0
-map_update_rate: 5
+map_update_rate: 1
 publish_pose_graph: false
 max_covariance: 0.05
 transform_publish_period: 0.3 # I think this is not used ?
-min_map_size: 20
+min_map_size: 50
 
 ### Localizer #############################################
 
@@ -19,15 +19,15 @@ max_particles: 10000
 # corresponding default values, see OpenKarto/OpenMapper.h
 
 UseScanMatching: true
-UseScanBarycenter: false
-MinimumTravelDistance: 0.1
+UseScanBarycenter: true
+MinimumTravelDistance: 0.2
 MinimumTravelHeading: 0.20
-ScanBufferSize: 65 # MaxScanDistance: 4m / MinimumTravelDistance: 0.2 = 20
-ScanBufferMaximumScanDistance: 6.5
+ScanBufferSize: 70 # MaxScanDistance: 4m / MinimumTravelDistance: 0.2 = 20
+ScanBufferMaximumScanDistance: 20
 UseResponseExpansion: false
 DistanceVariancePenalty: 0.3
 MinimumDistancePenalty: 0.5
-AngleVariancePenalty: 0.3
+AngleVariancePenalty: 0.35
 MinimumAnglePenalty: 0.9
 LinkMatchMinimumResponseFine: 0.6
 LinkScanMaximumDistance: 5.0

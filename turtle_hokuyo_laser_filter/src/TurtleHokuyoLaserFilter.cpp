@@ -16,7 +16,7 @@ namespace turtle
   {
 
     this->laserScanSubscriber = this->nodeHandle.subscribe("/scan_hokuyo", 1, &TurtleHokuyoLaserFilter::laserScanCallback, this);
-    this->laserScanFilteredPublisher = this->nodeHandle.advertise<sensor_msgs::LaserScanConstPtr>("/scan_filtered", 10);
+    this->laserScanFilteredPublisher = this->nodeHandle.advertise<sensor_msgs::LaserScan>("/scan_filtered", 10);
   }
 
   TurtleHokuyoLaserFilter::~TurtleHokuyoLaserFilter()
@@ -112,6 +112,18 @@ namespace turtle
       }
     }
 
+//    sensor_msgs::LaserScan filteredLaserScan;
+//    filteredLaserScan.header = msg->header;
+//    filteredLaserScan.angle_increment = msg->angle_increment;
+//    filteredLaserScan.angle_max = msg->angle_max;
+//    filteredLaserScan.angle_min = msg->angle_min;
+//    filteredLaserScan.intensities = msg->intensities;
+//    filteredLaserScan.range_max = msg->range_max;
+//    filteredLaserScan.range_min = msg->range_min;
+//    filteredLaserScan.ranges = ranges;
+//    filteredLaserScan.scan_time = msg->scan_time;
+//    filteredLaserScan.time_increment = msg->time_increment;
+
     // republish the filtered LaserScan
     this->laserScanFilteredPublisher.publish(msg);
   }
@@ -167,8 +179,9 @@ int main(int argc, char** argv)
     ROS_DEBUG("Initializing Ros");
     ros::init(argc, argv, "TurtleHokuyoLaserFilter");
 
-    // Read the argv Arguments for the Settings
     ROS_DEBUG("Starting Base");
+
+    // Read the argv Arguments for the Settings
 
     // node intialization comes here
     turtle::TurtleHokuyoLaserFilter* node = new turtle::TurtleHokuyoLaserFilter();
