@@ -1,10 +1,16 @@
 cmake_minimum_required(VERSION 2.8.3)
-project(turtle_wire_bridge)
+project(turtle_hokuyo_laser_filter)
+
+## Use c++ 11x std
+set(CMAKE_CXX_FLAGS "-std=c++11 ${CMAKE_CXX_FLAGS}")
 
 ## Find catkin macros and libraries
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
-find_package(catkin REQUIRED)
+find_package(catkin REQUIRED COMPONENTS
+  roscpp
+  std_msgs
+)
 
 ## System dependencies are found with CMake's conventions
 # find_package(Boost REQUIRED COMPONENTS system)
@@ -63,7 +69,7 @@ find_package(catkin REQUIRED)
 ## Generate added messages and services with any dependencies listed here
 # generate_messages(
 #   DEPENDENCIES
-#   std_msgs  # Or other packages containing msgs
+#   std_msgs
 # )
 
 ###################################
@@ -76,9 +82,9 @@ find_package(catkin REQUIRED)
 ## CATKIN_DEPENDS: catkin_packages dependent projects also need
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
-#  INCLUDE_DIRS include
-#  LIBRARIES turtle_wire_bridge
-#  CATKIN_DEPENDS other_catkin_pkg
+  INCLUDE_DIRS include
+#  LIBRARIES turtle_hokuyo_laser_filter
+  CATKIN_DEPENDS roscpp std_msgs
 #  DEPENDS system_lib
 )
 
@@ -88,24 +94,27 @@ catkin_package(
 
 ## Specify additional locations of header files
 ## Your package locations should be listed before other locations
-# include_directories(include)
+include_directories(
+  include
+  ${catkin_INCLUDE_DIRS}
+)
 
 ## Declare a cpp library
-# add_library(turtle_wire_bridge
-#   src/${PROJECT_NAME}/turtle_wire_bridge.cpp
-# )
+#add_library(turtle_hokuyo_laser_filter
+#   src/TurtleHokuyoLaserFilter.cpp
+#)
 
 ## Declare a cpp executable
-# add_executable(turtle_wire_bridge_node src/turtle_wire_bridge_node.cpp)
+add_executable(turtle_hokuyo_laser_filter_node src/TurtleHokuyoLaserFilter.cpp)
 
 ## Add cmake target dependencies of the executable/library
 ## as an example, message headers may need to be generated before nodes
-# add_dependencies(turtle_wire_bridge_node turtle_wire_bridge_generate_messages_cpp)
+# add_dependencies(turtle_hokuyo_laser_filter_node turtle_hokuyo_laser_filter_generate_messages_cpp)
 
 ## Specify libraries to link a library or executable target against
-# target_link_libraries(turtle_wire_bridge_node
-#   ${catkin_LIBRARIES}
-# )
+target_link_libraries(turtle_hokuyo_laser_filter_node
+  ${catkin_LIBRARIES}
+)
 
 #############
 ## Install ##
@@ -122,7 +131,7 @@ catkin_package(
 # )
 
 ## Mark executables and/or libraries for installation
-# install(TARGETS turtle_wire_bridge turtle_wire_bridge_node
+# install(TARGETS turtle_hokuyo_laser_filter turtle_hokuyo_laser_filter_node
 #   ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
 #   LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
 #   RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
@@ -147,7 +156,7 @@ catkin_package(
 #############
 
 ## Add gtest based cpp test target and link libraries
-# catkin_add_gtest(${PROJECT_NAME}-test test/test_turtle_wire_bridge.cpp)
+# catkin_add_gtest(${PROJECT_NAME}-test test/test_turtle_hokuyo_laser_filter.cpp)
 # if(TARGET ${PROJECT_NAME}-test)
 #   target_link_libraries(${PROJECT_NAME}-test ${PROJECT_NAME})
 # endif()
