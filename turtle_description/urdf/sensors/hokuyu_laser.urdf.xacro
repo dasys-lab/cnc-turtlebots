@@ -2,13 +2,13 @@
 <robot name="sensor_hokuyu" xmlns:xacro="http://ros.org/wiki/xacro">
 
   <xacro:macro name="sensor_laser" params="parent">
-  <joint name="hokuyu_laser" type="fixed">
+  <joint name="hokuyo_laser" type="fixed">
     <origin xyz="-0.1285 0.00 0.348" rpy="3.14159 0 0" />
     <parent link="${parent}" />
-    <child link="hokuyu_laser_link" />
+    <child link="hokuyo_laser_link" />
   </joint>
 
-  <link name="hokuyu_laser_link">
+  <link name="hokuyo_laser_link">
     <visual>
       <geometry>
         <box size="0.06 0.06 0.085" />

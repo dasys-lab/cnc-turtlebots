@@ -21,9 +21,9 @@ namespace turtle
   public:
     TurtleHokuyoLaserFilter();
     virtual ~TurtleHokuyoLaserFilter();
-    void laserScanCallback(const sensor_msgs::LaserScanConstPtr& msg);
+    void laserScanCallback(sensor_msgs::LaserScanPtr msg);
   private:
-    void printLaserScan(const sensor_msgs::LaserScanConstPtr& msg);
+    void printLaserScan(sensor_msgs::LaserScanPtr msg);
 
     ros::NodeHandle nodeHandle;
     ros::Subscriber laserScanSubscriber;
