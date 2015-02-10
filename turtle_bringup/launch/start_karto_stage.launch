@@ -39,13 +39,6 @@
     <arg name="nodelet_manager_name" value="$(arg nodelet_manager_name)" />
   </include>
 
-  <!-- Start the Laserscanner (Fake node) -->
-  <include file="$(arg includes)/depthimage_to_laserscan.launch.xml" >
-    <arg name="nodelet_manager_name" value="$(arg nodelet_manager_name)" />
-    <arg name="scan_topic_remap" value="$(arg scan_fake_topic)" />
-    <arg name="out_frame_id" value="/base_laser_link" />
-  </include>
-
   <!-- Start up the Statepublisher for right tf building -->
   <include file="$(arg includes)/state_publisher.launch.xml" />
 
@@ -76,8 +69,8 @@
 
   <!-- Start Mapper to genreate map from laser scans -->
   <node name="Mapper" pkg="nav2d_karto" type="mapper">
-    <remap from="scan" to="$(arg scan_fake_topic)"/>
     <rosparam file="$(find turtle_bringup)/param/nav2d/mapper.yaml"/>
+    <remap from="scan" to="$(arg scan_topic)" />
   </node>
 
   <!-- <include file="$(find turtlebot_navigation)/launch/includes/gmapping.launch.xml" /> -->
