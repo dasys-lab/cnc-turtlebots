@@ -3,7 +3,7 @@ set -e
 
 source ./funcs.sh
 source ./workspace_info.sh
-source ~/.bashrc
+source /opt/ros/indigo/setup.bash
 
 ## Erstellung der catkin-workspaces
 
@@ -15,9 +15,12 @@ mkdir -p $WORKSPACE_SRC_DIR
 cd $WORKSPACE_SRC_DIR
 catkin_init_workspace
 
+# git clone git@github.com:carpe-noctem-cassel/cnc-turtlebots.git
+# git clone git@github.com:carpe-noctem-cassel/alica.git
+# git clone git@github.com:carpe-noctem-cassel/supplementary.git
 git clone https://github.com/carpe-noctem-cassel/cnc-turtlebots.git
-git clone https://github.com/carpe-noctem-cassel/cnc-turtlebots.git
-git clone https://github.com/roboticsgroup/roboticsgroup_gazebo_plugins.git
+git clone https://github.com/carpe-noctem-cassel/alica.git
+git clone https://github.com/carpe-noctem-cassel/supplementary.git
 
 cd ..
 catkin_make

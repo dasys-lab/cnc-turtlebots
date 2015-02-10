@@ -9,7 +9,7 @@ source ./funcs.sh
 msg "Ubuntu Pakete werden installiert"
 
 apt-get update
-apt-get upgrade
+apt-get -y upgrade
 
 ## Installiere allgemeine Pakete fuer Entwicklung
 
@@ -37,11 +37,12 @@ set -e
 
 msg "ROS Pakete fuer den Turtlebot installieren"
 
-apt-get install rosj-indigo-turtlebot ros-indigo-turtlebot-*
+apt-get install -y ros-indigo-turtlebot ros-indigo-turtlebot-*
+source /opt/ros/indigo/setup.bash
 rosrun kobuki_ftdi create_udev_rules
 
 msg "ROS Pakete für navd etc installieren"
 
-apt-get install ros-indigo-kobuki ros-indigo-rocon ros-indigo-nav2d libsuitesparse-dev, ros-indigo-costmap-2d ros-indigo-stage ros-indigo-map-server ros-indigo-map-store ros-indigo-rviz ros-indigo-gazebo-ros ros-indigo-depthimage-to-laserscan
+apt-get install -y ros-indigo-kobuki ros-indigo-rocon ros-indigo-nav2d libsuitesparse-dev ros-indigo-costmap-2d ros-indigo-stage ros-indigo-map-server ros-indigo-map-store ros-indigo-rviz ros-indigo-gazebo-ros ros-indigo-depthimage-to-laserscan
 
 
