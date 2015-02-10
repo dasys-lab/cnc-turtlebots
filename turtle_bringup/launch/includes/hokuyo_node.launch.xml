@@ -1,0 +1,17 @@
+<launch>
+
+  <arg name="laser_frame" default="laser_frame"/>
+  <arg name="scan_topic" default="scan_hokuyo" />
+
+  <node name="hokuyo_laser_driver" pkg="urg_node" type="urg_node">
+    <param name="frame_id" value="$(arg laser_frame)" />
+    <remap from="scan" to="$(arg scan_topic)" />
+    
+    <!-- the following are the parameter settings for the UTM-30LX Laser from Hokuyo -->
+    <param name="publish_intensity" value="false" />
+    <param name="angle_min" value="-2.2689" />
+    <param name="angle_max" value="2.2689" />
+    <param name="cluster" value="1" />
+    <param name="skip" value="1" />
+  </node>
+</launch>

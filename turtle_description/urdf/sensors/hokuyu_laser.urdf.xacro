@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<robot name="sensor_hokuyu" xmlns:xacro="http://ros.org/wiki/xacro">
+<xacro:include filename="$(find turtle_description)/urdf/turtlebot_properties.urdf.xacro"/>
+
+  <xacro:macro name="sensor_laser" params="parent">
+  <joint name="hokuyo_joint" type="fixed">
+    <origin xyz="-0.1285 0.00 0.348" rpy="0 0 0" />
+    <parent link="${parent}" />
+    <child link="hokuyo_frame" />
+  </joint>
+
+  <link name="hokuyo_frame">
+    <visual>
+      <geometry>
+        <box size="0.06 0.06 0.085" />
+      </geometry>
+      <material name="Green" />
+    </visual>
+    <inertial>
+      <mass value="0.000001" />
+      <origin xyz="0 0 0" />
+      <inertia ixx="0.0001" ixy="0.0" ixz="0.0"
+        iyy="0.0001" iyz="0.0"
+        izz="0.0001" />
+    </inertial>
+  </link>
+  </xacro:macro>
+
+</robot>

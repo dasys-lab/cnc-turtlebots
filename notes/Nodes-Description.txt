@@ -1,0 +1,5 @@
+used stacks and nodes
+
+depthimage-to-laserscan
+
+... suchen der dokus für alle benutzten knoten und stacks

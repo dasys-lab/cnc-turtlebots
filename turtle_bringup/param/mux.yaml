@@ -11,14 +11,18 @@
 
 subscribers:
   - name:        "Safe reactive controller"
-    topic:       "input/safety_controller"
+    topic:       "safety_controller"
     timeout:     0.2
     priority:    10
   - name:        "Teleoperation"
-    topic:       "input/teleop"
-    timeout:     1.0
-    priority:    7
-  - name:        "Navigation"
-    topic:       "input/navi"
+    topic:       "keyboard_teleop"
     timeout:     1.0
     priority:    5
+  - name:        "Navigation"
+    topic:       "navigation"
+    timeout:     1.0
+    priority:    3
+  - name: 	"Velocity Smoother"
+    topic:	"vel_smoother"
+    timeout:	1.0
+    priority:	7

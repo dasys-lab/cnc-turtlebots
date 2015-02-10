@@ -1,0 +1,91 @@
+<launch>
+
+  <!-- launchfile specific setup -->
+  <arg name="includes" default="$(find turtle_bringup)/launch/includes" />
+  <arg name="nodelet_manager_name" default="mobile_base_nodelet_manager" />
+  <arg name="scan_topic" default="/scan" />
+  <arg name="scan_fake_topic" default ="/scan_fake" />
+
+  <param name="use_sim_time" value="true" />
+
+  <!-- setup the frames -->
+  <param name="laser_frame" value="camera_depth_frame" />
+  <param name="odometry_frame" value="odom" />
+  <param name="offset_frame" value="offset" />
+  <param name="map_frame" value="map" />
+  <param name="robot_frame" value="base_footprint" />
+
+  <!-- setup public topics -->
+  <param name="map_topic" value="map" />
+  <param name="laser_topic" value="scan" />
+
+  <!-- setup public services -->
+  <param name="map_service" value="static_map" />
+
+  <!-- setup robot_description -->
+  <arg name="urdf_file" default="$(find xacro)/xacro.py '$(find turtle_description)/robots/kobuki_hexagons_kinect.urdf.xacro'" />
+  <param name="robot_description" command="$(arg urdf_file)" />
+
+  <node pkg="stage_ros" type="stageros" name="stageros" args="$(find nav2d_tutorials)/world/tutorial.world">
+    <param name="base_watchdog_timeout" value="0.5"/>
+    <remap from="odom" to="odom"/>
+    <remap from="base_pose_ground_truth" to="base_pose_ground_truth"/>
+    <remap from="cmd_vel" to="mobile_base/commands/velocity"/>
+    <remap from="base_scan" to="$(arg scan_topic)"/>
+  </node>
+
+  <!-- Start up the Nodelet Manager -->
+  <include file="$(arg includes)/mobile_base.launch.xml" >
+    <arg name="nodelet_manager_name" value="$(arg nodelet_manager_name)" />
+  </include>
+
+  <!-- Start the Laserscanner (Fake node) -->
+  <include file="$(arg includes)/depthimage_to_laserscan.launch.xml" >
+    <arg name="nodelet_manager_name" value="$(arg nodelet_manager_name)" />
+    <arg name="scan_topic_remap" value="$(arg scan_fake_topic)" />
+    <arg name="out_frame_id" value="/base_laser_link" />
+  </include>
+
+  <!-- Start up the Statepublisher for right tf building -->
+  <include file="$(arg includes)/state_publisher.launch.xml" />
+
+  <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher">
+    <param name="use_gui" value="true"/>
+  </node>
+
+  <!-- Start up the move nodes -->
+
+  <!-- Velocity Muxer -->
+  <include file="$(arg includes)/cmd_vel_mux.launch.xml" />
+
+  <!-- Safetycontroller -->
+  <include file="$(arg includes)/safety_controller.launch.xml" />
+
+  <!-- Velocity Smoother-->
+  <include file="$(arg includes)/velocity_smoother.launch.xml" />
+
+  <!-- nav2d stuff -->
+
+  <!-- Start the Operator to control the simulated robot -->
+  <node name="Operator" pkg="nav2d_operator" type="operator" >
+    <remap from="scan" to="/scan"/>
+    <remap from="cmd_vel" to="cmd_vel_mux/navigation" />
+    <rosparam file="$(find turtle_bringup)/param/nav2d/operator.yaml"/>
+    <rosparam file="$(find turtle_bringup)/param/nav2d/costmap.yaml" ns="local_map" />
+  </node>
+
+  <include file="$(arg includes)/gmapping.launch.xml" />
+
+  <!-- Start the Navigator to move the robot autonomously -->
+  <node name="Navigator" pkg="nav2d_navigator" type="navigator">
+    <rosparam file="$(find turtle_bringup)/param/nav2d/navigator.yaml"/>
+  </node>
+
+  <node name="GetMap" pkg="nav2d_navigator" type="get_map_client" />
+  <node name="Explore" pkg="nav2d_navigator" type="explore_client" />
+  <node name="SetGoal" pkg="nav2d_navigator" type="set_goal_client" />
+
+  <!--  **************** Visualisation ****************  -->
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find turtle_bringup)/rviz/stage_navigation.rviz"/>
+
+</launch>
