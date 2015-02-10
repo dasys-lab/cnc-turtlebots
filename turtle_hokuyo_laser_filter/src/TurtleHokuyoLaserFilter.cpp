@@ -32,6 +32,21 @@ namespace turtle
     // start Interpolation here ...
     sensor_msgs::LaserScan::_ranges_type& ranges = msg->ranges;
 
+//
+//    sensor_msgs::LaserScan filteredLaserScan = new sensor_msgs::LaserScan();
+//    filteredLaserScan.header = msg->header;
+//    filteredLaserScan.angle_increment = msg->angle_increment;
+//    filteredLaserScan.angle_max = msg->angle_max;
+//    filteredLaserScan.angle_min = msg->angle_min;
+//    filteredLaserScan.intensities = msg->intensities;
+//    filteredLaserScan.range_max = msg->range_max;
+//    filteredLaserScan.range_min = msg->range_min;
+//    filteredLaserScan.ranges = newRanges;
+//    filteredLaserScan.scan_time = msg->scan_time;
+//    filteredLaserScan.time_increment = msg->time_increment;
+//
+//    sensor_msgs::LaserScan::_ranges_type newRanges = new sensor_msgs::LaserScan::_ranges_type(ranges.size());
+
     // brace 1
     float brace1_start = ranges.at(100);
     float brace1_step_size = ranges.at(140) - brace1_start;
@@ -115,6 +130,7 @@ namespace turtle
     std::reverse(ranges.begin(), ranges.end());
 
     // republish the filtered LaserScan
+//    sensor_msgs::LaserScanConstPtr sendMsg = msg;
     this->laserScanFilteredPublisher.publish(msg);
   }
 

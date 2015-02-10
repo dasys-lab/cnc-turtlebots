@@ -4,9 +4,12 @@ Panels:
     Name: Displays
     Property Tree Widget:
       Expanded:
+        - /TF1
+        - /TF1/Frames1
         - /TF1/Tree1
         - /LaserScan (kinect)1/Status1
         - /Global Planning1/Planner1
+        - /LaserScan1
       Splitter Ratio: 0.5
     Tree Height: 531
   - Class: rviz/Selection
@@ -322,6 +325,8 @@ Visualization Manager:
             odom:
               base_footprint:
                 base_link:
+                  base_laser_link:
+                    {}
                   camera_rgb_frame:
                     camera_depth_frame:
                       camera_depth_optical_frame:
