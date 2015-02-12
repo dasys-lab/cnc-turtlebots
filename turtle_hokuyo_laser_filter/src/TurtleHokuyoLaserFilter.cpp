@@ -47,88 +47,40 @@ namespace turtle
 //
 //    sensor_msgs::LaserScan::_ranges_type newRanges = new sensor_msgs::LaserScan::_ranges_type(ranges.size());
 
-    // brace 1
-    float brace1_start = ranges.at(100);
-    float brace1_step_size = ranges.at(140) - brace1_start;
-    brace1_step_size /= 40;
+    // Change angles to match large front view
+    
+    const double old_angle_min = msg->angle_min;
+    const double old_angle_max = msg->angle_max;
+    const double angle_increment = msg->angle_increment;
 
-    // brace 2
-    float brace2_start = ranges.at(175);
-    float brace2_step_size = ranges.at(210) - brace2_start;
-    brace2_step_size /= 35;
+    // Angles of the large segment between the two front braces
+    const double ls_angle_min = old_angle_min + 0.658861792628;
+    //const double ls_angle_max = old_angle_max + 0.706858347058;
 
-    // brace 3
-    float brace3_start = ranges.at(520);
-    float brace3_step_size = ranges.at(555) - brace3_start;
-    brace3_step_size /= 35;
+    // Calculate the position of laser data in the large segment
+    const double min_start = ls_angle_min / angle_increment; 
+    //const double max_start = (ls_angle_min - ls_angle_max)*-1 / angle_increment;
+   
+    const int min_start_index = (static_cast<int>(min_start)*-1) - 1;
+    //const int max_start_index = min_start_index + static_cast<int>(max_start) + 1;
+    const int max_start_index = min_start_index + 314;
 
-     // brace 4
-    float brace4_start = ranges.at(585);
-    float brace4_step_size = ranges.at(630) - brace4_start;
-    brace4_step_size /= 35;
-
-    // now iterate over all range entries
-    for (unsigned int i = 0; i<ranges.size(); i++) {
-
-      if (i >= 785) {
-        continue;
-      }
-
-      if (i > 745) {
-
-        // replace with brace 4
-        double curStep = 35-(625-i);
-        double newVal = brace4_start;
-        newVal += curStep*brace4_step_size;
-        ranges.at(i) = NAN;
-        continue;
-      }
-
-      if (i >= 715) {
-        continue;
-      }
-
-      if (i > 675) {
-
-        // replace with brace 3
-        double curStep = 35-(555-i);
-        double newVal = brace3_start;
-        newVal += curStep*brace3_step_size;
-        ranges.at(i) = NAN;
-        continue;
-      }
-
-      if (i >= 370) {
-        continue;
-      }
-
-      if (i > 330) {
-
-        // replace with brace 2
-        double curStep = 35-(210-i);
-        double newVal = brace2_start;
-        newVal += curStep*brace2_step_size;
-        ranges.at(i) = NAN;
-        continue;
-      }
-
-      if (i >= 300) {
-        continue;
-      }
-
-      if (i > 260) {
-
-        // replace with brace 1
-        double curStep = 40-(140-i);
-        double newVal = brace1_start;
-        newVal += curStep*brace1_step_size;
-        ranges.at(i) = NAN;
-        continue;
-      }
+    const int new_ranges_size = max_start_index - min_start_index;
+    ROS_INFO("%d, %d", min_start_index, max_start_index); 
+    sensor_msgs::LaserScan::_ranges_type* newRanges = new sensor_msgs::LaserScan::_ranges_type(new_ranges_size);
+    int i = 0; 
+    for(int j = min_start_index; j < max_start_index; j++) {
+        newRanges->at(i) = ranges.at(j); 
+        i++;
     }
 
-    std::reverse(ranges.begin(), ranges.end());
-
+    // Modify message to match front area
+    msg->angle_min = -0.658861792628;
+    msg->angle_max =  0.706858347058;
+    
+    // Inverse range array as sensor is upside down 
+    std::reverse(newRanges->begin(), newRanges->end());
+    msg->ranges = *newRanges;
     // republish the filtered LaserScan
 //    sensor_msgs::LaserScanConstPtr sendMsg = msg;
     this->laserScanFilteredPublisher.publish(msg);
