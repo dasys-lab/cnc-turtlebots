@@ -38,11 +38,13 @@ namespace turtle
     sensor_msgs::LaserScan::_ranges_type& ranges = msg->ranges;
 
     // Calculate the number of sensor reading in the new range array
-    const int newRangesSize = static_cast<int>(std::abs(newAngleMax) + std::abs(newAngleMin));
+    const int newRangesSize = static_cast<int>( (std::abs(newAngleMax) + std::abs(newAngleMin)) / msg->angle_increment) + 1;
 
     // Determine the start and end index
-    const int rangesStartIndex = static_cast<int>(std::abs(newAngleMin) / msg->angle_increment);
+    const int rangesStartIndex = static_cast<int>(( std::abs((msg->angle_min + std::abs(newAngleMin)) / msg->angle_increment)) );
     const int rangesEndIndex = rangesStartIndex + newRangesSize;
+
+    ROS_INFO("startIndex: %d", rangesStartIndex);
 
     // Cut out the range data of our original laser scan and put it in our new one
     sensor_msgs::LaserScan::_ranges_type* newRanges = new sensor_msgs::LaserScan::_ranges_type(newRangesSize);
@@ -52,14 +54,14 @@ namespace turtle
         i++;
     }
 
+    // Inverse range array as sensor is upside down 
+    // TODO: Add boolean parameter
+    std::reverse(newRanges->begin(), newRanges->end());
+
     // Modify message to match our cut out segment
     msg->angle_min = newAngleMin;
     msg->angle_max = newAngleMax;
     msg->ranges = *newRanges;
-
-    // Inverse range array as sensor is upside down 
-    // TODO: Add boolean parameter
-    std::reverse(newRanges->begin(), newRanges->end());
 
     this->laserScanFilteredPublisher.publish(msg);
   }
