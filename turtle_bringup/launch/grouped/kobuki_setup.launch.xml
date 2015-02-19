@@ -1,0 +1,72 @@
+<!-- This Launchfile combines all neccessary Nodes and Paramerts for starting up the Kobuki Base and all needed additionally Nodes -->
+<launch>
+
+  <!-- Arguments of this Launchfile -->
+  <arg name="includes" default="$(find turtle_bringup)/launch/includes" /> <!-- include of all nasted node Launchfiles -->
+  <arg name="nodelet_manager_name" default="mobile_base_nodelet_manager" /> <!-- Setup the name of the Nodeletmanager for the Kobuki Base -->
+  <arg name="scan_topic_kinect" default="/scan_kinect" />
+  <arg name="scan_topic_hokuyo" default="/scan_hokuyo" />
+  <arg name="scan_topic_filtered" default="/scan_filtered" />
+  <arg name="map_topic_name" default="map" />
+  <arg name="laser_frame_name" default="hokuyo_frame" />
+  <arg name="kinect_frame_name" default="camera_depth_frame" />
+  <arg name="odometry_frame_name" default="odom" />
+  <arg name="offset_frame_name" default="offset" />
+  <arg name="map_frame_name" default="map" />
+  <arg name="robot_frame_name" default="base_footprint" />
+  <arg name="use_sim_time" default="false" />
+  <arg name="map_service_name" default="static_map" />
+  <arg name="urdf_file" default="$(find xacro)/xacro.py '$(find turtle_description)/robots/kobuki_hexagons_kinect.urdf.xacro'" /> <!-- setup robot_description -->
+
+  <!-- Parameters to setup -->
+  <param name="map_topic" value="$(arg map_topic_name)" />
+  <param name="laser_topic" value="$(arg scan_topic_filtered)" />
+  <param name="laser_frame" value="$(arg laser_frame_name)" />
+  <param name="odometry_frame" value="$(arg odometry_frame_name)" />
+  <param name="offset_frame" value="$(arg offset_frame_name)" />
+  <param name="map_frame" value="$(arg map_frame_name)" />
+  <param name="robot_frame" value="$(arg robot_frame_name)" />
+  <param name="use_sim_time" value="$(arg use_sim_time)" />
+  <param name="map_service" value="$(arg map_service_name)" />
+  <param name="robot_description" command="$(arg urdf_file)" /> <!-- setup robot_description -->
+
+  <!-- Start up the Nodelet Manager for the Kobuki Base -->
+  <include file="$(arg includes)/mobile_base.launch.xml" >
+    <arg name="nodelet_manager_name" value="$(arg nodelet_manager_name)" />
+  </include>
+
+  <!-- Start the Kobuki Base -->
+  <include file="$(arg includes)/kobuki_node.launch.xml" >
+    <arg name="nodelet_manager_name" value="$(arg nodelet_manager_name)" />
+  </include>
+
+  <!-- Start Openni and Kinect-Stuff -->
+  <include file="$(arg includes)/openni.launch.xml" >
+    <arg name="publish_tf" value="false" />
+    <arg name="rgb_processing" value="true" />
+    <arg name="ir_processing" value="true" />
+    <arg name="depth_processing" value="true" />
+    <arg name="depth_registered_processing" value="true"/>
+    <arg name="disparity_processing" value="false"/>
+    <arg name="disparity_registered_processing" value="false"/>
+  </include>
+
+  <!-- Start up the Statepublisher for right tf building -->
+  <include file="$(arg includes)/state_publisher.launch.xml" />
+
+  <!-- Start Hokuyo Laser Node -->
+  <include file="$(arg includes)/hokuyo_node.launch.xml" >
+    <arg name="laser_frame" value="$(arg laser_frame_name)" />
+    <arg name="scan_topic" value="$(arg scan_topic_hokuyo)" />
+  </include>
+
+  <!-- Velocity Muxer -->
+  <include file="$(arg includes)/cmd_vel_mux.launch.xml" />
+
+  <!-- Safetycontroller -->
+  <include file="$(arg includes)/safety_controller.launch.xml" />
+
+  <!-- Velocity Smoother-->
+  <include file="$(arg includes)/velocity_smoother.launch.xml" />
+
+</launch>

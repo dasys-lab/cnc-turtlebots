@@ -1,0 +1,17 @@
+<launch>
+
+  <!-- include all nasted grouped Launchfiles -->
+  <arg name="grouped" default="$(find turtle_bringup)/launch/grouped" />
+  <arg name="includes" default="$(find turtle_bringup)/launch/includes" />
+
+  <include file="$(arg grouped)/kobuki_setup.launch.xml" /> <!-- This include has a huge amount of 
+    arguments check them up with other  arguments used in other includes and/or nodes which you will add here ...
+    Think for Arguments like Topic-names and Frame-names ...-->
+
+  <!-- Start the rgb-server, converts the Openni Messages to the wire message type -->
+  <include file="$(arg includes)/rgbd_server.launch.xml" />
+
+  <!-- Startup the ED Server -->
+  <include file="$(arg includes)/ed_server.launch.xml" />
+
+</launch>
