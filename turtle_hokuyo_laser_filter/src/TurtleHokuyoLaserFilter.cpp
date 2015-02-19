@@ -8,6 +8,7 @@
 #include "../include/TurtleHokuyoLaserFilter.h"
 #include <thread>
 #include <chrono>
+#include <algorithm>
 
 namespace turtle
 {
@@ -32,39 +33,28 @@ namespace turtle
     // start Interpolation here ...
     sensor_msgs::LaserScan::_ranges_type& ranges = msg->ranges;
 
-//
-//    sensor_msgs::LaserScan filteredLaserScan = new sensor_msgs::LaserScan();
-//    filteredLaserScan.header = msg->header;
-//    filteredLaserScan.angle_increment = msg->angle_increment;
-//    filteredLaserScan.angle_max = msg->angle_max;
-//    filteredLaserScan.angle_min = msg->angle_min;
-//    filteredLaserScan.intensities = msg->intensities;
-//    filteredLaserScan.range_max = msg->range_max;
-//    filteredLaserScan.range_min = msg->range_min;
-//    filteredLaserScan.ranges = newRanges;
-//    filteredLaserScan.scan_time = msg->scan_time;
-//    filteredLaserScan.time_increment = msg->time_increment;
-//
-//    sensor_msgs::LaserScan::_ranges_type newRanges = new sensor_msgs::LaserScan::_ranges_type(ranges.size());
-
     // brace 1
-    float brace1_start = ranges.at(100);
-    float brace1_step_size = ranges.at(140) - brace1_start;
+    float brace1_start = ranges.at(260);
+    float brace1_end = ranges.at(300);
+    float brace1_step_size = ranges.at(300) - brace1_start;
     brace1_step_size /= 40;
 
     // brace 2
-    float brace2_start = ranges.at(175);
-    float brace2_step_size = ranges.at(210) - brace2_start;
+    float brace2_start = ranges.at(330);
+    float brace2_end = ranges.at(370);
+    float brace2_step_size = ranges.at(370) - brace2_start;
     brace2_step_size /= 35;
 
     // brace 3
-    float brace3_start = ranges.at(520);
-    float brace3_step_size = ranges.at(555) - brace3_start;
+    float brace3_start = ranges.at(675);
+    float brace3_end = ranges.at(715);
+    float brace3_step_size = ranges.at(715) - brace3_start;
     brace3_step_size /= 35;
 
      // brace 4
-    float brace4_start = ranges.at(585);
-    float brace4_step_size = ranges.at(630) - brace4_start;
+    float brace4_start = ranges.at(745);
+    float brace4_end = ranges.at(785);
+    float brace4_step_size = ranges.at(785) - brace4_start;
     brace4_step_size /= 35;
 
     // now iterate over all range entries
@@ -80,7 +70,7 @@ namespace turtle
         double curStep = 35-(625-i);
         double newVal = brace4_start;
         newVal += curStep*brace4_step_size;
-        ranges.at(i) = NAN;
+        ranges.at(i) = std::min(brace4_start, brace4_end);
         continue;
       }
 
@@ -94,7 +84,7 @@ namespace turtle
         double curStep = 35-(555-i);
         double newVal = brace3_start;
         newVal += curStep*brace3_step_size;
-        ranges.at(i) = NAN;
+        ranges.at(i) = std::min(brace3_start, brace3_end);
         continue;
       }
 
@@ -108,7 +98,7 @@ namespace turtle
         double curStep = 35-(210-i);
         double newVal = brace2_start;
         newVal += curStep*brace2_step_size;
-        ranges.at(i) = NAN;
+        ranges.at(i) = std::min(brace2_start, brace2_end);
         continue;
       }
 
@@ -122,7 +112,7 @@ namespace turtle
         double curStep = 40-(140-i);
         double newVal = brace1_start;
         newVal += curStep*brace1_step_size;
-        ranges.at(i) = NAN;
+        ranges.at(i) = std::min(brace1_start, brace1_end);;
         continue;
       }
     }
