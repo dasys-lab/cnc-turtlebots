@@ -8,6 +8,7 @@
 #include "../include/TurtleHokuyoLaserFilter.h"
 #include <thread>
 #include <chrono>
+#include <cmath>
 
 namespace turtle
 {
@@ -17,6 +18,11 @@ namespace turtle
 
     this->laserScanSubscriber = this->nodeHandle.subscribe("/scan_hokuyo", 1, &TurtleHokuyoLaserFilter::laserScanCallback, this);
     this->laserScanFilteredPublisher = this->nodeHandle.advertise<sensor_msgs::LaserScan>("/scan_filtered", 10);
+    this->newAngleMin = -0.658861792628;
+    this->newAngleMax = 0.706858347058;
+
+    // TODO: Calculate new constants here
+
   }
 
   TurtleHokuyoLaserFilter::~TurtleHokuyoLaserFilter()
@@ -27,62 +33,34 @@ namespace turtle
   void TurtleHokuyoLaserFilter::laserScanCallback(sensor_msgs::LaserScanPtr msg)
   {
     // do not call in production mode
-//    printLaserScan(msg);
+	// printLaserScan(msg);
 
-    // start Interpolation here ...
     sensor_msgs::LaserScan::_ranges_type& ranges = msg->ranges;
 
-//
-//    sensor_msgs::LaserScan filteredLaserScan = new sensor_msgs::LaserScan();
-//    filteredLaserScan.header = msg->header;
-//    filteredLaserScan.angle_increment = msg->angle_increment;
-//    filteredLaserScan.angle_max = msg->angle_max;
-//    filteredLaserScan.angle_min = msg->angle_min;
-//    filteredLaserScan.intensities = msg->intensities;
-//    filteredLaserScan.range_max = msg->range_max;
-//    filteredLaserScan.range_min = msg->range_min;
-//    filteredLaserScan.ranges = newRanges;
-//    filteredLaserScan.scan_time = msg->scan_time;
-//    filteredLaserScan.time_increment = msg->time_increment;
-//
-//    sensor_msgs::LaserScan::_ranges_type newRanges = new sensor_msgs::LaserScan::_ranges_type(ranges.size());
+    // Calculate the number of sensor reading in the new range array
+    const int newRangesSize = static_cast<int>(std::abs(newAngleMax) + std::abs(newAngleMin));
 
-    // Change angles to match large front view
-    
-    const double old_angle_min = msg->angle_min;
-    const double old_angle_max = msg->angle_max;
-    const double angle_increment = msg->angle_increment;
+    // Determine the start and end index
+    const int rangesStartIndex = static_cast<int>(std::abs(newAngleMin) / msg->angle_increment);
+    const int rangesEndIndex = rangesStartIndex + newRangesSize;
 
-    // Angles of the large segment between the two front braces
-    const double ls_angle_min = old_angle_min + 0.658861792628;
-    //const double ls_angle_max = old_angle_max + 0.706858347058;
-
-    // Calculate the position of laser data in the large segment
-    const double min_start = ls_angle_min / angle_increment; 
-    //const double max_start = (ls_angle_min - ls_angle_max)*-1 / angle_increment;
-   
-    const int min_start_index = (static_cast<int>(min_start)*-1) - 1;
-    //const int max_start_index = min_start_index + static_cast<int>(max_start) + 1;
-    const int max_start_index = min_start_index + 314;
-
-    const int new_ranges_size = max_start_index - min_start_index;
-    ROS_INFO("%d, %d", min_start_index, max_start_index); 
-    sensor_msgs::LaserScan::_ranges_type* newRanges = new sensor_msgs::LaserScan::_ranges_type(new_ranges_size);
+    // Cut out the range data of our original laser scan and put it in our new one
+    sensor_msgs::LaserScan::_ranges_type* newRanges = new sensor_msgs::LaserScan::_ranges_type(newRangesSize);
     int i = 0; 
-    for(int j = min_start_index; j < max_start_index; j++) {
-        newRanges->at(i) = ranges.at(j); 
+    for(int j = rangesStartIndex; j < rangesEndIndex; j++) {
+        newRanges->at(i) = ranges.at(j);
         i++;
     }
 
-    // Modify message to match front area
-    msg->angle_min = -0.658861792628;
-    msg->angle_max =  0.706858347058;
-    
-    // Inverse range array as sensor is upside down 
-    std::reverse(newRanges->begin(), newRanges->end());
+    // Modify message to match our cut out segment
+    msg->angle_min = newAngleMin;
+    msg->angle_max = newAngleMax;
     msg->ranges = *newRanges;
-    // republish the filtered LaserScan
-//    sensor_msgs::LaserScanConstPtr sendMsg = msg;
+
+    // Inverse range array as sensor is upside down 
+    // TODO: Add boolean parameter
+    std::reverse(newRanges->begin(), newRanges->end());
+
     this->laserScanFilteredPublisher.publish(msg);
   }
 
@@ -133,16 +111,14 @@ namespace turtle
  */
 int main(int argc, char** argv)
 {
-    // start the Node with the name AlicaEngine
-    ROS_DEBUG("Initializing Ros");
     ros::init(argc, argv, "TurtleHokuyoLaserFilter");
-
-    ROS_DEBUG("Starting Base");
-
-    // Read the argv Arguments for the Settings
 
     // node intialization comes here
     turtle::TurtleHokuyoLaserFilter* node = new turtle::TurtleHokuyoLaserFilter();
+
+    // TODO: Read these values from parameter file
+    node->setNewAngleMin(-0.658861792628);
+    node->setNewAngleMax(0.706858347058);
 
     ros::Rate publishRate(10);
     // While ROS is active, do the Node Stuff
