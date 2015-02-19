@@ -38,8 +38,17 @@ namespace turtle
     ros::Subscriber laserScanSubscriber;
     ros::Publisher laserScanFilteredPublisher;
 
+    // Parameters / Input of node
     double newAngleMin;
     double newAngleMax;
+    bool reverseArray;
+
+    // Fields used for processing
+    bool calculated = false;
+    int newRangesSize;
+    int rangesStartIndex;
+    int rangesEndIndex;
+
   };
 
 } /* namespace turtle */
