@@ -14,7 +14,7 @@ using std::abs;
 
 namespace turtle {
 
-TurtleHokuyoLaserFilter::TurtleHokuyoLaserFilter() {
+TurtleHokuyoLaserFilter::TurtleHokuyoLaserFilter() : nodeHandle("laser_filter") {
 
 	laserScanSubscriber = nodeHandle.subscribe("/scan_hokuyo", 1, &TurtleHokuyoLaserFilter::laserScanCallback, this);
 	laserScanFilteredPublisher = nodeHandle.advertise<sensor_msgs::LaserScan>("/scan_filtered", 10);
@@ -25,9 +25,9 @@ TurtleHokuyoLaserFilter::TurtleHokuyoLaserFilter() {
 	reverseArray = true;
 
 	// Read parameters if available
-	this->nodeHandle.getParam("reverse_array", this->reverseArray);
-	this->nodeHandle.getParam("angle_min", this->newAngleMin);
-	this->nodeHandle.getParam("angle_max", this->newAngleMax);
+	nodeHandle.getParam("reverse_array", reverseArray);
+	nodeHandle.getParam("angle_min", newAngleMin);
+	nodeHandle.getParam("angle_max", newAngleMax);
 
 	rangesStartIndex = 0;
 	rangesEndIndex = 0;
@@ -35,7 +35,7 @@ TurtleHokuyoLaserFilter::TurtleHokuyoLaserFilter() {
 }
 
 TurtleHokuyoLaserFilter::~TurtleHokuyoLaserFilter() {
-	this->laserScanSubscriber.shutdown();
+	laserScanSubscriber.shutdown();
 }
 
 void TurtleHokuyoLaserFilter::laserScanCallback(sensor_msgs::LaserScanPtr msg) {
