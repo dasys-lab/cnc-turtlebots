@@ -14,4 +14,6 @@
   <!-- Startup the ED Server -->
   <include file="$(arg includes)/ed_server.launch.xml" />
 
+  <node pkg="tf" type="static_transform_publisher" name="static_top_kinect_tf_pub" args="0 0 0 0 0 0 /map /base_footprint 100" />
+
 </launch>

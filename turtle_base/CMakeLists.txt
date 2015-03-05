@@ -7,7 +7,7 @@ set(CMAKE_CXX_FLAGS "-std=c++11 ${CMAKE_CXX_FLAGS}")
 ## Find catkin macros and libraries
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
-find_package(catkin REQUIRED roscpp system_config fsystem autodiff event_handling alica_engine alica_ros_proxy turtle_expressions turtle_worldmodel)
+find_package(catkin REQUIRED roscpp system_config fsystem autodiff event_handling alica_engine alica_ros_proxy turtle_expressions turtle_worldmodel nodelet pluginlib)
 
 ## System dependencies are found with CMake's conventions
 # find_package(Boost REQUIRED COMPONENTS system)
@@ -30,7 +30,7 @@ find_package(catkin REQUIRED roscpp system_config fsystem autodiff event_handlin
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
   INCLUDE_DIRS include
-  LIBRARIES alica_engine turtle_expressions
+  LIBRARIES alica_engine turtle_expressions turtle_base turtle_base_nodelet
   CATKIN_DEPENDS alica_engine alica_ros_proxy turtle_expressions turtle_worldmodel
 #  DEPENDS tinyxml
 )
@@ -49,15 +49,37 @@ include_directories(include ${catkin_INCLUDE_DIRS})
 # )
 
 ## Declare a cpp executable
-add_executable(turtle_base src/Base.cpp)
+add_executable(turtle_base_node 
+	src/BaseNode.cpp
+)
 
-## Add cmake target dependencies of the executable/library
-## as an example, message headers may need to be generated before nodes
-add_dependencies(turtle_base turtle_base_generate_messages_cpp alica_engine alica_ros_proxy
+add_library(turtle_base
+	src/Base.cpp
+)
+
+target_link_libraries(turtle_base ${catkin_LIBRARIES} alica_engine alica_ros_proxy
 turtle_expressions turtle_worldmodel)
 
 ## Specify libraries to link a library or executable target against
- target_link_libraries(turtle_base ${catkin_LIBRARIES}      alica_engine alica_ros_proxy
- turtle_expressions turtle_worldmodel)
+target_link_libraries(turtle_base_node ${catkin_LIBRARIES} turtle_base)
+
+add_library(turtle_base_nodelet 
+	src/BaseNodelet.cpp
+)
+
+target_link_libraries(turtle_base_nodelet ${catkin_LIBRARIES} turtle_base)
+
+## Add cmake target dependencies of the executable/library
+## as an example, message headers may need to be generated before nodes
+add_dependencies(turtle_base_node turtle_base_generate_messages_cpp alica_engine alica_ros_proxy
+turtle_expressions turtle_worldmodel)
+
+install(TARGETS turtle_base_nodelet
+        DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
+)
+
+install(TARGETS turtle_base
+        DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
+)
 
 
