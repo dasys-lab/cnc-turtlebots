@@ -8,188 +8,129 @@
 #include "../include/TurtleHokuyoLaserFilter.h"
 #include <thread>
 #include <chrono>
-#include <algorithm>
+#include <cmath>
 
-namespace turtle
-{
+using std::abs;
 
-  TurtleHokuyoLaserFilter::TurtleHokuyoLaserFilter()
-  {
+namespace turtle {
 
-    this->laserScanSubscriber = this->nodeHandle.subscribe("/scan_hokuyo", 1, &TurtleHokuyoLaserFilter::laserScanCallback, this);
-    this->laserScanFilteredPublisher = this->nodeHandle.advertise<sensor_msgs::LaserScan>("/scan_filtered", 10);
-  }
+TurtleHokuyoLaserFilter::TurtleHokuyoLaserFilter() : nodeHandle("laser_filter") {
 
-  TurtleHokuyoLaserFilter::~TurtleHokuyoLaserFilter()
-  {
-    this->laserScanSubscriber.shutdown();
-  }
+	laserScanSubscriber = nodeHandle.subscribe("/scan_hokuyo", 1, &TurtleHokuyoLaserFilter::laserScanCallback, this);
+	laserScanFilteredPublisher = nodeHandle.advertise<sensor_msgs::LaserScan>("/scan_filtered", 10);
 
-  void TurtleHokuyoLaserFilter::laserScanCallback(sensor_msgs::LaserScanPtr msg)
-  {
-    // do not call in production mode
-//    printLaserScan(msg);
+	// Default values for parameters
+	newAngleMin = -0.658861792628;
+	newAngleMax = 0.706858347058;
+	reverseArray = true;
 
-    // start Interpolation here ...
-    sensor_msgs::LaserScan::_ranges_type& ranges = msg->ranges;
+	// Read parameters if available
+	nodeHandle.getParam("reverse_array", reverseArray);
+	nodeHandle.getParam("angle_min", newAngleMin);
+	nodeHandle.getParam("angle_max", newAngleMax);
 
-    // brace 1
-    float brace1_start = ranges.at(260);
-    float brace1_end = ranges.at(300);
-    float brace1_step_size = ranges.at(300) - brace1_start;
-    brace1_step_size /= 40;
+	rangesStartIndex = 0;
+	rangesEndIndex = 0;
+	newRangesSize = 0;
+}
 
-    // brace 2
-    float brace2_start = ranges.at(330);
-    float brace2_end = ranges.at(370);
-    float brace2_step_size = ranges.at(370) - brace2_start;
-    brace2_step_size /= 35;
+TurtleHokuyoLaserFilter::~TurtleHokuyoLaserFilter() {
+	laserScanSubscriber.shutdown();
+}
 
-    // brace 3
-    float brace3_start = ranges.at(675);
-    float brace3_end = ranges.at(715);
-    float brace3_step_size = ranges.at(715) - brace3_start;
-    brace3_step_size /= 35;
+void TurtleHokuyoLaserFilter::laserScanCallback(sensor_msgs::LaserScanPtr msg) {
 
-     // brace 4
-    float brace4_start = ranges.at(745);
-    float brace4_end = ranges.at(785);
-    float brace4_step_size = ranges.at(785) - brace4_start;
-    brace4_step_size /= 35;
+	// Only calculate once at start
+	if (!calculated) {
+		// Calculate the number of sensor reading in the new range array
+		newRangesSize = static_cast<int>((abs(newAngleMax) + abs(newAngleMin)) / msg->angle_increment) + 1;
 
-    // now iterate over all range entries
-    for (unsigned int i = 0; i<ranges.size(); i++) {
+		// Determine the start and end index
+		rangesStartIndex = static_cast<int>((abs((msg->angle_min + abs(newAngleMin)) / msg->angle_increment)));
+		rangesEndIndex = rangesStartIndex + newRangesSize;
+		calculated = true;
+	}
 
-      if (i >= 785) {
-        continue;
-      }
+	// Cut out the range data of our original laser scan and put it in our new one
+	sensor_msgs::LaserScan::_ranges_type* newRanges = new sensor_msgs::LaserScan::_ranges_type(newRangesSize);
+	int i = 0;
+	for (int j = rangesStartIndex; j < rangesEndIndex; j++) {
+		newRanges->at(i) = msg->ranges.at(j);
+		i++;
+	}
 
-      if (i > 745) {
+	// Inverse range array as sensor is upside down
+	if(reverseArray) {
+		std::reverse(newRanges->begin(), newRanges->end());
+	}
 
-        // replace with brace 4
-        double curStep = 35-(625-i);
-        double newVal = brace4_start;
-        newVal += curStep*brace4_step_size;
-        ranges.at(i) = std::min(brace4_start, brace4_end);
-        continue;
-      }
+	// Modify message to match our cut out segment
+	msg->angle_min = newAngleMin;
+	msg->angle_max = newAngleMax;
+	msg->ranges = *newRanges;
 
-      if (i >= 715) {
-        continue;
-      }
+	laserScanFilteredPublisher.publish(msg);
+}
 
-      if (i > 675) {
+void TurtleHokuyoLaserFilter::printLaserScan(sensor_msgs::LaserScanPtr msg) {
+	float angle_inc = msg->angle_increment;
+	float angle_max = msg->angle_max;
+	float angle_min = msg->angle_min;
+	sensor_msgs::LaserScan::_intensities_type intensities = msg->intensities;
+	float range_max = msg->range_max;
+	float range_min = msg->range_min;
+	sensor_msgs::LaserScan::_ranges_type ranges = msg->ranges;
+	float scan_time = msg->scan_time;
+	float time_inc = msg->time_increment;
 
-        // replace with brace 3
-        double curStep = 35-(555-i);
-        double newVal = brace3_start;
-        newVal += curStep*brace3_step_size;
-        ranges.at(i) = std::min(brace3_start, brace3_end);
-        continue;
-      }
+	// constructing human readable format
+	std::ostringstream out;
+	out << "Laser-Scan Message:" << std::endl;
+	out << "Angle-Increment: " << angle_inc << std::endl;
+	out << "Angle Maximum: " << angle_max << std::endl;
+	out << "Angle Minimum: " << angle_min << std::endl;
+	out << "Range Maximum: " << range_max << std::endl;
+	out << "Range Minimum: " << range_min << std::endl;
+	out << "Scan Time: " << scan_time << std::endl;
+	out << "Time-Increment: " << time_inc << std::endl;
 
-      if (i >= 370) {
-        continue;
-      }
+	out << "Intensities: " << std::endl;
+	for (std::vector<float>::iterator it = intensities.begin();
+			it != intensities.end(); it++) {
+		out << "it: " << *it;
+	}
+	out << std::endl;
 
-      if (i > 330) {
+	unsigned int count = 0;
+	out << "Ranges: " << std::endl;
+	for (std::vector<float>::iterator it = ranges.begin(); it != ranges.end();
+			it++) {
+		out << "range[" << count << "]: " << *it;
+		count++;
+	}
+	out << std::endl;
 
-        // replace with brace 2
-        double curStep = 35-(210-i);
-        double newVal = brace2_start;
-        newVal += curStep*brace2_step_size;
-        ranges.at(i) = std::min(brace2_start, brace2_end);
-        continue;
-      }
-
-      if (i >= 300) {
-        continue;
-      }
-
-      if (i > 260) {
-
-        // replace with brace 1
-        double curStep = 40-(140-i);
-        double newVal = brace1_start;
-        newVal += curStep*brace1_step_size;
-        ranges.at(i) = std::min(brace1_start, brace1_end);;
-        continue;
-      }
-    }
-
-    std::reverse(ranges.begin(), ranges.end());
-
-    // republish the filtered LaserScan
-//    sensor_msgs::LaserScanConstPtr sendMsg = msg;
-    this->laserScanFilteredPublisher.publish(msg);
-  }
-
-  void TurtleHokuyoLaserFilter::printLaserScan(sensor_msgs::LaserScanPtr msg)
-  {
-    float angle_inc = msg->angle_increment;
-    float angle_max = msg->angle_max;
-    float angle_min = msg->angle_min;
-    sensor_msgs::LaserScan::_intensities_type intensities = msg->intensities;
-    float range_max = msg->range_max;
-    float range_min = msg->range_min;
-    sensor_msgs::LaserScan::_ranges_type ranges = msg->ranges;
-    float scan_time = msg->scan_time;
-    float time_inc = msg->time_increment;
-
-    // constructing human readable format
-    std::ostringstream out;
-    out << "Laser-Scan Message:" << std::endl;
-    out << "Angle-Increment: " << angle_inc << std::endl;
-    out << "Angle Maximum: " << angle_max << std::endl;
-    out << "Angle Minimum: " << angle_min << std::endl;
-    out << "Range Maximum: " << range_max << std::endl;
-    out << "Range Minimum: " << range_min << std::endl;
-    out << "Scan Time: " << scan_time << std::endl;
-    out << "Time-Increment: " << time_inc << std::endl;
-
-    out << "Intensities: " << std::endl;
-    for (std::vector<float>::iterator it = intensities.begin(); it != intensities.end(); it++) {
-      out << "it: " << *it;
-    }
-    out << std::endl;
-
-    unsigned int count = 0;
-    out << "Ranges: " << std::endl;
-    for (std::vector<float>::iterator it = ranges.begin(); it != ranges.end(); it++) {
-      out << "range[" << count << "]: "<< *it;
-      count++;
-    }
-    out << std::endl;
-
-    ROS_INFO("%s\n", out.str().c_str());
-  }
+	ROS_INFO("%s\n", out.str().c_str());
+}
 
 } /* namespace turtle */
 
 /**
  * The main EntryPoint of the turtle_base Node
  */
-int main(int argc, char** argv)
-{
-    // start the Node with the name AlicaEngine
-    ROS_DEBUG("Initializing Ros");
-    ros::init(argc, argv, "TurtleHokuyoLaserFilter");
+int main(int argc, char** argv) {
+	ros::init(argc, argv, "TurtleHokuyoLaserFilter");
 
-    ROS_DEBUG("Starting Base");
+	// node intialization comes here
+	turtle::TurtleHokuyoLaserFilter* node = new turtle::TurtleHokuyoLaserFilter();
 
-    // Read the argv Arguments for the Settings
+	ros::Rate publishRate(10);
+	// While ROS is active, do the Node Stuff
+	while (ros::ok()) {
+		// At the moment we are only waiting
+		ros::spinOnce();
+		publishRate.sleep();
+	}
 
-    // node intialization comes here
-    turtle::TurtleHokuyoLaserFilter* node = new turtle::TurtleHokuyoLaserFilter();
-
-    ros::Rate publishRate(10);
-    // While ROS is active, do the Node Stuff
-    while (ros::ok())
-    {
-            // At the moment we are only waiting
-            ros::spinOnce();
-            publishRate.sleep();
-    }
-
-    return 0;
+	return 0;
 }

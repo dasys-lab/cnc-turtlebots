@@ -22,12 +22,33 @@ namespace turtle
     TurtleHokuyoLaserFilter();
     virtual ~TurtleHokuyoLaserFilter();
     void laserScanCallback(sensor_msgs::LaserScanPtr msg);
+
+	void setNewAngleMin(double newAngleMin) {
+		this->newAngleMin = newAngleMin;
+	}
+
+	void setNewAngleMax(double newAngleMax) {
+		this->newAngleMax = newAngleMax;
+	}
+
   private:
     void printLaserScan(sensor_msgs::LaserScanPtr msg);
 
     ros::NodeHandle nodeHandle;
     ros::Subscriber laserScanSubscriber;
     ros::Publisher laserScanFilteredPublisher;
+
+    // Parameters / Input of node
+    double newAngleMin;
+    double newAngleMax;
+    bool reverseArray;
+
+    // Fields used for processing
+    bool calculated = false;
+    int newRangesSize;
+    int rangesStartIndex;
+    int rangesEndIndex;
+
   };
 
 } /* namespace turtle */

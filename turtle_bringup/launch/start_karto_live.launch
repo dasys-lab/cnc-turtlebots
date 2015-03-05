@@ -71,6 +71,7 @@
   <node name="laser_filter" pkg="turtle_hokuyo_laser_filter" type="turtle_hokuyo_laser_filter_node">
     <remap from="/scan_hokuyo" to="$(arg scan_topic_hokuyo)"/>
     <remap from="/scan_filtered" to ="$(arg scan_topic_filtered)"/>
+    <rosparam file="$(find turtle_hokuyo_laser_filter)/param/filter.yaml"/>
   </node>
 
 <!-- Start up the move nodes -->
