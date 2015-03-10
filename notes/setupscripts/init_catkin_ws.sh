@@ -15,12 +15,22 @@ mkdir -p $WORKSPACE_SRC_DIR
 cd $WORKSPACE_SRC_DIR
 catkin_init_workspace
 
-# git clone git@github.com:carpe-noctem-cassel/cnc-turtlebots.git
-# git clone git@github.com:carpe-noctem-cassel/alica.git
-# git clone git@github.com:carpe-noctem-cassel/supplementary.git
-git clone https://github.com/carpe-noctem-cassel/cnc-turtlebots.git
-git clone https://github.com/carpe-noctem-cassel/alica.git
-git clone https://github.com/carpe-noctem-cassel/supplementary.git
+### Clone our own repositories
+
+git clone git@github.com:carpe-noctem-cassel/cnc-turtlebots.git
+git clone --depth=1 git@github.com:carpe-noctem-cassel/alica.git
+git clone git@github.com:carpe-noctem-cassel/supplementary.git
+
+### Clone forked repositories from tue_robotics
+
+git clone git@github.com:carpe-noctem-cassel/code_profiler.git
+git clone git@github.com:carpe-noctem-cassel/ed.git
+git clone git@github.com:carpe-noctem-cassel/ed_object_models.git
+git clone git@github.com:carpe-noctem-cassel/geolib2.git
+git clone git@github.com:carpe-noctem-cassel/rgbd.git
+git clone git@github.com:carpe-noctem-cassel/tue_config.git
+git clone git@github.com:carpe-noctem-cassel/tue_filesystem.git
+git clone git@github.com:carpe-noctem-cassel/tue_serialization.git
 
 cd ..
 catkin_make
