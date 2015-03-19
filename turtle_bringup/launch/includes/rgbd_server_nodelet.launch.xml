@@ -1,0 +1,13 @@
+<!-- Starts up the RGBD-Server as Nodelet variant -->
+<launch>
+
+  <arg name="nodelet_manager_name" default="mobile_base_nodelet_manager"/>
+
+  <node pkg="nodelet" type="nodelet" name="RGBDServerNodelet" args="load rgbd/ServerNodelet $(arg nodelet_manager_name)" output="screen">
+	<remap from="cam_info" to="/camera/rgb/camera_info"/>
+        <remap from="rgb_image" to="/camera/rgb/image_raw"/>
+	<remap from="depth_image" to="/camera/depth_registered/image_raw"/>
+        <remap from="output" to="/kinect/rgbd"/>
+  </node>
+
+</launch>

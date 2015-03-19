@@ -1,0 +1,31 @@
+<launch>
+
+  <!-- include all nasted grouped Launchfiles -->
+  <arg name="grouped" default="$(find turtle_bringup)/launch/grouped" />
+  <arg name="includes" default="$(find turtle_bringup)/launch/includes" />
+
+  <arg name="vision_nodelet_manager_name" default="vision_nodelet_manager" />
+  <arg name="vision_nodelet_manager_threads" default="4" />
+
+  <include file="$(arg grouped)/kobuki_setup.launch.xml">
+	<arg name="kinect_nodelet_manager_name" value="$(arg vision_nodelet_manager_name)" />
+	<arg name="kinect_nodelet_manager_threads" value="$(arg vision_nodelet_manager_threads)" />
+  </include> <!-- This include has a huge amount of 
+    arguments check them up with other  arguments used in other includes and/or nodes which you will add here ...
+    Think for Arguments like Topic-names and Frame-names ...-->
+
+  <node pkg="nodelet" type="nodelet" name="wire_nodelet_manager" args="manager" />
+
+  <!-- Startup the RGBD Server -->
+  <include file="$(arg includes)/rgbd_server_nodelet.launch.xml">
+	<arg name="nodelet_manager_name" value="wire_nodelet_manager" />
+  </include>
+
+  <!-- Startup the ED Server -->
+  <include file="$(arg includes)/ed_server_nodelet.launch.xml">
+	<arg name="nodelet_manager_name" value="wire_nodelet_manager" />
+  </include>
+
+  <node pkg="tf" type="static_transform_publisher" name="static_top_kinect_tf_pub" args="0 0 0 0 0 0 /map /base_footprint 100" />
+
+</launch>
