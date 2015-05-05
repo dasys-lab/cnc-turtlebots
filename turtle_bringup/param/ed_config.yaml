@@ -100,6 +100,8 @@ plugins:
             z_rand: 0.05
             lambda_short: 0.1
             range_max: 10
+            min_particle_distance: 0.01
+            min_particle_rotation_distance: 0.02
         odom_model:
             map_frame: map
             odom_frame: /amigo/odom
