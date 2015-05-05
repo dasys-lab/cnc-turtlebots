@@ -1,0 +1,32 @@
+<launch>
+
+  <arg name="includes" default="$(find turtle_bringup)/launch/includes" />
+  <arg name="kinect_nodelet_manager_name" default="camera_nodelet_manager" /> <!-- Setup the name of the NodeletManager of the Kinect -->
+  <arg name="kinect_nodelet_manager_threads" default="4" /> <!-- Setup the Number of threads to run inside the NodeletManager for the Kinect -->
+
+  <!-- Start Openni and Kinect-Stuff -->
+  <include file="$(arg includes)/openni.launch.xml" >
+    <arg name="publish_tf" value="false" />
+    <arg name="rgb_processing" value="true" />
+    <arg name="ir_processing" value="false" />
+    <arg name="depth_processing" value="true" />
+    <arg name="depth_registered_processing" value="false"/>
+    <arg name="disparity_processing" value="false"/>
+    <arg name="disparity_registered_processing" value="false"/>
+    <arg name="manager_name" value="$(arg kinect_nodelet_manager_name)" />
+    <arg name="num_worker_threads" value="$(arg kinect_nodelet_manager_threads)" />
+  </include>
+
+  <node pkg="nodelet" type="nodelet" name="wire_nodelet_manager" args="manager" />
+
+  <!-- Startup the RGBD Server -->
+  <include file="$(arg includes)/rgbd_server_nodelet.launch.xml">
+	<arg name="nodelet_manager_name" value="wire_nodelet_manager" />
+  </include>
+
+  <!-- Startup the ED Server -->
+  <include file="$(arg includes)/ed_server_nodelet.launch.xml">
+	<arg name="nodelet_manager_name" value="wire_nodelet_manager" />
+  </include>
+
+</launch>
