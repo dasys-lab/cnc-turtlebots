@@ -4,6 +4,10 @@
   <arg name="kinect_nodelet_manager_name" default="camera_nodelet_manager" /> <!-- Setup the name of the NodeletManager of the Kinect -->
   <arg name="kinect_nodelet_manager_threads" default="4" /> <!-- Setup the Number of threads to run inside the NodeletManager for the Kinect -->
 
+  <arg name="urdf_file" default="$(find xacro)/xacro.py '$(find turtle_description)/robots/kobuki_hexagons_kinect.urdf.xacro'" /> <!-- setup robot_description -->
+
+  <param name="/turtle/robot_description" command="$(arg urdf_file)" /> <!-- setup robot_description -->
+
   <!-- Start Openni and Kinect-Stuff -->
   <include file="$(arg includes)/openni.launch.xml" >
     <arg name="publish_tf" value="false" />
