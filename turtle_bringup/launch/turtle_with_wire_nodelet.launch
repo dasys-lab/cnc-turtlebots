@@ -26,6 +26,6 @@
 	<arg name="nodelet_manager_name" value="wire_nodelet_manager" />
   </include>
 
-  <node pkg="tf" type="static_transform_publisher" name="static_top_kinect_tf_pub" args="0 0 0 0 0 0 /map /base_footprint 100" />
+  <node pkg="tf" type="static_transform_publisher" name="static_top_kinect_tf_pub" args="0 0 0 0 0 0 /map /base_footprint 10" />
 
 </launch>
