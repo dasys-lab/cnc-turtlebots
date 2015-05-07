@@ -32,7 +32,7 @@ sensors:
         min_cluster_size: 20
         visualize: 0
 
-visualize: 1
+visualize: 0
 world_name: empty
 
 plugins:
