@@ -61,7 +61,6 @@ void TurtleHokuyoLaserFilter::laserScanCallback(sensor_msgs::LaserScanPtr msg) {
 
 	// Inverse range array as sensor is upside down
 	if(reverseArray) {
-		ROS_INFO("Array will be reversed.");
 		std::reverse(newRanges->begin(), newRanges->end());
 	}
 
