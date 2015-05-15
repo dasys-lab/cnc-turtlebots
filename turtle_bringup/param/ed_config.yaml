@@ -36,78 +36,84 @@ visualize: 0
 world_name: empty
 
 plugins:
-  - name: gui_server
-    lib: libed_gui_server_plugin.so
+#  - name: gui_server
+#    lib: libed_gui_server_plugin.so
+#    parameters:
+#        robot_name: turtle
+#  - name: kinect_plugin
+#    lib: libed_kinect_plugin.so
+#    parameters:
+#        topic: /kinect/rgbd
+#        voxel_size: 0.02
+#        max_range: 2.0
+#        clearing_padding_fraction: 0.05
+#        normal_k_search: 15
+#        visualize: 0
+#        association_modules:
+#        - type: PointNormal
+#          parameters:
+#              association_correspondence_distance: 0.3
+#              position_weight: 2.0
+#              normal_weight: 1.0
+#              render_width: 320
+#              render_max_range: 2.2
+#              render_voxel_size: 0.02
+#              normal_k_search: 15
+#              visualize: 0
+#        - type: PolygonHeight
+#          parameters:
+#              max_range: 2.0
+#              tolerance: 0.035
+#              min_cluster_size: 20
+#              visualize: 0
+#        segmentation_modules:
+#        - type: EuclideanClustering
+#          parameters:
+#              tolerance: 0.035
+#              min_cluster_size: 20
+#              visualize: 0
+#  - name: navigation
+#    lib: libed_navigation_plugin.so
+#    parameters:
+#        occupancy_grid_publisher:
+#          frame_id: /map
+#          resolution: 0.05
+#          min_z: 0.05
+#          max_z: 0.80
+#          default_offset: 0.0
+#  - name: tf_publisher
+#    lib: libed_tf_publisher_plugin.so
+#    parameters:
+#        root_frame_id: /map
+#  - name: localization
+#    lib: libed_localization_plugin.so
+#    parameters:
+#        initial_pose_topic: /amigo/initialpose
+#        num_particles: 500
+#        laser_model:
+#            topic: /amigo/base_laser/scan
+#            num_beams: 100
+#            z_hit: 0.95
+#            sigma_hit: 0.2
+#            z_short: 0.1
+#            z_max: 0.05
+#            z_rand: 0.05
+#            lambda_short: 0.1
+#            range_max: 10
+#            min_particle_distance: 0.01
+#            min_particle_rotation_distance: 0.02
+#        odom_model:
+#            map_frame: map
+#            odom_frame: /amigo/odom
+#            base_link_frame: /amigo/base_link
+#            alpha1: 0.05   # rot -> trans + strafe
+#            alpha2: 0.5    # trans -> rot
+#            alpha3: 0.5    # trans -> trans
+#            alpha4: 0.5    # rot -> rot
+#            alpha5: 0.5    # trans -> strafe
+  - name: object_creator
+    lib: libed_object_creator_plugin.so
     parameters:
-        robot_name: turtle
-  - name: kinect_plugin
-    lib: libed_kinect_plugin.so
-    parameters:
-        topic: /kinect/rgbd
-        voxel_size: 0.02
-        max_range: 2.0
-        clearing_padding_fraction: 0.05
-        normal_k_search: 15
-        visualize: 0
-        association_modules:
-        - type: PointNormal
-          parameters:
-              association_correspondence_distance: 0.3
-              position_weight: 2.0
-              normal_weight: 1.0
-              render_width: 320
-              render_max_range: 2.2
-              render_voxel_size: 0.02
-              normal_k_search: 15
-              visualize: 0
-        - type: PolygonHeight
-          parameters:
-              max_range: 2.0
-              tolerance: 0.035
-              min_cluster_size: 20
-              visualize: 0
-        segmentation_modules:
-        - type: EuclideanClustering
-          parameters:
-              tolerance: 0.035
-              min_cluster_size: 20
-              visualize: 0
-  - name: navigation
-    lib: libed_navigation_plugin.so
-    parameters:
-        occupancy_grid_publisher:
-          frame_id: /map
-          resolution: 0.05
-          min_z: 0.05
-          max_z: 0.80
-          default_offset: 0.0
-  - name: tf_publisher
-    lib: libed_tf_publisher_plugin.so
-    parameters:
-        root_frame_id: /map
-  - name: localization
-    lib: libed_localization_plugin.so
-    parameters:
-        initial_pose_topic: /amigo/initialpose
-        num_particles: 500
-        laser_model:
-            topic: /amigo/base_laser/scan
-            num_beams: 100
-            z_hit: 0.95
-            sigma_hit: 0.2
-            z_short: 0.1
-            z_max: 0.05
-            z_rand: 0.05
-            lambda_short: 0.1
-            range_max: 10
-            min_particle_distance: 0.01
-            min_particle_rotation_distance: 0.02
-        odom_model:
-            map_frame: map
-            odom_frame: /amigo/odom
-            base_link_frame: /amigo/base_link
-            alpha1: 0.05   # rot -> trans + strafe
-            alpha2: 0.5    # trans -> rot
-            alpha3: 0.5    # trans -> trans
-            alpha4: 0.5    # rot -> rot
-            alpha5: 0.5    # trans -> strafe
+      publish_filtered_map: 0
+      filtered_map_topic: /filtered_map
+      map_topic: /map

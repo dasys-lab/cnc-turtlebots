@@ -9,7 +9,7 @@
   <param name="/turtle/robot_description" command="$(arg urdf_file)" /> <!-- setup robot_description -->
 
   <!-- Start Openni and Kinect-Stuff -->
-  <include file="$(arg includes)/openni.launch.xml" >
+  <!-- <include file="$(arg includes)/openni.launch.xml" >
     <arg name="publish_tf" value="false" />
     <arg name="rgb_processing" value="true" />
     <arg name="ir_processing" value="false" />
@@ -19,7 +19,7 @@
     <arg name="disparity_registered_processing" value="false"/>
     <arg name="manager_name" value="$(arg kinect_nodelet_manager_name)" />
     <arg name="num_worker_threads" value="$(arg kinect_nodelet_manager_threads)" />
-  </include>
+  </include> -->
 
   <node pkg="nodelet" type="nodelet" name="wire_nodelet_manager" args="manager" />
 
