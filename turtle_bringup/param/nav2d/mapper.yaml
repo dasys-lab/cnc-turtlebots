@@ -25,9 +25,9 @@ MinimumTravelHeading: 0.20
 ScanBufferSize: 70 # MaxScanDistance: 4m / MinimumTravelDistance: 0.2 = 20
 ScanBufferMaximumScanDistance: 20
 UseResponseExpansion: false
-DistanceVariancePenalty: 0.3
+DistanceVariancePenalty: 0.1
 MinimumDistancePenalty: 0.5
-AngleVariancePenalty: 0.35
+AngleVariancePenalty: 0.1
 MinimumAnglePenalty: 0.9
 LinkMatchMinimumResponseFine: 0.6
 LinkScanMaximumDistance: 5.0
