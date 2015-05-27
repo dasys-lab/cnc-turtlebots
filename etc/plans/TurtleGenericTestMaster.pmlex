@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="ASCII"?>
+<uiextensionmodel:PmlUiExtensionMap xmlns:uiextensionmodel="http:///de.uni_kassel.vs.cn/planDesigner/pmlextension/uiextensionmodel">
+  <extensions>
+    <key href="TurtleGenericTestMaster.pml#1414681057677"/>
+    <value xPos="83" yPos="89" width="142" height="86" collapsed="false"/>
+  </extensions>
+  <extensions>
+    <key href="Behaviours/Stop.beh#1414681278745"/>
+    <value/>
+  </extensions>
+  <extensions>
+    <key href="TurtleGenericTestMaster.pml#1414681083953"/>
+    <value>
+      <bendpoints xPos="380" yPos="150"/>
+    </value>
+  </extensions>
+  <extensions>
+    <key href="TurtleGenericTestMaster.pml#1414681503803"/>
+    <value>
+      <bendpoints xPos="386" yPos="188"/>
+    </value>
+  </extensions>
+  <extensions>
+    <key href="TurtleGenericTestMaster.pml#1414681069778"/>
+    <value xPos="330" yPos="78" width="258" height="86" collapsed="false"/>
+  </extensions>
+  <extensions>
+    <key href="Behaviours/SearchDockingStation.beh#1414681446065"/>
+    <value/>
+  </extensions>
+  <extensions>
+    <key href="TurtleGenericTestMaster.pml#1414681057676"/>
+    <value width="600" height="319"/>
+  </extensions>
+  <extensions>
+    <key href="TurtleGenericTestMaster.pml#1414681057678"/>
+    <value/>
+  </extensions>
+  <extensions>
+    <key href="Behaviours/SimpleDrive.beh#1432735473356"/>
+    <value/>
+  </extensions>
+</uiextensionmodel:PmlUiExtensionMap>

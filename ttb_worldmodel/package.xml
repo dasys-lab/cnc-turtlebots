@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<package>
+  <name>ttb_worldmodel</name>
+  <version>0.0.0</version>
+  <description>The ttb_worldmodel package</description>
+
+  <maintainer email="opfer@vs.uni-kassel.de">Stephan Opfer</maintainer>
+
+  <license>MIT</license>
+
+  <author email="opfer@vs.uni-kassel.de">Stephan Opfer</author>
+
+  <buildtool_depend>catkin</buildtool_depend>
+  
+  <build_depend>roscpp</build_depend>
+  <build_depend>message_generation</build_depend>
+  <build_depend>system_config</build_depend>
+  <build_depend>geometry_msgs</build_depend>
+  <build_depend>event_handling</build_depend>
+  
+  <run_depend>roscpp</run_depend>
+  <run_depend>message_runtime</run_depend>
+  <run_depend>system_config</run_depend>
+  <run_depend>geometry_msgs</run_depend>
+  <run_depend>event_handling</run_depend>
+
+  <test_depend>gtest</test_depend>
+
+  <export>
+  </export>
+</package>

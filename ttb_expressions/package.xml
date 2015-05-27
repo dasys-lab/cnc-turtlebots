@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<package>
+  <name>ttb_expressions</name>
+  <version>0.0.0</version>
+  <description>The ttb_expressions package</description>
+
+  <maintainer email="opfer@vs.uni-kassel.de">Stephan Opfer</maintainer>
+
+  <license>MIT</license>
+
+  <author email="opfer@vs.uni-kassel.de">Stephan Opfer</author>
+
+  <buildtool_depend>catkin</buildtool_depend>
+  
+  <build_depend>alica_engine</build_depend>
+  <build_depend>system_config</build_depend>
+  <build_depend>roscpp</build_depend>
+  <build_depend>roscpp</build_depend>
+  <build_depend>ttb_worldmodel</build_depend>
+  <build_depend>message_generation</build_depend>
+  <build_depend>system_util</build_depend>
+
+  <run_depend>ttb_worldmodel</run_depend>
+  <run_depend>roscpp</run_depend>
+  <run_depend>message_runtime</run_depend>
+  <run_depend>alica_engine</run_depend>
+  <run_depend>system_config</run_depend>
+  <run_depend>roscpp</run_depend>
+  <run_depend>system_util</run_depend>
+
+  <export>
+  </export>
+</package>
