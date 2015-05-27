@@ -4,5 +4,4 @@
     <parameters id="1414681340530" name="MISSING_NAME" comment="" key="X" value="0"/>
     <parameters id="1414681347009" name="MISSING_NAME" comment="" key="Y" value="0"/>
   </configurations>
-  <configurations id="1414681405241" name="StopDefault2" comment="" masterPlan="false" utilityFunction="" utilityThreshold="0.1" destinationPath="" deferring="0" frequency="30" eventDriven="false"/>
 </alica:Behaviour>

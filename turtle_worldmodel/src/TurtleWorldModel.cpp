@@ -16,9 +16,9 @@
 namespace turtle
 {
 
-        /**
-         * The only true way of getting a Thread-Save Singleton Pattern in c++
-         */
+	/**
+	 * The only true way of getting a Thread-Save Singleton Pattern in c++
+	 */
 	TurtleWorldModel* TurtleWorldModel::get()
 	{
 		static TurtleWorldModel instance;

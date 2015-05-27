@@ -7,18 +7,6 @@
     <capValues id="1328020669363" name="Slow" comment=""/>
     <capValues id="1328020686713" name="Stationary" comment=""/>
   </capabilities>
-  <capabilities id="1321628281127" name="Kicker" comment="">
-    <capValues id="1321628298433" name="True" comment=""/>
-    <capValues id="1321628307744" name="False" comment=""/>
-  </capabilities>
-  <capabilities id="1321628326872" name="IsGoalie" comment="">
-    <capValues id="1321628342874" name="True" comment=""/>
-    <capValues id="1321628349570" name="False" comment=""/>
-  </capabilities>
-  <capabilities id="1321628355780" name="CanPass" comment="">
-    <capValues id="1321628383701" name="True" comment=""/>
-    <capValues id="1321628390101" name="False" comment=""/>
-  </capabilities>
   <capabilities id="1321628396198" name="IsOmniDrive" comment="">
     <capValues id="1321628416232" name="True" comment=""/>
     <capValues id="1321628423257" name="False" comment=""/>
