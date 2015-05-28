@@ -27,7 +27,7 @@ namespace ttb
 
 		// READ PARAMS
 		sc = supplementary::SystemConfig::getInstance();
-		odometryTopic = (*sc)["TTBWorldModel"]->get<string>("Sensors.OdometryTopic");
+		odometryTopic = (*sc)["TTBWorldModel"]->get<string>("Sensors.OdometryTopic", NULL);
 
 		// SET ROS STUFF
 		odometrySub = n.subscribe(odometryTopic, 10, &TTBWorldModel::onOdometryData,(TTBWorldModel*)this);
