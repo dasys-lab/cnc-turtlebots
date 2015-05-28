@@ -6,7 +6,7 @@
     <arg name="use_sim_time" value="true"/>
     <arg name="debug" value="false"/>
     <arg name="world_name" value="$(find turtle_simulator)/worlds/playground.world"/>
-    <arg name="gui" value="false"/>
+    <arg name="gui" value="true"/>
   </include>
 
   <include file="$(find turtle_simulator)/launch/includes/robot.launch.xml" />

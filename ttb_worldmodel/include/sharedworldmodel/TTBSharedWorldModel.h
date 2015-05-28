@@ -23,14 +23,16 @@ public:
 	void sendSharedWorldModelData(const ros::TimerEvent& e);
 
 private:
-	int ownID;
-
-	TTBWorldModel* wm;
-	ros::Timer timer;
-	ros::NodeHandle n;
-
 
 	supplementary::SystemConfig* sc;
+	TTBWorldModel* wm;
+
+	// ROS-Stuff
+	ros::NodeHandle n;
+
+	// Data fields
+	int ownID;
+
 };
 
 } /* namespace ttb */

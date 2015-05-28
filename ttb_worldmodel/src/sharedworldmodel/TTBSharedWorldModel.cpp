@@ -11,25 +11,21 @@
 
 using namespace std;
 
-namespace ttb {
+namespace ttb
+{
 
-TTBSharedWorldModel::TTBSharedWorldModel(TTBWorldModel* wm) {
+	TTBSharedWorldModel::TTBSharedWorldModel(TTBWorldModel* wm)
+	{
 
-	this->wm = wm;
-	timer = n.createTimer(ros::Duration(0.1), &TTBSharedWorldModel::sendSharedWorldModelData, this);
+		this->wm = wm;
 
-	sc = supplementary::SystemConfig::getInstance();
-	ownID = sc->getOwnRobotID();
+		this->sc = supplementary::SystemConfig::getInstance();
+		this->ownID = sc->getOwnRobotID();
 
+	}
 
-}
-
-TTBSharedWorldModel::~TTBSharedWorldModel() {
-	// TODO Auto-generated destructor stub
-}
-
-void TTBSharedWorldModel::sendSharedWorldModelData(const ros::TimerEvent& e) {
-	wm->sendSharedWorldModelData();
-}
+	TTBSharedWorldModel::~TTBSharedWorldModel()
+	{
+	}
 
 } /* namespace ttb */

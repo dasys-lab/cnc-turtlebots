@@ -8,9 +8,14 @@
 #ifndef CNC_TTB_TTB_WORLDMODEL_RAWSENSORDATA_H_
 #define CNC_TTB_TTB_WORLDMODEL_RAWSENSORDATA_H_
 
+#include <vector>
+
+#include "nav_msgs/Odometry.h"
+
 #include "RingBuffer.h"
 #include "InformationElement.h"
-#include <vector>
+
+
 
 
 using namespace std;
@@ -24,7 +29,7 @@ namespace ttb
 	public:
 		RawSensorData(TTBWorldModel* wm, int ringBufferLength);
 		virtual ~RawSensorData();
-		void processWorldModelData();
+		void processOdometryData(nav_msgs::OdometryConstPtr odometryData);
 
 	private:
 		TTBWorldModel* wm;

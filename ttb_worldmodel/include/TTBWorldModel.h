@@ -8,52 +8,60 @@
 #ifndef TTBWORLDMODEL_H_
 #define TTBWORLDMODEL_H_
 
-#include <ros/ros.h>
+
 #include <list>
 #include <iostream>
 #include <tuple>
 #include <mutex>
+#include <string>
+
+#include <ros/ros.h>
 
 #include "SystemConfig.h"
 #include "RawSensorData.h"
 #include "Robots.h"
 #include "EventTrigger.h"
 
+namespace supplementary {
+	class SystemConfig;
+}
 
 using namespace std;
 
 namespace ttb
 {
 
-	class TTBSharedWorldModel;
 	class TTBWorldModel
 	{
 	public:
-		static TTBWorldModel* get();
+		static TTBWorldModel* get(); /**< Singleton Getter */
 
-		TTBSharedWorldModel* getSharedWolrdModel();
-		unsigned long getTime();
-		void sendSharedWorldModelData();
-		void getWorldModelData();
-
-		TTBWorldModel();
 		virtual ~TTBWorldModel();
 		int getRingBufferLength();
 
+		// Public Data Access Classes
 		RawSensorData rawSensorData;
 		Robots robots;
-		supplementary::EventTrigger visionTrigger;
 
 	private:
 
+		TTBWorldModel(); /**< Private Singleton Constructor */
+
+		supplementary::SystemConfig* sc;
+
 		int ownID;
 		int ringBufferLength;
-		double kickerVoltage;
-		TTBSharedWorldModel* sharedWolrdModel;
 
+		mutex wmMutex;
+
+
+		// ROS Stuff
 		ros::NodeHandle n;
-		ros::Publisher sharedWorldPub;
 		ros::AsyncSpinner* spinner;
+		string odometryTopic;
+		ros::Subscriber odometrySub;
+
+		void onOdometryData(nav_msgs::OdometryConstPtr odometryData);
 
 	protected:
 
