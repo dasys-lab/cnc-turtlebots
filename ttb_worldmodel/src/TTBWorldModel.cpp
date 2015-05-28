@@ -8,6 +8,8 @@
 #include "TTBWorldModel.h"
 
 #include <nav_msgs/Odometry.h>
+#include "engine/AlicaEngine.h"
+#include "engine/IAlicaClock.h"
 
 #include "RawSensorData.h"
 
@@ -21,7 +23,7 @@ namespace ttb
 	}
 
 	TTBWorldModel::TTBWorldModel() :
-			ringBufferLength(10), rawSensorData(this, 10), robots(this, 10)
+			ringBufferLength(10), rawSensorData(this, 10), robots(this, 10), alicaEngine(nullptr)
 	{
 		ownID = supplementary::SystemConfig::getOwnRobotID();
 
@@ -42,6 +44,31 @@ namespace ttb
 		delete spinner;
 	}
 
+	bool TTBWorldModel::setEngine(alica::AlicaEngine* ae)
+	{
+		if (this->alicaEngine != nullptr)
+		{
+			this->alicaEngine = ae;
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+
+	InfoTime TTBWorldModel::getTime()
+	{
+		if (this->alicaEngine != nullptr)
+		{
+			return this->alicaEngine->getIAlicaClock()->now();
+		}
+		else
+		{
+			return 0;
+		}
+	}
+
 	void TTBWorldModel::onOdometryData(nav_msgs::OdometryConstPtr odometryData)
 	{
 		cout << "WM: Received Odometry Message!" << endl;
@@ -56,4 +83,5 @@ namespace ttb
 	}
 
 } /* namespace ttb */
+
 

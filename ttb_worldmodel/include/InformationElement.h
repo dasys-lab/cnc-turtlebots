@@ -10,8 +10,10 @@
 
 #include <memory>
 
-namespace msl
+namespace ttb
 {
+
+	typedef signed long long InfoTime;
 
 //* InformationElement
 /**

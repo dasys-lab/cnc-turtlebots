@@ -16,7 +16,6 @@
 #include "SigFault.h"
 
 using namespace std;
-using namespace msl;
 
 namespace ttb
 {
@@ -32,6 +31,7 @@ namespace ttb
 		ae->setCommunicator(new alicaRosProxy::AlicaRosCommunication(ae));
 
 		wm = TTBWorldModel::get();
+		wm->setEngine(ae);
 
 		ae->init(bc, cc, uc, crc, roleSetName, masterPlanName, roleSetDir, false);
 	}

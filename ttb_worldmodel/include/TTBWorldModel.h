@@ -26,6 +26,10 @@ namespace supplementary {
 	class SystemConfig;
 }
 
+namespace alica {
+	class AlicaEngine;
+}
+
 using namespace std;
 
 namespace ttb
@@ -36,7 +40,9 @@ namespace ttb
 	public:
 		static TTBWorldModel* get(); /**< Singleton Getter */
 
+		bool setEngine(alica::AlicaEngine* ae);
 		virtual ~TTBWorldModel();
+		InfoTime getTime();
 		int getRingBufferLength();
 
 		// Public Data Access Classes
@@ -48,6 +54,7 @@ namespace ttb
 		TTBWorldModel(); /**< Private Singleton Constructor */
 
 		supplementary::SystemConfig* sc;
+		alica::AlicaEngine* alicaEngine;
 
 		int ownID;
 		int ringBufferLength;

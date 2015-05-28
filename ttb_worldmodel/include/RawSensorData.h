@@ -11,11 +11,11 @@
 #include <vector>
 
 #include "nav_msgs/Odometry.h"
+#include "container/CNPosition.h"
+#include "container/CNVelocity2D.h"
 
 #include "RingBuffer.h"
 #include "InformationElement.h"
-
-
 
 
 using namespace std;
@@ -32,10 +32,10 @@ namespace ttb
 		void processOdometryData(nav_msgs::OdometryConstPtr odometryData);
 
 	private:
-		TTBWorldModel* wm;
-
-		unsigned long maxInformationAge;
 		int ownID;
+		TTBWorldModel* wm;
+		RingBuffer<InformationElement<geometry::CNPosition>> ownPositionMotion;
+		RingBuffer<InformationElement<geometry::CNVelocity2D>> ownVelocityMotion;
 
 	};
 
