@@ -16,6 +16,7 @@ namespace alica
 		// ros communication for ttb behaviours
 		ros::NodeHandle n;
 		velocityTopic = (*sc)["Drive"]->get<string>("VelocityTopic", NULL);
+		velocityTopic = "/turtle1/cmd_vel";
 		mobile_baseCommandVelocityPub = n.advertise<geometry_msgs::Twist>(velocityTopic, 10);
 	}
 
