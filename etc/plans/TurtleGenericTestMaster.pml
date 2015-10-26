@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="ASCII"?>
 <alica:Plan xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:alica="http:///de.uni_kassel.vs.cn" id="1414681057676" name="TurtleGenericTestMaster" comment="" masterPlan="true" utilityFunction="" utilityThreshold="0.1" destinationPath="Plans" priority="0.0" minCardinality="0" maxCardinality="2147483647">
   <states id="1414681057677" name="Stop" comment="" entryPoint="1414681057678">
-    <plans xsi:type="alica:BehaviourConfiguration">Behaviours/Stop.beh#1414681278745</plans>
+    <plans xsi:type="alica:BehaviourConfiguration">Behaviours/SimpleDrive.beh#1432735473356</plans>
     <inTransitions>#1414681503803</inTransitions>
     <outTransitions>#1414681083953</outTransitions>
   </states>
