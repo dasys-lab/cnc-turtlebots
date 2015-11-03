@@ -17,6 +17,7 @@
 
 #include <ros/ros.h>
 
+#include "sensor_msgs/LaserScan.h"
 #include "SystemConfig.h"
 #include "RawSensorData.h"
 #include "Robots.h"
@@ -66,9 +67,12 @@ namespace ttb
 		ros::NodeHandle n;
 		ros::AsyncSpinner* spinner;
 		string odometryTopic;
+		string laserScanTopic;
 		ros::Subscriber odometrySub;
+		ros::Subscriber laserScanSub;
 
 		void onOdometryData(nav_msgs::OdometryConstPtr odometryData);
+		void onLaserScanData(sensor_msgs::LaserScanPtr laserScanData);
 
 	protected:
 

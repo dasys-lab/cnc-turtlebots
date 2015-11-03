@@ -30,9 +30,11 @@ namespace ttb
 		// READ PARAMS
 		sc = supplementary::SystemConfig::getInstance();
 		odometryTopic = (*sc)["TTBWorldModel"]->get<string>("Sensors.OdometryTopic", NULL);
+		laserScanTopic = (*sc)["TTBWorldModel"]->get<string>("Sensors.LaserScanerTopic", NULL);
 
 		// SET ROS STUFF
 		odometrySub = n.subscribe(odometryTopic, 10, &TTBWorldModel::onOdometryData,(TTBWorldModel*)this);
+		laserScanSub =n.subscribe(laserScanTopic, 10, &TTBWorldModel::onLaserScanData, (TTBWorldModel*)this);
 
 		spinner = new ros::AsyncSpinner(4);
 		spinner->start();
@@ -75,6 +77,11 @@ namespace ttb
 		lock_guard<mutex> lock(wmMutex);
 		rawSensorData.processOdometryData(odometryData);
 
+	}
+	void TTBWorldModel::onLaserScanData(sensor_msgs::LaserScanPtr laserScanData) {
+		cout << "WM: Received LaserScan Message!" << endl;
+		lock_guard<mutex> lock(wmMutex);
+		rawSensorData.processLaserScan(laserScanData);
 	}
 
 	int TTBWorldModel::getRingBufferLength()

@@ -11,6 +11,7 @@
 #include <vector>
 
 #include "nav_msgs/Odometry.h"
+#include "sensor_msgs/LaserScan.h"
 #include "container/CNPosition.h"
 #include "container/CNVelocity2D.h"
 
@@ -29,13 +30,16 @@ namespace ttb
 	public:
 		RawSensorData(TTBWorldModel* wm, int ringBufferLength);
 		virtual ~RawSensorData();
+
 		void processOdometryData(nav_msgs::OdometryConstPtr odometryData);
+		void processLaserScan(sensor_msgs::LaserScanPtr laserScanData);
 
 	private:
 		int ownID;
 		TTBWorldModel* wm;
 		RingBuffer<InformationElement<geometry::CNPosition>> ownPositionMotion;
 		RingBuffer<InformationElement<geometry::CNVelocity2D>> ownVelocityMotion;
+		RingBuffer<InformationElement<sensor_msgs::LaserScan>> ownLaserScans;
 
 	};
 

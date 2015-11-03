@@ -16,7 +16,7 @@ namespace ttb
 {
 
 	RawSensorData::RawSensorData(TTBWorldModel* wm, int ringBufferLength) :
-			ownPositionMotion(ringBufferLength), ownVelocityMotion(ringBufferLength)
+			ownPositionMotion(ringBufferLength), ownVelocityMotion(ringBufferLength), ownLaserScans(ringBufferLength)
 	{
 		this->wm = wm;
 		ownID = supplementary::SystemConfig::getOwnRobotID();
@@ -24,6 +24,17 @@ namespace ttb
 
 	RawSensorData::~RawSensorData()
 	{
+	}
+
+	void RawSensorData::processLaserScan(sensor_msgs::LaserScanPtr laserScanData) {
+		InfoTime time = wm->getTime();
+
+		shared_ptr<sensor_msgs::LaserScan> laserScanDataPtr = shared_ptr<sensor_msgs::LaserScan>(laserScanData.get(), [laserScanData](sensor_msgs::LaserScan*) mutable {laserScanData.reset();});
+
+		shared_ptr<InformationElement<sensor_msgs::LaserScan>> ownLaserScanInfo = make_shared<InformationElement<sensor_msgs::LaserScan>>(laserScanDataPtr, time);
+
+		ownLaserScans.add(ownLaserScanInfo);
+
 	}
 
 	void RawSensorData::processOdometryData(nav_msgs::OdometryConstPtr odometryData)
