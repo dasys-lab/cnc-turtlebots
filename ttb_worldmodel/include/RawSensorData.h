@@ -35,6 +35,8 @@ namespace ttb
 		void processLaserScan(sensor_msgs::LaserScanPtr laserScanData);
 		void processBumperEvents(kobuki_msgs::BumperEventPtr bumperEventsData);
 		void processBumperSensors(sensor_msgs::PointCloud2Ptr bumperSensorsData);
+		void processImuData(sensor_msgs::ImuPtr imuData);
+		void processCameraPcl(sensor_msgs::PointCloud2Ptr);
 
 	private:
 		int ownID;
@@ -44,6 +46,8 @@ namespace ttb
 		RingBuffer<InformationElement<sensor_msgs::LaserScan>> ownLaserScans;
 		RingBuffer<InformationElement<kobuki_msgs::BumperEvent>> ownBumperEvents;
 		RingBuffer<InformationElement<sensor_msgs::PointCloud2>> ownBumperSensors;
+		RingBuffer<InformationElement<sensor_msgs::PointCloud2>> ownCameraPcl;
+		RingBuffer<InformationElement<sensor_msgs::Imu>> ownImuData;
 
 	};
 

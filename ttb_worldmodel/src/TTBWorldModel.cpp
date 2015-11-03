@@ -33,12 +33,16 @@ namespace ttb
 		laserScanTopic = (*sc)["TTBWorldModel"]->get<string>("Sensors.LaserScanerTopic", NULL);
 		bumperEventTopic = (*sc)["TTBWorldModel"]->get<string>("Sensors.BumperEventsTopic", NULL);
 		bumperSensorTopic= (*sc)["TTBWorldModel"]->get<string>("Sensors.BumperSensorsTopic", NULL);
+		imuDataTopic= (*sc)["TTBWorldModel"]->get<string>("Sensors.ImuDataTopic", NULL);
+		cameraPclTopic= (*sc)["TTBWorldModel"]->get<string>("Sensors.CameraPclTopic", NULL);
 
 		// SET ROS STUFF
 		odometrySub = n.subscribe(odometryTopic, 10, &TTBWorldModel::onOdometryData,(TTBWorldModel*)this);
 		laserScanSub =n.subscribe(laserScanTopic, 10, &TTBWorldModel::onLaserScanData, (TTBWorldModel*)this);
 		bumperEventSub = n.subscribe(bumperEventTopic, 10, &TTBWorldModel::onBumperEventData, (TTBWorldModel*)this);
 		bumperSensorSub = n.subscribe(bumperSensorTopic, 10, &TTBWorldModel::onBumperSensorData, (TTBWorldModel*)this);
+		imuDataSub = n.subscribe(imuDataTopic, 10, &TTBWorldModel::onImuData, (TTBWorldModel*)this);
+		cameraPclSub= n.subscribe(cameraPclTopic, 10, &TTBWorldModel::onCameraPclData, (TTBWorldModel*)this);
 
 		spinner = new ros::AsyncSpinner(4);
 		spinner->start();
@@ -74,7 +78,16 @@ namespace ttb
 			return 0;
 		}
 	}
-
+	void TTBWorldModel::onImuData(sensor_msgs::ImuPtr imuData) {
+		cout << "WM: Received IMU Message!" << endl;
+		lock_guard<mutex> lock(wmMutex);
+		rawSensorData.processImuData(imuData);
+	}
+	void TTBWorldModel::onCameraPclData(sensor_msgs::PointCloud2Ptr pclData) {
+		cout << "WM: Received camera PCL Message!" << endl;
+		lock_guard<mutex> lock(wmMutex);
+		rawSensorData.processCameraPcl(pclData);
+	}
 	void TTBWorldModel::onOdometryData(nav_msgs::OdometryConstPtr odometryData)
 	{
 		cout << "WM: Received Odometry Message!" << endl;

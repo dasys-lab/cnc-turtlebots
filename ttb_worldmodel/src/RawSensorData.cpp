@@ -16,7 +16,8 @@ namespace ttb
 {
 
 	RawSensorData::RawSensorData(TTBWorldModel* wm, int ringBufferLength) :
-			ownPositionMotion(ringBufferLength), ownVelocityMotion(ringBufferLength), ownLaserScans(ringBufferLength), ownBumperEvents(ringBufferLength), ownBumperSensors(ringBufferLength)
+			ownPositionMotion(ringBufferLength), ownVelocityMotion(ringBufferLength), ownLaserScans(ringBufferLength), ownBumperEvents(ringBufferLength),
+			ownBumperSensors(ringBufferLength), ownImuData(ringBufferLength), ownCameraPcl(ringBufferLength)
 	{
 		this->wm = wm;
 		ownID = supplementary::SystemConfig::getOwnRobotID();
@@ -24,6 +25,19 @@ namespace ttb
 
 	RawSensorData::~RawSensorData()
 	{
+	}
+	void RawSensorData::processImuData(sensor_msgs::ImuPtr imuData) {
+		InfoTime time = wm->getTime();
+		shared_ptr<sensor_msgs::Imu> imuDataPtr = shared_ptr<sensor_msgs::Imu>(imuData.get(), [imuData](sensor_msgs::Imu*) mutable {imuData.reset();});
+		shared_ptr<InformationElement<sensor_msgs::Imu>> ownImuDataInfo = make_shared<InformationElement<sensor_msgs::Imu>>(imuDataPtr, time);
+		ownImuData.add(ownImuDataInfo);
+
+	}
+	void RawSensorData::processCameraPcl(sensor_msgs::PointCloud2Ptr cameraPclData) {
+		InfoTime time = wm->getTime();
+		shared_ptr<sensor_msgs::PointCloud2> cameraPclPtr = shared_ptr<sensor_msgs::PointCloud2>(cameraPclData.get(), [cameraPclData](sensor_msgs::PointCloud2*) mutable {cameraPclData.reset();});
+		shared_ptr<InformationElement<sensor_msgs::PointCloud2>> ownCameraPclInfo = make_shared<InformationElement<sensor_msgs::PointCloud2>>(cameraPclPtr, time);
+		ownCameraPcl.add(ownCameraPclInfo);
 	}
 	void RawSensorData::processBumperEvents(kobuki_msgs::BumperEventPtr bumperEventsData) {
 		InfoTime time = wm->getTime();

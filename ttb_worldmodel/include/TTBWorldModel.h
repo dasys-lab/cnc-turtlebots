@@ -18,6 +18,7 @@
 #include <ros/ros.h>
 
 #include "sensor_msgs/LaserScan.h"
+#include "sensor_msgs/Imu.h"
 #include "sensor_msgs/PointCloud2.h"
 #include "kobuki_msgs/BumperEvent.h"
 
@@ -74,15 +75,21 @@ namespace ttb
 		string laserScanTopic;
 		string bumperSensorTopic;
 		string bumperEventTopic;
+		string imuDataTopic;
+		string cameraPclTopic;
 		ros::Subscriber odometrySub;
 		ros::Subscriber laserScanSub;
 		ros::Subscriber bumperSensorSub;
 		ros::Subscriber bumperEventSub;
+		ros::Subscriber imuDataSub;
+		ros::Subscriber cameraPclSub;
 
 		void onOdometryData(nav_msgs::OdometryConstPtr odometryData);
 		void onLaserScanData(sensor_msgs::LaserScanPtr laserScanData);
 		void onBumperSensorData(sensor_msgs::PointCloud2Ptr bumperSensorData);
 		void onBumperEventData(kobuki_msgs::BumperEventPtr bumperEventData);
+		void onImuData(sensor_msgs::ImuPtr imuData);
+		void onCameraPclData(sensor_msgs::PointCloud2Ptr pclData);
 
 	protected:
 
