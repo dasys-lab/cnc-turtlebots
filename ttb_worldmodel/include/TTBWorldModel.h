@@ -18,6 +18,9 @@
 #include <ros/ros.h>
 
 #include "sensor_msgs/LaserScan.h"
+#include "sensor_msgs/PointCloud2.h"
+#include "kobuki_msgs/BumperEvent.h"
+
 #include "SystemConfig.h"
 #include "RawSensorData.h"
 #include "Robots.h"
@@ -66,13 +69,20 @@ namespace ttb
 		// ROS Stuff
 		ros::NodeHandle n;
 		ros::AsyncSpinner* spinner;
+
 		string odometryTopic;
 		string laserScanTopic;
+		string bumperSensorTopic;
+		string bumperEventTopic;
 		ros::Subscriber odometrySub;
 		ros::Subscriber laserScanSub;
+		ros::Subscriber bumperSensorSub;
+		ros::Subscriber bumperEventSub;
 
 		void onOdometryData(nav_msgs::OdometryConstPtr odometryData);
 		void onLaserScanData(sensor_msgs::LaserScanPtr laserScanData);
+		void onBumperSensorData(sensor_msgs::PointCloud2Ptr bumperSensorData);
+		void onBumperEventData(kobuki_msgs::BumperEventPtr bumperEventData);
 
 	protected:
 

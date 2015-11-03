@@ -33,6 +33,8 @@ namespace ttb
 
 		void processOdometryData(nav_msgs::OdometryConstPtr odometryData);
 		void processLaserScan(sensor_msgs::LaserScanPtr laserScanData);
+		void processBumperEvents(kobuki_msgs::BumperEventPtr bumperEventsData);
+		void processBumperSensors(sensor_msgs::PointCloud2Ptr bumperSensorsData);
 
 	private:
 		int ownID;
@@ -40,6 +42,8 @@ namespace ttb
 		RingBuffer<InformationElement<geometry::CNPosition>> ownPositionMotion;
 		RingBuffer<InformationElement<geometry::CNVelocity2D>> ownVelocityMotion;
 		RingBuffer<InformationElement<sensor_msgs::LaserScan>> ownLaserScans;
+		RingBuffer<InformationElement<kobuki_msgs::BumperEvent>> ownBumperEvents;
+		RingBuffer<InformationElement<sensor_msgs::PointCloud2>> ownBumperSensors;
 
 	};
 

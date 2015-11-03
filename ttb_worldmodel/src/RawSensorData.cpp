@@ -16,7 +16,7 @@ namespace ttb
 {
 
 	RawSensorData::RawSensorData(TTBWorldModel* wm, int ringBufferLength) :
-			ownPositionMotion(ringBufferLength), ownVelocityMotion(ringBufferLength), ownLaserScans(ringBufferLength)
+			ownPositionMotion(ringBufferLength), ownVelocityMotion(ringBufferLength), ownLaserScans(ringBufferLength), ownBumperEvents(ringBufferLength), ownBumperSensors(ringBufferLength)
 	{
 		this->wm = wm;
 		ownID = supplementary::SystemConfig::getOwnRobotID();
@@ -24,6 +24,18 @@ namespace ttb
 
 	RawSensorData::~RawSensorData()
 	{
+	}
+	void RawSensorData::processBumperEvents(kobuki_msgs::BumperEventPtr bumperEventsData) {
+		InfoTime time = wm->getTime();
+		shared_ptr<kobuki_msgs::BumperEvent> bumperEventsDataPtr = shared_ptr<kobuki_msgs::BumperEvent>(bumperEventsData.get(), [bumperEventsData](kobuki_msgs::BumperEvent*) mutable {bumperEventsData.reset();});
+		shared_ptr<InformationElement<kobuki_msgs::BumperEvent>> ownBumperEventsInfo = make_shared<InformationElement<kobuki_msgs::BumperEvent>>(bumperEventsDataPtr, time);
+		ownBumperEvents.add(ownBumperEventsInfo);
+	}
+	void RawSensorData::processBumperSensors(sensor_msgs::PointCloud2Ptr bumperSensorsData) {
+		InfoTime time = wm->getTime();
+		shared_ptr<sensor_msgs::PointCloud2> bumperSensorsDataPtr = shared_ptr<sensor_msgs::PointCloud2>(bumperSensorsData.get(), [bumperSensorsData](sensor_msgs::PointCloud2*) mutable {bumperSensorsData.reset();});
+		shared_ptr<InformationElement<sensor_msgs::PointCloud2>> ownBumperSensorsInfo = make_shared<InformationElement<sensor_msgs::PointCloud2>>(bumperSensorsDataPtr, time);
+		ownBumperSensors.add(ownBumperSensorsInfo);
 	}
 
 	void RawSensorData::processLaserScan(sensor_msgs::LaserScanPtr laserScanData) {
