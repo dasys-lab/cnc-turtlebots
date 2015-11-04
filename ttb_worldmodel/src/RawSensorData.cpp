@@ -25,15 +25,14 @@ namespace ttb
 
 	RawSensorData::~RawSensorData()
 	{
+
 	}
 
 	void RawSensorData::processCommandVel(geometry_msgs::TwistPtr commandVelData) {
 		InfoTime time = wm->getTime();
-
 	}
 	void RawSensorData::processJointState(sensor_msgs::JointStatePtr jointStateData) {
 		InfoTime time = wm->getTime();
-
 	}
 	void RawSensorData::processCliffEvent(kobuki_msgs::CliffEventPtr cliffEventData) {
 		InfoTime time = wm->getTime();
@@ -46,7 +45,6 @@ namespace ttb
 		shared_ptr<sensor_msgs::Imu> imuDataPtr = shared_ptr<sensor_msgs::Imu>(imuData.get(), [imuData](sensor_msgs::Imu*) mutable {imuData.reset();});
 		shared_ptr<InformationElement<sensor_msgs::Imu>> ownImuDataInfo = make_shared<InformationElement<sensor_msgs::Imu>>(imuDataPtr, time);
 		ownImuData.add(ownImuDataInfo);
-
 	}
 	void RawSensorData::processCameraPcl(sensor_msgs::PointCloud2Ptr cameraPclData) {
 		InfoTime time = wm->getTime();
@@ -66,16 +64,11 @@ namespace ttb
 		shared_ptr<InformationElement<sensor_msgs::PointCloud2>> ownBumperSensorsInfo = make_shared<InformationElement<sensor_msgs::PointCloud2>>(bumperSensorsDataPtr, time);
 		ownBumperSensors.add(ownBumperSensorsInfo);
 	}
-
 	void RawSensorData::processLaserScan(sensor_msgs::LaserScanPtr laserScanData) {
 		InfoTime time = wm->getTime();
-
 		shared_ptr<sensor_msgs::LaserScan> laserScanDataPtr = shared_ptr<sensor_msgs::LaserScan>(laserScanData.get(), [laserScanData](sensor_msgs::LaserScan*) mutable {laserScanData.reset();});
-
 		shared_ptr<InformationElement<sensor_msgs::LaserScan>> ownLaserScanInfo = make_shared<InformationElement<sensor_msgs::LaserScan>>(laserScanDataPtr, time);
-
 		ownLaserScans.add(ownLaserScanInfo);
-
 	}
 
 	void RawSensorData::processOdometryData(nav_msgs::OdometryConstPtr odometryData)

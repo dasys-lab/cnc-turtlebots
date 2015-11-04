@@ -81,18 +81,15 @@ namespace ttb
 		string bumperEventTopic;
 		string imuDataTopic;
 		string cameraPclTopic;
-
 		string commandVelTopic;
 		string jointStateTopic;
 		string cliffEventsTopic;
-
 		ros::Subscriber odometrySub;
 		ros::Subscriber laserScanSub;
 		ros::Subscriber bumperSensorSub;
 		ros::Subscriber bumperEventSub;
 		ros::Subscriber imuDataSub;
 		ros::Subscriber cameraPclSub;
-
 		ros::Subscriber commandVelocitySub;
 		ros::Subscriber jointStateSub;
 		ros::Subscriber cliffEventsSub;
@@ -103,7 +100,6 @@ namespace ttb
 		void onBumperEventData(kobuki_msgs::BumperEventPtr bumperEventData);
 		void onImuData(sensor_msgs::ImuPtr imuData);
 		void onCameraPclData(sensor_msgs::PointCloud2Ptr pclData);
-
 		void onCommandVelData(geometry_msgs::TwistPtr commandVelData);
 		void onJointStateData(sensor_msgs::JointStatePtr jointStateData);
 		void onCliffEventsData(kobuki_msgs::CliffEventPtr clifEventData);

@@ -9,7 +9,6 @@
 #define CNC_TTB_TTB_WORLDMODEL_RAWSENSORDATA_H_
 
 #include <vector>
-
 #include "nav_msgs/Odometry.h"
 #include "sensor_msgs/LaserScan.h"
 #include "container/CNPosition.h"
