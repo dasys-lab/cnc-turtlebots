@@ -38,6 +38,7 @@ namespace ttb
 		commandVelTopic = (*sc)["TTBWorldModel"]->get<string>("Sensors.CommandVelocity", NULL);
 		jointStateTopic = (*sc)["TTBWorldModel"]->get<string>("Sensors.JointState", NULL);
 		cliffEventsTopic = (*sc)["TTBWorldModel"]->get<string>("Sensors.CliffEvents", NULL);
+		cameraImageRawTopic = (*sc)["TTBWorldModel"]->get<string>("Sensors.CameraImageRaw", NULL);
 
 		// SET ROS STUFF
 		odometrySub = n.subscribe(odometryTopic, 10, &TTBWorldModel::onOdometryData,(TTBWorldModel*)this);
@@ -49,6 +50,7 @@ namespace ttb
 		commandVelocitySub = n.subscribe(commandVelTopic, 10, &TTBWorldModel::onCommandVelData, (TTBWorldModel*)this);
 		jointStateSub = n.subscribe(jointStateTopic, 10, &TTBWorldModel::onJointStateData, (TTBWorldModel*)this);
 		cliffEventsSub = n.subscribe(cliffEventsTopic, 10, &TTBWorldModel::onCliffEventsData, (TTBWorldModel*)this);
+		cameraImageRawSub = n.subscribe(cameraImageRawTopic, 10, &TTBWorldModel::onCameraImageRawData, (TTBWorldModel*)this);
 
 		spinner = new ros::AsyncSpinner(4);
 		spinner->start();
@@ -130,6 +132,12 @@ namespace ttb
 		cout << "WM: Received BumperEvents Message!" << endl;
 		lock_guard<mutex> lock(wmMutex);
 		rawSensorData.processBumperEvents(bumperEventData);
+	}
+
+	void TTBWorldModel::onCameraImageRawData(sensor_msgs::ImagePtr cameraImageRawData) {
+		cout << "WM: Received CameraImageRaw Message!" << endl;
+		lock_guard<mutex> lock(wmMutex);
+		rawSensorData.processCameraImageRaw(cameraImageRawData);
 	}
 
 	int TTBWorldModel::getRingBufferLength()

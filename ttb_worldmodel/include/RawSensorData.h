@@ -11,6 +11,7 @@
 #include <vector>
 #include "nav_msgs/Odometry.h"
 #include "sensor_msgs/LaserScan.h"
+#include "sensor_msgs/Image.h"
 #include "container/CNPosition.h"
 #include "container/CNVelocity2D.h"
 
@@ -39,6 +40,7 @@ namespace ttb
 		void processCommandVel(geometry_msgs::TwistPtr commandVelData);
 		void processJointState(sensor_msgs::JointStatePtr jointStateData);
 		void processCliffEvent(kobuki_msgs::CliffEventPtr cliffEventData);
+		void processCameraImageRaw(sensor_msgs::ImagePtr cameraImageRawData);
 
 	private:
 		int ownID;
@@ -51,6 +53,7 @@ namespace ttb
 		RingBuffer<InformationElement<sensor_msgs::PointCloud2>> ownCameraPcl;
 		RingBuffer<InformationElement<sensor_msgs::Imu>> ownImuData;
 		RingBuffer<InformationElement<kobuki_msgs::CliffEvent>> ownCliffEvent;
+		RingBuffer<InformationElement<sensor_msgs::Image>> ownCameraImageRaw;
 
 	};
 

@@ -24,7 +24,7 @@
 #include "geometry_msgs/Twist.h"
 #include "sensor_msgs/JointState.h"
 #include "kobuki_msgs/CliffEvent.h"
-
+#include "sensor_msgs/Image.h"
 
 #include "SystemConfig.h"
 #include "RawSensorData.h"
@@ -84,6 +84,7 @@ namespace ttb
 		string commandVelTopic;
 		string jointStateTopic;
 		string cliffEventsTopic;
+		string cameraImageRawTopic;
 		ros::Subscriber odometrySub;
 		ros::Subscriber laserScanSub;
 		ros::Subscriber bumperSensorSub;
@@ -93,6 +94,7 @@ namespace ttb
 		ros::Subscriber commandVelocitySub;
 		ros::Subscriber jointStateSub;
 		ros::Subscriber cliffEventsSub;
+		ros::Subscriber cameraImageRawSub;
 
 		void onOdometryData(nav_msgs::OdometryConstPtr odometryData);
 		void onLaserScanData(sensor_msgs::LaserScanPtr laserScanData);
@@ -103,6 +105,7 @@ namespace ttb
 		void onCommandVelData(geometry_msgs::TwistPtr commandVelData);
 		void onJointStateData(sensor_msgs::JointStatePtr jointStateData);
 		void onCliffEventsData(kobuki_msgs::CliffEventPtr clifEventData);
+		void onCameraImageRawData(sensor_msgs::ImagePtr cameraImageRawData);
 
 	protected:
 

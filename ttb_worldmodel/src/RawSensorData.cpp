@@ -17,7 +17,8 @@ namespace ttb
 
 	RawSensorData::RawSensorData(TTBWorldModel* wm, int ringBufferLength) :
 			ownPositionMotion(ringBufferLength), ownVelocityMotion(ringBufferLength), ownLaserScans(ringBufferLength), ownBumperEvents(ringBufferLength),
-			ownBumperSensors(ringBufferLength), ownImuData(ringBufferLength), ownCameraPcl(ringBufferLength), ownCliffEvent(ringBufferLength)
+			ownBumperSensors(ringBufferLength), ownImuData(ringBufferLength), ownCameraPcl(ringBufferLength), ownCliffEvent(ringBufferLength),
+			ownCameraImageRaw(ringBufferLength)
 	{
 		this->wm = wm;
 		ownID = supplementary::SystemConfig::getOwnRobotID();
@@ -91,6 +92,15 @@ namespace ttb
 		ownVelocityMotionInfo->certainty = 1.0;
 		ownVelocityMotion.add(ownVelocityMotionInfo);
 
+	}
+
+	void RawSensorData::processCameraImageRaw(sensor_msgs::ImagePtr cameraImageRawData)
+	{
+		InfoTime time = wm->getTime();
+
+		shared_ptr<sensor_msgs::Image> cameraImageRawDataPtr = shared_ptr<sensor_msgs::Image>(cameraImageRawData.get(), [cameraImageRawData](sensor_msgs::Image*) mutable {cameraImageRawData.reset();});
+		shared_ptr<InformationElement<sensor_msgs::Image>> ownCameraImageRawInfo = make_shared<InformationElement<sensor_msgs::Image>>(cameraImageRawDataPtr, time);
+		ownCameraImageRaw.add(ownCameraImageRawInfo);	
 	}
 
 } /* namespace ttb */
