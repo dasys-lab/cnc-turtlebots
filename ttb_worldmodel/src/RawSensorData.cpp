@@ -17,7 +17,7 @@ namespace ttb
 
 	RawSensorData::RawSensorData(TTBWorldModel* wm, int ringBufferLength) :
 			ownPositionMotion(ringBufferLength), ownVelocityMotion(ringBufferLength), ownLaserScans(ringBufferLength), ownBumperEvents(ringBufferLength),
-			ownBumperSensors(ringBufferLength), ownImuData(ringBufferLength), ownCameraPcl(ringBufferLength)
+			ownBumperSensors(ringBufferLength), ownImuData(ringBufferLength), ownCameraPcl(ringBufferLength), ownCliffEvent(ringBufferLength)
 	{
 		this->wm = wm;
 		ownID = supplementary::SystemConfig::getOwnRobotID();
@@ -25,6 +25,21 @@ namespace ttb
 
 	RawSensorData::~RawSensorData()
 	{
+	}
+
+	void RawSensorData::processCommandVel(geometry_msgs::TwistPtr commandVelData) {
+		InfoTime time = wm->getTime();
+
+	}
+	void RawSensorData::processJointState(sensor_msgs::JointStatePtr jointStateData) {
+		InfoTime time = wm->getTime();
+
+	}
+	void RawSensorData::processCliffEvent(kobuki_msgs::CliffEventPtr cliffEventData) {
+		InfoTime time = wm->getTime();
+		shared_ptr<kobuki_msgs::CliffEvent> cliffEventPtr = shared_ptr<kobuki_msgs::CliffEvent>(cliffEventData.get(), [cliffEventData](kobuki_msgs::CliffEvent*) mutable {cliffEventData.reset();});
+		shared_ptr<InformationElement<kobuki_msgs::CliffEvent>> ownCliffEventInfo = make_shared<InformationElement<kobuki_msgs::CliffEvent>>(cliffEventPtr, time);
+		ownCliffEvent.add(ownCliffEventInfo);
 	}
 	void RawSensorData::processImuData(sensor_msgs::ImuPtr imuData) {
 		InfoTime time = wm->getTime();

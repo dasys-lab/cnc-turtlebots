@@ -35,6 +35,9 @@ namespace ttb
 		bumperSensorTopic= (*sc)["TTBWorldModel"]->get<string>("Sensors.BumperSensorsTopic", NULL);
 		imuDataTopic= (*sc)["TTBWorldModel"]->get<string>("Sensors.ImuDataTopic", NULL);
 		cameraPclTopic= (*sc)["TTBWorldModel"]->get<string>("Sensors.CameraPclTopic", NULL);
+		commandVelTopic = (*sc)["TTBWorldModel"]->get<string>("Sensors.CommandVelocity", NULL);
+		jointStateTopic = (*sc)["TTBWorldModel"]->get<string>("Sensors.JointState", NULL);
+		cliffEventsTopic = (*sc)["TTBWorldModel"]->get<string>("Sensors.CliffEvents", NULL);
 
 		// SET ROS STUFF
 		odometrySub = n.subscribe(odometryTopic, 10, &TTBWorldModel::onOdometryData,(TTBWorldModel*)this);
@@ -42,7 +45,10 @@ namespace ttb
 		bumperEventSub = n.subscribe(bumperEventTopic, 10, &TTBWorldModel::onBumperEventData, (TTBWorldModel*)this);
 		bumperSensorSub = n.subscribe(bumperSensorTopic, 10, &TTBWorldModel::onBumperSensorData, (TTBWorldModel*)this);
 		imuDataSub = n.subscribe(imuDataTopic, 10, &TTBWorldModel::onImuData, (TTBWorldModel*)this);
-		cameraPclSub= n.subscribe(cameraPclTopic, 10, &TTBWorldModel::onCameraPclData, (TTBWorldModel*)this);
+		cameraPclSub = n.subscribe(cameraPclTopic, 10, &TTBWorldModel::onCameraPclData, (TTBWorldModel*)this);
+		commandVelocitySub = n.subscribe(commandVelTopic, 10, &TTBWorldModel::onCommandVelData, (TTBWorldModel*)this);
+		jointStateSub = n.subscribe(jointStateTopic, 10, &TTBWorldModel::onJointStateData, (TTBWorldModel*)this);
+		cliffEventsSub = n.subscribe(cliffEventsTopic, 10, &TTBWorldModel::onCliffEventsData, (TTBWorldModel*)this);
 
 		spinner = new ros::AsyncSpinner(4);
 		spinner->start();
@@ -77,6 +83,21 @@ namespace ttb
 		{
 			return 0;
 		}
+	}
+	void TTBWorldModel::onCommandVelData(geometry_msgs::TwistPtr commandVelData) {
+		cout << "WM: Received command velocity Message!" << endl;
+		lock_guard<mutex> lock(wmMutex);
+		rawSensorData.processCommandVel(commandVelData);
+	}
+	void TTBWorldModel::onJointStateData(sensor_msgs::JointStatePtr jointStateData) {
+		cout << "WM: Received joint state Message!" << endl;
+		lock_guard<mutex> lock(wmMutex);
+		rawSensorData.processJointState(jointStateData);
+	}
+	void TTBWorldModel::onCliffEventsData(kobuki_msgs::CliffEventPtr clifEventData) {
+		cout << "WM: Received cliff event Message!" << endl;
+		lock_guard<mutex> lock(wmMutex);
+		rawSensorData.processCliffEvent(clifEventData);
 	}
 	void TTBWorldModel::onImuData(sensor_msgs::ImuPtr imuData) {
 		cout << "WM: Received IMU Message!" << endl;

@@ -21,6 +21,10 @@
 #include "sensor_msgs/Imu.h"
 #include "sensor_msgs/PointCloud2.h"
 #include "kobuki_msgs/BumperEvent.h"
+#include "geometry_msgs/Twist.h"
+#include "sensor_msgs/JointState.h"
+#include "kobuki_msgs/CliffEvent.h"
+
 
 #include "SystemConfig.h"
 #include "RawSensorData.h"
@@ -77,6 +81,11 @@ namespace ttb
 		string bumperEventTopic;
 		string imuDataTopic;
 		string cameraPclTopic;
+
+		string commandVelTopic;
+		string jointStateTopic;
+		string cliffEventsTopic;
+
 		ros::Subscriber odometrySub;
 		ros::Subscriber laserScanSub;
 		ros::Subscriber bumperSensorSub;
@@ -84,12 +93,20 @@ namespace ttb
 		ros::Subscriber imuDataSub;
 		ros::Subscriber cameraPclSub;
 
+		ros::Subscriber commandVelocitySub;
+		ros::Subscriber jointStateSub;
+		ros::Subscriber cliffEventsSub;
+
 		void onOdometryData(nav_msgs::OdometryConstPtr odometryData);
 		void onLaserScanData(sensor_msgs::LaserScanPtr laserScanData);
 		void onBumperSensorData(sensor_msgs::PointCloud2Ptr bumperSensorData);
 		void onBumperEventData(kobuki_msgs::BumperEventPtr bumperEventData);
 		void onImuData(sensor_msgs::ImuPtr imuData);
 		void onCameraPclData(sensor_msgs::PointCloud2Ptr pclData);
+
+		void onCommandVelData(geometry_msgs::TwistPtr commandVelData);
+		void onJointStateData(sensor_msgs::JointStatePtr jointStateData);
+		void onCliffEventsData(kobuki_msgs::CliffEventPtr clifEventData);
 
 	protected:
 
