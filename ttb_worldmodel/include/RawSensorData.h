@@ -14,6 +14,7 @@
 #include "sensor_msgs/Image.h"
 #include "container/CNPosition.h"
 #include "container/CNVelocity2D.h"
+#include "rqt_robot_control/RobotCommand.h"
 
 #include "RingBuffer.h"
 #include "InformationElement.h"
@@ -41,6 +42,7 @@ namespace ttb
 		void processJointState(sensor_msgs::JointStatePtr jointStateData);
 		void processCliffEvent(kobuki_msgs::CliffEventPtr cliffEventData);
 		void processCameraImageRaw(sensor_msgs::ImagePtr cameraImageRawData);
+		void processRobotOnOff(rqt_robot_control::RobotCommandPtr robotOnOffData);
 
 	private:
 		int ownID;
@@ -54,6 +56,7 @@ namespace ttb
 		RingBuffer<InformationElement<sensor_msgs::Imu>> ownImuData;
 		RingBuffer<InformationElement<kobuki_msgs::CliffEvent>> ownCliffEvent;
 		RingBuffer<InformationElement<sensor_msgs::Image>> ownCameraImageRaw;
+		RingBuffer<InformationElement<rqt_robot_control::RobotCommand>> ownRobotOnOff;
 
 	};
 

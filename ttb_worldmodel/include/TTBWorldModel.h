@@ -25,6 +25,7 @@
 #include "sensor_msgs/JointState.h"
 #include "kobuki_msgs/CliffEvent.h"
 #include "sensor_msgs/Image.h"
+#include "rqt_robot_control/RobotCommand.h"
 
 #include "SystemConfig.h"
 #include "RawSensorData.h"
@@ -85,6 +86,8 @@ namespace ttb
 		string jointStateTopic;
 		string cliffEventsTopic;
 		string cameraImageRawTopic;
+		string robotOnOffTopic;
+
 		ros::Subscriber odometrySub;
 		ros::Subscriber laserScanSub;
 		ros::Subscriber bumperSensorSub;
@@ -95,6 +98,7 @@ namespace ttb
 		ros::Subscriber jointStateSub;
 		ros::Subscriber cliffEventsSub;
 		ros::Subscriber cameraImageRawSub;
+		ros::Subscriber robotOnOffSub;
 
 		void onOdometryData(nav_msgs::OdometryConstPtr odometryData);
 		void onLaserScanData(sensor_msgs::LaserScanPtr laserScanData);
@@ -106,6 +110,7 @@ namespace ttb
 		void onJointStateData(sensor_msgs::JointStatePtr jointStateData);
 		void onCliffEventsData(kobuki_msgs::CliffEventPtr clifEventData);
 		void onCameraImageRawData(sensor_msgs::ImagePtr cameraImageRawData);
+		void onRobotOnOff(rqt_robot_control::RobotCommandPtr robotOnOffData);
 
 	protected:
 

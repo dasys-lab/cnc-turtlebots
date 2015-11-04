@@ -18,7 +18,7 @@ namespace ttb
 	RawSensorData::RawSensorData(TTBWorldModel* wm, int ringBufferLength) :
 			ownPositionMotion(ringBufferLength), ownVelocityMotion(ringBufferLength), ownLaserScans(ringBufferLength), ownBumperEvents(ringBufferLength),
 			ownBumperSensors(ringBufferLength), ownImuData(ringBufferLength), ownCameraPcl(ringBufferLength), ownCliffEvent(ringBufferLength),
-			ownCameraImageRaw(ringBufferLength)
+			ownCameraImageRaw(ringBufferLength), ownRobotOnOff(ringBufferLength)
 	{
 		this->wm = wm;
 		ownID = supplementary::SystemConfig::getOwnRobotID();
@@ -46,6 +46,7 @@ namespace ttb
 		shared_ptr<sensor_msgs::Imu> imuDataPtr = shared_ptr<sensor_msgs::Imu>(imuData.get(), [imuData](sensor_msgs::Imu*) mutable {imuData.reset();});
 		shared_ptr<InformationElement<sensor_msgs::Imu>> ownImuDataInfo = make_shared<InformationElement<sensor_msgs::Imu>>(imuDataPtr, time);
 		ownImuData.add(ownImuDataInfo);
+		cout << "Imu Ringbuffer first/last: " << ownImuData.getLast()->getInformation()->linear_acceleration << endl;
 	}
 	void RawSensorData::processCameraPcl(sensor_msgs::PointCloud2Ptr cameraPclData) {
 		InfoTime time = wm->getTime();
@@ -101,6 +102,15 @@ namespace ttb
 		shared_ptr<sensor_msgs::Image> cameraImageRawDataPtr = shared_ptr<sensor_msgs::Image>(cameraImageRawData.get(), [cameraImageRawData](sensor_msgs::Image*) mutable {cameraImageRawData.reset();});
 		shared_ptr<InformationElement<sensor_msgs::Image>> ownCameraImageRawInfo = make_shared<InformationElement<sensor_msgs::Image>>(cameraImageRawDataPtr, time);
 		ownCameraImageRaw.add(ownCameraImageRawInfo);	
+	}
+
+	void RawSensorData::processRobotOnOff(rqt_robot_control::RobotCommandPtr robotOnOffData)
+	{
+		InfoTime time = wm->getTime();
+
+		shared_ptr<rqt_robot_control::RobotCommand> robotOnOffDataPtr = shared_ptr<rqt_robot_control::RobotCommand>(robotOnOffData.get(), [robotOnOffData](rqt_robot_control::RobotCommand*) mutable {robotOnOffData.reset();});
+		shared_ptr<InformationElement<rqt_robot_control::RobotCommand>> ownRobotOnOffInfo = make_shared<InformationElement<rqt_robot_control::RobotCommand>>(robotOnOffDataPtr, time);
+		ownRobotOnOff.add(ownRobotOnOffInfo);
 	}
 
 } /* namespace ttb */

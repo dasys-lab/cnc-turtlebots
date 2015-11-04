@@ -39,6 +39,7 @@ namespace ttb
 		jointStateTopic = (*sc)["TTBWorldModel"]->get<string>("Sensors.JointState", NULL);
 		cliffEventsTopic = (*sc)["TTBWorldModel"]->get<string>("Sensors.CliffEvents", NULL);
 		cameraImageRawTopic = (*sc)["TTBWorldModel"]->get<string>("Sensors.CameraImageRaw", NULL);
+		robotOnOffTopic = (*sc)["TTBWorldModel"]->get<string>("Sensors.RobotOnOff", NULL);
 
 		// SET ROS STUFF
 		odometrySub = n.subscribe(odometryTopic, 10, &TTBWorldModel::onOdometryData,(TTBWorldModel*)this);
@@ -51,6 +52,7 @@ namespace ttb
 		jointStateSub = n.subscribe(jointStateTopic, 10, &TTBWorldModel::onJointStateData, (TTBWorldModel*)this);
 		cliffEventsSub = n.subscribe(cliffEventsTopic, 10, &TTBWorldModel::onCliffEventsData, (TTBWorldModel*)this);
 		cameraImageRawSub = n.subscribe(cameraImageRawTopic, 10, &TTBWorldModel::onCameraImageRawData, (TTBWorldModel*)this);
+		robotOnOffSub = n.subscribe(robotOnOffTopic, 10, &TTBWorldModel::onRobotOnOff, (TTBWorldModel*)this);
 
 		spinner = new ros::AsyncSpinner(4);
 		spinner->start();
@@ -139,6 +141,14 @@ namespace ttb
 		lock_guard<mutex> lock(wmMutex);
 		rawSensorData.processCameraImageRaw(cameraImageRawData);
 	}
+
+	void TTBWorldModel::onRobotOnOff(rqt_robot_control::RobotCommandPtr robotOnOffData)
+	{
+		cout << "WM: Received RobotOnOff Message!" << endl;
+		lock_guard<mutex> lock(wmMutex);
+		rawSensorData.processRobotOnOff(robotOnOffData);
+	}
+
 
 	int TTBWorldModel::getRingBufferLength()
 	{
