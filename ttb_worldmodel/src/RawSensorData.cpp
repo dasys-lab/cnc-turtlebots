@@ -48,7 +48,7 @@ namespace ttb
 		shared_ptr<sensor_msgs::Imu> imuDataPtr = shared_ptr<sensor_msgs::Imu>(imuData.get(), [imuData](sensor_msgs::Imu*) mutable {imuData.reset();});
 		shared_ptr<InformationElement<sensor_msgs::Imu>> ownImuDataInfo = make_shared<InformationElement<sensor_msgs::Imu>>(imuDataPtr, time);
 		ownImuData.add(ownImuDataInfo);
-		cout << "Imu Ringbuffer first/last: " << ownImuData.getLast()->getInformation()->linear_acceleration << endl;
+//		cout << "Imu Ringbuffer first/last: " << ownImuData.getLast()->getInformation()->linear_acceleration << endl;
 	}
 	void RawSensorData::processCameraPcl(sensor_msgs::PointCloud2Ptr cameraPclData) {
 		InfoTime time = wm->getTime();

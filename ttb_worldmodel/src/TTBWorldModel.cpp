@@ -89,62 +89,62 @@ namespace ttb
 		}
 	}
 	void TTBWorldModel::onCommandVelData(geometry_msgs::TwistPtr commandVelData) {
-		cout << "WM: Received command velocity Message!" << endl;
+//		cout << "WM: Received command velocity Message!" << endl;
 		lock_guard<mutex> lock(wmMutex);
 		rawSensorData.processCommandVel(commandVelData);
 	}
 	void TTBWorldModel::onJointStateData(sensor_msgs::JointStatePtr jointStateData) {
-		cout << "WM: Received joint state Message!" << endl;
+//		cout << "WM: Received joint state Message!" << endl;
 		lock_guard<mutex> lock(wmMutex);
 		rawSensorData.processJointState(jointStateData);
 	}
 	void TTBWorldModel::onCliffEventsData(kobuki_msgs::CliffEventPtr clifEventData) {
-		cout << "WM: Received cliff event Message!" << endl;
+//		cout << "WM: Received cliff event Message!" << endl;
 		lock_guard<mutex> lock(wmMutex);
 		rawSensorData.processCliffEvent(clifEventData);
 	}
 	void TTBWorldModel::onImuData(sensor_msgs::ImuPtr imuData) {
-		cout << "WM: Received IMU Message!" << endl;
+//		cout << "WM: Received IMU Message!" << endl;
 		lock_guard<mutex> lock(wmMutex);
 		rawSensorData.processImuData(imuData);
 	}
 	void TTBWorldModel::onCameraPclData(sensor_msgs::PointCloud2Ptr pclData) {
-		cout << "WM: Received camera PCL Message!" << endl;
+//		cout << "WM: Received camera PCL Message!" << endl;
 		lock_guard<mutex> lock(wmMutex);
 		rawSensorData.processCameraPcl(pclData);
 	}
 	void TTBWorldModel::onOdometryData(nav_msgs::OdometryConstPtr odometryData)
 	{
-		cout << "WM: Received Odometry Message!" << endl;
+//		cout << "WM: Received Odometry Message!" << endl;
 		lock_guard<mutex> lock(wmMutex);
 		rawSensorData.processOdometryData(odometryData);
 
 	}
 	void TTBWorldModel::onLaserScanData(sensor_msgs::LaserScanPtr laserScanData) {
-		cout << "WM: Received LaserScan Message!" << endl;
+//		cout << "WM: Received LaserScan Message!" << endl;
 		lock_guard<mutex> lock(wmMutex);
 		rawSensorData.processLaserScan(laserScanData);
 	}
 	void TTBWorldModel::onBumperSensorData(sensor_msgs::PointCloud2Ptr bumperSensorData) {
-		cout << "WM: Received BumperSensors Message!" << endl;
+//		cout << "WM: Received BumperSensors Message!" << endl;
 		lock_guard<mutex> lock(wmMutex);
 		rawSensorData.processBumperSensors(bumperSensorData);
 	}
 	void TTBWorldModel::onBumperEventData(kobuki_msgs::BumperEventPtr bumperEventData) {
-		cout << "WM: Received BumperEvents Message!" << endl;
+//		cout << "WM: Received BumperEvents Message!" << endl;
 		lock_guard<mutex> lock(wmMutex);
 		rawSensorData.processBumperEvents(bumperEventData);
 	}
 
 	void TTBWorldModel::onCameraImageRawData(sensor_msgs::ImagePtr cameraImageRawData) {
-		cout << "WM: Received CameraImageRaw Message!" << endl;
+//		cout << "WM: Received CameraImageRaw Message!" << endl;
 		lock_guard<mutex> lock(wmMutex);
 		rawSensorData.processCameraImageRaw(cameraImageRawData);
 	}
 
 	void TTBWorldModel::onRobotOnOff(rqt_robot_control::RobotCommandPtr robotOnOffData)
 	{
-		cout << "WM: Received RobotOnOff Message!" << endl;
+//		cout << "WM: Received RobotOnOff Message!" << endl;
 		lock_guard<mutex> lock(wmMutex);
 		rawSensorData.processRobotOnOff(robotOnOffData);
 	}

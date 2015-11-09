@@ -21,29 +21,22 @@ namespace alica
     void SimpleDrive::run(void* msg)
     {
         /*PROTECTED REGION ID(run1432735451661) ENABLED START*/ //Add additional options here
+        geometry_msgs::Twist move;
 
-    	geometry_msgs::Twist move;
+        move.linear.x = 0.3;
 
-
-
-    	if(wm->rawSensorData.getOwnBumperEvents()->state == kobuki_msgs::BumperEvent::PRESSED){
-
-    		this->success = true;
-
-    	} else {
-
-        	move.linear.x = 1.0;
-
-        	send(move);
-
-    	}
+        if ((wm->rawSensorData.getOwnBumperEvents() != nullptr) && wm->rawSensorData.getOwnBumperEvents()->state == kobuki_msgs::BumperEvent::PRESSED)
+        {
+            this->success = true;
+        } else {
+			send(move);
+        }
 
         /*PROTECTED REGION END*/
     }
     void SimpleDrive::initialiseParameters()
     {
         /*PROTECTED REGION ID(initialiseParameters1432735451661) ENABLED START*/ //Add additional options here
-
         /*PROTECTED REGION END*/
     }
 /*PROTECTED REGION ID(methods1432735451661) ENABLED START*/ //Add additional methods here
