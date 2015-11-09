@@ -22,6 +22,22 @@ namespace alica
     {
         /*PROTECTED REGION ID(run1432735451661) ENABLED START*/ //Add additional options here
 
+    	geometry_msgs::Twist move;
+
+
+
+    	if(wm->rawSensorData.getOwnBumperEvents()->state == kobuki_msgs::BumperEvent::PRESSED){
+
+    		this->success = true;
+
+    	} else {
+
+        	move.linear.x = 1.0;
+
+        	send(move);
+
+    	}
+
         /*PROTECTED REGION END*/
     }
     void SimpleDrive::initialiseParameters()
