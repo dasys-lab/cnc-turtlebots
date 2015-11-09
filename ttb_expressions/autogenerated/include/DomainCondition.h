@@ -12,7 +12,7 @@ namespace alica
         DomainCondition();
         virtual ~DomainCondition();
 
-    private:
+    protected:
         ttb::TTBWorldModel* wm;
     };
 } /* namespace alica */
