@@ -22,6 +22,8 @@ namespace ttb
 	{
 		this->wm = wm;
 		ownID = supplementary::SystemConfig::getOwnRobotID();
+
+		maxInformationAge = 1000000000;
 	}
 
 	RawSensorData::~RawSensorData()
@@ -111,6 +113,126 @@ namespace ttb
 		shared_ptr<rqt_robot_control::RobotCommand> robotOnOffDataPtr = shared_ptr<rqt_robot_control::RobotCommand>(robotOnOffData.get(), [robotOnOffData](rqt_robot_control::RobotCommand*) mutable {robotOnOffData.reset();});
 		shared_ptr<InformationElement<rqt_robot_control::RobotCommand>> ownRobotOnOffInfo = make_shared<InformationElement<rqt_robot_control::RobotCommand>>(robotOnOffDataPtr, time);
 		ownRobotOnOff.add(ownRobotOnOffInfo);
+	}
+
+	shared_ptr<geometry::CNPosition> RawSensorData::getOwnPosition(int index)
+	{
+		auto x = ownPositionMotion.getLast(index);
+
+		if( x == nullptr || wm->getTime() - x->timeStamp > maxInformationAge )
+		{
+			return nullptr;
+		}
+
+		return x->getInformation();
+	}
+
+	shared_ptr<geometry::CNVelocity2D> RawSensorData::getOwnVelocityMotion(int index)
+	{
+		auto x = ownVelocityMotion.getLast(index);
+
+		if( x == nullptr || wm->getTime() - x->timeStamp > maxInformationAge )
+		{
+			return nullptr;
+		}
+
+		return x->getInformation();
+	}
+
+	shared_ptr<sensor_msgs::LaserScan> RawSensorData::getOwnLaserScans(int index)
+	{
+		auto x = ownLaserScans.getLast(index);
+
+		if( x == nullptr || wm->getTime() - x->timeStamp > maxInformationAge )
+		{
+			return nullptr;
+		}
+
+		return x->getInformation();
+	}
+
+	shared_ptr<kobuki_msgs::BumperEvent> RawSensorData::getOwnBumperEvents(int index)
+	{
+		auto x = ownBumperEvents.getLast(index);
+
+		if( x == nullptr || wm->getTime() - x->timeStamp > maxInformationAge )
+		{
+			return nullptr;
+		}
+
+		return x->getInformation();
+	}
+
+	shared_ptr<sensor_msgs::PointCloud2> RawSensorData::getOwnBumperSensors(int index)
+	{
+		auto x = ownBumperSensors.getLast(index);
+
+		if( x == nullptr || wm->getTime() - x->timeStamp > maxInformationAge )
+		{
+			return nullptr;
+		}
+
+		return x->getInformation();
+	}
+
+	shared_ptr<sensor_msgs::PointCloud2> RawSensorData::getOwnCameraPcl(int index)
+	{
+		auto x = ownCameraPcl.getLast(index);
+
+		if( x == nullptr || wm->getTime() - x->timeStamp > maxInformationAge )
+		{
+			return nullptr;
+		}
+
+		return x->getInformation();
+	}
+
+	shared_ptr<sensor_msgs::Imu> RawSensorData::getOwnImuData(int index)
+	{
+		auto x = ownImuData.getLast(index);
+
+		if( x == nullptr || wm->getTime() - x->timeStamp > maxInformationAge )
+		{
+			return nullptr;
+		}
+
+		return x->getInformation();
+	}
+
+	shared_ptr<kobuki_msgs::CliffEvent> RawSensorData::getOwnCliffEvent(int index)
+	{
+		auto x = ownCliffEvent.getLast(index);
+
+		if( x == nullptr || wm->getTime() - x->timeStamp > maxInformationAge )
+		{
+			return nullptr;
+		}
+
+		return x->getInformation();
+	}
+
+	shared_ptr<sensor_msgs::Image> RawSensorData::getOwnCameraImageRaw(int index)
+	{
+		auto x = ownCameraImageRaw.getLast(index);
+
+		if( x == nullptr || wm->getTime() - x->timeStamp > maxInformationAge )
+		{
+			return nullptr;
+		}
+
+		return x->getInformation();
+	}
+
+	shared_ptr<rqt_robot_control::RobotCommand> RawSensorData::getOwnRobotOnOff(int index)
+	{
+		auto x = ownRobotOnOff.getLast(index);
+
+		if( x == nullptr || wm->getTime() - x->timeStamp > maxInformationAge )
+		{
+			return nullptr;
+		}
+
+		return x->getInformation();
 	}
 
 } /* namespace ttb */

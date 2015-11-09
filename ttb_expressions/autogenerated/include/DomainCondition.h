@@ -2,6 +2,7 @@
 #define DomainBehaviour_H_
 
 #include "engine/BasicCondition.h"
+#include "TTBWorldModel.h"
 
 namespace alica
 {
@@ -10,6 +11,9 @@ namespace alica
     public:
         DomainCondition();
         virtual ~DomainCondition();
+
+    private:
+        ttb::TTBWorldModel* wm;
     };
 } /* namespace alica */
 

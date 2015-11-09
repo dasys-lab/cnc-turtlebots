@@ -44,9 +44,21 @@ namespace ttb
 		void processCameraImageRaw(sensor_msgs::ImagePtr cameraImageRawData);
 		void processRobotOnOff(rqt_robot_control::RobotCommandPtr robotOnOffData);
 
+		shared_ptr<geometry::CNPosition> getOwnPosition(int index = 0);
+		shared_ptr<geometry::CNVelocity2D> getOwnVelocityMotion(int index = 0);
+		shared_ptr<sensor_msgs::LaserScan> getOwnLaserScans(int index = 0);
+		shared_ptr<kobuki_msgs::BumperEvent> getOwnBumperEvents(int index = 0);
+		shared_ptr<sensor_msgs::PointCloud2> getOwnBumperSensors(int index = 0);
+		shared_ptr<sensor_msgs::PointCloud2> getOwnCameraPcl(int index = 0);
+		shared_ptr<sensor_msgs::Imu> getOwnImuData(int index = 0);
+		shared_ptr<kobuki_msgs::CliffEvent> getOwnCliffEvent(int index = 0);
+		shared_ptr<sensor_msgs::Image> getOwnCameraImageRaw(int index = 0);
+		shared_ptr<rqt_robot_control::RobotCommand> getOwnRobotOnOff(int index = 0);
+
 	private:
 		int ownID;
 		TTBWorldModel* wm;
+		unsigned long maxInformationAge;
 		RingBuffer<InformationElement<geometry::CNPosition>> ownPositionMotion;
 		RingBuffer<InformationElement<geometry::CNVelocity2D>> ownVelocityMotion;
 		RingBuffer<InformationElement<sensor_msgs::LaserScan>> ownLaserScans;
