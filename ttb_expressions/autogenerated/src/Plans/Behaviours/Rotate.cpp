@@ -21,11 +21,25 @@ namespace alica
     void Rotate::run(void* msg)
     {
         /*PROTECTED REGION ID(run1447068205139) ENABLED START*/ //Add additional options here
+
+    	geometry_msgs::Twist rotate;
+
+    	rotate.angular.z = 1;
+
+
+    	if(counter <= 	60 ) {
+    		send(rotate);
+    		counter++;
+    	} else {
+    		this->success = true;
+    	}
+
         /*PROTECTED REGION END*/
     }
     void Rotate::initialiseParameters()
     {
         /*PROTECTED REGION ID(initialiseParameters1447068205139) ENABLED START*/ //Add additional options here
+    	counter = 0;
         /*PROTECTED REGION END*/
     }
 /*PROTECTED REGION ID(methods1447068205139) ENABLED START*/ //Add additional methods here
