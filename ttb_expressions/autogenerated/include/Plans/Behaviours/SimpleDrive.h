@@ -12,7 +12,6 @@ namespace alica
         SimpleDrive();
         virtual ~SimpleDrive();
         virtual void run(void* msg);
-	int counter;
         /*PROTECTED REGION ID(pub1432735451661) ENABLED START*/ //Add additional public methods here
         /*PROTECTED REGION END*/
     protected:

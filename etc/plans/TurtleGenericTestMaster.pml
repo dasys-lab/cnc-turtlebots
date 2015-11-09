@@ -3,22 +3,46 @@
   <states id="1414681057677" name="Stop" comment="" entryPoint="1414681057678">
     <plans xsi:type="alica:BehaviourConfiguration">Behaviours/SimpleDrive.beh#1432735473356</plans>
     <inTransitions>#1414681503803</inTransitions>
-    <outTransitions>#1414681083953</outTransitions>
+    <inTransitions>#1447068022712</inTransitions>
+    <outTransitions>#1447068026011</outTransitions>
   </states>
-  <states id="1414681069778" name="DoSomething" comment="">
+  <states id="1414681069778" name="DriveForward" comment="">
     <plans xsi:type="alica:BehaviourConfiguration">Behaviours/SimpleDrive.beh#1432735473356</plans>
-    <inTransitions>#1414681083953</inTransitions>
+    <inTransitions>#1447068020601</inTransitions>
+    <inTransitions>#1447068026011</inTransitions>
     <outTransitions>#1414681503803</outTransitions>
+    <outTransitions>#1447068019298</outTransitions>
   </states>
-  <transitions id="1414681083953" name="MISSING_NAME" comment="" msg="">
-    <preCondition id="1414681086048" name="Stop2DoSomething" comment="" conditionString="" pluginName="DefaultPlugin" enabled="true"/>
-    <inState>#1414681057677</inState>
-    <outState>#1414681069778</outState>
-  </transitions>
-  <transitions id="1414681503803" name="MISSING_NAME" comment="" msg="">
+  <states id="1447067994402" name="Rotating" comment="">
+    <plans xsi:type="alica:BehaviourConfiguration">Behaviours/Rotate.beh#1447068225787</plans>
+    <inTransitions>#1447068019298</inTransitions>
+    <outTransitions>#1447068020601</outTransitions>
+    <outTransitions>#1447068022712</outTransitions>
+  </states>
+  <transitions id="1414681503803" name="MISSING_NAME" comment="on robot stop" msg="">
     <preCondition id="1414681505635" name="DoSomething2Stop" comment="" conditionString="" pluginName="DefaultPlugin" enabled="true"/>
     <inState>#1414681069778</inState>
     <outState>#1414681057677</outState>
+  </transitions>
+  <transitions id="1447068019298" name="MISSING_NAME" comment="on bumber activated" msg="">
+    <preCondition id="1447068020434" name="MISSING_NAME" comment="" conditionString="" pluginName="DefaultPlugin" enabled="true"/>
+    <inState>#1414681069778</inState>
+    <outState>#1447067994402</outState>
+  </transitions>
+  <transitions id="1447068020601" name="MISSING_NAME" comment="any child success" msg="">
+    <preCondition id="1447068022583" name="MISSING_NAME" comment="" conditionString="" pluginName="DefaultPlugin" enabled="true"/>
+    <inState>#1447067994402</inState>
+    <outState>#1414681069778</outState>
+  </transitions>
+  <transitions id="1447068022712" name="MISSING_NAME" comment="on robot stop" msg="">
+    <preCondition id="1447068025867" name="MISSING_NAME" comment="" conditionString="" pluginName="DefaultPlugin" enabled="true"/>
+    <inState>#1447067994402</inState>
+    <outState>#1414681057677</outState>
+  </transitions>
+  <transitions id="1447068026011" name="MISSING_NAME" comment="on robot start" msg="">
+    <preCondition id="1447068027882" name="MISSING_NAME" comment="" conditionString="" pluginName="DefaultPlugin" enabled="true"/>
+    <inState>#1414681057677</inState>
+    <outState>#1414681069778</outState>
   </transitions>
   <entryPoints id="1414681057678" name="MISSING_NAME" comment="" successRequired="false" minCardinality="0" maxCardinality="2147483647">
     <task>../Misc/taskrepository.tsk#1414681164704</task>
