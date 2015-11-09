@@ -1,5 +1,5 @@
 #include "DomainBehaviour.h"
-#include "TTBWorldModel.h"
+
 #include "SystemConfig.h"
 
 namespace alica

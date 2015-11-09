@@ -3,7 +3,7 @@
 
 #include "engine/BasicBehaviour.h"
 #include "geometry_msgs/Twist.h"
-
+#include "TTBWorldModel.h"
 
 #include "ros/ros.h"
 
@@ -11,9 +11,6 @@ namespace supplementary {
 	class SystemConfig;
 }
 
-namespace ttb {
-	class TTBWorldModel;
-}
 
 namespace alica
 {
@@ -23,13 +20,13 @@ namespace alica
 		DomainBehaviour(string name);
 		virtual ~DomainBehaviour();
 		void send(geometry_msgs::Twist& tw);
+		ttb::TTBWorldModel* wm;
 
 	protected:
 		supplementary::SystemConfig* sc;
 
 	private:
 		int ownID;
-		ttb::TTBWorldModel* wm;
 
 		// ros communication stuff for ttb behaviours
 		string velocityTopic;

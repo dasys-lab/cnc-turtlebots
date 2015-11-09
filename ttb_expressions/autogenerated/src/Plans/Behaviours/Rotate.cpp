@@ -33,6 +33,7 @@ namespace alica
     	} else {
     		this->success = true;
     	}
+    	auto i = wm->rawSensorData.getOwnBumperEvents();
 
         /*PROTECTED REGION END*/
     }
