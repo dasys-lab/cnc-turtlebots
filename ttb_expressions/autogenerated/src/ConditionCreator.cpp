@@ -18,15 +18,33 @@ namespace alica
         switch (conditionConfId)
         {
 
-            case 1414681086048:
-
-                return make_shared<TransitionCondition1414681086048>();
-
-                break;
-
             case 1414681505635:
 
                 return make_shared<TransitionCondition1414681505635>();
+
+                break;
+
+            case 1447068020434:
+
+                return make_shared<TransitionCondition1447068020434>();
+
+                break;
+
+            case 1447068022583:
+
+                return make_shared<TransitionCondition1447068022583>();
+
+                break;
+
+            case 1447068025867:
+
+                return make_shared<TransitionCondition1447068025867>();
+
+                break;
+
+            case 1447068027882:
+
+                return make_shared<TransitionCondition1447068027882>();
 
                 break;
 
