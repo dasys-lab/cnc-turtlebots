@@ -4,7 +4,7 @@
 	<include file="$(find turtlebot_navigation)/launch/gmapping_demo.launch"/>
 
   <arg name="scan_topic" default="scan_hokuyo" />
-  <arg name="laser_frame" default="laser_frame" />
+  <arg name="laser_frame" default="base_link" />
 
   <node name="hokuyo_laser_driver" pkg="urg_node" type="urg_node">
     <param name="frame_id" value="$(arg laser_frame)"/>
