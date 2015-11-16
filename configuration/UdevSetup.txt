@@ -1,0 +1,6 @@
+Muss nur gemacht werden, wenn das Kabel für den kobuki rausgezogen wurde.
+
+1. USB - Stecker des HUBS vom Laptop rausziehen.
+2. rosrun kobuki_ftdi create_udev_rules
+ - setzt einen symblink von /dev/kobuki nach /dev/ttyUSBX
+3. USB - Stecker wieder reinstecken.

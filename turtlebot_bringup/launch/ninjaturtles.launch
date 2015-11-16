@@ -7,21 +7,7 @@
   
   <include file="$(find turtlebot_bringup)/launch/minimal.launch"/>
 
-  <include file="$(find turtlebot_bringup)/launch/3dsensor.launch">
-    <arg name="rgb_processing" value="false" />
-    <arg name="depth_registration" value="false" />
-    <arg name="depth_processing" value="false" />
-
-    <!-- We must specify an absolute topic name because if not it will be prefixed by "$(arg camera)".
-         Probably is a bug in the nodelet manager: https://github.com/ros/nodelet_core/issues/7 -->
-    <arg name="scan_topic" value="$(arg kinect_scan_topic)" />
-  </include>
-
-  <include file="$(find turtlebot_navigation)/launch/includes/gmapping.launch.xml">
-    <arg name="scan_topic" value="$(arg kinect_scan_topic)" />
-  </include>
-
-  <include file="$(find turtlebot_navigation)/launch/includes/move_base.launch.xml"/>
+  <include file="$(find turtlebot_navigation)/launch/gmapping_demo.launch"/>
 
 
   <node name="hokuyo_laser_driver" pkg="urg_node" type="urg_node">
