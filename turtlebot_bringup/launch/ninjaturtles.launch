@@ -3,11 +3,16 @@
 	<include file="$(find turtlebot_bringup)/launch/minimal.launch"/>
 	<include file="$(find turtlebot_navigation)/launch/gmapping_demo.launch"/>
 
-  <arg name="laser_frame" default="laser_frame"/>
   <arg name="scan_topic" default="scan_hokuyo" />
+  <arg name="laser_frame" default="laser_frame" />
 
-  <node name="hokuyo_laser_driver" pkg="urg_node" type="urg_node"/>
-    <param name="frame_id" value="$(arg laser_frame)" />
+  <node name="hokuyo_laser_driver" pkg="urg_node" type="urg_node">
+    <param name="frame_id" value="$(arg laser_frame)"/>
+    <param name="min_ang" value="-2.2689"/>
+    <param name="max_ang" value="2.2689"/>
+    <param name="intensity" value="false"/>
+  
     <remap from="scan" to="$(arg scan_topic)" />
+  </node>
 
 </launch>
