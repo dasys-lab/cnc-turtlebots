@@ -1,5 +1,10 @@
 <?xml version="1.0"?>
 <launch>
+
+  <arg name="laser_scan_topic" value="scan_hokuyo"/>
+  <arg name="kinect_scan_topic" value="scan_hokuyo"/>
+  <arg name="laser_frame" default="base_link" />
+  
   <include file="$(find turtlebot_bringup)/launch/minimal.launch"/>
 
   <include file="$(find turtlebot_bringup)/launch/3dsensor.launch">
@@ -9,15 +14,15 @@
 
     <!-- We must specify an absolute topic name because if not it will be prefixed by "$(arg camera)".
          Probably is a bug in the nodelet manager: https://github.com/ros/nodelet_core/issues/7 -->
-    <arg name="scan_topic" value="/scan_kinect" />
+    <arg name="scan_topic" value="$(arg kinect_scan_topic)" />
   </include>
 
-  <include file="$(find turtlebot_navigation)/launch/includes/gmapping.launch.xml"/>
+  <include file="$(find turtlebot_navigation)/launch/includes/gmapping.launch.xml">
+    <arg name="scan_topic" value="$(arg kinect_scan_topic)" />
+  </include>
 
   <include file="$(find turtlebot_navigation)/launch/includes/move_base.launch.xml"/>
 
-  <arg name="scan_topic" default="scan_hokuyo" />
-  <arg name="laser_frame" default="base_link" />
 
   <node name="hokuyo_laser_driver" pkg="urg_node" type="urg_node">
     <param name="frame_id" value="$(arg laser_frame)"/>
@@ -25,7 +30,7 @@
     <param name="max_ang" value="2.2689"/>
     <param name="intensity" value="false"/>
   
-    <remap from="scan" to="$(arg scan_topic)" />
+    <remap from="scan" to="$(arg laser_scan_topic)" />
   </node>
 
 </launch>
