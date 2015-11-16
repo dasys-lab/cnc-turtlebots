@@ -1,3 +1,4 @@
+<?xml version="1.0"?>
 <!-- 
   Turtlebot is a bit low on horsepower...
 
@@ -18,7 +19,9 @@
        into the "camera" namespace, and it is prepended to tf frame ids. -->
   <arg name="camera"      default="camera"/>
   <arg name="publish_tf"  default="false"/>
-  <arg name="3d_sensor"   default="$(env TURTLEBOT_3D_SENSOR)"/>  <!-- kinect, asus_xtion_pro -->
+  <!--arg name="3d_sensor"   default="$(env TURTLEBOT_3D_SENSOR)"/-->  <!-- kinect, asus_xtion_pro -->
+  <arg name="3d_sensor"   default="kinect"/>
+
 
   <!-- Factory-calibrated depth registration -->
   <arg name="depth_registration"              default="true"/>
