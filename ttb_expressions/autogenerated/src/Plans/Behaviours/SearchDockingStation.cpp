@@ -2,6 +2,8 @@ using namespace std;
 #include "Plans/Behaviours/SearchDockingStation.h"
 
 /*PROTECTED REGION ID(inccpp1414681429307) ENABLED START*/ //Add additional includes here
+#include <kdl_conversions/kdl_msg.h>
+
 /*PROTECTED REGION END*/
 namespace alica
 {
@@ -21,6 +23,13 @@ namespace alica
     void SearchDockingStation::run(void* msg)
     {
         /*PROTECTED REGION ID(run1414681429307) ENABLED START*/ //Add additional options here
+    	shared_ptr<geometry::CNPosition> ownPos = wm->rawSensorData.getOwnPosition();
+    	shared_ptr<geometry::CNVelocity2D> pwnVel = wm->rawSensorData.getOwnVelocityMotion();
+
+    	nav_msgs::Odometry odom;
+//    	odom.pose.pose.position.x = ownPos
+
+    	KDL::Rotation rot;
         /*PROTECTED REGION END*/
     }
     void SearchDockingStation::initialiseParameters()
