@@ -26,6 +26,8 @@
 #include "kobuki_msgs/CliffEvent.h"
 #include "sensor_msgs/Image.h"
 #include "rqt_robot_control/RobotCommand.h"
+#include "kobuki_msgs/SensorState.h"
+#include "kobuki_msgs/DockInfraRed.h"
 
 #include "SystemConfig.h"
 #include "RawSensorData.h"
@@ -87,6 +89,8 @@ namespace ttb
 		string cliffEventsTopic;
 		string cameraImageRawTopic;
 		string robotOnOffTopic;
+		string mobileBaseSensorStateTopic;
+		string dockInfrRedTopic;
 
 		ros::Subscriber odometrySub;
 		ros::Subscriber laserScanSub;
@@ -99,6 +103,8 @@ namespace ttb
 		ros::Subscriber cliffEventsSub;
 		ros::Subscriber cameraImageRawSub;
 		ros::Subscriber robotOnOffSub;
+		ros::Subscriber mobileBaseSensorStateSub;
+		ros::Subscriber dockInfrRedSub;
 
 		void onOdometryData(nav_msgs::OdometryConstPtr odometryData);
 		void onLaserScanData(sensor_msgs::LaserScanPtr laserScanData);
@@ -111,6 +117,8 @@ namespace ttb
 		void onCliffEventsData(kobuki_msgs::CliffEventPtr clifEventData);
 		void onCameraImageRawData(sensor_msgs::ImagePtr cameraImageRawData);
 		void onRobotOnOff(rqt_robot_control::RobotCommandPtr robotOnOffData);
+		void onMobileBaseSensorStateData(kobuki_msgs::SensorStatePtr mobileBaseSensorStateData);
+		void onDockInfrRedData(kobuki_msgs::DockInfraRedPtr dockInfrRedData);
 
 	protected:
 

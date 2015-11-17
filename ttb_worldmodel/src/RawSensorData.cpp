@@ -18,7 +18,7 @@ namespace ttb
 	RawSensorData::RawSensorData(TTBWorldModel* wm, int ringBufferLength) :
 			ownPositionMotion(ringBufferLength), ownVelocityMotion(ringBufferLength), ownLaserScans(ringBufferLength), ownBumperEvents(ringBufferLength),
 			ownBumperSensors(ringBufferLength), ownImuData(ringBufferLength), ownCameraPcl(ringBufferLength), ownCliffEvent(ringBufferLength),
-			ownCameraImageRaw(ringBufferLength), ownRobotOnOff(ringBufferLength)
+			ownCameraImageRaw(ringBufferLength), ownRobotOnOff(ringBufferLength), ownMobileBaseSensorState(ringBufferLength), ownDockInfrRed(ringBufferLength)
 	{
 		this->wm = wm;
 		ownID = supplementary::SystemConfig::getOwnRobotID();
@@ -114,6 +114,20 @@ namespace ttb
 		shared_ptr<InformationElement<rqt_robot_control::RobotCommand>> ownRobotOnOffInfo = make_shared<InformationElement<rqt_robot_control::RobotCommand>>(robotOnOffDataPtr, time);
 		ownRobotOnOff.add(ownRobotOnOffInfo);
 	}
+	void RawSensorData::processMobileBaseSensorState(kobuki_msgs::SensorStatePtr mobileBaseSensorStateData) {
+		InfoTime time = wm->getTime();
+
+		shared_ptr<kobuki_msgs::SensorState> mobBaseSensStateDataPtr = shared_ptr<kobuki_msgs::SensorState>(mobileBaseSensorStateData.get(), [mobileBaseSensorStateData](kobuki_msgs::SensorState*) mutable {mobileBaseSensorStateData.reset();});
+		shared_ptr<InformationElement<kobuki_msgs::SensorState>> ownMobBaseSensorStateInfo = make_shared<InformationElement<kobuki_msgs::SensorState>>(mobBaseSensStateDataPtr, time);
+		ownMobileBaseSensorState.add(ownMobBaseSensorStateInfo);
+	}
+	void RawSensorData::processDockInfrRed(kobuki_msgs::DockInfraRedPtr dockInfrRedData) {
+		InfoTime time = wm->getTime();
+
+		shared_ptr<kobuki_msgs::DockInfraRed> dockInfrRedPtr = shared_ptr<kobuki_msgs::DockInfraRed>(dockInfrRedData.get(), [dockInfrRedData](kobuki_msgs::DockInfraRed*) mutable {dockInfrRedData.reset();});
+		shared_ptr<InformationElement<kobuki_msgs::DockInfraRed>> ownDockInfrRedInfo = make_shared<InformationElement<kobuki_msgs::DockInfraRed>>(dockInfrRedPtr, time);
+		ownDockInfrRed.add(ownDockInfrRedInfo);
+	}
 
 	shared_ptr<geometry::CNPosition> RawSensorData::getOwnPosition(int index)
 	{
@@ -126,7 +140,6 @@ namespace ttb
 
 		return x->getInformation();
 	}
-
 	shared_ptr<geometry::CNVelocity2D> RawSensorData::getOwnVelocityMotion(int index)
 	{
 		auto x = ownVelocityMotion.getLast(index);
@@ -138,7 +151,6 @@ namespace ttb
 
 		return x->getInformation();
 	}
-
 	shared_ptr<sensor_msgs::LaserScan> RawSensorData::getOwnLaserScans(int index)
 	{
 		auto x = ownLaserScans.getLast(index);
@@ -150,7 +162,6 @@ namespace ttb
 
 		return x->getInformation();
 	}
-
 	shared_ptr<kobuki_msgs::BumperEvent> RawSensorData::getOwnBumperEvents(int index)
 	{
 		auto x = ownBumperEvents.getLast(index);
@@ -162,7 +173,6 @@ namespace ttb
 
 		return x->getInformation();
 	}
-
 	shared_ptr<sensor_msgs::PointCloud2> RawSensorData::getOwnBumperSensors(int index)
 	{
 		auto x = ownBumperSensors.getLast(index);
@@ -174,7 +184,6 @@ namespace ttb
 
 		return x->getInformation();
 	}
-
 	shared_ptr<sensor_msgs::PointCloud2> RawSensorData::getOwnCameraPcl(int index)
 	{
 		auto x = ownCameraPcl.getLast(index);
@@ -186,7 +195,6 @@ namespace ttb
 
 		return x->getInformation();
 	}
-
 	shared_ptr<sensor_msgs::Imu> RawSensorData::getOwnImuData(int index)
 	{
 		auto x = ownImuData.getLast(index);
@@ -198,7 +206,6 @@ namespace ttb
 
 		return x->getInformation();
 	}
-
 	shared_ptr<kobuki_msgs::CliffEvent> RawSensorData::getOwnCliffEvent(int index)
 	{
 		auto x = ownCliffEvent.getLast(index);
@@ -210,7 +217,6 @@ namespace ttb
 
 		return x->getInformation();
 	}
-
 	shared_ptr<sensor_msgs::Image> RawSensorData::getOwnCameraImageRaw(int index)
 	{
 		auto x = ownCameraImageRaw.getLast(index);
@@ -222,7 +228,26 @@ namespace ttb
 
 		return x->getInformation();
 	}
+	shared_ptr<kobuki_msgs::SensorState> RawSensorData::getOwnMobileBaseSensorState(int index) {
+		auto x = ownMobileBaseSensorState.getLast(index);
 
+		if( x == nullptr || wm->getTime() - x->timeStamp > maxInformationAge )
+		{
+			return nullptr;
+		}
+
+		return x->getInformation();
+	}
+	shared_ptr<kobuki_msgs::DockInfraRed> RawSensorData::getOwnDockInfrRed(int index) {
+		auto x = ownDockInfrRed.getLast(index);
+
+		if( x == nullptr || wm->getTime() - x->timeStamp > maxInformationAge )
+		{
+			return nullptr;
+		}
+
+		return x->getInformation();
+	}
 	shared_ptr<rqt_robot_control::RobotCommand> RawSensorData::getOwnRobotOnOff(int index)
 	{
 		auto x = ownRobotOnOff.getLast(index);
