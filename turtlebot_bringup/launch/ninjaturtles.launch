@@ -1,15 +1,19 @@
 <?xml version="1.0"?>
 <launch>
-
   <arg name="laser_scan_topic" value="scan_hokuyo"/>
   <arg name="kinect_scan_topic" value="scan_hokuyo"/>
   <arg name="laser_frame" default="base_link" />
   
   <include file="$(find turtlebot_bringup)/launch/minimal.launch"/>
-
-  <include file="$(find turtlebot_navigation)/launch/gmapping_demo.launch"/>
-
-
+  
+  <include file="$(find turtlebot_bringup)/launch/3dsensor.launch">
+    <arg name="rgb_processing" value="false" />
+    <arg name="depth_registration" value="false" />
+    <arg name="depth_processing" value="false" />
+    <arg name="scan_topic" value="$(arg kinect_scan_topic)" />
+  </include>
+  <include file="$(find turtlebot_navigation)/launch/includes/move_base.launch.xml"/>
+  
   <node name="hokuyo_laser_driver" pkg="urg_node" type="urg_node">
     <param name="frame_id" value="$(arg laser_frame)"/>
     <param name="min_ang" value="-2.2689"/>
@@ -18,5 +22,4 @@
   
     <remap from="scan" to="$(arg laser_scan_topic)" />
   </node>
-
 </launch>

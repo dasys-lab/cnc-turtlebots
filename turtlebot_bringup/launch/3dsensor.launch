@@ -41,7 +41,7 @@
   <arg name="num_worker_threads" default="4" />
 
   <!-- Laserscan topic -->
-  <arg name="scan_topic" default="scan_kinect"/>
+  <arg name="scan_topic" default="scan"/>
 
   <include file="$(find turtlebot_bringup)/launch/includes/3dsensor/$(arg 3d_sensor).launch.xml">
     <arg name="camera"                          value="$(arg camera)"/>
