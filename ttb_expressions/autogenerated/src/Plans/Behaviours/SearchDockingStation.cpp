@@ -23,35 +23,46 @@ namespace alica
     {
         /*PROTECTED REGION ID(run1414681429307) ENABLED START*/ //Add additional options here
 
-			auto odom = wm->rawSensorData.getOwnOdom();
-			auto core = wm->rawSensorData.getOwnMobileBaseSensorState();
-			auto infrRedDock = wm->rawSensorData.getOwnDockInfrRed();
+		auto odom = wm->rawSensorData.getOwnOdom();
+		auto core = wm->rawSensorData.getOwnMobileBaseSensorState();
+		auto infrRedDock = wm->rawSensorData.getOwnDockInfrRed();
 
-			KDL::Rotation rot;
-			tf::quaternionMsgToKDL(odom->pose.pose.orientation, rot);
+		if(dock.isEnabled()) {
+			cout << "dock ist enabled" << endl;
+		} else {
+			cout << "dock ist not enabled" << endl;
+		}
+		if(dock.canRun()) {
+			cout << "dock can run" << endl;
+		} else {
+			cout << "dock cant't run" << endl;
+		}
 
-			double r, p, y;
-			rot.GetRPY(r, p, y);
 
-			ecl::Pose2D<double> pose;
-			pose.x(odom->pose.pose.position.x);
-			pose.y(odom->pose.pose.position.y);
-			pose.heading(y);
+		KDL::Rotation rot;
+		tf::quaternionMsgToKDL(odom->pose.pose.orientation, rot);
 
-			dock.setMinAbsV(0.08);
-			dock.setMinAbsW(0.5);
+		double r, p, y;
+		rot.GetRPY(r, p, y);
 
-			dock.update(infrRedDock->data, core->bumper, core->charger, pose);
+		ecl::Pose2D<double> pose;
+		pose.x(odom->pose.pose.position.x);
+		pose.y(odom->pose.pose.position.y);
+		pose.heading(y);
 
-				geometry_msgs::Twist cmd_vel;
-				cmd_vel.linear.x = dock.getVX();
-				cmd_vel.angular.z = dock.getWZ();
+		dock.setMinAbsV(0.08); // 0.07 works ok
+		dock.setMinAbsW(0.5);
 
-				send(cmd_vel);
 
-	if(dock.isEnabled()) {
-		cout << "dock is enabled" << endl;
-	}
+		dock.update(infrRedDock->data, core->bumper, core->charger, pose);
+
+		geometry_msgs::Twist cmd_vel;
+		cmd_vel.linear.x = dock.getVX();
+		cmd_vel.angular.z = dock.getWZ();
+
+		send(cmd_vel);
+
+
 
         /*PROTECTED REGION END*/
     }
