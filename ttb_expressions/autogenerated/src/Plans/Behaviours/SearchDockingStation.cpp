@@ -27,17 +27,9 @@ namespace alica
 		auto core = wm->rawSensorData.getOwnMobileBaseSensorState();
 		auto infrRedDock = wm->rawSensorData.getOwnDockInfrRed();
 
-		if(dock.isEnabled()) {
-			cout << "dock ist enabled" << endl;
-		} else {
-			cout << "dock ist not enabled" << endl;
+		if((int) core->charger == 6) {
+			this->success = true;
 		}
-		if(dock.canRun()) {
-			cout << "dock can run" << endl;
-		} else {
-			cout << "dock cant't run" << endl;
-		}
-
 
 		KDL::Rotation rot;
 		tf::quaternionMsgToKDL(odom->pose.pose.orientation, rot);
@@ -61,8 +53,6 @@ namespace alica
 		cmd_vel.angular.z = dock.getWZ();
 
 		send(cmd_vel);
-
-
 
         /*PROTECTED REGION END*/
     }
