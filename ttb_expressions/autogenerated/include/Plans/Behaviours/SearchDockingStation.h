@@ -3,6 +3,9 @@
 
 #include "DomainBehaviour.h"
 /*PROTECTED REGION ID(inc1414681429307) ENABLED START*/ //Add additional includes here
+#include <kdl_conversions/kdl_msg.h>
+#include <ecl/geometry/pose2d.hpp>
+#include <kobuki_dock_drive/dock_drive.hpp>
 /*PROTECTED REGION END*/
 namespace alica
 {
@@ -20,6 +23,7 @@ namespace alica
         /*PROTECTED REGION END*/
     private:
         /*PROTECTED REGION ID(prv1414681429307) ENABLED START*/ //Add additional private methods here
+        kobuki::DockDrive dock;
         /*PROTECTED REGION END*/};
 } /* namespace alica */
 

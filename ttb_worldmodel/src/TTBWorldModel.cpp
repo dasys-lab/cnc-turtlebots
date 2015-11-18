@@ -125,7 +125,7 @@ namespace ttb
 		lock_guard<mutex> lock(wmMutex);
 		rawSensorData.processCameraPcl(pclData);
 	}
-	void TTBWorldModel::onOdometryData(nav_msgs::OdometryConstPtr odometryData)
+	void TTBWorldModel::onOdometryData(nav_msgs::OdometryPtr odometryData)
 	{
 //		cout << "WM: Received Odometry Message!" << endl;
 		lock_guard<mutex> lock(wmMutex);

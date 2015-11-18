@@ -34,7 +34,7 @@ namespace ttb
 		RawSensorData(TTBWorldModel* wm, int ringBufferLength);
 		virtual ~RawSensorData();
 
-		void processOdometryData(nav_msgs::OdometryConstPtr odometryData);
+		void processOdometryData(nav_msgs::OdometryPtr odometryData);
 		void processLaserScan(sensor_msgs::LaserScanPtr laserScanData);
 		void processBumperEvents(kobuki_msgs::BumperEventPtr bumperEventsData);
 		void processBumperSensors(sensor_msgs::PointCloud2Ptr bumperSensorsData);
@@ -45,7 +45,6 @@ namespace ttb
 		void processCliffEvent(kobuki_msgs::CliffEventPtr cliffEventData);
 		void processCameraImageRaw(sensor_msgs::ImagePtr cameraImageRawData);
 		void processRobotOnOff(rqt_robot_control::RobotCommandPtr robotOnOffData);
-
 		void processMobileBaseSensorState(kobuki_msgs::SensorStatePtr mobileBaseSensorStateData);
 		void processDockInfrRed(kobuki_msgs::DockInfraRedPtr dockInfrRedData);
 
@@ -61,12 +60,14 @@ namespace ttb
 		shared_ptr<rqt_robot_control::RobotCommand> getOwnRobotOnOff(int index = 0);
 		shared_ptr<kobuki_msgs::SensorState> getOwnMobileBaseSensorState(int index = 0);
 		shared_ptr<kobuki_msgs::DockInfraRed> getOwnDockInfrRed(int index = 0);
+		shared_ptr<nav_msgs::Odometry> getOwnOdom(int index = 0);
 
 	private:
 		int ownID;
 		TTBWorldModel* wm;
 		unsigned long maxInformationAge;
 		RingBuffer<InformationElement<geometry::CNPosition>> ownPositionMotion;
+		RingBuffer<InformationElement<nav_msgs::Odometry>> ownOdom;
 		RingBuffer<InformationElement<geometry::CNVelocity2D>> ownVelocityMotion;
 		RingBuffer<InformationElement<sensor_msgs::LaserScan>> ownLaserScans;
 		RingBuffer<InformationElement<kobuki_msgs::BumperEvent>> ownBumperEvents;

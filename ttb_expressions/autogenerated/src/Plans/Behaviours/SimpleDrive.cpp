@@ -25,11 +25,14 @@ namespace alica
 
         move.linear.x = 0.3;
 
-        if ((wm->rawSensorData.getOwnBumperEvents() != nullptr) && wm->rawSensorData.getOwnBumperEvents()->state == kobuki_msgs::BumperEvent::PRESSED)
+        if ((wm->rawSensorData.getOwnBumperEvents() != nullptr)
+                && wm->rawSensorData.getOwnBumperEvents()->state == kobuki_msgs::BumperEvent::PRESSED)
         {
             this->success = true;
-        } else {
-			send(move);
+        }
+        else
+        {
+            send(move);
         }
 
         /*PROTECTED REGION END*/

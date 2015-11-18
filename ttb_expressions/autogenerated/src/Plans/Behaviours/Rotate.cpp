@@ -23,7 +23,7 @@ namespace alica
         /*PROTECTED REGION ID(run1447068205139) ENABLED START*/ //Add additional options here
         geometry_msgs::Twist rotate;
 
-        rotate.angular.z = 3.141/2;
+        rotate.angular.z = 3.141 / 2;
 
         if (counter <= 30)
         {

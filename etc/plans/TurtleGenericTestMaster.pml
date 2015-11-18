@@ -7,7 +7,7 @@
     <outTransitions>#1447068026011</outTransitions>
   </states>
   <states id="1414681069778" name="DriveForward" comment="">
-    <plans xsi:type="alica:BehaviourConfiguration">Behaviours/SimpleDrive.beh#1432735473356</plans>
+    <plans xsi:type="alica:BehaviourConfiguration">Behaviours/SearchDockingStation.beh#1414681446065</plans>
     <inTransitions>#1447068020601</inTransitions>
     <inTransitions>#1447068026011</inTransitions>
     <outTransitions>#1414681503803</outTransitions>

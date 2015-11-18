@@ -106,7 +106,7 @@ namespace ttb
 		ros::Subscriber mobileBaseSensorStateSub;
 		ros::Subscriber dockInfrRedSub;
 
-		void onOdometryData(nav_msgs::OdometryConstPtr odometryData);
+		void onOdometryData(nav_msgs::OdometryPtr odometryData);
 		void onLaserScanData(sensor_msgs::LaserScanPtr laserScanData);
 		void onBumperSensorData(sensor_msgs::PointCloud2Ptr bumperSensorData);
 		void onBumperEventData(kobuki_msgs::BumperEventPtr bumperEventData);

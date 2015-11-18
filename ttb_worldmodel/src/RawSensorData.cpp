@@ -18,7 +18,8 @@ namespace ttb
 	RawSensorData::RawSensorData(TTBWorldModel* wm, int ringBufferLength) :
 			ownPositionMotion(ringBufferLength), ownVelocityMotion(ringBufferLength), ownLaserScans(ringBufferLength), ownBumperEvents(ringBufferLength),
 			ownBumperSensors(ringBufferLength), ownImuData(ringBufferLength), ownCameraPcl(ringBufferLength), ownCliffEvent(ringBufferLength),
-			ownCameraImageRaw(ringBufferLength), ownRobotOnOff(ringBufferLength), ownMobileBaseSensorState(ringBufferLength), ownDockInfrRed(ringBufferLength)
+			ownCameraImageRaw(ringBufferLength), ownRobotOnOff(ringBufferLength), ownMobileBaseSensorState(ringBufferLength), ownDockInfrRed(ringBufferLength),
+			ownOdom(ringBufferLength)
 	{
 		this->wm = wm;
 		ownID = supplementary::SystemConfig::getOwnRobotID();
@@ -75,7 +76,7 @@ namespace ttb
 		ownLaserScans.add(ownLaserScanInfo);
 	}
 
-	void RawSensorData::processOdometryData(nav_msgs::OdometryConstPtr odometryData)
+	void RawSensorData::processOdometryData(nav_msgs::OdometryPtr odometryData)
 	{
 		InfoTime time = wm->getTime();
 
@@ -94,6 +95,11 @@ namespace ttb
 		shared_ptr<InformationElement<geometry::CNVelocity2D>> ownVelocityMotionInfo = make_shared<InformationElement<geometry::CNVelocity2D>>(velocity, time);
 		ownVelocityMotionInfo->certainty = 1.0;
 		ownVelocityMotion.add(ownVelocityMotionInfo);
+
+		//Odom
+		shared_ptr<nav_msgs::Odometry> odomDataPtr = shared_ptr<nav_msgs::Odometry>(odometryData.get(), [odometryData](nav_msgs::Odometry*) mutable {odometryData.reset();});
+		shared_ptr<InformationElement<nav_msgs::Odometry>> ownOdomScanInfo = make_shared<InformationElement<nav_msgs::Odometry>>(odomDataPtr, time);
+		ownOdom.add(ownOdomScanInfo);
 
 	}
 
@@ -251,6 +257,17 @@ namespace ttb
 	shared_ptr<rqt_robot_control::RobotCommand> RawSensorData::getOwnRobotOnOff(int index)
 	{
 		auto x = ownRobotOnOff.getLast(index);
+
+		if( x == nullptr || wm->getTime() - x->timeStamp > maxInformationAge )
+		{
+			return nullptr;
+		}
+
+		return x->getInformation();
+	}
+	shared_ptr<nav_msgs::Odometry> RawSensorData::getOwnOdom(int index)
+	{
+		auto x = ownOdom.getLast(index);
 
 		if( x == nullptr || wm->getTime() - x->timeStamp > maxInformationAge )
 		{

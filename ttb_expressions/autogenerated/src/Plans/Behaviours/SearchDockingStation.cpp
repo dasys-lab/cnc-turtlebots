@@ -2,7 +2,6 @@ using namespace std;
 #include "Plans/Behaviours/SearchDockingStation.h"
 
 /*PROTECTED REGION ID(inccpp1414681429307) ENABLED START*/ //Add additional includes here
-#include <kdl_conversions/kdl_msg.h>
 
 /*PROTECTED REGION END*/
 namespace alica
@@ -23,13 +22,29 @@ namespace alica
     void SearchDockingStation::run(void* msg)
     {
         /*PROTECTED REGION ID(run1414681429307) ENABLED START*/ //Add additional options here
-    	shared_ptr<geometry::CNPosition> ownPos = wm->rawSensorData.getOwnPosition();
-    	shared_ptr<geometry::CNVelocity2D> pwnVel = wm->rawSensorData.getOwnVelocityMotion();
+        auto odom = wm->rawSensorData.getOwnOdom();
+        auto core = wm->rawSensorData.getOwnMobileBaseSensorState();
+        auto infrRedDock = wm->rawSensorData.getOwnDockInfrRed();
 
-    	nav_msgs::Odometry odom;
-//    	odom.pose.pose.position.x = ownPos
+        KDL::Rotation rot;
+        tf::quaternionMsgToKDL(odom->pose.pose.orientation, rot);
 
-    	KDL::Rotation rot;
+        double r, p, y;
+        rot.GetRPY(r, p, y);
+
+        ecl::Pose2D<double> pose;
+        pose.x(odom->pose.pose.position.x);
+        pose.y(odom->pose.pose.position.y);
+        pose.heading(y);
+
+        dock.update(infrRedDock->data, core->bumper, core->charger, pose);
+
+        geometry_msgs::Twist cmd_vel;
+        cmd_vel.linear.x = dock.getVX();
+        cmd_vel.angular.z = dock.getWZ();
+
+        send(cmd_vel);
+
         /*PROTECTED REGION END*/
     }
     void SearchDockingStation::initialiseParameters()
