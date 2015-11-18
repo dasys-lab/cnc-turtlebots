@@ -22,7 +22,6 @@ namespace alica
     void SearchDockingStation::run(void* msg)
     {
         /*PROTECTED REGION ID(run1414681429307) ENABLED START*/ //Add additional options here
-    	if(dock.isEnabled()) {
 
 			auto odom = wm->rawSensorData.getOwnOdom();
 			auto core = wm->rawSensorData.getOwnMobileBaseSensorState();
@@ -39,19 +38,20 @@ namespace alica
 			pose.y(odom->pose.pose.position.y);
 			pose.heading(y);
 
-			dock.setMinAbsV(0.07);
-			dock.setMinAbsW(0.07);
+			dock.setMinAbsV(0.08);
+			dock.setMinAbsW(0.5);
 
 			dock.update(infrRedDock->data, core->bumper, core->charger, pose);
 
-			if(dock.canRun()) {
 				geometry_msgs::Twist cmd_vel;
 				cmd_vel.linear.x = dock.getVX();
 				cmd_vel.angular.z = dock.getWZ();
 
 				send(cmd_vel);
-			}
-    	}
+
+	if(dock.isEnabled()) {
+		cout << "dock is enabled" << endl;
+	}
 
         /*PROTECTED REGION END*/
     }
