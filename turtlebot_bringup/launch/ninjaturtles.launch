@@ -17,4 +17,7 @@
   
     <remap from="scan" to="scan_hokuyo" />
   </node>
+
+  <node name="soundplay_node" pkg="sound_play" type="soundplay_node.py"/>
+
 </launch>
