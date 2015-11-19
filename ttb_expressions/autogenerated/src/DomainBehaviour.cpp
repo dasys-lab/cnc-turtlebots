@@ -16,7 +16,7 @@ namespace alica
 		// ros communication for ttb behaviours
 		ros::NodeHandle n;
 		velocityTopic = (*sc)["Drive"]->get<string>("Topics.VelocityTopic", NULL);
-		soundRequesTopic = (*sc)["Drive"]->get<string>("Topics.SoundRequestTopic", NULL);
+		soundRequesTopic = (*sc)["TTBWorldModel"]->get<string>("Sensors.SoundRequestTopic", NULL);
 
 		mobile_baseCommandVelocityPub = n.advertise<geometry_msgs::Twist>(velocityTopic, 10);
 		soundRequestPub = n.advertise<sound_play::SoundRequest>(soundRequesTopic, 10);
