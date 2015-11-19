@@ -64,4 +64,14 @@
     <key href="Behaviours/Rotate.beh#1447068225787"/>
     <value/>
   </extensions>
+  <extensions>
+    <key href="TurtleGenericTestMaster.pml#1447919813367"/>
+    <value xPos="195" yPos="427" collapsed="false"/>
+  </extensions>
+  <extensions>
+    <key href="TurtleGenericTestMaster.pml#1447919928532"/>
+    <value>
+      <bendpoints xPos="208" yPos="413"/>
+    </value>
+  </extensions>
 </uiextensionmodel:PmlUiExtensionMap>

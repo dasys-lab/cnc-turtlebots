@@ -2,7 +2,6 @@ using namespace std;
 #include "Plans/Behaviours/SearchDockingStation.h"
 
 /*PROTECTED REGION ID(inccpp1414681429307) ENABLED START*/ //Add additional includes here
-
 /*PROTECTED REGION END*/
 namespace alica
 {
@@ -22,37 +21,36 @@ namespace alica
     void SearchDockingStation::run(void* msg)
     {
         /*PROTECTED REGION ID(run1414681429307) ENABLED START*/ //Add additional options here
+        auto odom = wm->rawSensorData.getOwnOdom();
+        auto core = wm->rawSensorData.getOwnMobileBaseSensorState();
+        auto infrRedDock = wm->rawSensorData.getOwnDockInfrRed();
 
-		auto odom = wm->rawSensorData.getOwnOdom();
-		auto core = wm->rawSensorData.getOwnMobileBaseSensorState();
-		auto infrRedDock = wm->rawSensorData.getOwnDockInfrRed();
+        if ((int)core->charger == 6)
+        {
+            this->success = true;
+        }
 
-		if((int) core->charger == 6) {
-			this->success = true;
-		}
+        KDL::Rotation rot;
+        tf::quaternionMsgToKDL(odom->pose.pose.orientation, rot);
 
-		KDL::Rotation rot;
-		tf::quaternionMsgToKDL(odom->pose.pose.orientation, rot);
+        double r, p, y;
+        rot.GetRPY(r, p, y);
 
-		double r, p, y;
-		rot.GetRPY(r, p, y);
+        ecl::Pose2D<double> pose;
+        pose.x(odom->pose.pose.position.x);
+        pose.y(odom->pose.pose.position.y);
+        pose.heading(y);
 
-		ecl::Pose2D<double> pose;
-		pose.x(odom->pose.pose.position.x);
-		pose.y(odom->pose.pose.position.y);
-		pose.heading(y);
+        dock.setMinAbsV(0.08); // 0.07 works ok
+        dock.setMinAbsW(0.5);
 
-		dock.setMinAbsV(0.08); // 0.07 works ok
-		dock.setMinAbsW(0.5);
+        dock.update(infrRedDock->data, core->bumper, core->charger, pose);
 
+        geometry_msgs::Twist cmd_vel;
+        cmd_vel.linear.x = dock.getVX();
+        cmd_vel.angular.z = dock.getWZ();
 
-		dock.update(infrRedDock->data, core->bumper, core->charger, pose);
-
-		geometry_msgs::Twist cmd_vel;
-		cmd_vel.linear.x = dock.getVX();
-		cmd_vel.angular.z = dock.getWZ();
-
-		send(cmd_vel);
+        send(cmd_vel);
 
         /*PROTECTED REGION END*/
     }

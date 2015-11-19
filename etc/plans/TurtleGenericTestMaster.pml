@@ -5,9 +5,10 @@
     <inTransitions>#1414681503803</inTransitions>
     <inTransitions>#1447068022712</inTransitions>
     <outTransitions>#1447068026011</outTransitions>
+    <outTransitions>#1447919928532</outTransitions>
   </states>
   <states id="1414681069778" name="DriveForward" comment="">
-    <plans xsi:type="alica:BehaviourConfiguration">Behaviours/SearchDockingStation.beh#1414681446065</plans>
+    <plans xsi:type="alica:BehaviourConfiguration">Behaviours/SimpleDrive.beh#1432735473356</plans>
     <inTransitions>#1447068020601</inTransitions>
     <inTransitions>#1447068026011</inTransitions>
     <outTransitions>#1414681503803</outTransitions>
@@ -18,6 +19,10 @@
     <inTransitions>#1447068019298</inTransitions>
     <outTransitions>#1447068020601</outTransitions>
     <outTransitions>#1447068022712</outTransitions>
+  </states>
+  <states id="1447919813367" name="SearchDockingStation" comment="">
+    <plans xsi:type="alica:BehaviourConfiguration">Behaviours/SearchDockingStation.beh#1414681446065</plans>
+    <inTransitions>#1447919928532</inTransitions>
   </states>
   <transitions id="1414681503803" name="MISSING_NAME" comment="on robot stop" msg="">
     <preCondition id="1414681505635" name="DoSomething2Stop" comment="" conditionString="" pluginName="DefaultPlugin" enabled="true"/>
@@ -43,6 +48,11 @@
     <preCondition id="1447068027882" name="MISSING_NAME" comment="" conditionString="" pluginName="DefaultPlugin" enabled="true"/>
     <inState>#1414681057677</inState>
     <outState>#1414681069778</outState>
+  </transitions>
+  <transitions id="1447919928532" name="MISSING_NAME" comment="akku too low " msg="">
+    <preCondition id="1447919930987" name="MISSING_NAME" comment="" conditionString="" pluginName="DefaultPlugin" enabled="true"/>
+    <inState>#1414681057677</inState>
+    <outState>#1447919813367</outState>
   </transitions>
   <entryPoints id="1414681057678" name="MISSING_NAME" comment="" successRequired="false" minCardinality="0" maxCardinality="2147483647">
     <task>../Misc/taskrepository.tsk#1414681164704</task>
