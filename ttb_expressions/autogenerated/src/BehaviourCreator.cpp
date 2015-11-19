@@ -11,6 +11,8 @@ using namespace std;
 
 #include  "Plans/Behaviours/Stop.h"
 
+#include  "Plans/Behaviours/ChargingDefault.h"
+
 namespace alica
 {
 
@@ -45,6 +47,11 @@ namespace alica
             case 1414681278745:
 
                 return make_shared<Stop>();
+                break;
+
+            case 1447958132701:
+
+                return make_shared<ChargingDefault>();
                 break;
 
             default:

@@ -53,7 +53,7 @@
   <extensions>
     <key href="TurtleGenericTestMaster.pml#1447068022712"/>
     <value>
-      <bendpoints xPos="406" yPos="368"/>
+      <bendpoints xPos="501" yPos="301"/>
     </value>
   </extensions>
   <extensions>
@@ -66,12 +66,32 @@
   </extensions>
   <extensions>
     <key href="TurtleGenericTestMaster.pml#1447919813367"/>
-    <value xPos="195" yPos="427" collapsed="false"/>
+    <value xPos="296" yPos="412" width="258" height="86" collapsed="false"/>
   </extensions>
   <extensions>
     <key href="TurtleGenericTestMaster.pml#1447919928532"/>
     <value>
-      <bendpoints xPos="208" yPos="413"/>
+      <bendpoints xPos="356" yPos="400"/>
     </value>
+  </extensions>
+  <extensions>
+    <key href="TurtleGenericTestMaster.pml#1447958080453"/>
+    <value xPos="23" yPos="369" width="219" height="86" collapsed="false"/>
+  </extensions>
+  <extensions>
+    <key href="Behaviours/ChargingDefault.beh#1447958132701"/>
+    <value/>
+  </extensions>
+  <extensions>
+    <key href="TurtleGenericTestMaster.pml#1447958158825"/>
+    <value/>
+  </extensions>
+  <extensions>
+    <key href="TurtleGenericTestMaster.pml#1447958162755"/>
+    <value/>
+  </extensions>
+  <extensions>
+    <key href="TurtleGenericTestMaster.pml#1447958171762"/>
+    <value/>
   </extensions>
 </uiextensionmodel:PmlUiExtensionMap>

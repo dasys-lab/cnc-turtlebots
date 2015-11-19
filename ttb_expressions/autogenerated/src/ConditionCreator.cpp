@@ -54,6 +54,24 @@ namespace alica
 
                 break;
 
+            case 1447958162066:
+
+                return make_shared<TransitionCondition1447958162066>();
+
+                break;
+
+            case 1447958165046:
+
+                return make_shared<TransitionCondition1447958165046>();
+
+                break;
+
+            case 1447958174005:
+
+                return make_shared<TransitionCondition1447958174005>();
+
+                break;
+
             default:
                 cerr << "ConditionCreator: Unknown condition id requested: " << conditionConfId << endl;
                 throw new exception();
