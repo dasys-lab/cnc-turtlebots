@@ -24,8 +24,20 @@ namespace alica
 
     	auto core = wm->rawSensorData.getOwnMobileBaseSensorState();
     	if((int)core->charger == 2 || (int)core->charger == 18) {
+    		sound_play::SoundRequest msg;
+    		msg.arg = "I am full, please give me a command my master!";
+    		msg.command = sound_play::SoundRequest::PLAY_ONCE;
+    		msg.sound = sound_play::SoundRequest::SAY;
+    		send(msg);
+
     		this->success = true;
     	} else{
+    		sound_play::SoundRequest msg;
+    		msg.arg = "I am charging!";
+    		msg.command = sound_play::SoundRequest::PLAY_ONCE;
+    		msg.sound = sound_play::SoundRequest::SAY;
+    		send(msg);
+
     		geometry_msgs::Twist cmd_vel;
 			cmd_vel.linear.x = 0;
 			cmd_vel.angular.z = 0;

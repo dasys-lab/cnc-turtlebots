@@ -3,6 +3,7 @@
 
 #include "engine/BasicBehaviour.h"
 #include "geometry_msgs/Twist.h"
+#include "sound_play/SoundRequest.h"
 #include "TTBWorldModel.h"
 
 #include "ros/ros.h"
@@ -19,7 +20,10 @@ namespace alica
 	public:
 		DomainBehaviour(string name);
 		virtual ~DomainBehaviour();
+
 		void send(geometry_msgs::Twist& tw);
+		void send(sound_play::SoundRequest& sr);
+
 		ttb::TTBWorldModel* wm;
 
 	protected:
@@ -29,8 +33,10 @@ namespace alica
 		int ownID;
 
 		// ros communication stuff for ttb behaviours
+		string soundRequesTopic;
 		string velocityTopic;
 		ros::Publisher mobile_baseCommandVelocityPub;
+		ros::Publisher soundRequestPub;
 	};
 } /* namespace alica */
 
