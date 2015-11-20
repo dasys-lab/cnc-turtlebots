@@ -60,6 +60,11 @@ namespace alica
     void SearchDockingStation::initialiseParameters()
     {
         /*PROTECTED REGION ID(initialiseParameters1414681429307) ENABLED START*/ //Add additional options here
+		sound_play::SoundRequest msg;
+		msg.arg = "I am looking for the dockingstation, master!";
+		msg.command = sound_play::SoundRequest::PLAY_ONCE;
+		msg.sound = sound_play::SoundRequest::SAY;
+		send(msg);
         /*PROTECTED REGION END*/
     }
 /*PROTECTED REGION ID(methods1414681429307) ENABLED START*/ //Add additional methods here
