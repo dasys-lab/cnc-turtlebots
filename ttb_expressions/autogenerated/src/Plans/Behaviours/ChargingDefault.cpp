@@ -36,12 +36,13 @@ namespace alica
     void ChargingDefault::initialiseParameters()
     {
         /*PROTECTED REGION ID(initialiseParameters1447958115909) ENABLED START*/ //Add additional options here
-
-		sound_play::SoundRequest msg;
-		msg.arg = (*sc)["SpeechAct"]->get<string>("Charging.ChargingText", NULL);
-		msg.command = sound_play::SoundRequest::PLAY_ONCE;
-		msg.sound = sound_play::SoundRequest::SAY;
-		send(msg);
+    	sound_play::SoundClient sound_client;
+    	sound_client.say((*sc)["SpeechAct"]->get<string>("Charging.ChargingText", NULL));
+//		sound_play::SoundRequest msg;
+//		msg.arg = (*sc)["SpeechAct"]->get<string>("Charging.ChargingText", NULL);
+//		msg.command = sound_play::SoundRequest::PLAY_ONCE;
+//		msg.sound = sound_play::SoundRequest::SAY;
+//		send(msg);
 
         /*PROTECTED REGION END*/
     }

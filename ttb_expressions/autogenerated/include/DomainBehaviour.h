@@ -4,6 +4,7 @@
 #include "engine/BasicBehaviour.h"
 #include "geometry_msgs/Twist.h"
 #include "sound_play/SoundRequest.h"
+#include "sound_play/sound_play.h"
 #include "TTBWorldModel.h"
 
 #include "ros/ros.h"

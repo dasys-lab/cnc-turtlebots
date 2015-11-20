@@ -304,8 +304,7 @@ Configuration *proxyconf = (*sc)["ttb_udp_proxy"];
 	listenForPacket();
 	
 	
-	 
-    ros::init(argc, argv, "udpProxy");
+ros::init(argc, argv, "ttb_udp_proxy"); //   ros::init(argc, argv, "udpProxy");
 
     ros::NodeHandle n;
     ownRosName = ros::this_node::getName();//n.getNamespace();//n.resolveName("ddsProxy",true);
