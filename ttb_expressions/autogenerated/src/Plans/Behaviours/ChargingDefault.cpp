@@ -38,7 +38,7 @@ namespace alica
         /*PROTECTED REGION ID(initialiseParameters1447958115909) ENABLED START*/ //Add additional options here
 
 		sound_play::SoundRequest msg;
-		msg.arg = "I am now charging, master!";
+		msg.arg = (*sc)["SpeechAct"]->get<string>("Charging.ChargingText", NULL);
 		msg.command = sound_play::SoundRequest::PLAY_ONCE;
 		msg.sound = sound_play::SoundRequest::SAY;
 		send(msg);
