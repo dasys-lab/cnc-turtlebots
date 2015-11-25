@@ -1,0 +1,5 @@
+roslaunch turtlebot_bringup ninjaturtles.launch // launches konect, hokuyo and base 
+
+roslaunch turtlebot_bringup gmapping.launch // launches gmapping 
+roslaunch turtlebot_rviz_launchers view_navigation.launch // launches rviz with configuration for gmapping
+roslaunch turtlebot_teleop keyboard_teleop.launch // launches keyboard controll of robot
