@@ -27,10 +27,10 @@
      Note: REP needs to be updated with the information below 
      (currently in development and awaiting feedback)
    -->
-	<property name="cam_px" value="0.15" />
+	<property name="cam_px" value="0.08" />
 <!--	<property name="cam_py" value="-0.0125" /> Y varies for different configurations. get sets in sensors_urdf -->
-	<property name="cam_pz" value="0.09" />
-	<property name="cam_or" value="${-M_PI/6}" />
-	<property name="cam_op" value="${M_PI}" />
-	<property name="cam_oy" value="${M_PI/2}" />
+	<property name="cam_pz" value="0.35" />
+	<property name="cam_or" value="${M_PI}" />
+	<property name="cam_op" value="${M_PI/8}" />
+	<property name="cam_oy" value="0" />
 </robot>
