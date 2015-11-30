@@ -1,4 +1,4 @@
-image: /tmp/my_map.pgm
+image: /home/cn/ttbws/src/cnc-turtlebots/etc 
 resolution: 0.050000
 origin: [-47.400000, -13.800000, 0.000000]
 negate: 0
