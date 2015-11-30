@@ -52,8 +52,8 @@
             <horizontal>
               <samples>720</samples>
               <resolution>1</resolution>
-              <min_angle>-1.570796</min_angle>
-              <max_angle>1.570796</max_angle>
+              <min_angle>-2.2689</min_angle>
+              <max_angle>2.2689</max_angle>
             </horizontal>
           </scan>
           <range>
@@ -68,7 +68,7 @@
           </noise>
         </ray>
         <plugin name="hokuyo_node" filename="libgazebo_ros_laser.so">
-          <topicName>/scan</topicName>
+          <topicName>/scan_hokuyo</topicName>
           <frameName>base_laser_link</frameName>
         </plugin>
       </sensor>

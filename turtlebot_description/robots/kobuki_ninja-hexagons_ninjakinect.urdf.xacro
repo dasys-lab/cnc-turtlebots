@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<!--
+	- Base		: kobuki
+	- Stacks	: ninja-hexagons
+	- 3d Sensor	: ninjakinect
+-->
+<robot name="turtlebot" xmlns:xacro="http://ros.org/wiki/xacro">
+
+  <xacro:include filename="$(find turtlebot_description)/urdf/turtlebot_library.urdf.xacro" />
+
+  <kobuki/>
+  <stack_ninja-hexagons parent="base_link"/>
+  <sensor_ninjakinect  parent="base_link"/>
+  <sensor_hokuyo parent="base_link"/>
+
+</robot>
