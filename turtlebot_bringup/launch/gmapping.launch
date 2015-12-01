@@ -48,6 +48,8 @@
     <!--remap from="scan_hokuyo" to="$(arg scan_topic)"/-->
   </node>
 
-   <include file="$(find turtlebot_navigation)/launch/includes/move_base.launch.xml"/>
+   <include file="$(find turtlebot_navigation)/launch/includes/move_base.launch.xml">
+	<arg name="laser_topic" value="scan_hokuyo"/>
+   </include>
 
 </launch>
