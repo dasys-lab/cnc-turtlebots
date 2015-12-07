@@ -23,13 +23,34 @@ namespace ttb
 	{
 		this->wm = wm;
 		ownID = supplementary::SystemConfig::getOwnRobotID();
-
+		this->ringBufferLength = ringBufferLength;
 		maxInformationAge = 1000000000;
 	}
 
 	RawSensorData::~RawSensorData()
 	{
 
+	}
+	void RawSensorData::processAlvarData(ar_track_alvar_msgs::AlvarMarkersPtr alvarData) {
+
+		InfoTime time = wm->getTime();
+
+		tf::TransformListener listener;
+		for(auto marker : alvarData->markers) {
+			geometry_msgs::PoseStamped pose_out;
+			listener.transformPose(marker.header.frame_id, marker.pose, pose_out);
+
+			shared_ptr<geometry_msgs::PoseStamped> poseStampedDataPtr = make_shared<geometry_msgs::PoseStamped>(pose_out);
+			shared_ptr<InformationElement<geometry_msgs::PoseStamped>> ownposeStampedInfo = make_shared<InformationElement<geometry_msgs::PoseStamped>>(poseStampedDataPtr, time);
+			auto markerMapPair = ownAlvarMap.find(marker.id);
+
+//
+//			if(markerMapPair != ownAlvarMap.end()) {
+//				ownAlvarMap[marker.id].add(ownposeStampedInfo);
+//			} else {
+//			}
+//			ownAlvarMap.insert(std::pair<unsigned int, RingBuffer<InformationElement<geometry_msgs::PoseStamped>>>(marker.id, RingBuffer<InformationElement<geometry_msgs::PoseStamped>>(ringBufferLength)));
+		}
 	}
 
 	void RawSensorData::processCommandVel(geometry_msgs::TwistPtr commandVelData) {

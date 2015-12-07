@@ -42,6 +42,7 @@ namespace ttb
 		robotOnOffTopic = (*sc)["TTBWorldModel"]->get<string>("Sensors.RobotOnOff", NULL);
 		mobileBaseSensorStateTopic = (*sc)["TTBWorldModel"]->get<string>("Sensors.SensorStateTopic", NULL);
 		dockInfrRedTopic = (*sc)["TTBWorldModel"]->get<string>("Sensors.DockInfrRedTopic", NULL);
+		alvarTopic = (*sc)["TTBWorldModel"]->get<string>("Sensors.AlvarTopic", NULL);
 
 		// SET ROS STUFF
 		odometrySub = n.subscribe(odometryTopic, 10, &TTBWorldModel::onOdometryData,(TTBWorldModel*)this);
@@ -57,6 +58,7 @@ namespace ttb
 		robotOnOffSub = n.subscribe(robotOnOffTopic, 10, &TTBWorldModel::onRobotOnOff, (TTBWorldModel*)this);
 		mobileBaseSensorStateSub = n.subscribe(mobileBaseSensorStateTopic, 10, &TTBWorldModel::onMobileBaseSensorStateData, (TTBWorldModel*)this);
 		dockInfrRedSub = n.subscribe(dockInfrRedTopic, 10, &TTBWorldModel::onDockInfrRedData, (TTBWorldModel*)this);
+		alvarSub = n.subscribe(alvarTopic, 10, &TTBWorldModel::onAlvarData, (TTBWorldModel*)this);
 
 		spinner = new ros::AsyncSpinner(4);
 		spinner->start();
@@ -91,6 +93,10 @@ namespace ttb
 		{
 			return 0;
 		}
+	}
+	void TTBWorldModel::onAlvarData(ar_track_alvar_msgs::AlvarMarkersPtr alvarData) {
+		lock_guard<mutex> lock(wmMutex);
+		rawSensorData.processAlvarData(alvarData);
 	}
 	void TTBWorldModel::onMobileBaseSensorStateData(kobuki_msgs::SensorStatePtr mobileBaseSensorStateData) {
 		lock_guard<mutex> lock(wmMutex);

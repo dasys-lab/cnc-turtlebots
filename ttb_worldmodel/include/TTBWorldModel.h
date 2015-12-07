@@ -28,6 +28,8 @@
 #include "rqt_robot_control/RobotCommand.h"
 #include "kobuki_msgs/SensorState.h"
 #include "kobuki_msgs/DockInfraRed.h"
+#include "ar_track_alvar_msgs/AlvarMarkers.h"
+#include "tf/transform_listener.h"
 
 #include "SystemConfig.h"
 #include "RawSensorData.h"
@@ -78,6 +80,7 @@ namespace ttb
 		ros::NodeHandle n;
 		ros::AsyncSpinner* spinner;
 
+		string alvarTopic;
 		string odometryTopic;
 		string laserScanTopic;
 		string bumperSensorTopic;
@@ -93,6 +96,7 @@ namespace ttb
 		string dockInfrRedTopic;
 
 		ros::Subscriber odometrySub;
+		ros::Subscriber alvarSub;
 		ros::Subscriber laserScanSub;
 		ros::Subscriber bumperSensorSub;
 		ros::Subscriber bumperEventSub;
@@ -106,6 +110,7 @@ namespace ttb
 		ros::Subscriber mobileBaseSensorStateSub;
 		ros::Subscriber dockInfrRedSub;
 
+		void onAlvarData(ar_track_alvar_msgs::AlvarMarkersPtr alvarData);
 		void onOdometryData(nav_msgs::OdometryPtr odometryData);
 		void onLaserScanData(sensor_msgs::LaserScanPtr laserScanData);
 		void onBumperSensorData(sensor_msgs::PointCloud2Ptr bumperSensorData);

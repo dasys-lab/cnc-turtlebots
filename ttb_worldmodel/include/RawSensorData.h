@@ -17,6 +17,7 @@
 #include "rqt_robot_control/RobotCommand.h"
 #include "kobuki_msgs/SensorState.h"
 #include "kobuki_msgs/DockInfraRed.h"
+#include "ar_track_alvar_msgs/AlvarMarkers.h"
 
 #include "RingBuffer.h"
 #include "InformationElement.h"
@@ -47,6 +48,7 @@ namespace ttb
 		void processRobotOnOff(rqt_robot_control::RobotCommandPtr robotOnOffData);
 		void processMobileBaseSensorState(kobuki_msgs::SensorStatePtr mobileBaseSensorStateData);
 		void processDockInfrRed(kobuki_msgs::DockInfraRedPtr dockInfrRedData);
+		void processAlvarData(ar_track_alvar_msgs::AlvarMarkersPtr alvarData);
 
 		shared_ptr<geometry::CNPosition> getOwnPosition(int index = 0);
 		shared_ptr<geometry::CNVelocity2D> getOwnVelocityMotion(int index = 0);
@@ -61,11 +63,14 @@ namespace ttb
 		shared_ptr<kobuki_msgs::SensorState> getOwnMobileBaseSensorState(int index = 0);
 		shared_ptr<kobuki_msgs::DockInfraRed> getOwnDockInfrRed(int index = 0);
 		shared_ptr<nav_msgs::Odometry> getOwnOdom(int index = 0);
+		shared_ptr<ar_track_alvar_msgs::AlvarMarkers> getAlvar(int index = 0);
 
 	private:
 		int ownID;
+		int ringBufferLength;
 		TTBWorldModel* wm;
 		unsigned long maxInformationAge;
+		map<unsigned int, RingBuffer<InformationElement<geometry_msgs::PoseStamped>>> ownAlvarMap;
 		RingBuffer<InformationElement<geometry::CNPosition>> ownPositionMotion;
 		RingBuffer<InformationElement<nav_msgs::Odometry>> ownOdom;
 		RingBuffer<InformationElement<geometry::CNVelocity2D>> ownVelocityMotion;
