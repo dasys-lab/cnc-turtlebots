@@ -39,8 +39,8 @@ namespace ttb
 		for(auto marker : alvarData->markers) {
 			geometry_msgs::PoseStamped pose_out;
 			pose_out.header.frame_id = "base_link";
-			cout << "alvar data frame_id: " << alvarData->header.frame_id << endl;
-			cout << "marker frame_id: " << marker.pose.header.frame_id << endl;
+			cout << "alvar data frame_id: " << alvarData << endl;
+			cout << "marker frame_id: " << marker << endl;
 			listener.transformPose("base_link", marker.pose, pose_out);
 			cout << "marker pos x,y,z: " << pose_out.pose.position.x << " ," << pose_out.pose.position.y << " ," << pose_out.pose.position.z << endl;
 			cout << "marker orientation w,x,y,z: " << pose_out.pose.orientation.w << " ," << pose_out.pose.orientation.x << " ," << pose_out.pose.orientation.y << " ," << pose_out.pose.orientation.z << endl;
