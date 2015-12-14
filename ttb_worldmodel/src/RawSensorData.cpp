@@ -50,8 +50,13 @@ namespace ttb
 			marker.pose.header = marker.header;
 //			marker.pose.header.stamp = ros::Time::now();
 
-			listener.waitForTransform("/base_link","/camera_rgb_optical_frame", ros::Time(0), ros::Duration(5));
-			listener.transformPose("/base_link", marker.pose, pose_out);
+			try {
+				listener.waitForTransform("/base_link","/camera_rgb_optical_frame", ros::Time(0), ros::Duration(5));
+				listener.transformPose("/base_link", marker.pose, pose_out);
+
+			} catch(exception &e) {
+				cout << e.what() << endl;
+			}
 //			listener.lookupTransform("/base_link",ros::Time(0), "/camera_rgb_optical_frame", ros::Time(0),"/base_link" , stampedTransform);
 
 //			pose_out.pose.position.x = stampedTransform.getOrigin().x();
