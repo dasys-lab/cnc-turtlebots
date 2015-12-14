@@ -39,6 +39,8 @@ namespace ttb
 		for(auto marker : alvarData->markers) {
 			geometry_msgs::PoseStamped pose_out;
 			listener.transformPose(marker.header.frame_id, marker.pose, pose_out);
+			cout << "marker pos x,y,z: " << pose_out.pose.position.x << " ," << pose_out.pose.position.y << " ," << pose_out.pose.position.z << endl;
+			cout << "marker orientation w,x,y,z: " << pose_out.pose.orientation.w << " ," << pose_out.pose.orientation.x << " ," << pose_out.pose.orientation.y << " ," << pose_out.pose.orientation.z << endl;
 
 			shared_ptr<geometry_msgs::PoseStamped> poseStampedDataPtr = make_shared<geometry_msgs::PoseStamped>(pose_out);
 			shared_ptr<InformationElement<geometry_msgs::PoseStamped>> ownposeStampedInfo = make_shared<InformationElement<geometry_msgs::PoseStamped>>(poseStampedDataPtr, time);
