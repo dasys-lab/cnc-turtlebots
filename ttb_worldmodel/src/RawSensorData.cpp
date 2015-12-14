@@ -47,12 +47,13 @@ namespace ttb
 
 			tf::StampedTransform stampedTransform;
 
-			listener.waitForTransform("/base_link","/camera_rgb_optical_frame", ros::Time(0), ros::Duration(5));
 			marker.pose.header.frame_id = marker.header.frame_id;
 			marker.pose.header.stamp = ros::Time::now();
 
+			listener.waitForTransform("/base_link","/camera_rgb_optical_frame", ros::Time(0), ros::Duration(5));
 			listener.transformPose("/base_link", marker.pose, pose_out);
 //			listener.lookupTransform("/base_link",ros::Time(0), "/camera_rgb_optical_frame", ros::Time(0),"/base_link" , stampedTransform);
+
 //			pose_out.pose.position.x = stampedTransform.getOrigin().x();
 //			pose_out.pose.position.y = stampedTransform.getOrigin().y();
 //			pose_out.pose.position.z = stampedTransform.getOrigin().z();
