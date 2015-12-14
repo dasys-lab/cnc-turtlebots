@@ -35,7 +35,7 @@ namespace ttb
 
 		InfoTime time = wm->getTime();
 
-
+		cout << "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++" << alvarData->markers.size() << endl;
 		for(auto marker : alvarData->markers) {
 			geometry_msgs::PoseStamped pose_out;
 //			pose_out.header.frame_id = "/base_link";
