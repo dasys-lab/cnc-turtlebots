@@ -34,8 +34,8 @@ namespace ttb
 	void RawSensorData::processAlvarData(ar_track_alvar_msgs::AlvarMarkersPtr alvarData) {
 
 		InfoTime time = wm->getTime();
-
-		tf::TransformListener listener;
+		ros::NodeHandle n;
+		tf::TransformListener listener(n);
 		for(auto marker : alvarData->markers) {
 			geometry_msgs::PoseStamped pose_out;
 			pose_out.header.frame_id = "/base_link";
