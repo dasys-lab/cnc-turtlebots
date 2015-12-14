@@ -47,7 +47,7 @@ namespace ttb
 
 
 			tf::StampedTransform stampedTransform;
-			listener.lookupTransform("/base_link", "/camera_rgb_optical_frame", ros::Time::now(), stampedTransform);
+			listener.lookupTransform("/base_link",ros::Time(0), "/camera_rgb_optical_frame", ros::Time(0),"/camera_rgb_optical_frame" , stampedTransform);
 			pose_out.pose.position.x = stampedTransform.getOrigin().x();
 			pose_out.pose.position.y = stampedTransform.getOrigin().y();
 			pose_out.pose.position.z = stampedTransform.getOrigin().z();
