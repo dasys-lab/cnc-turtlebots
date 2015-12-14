@@ -46,7 +46,8 @@ namespace ttb
 
 
 			tf::StampedTransform stampedTransform;
-			marker.pose.header = marker.header;
+			marker.pose.header.frame_id = marker.header.frame_id;
+			marker.pose.header.stamp = ros::Time::now();
 
 			listener.waitForTransform("/base_link","/camera_rgb_optical_frame", ros::Time(0), ros::Duration(5));
 			listener.transformPose("/base_link", marker.pose, pose_out);
