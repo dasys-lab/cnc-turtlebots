@@ -43,19 +43,19 @@ namespace ttb
 			cout << "marker frame_id: " << marker << endl;
 			marker.header.frame_id = "/camera_rgb_optical_frame";
 //			listener.waitForTransform("base_link","camera_rgb_optical_frame", ros::Time(0), ros::Duration(5));
-//			listener.transformPose("/base_link", marker.pose, pose_out);
 
 
 			tf::StampedTransform stampedTransform;
-			listener.waitForTransform("/base_link","/camera_rgb_optical_frame", ros::Time(0), ros::Duration(5));
-			listener.lookupTransform("/base_link",ros::Time(0), "/camera_rgb_optical_frame", ros::Time(0),"/base_link" , stampedTransform);
-			pose_out.pose.position.x = stampedTransform.getOrigin().x();
-			pose_out.pose.position.y = stampedTransform.getOrigin().y();
-			pose_out.pose.position.z = stampedTransform.getOrigin().z();
-			pose_out.pose.orientation.w = stampedTransform.getRotation().w();
-			pose_out.pose.orientation.x = stampedTransform.getRotation().x();
-			pose_out.pose.orientation.y = stampedTransform.getRotation().y();
-			pose_out.pose.orientation.z = stampedTransform.getRotation().z();
+			listener.waitForTransform("/base_link","/camera_rgb_optical_frame", ros::Time(0), ros::Duration(1));
+			listener.transformPose("/base_link", marker.pose, pose_out);
+//			listener.lookupTransform("/base_link",ros::Time(0), "/camera_rgb_optical_frame", ros::Time(0),"/base_link" , stampedTransform);
+//			pose_out.pose.position.x = stampedTransform.getOrigin().x();
+//			pose_out.pose.position.y = stampedTransform.getOrigin().y();
+//			pose_out.pose.position.z = stampedTransform.getOrigin().z();
+//			pose_out.pose.orientation.w = stampedTransform.getRotation().w();
+//			pose_out.pose.orientation.x = stampedTransform.getRotation().x();
+//			pose_out.pose.orientation.y = stampedTransform.getRotation().y();
+//			pose_out.pose.orientation.z = stampedTransform.getRotation().z();
 
 			cout << "marker pos x,y,z: " << pose_out.pose.position.x << " ," << pose_out.pose.position.y << " ," << pose_out.pose.position.z << endl;
 			cout << "marker orientation w,x,y,z: " << pose_out.pose.orientation.w << " ," << pose_out.pose.orientation.x << " ," << pose_out.pose.orientation.y << " ," << pose_out.pose.orientation.z << endl;
