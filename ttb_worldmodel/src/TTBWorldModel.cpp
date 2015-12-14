@@ -160,7 +160,7 @@ namespace ttb
 		rawSensorData.processCameraImageRaw(cameraImageRawData);
 	}
 
-	void TTBWorldModel::onRobotOnOff(rqt_robot_control::RobotCommandPtr robotOnOffData)
+	void TTBWorldModel::onRobotOnOff(robot_control::RobotCommandPtr robotOnOffData)
 	{
 //		cout << "WM: Received RobotOnOff Message!" << endl;
 		lock_guard<mutex> lock(wmMutex);
