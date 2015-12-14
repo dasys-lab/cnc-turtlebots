@@ -55,7 +55,8 @@ namespace ttb
 				listener.transformPose("/base_link", marker.pose, pose_out);
 
 			} catch(exception &e) {
-				cout << e.what() << endl;
+				cout << "####################################################################" <<  e.what() << endl;
+				return;
 			}
 //			listener.lookupTransform("/base_link",ros::Time(0), "/camera_rgb_optical_frame", ros::Time(0),"/base_link" , stampedTransform);
 
