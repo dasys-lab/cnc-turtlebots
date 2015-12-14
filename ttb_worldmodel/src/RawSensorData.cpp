@@ -38,7 +38,7 @@ namespace ttb
 		tf::TransformListener listener;
 		for(auto marker : alvarData->markers) {
 			geometry_msgs::PoseStamped pose_out;
-			pose_out.header.frame_id = "base_link";
+			pose_out.header.frame_id = "/base_link";
 			cout << "alvar data frame_id: " << alvarData << endl;
 			cout << "marker frame_id: " << marker << endl;
 			listener.transformPose("base_link", marker.pose, pose_out);
