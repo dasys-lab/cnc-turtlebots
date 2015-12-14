@@ -70,6 +70,7 @@ namespace ttb
 		int ringBufferLength;
 		TTBWorldModel* wm;
 		unsigned long maxInformationAge;
+		tf::TransformListener listener;
 		map<unsigned int, shared_ptr<RingBuffer<InformationElement<geometry_msgs::PoseStamped>>>> ownAlvarMap;
 		RingBuffer<InformationElement<geometry::CNPosition>> ownPositionMotion;
 		RingBuffer<InformationElement<nav_msgs::Odometry>> ownOdom;

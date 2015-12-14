@@ -45,7 +45,7 @@ namespace ttb
 //			listener.waitForTransform("base_link","camera_rgb_optical_frame", ros::Time(0), ros::Duration(5));
 //			listener.transformPose("/base_link", marker.pose, pose_out);
 
-			tf::TransformListener listener;
+
 			tf::StampedTransform stampedTransform;
 			listener.lookupTransform("/base_link", "/camera_rgb_optical_frame", ros::Time(0), stampedTransform);
 			pose_out.pose.position.x = stampedTransform.getOrigin().x();
