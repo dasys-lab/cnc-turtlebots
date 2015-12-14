@@ -96,7 +96,6 @@ namespace ttb
 	}
 	void TTBWorldModel::onAlvarData(ar_track_alvar_msgs::AlvarMarkersPtr alvarData) {
 		lock_guard<mutex> lock(wmMutex);
-		cout << "TTBWM: alvar data frame_id: " << alvarData << endl;
 		rawSensorData.processAlvarData(alvarData);
 	}
 	void TTBWorldModel::onMobileBaseSensorStateData(kobuki_msgs::SensorStatePtr mobileBaseSensorStateData) {
