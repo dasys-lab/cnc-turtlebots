@@ -34,14 +34,13 @@ namespace ttb
 	void RawSensorData::processAlvarData(ar_track_alvar_msgs::AlvarMarkersPtr alvarData) {
 
 		InfoTime time = wm->getTime();
-		ros::NodeHandle n;
-		tf::TransformListener listener(n);
+		tf::TransformListener listener;
 		for(auto marker : alvarData->markers) {
 			geometry_msgs::PoseStamped pose_out;
-			pose_out.header.frame_id = "base_link";
+			pose_out.header.frame_id = "/base_link";
 
 			cout << "marker frame_id: " << marker << endl;
-			marker.header.frame_id = "camera_rgb_optical_frame";
+			marker.header.frame_id = "/camera_rgb_optical_frame";
 //			listener.waitForTransform("base_link","camera_rgb_optical_frame", ros::Time(0), ros::Duration(5));
 			listener.transformPose("base_link", marker.pose, pose_out);
 			cout << "marker pos x,y,z: " << pose_out.pose.position.x << " ," << pose_out.pose.position.y << " ," << pose_out.pose.position.z << endl;
