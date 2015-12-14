@@ -133,12 +133,12 @@ namespace ttb
 		ownCameraImageRaw.add(ownCameraImageRawInfo);	
 	}
 
-	void RawSensorData::processRobotOnOff(rqt_robot_control::RobotCommandPtr robotOnOffData)
+	void RawSensorData::processRobotOnOff(robot_control::RobotCommandPtr robotOnOffData)
 	{
 		InfoTime time = wm->getTime();
 
-		shared_ptr<rqt_robot_control::RobotCommand> robotOnOffDataPtr = shared_ptr<rqt_robot_control::RobotCommand>(robotOnOffData.get(), [robotOnOffData](rqt_robot_control::RobotCommand*) mutable {robotOnOffData.reset();});
-		shared_ptr<InformationElement<rqt_robot_control::RobotCommand>> ownRobotOnOffInfo = make_shared<InformationElement<rqt_robot_control::RobotCommand>>(robotOnOffDataPtr, time);
+		shared_ptr<robot_control::RobotCommand> robotOnOffDataPtr = shared_ptr<robot_control::RobotCommand>(robotOnOffData.get(), [robotOnOffData](robot_control::RobotCommand*) mutable {robotOnOffData.reset();});
+		shared_ptr<InformationElement<robot_control::RobotCommand>> ownRobotOnOffInfo = make_shared<InformationElement<robot_control::RobotCommand>>(robotOnOffDataPtr, time);
 		ownRobotOnOff.add(ownRobotOnOffInfo);
 	}
 	void RawSensorData::processMobileBaseSensorState(kobuki_msgs::SensorStatePtr mobileBaseSensorStateData) {
@@ -275,7 +275,7 @@ namespace ttb
 
 		return x->getInformation();
 	}
-	shared_ptr<rqt_robot_control::RobotCommand> RawSensorData::getOwnRobotOnOff(int index)
+	shared_ptr<robot_control::RobotCommand> RawSensorData::getOwnRobotOnOff(int index)
 	{
 		auto x = ownRobotOnOff.getLast(index);
 

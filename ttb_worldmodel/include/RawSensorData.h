@@ -14,7 +14,7 @@
 #include "sensor_msgs/Image.h"
 #include "container/CNPosition.h"
 #include "container/CNVelocity2D.h"
-#include "rqt_robot_control/RobotCommand.h"
+#include "robot_control/RobotCommand.h"
 #include "kobuki_msgs/SensorState.h"
 #include "kobuki_msgs/DockInfraRed.h"
 #include "ar_track_alvar_msgs/AlvarMarkers.h"
@@ -45,7 +45,7 @@ namespace ttb
 		void processJointState(sensor_msgs::JointStatePtr jointStateData);
 		void processCliffEvent(kobuki_msgs::CliffEventPtr cliffEventData);
 		void processCameraImageRaw(sensor_msgs::ImagePtr cameraImageRawData);
-		void processRobotOnOff(rqt_robot_control::RobotCommandPtr robotOnOffData);
+		void processRobotOnOff(robot_control::RobotCommandPtr robotOnOffData);
 		void processMobileBaseSensorState(kobuki_msgs::SensorStatePtr mobileBaseSensorStateData);
 		void processDockInfrRed(kobuki_msgs::DockInfraRedPtr dockInfrRedData);
 		void processAlvarData(ar_track_alvar_msgs::AlvarMarkersPtr alvarData);
@@ -59,7 +59,7 @@ namespace ttb
 		shared_ptr<sensor_msgs::Imu> getOwnImuData(int index = 0);
 		shared_ptr<kobuki_msgs::CliffEvent> getOwnCliffEvent(int index = 0);
 		shared_ptr<sensor_msgs::Image> getOwnCameraImageRaw(int index = 0);
-		shared_ptr<rqt_robot_control::RobotCommand> getOwnRobotOnOff(int index = 0);
+		shared_ptr<robot_control::RobotCommand> getOwnRobotOnOff(int index = 0);
 		shared_ptr<kobuki_msgs::SensorState> getOwnMobileBaseSensorState(int index = 0);
 		shared_ptr<kobuki_msgs::DockInfraRed> getOwnDockInfrRed(int index = 0);
 		shared_ptr<nav_msgs::Odometry> getOwnOdom(int index = 0);
@@ -81,7 +81,7 @@ namespace ttb
 		RingBuffer<InformationElement<sensor_msgs::Imu>> ownImuData;
 		RingBuffer<InformationElement<kobuki_msgs::CliffEvent>> ownCliffEvent;
 		RingBuffer<InformationElement<sensor_msgs::Image>> ownCameraImageRaw;
-		RingBuffer<InformationElement<rqt_robot_control::RobotCommand>> ownRobotOnOff;
+		RingBuffer<InformationElement<robot_control::RobotCommand>> ownRobotOnOff;
 		RingBuffer<InformationElement<kobuki_msgs::SensorState>> ownMobileBaseSensorState;
 		RingBuffer<InformationElement<kobuki_msgs::DockInfraRed>> ownDockInfrRed;
 

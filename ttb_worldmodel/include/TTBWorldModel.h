@@ -25,7 +25,7 @@
 #include "sensor_msgs/JointState.h"
 #include "kobuki_msgs/CliffEvent.h"
 #include "sensor_msgs/Image.h"
-#include "rqt_robot_control/RobotCommand.h"
+#include "robot_control/RobotCommand.h"
 #include "kobuki_msgs/SensorState.h"
 #include "kobuki_msgs/DockInfraRed.h"
 #include "ar_track_alvar_msgs/AlvarMarkers.h"
@@ -121,7 +121,7 @@ namespace ttb
 		void onJointStateData(sensor_msgs::JointStatePtr jointStateData);
 		void onCliffEventsData(kobuki_msgs::CliffEventPtr clifEventData);
 		void onCameraImageRawData(sensor_msgs::ImagePtr cameraImageRawData);
-		void onRobotOnOff(rqt_robot_control::RobotCommandPtr robotOnOffData);
+		void onRobotOnOff(robot_control::RobotCommandPtr robotOnOffData);
 		void onMobileBaseSensorStateData(kobuki_msgs::SensorStatePtr mobileBaseSensorStateData);
 		void onDockInfrRedData(kobuki_msgs::DockInfraRedPtr dockInfrRedData);
 

@@ -19,7 +19,8 @@
   <build_depend>geometry_msgs</build_depend>
   <build_depend>event_handling</build_depend>
   <build_depend>kobuki_msgs</build_depend>
-  <build_depend>rqt_robot_control</build_depend>
+  <build_depend>robot_control</build_depend>
+  <build_depend>tf</build_depend>
     
   <run_depend>message_runtime</run_depend>
   <run_depend>system_config</run_depend>
@@ -28,7 +29,8 @@
   <run_depend>geometry_msgs</run_depend>
   <run_depend>event_handling</run_depend>
   <run_depend>kobuki_msgs</run_depend>
-  <run_depend>rqt_robot_control</run_depend>
+  <run_depend>robot_control</run_depend>
+  <run_depend>tf</run_depend>
 
   <test_depend>gtest</test_depend>
 
