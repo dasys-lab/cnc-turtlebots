@@ -43,15 +43,13 @@ namespace ttb
 			shared_ptr<geometry_msgs::PoseStamped> poseStampedDataPtr = make_shared<geometry_msgs::PoseStamped>(pose_out);
 			shared_ptr<InformationElement<geometry_msgs::PoseStamped>> ownposeStampedInfo = make_shared<InformationElement<geometry_msgs::PoseStamped>>(poseStampedDataPtr, time);
 			auto markerMapPair = ownAlvarMap.find(marker.id);
-			RingBuffer<InformationElement<geometry_msgs::PoseStamped>> buffer(ringBufferLength);
 
-
-//
-//			if(markerMapPair != ownAlvarMap.end()) {
-//				ownAlvarMap[marker.id].add(ownposeStampedInfo);
-//			} else {
-//			}
-//			ownAlvarMap.insert(std::pair<unsigned int, RingBuffer<InformationElement<geometry_msgs::PoseStamped>>>(marker.id, buffer));
+			if(markerMapPair != ownAlvarMap.end()) {
+				ownAlvarMap[marker.id]->add(ownposeStampedInfo);
+			} else {
+				shared_ptr<RingBuffer<InformationElement<geometry_msgs::PoseStamped>>> bufferptr = make_shared<RingBuffer<InformationElement<geometry_msgs::PoseStamped>>>(ringBufferLength);
+				ownAlvarMap.insert(std::pair<unsigned int, shared_ptr<RingBuffer<InformationElement<geometry_msgs::PoseStamped>>>>(marker.id, bufferptr));
+			}
 		}
 	}
 

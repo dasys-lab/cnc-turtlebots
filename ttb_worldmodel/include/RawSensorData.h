@@ -70,7 +70,7 @@ namespace ttb
 		int ringBufferLength;
 		TTBWorldModel* wm;
 		unsigned long maxInformationAge;
-		map<unsigned int, RingBuffer<InformationElement<geometry_msgs::PoseStamped>>> ownAlvarMap;
+		map<unsigned int, shared_ptr<RingBuffer<InformationElement<geometry_msgs::PoseStamped>>>> ownAlvarMap;
 		RingBuffer<InformationElement<geometry::CNPosition>> ownPositionMotion;
 		RingBuffer<InformationElement<nav_msgs::Odometry>> ownOdom;
 		RingBuffer<InformationElement<geometry::CNVelocity2D>> ownVelocityMotion;
