@@ -38,15 +38,15 @@ namespace ttb
 
 		for(auto marker : alvarData->markers) {
 			geometry_msgs::PoseStamped pose_out;
-			pose_out.header.frame_id = "/base_link";
+//			pose_out.header.frame_id = "/base_link";
 
-			cout << "marker frame_id: " << marker << endl;
-			marker.header.frame_id = "/camera_rgb_optical_frame";
+//			cout << "marker frame_id: " << marker << endl;
+//			marker.header.frame_id = "/camera_rgb_optical_frame";
 //			listener.waitForTransform("base_link","camera_rgb_optical_frame", ros::Time(0), ros::Duration(5));
 
 
 			tf::StampedTransform stampedTransform;
-			listener.waitForTransform("/base_link","/camera_rgb_optical_frame", ros::Time(0), ros::Duration(1));
+			listener.waitForTransform("/base_link","/camera_rgb_optical_frame", ros::Time(0), ros::Duration(5));
 			listener.transformPose("/base_link", marker.pose, pose_out);
 //			listener.lookupTransform("/base_link",ros::Time(0), "/camera_rgb_optical_frame", ros::Time(0),"/base_link" , stampedTransform);
 //			pose_out.pose.position.x = stampedTransform.getOrigin().x();
