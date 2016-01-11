@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">MaraudersMap</string>
+    <string-array name="menu_options">
+        <item>Karte öffnen</item>
+        <item>Neue Karte laden</item>
+        <item>Status</item>
+        <item>Beenden</item>
+    </string-array>
+</resources>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+      package="com.github.ros_java.marauders_map"
+      android:versionCode="1"
+      android:versionName="1.0">
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.CHANGE_WIFI_MULTICAST_STATE"/>
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
+    <application android:label="@string/app_name" >
+        <activity android:name="de.uni_kassel.vs.cn.ttb_apps.marauders_map.activity.MaraudersMap"
+                  android:label="@string/app_name">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name="org.ros.android.MasterChooser" />
+        <activity android:name="de.uni_kassel.vs.cn.ttb_apps.marauders_map.activity.MapScreen">
+            <meta-data android:name="android.support.PARENT_ACTIVITY"
+                android:value="de.uni_kassel.vs.cn.ttb_apps.marauders_map.activity.MaraudersMap"/>
+        </activity>
+    </application>
+</manifest> 

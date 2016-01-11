@@ -20,11 +20,25 @@
 *.la
 *.a
 *.lib
+*.jar
 
 # Executables
 *.exe
 *.out
 *.app
+*.class
+*.apk
+
+# android build directories
+ttb_apps/build/
+ttb_apps/marauders_map/build/
+ttb_apps/mmlib/build/
+ttb_apps/.gradle/
+
+#local config files for android studio
+*.iml
+local.properties
+/ttb_apps/.idea
 
 # Editor backup files
 *~
