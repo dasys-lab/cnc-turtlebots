@@ -5,6 +5,11 @@ sudo apt-get install openjdk-8-jdk
 # by uncommenting the following commands
 # sudo update-alternatives --config java
 # sudo update-alternatives --config javac
+sudo apt-get install maven
+echo "source /opt/ros/indigo/setup.bash" >> ~/.bashrc
 sudo apt-get install android
 sudo apt-get install ros-indigo-rosjava ros-indigo-genjava ros-indigo-rosjava-build-tools ros-indigo-rosjava-bootstrap
 genjava_message_artifacts
+sudo apt-get install gradle
+cd ~/cnws
+genjava_message_artifacts -a
