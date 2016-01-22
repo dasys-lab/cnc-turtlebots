@@ -19,6 +19,5 @@ sudo update-alternatives --config javac
 sudo apt-get install maven
 sudo apt-get install android
 sudo apt-get install ros-indigo-rosjava ros-indigo-genjava ros-indigo-rosjava-build-tools ros-indigo-rosjava-bootstrap gradle
-genjava_message_artifacts
+gnome-terminal -x /opt/ros/indigo/bin/genjava_message_artifacts
 cd ~/cnws
-genjava_message_artifacts -a
