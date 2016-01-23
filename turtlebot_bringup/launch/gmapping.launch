@@ -45,7 +45,7 @@
     <param name="llsamplestep" value="0.01"/>
     <param name="lasamplerange" value="0.005"/>
     <param name="lasamplestep" value="0.005"/>
-    <!--remap from="scan_hokuyo" to="$(arg scan_topic)"/-->
+    <remap from="scan" to="$(arg scan_topic)"/>
   </node>
 
    <include file="$(find turtlebot_navigation)/launch/includes/move_base.launch.xml">

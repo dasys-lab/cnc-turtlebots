@@ -28,7 +28,6 @@
 #include "alica_ros_proxy/AllocationAuthorityInfo.h"
 #include "alica_ros_proxy/SolverResult.h"
 #include "process_manager/ProcessCommand.h"
-#include "process_manager/ProcessStats.h"
 
 using namespace supplementary;
 
@@ -168,23 +167,6 @@ uint8_t* buffer = NULL;
 	}
 	if(buffer!=NULL) delete[] buffer;
 }
-void onRosProcessStats2783514677(const ros::MessageEvent<process_manager::ProcessStats>& event) {
-	if(0 == event.getPublisherName().compare(ownRosName)) return;
-uint8_t* buffer = NULL;
-	const process_manager::ProcessStats::ConstPtr& message = event.getMessage();
-	try{
-		uint32_t serial_size = ros::serialization::serializationLength(*message);
-		buffer = new uint8_t[serial_size+sizeof(uint32_t)];
-		ros::serialization::OStream stream(buffer+sizeof(uint32_t), serial_size);
-		*((uint32_t*)buffer) = 2783514677u;
-		ros::serialization::serialize(stream, *message);
-		// write message to UDP
-		insocket->send_to(boost::asio::buffer((void*)buffer,serial_size+sizeof(uint32_t)),destEndPoint);
-	} catch(std::exception& e) {
-		ROS_ERROR_STREAM_THROTTLE(2,"Exception while sending UDP message:"<<e.what()<< " Discarding message!");
-	}
-	if(buffer!=NULL) delete[] buffer;
-}
 
 ros::Publisher pub3767756765;
 ros::Publisher pub238666206;
@@ -193,7 +175,6 @@ ros::Publisher pub636345472;
 ros::Publisher pub690246385;
 ros::Publisher pub2276189600;
 ros::Publisher pub3108117629;
-ros::Publisher pub2783514677;
 
 boost::array<char,64000> inBuffer;
 void listenForPacket() {
@@ -242,11 +223,6 @@ case 3108117629ul: {
 process_manager::ProcessCommand m3108117629;
 ros::serialization::Serializer<process_manager::ProcessCommand>::read(stream, m3108117629);
 pub3108117629.publish<process_manager::ProcessCommand>(m3108117629);
-break; }
-case 2783514677ul: {
-process_manager::ProcessStats m2783514677;
-ros::serialization::Serializer<process_manager::ProcessStats>::read(stream, m2783514677);
-pub2783514677.publish<process_manager::ProcessStats>(m2783514677);
 break; }
 			
 				default:
@@ -318,7 +294,6 @@ ros::Subscriber sub3 = n.subscribe("/AlicaEngine/SyncReady",5, onRosSyncReady636
 ros::Subscriber sub4 = n.subscribe("/AlicaEngine/AllocationAuthorityInfo",5, onRosAllocationAuthorityInfo690246385,ros::TransportHints().unreliable().tcpNoDelay().reliable());
 ros::Subscriber sub5 = n.subscribe("/AlicaEngine/SolverResult",5, onRosSolverResult2276189600,ros::TransportHints().unreliable().tcpNoDelay().reliable());
 ros::Subscriber sub6 = n.subscribe("/process_manager/ProcessCommand",5, onRosProcessCommand3108117629,ros::TransportHints().unreliable().tcpNoDelay().reliable());
-ros::Subscriber sub7 = n.subscribe("/process_manager/ProcessStats",5, onRosProcessStats2783514677,ros::TransportHints().unreliable().tcpNoDelay().reliable());
 	
 pub3767756765 = n.advertise<alica_ros_proxy::PlanTreeInfo>("/AlicaEngine/PlanTreeInfo",5,false);
 pub238666206 = n.advertise<alica_ros_proxy::AlicaEngineInfo>("/AlicaEngine/AlicaEngineInfo",5,false);
@@ -327,7 +302,6 @@ pub636345472 = n.advertise<alica_ros_proxy::SyncReady>("/AlicaEngine/SyncReady",
 pub690246385 = n.advertise<alica_ros_proxy::AllocationAuthorityInfo>("/AlicaEngine/AllocationAuthorityInfo",5,false);
 pub2276189600 = n.advertise<alica_ros_proxy::SolverResult>("/AlicaEngine/SolverResult",5,false);
 pub3108117629 = n.advertise<process_manager::ProcessCommand>("/process_manager/ProcessCommand",5,false);
-pub2783514677 = n.advertise<process_manager::ProcessStats>("/process_manager/ProcessStats",5,false);
 	
 	boost::thread iothread(run);
     

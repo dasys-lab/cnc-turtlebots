@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <robot name="sensor_ninjakinect" xmlns:xacro="http://ros.org/wiki/xacro">
-  <xacro:include filename="$(find turtlebot_description)/urdf/turtlebot_gazebo.urdf.xacro"/>
+  <!--xacro:include filename="$(find turtlebot_description)/urdf/turtlebot_gazebo.urdf.xacro"/-->
   <xacro:include filename="$(find turtlebot_description)/urdf/ninjabot_properties.urdf.xacro"/>
   
   <xacro:property name="kinect_cam_py" value="-0.0125"/>
@@ -8,7 +8,7 @@
   <xacro:macro name="sensor_ninjakinect" params="parent">
     <joint name="camera_rgb_joint" type="fixed">
       <origin xyz="${cam_px} ${kinect_cam_py} ${cam_pz}" rpy="${cam_or} ${cam_op} ${cam_oy}"/>
-      <parent link="${parent}"/>
+      <parent link="base_link"/>
       <child link="camera_rgb_frame" />
     </joint>
     <link name="camera_rgb_frame"/>
@@ -66,6 +66,6 @@
 	<link name="camera_depth_optical_frame"/>
 	
 	<!-- Kinect sensor for simulation -->
-	<turtlebot_sim_3dsensor/>
+	<!--turtlebot_sim_3dsensor/-->
   </xacro:macro>
 </robot>
