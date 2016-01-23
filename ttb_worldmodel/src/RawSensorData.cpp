@@ -38,14 +38,13 @@ namespace ttb
 		cout << "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++" << alvarData->markers.size() << endl;
 		for(auto marker : alvarData->markers) {
 			geometry_msgs::PoseStamped pose_out;
-//			pose_out.header.frame_id = "/base_link";
 
+//			pose_out.header.frame_id = "/base_link";
 //			cout << "marker frame_id: " << marker << endl;
 //			marker.header.frame_id = "/camera_rgb_optical_frame";
 //			listener.waitForTransform("base_link","camera_rgb_optical_frame", ros::Time(0), ros::Duration(5));
 
-
-			tf::StampedTransform stampedTransform;
+//			tf::StampedTransform stampedTransform;
 
 			marker.pose.header = marker.header;
 //			marker.pose.header.stamp = ros::Time::now();
@@ -55,7 +54,7 @@ namespace ttb
 				listener.transformPose("/base_link", marker.pose, pose_out);
 
 			} catch(exception &e) {
-				cout << "####################################################################" <<  e.what() << endl;
+				cout << "Marker Transform Exception: " <<  e.what() << endl;
 				return;
 			}
 //			listener.lookupTransform("/base_link",ros::Time(0), "/camera_rgb_optical_frame", ros::Time(0),"/base_link" , stampedTransform);

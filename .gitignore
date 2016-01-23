@@ -21,7 +21,7 @@
 *.a
 *.lib
 *.jar
-
+!ttb_apps/gradle/wrapper/gradle-wrapper.jar
 # Executables
 *.exe
 *.out
