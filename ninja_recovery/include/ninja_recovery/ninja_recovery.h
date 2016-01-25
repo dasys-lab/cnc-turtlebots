@@ -45,22 +45,22 @@
 #include <geometry_msgs/Point.h>
 #include <angles/angles.h>
 
-namespace rotate_recovery{
+namespace ninja_recovery{
   /**
-   * @class RotateRecovery
+   * @class NinjaRecovery
    * @brief A recovery behavior that rotates the robot in-place to attempt to clear out space
    */
-  class RotateRecovery : public nav_core::RecoveryBehavior {
+  class NinjaRecovery : public nav_core::RecoveryBehavior {
     public:
       /**
        * @brief  Constructor, make sure to call initialize in addition to actually initialize the object
        * @param  
        * @return 
        */
-      RotateRecovery();
+      NinjaRecovery();
 
       /**
-       * @brief  Initialization function for the RotateRecovery recovery behavior
+       * @brief  Initialization function for the NinjaRecovery recovery behavior
        * @param tf A pointer to a transform listener
        * @param global_costmap A pointer to the global_costmap used by the navigation stack 
        * @param local_costmap A pointer to the local_costmap used by the navigation stack 
@@ -69,14 +69,14 @@ namespace rotate_recovery{
           costmap_2d::Costmap2DROS* global_costmap, costmap_2d::Costmap2DROS* local_costmap);
 
       /**
-       * @brief  Run the RotateRecovery recovery behavior.
+       * @brief  Run the NinjaRecovery recovery behavior.
        */
       void runBehavior();
 
       /**
        * @brief  Destructor for the rotate recovery behavior
        */
-      ~RotateRecovery();
+      ~NinjaRecovery();
 
     private:
       costmap_2d::Costmap2DROS* global_costmap_, *local_costmap_;

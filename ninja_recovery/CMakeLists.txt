@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 2.8.3)
-project(rotate_recovery)
+project(ninja_recovery)
 
 find_package(catkin REQUIRED
         COMPONENTS
@@ -22,21 +22,21 @@ add_definitions(${EIGEN_DEFINITIONS})
 
 catkin_package(
     INCLUDE_DIRS include
-    LIBRARIES rotate_recovery
+    LIBRARIES ninja_recovery
     CATKIN_DEPENDS
         roscpp
         pluginlib
 )
 
-add_library(rotate_recovery src/rotate_recovery.cpp)
-target_link_libraries(rotate_recovery ${catkin_LIBRARIES})
+add_library(ninja_recovery src/ninja_recovery.cpp)
+target_link_libraries(ninja_recovery ${catkin_LIBRARIES})
 
-install(TARGETS rotate_recovery
+install(TARGETS ninja_recovery
        ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
        LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
        )
 
-install(FILES rotate_plugin.xml
+install(FILES ninja_plugin.xml
     DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
 )
 
