@@ -16,6 +16,8 @@ import com.github.ros_java.marauders_map.R;
 import de.uni_kassel.vs.cn.ttb_apps.marauders_map.model.Root;
 import com.google.common.io.Files;
 
+import org.ros.android.view.VirtualJoystickView;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -34,6 +36,7 @@ public class MapScreen extends Activity {
     private static Bitmap bitmap = null;
     private PhotoViewAttacher attacher;
     private Spinner robotsSpinner;
+    private VirtualJoystickView joystickView;
 
     private static final int MAXVAL = 255;
     private static int width;
@@ -80,6 +83,10 @@ public class MapScreen extends Activity {
         imageView.setImageBitmap(bitmap);
         ColorMatrix matrix = new ColorMatrix();
         matrix.setSaturation(0);
+        float[] array = matrix.getArray();
+        // TODO find right brightness for map
+        array[4] = array[9] = array[14] = 150;
+        matrix.set(array);
 
         // set grayscale filter, otherwise a blueish image would be shown because the of the bitmap are not correctly shifted
         ColorMatrixColorFilter filter = new ColorMatrixColorFilter(matrix);
