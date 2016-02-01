@@ -1,0 +1,4 @@
+add this line to turtlebot stuff in your bashrc:
+
+export TURTLEBOT_MAP_FILE="$HOME/ttbws/src/cnc-turtlebots/etc/map_final.yaml"
+

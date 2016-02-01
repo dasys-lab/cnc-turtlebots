@@ -33,10 +33,24 @@
         </RelativeLayout>
     </LinearLayout>
 
-    <ImageView
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/imageView"
-        android:layout_weight="0.43" />
+        android:layout_weight="0.43">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/imageView"
+            android:layout_weight="0.43" />
+
+        <org.ros.android.view.VirtualJoystickView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:clickable="false"
+            android:visibility="invisible"
+            />
+    </LinearLayout>
 
 </LinearLayout>

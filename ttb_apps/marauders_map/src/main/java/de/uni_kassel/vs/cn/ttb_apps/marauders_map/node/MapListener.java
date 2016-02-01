@@ -26,7 +26,10 @@ public class MapListener implements NodeMain {
     private List<OccupancyGrid> messagesList = Collections.synchronizedList(new ArrayList<OccupancyGrid>());
     private Subscriber occupancyGridSubscriber;
     private byte[] map;
-    public static Semaphore mapSemaphore = new Semaphore(1);
+    private int width;
+    private int height;
+    // the semaphore is needed in case of multiple messages arriving at the same time
+    private Semaphore mapSemaphore = new Semaphore(1);
 
     @Override
     public GraphName getDefaultNodeName() {
@@ -41,24 +44,36 @@ public class MapListener implements NodeMain {
             @Override
             public void onNewMessage(Object o) {
                 OccupancyGrid occupancyGrid = (OccupancyGrid) o;
+                acquireSemaphore();
+                // begin of critical section
+                if (map == null) {
+                    map = occupancyGrid.getData().array();
+                    height = occupancyGrid.getInfo().getHeight();
+                    width = occupancyGrid.getInfo().getWidth();
+                } else {
+                    map = ArrayUtils.addAll(map, occupancyGrid.getData().array());
+
+                    height = occupancyGrid.getInfo().getHeight();
+                    width = occupancyGrid.getInfo().getWidth();
+                }
+                // end of critical section
+                mapSemaphore.release();
+            }
+
+            private void acquireSemaphore() {
                 try {
                     mapSemaphore.acquire();
                 } catch (InterruptedException e) {
-
+                    acquireSemaphore();
                 }
-                if (map == null) {
-                    for (Field field : occupancyGrid.toRawMessage().getFields()) {
-                        ChannelBuffer channelBuffer =  ChannelBuffers.dynamicBuffer(ByteOrder.LITTLE_ENDIAN, 256);
-                        field.serialize(channelBuffer);
-                    }
-
-                    map = occupancyGrid.getData().array();
-                } else {
-                    map = ArrayUtils.addAll(map, occupancyGrid.getData().array());
-                }
-                mapSemaphore.release();
             }
         });
+    }
+
+    public byte[] getMapAsPGM() {
+        byte[] beginningSequence = new byte[33];
+
+        return null;
     }
 
     @Override
