@@ -10,8 +10,10 @@
 
 #include "ttb_msgs/DriveToPOI.h"
 #include "InformationElement.h"
+#include <SystemConfig.h>
 
 using namespace std;
+
 namespace ttb
 {
 
@@ -27,6 +29,8 @@ namespace ttb
 		shared_ptr<InformationElement<ttb_msgs::DriveToPOI>> getNextDriveToPOI();
 
 	private:
+		shared_ptr<supplementary::SystemConfig> sc;
+		map<int, POI> poiMap;
 		vector<shared_ptr<InformationElement<ttb_msgs::DriveToPOI>>> unfinishedDriveToPOITasks;
 	};
 

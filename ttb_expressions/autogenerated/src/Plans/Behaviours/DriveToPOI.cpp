@@ -25,29 +25,44 @@ namespace alica
         double poiX;
         double poiY;
 
-        switch (id)
-        {
-            case 1:
-                poiX = (*this->sc)["POI"]->get<double>("POI.Points.Floor1.X", NULL);
-                poiY = (*this->sc)["POI"]->get<double>("POI.Points.Floor1.Y", NULL);
-                break;
-            case 2:
-                poiX = (*this->sc)["POI"]->get<double>("POI.Points.HiwiRoom.X", NULL);
-                poiY = (*this->sc)["POI"]->get<double>("POI.Points.HiwiRoom.Y", NULL);
-                break;
-            case 3:
-                poiX = (*this->sc)["POI"]->get<double>("POI.Points.StudentLab.X", NULL);
-                poiY = (*this->sc)["POI"]->get<double>("POI.Points.StudentLab.Y", NULL);
-                break;
+    	geometry_msgs::PoseStamped ps;
+    	ps.header.frame_id = "map";
+    	ps.header.stamp = ros::Time::now();
+    	ps.pose.orientation.w = 1;
 
-            case 4:
-                poiX = (*this->sc)["POI"]->get<double>("POI.Points.Kicker.X", NULL);
-                poiY = (*this->sc)["POI"]->get<double>("POI.Points.Kicker.Y", NULL);
-                break;
-            default:
-                cout << "I don't know where to go!";
-                break;
-        }
+
+    	switch (id) {
+			case 1:
+				cout << "id is 1, setting params for Floor1" << endl;
+				poiX = (*this->sc)["POI"]->get<double>("POI.Points.Floor1.X", NULL);
+				poiY = (*this->sc)["POI"]->get<double>("POI.Points.Floor1.Y", NULL);
+				break;
+			case 2:
+				cout << "id is 2, setting params for HiwiRoom";
+				poiX = (*this->sc)["POI"]->get<double>("POI.Points.HiwiRoom.X", NULL);
+				poiY = (*this->sc)["POI"]->get<double>("POI.Points.HiwiRoom.Y", NULL);
+				break;
+			case 3:
+				cout << "id is 3, setting params for StudentLab1";
+				poiX = (*this->sc)["POI"]->get<double>("POI.Points.StudentLab.X", NULL);
+				poiY = (*this->sc)["POI"]->get<double>("POI.Points.StudentLab.Y", NULL);
+				break;
+
+			case 4:
+				cout << "id is 4, setting params for Kicker";
+				poiX = (*this->sc)["POI"]->get<double>("POI.Points.Kicker.X", NULL);
+				poiY = (*this->sc)["POI"]->get<double>("POI.Points.Kicker.Y", NULL);
+				break;
+			default:
+				cout << "I don't know where to go, so I will stay at my current position!" << endl;
+				return;
+		}
+
+    	ps.pose.position.x = poiX;
+    	ps.pose.position.y = poiY;
+
+    	send(ps);
+
 
         /*PROTECTED REGION END*/
     }
@@ -61,7 +76,9 @@ namespace alica
         {
             if (success)
             {
-                id = stod(tmp);
+            	id = stod(tmp);
+            	cout << "id is " << id << endl;
+
             }
             success = true;
 

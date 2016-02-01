@@ -12,7 +12,16 @@ namespace ttb
 
 	TaskManager::TaskManager()
 	{
-		// TODO Auto-generated constructor stub
+		auto poiSections = (*this->sc)["POI"]->getSections("POI.Points", NULL);
+		for (auto& poiSectionName : poiSections)
+		{
+			this->poiMap.emplace(
+				(*this->sc)["POI"]->get<int>("POI.Points", poiSectionName, "ID", NULL),
+				poiSectionName,
+				(*this->sc)["POI"]->get<float>("POI.Points", poiSectionName, "X", NULL),
+				(*this->sc)["POI"]->get<float>("POI.Points", poiSectionName, "Y", NULL)
+			);
+		}
 	}
 
 	TaskManager::~TaskManager()
@@ -22,7 +31,8 @@ namespace ttb
 
 	void TaskManager::pushDriveToPOITask(shared_ptr<InformationElement<ttb_msgs::DriveToPOI>> driveToPOITask)
 	{
-		this->unfinishedDriveToPOITasks.push_back(driveToPOITask);
+		if (this->poiMap.find(driveToPOITask->information->poiId) != this->poiMap.end())
+			this->unfinishedDriveToPOITasks.push_back(driveToPOITask);
 	}
 
 	shared_ptr<InformationElement<ttb_msgs::DriveToPOI> > TaskManager::popNextDriveToPOI()
