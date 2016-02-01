@@ -25,6 +25,9 @@ namespace alica
 
     	double poiX;
     	double poiY;
+    	move_base_msgs::MoveBaseActionGoal mbag;
+    	mbag.goal.target_pose.header.frame_id = "map";
+
 
     	switch (id) {
 			case 1:
@@ -45,16 +48,14 @@ namespace alica
 				poiY = (*this->sc)["POI"]->get<double>("POI.Points.Kicker.Y", NULL);
 				break;
 			default:
-				cout << "I don't know where to go!";
-				break;
+				cout << "I don't know where to go, so I will stay at my current position!";
+				return;
 		}
 
+    	mbag.goal.target_pose.pose.position.x = poiX;
+    	mbag.goal.target_pose.pose.position.y = poiY;
 
-
-
-
-
-
+    	send(mbag);
 
 
         /*PROTECTED REGION END*/
