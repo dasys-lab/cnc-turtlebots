@@ -29,6 +29,10 @@ namespace ttb
 		shared_ptr<InformationElement<ttb_msgs::DriveToPOI>> popNextDriveToPOI();
 		shared_ptr<InformationElement<ttb_msgs::DriveToPOI>> getNextDriveToPOI();
 
+		POI getPOI(int id);
+		POI popNextPOI();
+
+
 	private:
 		shared_ptr<supplementary::SystemConfig> sc;
 		map<int, POI> poiMap;

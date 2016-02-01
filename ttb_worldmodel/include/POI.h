@@ -16,6 +16,7 @@ namespace ttb
 	struct POI
 	{
 		POI(int id, std::string name, float x, float y);
+		POI();
 
 		int id;
 		std::string name;
@@ -26,6 +27,10 @@ namespace ttb
 } /* namespace ttb */
 
 inline ttb::POI::POI(int id, std::string name, float x, float y) : id(id), name(name), x(x), y(y)
+{
+}
+
+inline ttb::POI::POI() : id(-1), name("none"), x(0), y(0)
 {
 }
 
