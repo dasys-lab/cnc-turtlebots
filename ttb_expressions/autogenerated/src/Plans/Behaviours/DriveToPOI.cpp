@@ -22,13 +22,7 @@ namespace alica
     void DriveToPOI::run(void* msg)
     {
         /*PROTECTED REGION ID(run1454329856163) ENABLED START*/ //Add additional options here
-        ttb::POI currentPOI;
-
-    	geometry_msgs::PoseStamped ps;
-    	ps.header.frame_id = "map";
-    	ps.header.stamp = ros::Time::now();
-    	ps.pose.orientation.w = 1;
-
+    	ttb::POI currentPOI;
     	if (this->id == 0)
     	{
     		currentPOI = this->wm->taskManager.popNextPOI();
@@ -38,9 +32,12 @@ namespace alica
     		currentPOI = this->wm->taskManager.getPOI(id);
     	}
 
+    	geometry_msgs::PoseStamped ps;
+		ps.header.frame_id = "map";
+		ps.header.stamp = ros::Time::now();
+		ps.pose.orientation.w = 1;
     	ps.pose.position.x = currentPOI.x;
     	ps.pose.position.y = currentPOI.y;
-
     	send(ps);
         /*PROTECTED REGION END*/
     }
