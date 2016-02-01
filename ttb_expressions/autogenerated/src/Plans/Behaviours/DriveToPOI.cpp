@@ -47,7 +47,7 @@ namespace alica
 		mbg.target_pose.header.frame_id = "map";
 		mbg.target_pose.pose.orientation.w = 1;
 		mbg.target_pose.pose.position.x = currentPOI.x;
-		mbg.target_pose.pose.position.x = currentPOI.y;
+		mbg.target_pose.pose.position.y = currentPOI.y;
 
 		mbc.sendGoal(mbg);
 		mbc.waitForResult();
