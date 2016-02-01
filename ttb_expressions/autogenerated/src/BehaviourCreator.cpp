@@ -5,6 +5,8 @@ using namespace std;
 
 #include  "Plans/Behaviours/SearchDockingStation.h"
 
+#include  "Plans/Behaviours/DriveToPOI.h"
+
 #include  "Plans/Behaviours/Rotate.h"
 
 #include  "Plans/Behaviours/SimpleDrive.h"
@@ -32,6 +34,15 @@ namespace alica
             case 1414681446065:
 
                 return make_shared<SearchDockingStation>();
+                break;
+
+            case 1454329864420:
+
+            case 1454329905072:
+
+            case 1454329918634:
+
+                return make_shared<DriveToPOI>();
                 break;
 
             case 1447068225787:

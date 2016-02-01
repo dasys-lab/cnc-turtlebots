@@ -21,23 +21,25 @@ namespace alica
     void ChargingDefault::run(void* msg)
     {
         /*PROTECTED REGION ID(run1447958115909) ENABLED START*/ //Add additional options here
-
-    	auto core = wm->rawSensorData.getOwnMobileBaseSensorState();
-    	if((int)core->charger == 2 || (int)core->charger == 18) {
-    		this->success = true;
-    	} else{
-    		geometry_msgs::Twist cmd_vel;
-			cmd_vel.linear.x = 0;
-			cmd_vel.angular.z = 0;
-			send(cmd_vel);
-    	}
+        auto core = wm->rawSensorData.getOwnMobileBaseSensorState();
+        if ((int)core->charger == 2 || (int)core->charger == 18)
+        {
+            this->success = true;
+        }
+        else
+        {
+            geometry_msgs::Twist cmd_vel;
+            cmd_vel.linear.x = 0;
+            cmd_vel.angular.z = 0;
+            send(cmd_vel);
+        }
         /*PROTECTED REGION END*/
     }
     void ChargingDefault::initialiseParameters()
     {
         /*PROTECTED REGION ID(initialiseParameters1447958115909) ENABLED START*/ //Add additional options here
-    	sound_play::SoundClient sound_client;
-    	sound_client.say((*sc)["SpeechAct"]->get<string>("Charging.ChargingText", NULL));
+        sound_play::SoundClient sound_client;
+        sound_client.say((*sc)["SpeechAct"]->get < string > ("Charging.ChargingText", NULL));
 //		sound_play::SoundRequest msg;
 //		msg.arg = (*sc)["SpeechAct"]->get<string>("Charging.ChargingText", NULL);
 //		msg.command = sound_play::SoundRequest::PLAY_ONCE;

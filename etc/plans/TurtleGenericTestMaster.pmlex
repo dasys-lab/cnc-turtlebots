@@ -1,97 +1,39 @@
 <?xml version="1.0" encoding="ASCII"?>
 <uiextensionmodel:PmlUiExtensionMap xmlns:uiextensionmodel="http:///de.uni_kassel.vs.cn/planDesigner/pmlextension/uiextensionmodel">
   <extensions>
-    <key href="TurtleGenericTestMaster.pml#1414681057677"/>
-    <value xPos="83" yPos="89" width="142" height="86" collapsed="false"/>
+    <key href="TurtleGenericTestMaster.pml#1454329729828"/>
+    <value xPos="49" yPos="36" width="81" height="67" collapsed="false"/>
+  </extensions>
+  <extensions>
+    <key href="TurtleGenericTestMaster.pml#1454329729827"/>
+    <value xPos="23" yPos="12" width="521" height="215"/>
+  </extensions>
+  <extensions>
+    <key href="TurtleGenericTestMaster.pml#1454329729829"/>
+    <value/>
+  </extensions>
+  <extensions>
+    <key href="TurtleGenericTestMaster.pml#1454329743284"/>
+    <value xPos="260" yPos="39" width="81" height="67" collapsed="false"/>
+  </extensions>
+  <extensions>
+    <key href="TurtleGenericTestMaster.pml#1454329745494"/>
+    <value>
+      <bendpoints xPos="339" yPos="105"/>
+    </value>
+  </extensions>
+  <extensions>
+    <key href="TurtleGenericTestMaster.pml#1454329747260"/>
+    <value>
+      <bendpoints xPos="338" yPos="144"/>
+    </value>
   </extensions>
   <extensions>
     <key href="Behaviours/Stop.beh#1414681278745"/>
     <value/>
   </extensions>
   <extensions>
-    <key href="TurtleGenericTestMaster.pml#1414681503803"/>
-    <value>
-      <bendpoints xPos="601" yPos="100"/>
-    </value>
-  </extensions>
-  <extensions>
-    <key href="TurtleGenericTestMaster.pml#1414681069778"/>
-    <value xPos="613" yPos="138" width="258" height="86" collapsed="false"/>
-  </extensions>
-  <extensions>
-    <key href="Behaviours/SearchDockingStation.beh#1414681446065"/>
-    <value/>
-  </extensions>
-  <extensions>
-    <key href="TurtleGenericTestMaster.pml#1414681057676"/>
-    <value width="1000" height="605"/>
-  </extensions>
-  <extensions>
-    <key href="TurtleGenericTestMaster.pml#1414681057678"/>
-    <value/>
-  </extensions>
-  <extensions>
-    <key href="Behaviours/SimpleDrive.beh#1432735473356"/>
-    <value/>
-  </extensions>
-  <extensions>
-    <key href="TurtleGenericTestMaster.pml#1447067994402"/>
-    <value xPos="546" yPos="363" width="81" height="67" collapsed="false"/>
-  </extensions>
-  <extensions>
-    <key href="TurtleGenericTestMaster.pml#1447068019298"/>
-    <value>
-      <bendpoints xPos="690" yPos="300"/>
-    </value>
-  </extensions>
-  <extensions>
-    <key href="TurtleGenericTestMaster.pml#1447068020601"/>
-    <value>
-      <bendpoints xPos="829" yPos="346"/>
-    </value>
-  </extensions>
-  <extensions>
-    <key href="TurtleGenericTestMaster.pml#1447068022712"/>
-    <value>
-      <bendpoints xPos="501" yPos="301"/>
-    </value>
-  </extensions>
-  <extensions>
-    <key href="TurtleGenericTestMaster.pml#1447068026011"/>
-    <value/>
-  </extensions>
-  <extensions>
-    <key href="Behaviours/Rotate.beh#1447068225787"/>
-    <value/>
-  </extensions>
-  <extensions>
-    <key href="TurtleGenericTestMaster.pml#1447919813367"/>
-    <value xPos="296" yPos="412" width="258" height="86" collapsed="false"/>
-  </extensions>
-  <extensions>
-    <key href="TurtleGenericTestMaster.pml#1447919928532"/>
-    <value>
-      <bendpoints xPos="356" yPos="400"/>
-    </value>
-  </extensions>
-  <extensions>
-    <key href="TurtleGenericTestMaster.pml#1447958080453"/>
-    <value xPos="23" yPos="369" width="219" height="86" collapsed="false"/>
-  </extensions>
-  <extensions>
-    <key href="Behaviours/ChargingDefault.beh#1447958132701"/>
-    <value/>
-  </extensions>
-  <extensions>
-    <key href="TurtleGenericTestMaster.pml#1447958158825"/>
-    <value/>
-  </extensions>
-  <extensions>
-    <key href="TurtleGenericTestMaster.pml#1447958162755"/>
-    <value/>
-  </extensions>
-  <extensions>
-    <key href="TurtleGenericTestMaster.pml#1447958171762"/>
+    <key href="TestPOI.pml#1454329810785"/>
     <value/>
   </extensions>
 </uiextensionmodel:PmlUiExtensionMap>

@@ -1,5 +1,5 @@
-#ifndef TurtleGenericTestMaster_H_
-#define TurtleGenericTestMaster_H_
+#ifndef ChargeAndSimpleDriveTest_H_
+#define ChargeAndSimpleDriveTest_H_
 
 #include "DomainCondition.h"
 #include "engine/BasicUtilityFunction.h"

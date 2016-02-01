@@ -1,3 +1,5 @@
+this is old!
+
 roslaunch turtlebot_bringup ninjaturtles.launch // launches konect, hokuyo and base 
 
 roslaunch turtlebot_bringup gmapping.launch // launches gmapping 
