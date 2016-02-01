@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="ASCII"?>
+<uiextensionmodel:PmlUiExtensionMap xmlns:uiextensionmodel="http:///de.uni_kassel.vs.cn/planDesigner/pmlextension/uiextensionmodel">
+  <extensions>
+    <key href="Serve.pml#1454331321919"/>
+    <value xPos="55" yPos="121" width="100" height="67" collapsed="false"/>
+  </extensions>
+  <extensions>
+    <key href="Serve.pml#1454331313621"/>
+    <value width="677" height="412"/>
+  </extensions>
+  <extensions>
+    <key href="Serve.pml#1454331321920"/>
+    <value/>
+  </extensions>
+  <extensions>
+    <key href="Serve.pml#1454331334336"/>
+    <value xPos="254" yPos="38" width="66" height="67" collapsed="false"/>
+  </extensions>
+  <extensions>
+    <key href="Serve.pml#1454331358257"/>
+    <value xPos="249" yPos="233" width="83" height="67"/>
+  </extensions>
+  <extensions>
+    <key href="Serve.pml#1454331382859"/>
+    <value>
+      <bendpoints xPos="301" yPos="124"/>
+    </value>
+  </extensions>
+  <extensions>
+    <key href="Serve.pml#1454331384188"/>
+    <value/>
+  </extensions>
+  <extensions>
+    <key href="../Behaviours/DriveToPOI.beh#1454330438527"/>
+    <value/>
+  </extensions>
+  <extensions>
+    <key href="../Behaviours/Stop.beh#1414681278745"/>
+    <value/>
+  </extensions>
+  <extensions>
+    <key href="Serve.pml#1454331501621"/>
+    <value/>
+  </extensions>
+</uiextensionmodel:PmlUiExtensionMap>

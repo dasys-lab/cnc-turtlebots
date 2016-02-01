@@ -5,7 +5,7 @@
     <value xPos="83" yPos="89" width="142" height="86" collapsed="false"/>
   </extensions>
   <extensions>
-    <key href="Behaviours/Stop.beh#1414681278745"/>
+    <key href="../Behaviours/Stop.beh#1414681278745"/>
     <value/>
   </extensions>
   <extensions>
@@ -19,7 +19,7 @@
     <value xPos="613" yPos="138" width="258" height="86" collapsed="false"/>
   </extensions>
   <extensions>
-    <key href="Behaviours/SearchDockingStation.beh#1414681446065"/>
+    <key href="../Behaviours/SearchDockingStation.beh#1414681446065"/>
     <value/>
   </extensions>
   <extensions>
@@ -31,7 +31,7 @@
     <value/>
   </extensions>
   <extensions>
-    <key href="Behaviours/SimpleDrive.beh#1432735473356"/>
+    <key href="../Behaviours/SimpleDrive.beh#1432735473356"/>
     <value/>
   </extensions>
   <extensions>
@@ -61,7 +61,7 @@
     <value/>
   </extensions>
   <extensions>
-    <key href="Behaviours/Rotate.beh#1447068225787"/>
+    <key href="../Behaviours/Rotate.beh#1447068225787"/>
     <value/>
   </extensions>
   <extensions>
@@ -79,7 +79,7 @@
     <value xPos="23" yPos="369" width="219" height="86" collapsed="false"/>
   </extensions>
   <extensions>
-    <key href="Behaviours/ChargingDefault.beh#1447958132701"/>
+    <key href="../Behaviours/ChargingDefault.beh#1447958132701"/>
     <value/>
   </extensions>
   <extensions>

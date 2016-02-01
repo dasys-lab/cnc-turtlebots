@@ -1,4 +1,4 @@
-#include "Plans/ChargeAndSimpleDriveTest1414681057676.h"
+#include "Plans/Tests/ChargeAndSimpleDriveTest1414681057676.h"
 using namespace alica;
 /*PROTECTED REGION ID(eph1414681057676) ENABLED START*/ //Add additional using directives here
 /*PROTECTED REGION END*/
