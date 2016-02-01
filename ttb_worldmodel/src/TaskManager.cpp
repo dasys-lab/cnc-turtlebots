@@ -13,15 +13,15 @@ namespace ttb
 	TaskManager::TaskManager()
 	{
 		auto poiSections = (*this->sc)["POI"]->getSections("POI.Points", NULL);
-		for (auto& poiSectionName : poiSections)
+		for (auto& poiSectionName : (*poiSections))
 		{
-			this->poiMap.emplace(
-				(*this->sc)["POI"]->get<int>("POI.Points", poiSectionName, "ID", NULL),
+			POI currentPOI (
+				(*this->sc)["POI"]->get<int>("POI.Points", poiSectionName.c_str(), "ID", NULL),
 				poiSectionName,
-				(*this->sc)["POI"]->get<float>("POI.Points", poiSectionName, "X", NULL),
-				(*this->sc)["POI"]->get<float>("POI.Points", poiSectionName, "Y", NULL)
+				(*this->sc)["POI"]->get<float>("POI.Points", poiSectionName.c_str(), "X", NULL),
+				(*this->sc)["POI"]->get<float>("POI.Points", poiSectionName.c_str(), "Y", NULL)
 			);
-		}
+			this->poiMap.emplace(currentPOI.id, currentPOI);		}
 	}
 
 	TaskManager::~TaskManager()
@@ -31,7 +31,7 @@ namespace ttb
 
 	void TaskManager::pushDriveToPOITask(shared_ptr<InformationElement<ttb_msgs::DriveToPOI>> driveToPOITask)
 	{
-		if (this->poiMap.find(driveToPOITask->information->poiId) != this->poiMap.end())
+		if (this->poiMap.find(driveToPOITask->getInformation()->poiId) != this->poiMap.end())
 			this->unfinishedDriveToPOITasks.push_back(driveToPOITask);
 	}
 

@@ -10,6 +10,7 @@
 
 #include "ttb_msgs/DriveToPOI.h"
 #include "InformationElement.h"
+#include "POI.h"
 #include <SystemConfig.h>
 
 using namespace std;
