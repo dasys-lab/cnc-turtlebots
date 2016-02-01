@@ -17,6 +17,7 @@ namespace alica
     protected:
         virtual void initialiseParameters();
         /*PROTECTED REGION ID(pro1454329856163) ENABLED START*/ //Add additional protected methods here
+        int id;
         /*PROTECTED REGION END*/
     private:
         /*PROTECTED REGION ID(prv1454329856163) ENABLED START*/ //Add additional private methods here
