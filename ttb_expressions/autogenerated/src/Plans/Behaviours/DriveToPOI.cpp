@@ -2,10 +2,13 @@ using namespace std;
 #include "Plans/Behaviours/DriveToPOI.h"
 
 /*PROTECTED REGION ID(inccpp1454329856163) ENABLED START*/ //Add additional includes here
+#include "actionlib/client/simple_action_client.h"
+#include "move_base_msgs/MoveBaseAction.h"
 /*PROTECTED REGION END*/
 namespace alica
 {
     /*PROTECTED REGION ID(staticVars1454329856163) ENABLED START*/ //initialise static variables here
+	typedef actionlib::SimpleActionClient<move_base_msgs::MoveBaseAction> MoveBaseClient;
     /*PROTECTED REGION END*/
     DriveToPOI::DriveToPOI() :
             DomainBehaviour("DriveToPOI")
@@ -25,10 +28,24 @@ namespace alica
 
     	double poiX;
     	double poiY;
-    	geometry_msgs::PoseStamped ps;
-    	ps.header.frame_id = "map";
-    	ps.header.stamp = ros::Time::now();
-    	ps.pose.orientation.w = 1;
+    	MoveBaseClient mbc("move_base",true);
+
+
+//    	geometry_msgs::PoseStamped ps;
+//    	ps.header.frame_id = "map";
+//    	ps.header.stamp = ros::Time::now();
+//    	ps.pose.orientation.w = 1;
+
+    	move_base_msgs::MoveBaseGoal mbg;
+
+    	mbg.target_pose.header.frame_id = "map";
+    	mbg.target_pose.pose.orientation.w = 1;
+
+//    	mbag.header.frame_id = "map";
+//    	mbag.header.stamp = ros::Time::now();
+//
+//    	mbag.goal.target_pose.header.frame_id = "map";
+
 
 
     	switch (id) {
@@ -58,10 +75,23 @@ namespace alica
 				return;
 		}
 
-    	ps.pose.position.x = poiX;
-    	ps.pose.position.y = poiY;
+//    	mbag.goal.target_pose.pose.position.x = poiX;
+//    	mbag.goal.target_pose.pose.position.x = poiY;
 
-    	send(ps);
+    	mbg.target_pose.pose.position.x = poiX;
+    	mbg.target_pose.pose.position.x = poiY;
+
+    	mbc.sendGoal(mbg);
+    	mbc.waitForResult();
+
+    	if(mbc.getState() == actionlib::SimpleClientGoalState::SUCCEEDED) {
+    		this->success = true;
+    	}
+
+//    	ps.pose.position.x = poiX;
+//    	ps.pose.position.y = poiY;
+//
+//    	send(ps);
 
 
 
