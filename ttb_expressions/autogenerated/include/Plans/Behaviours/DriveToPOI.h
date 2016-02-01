@@ -3,6 +3,7 @@
 
 #include "DomainBehaviour.h"
 /*PROTECTED REGION ID(inc1454329856163) ENABLED START*/ //Add additional includes here
+#include <POI.h>
 /*PROTECTED REGION END*/
 namespace alica
 {

@@ -49,6 +49,7 @@ namespace ttb
 		void processMobileBaseSensorState(kobuki_msgs::SensorStatePtr mobileBaseSensorStateData);
 		void processDockInfrRed(kobuki_msgs::DockInfraRedPtr dockInfrRedData);
 		void processAlvarData(ar_track_alvar_msgs::AlvarMarkersPtr alvarData);
+		void processDriveToPOICommand(ttb_msgs::DriveToPOIPtr driveToPOICommand);
 
 		shared_ptr<geometry::CNPosition> getOwnPosition(int index = 0);
 		shared_ptr<geometry::CNVelocity2D> getOwnVelocityMotion(int index = 0);
@@ -85,6 +86,7 @@ namespace ttb
 		RingBuffer<InformationElement<robot_control::RobotCommand>> ownRobotOnOff;
 		RingBuffer<InformationElement<kobuki_msgs::SensorState>> ownMobileBaseSensorState;
 		RingBuffer<InformationElement<kobuki_msgs::DockInfraRed>> ownDockInfrRed;
+		RingBuffer<InformationElement<ttb_msgs::DriveToPOI>> ownDriveToPOICommand;
 
 	};
 

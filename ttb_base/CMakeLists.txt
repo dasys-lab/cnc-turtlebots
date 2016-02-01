@@ -11,7 +11,7 @@ set(CMAKE_CXX_FLAGS "-rdynamic -g -fnon-call-exceptions -ggdb ${CMAKE_CXX_FLAGS}
 ## Find catkin macros and libraries
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
-find_package(catkin REQUIRED COMPONENTS roscpp system_config system_util fsystem autodiff event_handling alica_engine alica_ros_proxy ttb_expressions ttb_worldmodel)
+find_package(catkin REQUIRED COMPONENTS roscpp system_config system_util fsystem autodiff event_handling alica_engine alica_ros_proxy ttb_expressions ttb_worldmodel tf)
 #message(">>> BASE: catkin_LIBRARIES: ${catkin_LIBRARIES}")
 #message(">>> BASE: catkin_INCLUDE_DIRS: ${catkin_INCLUDE_DIRS}")
 

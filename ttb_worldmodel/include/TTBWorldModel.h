@@ -30,10 +30,12 @@
 #include "kobuki_msgs/DockInfraRed.h"
 #include "ar_track_alvar_msgs/AlvarMarkers.h"
 #include "tf/transform_listener.h"
+#include "ttb_msgs/DriveToPOI.h"
 
 #include "SystemConfig.h"
 #include "RawSensorData.h"
 #include "Robots.h"
+#include "TaskManager.h"
 #include "EventTrigger.h"
 
 namespace supplementary {
@@ -61,7 +63,9 @@ namespace ttb
 
 		// Public Data Access Classes
 		RawSensorData rawSensorData;
+		TaskManager taskManager;
 		Robots robots;
+
 
 	private:
 
@@ -80,6 +84,7 @@ namespace ttb
 		ros::NodeHandle n;
 		ros::AsyncSpinner* spinner;
 
+		string drivePOITopic;
 		string alvarTopic;
 		string odometryTopic;
 		string laserScanTopic;
@@ -97,6 +102,7 @@ namespace ttb
 
 		ros::Subscriber odometrySub;
 		ros::Subscriber alvarSub;
+		ros::Subscriber driveToPOISub;
 		ros::Subscriber laserScanSub;
 		ros::Subscriber bumperSensorSub;
 		ros::Subscriber bumperEventSub;
@@ -124,6 +130,7 @@ namespace ttb
 		void onRobotOnOff(robot_control::RobotCommandPtr robotOnOffData);
 		void onMobileBaseSensorStateData(kobuki_msgs::SensorStatePtr mobileBaseSensorStateData);
 		void onDockInfrRedData(kobuki_msgs::DockInfraRedPtr dockInfrRedData);
+		void onDriveToPOICommand(ttb_msgs::DriveToPOIPtr driveToPOICommand);
 
 	protected:
 
