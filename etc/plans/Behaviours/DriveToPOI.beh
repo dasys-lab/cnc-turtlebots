@@ -9,4 +9,7 @@
   <configurations id="1454329918634" name="DriveToPOI3" comment="" masterPlan="false" utilityFunction="" utilityThreshold="0.1" destinationPath="" deferring="0" frequency="30" eventDriven="false">
     <parameters id="1454329923570" name="MISSING_NAME" comment="" key="ID" value="3"/>
   </configurations>
+  <configurations id="1454330438527" name="DriveToWMsPOI" comment="" masterPlan="false" utilityFunction="" utilityThreshold="0.1" destinationPath="" deferring="0" frequency="30" eventDriven="false">
+    <parameters id="1454331425186" name="MISSING_NAME" comment="" key="ID" value="0"/>
+  </configurations>
 </alica:Behaviour>

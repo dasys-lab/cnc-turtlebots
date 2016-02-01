@@ -42,6 +42,8 @@ namespace alica
 
             case 1454329918634:
 
+            case 1454330438527:
+
                 return make_shared<DriveToPOI>();
                 break;
 
