@@ -33,7 +33,7 @@
 
 
     <export>
-        <nav_core plugin="${prefix}/rotate_plugin.xml" />
+        <nav_core plugin="${prefix}/ninja_plugin.xml" />
     </export>
 
 </package>
