@@ -7,7 +7,7 @@ set(CMAKE_CXX_FLAGS "-std=c++11 ${CMAKE_CXX_FLAGS}")
 ## Enable exception handling for segfaults using SigFault.h
 set(CMAKE_CXX_FLAGS "-rdynamic -fnon-call-exceptions -ggdb ${CMAKE_CXX_FLAGS}")
 
-find_package(catkin REQUIRED COMPONENTS cnc_geometry system_config event_handling alica_engine kobuki_msgs robot_control tf)
+find_package(catkin REQUIRED COMPONENTS cnc_geometry system_config event_handling alica_engine kobuki_msgs robot_control tf ttb_msgs)
 
 ###################################
 ## catkin specific configuration ##
@@ -33,8 +33,8 @@ include_directories(include ${catkin_INCLUDE_DIRS})
 
 
 add_library(ttb_worldmodel
- src/TTBWorldModel.cpp
-  src/robotmovement/RobotMovement.cpp
+  src/TTBWorldModel.cpp
+  src/TaskManager.cpp
   src/sharedworldmodel/TTBSharedWorldModel.cpp
   src/RawSensorData.cpp
   src/Robots.cpp

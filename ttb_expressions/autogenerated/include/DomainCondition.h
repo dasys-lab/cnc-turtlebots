@@ -12,6 +12,8 @@ namespace alica
         DomainCondition();
         virtual ~DomainCondition();
         bool checkLastCommand(robot_control::RobotCommand::_cmd_type rc);
+        bool fullyCharged();
+        bool isCharging();
 
     protected:
         ttb::TTBWorldModel* wm;

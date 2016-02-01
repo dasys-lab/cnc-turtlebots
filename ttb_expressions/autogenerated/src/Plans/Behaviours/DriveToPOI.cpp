@@ -11,7 +11,7 @@ namespace alica
             DomainBehaviour("DriveToPOI")
     {
         /*PROTECTED REGION ID(con1454329856163) ENABLED START*/ //Add additional options here
-    	id = -1;
+        id = -1;
         /*PROTECTED REGION END*/
     }
     DriveToPOI::~DriveToPOI()
@@ -22,54 +22,46 @@ namespace alica
     void DriveToPOI::run(void* msg)
     {
         /*PROTECTED REGION ID(run1454329856163) ENABLED START*/ //Add additional options here
+        double poiX;
+        double poiY;
 
-    	double poiX;
-    	double poiY;
+        switch (id)
+        {
+            case 1:
+                poiX = (*this->sc)["POI"]->get<double>("POI.Points.Floor1.X", NULL);
+                poiY = (*this->sc)["POI"]->get<double>("POI.Points.Floor1.Y", NULL);
+                break;
+            case 2:
+                poiX = (*this->sc)["POI"]->get<double>("POI.Points.HiwiRoom.X", NULL);
+                poiY = (*this->sc)["POI"]->get<double>("POI.Points.HiwiRoom.Y", NULL);
+                break;
+            case 3:
+                poiX = (*this->sc)["POI"]->get<double>("POI.Points.StudentLab.X", NULL);
+                poiY = (*this->sc)["POI"]->get<double>("POI.Points.StudentLab.Y", NULL);
+                break;
 
-    	switch (id) {
-			case 1:
-				poiX = (*this->sc)["POI"]->get<double>("POI.Points.Floor1.X", NULL);
-				poiY = (*this->sc)["POI"]->get<double>("POI.Points.Floor1.Y", NULL);
-				break;
-			case 2:
-				poiX = (*this->sc)["POI"]->get<double>("POI.Points.HiwiRoom.X", NULL);
-				poiY = (*this->sc)["POI"]->get<double>("POI.Points.HiwiRoom.Y", NULL);
-				break;
-			case 3:
-				poiX = (*this->sc)["POI"]->get<double>("POI.Points.StudentLab.X", NULL);
-				poiY = (*this->sc)["POI"]->get<double>("POI.Points.StudentLab.Y", NULL);
-				break;
-
-			case 4:
-				poiX = (*this->sc)["POI"]->get<double>("POI.Points.Kicker.X", NULL);
-				poiY = (*this->sc)["POI"]->get<double>("POI.Points.Kicker.Y", NULL);
-				break;
-			default:
-				cout << "I don't know where to go!";
-				break;
-		}
-
-
-
-
-
-
-
-
+            case 4:
+                poiX = (*this->sc)["POI"]->get<double>("POI.Points.Kicker.X", NULL);
+                poiY = (*this->sc)["POI"]->get<double>("POI.Points.Kicker.Y", NULL);
+                break;
+            default:
+                cout << "I don't know where to go!";
+                break;
+        }
 
         /*PROTECTED REGION END*/
     }
     void DriveToPOI::initialiseParameters()
     {
         /*PROTECTED REGION ID(initialiseParameters1454329856163) ENABLED START*/ //Add additional options here
-    	string tmp;
+        string tmp;
         bool success = true;
-        success &= getParameter("ID",tmp);
+        success &= getParameter("ID", tmp);
         try
         {
             if (success)
             {
-            	id = stod(tmp);
+                id = stod(tmp);
             }
             success = true;
 
