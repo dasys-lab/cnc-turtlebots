@@ -26,26 +26,30 @@ namespace alica
     	double poiX;
     	double poiY;
     	move_base_msgs::MoveBaseActionGoal mbag;
-    	mbag.goal.target_pose.header.frame_id = "map";
+    	mbag.goal.target_pose.header.frame_id = "'map'";
 
 
     	switch (id) {
 			case 1:
 				poiX = (*this->sc)["POI"]->get<double>("POI.Points.Floor1.X", NULL);
 				poiY = (*this->sc)["POI"]->get<double>("POI.Points.Floor1.Y", NULL);
+				cout << "id is 1, setting params for Floor1";
 				break;
 			case 2:
 				poiX = (*this->sc)["POI"]->get<double>("POI.Points.HiwiRoom.X", NULL);
 				poiY = (*this->sc)["POI"]->get<double>("POI.Points.HiwiRoom.Y", NULL);
+				cout << "id is 2, setting params for HiwiRoom";
 				break;
 			case 3:
 				poiX = (*this->sc)["POI"]->get<double>("POI.Points.StudentLab.X", NULL);
 				poiY = (*this->sc)["POI"]->get<double>("POI.Points.StudentLab.Y", NULL);
+				cout << "id is 3, setting params for StudentLab1";
 				break;
 
 			case 4:
 				poiX = (*this->sc)["POI"]->get<double>("POI.Points.Kicker.X", NULL);
 				poiY = (*this->sc)["POI"]->get<double>("POI.Points.Kicker.Y", NULL);
+				cout << "id is 4, setting params for Kicker";
 				break;
 			default:
 				cout << "I don't know where to go, so I will stay at my current position!";
@@ -71,6 +75,7 @@ namespace alica
             if (success)
             {
             	id = stod(tmp);
+            	cout << "id is " << id;
             }
             success = true;
 
