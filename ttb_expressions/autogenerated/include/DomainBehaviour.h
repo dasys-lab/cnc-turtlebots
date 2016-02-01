@@ -6,7 +6,7 @@
 #include "sound_play/SoundRequest.h"
 #include "sound_play/sound_play.h"
 #include "TTBWorldModel.h"
-#include "move_base_msgs/MoveBaseActionGoal.h"
+#include "geometry_msgs/PoseStamped.h"
 
 #include "ros/ros.h"
 
@@ -25,8 +25,7 @@ namespace alica
 
 		void send(geometry_msgs::Twist& tw);
 		void send(sound_play::SoundRequest& sr);
-		void send(move_base_msgs::MoveBaseActionGoal& mbag);
-
+		void send(geometry_msgs::PoseStamped& mbg);
 		ttb::TTBWorldModel* wm;
 
 	protected:
@@ -41,7 +40,7 @@ namespace alica
 		string moveBaseGoalTopic;
 		ros::Publisher mobile_baseCommandVelocityPub;
 		ros::Publisher soundRequestPub;
-		ros::Publisher move_baseActionGoalPub;
+		ros::Publisher move_base_simpleGoalPub;
 	};
 } /* namespace alica */
 

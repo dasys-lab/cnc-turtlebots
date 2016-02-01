@@ -22,7 +22,7 @@ namespace alica
 
 		mobile_baseCommandVelocityPub = n.advertise<geometry_msgs::Twist>(velocityTopic, 10);
 		soundRequestPub = n.advertise<sound_play::SoundRequest>(soundRequesTopic, 10);
-		move_baseActionGoalPub = n.advertise<move_base_msgs::MoveBaseActionGoal>(moveBaseGoalTopic, 10);
+		move_base_simpleGoalPub = n.advertise<geometry_msgs::PoseStamped>(moveBaseGoalTopic, 10);
 	}
 
 	DomainBehaviour::~DomainBehaviour()
@@ -37,8 +37,8 @@ namespace alica
 		soundRequestPub.publish(sr);
 	}
 
-	void alica::DomainBehaviour::send(move_base_msgs::MoveBaseActionGoal& mbag) {
-		move_baseActionGoalPub.publish(mbag);
+	void alica::DomainBehaviour::send(geometry_msgs::PoseStamped& mbsg) {
+		move_base_simpleGoalPub.publish(mbsg);
 	}
 
 } /* namespace alica */
