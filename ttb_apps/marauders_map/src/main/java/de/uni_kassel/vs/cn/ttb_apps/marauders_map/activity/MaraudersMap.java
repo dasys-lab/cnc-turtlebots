@@ -6,6 +6,7 @@ import android.widget.ListView;
 
 import com.github.ros_java.marauders_map.R;
 import de.uni_kassel.vs.cn.ttb_apps.marauders_map.model.Root;
+import de.uni_kassel.vs.cn.ttb_apps.marauders_map.node.AMCL_PoseListener;
 import de.uni_kassel.vs.cn.ttb_apps.marauders_map.node.AliciaPlanTreeInfoListener;
 import de.uni_kassel.vs.cn.ttb_apps.marauders_map.node.AnswerListener;
 import de.uni_kassel.vs.cn.ttb_apps.marauders_map.node.CommandTalker;
@@ -85,19 +86,40 @@ public class MaraudersMap extends RosActivity
      */
     @Override
     protected void init(NodeMainExecutor nodeMainExecutor) {
+
+        // Configure ROS-Core
         NodeConfiguration nodeConfiguration = NodeConfiguration.newPublic(getRosHostname());
         nodeConfiguration.setMasterUri(getMasterUri());
+
+        /*### Nodes for Publishers and Subscribers ###*/
+
+        // Talker
         setTalker(new CommandTalker());
         getTalker().setActivity(this);
+        nodeMainExecutor.execute(getTalker(), nodeConfiguration);
+
+        // AnswerListener
         AnswerListener answerListener = new AnswerListener();
         answerListener.setActivity(this);
-        planTreeInfoListener = new AliciaPlanTreeInfoListener();
         nodeMainExecutor.execute(answerListener, nodeConfiguration);
-        nodeMainExecutor.execute(getTalker(), nodeConfiguration);
+
+        // PlanTreeInfoListener
+        planTreeInfoListener = new AliciaPlanTreeInfoListener();
         nodeMainExecutor.execute(planTreeInfoListener, nodeConfiguration);
+
+        // MapListener
         MapListener mapListener = new MapListener();
         nodeMainExecutor.execute(mapListener,nodeConfiguration);
         Root.setMapListener(mapListener);
+
+        // AMCL_PoseListener
+        AMCL_PoseListener amcl_poseListener = new AMCL_PoseListener();
+        // nodeMainExecutor.execute(amcl_poseListener, nodeConfiguration);
+        Root.setAmcl_poseListener(amcl_poseListener);
+
+
+
+        // UDPProxy
         ROS2UDPProxy proxy = new ROS2UDPProxy();
         proxy.setActivity(this);
         nodeMainExecutor.execute(proxy, nodeConfiguration);

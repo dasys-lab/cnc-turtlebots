@@ -3,8 +3,10 @@ package de.uni_kassel.vs.cn.ttb_apps.marauders_map.activity;
 import android.app.Activity;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
+import android.graphics.Canvas;
 import android.graphics.ColorMatrix;
 import android.graphics.ColorMatrixColorFilter;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.os.Environment;
 import android.view.View;
@@ -13,6 +15,9 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 
 import com.github.ros_java.marauders_map.R;
+
+import de.uni_kassel.vs.cn.ttb_apps.marauders_map.activity.map.MapDrawer;
+import de.uni_kassel.vs.cn.ttb_apps.marauders_map.activity.map.RobotPositionOverlay;
 import de.uni_kassel.vs.cn.ttb_apps.marauders_map.model.Root;
 import com.google.common.io.Files;
 
@@ -31,26 +36,19 @@ import uk.co.senab.photoview.PhotoViewAttacher;
  */
 public class MapScreen extends Activity {
 
-    private ImageView imageView;
+    private ImageView mapView;
 
     private static Bitmap bitmap = null;
     private PhotoViewAttacher attacher;
     private Spinner robotsSpinner;
     private VirtualJoystickView joystickView;
+    private MapDrawer mapDrawer;
 
-    private static final int MAXVAL = 255;
     private static int width;
     private static int height;
 
-    public ArrayAdapter<String> getSpinnerAdapter() {
-        return spinnerAdapter;
-    }
-
-    public void setSpinnerAdapter(ArrayAdapter<String> spinnerAdapter) {
-        this.spinnerAdapter = spinnerAdapter;
-    }
-
     private ArrayAdapter<String> spinnerAdapter;
+    private Thread thread;
 
     /**
      *
@@ -63,7 +61,7 @@ public class MapScreen extends Activity {
         setContentView(R.layout.map_screen);
         //map = getPGMAsBitmap();
         // readMap from File
-        if (bitmap == null) {
+        if (getBitmap() == null) {
             try {
                 int id = 1;
                 String mapPath = Environment.getExternalStorageDirectory() + "/currentMap_" + id + ".pgm";
@@ -78,9 +76,9 @@ public class MapScreen extends Activity {
         }
 
 
-        // init imageView
-        imageView = (ImageView) findViewById(R.id.imageView);
-        imageView.setImageBitmap(bitmap);
+        // init mapView
+        mapView = (ImageView) findViewById(R.id.imageView);
+        //getMapView().setImageBitmap(getBitmap());
         ColorMatrix matrix = new ColorMatrix();
         matrix.setSaturation(0);
         float[] array = matrix.getArray();
@@ -90,7 +88,7 @@ public class MapScreen extends Activity {
 
         // set grayscale filter, otherwise a blueish image would be shown because the of the bitmap are not correctly shifted
         ColorMatrixColorFilter filter = new ColorMatrixColorFilter(matrix);
-        imageView.setColorFilter(filter);
+        getMapView().setColorFilter(filter);
 
         // Init spinner for robot selection
         robotsSpinner = (Spinner) findViewById(R.id.robotsSpinner);
@@ -99,13 +97,27 @@ public class MapScreen extends Activity {
         robotsSpinner.setAdapter(spinnerAdapter);
 
         // attach PhotoView, which allows for easy zooming and scrolling auf the picture
-        attacher = new PhotoViewAttacher(imageView);
+        attacher = new PhotoViewAttacher(getMapView());
         attacher.setOnViewTapListener(new PhotoViewAttacher.OnViewTapListener() {
             @Override
             public void onViewTap(View view, float v, float v1) {
 
             }
         });
+
+
+        Bitmap emptyMap = Bitmap.createBitmap(MapScreen.bitmap.getWidth(), MapScreen.bitmap.getHeight(), Bitmap.Config.RGB_565);
+        Canvas canvas = new Canvas(emptyMap);
+        mapView.setImageDrawable(new BitmapDrawable(getResources(),emptyMap));
+        mapDrawer = new MapDrawer();
+        mapDrawer.setMapView(mapView);
+
+        RobotPositionOverlay robotPositionOverlay = new RobotPositionOverlay(mapView, MapScreen.bitmap,canvas);
+        robotPositionOverlay.setListener(Root.getAmcl_poseListener());
+        Root.overlays.add(robotPositionOverlay);
+        thread = new Thread(mapDrawer);
+        thread.start();
+
         Root.getMaraudersMap().getPlanTreeInfoListener().setActivity(this);
     }
 
@@ -192,5 +204,26 @@ public class MapScreen extends Activity {
 
         outputStream.flush();
         outputStream.close();
+    }
+
+    @Override
+    public void finish() {
+        super.finish();
+    }
+
+    public ImageView getMapView() {
+        return mapView;
+    }
+
+    public static Bitmap getBitmap() {
+        return bitmap;
+    }
+
+    public ArrayAdapter<String> getSpinnerAdapter() {
+        return spinnerAdapter;
+    }
+
+    public void setSpinnerAdapter(ArrayAdapter<String> spinnerAdapter) {
+        this.spinnerAdapter = spinnerAdapter;
     }
 }
