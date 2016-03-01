@@ -32,7 +32,7 @@ import java.net.Inet4Address;
 import sensor_msgs.PointCloud;
 import sensor_msgs.PointCloud;
 import geometry_msgs.PoseWithCovarianceStamped;
-import sensor_msgs.PointCloud;
+import geometry_msgs.PoseArray;
 import sensor_msgs.PointCloud;
 import msl_sensor_msgs.VisionDebug;
 import msl_sensor_msgs.VisionControl;
@@ -137,11 +137,11 @@ public void onNewMessage(Object o) {
 	}
 	}
 
-	private class OnRosPointCloud2644558886Listener implements MessageListener {
+	private class OnRosPoseArray2644558886Listener implements MessageListener {
 	@Override
 public void onNewMessage(Object o) {
-		PointCloud converted = (PointCloud) o;
-		MessageSerializer<PointCloud> serializer = node.getMessageSerializationFactory().newMessageSerializer("sensor_msgs/PointCloud");
+		PoseArray converted = (PoseArray) o;
+		MessageSerializer<PoseArray> serializer = node.getMessageSerializationFactory().newMessageSerializer("geometry_msgs/PoseArray");
 		ChannelBuffer buffer = ChannelBuffers.buffer(ByteOrder.LITTLE_ENDIAN,64000);
 		serializer.serialize(converted,buffer);
 		ByteBuffer idBuf = ByteBuffer.allocate(4).order(ByteOrder.LITTLE_ENDIAN).putInt((int) 2644558886l);
@@ -641,7 +641,7 @@ public void onNewMessage(Object o) {
 private Publisher<PointCloud> pub697841562;
 private Publisher<PointCloud> pub715397477;
 private Publisher<PoseWithCovarianceStamped> pub2852345798;
-private Publisher<PointCloud> pub2644558886;
+private Publisher<PoseArray> pub2644558886;
 private Publisher<PointCloud> pub2242425699;
 private Publisher<VisionDebug> pub4287086446;
 private Publisher<VisionControl> pub3818207232;
@@ -693,8 +693,8 @@ final Subscriber sub1 = connectedNode.newSubscriber("/self", "sensor_msgs/PointC
 sub1.addMessageListener(new OnRosPointCloud715397477Listener());
 final Subscriber sub2 = connectedNode.newSubscriber("/amcl_pose", "geometry_msgs/PoseWithCovarianceStamped");
 sub2.addMessageListener(new OnRosPoseWithCovarianceStamped2852345798Listener());
-final Subscriber sub3 = connectedNode.newSubscriber("/particlecloud", "sensor_msgs/PointCloud");
-sub3.addMessageListener(new OnRosPointCloud2644558886Listener());
+final Subscriber sub3 = connectedNode.newSubscriber("/particlecloud", "geometry_msgs/PoseArray");
+sub3.addMessageListener(new OnRosPoseArray2644558886Listener());
 final Subscriber sub4 = connectedNode.newSubscriber("/obstacles", "sensor_msgs/PointCloud");
 sub4.addMessageListener(new OnRosPointCloud2242425699Listener());
 final Subscriber sub5 = connectedNode.newSubscriber("/CNVision/VisionDebug", "msl_sensor_msgs/VisionDebug");
@@ -747,7 +747,7 @@ sub27.addMessageListener(new OnRosProcessStats2783514677Listener());
 pub697841562 = connectedNode.newPublisher("/ball", "sensor_msgs/PointCloud");
 pub715397477 = connectedNode.newPublisher("/self", "sensor_msgs/PointCloud");
 pub2852345798 = connectedNode.newPublisher("/amcl_pose", "geometry_msgs/PoseWithCovarianceStamped");
-pub2644558886 = connectedNode.newPublisher("/particlecloud", "sensor_msgs/PointCloud");
+pub2644558886 = connectedNode.newPublisher("/particlecloud", "geometry_msgs/PoseArray");
 pub2242425699 = connectedNode.newPublisher("/obstacles", "sensor_msgs/PointCloud");
 pub4287086446 = connectedNode.newPublisher("/CNVision/VisionDebug", "msl_sensor_msgs/VisionDebug");
 pub3818207232 = connectedNode.newPublisher("/CNVision/VisionControl", "msl_sensor_msgs/VisionControl");
@@ -861,9 +861,9 @@ PoseWithCovarianceStamped m2852345798 = deserializer.deserialize(ChannelBuffers.
 pub2852345798.publish(m2852345798);
 }
 else if(id == 2644558886l) {
-MessageDeserializer<PointCloud> deserializer = node.getMessageSerializationFactory().newMessageDeserializer(PointCloud._TYPE);
+MessageDeserializer<PoseArray> deserializer = node.getMessageSerializationFactory().newMessageDeserializer(PoseArray._TYPE);
 byte[] message = Arrays.copyOfRange(packet.getData(), Integer.SIZE / Byte.SIZE, packet.getData().length-4);
-PointCloud m2644558886 = deserializer.deserialize(ChannelBuffers.copiedBuffer(ByteOrder.LITTLE_ENDIAN,message));
+PoseArray m2644558886 = deserializer.deserialize(ChannelBuffers.copiedBuffer(ByteOrder.LITTLE_ENDIAN,message));
 pub2644558886.publish(m2644558886);
 }
 else if(id == 2242425699l) {

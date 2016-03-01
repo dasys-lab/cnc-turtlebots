@@ -30,7 +30,7 @@
 #include "process_manager/ProcessCommand.h"
 #include "process_manager/ProcessStats.h"
 #include "geometry_msgs/PoseWithCovarianceStamped.h"
-#include "sensor_msgs/PointCloud.h"
+#include "geometry_msgs/PoseArray.h"
 #include "sensor_msgs/PointCloud.h"
 
 using namespace supplementary;
@@ -205,10 +205,10 @@ uint8_t* buffer = NULL;
 	}
 	if(buffer!=NULL) delete[] buffer;
 }
-void onRosPointCloud2644558886(const ros::MessageEvent<sensor_msgs::PointCloud>& event) {
+void onRosPoseArray2644558886(const ros::MessageEvent<geometry_msgs::PoseArray>& event) {
 	if(0 == event.getPublisherName().compare(ownRosName)) return;
 uint8_t* buffer = NULL;
-	const sensor_msgs::PointCloud::ConstPtr& message = event.getMessage();
+	const geometry_msgs::PoseArray::ConstPtr& message = event.getMessage();
 	try{
 		uint32_t serial_size = ros::serialization::serializationLength(*message);
 		buffer = new uint8_t[serial_size+sizeof(uint32_t)];
@@ -311,9 +311,9 @@ ros::serialization::Serializer<geometry_msgs::PoseWithCovarianceStamped>::read(s
 pub2852345798.publish<geometry_msgs::PoseWithCovarianceStamped>(m2852345798);
 break; }
 case 2644558886ul: {
-sensor_msgs::PointCloud m2644558886;
-ros::serialization::Serializer<sensor_msgs::PointCloud>::read(stream, m2644558886);
-pub2644558886.publish<sensor_msgs::PointCloud>(m2644558886);
+geometry_msgs::PoseArray m2644558886;
+ros::serialization::Serializer<geometry_msgs::PoseArray>::read(stream, m2644558886);
+pub2644558886.publish<geometry_msgs::PoseArray>(m2644558886);
 break; }
 case 2242425699ul: {
 sensor_msgs::PointCloud m2242425699;
@@ -392,7 +392,7 @@ ros::Subscriber sub5 = n.subscribe("/AlicaEngine/SolverResult",5, onRosSolverRes
 ros::Subscriber sub6 = n.subscribe("/process_manager/ProcessCommand",5, onRosProcessCommand3108117629,ros::TransportHints().unreliable().tcpNoDelay().reliable());
 ros::Subscriber sub7 = n.subscribe("/process_manager/ProcessStats",5, onRosProcessStats2783514677,ros::TransportHints().unreliable().tcpNoDelay().reliable());
 ros::Subscriber sub8 = n.subscribe("/amcl_pose",5, onRosPoseWithCovarianceStamped2852345798,ros::TransportHints().unreliable().tcpNoDelay().reliable());
-ros::Subscriber sub9 = n.subscribe("/particlecloud",5, onRosPointCloud2644558886,ros::TransportHints().unreliable().tcpNoDelay().reliable());
+ros::Subscriber sub9 = n.subscribe("/particlecloud",5, onRosPoseArray2644558886,ros::TransportHints().unreliable().tcpNoDelay().reliable());
 ros::Subscriber sub10 = n.subscribe("/obstacles",5, onRosPointCloud2242425699,ros::TransportHints().unreliable().tcpNoDelay().reliable());
 	
 pub3767756765 = n.advertise<alica_ros_proxy::PlanTreeInfo>("/AlicaEngine/PlanTreeInfo",5,false);
@@ -404,7 +404,7 @@ pub2276189600 = n.advertise<alica_ros_proxy::SolverResult>("/AlicaEngine/SolverR
 pub3108117629 = n.advertise<process_manager::ProcessCommand>("/process_manager/ProcessCommand",5,false);
 pub2783514677 = n.advertise<process_manager::ProcessStats>("/process_manager/ProcessStats",5,false);
 pub2852345798 = n.advertise<geometry_msgs::PoseWithCovarianceStamped>("/amcl_pose",5,false);
-pub2644558886 = n.advertise<sensor_msgs::PointCloud>("/particlecloud",5,false);
+pub2644558886 = n.advertise<geometry_msgs::PoseArray>("/particlecloud",5,false);
 pub2242425699 = n.advertise<sensor_msgs::PointCloud>("/obstacles",5,false);
 	
 	boost::thread iothread(run);
