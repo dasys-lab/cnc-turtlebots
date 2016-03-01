@@ -33,6 +33,7 @@ import sensor_msgs.PointCloud;
 import sensor_msgs.PointCloud;
 import geometry_msgs.PoseWithCovarianceStamped;
 import sensor_msgs.PointCloud;
+import sensor_msgs.PointCloud;
 import msl_sensor_msgs.VisionDebug;
 import msl_sensor_msgs.VisionControl;
 import msl_sensor_msgs.VisionImage;
@@ -124,6 +125,26 @@ public void onNewMessage(Object o) {
 		ChannelBuffer buffer = ChannelBuffers.buffer(ByteOrder.LITTLE_ENDIAN,64000);
 		serializer.serialize(converted,buffer);
 		ByteBuffer idBuf = ByteBuffer.allocate(4).order(ByteOrder.LITTLE_ENDIAN).putInt((int) 2852345798l);
+		ChannelBuffer finalBuf = ChannelBuffers.copiedBuffer(ByteOrder.LITTLE_ENDIAN, idBuf.array(), buffer.array());
+		try {
+			MulticastSocket socket = new MulticastSocket();
+			socket.send(new DatagramPacket(finalBuf.array(),finalBuf.array().length,group,port));
+			socket.close();
+		} catch (IOException e) {
+			System.err.println("Exception while sending UDP message:" + converted._TYPE + " Discarding message!");
+		}
+
+	}
+	}
+
+	private class OnRosPointCloud2644558886Listener implements MessageListener {
+	@Override
+public void onNewMessage(Object o) {
+		PointCloud converted = (PointCloud) o;
+		MessageSerializer<PointCloud> serializer = node.getMessageSerializationFactory().newMessageSerializer("sensor_msgs/PointCloud");
+		ChannelBuffer buffer = ChannelBuffers.buffer(ByteOrder.LITTLE_ENDIAN,64000);
+		serializer.serialize(converted,buffer);
+		ByteBuffer idBuf = ByteBuffer.allocate(4).order(ByteOrder.LITTLE_ENDIAN).putInt((int) 2644558886l);
 		ChannelBuffer finalBuf = ChannelBuffers.copiedBuffer(ByteOrder.LITTLE_ENDIAN, idBuf.array(), buffer.array());
 		try {
 			MulticastSocket socket = new MulticastSocket();
@@ -620,6 +641,7 @@ public void onNewMessage(Object o) {
 private Publisher<PointCloud> pub697841562;
 private Publisher<PointCloud> pub715397477;
 private Publisher<PoseWithCovarianceStamped> pub2852345798;
+private Publisher<PointCloud> pub2644558886;
 private Publisher<PointCloud> pub2242425699;
 private Publisher<VisionDebug> pub4287086446;
 private Publisher<VisionControl> pub3818207232;
@@ -671,58 +693,61 @@ final Subscriber sub1 = connectedNode.newSubscriber("/self", "sensor_msgs/PointC
 sub1.addMessageListener(new OnRosPointCloud715397477Listener());
 final Subscriber sub2 = connectedNode.newSubscriber("/amcl_pose", "geometry_msgs/PoseWithCovarianceStamped");
 sub2.addMessageListener(new OnRosPoseWithCovarianceStamped2852345798Listener());
-final Subscriber sub3 = connectedNode.newSubscriber("/obstacles", "sensor_msgs/PointCloud");
-sub3.addMessageListener(new OnRosPointCloud2242425699Listener());
-final Subscriber sub4 = connectedNode.newSubscriber("/CNVision/VisionDebug", "msl_sensor_msgs/VisionDebug");
-sub4.addMessageListener(new OnRosVisionDebug4287086446Listener());
-final Subscriber sub5 = connectedNode.newSubscriber("/CNVision/VisionControl", "msl_sensor_msgs/VisionControl");
-sub5.addMessageListener(new OnRosVisionControl3818207232Listener());
-final Subscriber sub6 = connectedNode.newSubscriber("/CNVision/VisionImage", "msl_sensor_msgs/VisionImage");
-sub6.addMessageListener(new OnRosVisionImage520651946Listener());
-final Subscriber sub7 = connectedNode.newSubscriber("/KickerStatInfo", "msl_actuator_msgs/KickerStatInfo");
-sub7.addMessageListener(new OnRosKickerStatInfo3915861504Listener());
-final Subscriber sub8 = connectedNode.newSubscriber("/MotionStatInfo", "msl_actuator_msgs/MotionStatInfo");
-sub8.addMessageListener(new OnRosMotionStatInfo825806425Listener());
-final Subscriber sub9 = connectedNode.newSubscriber("/WorldModel/PassMsg", "msl_helper_msgs/PassMsg");
-sub9.addMessageListener(new OnRosPassMsg888918809Listener());
-final Subscriber sub10 = connectedNode.newSubscriber("/mmTalker", "std_msgs/String");
-sub10.addMessageListener(new OnRosString4022577436Listener());
-final Subscriber sub11 = connectedNode.newSubscriber("/RefereeBoxInfoBody", "msl_msgs/RefBoxCommand");
-sub11.addMessageListener(new OnRosRefBoxCommand1841334100Listener());
-final Subscriber sub12 = connectedNode.newSubscriber("/Joystick", "msl_msgs/JoystickCommand");
-sub12.addMessageListener(new OnRosJoystickCommand1506505735Listener());
-final Subscriber sub13 = connectedNode.newSubscriber("/WorldModel/SharedWorldInfo", "msl_sensor_msgs/SharedWorldInfo");
-sub13.addMessageListener(new OnRosSharedWorldInfo2791795402Listener());
-final Subscriber sub14 = connectedNode.newSubscriber("/PathPlanner/PathPlanner", "msl_msgs/PathPlanner");
-sub14.addMessageListener(new OnRosPathPlanner709768768Listener());
-final Subscriber sub15 = connectedNode.newSubscriber("/PathPlanner/VoronoiNet", "msl_msgs/VoronoiNetInfo");
-sub15.addMessageListener(new OnRosVoronoiNetInfo179313306Listener());
-final Subscriber sub16 = connectedNode.newSubscriber("/PathPlanner/CorridorCheck", "msl_msgs/CorridorCheck");
-sub16.addMessageListener(new OnRosCorridorCheck2924935533Listener());
-final Subscriber sub17 = connectedNode.newSubscriber("/AlicaEngine/PlanTreeInfo", "alica_ros_proxy/PlanTreeInfo");
-sub17.addMessageListener(new OnRosPlanTreeInfo3767756765Listener());
-final Subscriber sub18 = connectedNode.newSubscriber("/AlicaEngine/AlicaEngineInfo", "alica_ros_proxy/AlicaEngineInfo");
-sub18.addMessageListener(new OnRosAlicaEngineInfo238666206Listener());
-final Subscriber sub19 = connectedNode.newSubscriber("/AlicaEngine/SyncTalk", "alica_ros_proxy/SyncTalk");
-sub19.addMessageListener(new OnRosSyncTalk4175715375Listener());
-final Subscriber sub20 = connectedNode.newSubscriber("/AlicaEngine/SyncReady", "alica_ros_proxy/SyncReady");
-sub20.addMessageListener(new OnRosSyncReady636345472Listener());
-final Subscriber sub21 = connectedNode.newSubscriber("/AlicaEngine/AllocationAuthorityInfo", "alica_ros_proxy/AllocationAuthorityInfo");
-sub21.addMessageListener(new OnRosAllocationAuthorityInfo690246385Listener());
-final Subscriber sub22 = connectedNode.newSubscriber("/AlicaEngine/SolverResult", "alica_ros_proxy/SolverResult");
-sub22.addMessageListener(new OnRosSolverResult2276189600Listener());
-final Subscriber sub23 = connectedNode.newSubscriber("/CNCalibration/CameraSettings", "msl_sensor_msgs/CameraSettings");
-sub23.addMessageListener(new OnRosCameraSettings2163940045Listener());
-final Subscriber sub24 = connectedNode.newSubscriber("/CNCalibration/CameraSettingsRequest", "msl_sensor_msgs/CameraSettingsRequest");
-sub24.addMessageListener(new OnRosCameraSettingsRequest3170299750Listener());
-final Subscriber sub25 = connectedNode.newSubscriber("/process_manager/ProcessCommand", "process_manager/ProcessCommand");
-sub25.addMessageListener(new OnRosProcessCommand3108117629Listener());
-final Subscriber sub26 = connectedNode.newSubscriber("/process_manager/ProcessStats", "process_manager/ProcessStats");
-sub26.addMessageListener(new OnRosProcessStats2783514677Listener());
+final Subscriber sub3 = connectedNode.newSubscriber("/particlecloud", "sensor_msgs/PointCloud");
+sub3.addMessageListener(new OnRosPointCloud2644558886Listener());
+final Subscriber sub4 = connectedNode.newSubscriber("/obstacles", "sensor_msgs/PointCloud");
+sub4.addMessageListener(new OnRosPointCloud2242425699Listener());
+final Subscriber sub5 = connectedNode.newSubscriber("/CNVision/VisionDebug", "msl_sensor_msgs/VisionDebug");
+sub5.addMessageListener(new OnRosVisionDebug4287086446Listener());
+final Subscriber sub6 = connectedNode.newSubscriber("/CNVision/VisionControl", "msl_sensor_msgs/VisionControl");
+sub6.addMessageListener(new OnRosVisionControl3818207232Listener());
+final Subscriber sub7 = connectedNode.newSubscriber("/CNVision/VisionImage", "msl_sensor_msgs/VisionImage");
+sub7.addMessageListener(new OnRosVisionImage520651946Listener());
+final Subscriber sub8 = connectedNode.newSubscriber("/KickerStatInfo", "msl_actuator_msgs/KickerStatInfo");
+sub8.addMessageListener(new OnRosKickerStatInfo3915861504Listener());
+final Subscriber sub9 = connectedNode.newSubscriber("/MotionStatInfo", "msl_actuator_msgs/MotionStatInfo");
+sub9.addMessageListener(new OnRosMotionStatInfo825806425Listener());
+final Subscriber sub10 = connectedNode.newSubscriber("/WorldModel/PassMsg", "msl_helper_msgs/PassMsg");
+sub10.addMessageListener(new OnRosPassMsg888918809Listener());
+final Subscriber sub11 = connectedNode.newSubscriber("/mmTalker", "std_msgs/String");
+sub11.addMessageListener(new OnRosString4022577436Listener());
+final Subscriber sub12 = connectedNode.newSubscriber("/RefereeBoxInfoBody", "msl_msgs/RefBoxCommand");
+sub12.addMessageListener(new OnRosRefBoxCommand1841334100Listener());
+final Subscriber sub13 = connectedNode.newSubscriber("/Joystick", "msl_msgs/JoystickCommand");
+sub13.addMessageListener(new OnRosJoystickCommand1506505735Listener());
+final Subscriber sub14 = connectedNode.newSubscriber("/WorldModel/SharedWorldInfo", "msl_sensor_msgs/SharedWorldInfo");
+sub14.addMessageListener(new OnRosSharedWorldInfo2791795402Listener());
+final Subscriber sub15 = connectedNode.newSubscriber("/PathPlanner/PathPlanner", "msl_msgs/PathPlanner");
+sub15.addMessageListener(new OnRosPathPlanner709768768Listener());
+final Subscriber sub16 = connectedNode.newSubscriber("/PathPlanner/VoronoiNet", "msl_msgs/VoronoiNetInfo");
+sub16.addMessageListener(new OnRosVoronoiNetInfo179313306Listener());
+final Subscriber sub17 = connectedNode.newSubscriber("/PathPlanner/CorridorCheck", "msl_msgs/CorridorCheck");
+sub17.addMessageListener(new OnRosCorridorCheck2924935533Listener());
+final Subscriber sub18 = connectedNode.newSubscriber("/AlicaEngine/PlanTreeInfo", "alica_ros_proxy/PlanTreeInfo");
+sub18.addMessageListener(new OnRosPlanTreeInfo3767756765Listener());
+final Subscriber sub19 = connectedNode.newSubscriber("/AlicaEngine/AlicaEngineInfo", "alica_ros_proxy/AlicaEngineInfo");
+sub19.addMessageListener(new OnRosAlicaEngineInfo238666206Listener());
+final Subscriber sub20 = connectedNode.newSubscriber("/AlicaEngine/SyncTalk", "alica_ros_proxy/SyncTalk");
+sub20.addMessageListener(new OnRosSyncTalk4175715375Listener());
+final Subscriber sub21 = connectedNode.newSubscriber("/AlicaEngine/SyncReady", "alica_ros_proxy/SyncReady");
+sub21.addMessageListener(new OnRosSyncReady636345472Listener());
+final Subscriber sub22 = connectedNode.newSubscriber("/AlicaEngine/AllocationAuthorityInfo", "alica_ros_proxy/AllocationAuthorityInfo");
+sub22.addMessageListener(new OnRosAllocationAuthorityInfo690246385Listener());
+final Subscriber sub23 = connectedNode.newSubscriber("/AlicaEngine/SolverResult", "alica_ros_proxy/SolverResult");
+sub23.addMessageListener(new OnRosSolverResult2276189600Listener());
+final Subscriber sub24 = connectedNode.newSubscriber("/CNCalibration/CameraSettings", "msl_sensor_msgs/CameraSettings");
+sub24.addMessageListener(new OnRosCameraSettings2163940045Listener());
+final Subscriber sub25 = connectedNode.newSubscriber("/CNCalibration/CameraSettingsRequest", "msl_sensor_msgs/CameraSettingsRequest");
+sub25.addMessageListener(new OnRosCameraSettingsRequest3170299750Listener());
+final Subscriber sub26 = connectedNode.newSubscriber("/process_manager/ProcessCommand", "process_manager/ProcessCommand");
+sub26.addMessageListener(new OnRosProcessCommand3108117629Listener());
+final Subscriber sub27 = connectedNode.newSubscriber("/process_manager/ProcessStats", "process_manager/ProcessStats");
+sub27.addMessageListener(new OnRosProcessStats2783514677Listener());
         
 pub697841562 = connectedNode.newPublisher("/ball", "sensor_msgs/PointCloud");
 pub715397477 = connectedNode.newPublisher("/self", "sensor_msgs/PointCloud");
 pub2852345798 = connectedNode.newPublisher("/amcl_pose", "geometry_msgs/PoseWithCovarianceStamped");
+pub2644558886 = connectedNode.newPublisher("/particlecloud", "sensor_msgs/PointCloud");
 pub2242425699 = connectedNode.newPublisher("/obstacles", "sensor_msgs/PointCloud");
 pub4287086446 = connectedNode.newPublisher("/CNVision/VisionDebug", "msl_sensor_msgs/VisionDebug");
 pub3818207232 = connectedNode.newPublisher("/CNVision/VisionControl", "msl_sensor_msgs/VisionControl");
@@ -834,6 +859,12 @@ MessageDeserializer<PoseWithCovarianceStamped> deserializer = node.getMessageSer
 byte[] message = Arrays.copyOfRange(packet.getData(), Integer.SIZE / Byte.SIZE, packet.getData().length-4);
 PoseWithCovarianceStamped m2852345798 = deserializer.deserialize(ChannelBuffers.copiedBuffer(ByteOrder.LITTLE_ENDIAN,message));
 pub2852345798.publish(m2852345798);
+}
+else if(id == 2644558886l) {
+MessageDeserializer<PointCloud> deserializer = node.getMessageSerializationFactory().newMessageDeserializer(PointCloud._TYPE);
+byte[] message = Arrays.copyOfRange(packet.getData(), Integer.SIZE / Byte.SIZE, packet.getData().length-4);
+PointCloud m2644558886 = deserializer.deserialize(ChannelBuffers.copiedBuffer(ByteOrder.LITTLE_ENDIAN,message));
+pub2644558886.publish(m2644558886);
 }
 else if(id == 2242425699l) {
 MessageDeserializer<PointCloud> deserializer = node.getMessageSerializationFactory().newMessageDeserializer(PointCloud._TYPE);

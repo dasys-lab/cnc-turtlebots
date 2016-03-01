@@ -25,6 +25,7 @@
 #include "sensor_msgs/PointCloud.h"
 #include "geometry_msgs/PoseWithCovarianceStamped.h"
 #include "sensor_msgs/PointCloud.h"
+#include "sensor_msgs/PointCloud.h"
 #include "msl_sensor_msgs/VisionDebug.h"
 #include "msl_sensor_msgs/VisionControl.h"
 #include "msl_sensor_msgs/VisionImage.h"
@@ -111,6 +112,23 @@ uint8_t* buffer = NULL;
 		buffer = new uint8_t[serial_size+sizeof(uint32_t)];
 		ros::serialization::OStream stream(buffer+sizeof(uint32_t), serial_size);
 		*((uint32_t*)buffer) = 2852345798u;
+		ros::serialization::serialize(stream, *message);
+		// write message to UDP
+		insocket->send_to(boost::asio::buffer((void*)buffer,serial_size+sizeof(uint32_t)),destEndPoint);
+	} catch(std::exception& e) {
+		ROS_ERROR_STREAM_THROTTLE(2,"Exception while sending UDP message:"<<e.what()<< " Discarding message!");
+	}
+	if(buffer!=NULL) delete[] buffer;
+}
+void onRosPointCloud2644558886(const ros::MessageEvent<sensor_msgs::PointCloud>& event) {
+	if(0 == event.getPublisherName().compare(ownRosName)) return;
+uint8_t* buffer = NULL;
+	const sensor_msgs::PointCloud::ConstPtr& message = event.getMessage();
+	try{
+		uint32_t serial_size = ros::serialization::serializationLength(*message);
+		buffer = new uint8_t[serial_size+sizeof(uint32_t)];
+		ros::serialization::OStream stream(buffer+sizeof(uint32_t), serial_size);
+		*((uint32_t*)buffer) = 2644558886u;
 		ros::serialization::serialize(stream, *message);
 		// write message to UDP
 		insocket->send_to(boost::asio::buffer((void*)buffer,serial_size+sizeof(uint32_t)),destEndPoint);
@@ -531,6 +549,7 @@ uint8_t* buffer = NULL;
 ros::Publisher pub697841562;
 ros::Publisher pub715397477;
 ros::Publisher pub2852345798;
+ros::Publisher pub2644558886;
 ros::Publisher pub2242425699;
 ros::Publisher pub4287086446;
 ros::Publisher pub3818207232;
@@ -583,6 +602,11 @@ case 2852345798ul: {
 geometry_msgs::PoseWithCovarianceStamped m2852345798;
 ros::serialization::Serializer<geometry_msgs::PoseWithCovarianceStamped>::read(stream, m2852345798);
 pub2852345798.publish<geometry_msgs::PoseWithCovarianceStamped>(m2852345798);
+break; }
+case 2644558886ul: {
+sensor_msgs::PointCloud m2644558886;
+ros::serialization::Serializer<sensor_msgs::PointCloud>::read(stream, m2644558886);
+pub2644558886.publish<sensor_msgs::PointCloud>(m2644558886);
 break; }
 case 2242425699ul: {
 sensor_msgs::PointCloud m2242425699;
@@ -770,34 +794,36 @@ ros::init(argc, argv, "ttb_apps"); //   ros::init(argc, argv, "udpProxy");
 ros::Subscriber sub0 = n.subscribe("/ball",5, onRosPointCloud697841562,ros::TransportHints().unreliable().tcpNoDelay().reliable());
 ros::Subscriber sub1 = n.subscribe("/self",5, onRosPointCloud715397477,ros::TransportHints().unreliable().tcpNoDelay().reliable());
 ros::Subscriber sub2 = n.subscribe("/amcl_pose",5, onRosPoseWithCovarianceStamped2852345798,ros::TransportHints().unreliable().tcpNoDelay().reliable());
-ros::Subscriber sub3 = n.subscribe("/obstacles",5, onRosPointCloud2242425699,ros::TransportHints().unreliable().tcpNoDelay().reliable());
-ros::Subscriber sub4 = n.subscribe("/CNVision/VisionDebug",5, onRosVisionDebug4287086446,ros::TransportHints().unreliable().tcpNoDelay().reliable());
-ros::Subscriber sub5 = n.subscribe("/CNVision/VisionControl",5, onRosVisionControl3818207232,ros::TransportHints().unreliable().tcpNoDelay().reliable());
-ros::Subscriber sub6 = n.subscribe("/CNVision/VisionImage",5, onRosVisionImage520651946,ros::TransportHints().unreliable().tcpNoDelay().reliable());
-ros::Subscriber sub7 = n.subscribe("/KickerStatInfo",5, onRosKickerStatInfo3915861504,ros::TransportHints().unreliable().tcpNoDelay().reliable());
-ros::Subscriber sub8 = n.subscribe("/MotionStatInfo",5, onRosMotionStatInfo825806425,ros::TransportHints().unreliable().tcpNoDelay().reliable());
-ros::Subscriber sub9 = n.subscribe("/WorldModel/PassMsg",5, onRosPassMsg888918809,ros::TransportHints().unreliable().tcpNoDelay().reliable());
-ros::Subscriber sub10 = n.subscribe("/mmTalker",5, onRosString4022577436,ros::TransportHints().unreliable().tcpNoDelay().reliable());
-ros::Subscriber sub11 = n.subscribe("/RefereeBoxInfoBody",5, onRosRefBoxCommand1841334100,ros::TransportHints().unreliable().tcpNoDelay().reliable());
-ros::Subscriber sub12 = n.subscribe("/Joystick",5, onRosJoystickCommand1506505735,ros::TransportHints().unreliable().tcpNoDelay().reliable());
-ros::Subscriber sub13 = n.subscribe("/WorldModel/SharedWorldInfo",5, onRosSharedWorldInfo2791795402,ros::TransportHints().unreliable().tcpNoDelay().reliable());
-ros::Subscriber sub14 = n.subscribe("/PathPlanner/PathPlanner",5, onRosPathPlanner709768768,ros::TransportHints().unreliable().tcpNoDelay().reliable());
-ros::Subscriber sub15 = n.subscribe("/PathPlanner/VoronoiNet",5, onRosVoronoiNetInfo179313306,ros::TransportHints().unreliable().tcpNoDelay().reliable());
-ros::Subscriber sub16 = n.subscribe("/PathPlanner/CorridorCheck",5, onRosCorridorCheck2924935533,ros::TransportHints().unreliable().tcpNoDelay().reliable());
-ros::Subscriber sub17 = n.subscribe("/AlicaEngine/PlanTreeInfo",5, onRosPlanTreeInfo3767756765,ros::TransportHints().unreliable().tcpNoDelay().reliable());
-ros::Subscriber sub18 = n.subscribe("/AlicaEngine/AlicaEngineInfo",5, onRosAlicaEngineInfo238666206,ros::TransportHints().unreliable().tcpNoDelay().reliable());
-ros::Subscriber sub19 = n.subscribe("/AlicaEngine/SyncTalk",5, onRosSyncTalk4175715375,ros::TransportHints().unreliable().tcpNoDelay().reliable());
-ros::Subscriber sub20 = n.subscribe("/AlicaEngine/SyncReady",5, onRosSyncReady636345472,ros::TransportHints().unreliable().tcpNoDelay().reliable());
-ros::Subscriber sub21 = n.subscribe("/AlicaEngine/AllocationAuthorityInfo",5, onRosAllocationAuthorityInfo690246385,ros::TransportHints().unreliable().tcpNoDelay().reliable());
-ros::Subscriber sub22 = n.subscribe("/AlicaEngine/SolverResult",5, onRosSolverResult2276189600,ros::TransportHints().unreliable().tcpNoDelay().reliable());
-ros::Subscriber sub23 = n.subscribe("/CNCalibration/CameraSettings",5, onRosCameraSettings2163940045,ros::TransportHints().unreliable().tcpNoDelay().reliable());
-ros::Subscriber sub24 = n.subscribe("/CNCalibration/CameraSettingsRequest",5, onRosCameraSettingsRequest3170299750,ros::TransportHints().unreliable().tcpNoDelay().reliable());
-ros::Subscriber sub25 = n.subscribe("/process_manager/ProcessCommand",5, onRosProcessCommand3108117629,ros::TransportHints().unreliable().tcpNoDelay().reliable());
-ros::Subscriber sub26 = n.subscribe("/process_manager/ProcessStats",5, onRosProcessStats2783514677,ros::TransportHints().unreliable().tcpNoDelay().reliable());
+ros::Subscriber sub3 = n.subscribe("/particlecloud",5, onRosPointCloud2644558886,ros::TransportHints().unreliable().tcpNoDelay().reliable());
+ros::Subscriber sub4 = n.subscribe("/obstacles",5, onRosPointCloud2242425699,ros::TransportHints().unreliable().tcpNoDelay().reliable());
+ros::Subscriber sub5 = n.subscribe("/CNVision/VisionDebug",5, onRosVisionDebug4287086446,ros::TransportHints().unreliable().tcpNoDelay().reliable());
+ros::Subscriber sub6 = n.subscribe("/CNVision/VisionControl",5, onRosVisionControl3818207232,ros::TransportHints().unreliable().tcpNoDelay().reliable());
+ros::Subscriber sub7 = n.subscribe("/CNVision/VisionImage",5, onRosVisionImage520651946,ros::TransportHints().unreliable().tcpNoDelay().reliable());
+ros::Subscriber sub8 = n.subscribe("/KickerStatInfo",5, onRosKickerStatInfo3915861504,ros::TransportHints().unreliable().tcpNoDelay().reliable());
+ros::Subscriber sub9 = n.subscribe("/MotionStatInfo",5, onRosMotionStatInfo825806425,ros::TransportHints().unreliable().tcpNoDelay().reliable());
+ros::Subscriber sub10 = n.subscribe("/WorldModel/PassMsg",5, onRosPassMsg888918809,ros::TransportHints().unreliable().tcpNoDelay().reliable());
+ros::Subscriber sub11 = n.subscribe("/mmTalker",5, onRosString4022577436,ros::TransportHints().unreliable().tcpNoDelay().reliable());
+ros::Subscriber sub12 = n.subscribe("/RefereeBoxInfoBody",5, onRosRefBoxCommand1841334100,ros::TransportHints().unreliable().tcpNoDelay().reliable());
+ros::Subscriber sub13 = n.subscribe("/Joystick",5, onRosJoystickCommand1506505735,ros::TransportHints().unreliable().tcpNoDelay().reliable());
+ros::Subscriber sub14 = n.subscribe("/WorldModel/SharedWorldInfo",5, onRosSharedWorldInfo2791795402,ros::TransportHints().unreliable().tcpNoDelay().reliable());
+ros::Subscriber sub15 = n.subscribe("/PathPlanner/PathPlanner",5, onRosPathPlanner709768768,ros::TransportHints().unreliable().tcpNoDelay().reliable());
+ros::Subscriber sub16 = n.subscribe("/PathPlanner/VoronoiNet",5, onRosVoronoiNetInfo179313306,ros::TransportHints().unreliable().tcpNoDelay().reliable());
+ros::Subscriber sub17 = n.subscribe("/PathPlanner/CorridorCheck",5, onRosCorridorCheck2924935533,ros::TransportHints().unreliable().tcpNoDelay().reliable());
+ros::Subscriber sub18 = n.subscribe("/AlicaEngine/PlanTreeInfo",5, onRosPlanTreeInfo3767756765,ros::TransportHints().unreliable().tcpNoDelay().reliable());
+ros::Subscriber sub19 = n.subscribe("/AlicaEngine/AlicaEngineInfo",5, onRosAlicaEngineInfo238666206,ros::TransportHints().unreliable().tcpNoDelay().reliable());
+ros::Subscriber sub20 = n.subscribe("/AlicaEngine/SyncTalk",5, onRosSyncTalk4175715375,ros::TransportHints().unreliable().tcpNoDelay().reliable());
+ros::Subscriber sub21 = n.subscribe("/AlicaEngine/SyncReady",5, onRosSyncReady636345472,ros::TransportHints().unreliable().tcpNoDelay().reliable());
+ros::Subscriber sub22 = n.subscribe("/AlicaEngine/AllocationAuthorityInfo",5, onRosAllocationAuthorityInfo690246385,ros::TransportHints().unreliable().tcpNoDelay().reliable());
+ros::Subscriber sub23 = n.subscribe("/AlicaEngine/SolverResult",5, onRosSolverResult2276189600,ros::TransportHints().unreliable().tcpNoDelay().reliable());
+ros::Subscriber sub24 = n.subscribe("/CNCalibration/CameraSettings",5, onRosCameraSettings2163940045,ros::TransportHints().unreliable().tcpNoDelay().reliable());
+ros::Subscriber sub25 = n.subscribe("/CNCalibration/CameraSettingsRequest",5, onRosCameraSettingsRequest3170299750,ros::TransportHints().unreliable().tcpNoDelay().reliable());
+ros::Subscriber sub26 = n.subscribe("/process_manager/ProcessCommand",5, onRosProcessCommand3108117629,ros::TransportHints().unreliable().tcpNoDelay().reliable());
+ros::Subscriber sub27 = n.subscribe("/process_manager/ProcessStats",5, onRosProcessStats2783514677,ros::TransportHints().unreliable().tcpNoDelay().reliable());
 	
 pub697841562 = n.advertise<sensor_msgs::PointCloud>("/ball",5,false);
 pub715397477 = n.advertise<sensor_msgs::PointCloud>("/self",5,false);
 pub2852345798 = n.advertise<geometry_msgs::PoseWithCovarianceStamped>("/amcl_pose",5,false);
+pub2644558886 = n.advertise<sensor_msgs::PointCloud>("/particlecloud",5,false);
 pub2242425699 = n.advertise<sensor_msgs::PointCloud>("/obstacles",5,false);
 pub4287086446 = n.advertise<msl_sensor_msgs::VisionDebug>("/CNVision/VisionDebug",5,false);
 pub3818207232 = n.advertise<msl_sensor_msgs::VisionControl>("/CNVision/VisionControl",5,false);
