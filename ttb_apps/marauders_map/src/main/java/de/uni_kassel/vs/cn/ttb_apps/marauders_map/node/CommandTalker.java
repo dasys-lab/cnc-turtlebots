@@ -11,6 +11,11 @@ import org.ros.node.topic.Publisher;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
+import de.uni_kassel.vs.cn.ttb_apps.marauders_map.command.Command;
+import de.uni_kassel.vs.cn.ttb_apps.marauders_map.command.GlobalCommandList;
+import de.uni_kassel.vs.cn.ttb_apps.marauders_map.command.SendToGoalCommand;
+import geometry_msgs.PoseWithCovarianceStamped;
+
 /**
  * Created by marci on 19.10.15.
  */
@@ -19,6 +24,7 @@ public class CommandTalker implements NodeMain {
     public static final String topic_name = "/mmTalker";
     private RosActivity activity;
     private Queue<String> currentCommands;
+    private ConnectedNode connectedNode;
 
     public CommandTalker() {
         super();
@@ -32,17 +38,15 @@ public class CommandTalker implements NodeMain {
 
     @Override
     public void onStart(ConnectedNode connectedNode) {
-        final Publisher publisher = connectedNode.newPublisher(this.topic_name, "std_msgs/String");
-        connectedNode.executeCancellableLoop(new CancellableLoop() {
-            protected void loop() throws InterruptedException {
-                if(getCurrentCommands().isEmpty() == false) {
-                    std_msgs.String str = (std_msgs.String) publisher.newMessage();
-                    str.setData(getCurrentCommands().poll());
-                    publisher.publish(str);
-                }
-                Thread.sleep(500L);
-            }
-        });
+        this.connectedNode = connectedNode;
+        registerCommands(connectedNode);
+    }
+
+    /**
+     * here are new commands for use in the app registered
+     */
+    private void registerCommands(ConnectedNode connectedNode) {
+        GlobalCommandList.COMMANDS.add(new SendToGoalCommand("/move_base_simple/goal","geometry_msgs/PoseWithCovarianceStamped",connectedNode));
     }
 
     @Override

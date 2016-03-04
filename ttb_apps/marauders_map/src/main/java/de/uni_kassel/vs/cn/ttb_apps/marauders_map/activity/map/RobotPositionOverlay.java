@@ -35,8 +35,14 @@ public class RobotPositionOverlay extends AbstractMapOverlay {
     @Override
     public void render() {
 
-        wobble.x = (int) getParticleCloudListener().getxDistance();
-        wobble.y = (int) getParticleCloudListener().getyDistance();
+        if (getParticleCloudListener() == null) {
+            wobble.x = 40;
+            wobble.y = 40;
+        } else {
+            wobble.x = (int) getParticleCloudListener().getxDistance();
+            wobble.y = (int) getParticleCloudListener().getyDistance();
+        }
+
         int[] currentPosition = getListener().getCurrentPosition();
         renderToMapPosition(currentPosition[0],currentPosition[1]);
     }

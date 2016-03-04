@@ -8,9 +8,9 @@ import org.ros.node.NodeMain;
 import org.ros.node.topic.Subscriber;
 
 import geometry_msgs.Point;
+import geometry_msgs.Point32;
 import geometry_msgs.Pose;
 import geometry_msgs.PoseArray;
-
 /**
  * Created by marci on 11.02.16.
  */
@@ -31,25 +31,26 @@ public class ParticleCloudListener implements NodeMain{
         poseArraySubscriber = connectedNode.newSubscriber("/particlecloud", "geometry_msgs/PoseArray");
         poseArraySubscriber.addMessageListener(new MessageListener<PoseArray>() {
             @Override
-            public void onNewMessage(PoseArray poseArray) {
+            public void onNewMessage(PoseArray pointCloud) {
                 double minx = Double.MAX_VALUE, miny = Double.MAX_VALUE , maxx = Double.MIN_VALUE, maxy = Double.MIN_VALUE;
-                for (Pose pose : poseArray.getPoses()) {
-                    Point position = pose.getPosition();
 
-                    if (minx > position.getX()) {
-                        minx = position.getX();
+                for (Pose pose : pointCloud.getPoses()) {
+
+                    Point point = pose.getPosition();
+                    if (minx > point.getX()) {
+                        minx = point.getX();
                     }
 
-                    if (miny > position.getY()) {
-                        miny = position.getY();
+                    if (miny > point.getY()) {
+                        miny = point.getY();
                     }
 
-                    if (maxx < position.getX()) {
-                        maxx = position.getX();
+                    if (maxx < point.getX()) {
+                        maxx = point.getX();
                     }
 
-                    if (maxy < position.getY()) {
-                        maxy = position.getY();
+                    if (maxy < point.getY()) {
+                        maxy = point.getY();
                     }
                 }
 

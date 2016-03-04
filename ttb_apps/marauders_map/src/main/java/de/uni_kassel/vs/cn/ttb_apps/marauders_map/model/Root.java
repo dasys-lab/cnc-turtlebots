@@ -4,6 +4,7 @@ import de.uni_kassel.vs.cn.ttb_apps.marauders_map.activity.MaraudersMap;
 import de.uni_kassel.vs.cn.ttb_apps.marauders_map.activity.map.AbstractMapOverlay;
 import de.uni_kassel.vs.cn.ttb_apps.marauders_map.node.AMCL_PoseListener;
 import de.uni_kassel.vs.cn.ttb_apps.marauders_map.node.MapListener;
+import de.uni_kassel.vs.cn.ttb_apps.marauders_map.node.ParticleCloudListener;
 
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
@@ -25,6 +26,8 @@ public class Root {
     private static MapListener mapListener;
 
     private static AMCL_PoseListener amcl_poseListener;
+
+    private static ParticleCloudListener particleCloudListener;
 
     private static int activeRobot;
 
@@ -67,5 +70,13 @@ public class Root {
 
     public static void setAmcl_poseListener(AMCL_PoseListener amcl_poseListener) {
         Root.amcl_poseListener = amcl_poseListener;
+    }
+
+    public static ParticleCloudListener getParticleCloudListener() {
+        return particleCloudListener;
+    }
+
+    public static void setParticleCloudListener(ParticleCloudListener particleCloudListener) {
+        Root.particleCloudListener = particleCloudListener;
     }
 }

@@ -114,6 +114,7 @@ public class MapScreen extends Activity {
 
         RobotPositionOverlay robotPositionOverlay = new RobotPositionOverlay(mapView, MapScreen.bitmap,canvas);
         robotPositionOverlay.setListener(Root.getAmcl_poseListener());
+        robotPositionOverlay.setParticleCloudListener(Root.getParticleCloudListener());
         Root.overlays.add(robotPositionOverlay);
         thread = new Thread(mapDrawer);
         thread.start();

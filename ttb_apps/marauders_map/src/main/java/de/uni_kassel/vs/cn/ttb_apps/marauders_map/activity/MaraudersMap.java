@@ -20,6 +20,7 @@ import org.ros.node.NodeMainExecutor;
 import java.net.URI;
 import java.util.concurrent.LinkedBlockingQueue;
 
+import de.uni_kassel.vs.cn.ttb_apps.marauders_map.node.ParticleCloudListener;
 import de.uni_kassel.vs.cn.ttb_apps.marauders_map.util.ROS2UDPProxy;
 
 public class MaraudersMap extends RosActivity
@@ -92,7 +93,7 @@ public class MaraudersMap extends RosActivity
         nodeConfiguration.setMasterUri(getMasterUri());
 
         /*### Nodes for Publishers and Subscribers ###*/
-
+        // TODO // FIXME: 01.03.16 Exception caught while communicating with master.
         // Talker
         setTalker(new CommandTalker());
         getTalker().setActivity(this);
@@ -114,8 +115,14 @@ public class MaraudersMap extends RosActivity
 
         // AMCL_PoseListener
         AMCL_PoseListener amcl_poseListener = new AMCL_PoseListener();
-        // nodeMainExecutor.execute(amcl_poseListener, nodeConfiguration);
+        nodeMainExecutor.execute(amcl_poseListener, nodeConfiguration);
         Root.setAmcl_poseListener(amcl_poseListener);
+
+        // Particle Cloud Listener holds postion estimates
+        ParticleCloudListener particleCloudListener = new ParticleCloudListener();
+        nodeMainExecutor.execute(particleCloudListener, nodeConfiguration);
+        Root.setParticleCloudListener(particleCloudListener);
+
 
 
 
