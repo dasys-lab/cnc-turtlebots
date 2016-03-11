@@ -1,6 +1,7 @@
 package de.uni_kassel.vs.cn.ttb_apps.marauders_map.activity;
 
 import android.content.Intent;
+import android.os.Build;
 import android.view.View;
 import android.widget.AdapterView;
 
@@ -38,7 +39,12 @@ public class MenuOnItemClickListener implements AdapterView.OnItemClickListener 
                     getMaraudersMap().getTalker().getCurrentCommands().add("show_stats");
                     break;
                 case 3:
-
+                    if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN){
+                        getMaraudersMap().finishAffinity();
+                    } else {
+                        getMaraudersMap().finish();
+                    }
+                    System.exit(0);
                     break;
                 default:
                     //Log MemoryCorruption

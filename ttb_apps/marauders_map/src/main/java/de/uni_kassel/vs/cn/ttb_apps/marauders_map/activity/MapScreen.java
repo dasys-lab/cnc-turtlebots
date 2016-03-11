@@ -14,20 +14,24 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.Spinner;
 
+import com.esotericsoftware.yamlbeans.YamlReader;
 import com.github.ros_java.marauders_map.R;
 
+import de.uni_kassel.vs.cn.ttb_apps.marauders_map.activity.map.AbstractMapOverlay;
 import de.uni_kassel.vs.cn.ttb_apps.marauders_map.activity.map.MapDrawer;
 import de.uni_kassel.vs.cn.ttb_apps.marauders_map.activity.map.RobotPositionOverlay;
 import de.uni_kassel.vs.cn.ttb_apps.marauders_map.model.Root;
 import com.google.common.io.Files;
 
+import org.apache.commons.io.IOUtils;
 import org.ros.android.view.VirtualJoystickView;
-
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.ArrayList;
+import java.util.Map;
 
 import uk.co.senab.photoview.PhotoViewAttacher;
 
@@ -62,7 +66,7 @@ public class MapScreen extends Activity {
         //map = getPGMAsBitmap();
         // readMap from File
         if (getBitmap() == null) {
-            try {
+            try { // TODO FIX MYSTERIOUS MAP BUG URGENT
                 int id = 1;
                 String mapPath = Environment.getExternalStorageDirectory() + "/currentMap_" + id + ".pgm";
                 writePGMResourceToFile(id);
@@ -111,6 +115,26 @@ public class MapScreen extends Activity {
         mapView.setImageDrawable(new BitmapDrawable(getResources(),emptyMap));
         mapDrawer = new MapDrawer();
         mapDrawer.setMapView(mapView);
+        YamlReader reader = null;
+        try {
+            reader = new YamlReader(new String(IOUtils.toByteArray(this.getResources().openRawResource(R.raw.map_final))));
+            Object object = reader.read();
+            System.out.println(object);
+            Map<String, Object> stringObjectMap = (Map<String, Object>) object;
+
+            ArrayList<String> origin = (ArrayList<String>) stringObjectMap.get("origin");
+            double[] orgin = new double[3];
+            int i = 0;
+            for (String s : origin) {
+                orgin[i++] = Double.parseDouble(s);
+            }
+            double resolution = Double.parseDouble((String) stringObjectMap.get("resolution"));
+
+            AbstractMapOverlay.setOrigin(orgin);
+            AbstractMapOverlay.setPixelToMeterResolution(resolution);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         RobotPositionOverlay robotPositionOverlay = new RobotPositionOverlay(mapView, MapScreen.bitmap,canvas);
         robotPositionOverlay.setListener(Root.getAmcl_poseListener());

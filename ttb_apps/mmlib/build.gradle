@@ -52,6 +52,7 @@ dependencies {
   compile 'org.ros.android_core:android_15:[0.2,0.3)'
   compile 'com.google.guava:guava:18.0'
   compile 'com.github.chrisbanes.photoview:library:1.2.4'
+  compile 'com.esotericsoftware.yamlbeans:yamlbeans:1.09'
   //compile fileTree(include: '*.jar', dir: '/home/marci/cnws2/devel/share/maven/org/ros/rosjava_messages/*')
   //compile 'org.ros.rosjava_messages:actionlib:0+'
   //compile 'org.ros.rosjava_messages:actionlib_msgs:0+'
