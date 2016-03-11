@@ -21,6 +21,7 @@ public class RobotPositionOverlay extends AbstractMapOverlay {
     private ParticleCloudListener particleCloudListener;
 
     private Point wobble = new Point();
+    private Paint paint;
 
     /**
      * @param imageView     the overlay needs an ImageView to apply to.
@@ -30,6 +31,9 @@ public class RobotPositionOverlay extends AbstractMapOverlay {
         super(imageView, underlyingMap, canvas);
         //Drawable drawable = imageView.getResources().getDrawable(R.drawable.bot);
         currentY = currentX = 40;
+        paint = new Paint();
+        paint.setColor(Color.GREEN);
+        paint.setAlpha(100);
     }
 
     @Override
@@ -45,19 +49,16 @@ public class RobotPositionOverlay extends AbstractMapOverlay {
             wobble.y = (int) pixelForMeter[1];
         }
 
-        int[] currentPosition = getListener().getCurrentPosition();
+        double[] currentPosition = getListener().getCurrentPosition();
         renderToMapPosition(currentPosition[0],currentPosition[1]);
     }
 
     @Override
     protected void drawOverlay(Canvas canvas) {
         //super.drawOverlay(canvas);
-        Paint paint = new Paint();
-        paint.setColor(Color.GREEN);
-        paint.setAlpha(100);
         int radius =  wobble.x > wobble.y ? wobble.x : wobble.y;
         radius /= 2;
-        canvas.drawCircle(currentX, currentY, 5, paint);
+        canvas.drawCircle(Math.round(currentX), Math.round(currentY), 5, paint);
     }
 
     public AMCL_PoseListener getListener() {

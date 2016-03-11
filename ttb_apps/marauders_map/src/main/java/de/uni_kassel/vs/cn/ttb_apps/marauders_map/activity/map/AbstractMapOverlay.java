@@ -19,9 +19,9 @@ public abstract class AbstractMapOverlay {
 
     private Bitmap underlyinMap;
 
-    protected int currentX;
+    protected double currentX;
 
-    protected int currentY;
+    protected double currentY;
     private final Canvas canvas;
     private Paint paint;
 
@@ -50,16 +50,14 @@ public abstract class AbstractMapOverlay {
      * @param x
      * @param y
      */
-    protected void renderToMapPosition(int x, int y) {
+    protected void renderToMapPosition(double x, double y) {
 
         double[] pixelForMeter = getPixelForMeter(x, y);
-        currentX = (int) pixelForMeter[0];
-        currentY = (int) pixelForMeter[1];
+        currentX = pixelForMeter[0];
+        currentY = pixelForMeter[1];
         mapView.post(new Runnable() {
             @Override
             public void run() {
-                ColorMatrix matrix = new ColorMatrix();
-                matrix.setSaturation(0);
                 canvas.drawBitmap(underlyinMap, 0, 0, null);
                 drawOverlay(canvas);
                 mapView.invalidate();

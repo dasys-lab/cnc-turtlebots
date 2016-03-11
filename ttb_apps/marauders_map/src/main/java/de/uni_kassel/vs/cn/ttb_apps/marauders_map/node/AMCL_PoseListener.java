@@ -17,7 +17,7 @@ import geometry_msgs.PoseWithCovarianceStamped;
  */
 public class AMCL_PoseListener implements NodeMain {
 
-    private int[] position = {0,0};
+    private double[] position = {0.0,0.0};
     private Subscriber<PoseWithCovarianceStamped> amclSubscriber;
 
     @Override
@@ -32,8 +32,8 @@ public class AMCL_PoseListener implements NodeMain {
             @Override
             public void onNewMessage(PoseWithCovarianceStamped o) {
                 Point position1 = o.getPose().getPose().getPosition();
-                position[0] = (int) position1.getX();
-                position[1] = (int) position1.getY();
+                position[0] = position1.getX();
+                position[1] = position1.getY();
             }
         });
 
@@ -54,7 +54,7 @@ public class AMCL_PoseListener implements NodeMain {
 
     }
 
-    public int[] getCurrentPosition() {
+    public double[] getCurrentPosition() {
         return position;
     }
 }
