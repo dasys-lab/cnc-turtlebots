@@ -32,6 +32,7 @@
 #include "geometry_msgs/PoseWithCovarianceStamped.h"
 #include "geometry_msgs/PoseArray.h"
 #include "sensor_msgs/PointCloud.h"
+#include "geometry_msgs/PoseStamped.h"
 
 using namespace supplementary;
 
@@ -239,6 +240,23 @@ uint8_t* buffer = NULL;
 	}
 	if(buffer!=NULL) delete[] buffer;
 }
+void onRosPoseStamped3037331423(const ros::MessageEvent<geometry_msgs::PoseStamped>& event) {
+	if(0 == event.getPublisherName().compare(ownRosName)) return;
+uint8_t* buffer = NULL;
+	const geometry_msgs::PoseStamped::ConstPtr& message = event.getMessage();
+	try{
+		uint32_t serial_size = ros::serialization::serializationLength(*message);
+		buffer = new uint8_t[serial_size+sizeof(uint32_t)];
+		ros::serialization::OStream stream(buffer+sizeof(uint32_t), serial_size);
+		*((uint32_t*)buffer) = 3037331423u;
+		ros::serialization::serialize(stream, *message);
+		// write message to UDP
+		insocket->send_to(boost::asio::buffer((void*)buffer,serial_size+sizeof(uint32_t)),destEndPoint);
+	} catch(std::exception& e) {
+		ROS_ERROR_STREAM_THROTTLE(2,"Exception while sending UDP message:"<<e.what()<< " Discarding message!");
+	}
+	if(buffer!=NULL) delete[] buffer;
+}
 
 ros::Publisher pub3767756765;
 ros::Publisher pub238666206;
@@ -251,6 +269,7 @@ ros::Publisher pub2783514677;
 ros::Publisher pub2852345798;
 ros::Publisher pub2644558886;
 ros::Publisher pub2242425699;
+ros::Publisher pub3037331423;
 
 boost::array<char,64000> inBuffer;
 void listenForPacket() {
@@ -322,6 +341,11 @@ case 2242425699ul: {
 sensor_msgs::PointCloud m2242425699;
 ros::serialization::Serializer<sensor_msgs::PointCloud>::read(stream, m2242425699);
 pub2242425699.publish<sensor_msgs::PointCloud>(m2242425699);
+break; }
+case 3037331423ul: {
+geometry_msgs::PoseStamped m3037331423;
+ros::serialization::Serializer<geometry_msgs::PoseStamped>::read(stream, m3037331423);
+pub3037331423.publish<geometry_msgs::PoseStamped>(m3037331423);
 break; }
 			
 				default:
@@ -397,6 +421,7 @@ ros::Subscriber sub7 = n.subscribe("/process_manager/ProcessStats",5, onRosProce
 ros::Subscriber sub8 = n.subscribe("/amcl_pose",5, onRosPoseWithCovarianceStamped2852345798,ros::TransportHints().unreliable().tcpNoDelay().reliable());
 ros::Subscriber sub9 = n.subscribe("/particlecloud",5, onRosPoseArray2644558886,ros::TransportHints().unreliable().tcpNoDelay().reliable());
 ros::Subscriber sub10 = n.subscribe("/obstacles",5, onRosPointCloud2242425699,ros::TransportHints().unreliable().tcpNoDelay().reliable());
+ros::Subscriber sub11 = n.subscribe("/move_base_simple/goal",5, onRosPoseStamped3037331423,ros::TransportHints().unreliable().tcpNoDelay().reliable());
 	
 pub3767756765 = n.advertise<alica_ros_proxy::PlanTreeInfo>("/AlicaEngine/PlanTreeInfo",5,false);
 pub238666206 = n.advertise<alica_ros_proxy::AlicaEngineInfo>("/AlicaEngine/AlicaEngineInfo",5,false);
@@ -409,6 +434,7 @@ pub2783514677 = n.advertise<process_manager::ProcessStats>("/process_manager/Pro
 pub2852345798 = n.advertise<geometry_msgs::PoseWithCovarianceStamped>("/amcl_pose",5,false);
 pub2644558886 = n.advertise<geometry_msgs::PoseArray>("/particlecloud",5,false);
 pub2242425699 = n.advertise<sensor_msgs::PointCloud>("/obstacles",5,false);
+pub3037331423 = n.advertise<geometry_msgs::PoseStamped>("/move_base_simple/goal",5,false);
 	
 	boost::thread iothread(run);
     

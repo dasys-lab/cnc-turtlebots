@@ -7,4 +7,6 @@
         <item>Status</item>
         <item>Beenden</item>
     </string-array>
+    <string name="nav_goal">2D Nav Goal</string>
+    <string name="pose_estimate">2D Pose Estimate</string>
 </resources>

@@ -24,6 +24,7 @@
 import geometry_msgs.PoseWithCovarianceStamped;
 import geometry_msgs.PoseArray;
 import std_msgs.String;
+import geometry_msgs.PoseStamped;
 import alica_ros_proxy.PlanTreeInfo;
 
 using namespace supplementary;
@@ -105,6 +106,26 @@ public void onNewMessage(Object o) {
 	}
 	}
 
+	private class OnRosPoseStamped3037331423Listener implements MessageListener {
+	@Override
+public void onNewMessage(Object o) {
+		PoseStamped converted = (PoseStamped) o;
+		MessageSerializer<PoseStamped> serializer = node.getMessageSerializationFactory().newMessageSerializer("geometry_msgs/PoseStamped");
+		ChannelBuffer buffer = ChannelBuffers.buffer(ByteOrder.LITTLE_ENDIAN,64000);
+		serializer.serialize(converted,buffer);
+		ByteBuffer idBuf = ByteBuffer.allocate(4).order(ByteOrder.LITTLE_ENDIAN).putInt((int) 3037331423l);
+		ChannelBuffer finalBuf = ChannelBuffers.copiedBuffer(ByteOrder.LITTLE_ENDIAN, idBuf.array(), buffer.array());
+		try {
+			MulticastSocket socket = new MulticastSocket();
+			socket.send(new DatagramPacket(finalBuf.array(),finalBuf.array().length,group,port));
+			socket.close();
+		} catch (IOException e) {
+			System.err.println("Exception while sending UDP message:" + converted._TYPE + " Discarding message!");
+		}
+
+	}
+	}
+
 	private class OnRosPlanTreeInfo3767756765Listener implements MessageListener {
 	@Override
 public void onNewMessage(Object o) {
@@ -129,6 +150,7 @@ public void onNewMessage(Object o) {
 private Publisher<PoseWithCovarianceStamped> pub2852345798;
 private Publisher<PoseArray> pub2644558886;
 private Publisher<String> pub4022577436;
+private Publisher<PoseStamped> pub3037331423;
 private Publisher<PlanTreeInfo> pub3767756765;
 
 boost::array<char,64000> inBuffer;
@@ -138,6 +160,9 @@ void listenForPacket() {
 }
 void handleUdpPacket(const boost::system::error_code& error,   std::size_t bytes_transferred) {
 	//std::cout << "From "<<otherEndPoint.address() << std::endl;
+	if (bytes_transferred > 64000) {
+		return;
+	}
 	if (!error) { // && otherEndPoint.address() != localIP) {
 		__uint32_t id = *((__uint32_t*)(inBuffer.data()));
 		//std::cout << "Got packet"<<std::endl;
@@ -161,6 +186,12 @@ MessageDeserializer<String> deserializer = node.getMessageSerializationFactory()
 byte[] message = Arrays.copyOfRange(packet.getData(), Integer.SIZE / Byte.SIZE, packet.getData().length-4);
 String m4022577436 = deserializer.deserialize(ChannelBuffers.copiedBuffer(ByteOrder.LITTLE_ENDIAN,message));
 pub4022577436.publish(m4022577436);
+}
+else if(id == 3037331423l) {
+MessageDeserializer<PoseStamped> deserializer = node.getMessageSerializationFactory().newMessageDeserializer(PoseStamped._TYPE);
+byte[] message = Arrays.copyOfRange(packet.getData(), Integer.SIZE / Byte.SIZE, packet.getData().length-4);
+PoseStamped m3037331423 = deserializer.deserialize(ChannelBuffers.copiedBuffer(ByteOrder.LITTLE_ENDIAN,message));
+pub3037331423.publish(m3037331423);
 }
 else if(id == 3767756765l) {
 MessageDeserializer<PlanTreeInfo> deserializer = node.getMessageSerializationFactory().newMessageDeserializer(PlanTreeInfo._TYPE);
@@ -238,12 +269,15 @@ final Subscriber sub1 = connectedNode.newSubscriber("/particlecloud", "geometry_
 sub1.addMessageListener(new OnRosPoseArray2644558886Listener());
 final Subscriber sub2 = connectedNode.newSubscriber("/mmTalker", "std_msgs/String");
 sub2.addMessageListener(new OnRosString4022577436Listener());
-final Subscriber sub3 = connectedNode.newSubscriber("/AlicaEngine/PlanTreeInfo", "alica_ros_proxy/PlanTreeInfo");
-sub3.addMessageListener(new OnRosPlanTreeInfo3767756765Listener());
+final Subscriber sub3 = connectedNode.newSubscriber("/move_base_simple/goal", "geometry_msgs/PoseStamped");
+sub3.addMessageListener(new OnRosPoseStamped3037331423Listener());
+final Subscriber sub4 = connectedNode.newSubscriber("/AlicaEngine/PlanTreeInfo", "alica_ros_proxy/PlanTreeInfo");
+sub4.addMessageListener(new OnRosPlanTreeInfo3767756765Listener());
 	
 pub2852345798 = connectedNode.newPublisher("/amcl_pose", "geometry_msgs/PoseWithCovarianceStamped");
 pub2644558886 = connectedNode.newPublisher("/particlecloud", "geometry_msgs/PoseArray");
 pub4022577436 = connectedNode.newPublisher("/mmTalker", "std_msgs/String");
+pub3037331423 = connectedNode.newPublisher("/move_base_simple/goal", "geometry_msgs/PoseStamped");
 pub3767756765 = connectedNode.newPublisher("/AlicaEngine/PlanTreeInfo", "alica_ros_proxy/PlanTreeInfo");
 	
 	boost::thread iothread(run);

@@ -4,12 +4,13 @@ import android.support.annotation.NonNull;
 
 import org.ros.node.ConnectedNode;
 
+import geometry_msgs.PoseStamped;
 import geometry_msgs.PoseWithCovarianceStamped;
 
 /**
  * Created by marci on 01.03.16.
  */
-public class SendToGoalCommand extends Command<PoseWithCovarianceStamped> {
+public class SendToGoalCommand extends Command<PoseStamped> {
 
     /**
      * @param topic         topic for the new command (cannot be null)
@@ -21,9 +22,11 @@ public class SendToGoalCommand extends Command<PoseWithCovarianceStamped> {
     }
 
     @Override
-    protected PoseWithCovarianceStamped prepareMessage(Object[] arguments) {
-        PoseWithCovarianceStamped poseWithCovarianceStamped = this.publisher.newMessage();
-
-        return poseWithCovarianceStamped;
+    protected PoseStamped prepareMessage(Object[] arguments) {
+        PoseStamped poseStamped = this.publisher.newMessage();
+        double[] arguments1 = (double[]) arguments[0];
+        poseStamped.getPose().getPosition().setX(arguments1[0]);
+        poseStamped.getPose().getPosition().setY(arguments1[1]);
+        return poseStamped;
     }
 }

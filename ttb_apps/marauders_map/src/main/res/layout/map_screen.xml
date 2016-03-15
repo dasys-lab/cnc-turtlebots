@@ -39,7 +39,7 @@
         android:layout_height="match_parent"
         android:layout_weight="0.43">
 
-        <ImageView
+        <de.uni_kassel.vs.cn.ttb_apps.marauders_map.activity.ui.MapView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/imageView"

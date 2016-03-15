@@ -46,7 +46,7 @@ public class CommandTalker implements NodeMain {
      * here are new commands for use in the app registered
      */
     private void registerCommands(ConnectedNode connectedNode) {
-        GlobalCommandList.COMMANDS.add(new SendToGoalCommand("/move_base_simple/goal","geometry_msgs/PoseWithCovarianceStamped",connectedNode));
+        GlobalCommandList.COMMANDS.add(new SendToGoalCommand("/move_base_simple/goal","geometry_msgs/PoseStamped",connectedNode));
     }
 
     @Override

@@ -8,4 +8,14 @@ import java.util.List;
  */
 public final class GlobalCommandList {
     public static final List<Command> COMMANDS = new ArrayList<Command>();
+
+    public static final Command getCommandOfType(Class theClass) {
+        for (Command command : COMMANDS) {
+            if(command.getClass().equals(theClass)) {
+                return command;
+            }
+        }
+
+        return null;
+    }
 }

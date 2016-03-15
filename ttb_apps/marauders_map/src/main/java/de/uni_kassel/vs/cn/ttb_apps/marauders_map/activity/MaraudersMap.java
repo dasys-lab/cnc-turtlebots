@@ -123,6 +123,9 @@ public class MaraudersMap extends RosActivity
         nodeMainExecutor.execute(particleCloudListener, nodeConfiguration);
         Root.setParticleCloudListener(particleCloudListener);
 
+        CommandTalker commandTalker = new CommandTalker();
+        nodeMainExecutor.execute(commandTalker, nodeConfiguration);
+
 
 
 

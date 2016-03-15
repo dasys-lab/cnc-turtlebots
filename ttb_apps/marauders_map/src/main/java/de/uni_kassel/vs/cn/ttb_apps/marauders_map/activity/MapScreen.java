@@ -9,6 +9,8 @@ import android.graphics.ColorMatrixColorFilter;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.os.Environment;
+import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
@@ -20,11 +22,18 @@ import com.github.ros_java.marauders_map.R;
 import de.uni_kassel.vs.cn.ttb_apps.marauders_map.activity.map.AbstractMapOverlay;
 import de.uni_kassel.vs.cn.ttb_apps.marauders_map.activity.map.MapDrawer;
 import de.uni_kassel.vs.cn.ttb_apps.marauders_map.activity.map.RobotPositionOverlay;
+import de.uni_kassel.vs.cn.ttb_apps.marauders_map.activity.ui.MapView;
+import de.uni_kassel.vs.cn.ttb_apps.marauders_map.command.Command;
+import de.uni_kassel.vs.cn.ttb_apps.marauders_map.command.GlobalCommandList;
+import de.uni_kassel.vs.cn.ttb_apps.marauders_map.command.SendToGoalCommand;
 import de.uni_kassel.vs.cn.ttb_apps.marauders_map.model.Root;
 import com.google.common.io.Files;
 
 import org.apache.commons.io.IOUtils;
 import org.ros.android.view.VirtualJoystickView;
+import org.ros.internal.message.Message;
+import org.ros.internal.message.RawMessage;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -33,6 +42,9 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Map;
 
+import geometry_msgs.Point;
+import geometry_msgs.Pose;
+import geometry_msgs.Quaternion;
 import uk.co.senab.photoview.PhotoViewAttacher;
 
 /**
@@ -40,17 +52,21 @@ import uk.co.senab.photoview.PhotoViewAttacher;
  */
 public class MapScreen extends Activity {
 
-    private ImageView mapView;
-
+    // UI Elements
+    private MapView mapView;
     private static Bitmap bitmap = null;
     private PhotoViewAttacher attacher;
     private Spinner robotsSpinner;
-    private VirtualJoystickView joystickView;
     private MapDrawer mapDrawer;
 
+    // map details
     private static int width;
     private static int height;
 
+    private Command activeCommand = null;
+
+
+    // garment
     private ArrayAdapter<String> spinnerAdapter;
     private Thread thread;
 
@@ -81,7 +97,7 @@ public class MapScreen extends Activity {
 
 
         // init mapView
-        mapView = (ImageView) findViewById(R.id.imageView);
+        mapView = (MapView) findViewById(R.id.imageView);
         //getMapView().setImageBitmap(getBitmap());
         ColorMatrix matrix = new ColorMatrix();
         matrix.setSaturation(0);
@@ -102,6 +118,16 @@ public class MapScreen extends Activity {
 
         // attach PhotoView, which allows for easy zooming and scrolling auf the picture
         attacher = new PhotoViewAttacher(getMapView());
+        attacher.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+
+                registerForContextMenu(v);
+                openContextMenu(v);
+                unregisterForContextMenu(v);
+                return true;
+            }
+        });
         attacher.setOnViewTapListener(new PhotoViewAttacher.OnViewTapListener() {
             @Override
             public void onViewTap(View view, float v, float v1) {
@@ -144,6 +170,25 @@ public class MapScreen extends Activity {
         thread.start();
 
         Root.getMaraudersMap().getPlanTreeInfoListener().setActivity(this);
+    }
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        super.onContextItemSelected(item);
+        if(item.getTitle().equals(getResources().getString(R.string.nav_goal))) {
+            activeCommand = GlobalCommandList.getCommandOfType(SendToGoalCommand.class);
+            attacher.setOnViewTapListener(new PhotoViewAttacher.OnViewTapListener() {
+                @Override
+                public void onViewTap(View view, float x, float y) {
+                    double[] meterForPixel = Root.overlays.get(0).getMeterForPixel(x, y);
+                    activeCommand.sendMessage(meterForPixel);
+                    attacher.setOnViewTapListener(null);
+                }
+            });
+        } else if(item.getTitle().equals(getResources().getString(R.string.pose_estimate))) {
+            activeCommand = GlobalCommandList.getCommandOfType(SendToGoalCommand.class);
+        }
+        return true;
     }
 
     /**
