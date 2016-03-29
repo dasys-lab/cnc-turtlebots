@@ -25,6 +25,7 @@ import de.uni_kassel.vs.cn.ttb_apps.marauders_map.activity.map.RobotPositionOver
 import de.uni_kassel.vs.cn.ttb_apps.marauders_map.activity.ui.MapView;
 import de.uni_kassel.vs.cn.ttb_apps.marauders_map.command.Command;
 import de.uni_kassel.vs.cn.ttb_apps.marauders_map.command.GlobalCommandList;
+import de.uni_kassel.vs.cn.ttb_apps.marauders_map.command.InitialPoseCommand;
 import de.uni_kassel.vs.cn.ttb_apps.marauders_map.command.SendToGoalCommand;
 import de.uni_kassel.vs.cn.ttb_apps.marauders_map.model.Root;
 import com.google.common.io.Files;
@@ -177,16 +178,35 @@ public class MapScreen extends Activity {
         super.onContextItemSelected(item);
         if(item.getTitle().equals(getResources().getString(R.string.nav_goal))) {
             activeCommand = GlobalCommandList.getCommandOfType(SendToGoalCommand.class);
-            attacher.setOnViewTapListener(new PhotoViewAttacher.OnViewTapListener() {
+            attacher.setOnPhotoTapListener(new PhotoViewAttacher.OnPhotoTapListener() {
                 @Override
-                public void onViewTap(View view, float x, float y) {
-                    double[] meterForPixel = Root.overlays.get(0).getMeterForPixel(x, y);
+                public void onPhotoTap(View view, float x, float y) {
+                    double pixelX = ((double) x) * width;
+                    double pixelY = ((double) y) * height;
+                    double[] meterForPixel = Root.overlays.get(0).getMeterForPixel(pixelX, pixelY);
                     activeCommand.sendMessage(meterForPixel);
-                    attacher.setOnViewTapListener(null);
+                    attacher.setOnPhotoTapListener(null);
                 }
             });
         } else if(item.getTitle().equals(getResources().getString(R.string.pose_estimate))) {
-            activeCommand = GlobalCommandList.getCommandOfType(SendToGoalCommand.class);
+            activeCommand = GlobalCommandList.getCommandOfType(InitialPoseCommand.class);
+            attacher.setOnPhotoTapListener(new PhotoViewAttacher.OnPhotoTapListener() {
+
+                double[] point1 = null;
+
+                @Override
+                public void onPhotoTap(View view, float x, float y) {
+                    double pixelX = ((double) x) * width;
+                    double pixelY = ((double) y) * height;
+                    double[] meterForPixel = Root.overlays.get(0).getMeterForPixel(pixelX, pixelY);
+                    if (point1 != null) {
+                        activeCommand.sendMessage(new double[]{point1[0], point1[1], meterForPixel[0], meterForPixel[1]});
+                        attacher.setOnPhotoTapListener(null);
+                    } else {
+                        point1 = meterForPixel;
+                    }
+                }
+            });
         }
         return true;
     }

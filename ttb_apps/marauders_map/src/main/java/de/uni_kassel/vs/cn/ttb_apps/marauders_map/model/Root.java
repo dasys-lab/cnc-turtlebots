@@ -5,10 +5,13 @@ import de.uni_kassel.vs.cn.ttb_apps.marauders_map.activity.map.AbstractMapOverla
 import de.uni_kassel.vs.cn.ttb_apps.marauders_map.node.AMCL_PoseListener;
 import de.uni_kassel.vs.cn.ttb_apps.marauders_map.node.MapListener;
 import de.uni_kassel.vs.cn.ttb_apps.marauders_map.node.ParticleCloudListener;
+import de.uni_kassel.vs.cn.ttb_apps.marauders_map.util.ROS2UDPProxy;
 
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.LinkedBlockingQueue;
 
 /**
@@ -17,6 +20,7 @@ import java.util.concurrent.LinkedBlockingQueue;
 public class Root {
     public static List<AbstractMapOverlay> overlays = new ArrayList<AbstractMapOverlay>();
 
+    public static final Map<String, Long> topicHashmap = new HashMap<String, Long>();
     private static LinkedBlockingQueue robotIDQueue;
 
     private static MaraudersMap maraudersMap;
@@ -28,6 +32,8 @@ public class Root {
     private static AMCL_PoseListener amcl_poseListener;
 
     private static ParticleCloudListener particleCloudListener;
+
+    private static ROS2UDPProxy ros2UDPProxy;
 
     private static int activeRobot;
 
@@ -78,5 +84,13 @@ public class Root {
 
     public static void setParticleCloudListener(ParticleCloudListener particleCloudListener) {
         Root.particleCloudListener = particleCloudListener;
+    }
+
+    public static ROS2UDPProxy getRos2UDPProxy() {
+        return ros2UDPProxy;
+    }
+
+    public static void setRos2UDPProxy(ROS2UDPProxy ros2UDPProxy) {
+        Root.ros2UDPProxy = ros2UDPProxy;
     }
 }

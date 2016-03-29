@@ -24,6 +24,7 @@ public class SendToGoalCommand extends Command<PoseStamped> {
     @Override
     protected PoseStamped prepareMessage(Object[] arguments) {
         PoseStamped poseStamped = this.publisher.newMessage();
+        poseStamped.getHeader().setFrameId("/map");
         double[] arguments1 = (double[]) arguments[0];
         poseStamped.getPose().getPosition().setX(arguments1[0]);
         poseStamped.getPose().getPosition().setY(arguments1[1]);

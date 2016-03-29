@@ -133,6 +133,7 @@ public class MaraudersMap extends RosActivity
         ROS2UDPProxy proxy = new ROS2UDPProxy();
         proxy.setActivity(this);
         nodeMainExecutor.execute(proxy, nodeConfiguration);
+        Root.setRos2UDPProxy(proxy);
     }
 
     public CommandTalker getTalker() {

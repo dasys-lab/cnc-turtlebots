@@ -13,6 +13,7 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 
 import de.uni_kassel.vs.cn.ttb_apps.marauders_map.command.Command;
 import de.uni_kassel.vs.cn.ttb_apps.marauders_map.command.GlobalCommandList;
+import de.uni_kassel.vs.cn.ttb_apps.marauders_map.command.InitialPoseCommand;
 import de.uni_kassel.vs.cn.ttb_apps.marauders_map.command.SendToGoalCommand;
 import geometry_msgs.PoseWithCovarianceStamped;
 
@@ -47,6 +48,7 @@ public class CommandTalker implements NodeMain {
      */
     private void registerCommands(ConnectedNode connectedNode) {
         GlobalCommandList.COMMANDS.add(new SendToGoalCommand("/move_base_simple/goal","geometry_msgs/PoseStamped",connectedNode));
+        GlobalCommandList.COMMANDS.add(new InitialPoseCommand("/initialpose","geometry_msgs/PoseWithCovarianceStamped", connectedNode));
     }
 
     @Override

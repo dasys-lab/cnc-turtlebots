@@ -33,6 +33,7 @@ import geometry_msgs.PoseWithCovarianceStamped;
 import geometry_msgs.PoseArray;
 import std_msgs.String;
 import geometry_msgs.PoseStamped;
+import geometry_msgs.PoseWithCovarianceStamped;
 import alica_ros_proxy.PlanTreeInfo;
 
 /**
@@ -74,7 +75,7 @@ public void onNewMessage(Object o) {
 	}
 	}
 
-	private class OnRosPoseArray2644558886Listener implements MessageListener {
+{Root.topicHashmap.put("/amcl_pose", 2852345798l);}	private class OnRosPoseArray2644558886Listener implements MessageListener {
 	@Override
 public void onNewMessage(Object o) {
 		PoseArray converted = (PoseArray) o;
@@ -94,7 +95,7 @@ public void onNewMessage(Object o) {
 	}
 	}
 
-	private class OnRosString4022577436Listener implements MessageListener {
+{Root.topicHashmap.put("/particlecloud", 2644558886l);}	private class OnRosString4022577436Listener implements MessageListener {
 	@Override
 public void onNewMessage(Object o) {
 		String converted = (String) o;
@@ -114,7 +115,7 @@ public void onNewMessage(Object o) {
 	}
 	}
 
-	private class OnRosPoseStamped3037331423Listener implements MessageListener {
+{Root.topicHashmap.put("/mmTalker", 4022577436l);}	private class OnRosPoseStamped3037331423Listener implements MessageListener {
 	@Override
 public void onNewMessage(Object o) {
 		PoseStamped converted = (PoseStamped) o;
@@ -134,7 +135,27 @@ public void onNewMessage(Object o) {
 	}
 	}
 
-	private class OnRosPlanTreeInfo3767756765Listener implements MessageListener {
+{Root.topicHashmap.put("/move_base_simple/goal", 3037331423l);}	private class OnRosPoseWithCovarianceStamped2637701444Listener implements MessageListener {
+	@Override
+public void onNewMessage(Object o) {
+		PoseWithCovarianceStamped converted = (PoseWithCovarianceStamped) o;
+		MessageSerializer<PoseWithCovarianceStamped> serializer = node.getMessageSerializationFactory().newMessageSerializer("geometry_msgs/PoseWithCovarianceStamped");
+		ChannelBuffer buffer = ChannelBuffers.buffer(ByteOrder.LITTLE_ENDIAN,64000);
+		serializer.serialize(converted,buffer);
+		ByteBuffer idBuf = ByteBuffer.allocate(4).order(ByteOrder.LITTLE_ENDIAN).putInt((int) 2637701444l);
+		ChannelBuffer finalBuf = ChannelBuffers.copiedBuffer(ByteOrder.LITTLE_ENDIAN, idBuf.array(), buffer.array());
+		try {
+			MulticastSocket socket = new MulticastSocket();
+			socket.send(new DatagramPacket(finalBuf.array(),finalBuf.array().length,group,port));
+			socket.close();
+		} catch (IOException e) {
+			System.err.println("Exception while sending UDP message:" + converted._TYPE + " Discarding message!");
+		}
+
+	}
+	}
+
+{Root.topicHashmap.put("/initialpose", 2637701444l);}	private class OnRosPlanTreeInfo3767756765Listener implements MessageListener {
 	@Override
 public void onNewMessage(Object o) {
 		PlanTreeInfo converted = (PlanTreeInfo) o;
@@ -154,11 +175,12 @@ public void onNewMessage(Object o) {
 	}
 	}
 
-    
+{Root.topicHashmap.put("/AlicaEngine/PlanTreeInfo", 3767756765l);}    
 private Publisher<PoseWithCovarianceStamped> pub2852345798;
 private Publisher<PoseArray> pub2644558886;
 private Publisher<String> pub4022577436;
 private Publisher<PoseStamped> pub3037331423;
+private Publisher<PoseWithCovarianceStamped> pub2637701444;
 private Publisher<PlanTreeInfo> pub3767756765;
 
     @Override
@@ -189,13 +211,16 @@ final Subscriber sub2 = connectedNode.newSubscriber("/mmTalker", "std_msgs/Strin
 sub2.addMessageListener(new OnRosString4022577436Listener());
 final Subscriber sub3 = connectedNode.newSubscriber("/move_base_simple/goal", "geometry_msgs/PoseStamped");
 sub3.addMessageListener(new OnRosPoseStamped3037331423Listener());
-final Subscriber sub4 = connectedNode.newSubscriber("/AlicaEngine/PlanTreeInfo", "alica_ros_proxy/PlanTreeInfo");
-sub4.addMessageListener(new OnRosPlanTreeInfo3767756765Listener());
+final Subscriber sub4 = connectedNode.newSubscriber("/initialpose", "geometry_msgs/PoseWithCovarianceStamped");
+sub4.addMessageListener(new OnRosPoseWithCovarianceStamped2637701444Listener());
+final Subscriber sub5 = connectedNode.newSubscriber("/AlicaEngine/PlanTreeInfo", "alica_ros_proxy/PlanTreeInfo");
+sub5.addMessageListener(new OnRosPlanTreeInfo3767756765Listener());
         
 pub2852345798 = connectedNode.newPublisher("/amcl_pose", "geometry_msgs/PoseWithCovarianceStamped");
 pub2644558886 = connectedNode.newPublisher("/particlecloud", "geometry_msgs/PoseArray");
 pub4022577436 = connectedNode.newPublisher("/mmTalker", "std_msgs/String");
 pub3037331423 = connectedNode.newPublisher("/move_base_simple/goal", "geometry_msgs/PoseStamped");
+pub2637701444 = connectedNode.newPublisher("/initialpose", "geometry_msgs/PoseWithCovarianceStamped");
 pub3767756765 = connectedNode.newPublisher("/AlicaEngine/PlanTreeInfo", "alica_ros_proxy/PlanTreeInfo");
 
         } catch (IOException e) {
@@ -290,6 +315,12 @@ MessageDeserializer<PoseStamped> deserializer = node.getMessageSerializationFact
 byte[] message = Arrays.copyOfRange(packet.getData(), Integer.SIZE / Byte.SIZE, packet.getData().length-4);
 PoseStamped m3037331423 = deserializer.deserialize(ChannelBuffers.copiedBuffer(ByteOrder.LITTLE_ENDIAN,message));
 pub3037331423.publish(m3037331423);
+}
+else if(id == 2637701444l) {
+MessageDeserializer<PoseWithCovarianceStamped> deserializer = node.getMessageSerializationFactory().newMessageDeserializer(PoseWithCovarianceStamped._TYPE);
+byte[] message = Arrays.copyOfRange(packet.getData(), Integer.SIZE / Byte.SIZE, packet.getData().length-4);
+PoseWithCovarianceStamped m2637701444 = deserializer.deserialize(ChannelBuffers.copiedBuffer(ByteOrder.LITTLE_ENDIAN,message));
+pub2637701444.publish(m2637701444);
 }
 else if(id == 3767756765l) {
 MessageDeserializer<PlanTreeInfo> deserializer = node.getMessageSerializationFactory().newMessageDeserializer(PlanTreeInfo._TYPE);
