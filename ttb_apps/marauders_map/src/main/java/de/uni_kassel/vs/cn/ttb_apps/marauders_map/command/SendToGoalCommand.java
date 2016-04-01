@@ -17,8 +17,8 @@ public class SendToGoalCommand extends Command<PoseStamped> {
      * @param messageType   ROS Message type (cannot be null)
      * @param connectedNode the node for this command (cannot be null)
      */
-    public SendToGoalCommand(@NonNull String topic, @NonNull String messageType, ConnectedNode connectedNode) {
-        super(topic, messageType, connectedNode);
+    public SendToGoalCommand(@NonNull String topic, @NonNull String messageType,@NonNull String wrappedMessageType,@NonNull ConnectedNode connectedNode) {
+        super(topic, messageType, wrappedMessageType , connectedNode);
     }
 
     @Override

@@ -5,7 +5,7 @@ project(ttb_msgs)
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
 find_package(catkin REQUIRED COMPONENTS
-  message_generation  std_msgs
+  message_generation  std_msgs geometry_msgs
 )
 
 ################################################
@@ -36,6 +36,8 @@ find_package(catkin REQUIRED COMPONENTS
  add_message_files(
    FILES
    DriveToPOI.msg
+   GoalWrapped.msg
+   InitialPoseWrapped.msg
  )
  
  generate_messages(DEPENDENCIES std_msgs)

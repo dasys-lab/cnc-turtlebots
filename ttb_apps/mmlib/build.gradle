@@ -143,6 +143,7 @@ dependencies {
   compile 'org.ros.rosjava_messages:world_canvas_msgs:0+'
   compile 'org.ros.rosjava_messages:yocs_msgs:0+'
   compile 'org.ros.rosjava_messages:zeroconf_msgs:0+'
+  compile 'org.ros.rosjava_messages:ttb_msgs:0+'
 
 
 }
