@@ -6,11 +6,12 @@ import org.ros.node.ConnectedNode;
 
 import geometry_msgs.PoseStamped;
 import geometry_msgs.PoseWithCovarianceStamped;
+import ttb_msgs.GoalWrapped;
 
 /**
  * Created by marci on 01.03.16.
  */
-public class SendToGoalCommand extends Command<PoseStamped> {
+public class SendToGoalCommand extends Command<PoseStamped, GoalWrapped> {
 
     /**
      * @param topic         topic for the new command (cannot be null)
