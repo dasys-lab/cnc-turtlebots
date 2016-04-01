@@ -9,16 +9,18 @@ import org.ros.node.topic.Subscriber;
 
 import java.util.concurrent.Semaphore;
 
+import de.uni_kassel.vs.cn.ttb_apps.marauders_map.model.Root;
+import de.uni_kassel.vs.cn.ttb_apps.marauders_map.model.TurtleBot;
 import geometry_msgs.Point;
 import geometry_msgs.PoseWithCovarianceStamped;
+import ttb_msgs.AMCLPoseWrapped;
 
 /**
  * Created by marci on 05.02.16.
  */
 public class AMCL_PoseListener implements NodeMain {
 
-    private double[] position = {0.0,0.0};
-    private Subscriber<PoseWithCovarianceStamped> amclSubscriber;
+    private Subscriber<AMCLPoseWrapped> amclSubscriber;
 
     @Override
     public GraphName getDefaultNodeName() {
@@ -27,13 +29,17 @@ public class AMCL_PoseListener implements NodeMain {
 
     @Override
     public void onStart(ConnectedNode connectedNode) {
-        amclSubscriber = connectedNode.newSubscriber("/amcl_pose", "geometry_msgs/PoseWithCovarianceStamped");
-        amclSubscriber.addMessageListener(new MessageListener<PoseWithCovarianceStamped>() {
+        amclSubscriber = connectedNode.newSubscriber("wrapped/amcl_pose", "ttb_msgs/AMCLPoseWrapped");
+        amclSubscriber.addMessageListener(new MessageListener<AMCLPoseWrapped>() {
             @Override
-            public void onNewMessage(PoseWithCovarianceStamped o) {
-                Point position1 = o.getPose().getPose().getPosition();
-                position[0] = position1.getX();
-                position[1] = position1.getY();
+            public void onNewMessage(AMCLPoseWrapped o) {
+                for (TurtleBot bot : Root.getRobotQueue()) {
+                    if(bot.getId() == o.getSenderId()) {
+                        Point position1 = o.getCurrentPose().getPose().getPose().getPosition();
+                        bot.setPosition(new double[] {position1.getX(),position1.getY()});
+                        return;
+                    }
+                }
             }
         });
 
@@ -52,9 +58,5 @@ public class AMCL_PoseListener implements NodeMain {
     @Override
     public void onError(Node node, Throwable throwable) {
 
-    }
-
-    public double[] getCurrentPosition() {
-        return position;
     }
 }

@@ -11,6 +11,7 @@ import org.ros.node.NodeMain;
 import org.ros.node.topic.Subscriber;
 
 import alica_ros_proxy.PlanTreeInfo;
+import de.uni_kassel.vs.cn.ttb_apps.marauders_map.model.TurtleBot;
 
 /**
  * Created by marci on 27.11.15.
@@ -22,8 +23,8 @@ public class AliciaPlanTreeInfoListener implements NodeMain{
 
     public void setActivity(MapScreen activity) {
         this.activity = activity;
-        for(Integer i : Root.getRobotIDQueue()) {
-            activity.getSpinnerAdapter().add("Robot " + i);
+        for(TurtleBot i : Root.getRobotQueue()) {
+            activity.getSpinnerAdapter().add("Robot " + i.getId());
         }
     }
 
@@ -43,8 +44,8 @@ public class AliciaPlanTreeInfoListener implements NodeMain{
             @Override
             public void onNewMessage(Object o) {
                 final PlanTreeInfo planTreeInfo = (PlanTreeInfo) (o);
-                if (!Root.getRobotIDQueue().contains(planTreeInfo.getSenderID())) {
-                    Root.getRobotIDQueue().add(planTreeInfo.getSenderID());
+                if (!Root.getRobotQueue().contains(planTreeInfo.getSenderID())) {
+                    Root.getRobotQueue().add(new TurtleBot(planTreeInfo.getSenderID()));
                     if(activity != null) {
                         activity.runOnUiThread(new Runnable() {
                             @Override

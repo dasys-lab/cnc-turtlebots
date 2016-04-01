@@ -57,8 +57,8 @@ public class MaraudersMap extends RosActivity
             }
         });
         newThread.start();
-        if(Root.getRobotIDQueue() == null) {
-            Root.setRobotIDQueue(new LinkedBlockingQueue<Integer>());
+        if(Root.getRobotQueue() == null) {
+            Root.setRobotQueue(new LinkedBlockingQueue<Integer>());
         }
         Root.setMaraudersMap(this);
     }

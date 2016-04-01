@@ -8,6 +8,8 @@ import android.graphics.Point;
 import android.widget.ImageView;
 
 
+import de.uni_kassel.vs.cn.ttb_apps.marauders_map.model.Root;
+import de.uni_kassel.vs.cn.ttb_apps.marauders_map.model.TurtleBot;
 import de.uni_kassel.vs.cn.ttb_apps.marauders_map.node.AMCL_PoseListener;
 import de.uni_kassel.vs.cn.ttb_apps.marauders_map.node.ParticleCloudListener;
 
@@ -20,9 +22,6 @@ public class RobotPositionOverlay extends AbstractMapOverlay {
 
     private ParticleCloudListener particleCloudListener;
 
-    private Point wobble = new Point();
-    private Paint paint;
-
     /**
      * @param imageView     the overlay needs an ImageView to apply to.
      * @param underlyingMap the map on which will be drawn on top.
@@ -30,35 +29,20 @@ public class RobotPositionOverlay extends AbstractMapOverlay {
     public RobotPositionOverlay(ImageView imageView, Bitmap underlyingMap, Canvas canvas) {
         super(imageView, underlyingMap, canvas);
         //Drawable drawable = imageView.getResources().getDrawable(R.drawable.bot);
-        currentY = currentX = 40;
-        paint = new Paint();
-        paint.setColor(Color.GREEN);
-        paint.setAlpha(100);
-    }
-
-    @Override
-    public void render() {
-
-        if (getParticleCloudListener() == null) {
-            wobble.x = 40;
-            wobble.y = 40;
-        } else {
-
-            double[] pixelForMeter = getPixelForMeter(getParticleCloudListener().getxDistance(), getParticleCloudListener().getyDistance());
-            wobble.x = (int) pixelForMeter[0];
-            wobble.y = (int) pixelForMeter[1];
-        }
-
-        double[] currentPosition = getListener().getCurrentPosition();
-        renderToMapPosition(currentPosition[0],currentPosition[1]);
     }
 
     @Override
     protected void drawOverlay(Canvas canvas) {
-        //super.drawOverlay(canvas);
-        int radius =  wobble.x > wobble.y ? wobble.x : wobble.y;
-        radius /= 2;
-        canvas.drawCircle(Math.round(currentX), Math.round(currentY), 5, paint);
+
+        for (TurtleBot bot : Root.getRobotQueue()) {
+            double[] currentPosition = bot.getPosition();
+            double[] pixelForMeter = getPixelForMeter(currentPosition[0], currentPosition[1]);
+            Paint paint = new Paint();
+            paint.setColor(bot.getColor());
+            canvas.drawCircle(Math.round(pixelForMeter[0]), Math.round(pixelForMeter[1]), 5
+                    , paint);
+
+        }
     }
 
     public AMCL_PoseListener getListener() {

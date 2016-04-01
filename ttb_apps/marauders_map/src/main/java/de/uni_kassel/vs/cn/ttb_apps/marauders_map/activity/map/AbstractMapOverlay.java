@@ -19,11 +19,7 @@ public abstract class AbstractMapOverlay {
 
     private Bitmap underlyinMap;
 
-    protected double currentX;
-
-    protected double currentY;
     private final Canvas canvas;
-    private Paint paint;
 
     /**
      *
@@ -34,27 +30,14 @@ public abstract class AbstractMapOverlay {
         this.mapView = imageView;
         this.underlyinMap = underlyingMap;
         this.canvas = canvas;
-        paint =  new Paint(Paint.ANTI_ALIAS_FLAG);
-        paint.setColor(Color.GREEN);
-    }
-
-    public void setPosition(int x, int y) {
-        currentX = x;
-        currentY = y;
     }
 
     private static boolean intialized = false;
 
     /**
      *
-     * @param x
-     * @param y
      */
-    protected void renderToMapPosition(double x, double y) {
-
-        double[] pixelForMeter = getPixelForMeter(x, y);
-        currentX = pixelForMeter[0];
-        currentY = pixelForMeter[1];
+    protected void redrawUnderlyingMap() {
         mapView.post(new Runnable() {
             @Override
             public void run() {
@@ -71,8 +54,8 @@ public abstract class AbstractMapOverlay {
         //canvas.drawCircle(currentX,currentY, 10,paint);
 
 
-    public void render() {
-        renderToMapPosition(currentX,currentY);
+    public final void render() {
+        redrawUnderlyingMap();
     }
 
     public static void setOrigin(double[] newOrigin) {
