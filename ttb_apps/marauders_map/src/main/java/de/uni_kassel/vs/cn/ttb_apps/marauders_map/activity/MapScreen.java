@@ -119,6 +119,7 @@ public class MapScreen extends Activity {
 
         // attach PhotoView, which allows for easy zooming and scrolling auf the picture
         attacher = new PhotoViewAttacher(getMapView());
+        attacher.setMaximumScale(10.0f);
         attacher.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
@@ -179,13 +180,19 @@ public class MapScreen extends Activity {
         if(item.getTitle().equals(getResources().getString(R.string.nav_goal))) {
             activeCommand = GlobalCommandList.getCommandOfType(SendToGoalCommand.class);
             attacher.setOnPhotoTapListener(new PhotoViewAttacher.OnPhotoTapListener() {
+                double[] point1 = null;
+
                 @Override
                 public void onPhotoTap(View view, float x, float y) {
                     double pixelX = ((double) x) * width;
                     double pixelY = ((double) y) * height;
                     double[] meterForPixel = Root.overlays.get(0).getMeterForPixel(pixelX, pixelY);
-                    activeCommand.sendMessage(meterForPixel);
-                    attacher.setOnPhotoTapListener(null);
+                    if (point1 != null) {
+                        activeCommand.sendMessage(new double[] { point1[0], point1[1], meterForPixel[0], meterForPixel[1]});
+                        attacher.setOnPhotoTapListener(null);
+                    } else {
+                        point1 = meterForPixel;
+                    }
                 }
             });
         } else if(item.getTitle().equals(getResources().getString(R.string.pose_estimate))) {

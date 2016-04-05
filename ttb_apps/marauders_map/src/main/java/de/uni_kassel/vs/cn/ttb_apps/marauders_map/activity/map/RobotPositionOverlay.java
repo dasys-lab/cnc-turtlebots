@@ -39,16 +39,6 @@ public class RobotPositionOverlay extends AbstractMapOverlay {
     @Override
     public void render() {
 
-        if (getParticleCloudListener() == null) {
-            wobble.x = 40;
-            wobble.y = 40;
-        } else {
-
-            double[] pixelForMeter = getPixelForMeter(getParticleCloudListener().getxDistance(), getParticleCloudListener().getyDistance());
-            wobble.x = (int) pixelForMeter[0];
-            wobble.y = (int) pixelForMeter[1];
-        }
-
         double[] currentPosition = getListener().getCurrentPosition();
         renderToMapPosition(currentPosition[0],currentPosition[1]);
     }
@@ -56,8 +46,6 @@ public class RobotPositionOverlay extends AbstractMapOverlay {
     @Override
     protected void drawOverlay(Canvas canvas) {
         //super.drawOverlay(canvas);
-        int radius =  wobble.x > wobble.y ? wobble.x : wobble.y;
-        radius /= 2;
         canvas.drawCircle(Math.round(currentX), Math.round(currentY), 5, paint);
     }
 

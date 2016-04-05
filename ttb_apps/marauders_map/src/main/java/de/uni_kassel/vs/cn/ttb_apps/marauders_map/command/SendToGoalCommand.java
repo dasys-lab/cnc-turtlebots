@@ -28,6 +28,18 @@ public class SendToGoalCommand extends Command<PoseStamped> {
         double[] arguments1 = (double[]) arguments[0];
         poseStamped.getPose().getPosition().setX(arguments1[0]);
         poseStamped.getPose().getPosition().setY(arguments1[1]);
+        poseStamped.getPose().getPosition().setZ(0.0);
+
+        double[] orientationVector = new double[2];
+        orientationVector[0] = arguments1[2] - arguments1[0];
+        orientationVector[1] = arguments1[3] - arguments1[1];
+
+        double cosA = orientationVector[1] / Math.sqrt(Math.pow(orientationVector[0], 2.0) + Math.pow(orientationVector[1], 2.0));
+        double aHalf = Math.acos(cosA) / 2;
+        poseStamped.getPose().getOrientation().setX(0.0);
+        poseStamped.getPose().getOrientation().setY(0.0);
+        poseStamped.getPose().getOrientation().setZ(1.0 * Math.sin(aHalf) - Math.sqrt(0.5));
+        poseStamped.getPose().getOrientation().setW(Math.cos(aHalf) + Math.sqrt(0.5));
         return poseStamped;
     }
 }
