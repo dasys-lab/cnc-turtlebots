@@ -30,12 +30,15 @@ public class InitialPoseCommand extends Command<PoseWithCovarianceStamped> {
         orientationVector[0] = arguments1[2] - arguments1[0];
         orientationVector[1] = arguments1[3] - arguments1[1];
 
-        double cosA = orientationVector[1] / Math.sqrt(Math.pow(orientationVector[0], 2.0) + Math.pow(orientationVector[1], 2.0));
-        double aHalf = Math.acos(cosA) / 2;
-        poseStamped.getPose().getPose().getOrientation().setX(0.0 );
-        poseStamped.getPose().getPose().getOrientation().setY(0.0);
-        poseStamped.getPose().getPose().getOrientation().setZ(1.0 * Math.sin(aHalf) - Math.sqrt(0.5));
-        poseStamped.getPose().getPose().getOrientation().setW(Math.cos(aHalf) + Math.sqrt(0.5));
+        double cosA = orientationVector[0]/
+                (Math.sqrt(Math.pow(orientationVector[0], 2.0) + Math.pow(orientationVector[1], 2.0)));
+        double a = arguments1[1] > arguments1[3] ? -Math.acos(cosA) : Math.acos(cosA);
+        double aHalf = a / 2;
+
+        poseStamped.getPose().getPose().getOrientation().setX(0);
+        poseStamped.getPose().getPose().getOrientation().setY(0);
+        poseStamped.getPose().getPose().getOrientation().setZ(Math.sin(aHalf));
+        poseStamped.getPose().getPose().getOrientation().setW(Math.cos(aHalf));
         return poseStamped;
     }
 }
