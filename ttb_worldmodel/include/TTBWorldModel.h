@@ -37,6 +37,7 @@
 #include "Robots.h"
 #include "TaskManager.h"
 #include "EventTrigger.h"
+#include "WrappedMessageHandler.h"
 
 namespace supplementary {
 	class SystemConfig;
@@ -78,6 +79,8 @@ namespace ttb
 		int ringBufferLength;
 
 		mutex wmMutex;
+
+		WrappedMessageHandler wrappedMessageHandler;
 
 
 		// ROS Stuff
