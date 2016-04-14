@@ -1,2 +1,2 @@
 int32 senderId
-geometry_msgs/PoseWithCovarianceStamped currentPose
+geometry_msgs/PoseWithCovarianceStamped msg
