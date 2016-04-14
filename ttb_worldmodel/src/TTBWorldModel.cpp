@@ -64,7 +64,7 @@ namespace ttb
 		alvarSub = n.subscribe(alvarTopic, 10, &TTBWorldModel::onAlvarData, (TTBWorldModel*)this);
 		driveToPOISub = n.subscribe(drivePOITopic, 10, &TTBWorldModel::onDriveToPOICommand, (TTBWorldModel*)this);
 
-		wrappedMessageHandler.init(ownID, &n);
+		wrappedMessageHandler.init(ownID, &n,this);
 
 		spinner = new ros::AsyncSpinner(4);
 		spinner->start();

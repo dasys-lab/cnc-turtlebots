@@ -21,7 +21,7 @@ namespace ttb
 			std::vector<ros::Subscriber> toBeWrappedMessagesSubscribers;
 
 		public:
-			void init(int id, ros::NodeHandle nh, TTBWorldModel* those)
+			void init(int& id, ros::NodeHandle* nh, TTBWorldModel* those)
 			{
 				this->robotID = id;
 
