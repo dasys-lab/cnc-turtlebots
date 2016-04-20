@@ -22,7 +22,7 @@ namespace ttb
     {
     private:
         int robotID;
-        ros::NodeHandle* n;
+		ros::NodeHandle n;
         // get incoming wrapped messages and publish them (unwrapped) on the local ros core
 
 
@@ -75,17 +75,17 @@ void onRosInitialPoseWrapped2637701444(const ros::MessageEvent<ttb_msgs::Initial
 	if(message->receiverId == robotID)
 	{		pubPoseWithCovarianceStamped.publish(message->msg);
 	}
-}        void init(int& id, ros::NodeHandle& n, TTBWorldModel* those)
+}        void init(int& id, ros::NodeHandle* x, TTBWorldModel* those)
         {
             this->robotID = id;
-            this->n = n;
 
-sub0 = n.subscribe("/wrapped/amcl_pose",5, WrappedMessageHandler::onRosAMCLPoseWrapped2852345798,(TTBWorldModel*) those);
-sub1 = n.subscribe("/amcl_pose",5, WrappedMessageHandler::onRosPoseWithCovarianceStamped2852345798,(TTBWorldModel*) those);
-sub2 = n.subscribe("/wrapped/move_base_simple/goal",5, WrappedMessageHandler::onRosGoalWrapped3037331423,(TTBWorldModel*) those);
-sub3 = n.subscribe("/move_base_simple/goal",5, WrappedMessageHandler::onRosPoseStamped3037331423,(TTBWorldModel*) those);
-sub4 = n.subscribe("/wrapped/initialpose",5, WrappedMessageHandler::onRosInitialPoseWrapped2637701444,(TTBWorldModel*) those);
-sub5 = n.subscribe("/initialpose",5, WrappedMessageHandler::onRosPoseWithCovarianceStamped2637701444,(TTBWorldModel*) those);
+
+sub0 = n.subscribe("/wrapped/amcl_pose",5, &WrappedMessageHandler::onRosAMCLPoseWrapped2852345798,this);
+sub1 = n.subscribe("/amcl_pose",5, &WrappedMessageHandler::onRosPoseWithCovarianceStamped2852345798,this);
+sub2 = n.subscribe("/wrapped/move_base_simple/goal",5, &WrappedMessageHandler::onRosGoalWrapped3037331423,this);
+sub3 = n.subscribe("/move_base_simple/goal",5, &WrappedMessageHandler::onRosPoseStamped3037331423,this);
+sub4 = n.subscribe("/wrapped/initialpose",5, &WrappedMessageHandler::onRosInitialPoseWrapped2637701444,this);
+sub5 = n.subscribe("/initialpose",5, &WrappedMessageHandler::onRosPoseWithCovarianceStamped2637701444, this);
 
 pubAMCLPoseWrapped = n.advertise<ttb_msgs::AMCLPoseWrapped>("/wrapped/amcl_pose",5,false);
 pubPoseWithCovarianceStamped = n.advertise<geometry_msgs::PoseWithCovarianceStamped>("/amcl_pose",5,false);
