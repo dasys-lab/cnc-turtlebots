@@ -23,13 +23,13 @@ public class WrappedMessageSender <T extends Message> {
             PoseWithCovarianceStamped poseWithCovarianceStamped = (PoseWithCovarianceStamped) message;
             InitialPoseWrapped initialPoseWrapped = (InitialPoseWrapped) publisher.newMessage();
             initialPoseWrapped.setReceiverId(robotID);
-            initialPoseWrapped.setInitialPose(poseWithCovarianceStamped);
+            initialPoseWrapped.setMsg(poseWithCovarianceStamped);
             return initialPoseWrapped;
         } else if(topic.equals("/move_base_simple/goal")) {
             PoseStamped poseStamped = (PoseStamped) message;
             GoalWrapped goalWrapped = (GoalWrapped) publisher.newMessage();
             goalWrapped.setReceiverId(robotID);
-            goalWrapped.setGoal(poseStamped);
+            goalWrapped.setMsg(poseStamped);
             return goalWrapped;
         }
         return null;

@@ -34,8 +34,8 @@ public class AMCL_PoseListener implements NodeMain {
             @Override
             public void onNewMessage(AMCLPoseWrapped o) {
                 for (TurtleBot bot : Root.getRobotQueue()) {
-                    if(bot.getId() == o.getSenderId()) {
-                        Point position1 = o.getCurrentPose().getPose().getPose().getPosition();
+                    if(bot.getId() == o.getReceiverId()) {
+                        Point position1 = o.getMsg().getPose().getPose().getPosition();
                         bot.setPosition(new double[] {position1.getX(),position1.getY()});
                         return;
                     }
