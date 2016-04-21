@@ -44,17 +44,20 @@ public class AliciaPlanTreeInfoListener implements NodeMain{
             @Override
             public void onNewMessage(Object o) {
                 final PlanTreeInfo planTreeInfo = (PlanTreeInfo) (o);
-                if (!Root.getRobotQueue().contains(planTreeInfo.getSenderID())) {
-                    Root.getRobotQueue().add(new TurtleBot(planTreeInfo.getSenderID()));
-                    if(activity != null) {
-                        activity.runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                activity.getSpinnerAdapter().add("Robot " + planTreeInfo.getSenderID());
-                                activity.getSpinnerAdapter().notifyDataSetChanged();
-                            }
-                        });
+                for (TurtleBot i : Root.getRobotQueue()) {
+                    if ( i.getId() == planTreeInfo.getSenderID()) {
+                        return;
                     }
+                }
+                Root.getRobotQueue().add(new TurtleBot(planTreeInfo.getSenderID()));
+                if(activity != null) {
+                    activity.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            activity.getSpinnerAdapter().add("Robot " + planTreeInfo.getSenderID());
+                            activity.getSpinnerAdapter().notifyDataSetChanged();
+                        }
+                    });
                 }
             }
         });
