@@ -33,6 +33,7 @@ public abstract class Command<T extends Message, S extends Message> {
     private final String messageType;
     private final String wrappedMessageType;
     protected Publisher<T> publisher;
+    protected int id;
     private String topic;
     private WrappedMessageSender<T> wrappedMessageSender;
 
@@ -55,8 +56,8 @@ public abstract class Command<T extends Message, S extends Message> {
         AsyncTask<Integer, Void, Void> asyncTask = new AsyncTask<Integer, Void, Void>() {
             @Override
             protected Void doInBackground(Integer... params) {
-                S wrap = (S) wrappedMessageSender.wrap(currentMessage, topic, 1);
-
+                S wrap = (S) wrappedMessageSender.wrap(currentMessage, topic, id);
+                //publisher2.publish(wrap);
                 MessageSerializer<S> serializer = connectedNode.getMessageSerializationFactory().newMessageSerializer(wrappedMessageType);
                 ChannelBuffer buffer = ChannelBuffers.buffer(ByteOrder.LITTLE_ENDIAN, 64000);
                 serializer.serialize(wrap, buffer);
@@ -82,7 +83,8 @@ public abstract class Command<T extends Message, S extends Message> {
         asyncTask.execute(new Integer(5));
     }
 
-    public void sendMessage(Object... arguments) {
+    public void sendMessage(int id, Object... arguments) {
+        this.id = id;
         T message = prepareMessage(arguments);
         send(message);
     }

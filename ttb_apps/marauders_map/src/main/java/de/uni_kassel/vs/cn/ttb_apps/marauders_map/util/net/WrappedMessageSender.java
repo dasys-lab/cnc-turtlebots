@@ -19,18 +19,22 @@ public class WrappedMessageSender <T extends Message> {
     Publisher<T> publisher;
 
     public Message wrap(Message message, String topic, int robotID) {
-        if(topic.equals("/initialpose")) {
-            PoseWithCovarianceStamped poseWithCovarianceStamped = (PoseWithCovarianceStamped) message;
-            InitialPoseWrapped initialPoseWrapped = (InitialPoseWrapped) publisher.newMessage();
-            initialPoseWrapped.setReceiverId(robotID);
-            initialPoseWrapped.setMsg(poseWithCovarianceStamped);
-            return initialPoseWrapped;
-        } else if(topic.equals("/move_base_simple/goal")) {
-            PoseStamped poseStamped = (PoseStamped) message;
-            GoalWrapped goalWrapped = (GoalWrapped) publisher.newMessage();
-            goalWrapped.setReceiverId(robotID);
-            goalWrapped.setMsg(poseStamped);
-            return goalWrapped;
+        try {
+            if (topic.equals("/initialpose")) {
+                PoseWithCovarianceStamped poseWithCovarianceStamped = (PoseWithCovarianceStamped) message;
+                InitialPoseWrapped initialPoseWrapped = (InitialPoseWrapped) publisher.newMessage();
+                initialPoseWrapped.setReceiverId(robotID);
+                initialPoseWrapped.setMsg(poseWithCovarianceStamped);
+                return initialPoseWrapped;
+            } else if (topic.equals("/move_base_simple/goal")) {
+                PoseStamped poseStamped = (PoseStamped) message;
+                GoalWrapped goalWrapped = (GoalWrapped) publisher.newMessage();
+                goalWrapped.setReceiverId(robotID);
+                goalWrapped.setMsg(poseStamped);
+                return goalWrapped;
+            }
+        } finally {
+            publisher.shutdown();
         }
         return null;
     }

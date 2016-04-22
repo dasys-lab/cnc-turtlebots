@@ -184,7 +184,8 @@ public class MapScreen extends Activity {
                     double pixelX = ((double) x) * width;
                     double pixelY = ((double) y) * height;
                     double[] meterForPixel = Root.overlays.get(0).getMeterForPixel(pixelX, pixelY);
-                    activeCommand.sendMessage(meterForPixel);
+                    int id = Integer.parseInt(robotsSpinner.getSelectedItem().toString().split(" ")[1]);
+                    activeCommand.sendMessage(id,meterForPixel);
                     attacher.setOnPhotoTapListener(null);
                 }
             });
@@ -200,7 +201,8 @@ public class MapScreen extends Activity {
                     double pixelY = ((double) y) * height;
                     double[] meterForPixel = Root.overlays.get(0).getMeterForPixel(pixelX, pixelY);
                     if (point1 != null) {
-                        activeCommand.sendMessage(new double[]{point1[0], point1[1], meterForPixel[0], meterForPixel[1]});
+                        int id = Integer.parseInt(robotsSpinner.getSelectedItem().toString().split(" ")[1]);
+                        activeCommand.sendMessage(id,new double[]{point1[0], point1[1], meterForPixel[0], meterForPixel[1]});
                         attacher.setOnPhotoTapListener(null);
                     } else {
                         point1 = meterForPixel;
