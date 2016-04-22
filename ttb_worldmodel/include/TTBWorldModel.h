@@ -50,6 +50,7 @@ using namespace std;
 
 namespace ttb
 {
+	class WrappedMessageHandler;
 
 	class TTBWorldModel
 	{
@@ -73,6 +74,7 @@ namespace ttb
 
 		supplementary::SystemConfig* sc;
 		alica::AlicaEngine* alicaEngine;
+		WrappedMessageHandler* wrappedMessageHandler;
 
 		int ownID;
 		int ringBufferLength;
