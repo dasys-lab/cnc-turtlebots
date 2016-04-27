@@ -62,11 +62,11 @@ public abstract class Command<T extends Message, S extends Message> {
                 ChannelBuffer buffer = ChannelBuffers.buffer(ByteOrder.LITTLE_ENDIAN, 64000);
                 serializer.serialize(wrap, buffer);
 
-                byte[] bytes = ((ByteBuffer) (ByteBuffer.allocate(Long.SIZE / Byte.SIZE)
+                /*byte[] bytes = ((ByteBuffer) (ByteBuffer.allocate(Long.SIZE / Byte.SIZE)
                         .order(ByteOrder.LITTLE_ENDIAN).putLong(Root.topicHashmap.get("/wrapped" + topic)))).array();
-                byte[] id = new byte[]{bytes[0],bytes[1],bytes[2],bytes[3]};
+                byte[] id = new byte[]{bytes[0],bytes[1],bytes[2],bytes[3]};*/
 
-                ByteBuffer idBuf = ByteBuffer.allocate(4).order(ByteOrder.LITTLE_ENDIAN).put(id);
+                ByteBuffer idBuf = ByteBuffer.allocate(4).order(ByteOrder.LITTLE_ENDIAN).putInt((int)(Root.topicHashmap.get("/wrapped" + topic).longValue()));
 
                 ChannelBuffer finalBuf = ChannelBuffers.copiedBuffer(ByteOrder.LITTLE_ENDIAN, idBuf.array(), buffer.array());
                 try {
