@@ -119,6 +119,7 @@ public class MapScreen extends Activity {
 
         // attach PhotoView, which allows for easy zooming and scrolling auf the picture
         attacher = new PhotoViewAttacher(getMapView());
+        attacher.setMaximumScale(10.0f);
         attacher.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
