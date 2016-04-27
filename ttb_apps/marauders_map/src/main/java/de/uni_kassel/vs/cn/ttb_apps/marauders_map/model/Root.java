@@ -21,7 +21,8 @@ public class Root {
     public static List<AbstractMapOverlay> overlays = new ArrayList<AbstractMapOverlay>();
 
     public static final Map<String, Long> topicHashmap = new HashMap<String, Long>();
-    private static LinkedBlockingQueue robotIDQueue;
+
+    private static LinkedBlockingQueue robotQueue;
 
     private static MaraudersMap maraudersMap;
 
@@ -38,12 +39,12 @@ public class Root {
     private static int activeRobot;
 
 
-    public static LinkedBlockingQueue<Integer> getRobotIDQueue() {
-        return robotIDQueue;
+    public static LinkedBlockingQueue<TurtleBot> getRobotQueue() {
+        return robotQueue;
     }
 
-    public static void setRobotIDQueue(LinkedBlockingQueue<Integer> robotIDQueue) {
-        Root.robotIDQueue = robotIDQueue;
+    public static void setRobotQueue(LinkedBlockingQueue<Integer> robotQueue) {
+        Root.robotQueue = robotQueue;
     }
 
     public static MaraudersMap getMaraudersMap() {

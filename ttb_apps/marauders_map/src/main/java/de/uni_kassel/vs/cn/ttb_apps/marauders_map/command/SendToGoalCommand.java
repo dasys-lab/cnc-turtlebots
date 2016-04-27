@@ -5,19 +5,20 @@ import android.support.annotation.NonNull;
 import org.ros.node.ConnectedNode;
 
 import geometry_msgs.PoseStamped;
+import ttb_msgs.GoalWrapped;
 
 /**
  * Created by marci on 01.03.16.
  */
-public class SendToGoalCommand extends Command<PoseStamped> {
+public class SendToGoalCommand extends Command<PoseStamped, GoalWrapped> {
 
     /**
      * @param topic         topic for the new command (cannot be null)
      * @param messageType   ROS Message type (cannot be null)
      * @param connectedNode the node for this command (cannot be null)
      */
-    public SendToGoalCommand(@NonNull String topic, @NonNull String messageType, ConnectedNode connectedNode) {
-        super(topic, messageType, connectedNode);
+    public SendToGoalCommand(@NonNull String topic, @NonNull String messageType,@NonNull String wrappedMessageType,@NonNull ConnectedNode connectedNode) {
+        super(topic, messageType, wrappedMessageType , connectedNode);
     }
 
     @Override

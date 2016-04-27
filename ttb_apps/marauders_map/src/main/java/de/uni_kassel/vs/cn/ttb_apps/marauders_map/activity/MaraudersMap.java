@@ -8,7 +8,6 @@ import com.github.ros_java.marauders_map.R;
 import de.uni_kassel.vs.cn.ttb_apps.marauders_map.model.Root;
 import de.uni_kassel.vs.cn.ttb_apps.marauders_map.node.AMCL_PoseListener;
 import de.uni_kassel.vs.cn.ttb_apps.marauders_map.node.AliciaPlanTreeInfoListener;
-import de.uni_kassel.vs.cn.ttb_apps.marauders_map.node.AnswerListener;
 import de.uni_kassel.vs.cn.ttb_apps.marauders_map.node.CommandTalker;
 import de.uni_kassel.vs.cn.ttb_apps.marauders_map.node.MapListener;
 
@@ -57,8 +56,8 @@ public class MaraudersMap extends RosActivity
             }
         });
         newThread.start();
-        if(Root.getRobotIDQueue() == null) {
-            Root.setRobotIDQueue(new LinkedBlockingQueue<Integer>());
+        if(Root.getRobotQueue() == null) {
+            Root.setRobotQueue(new LinkedBlockingQueue<Integer>());
         }
         Root.setMaraudersMap(this);
     }
@@ -99,11 +98,6 @@ public class MaraudersMap extends RosActivity
         getTalker().setActivity(this);
         nodeMainExecutor.execute(getTalker(), nodeConfiguration);
 
-        // AnswerListener
-        AnswerListener answerListener = new AnswerListener();
-        answerListener.setActivity(this);
-        nodeMainExecutor.execute(answerListener, nodeConfiguration);
-
         // PlanTreeInfoListener
         planTreeInfoListener = new AliciaPlanTreeInfoListener();
         nodeMainExecutor.execute(planTreeInfoListener, nodeConfiguration);
@@ -122,8 +116,6 @@ public class MaraudersMap extends RosActivity
         ParticleCloudListener particleCloudListener = new ParticleCloudListener();
         nodeMainExecutor.execute(particleCloudListener, nodeConfiguration);
         Root.setParticleCloudListener(particleCloudListener);
-
-
 
         // UDPProxy
         ROS2UDPProxy proxy = new ROS2UDPProxy();

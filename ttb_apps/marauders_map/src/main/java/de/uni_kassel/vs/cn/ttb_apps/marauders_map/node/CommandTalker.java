@@ -1,21 +1,17 @@
 package de.uni_kassel.vs.cn.ttb_apps.marauders_map.node;
 
 import org.ros.android.RosActivity;
-import org.ros.concurrent.CancellableLoop;
 import org.ros.namespace.GraphName;
 import org.ros.node.ConnectedNode;
 import org.ros.node.Node;
 import org.ros.node.NodeMain;
-import org.ros.node.topic.Publisher;
 
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
-import de.uni_kassel.vs.cn.ttb_apps.marauders_map.command.Command;
 import de.uni_kassel.vs.cn.ttb_apps.marauders_map.command.GlobalCommandList;
 import de.uni_kassel.vs.cn.ttb_apps.marauders_map.command.InitialPoseCommand;
 import de.uni_kassel.vs.cn.ttb_apps.marauders_map.command.SendToGoalCommand;
-import geometry_msgs.PoseWithCovarianceStamped;
 
 /**
  * Created by marci on 19.10.15.
@@ -47,8 +43,8 @@ public class CommandTalker implements NodeMain {
      * here are new commands for use in the app registered
      */
     private void registerCommands(ConnectedNode connectedNode) {
-        GlobalCommandList.COMMANDS.add(new SendToGoalCommand("/move_base_simple/goal","geometry_msgs/PoseStamped",connectedNode));
-        GlobalCommandList.COMMANDS.add(new InitialPoseCommand("/initialpose","geometry_msgs/PoseWithCovarianceStamped", connectedNode));
+        GlobalCommandList.COMMANDS.add(new SendToGoalCommand("/move_base_simple/goal","geometry_msgs/PoseStamped", "ttb_msgs/GoalWrapped" ,connectedNode));
+        GlobalCommandList.COMMANDS.add(new InitialPoseCommand("/initialpose","geometry_msgs/PoseWithCovarianceStamped", "ttb_msgs/InitialPoseWrapped", connectedNode));
     }
 
     @Override

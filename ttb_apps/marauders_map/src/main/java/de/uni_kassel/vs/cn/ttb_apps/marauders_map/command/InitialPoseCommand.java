@@ -5,18 +5,20 @@ import android.support.annotation.NonNull;
 import org.ros.node.ConnectedNode;
 
 import geometry_msgs.PoseWithCovarianceStamped;
+import ttb_msgs.InitialPoseWrapped;
 
 /**
  * Created by marci on 22.03.16.
  */
-public class InitialPoseCommand extends Command<PoseWithCovarianceStamped> {
+public class InitialPoseCommand extends Command<PoseWithCovarianceStamped, InitialPoseWrapped> {
     /**
      * @param topic         topic for the new command (cannot be null)
      * @param messageType   ROS Message type (cannot be null)
+     * @param wrappedMessageType
      * @param connectedNode the node for this command (cannot be null)
      */
-    public InitialPoseCommand(@NonNull String topic, @NonNull String messageType, ConnectedNode connectedNode) {
-        super(topic, messageType, connectedNode);
+    public InitialPoseCommand(@NonNull String topic, @NonNull String messageType, String wrappedMessageType, ConnectedNode connectedNode) {
+        super(topic, messageType, wrappedMessageType,connectedNode);
     }
 
     @Override

@@ -12,6 +12,7 @@
 #include "engine/IAlicaClock.h"
 
 #include "RawSensorData.h"
+#include "WrappedMessageHandler.h"
 
 namespace ttb
 {
@@ -63,6 +64,8 @@ namespace ttb
 		dockInfrRedSub = n.subscribe(dockInfrRedTopic, 10, &TTBWorldModel::onDockInfrRedData, (TTBWorldModel*)this);
 		alvarSub = n.subscribe(alvarTopic, 10, &TTBWorldModel::onAlvarData, (TTBWorldModel*)this);
 		driveToPOISub = n.subscribe(drivePOITopic, 10, &TTBWorldModel::onDriveToPOICommand, (TTBWorldModel*)this);
+		wrappedMessageHandler = new WrappedMessageHandler();
+		wrappedMessageHandler->init(ownID);
 
 		spinner = new ros::AsyncSpinner(4);
 		spinner->start();
