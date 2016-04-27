@@ -179,14 +179,20 @@ public class MapScreen extends Activity {
         if(item.getTitle().equals(getResources().getString(R.string.nav_goal))) {
             activeCommand = GlobalCommandList.getCommandOfType(SendToGoalCommand.class);
             attacher.setOnPhotoTapListener(new PhotoViewAttacher.OnPhotoTapListener() {
+                double[] point1 = null;
+
                 @Override
                 public void onPhotoTap(View view, float x, float y) {
                     double pixelX = ((double) x) * width;
                     double pixelY = ((double) y) * height;
                     double[] meterForPixel = Root.overlays.get(0).getMeterForPixel(pixelX, pixelY);
-                    int id = Integer.parseInt(robotsSpinner.getSelectedItem().toString().split(" ")[1]);
-                    activeCommand.sendMessage(id,meterForPixel);
-                    attacher.setOnPhotoTapListener(null);
+                    if (point1 != null) {
+                        int id = Integer.parseInt(robotsSpinner.getSelectedItem().toString().split(" ")[1]);
+                        activeCommand.sendMessage(id,new double[] { point1[0], point1[1], meterForPixel[0], meterForPixel[1]});
+                        attacher.setOnPhotoTapListener(null);
+                    } else {
+                        point1 = meterForPixel;
+                    }
                 }
             });
         } else if(item.getTitle().equals(getResources().getString(R.string.pose_estimate))) {
