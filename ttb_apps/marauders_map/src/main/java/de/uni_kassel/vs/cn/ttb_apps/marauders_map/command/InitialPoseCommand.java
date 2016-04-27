@@ -5,7 +5,6 @@ import android.support.annotation.NonNull;
 import org.ros.node.ConnectedNode;
 
 import geometry_msgs.PoseWithCovarianceStamped;
-import ttb_msgs.GoalWrapped;
 import ttb_msgs.InitialPoseWrapped;
 
 /**
