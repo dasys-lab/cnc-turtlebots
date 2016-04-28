@@ -49,27 +49,11 @@ void onRosPoseWithCovarianceStamped2852345798(const ros::MessageEvent<geometry_m
 	message.msg = *event.getMessage();
 	pubAMCLPoseWrapped_amcl_pose.publish(message);
 }
-void onRosAMCLPoseWrapped2852345798(const ros::MessageEvent<ttb_msgs::AMCLPoseWrapped>& event) {
-	const ttb_msgs::AMCLPoseWrapped::ConstPtr& message = event.getMessage();
-	if(message->receiverId == robotID && event.getPublisherName().compare(ros::this_node::getName()) != 0)
-	{		pubPoseWithCovarianceStamped_amcl_pose.publish(message->msg);
-	}
-}void onRosPoseStamped3037331423(const ros::MessageEvent<geometry_msgs::PoseStamped>& event) {
-	ttb_msgs::GoalWrapped message;
-	message.receiverId = robotID;
-	message.msg = *event.getMessage();
-	pubGoalWrapped_move_base_simple_goal.publish(message);
-}
 void onRosGoalWrapped3037331423(const ros::MessageEvent<ttb_msgs::GoalWrapped>& event) {
 	const ttb_msgs::GoalWrapped::ConstPtr& message = event.getMessage();
 	if(message->receiverId == robotID && event.getPublisherName().compare(ros::this_node::getName()) != 0)
 	{		pubPoseStamped_move_base_simple_goal.publish(message->msg);
 	}
-}void onRosPoseWithCovarianceStamped2637701444(const ros::MessageEvent<geometry_msgs::PoseWithCovarianceStamped>& event) {
-	ttb_msgs::InitialPoseWrapped message;
-	message.receiverId = robotID;
-	message.msg = *event.getMessage();
-	pubInitialPoseWrapped_initialpose.publish(message);
 }
 void onRosInitialPoseWrapped2637701444(const ros::MessageEvent<ttb_msgs::InitialPoseWrapped>& event) {
 	const ttb_msgs::InitialPoseWrapped::ConstPtr& message = event.getMessage();
@@ -80,12 +64,9 @@ void onRosInitialPoseWrapped2637701444(const ros::MessageEvent<ttb_msgs::Initial
         {
             this->robotID = id;
 
-sub0 = n.subscribe("/wrapped/amcl_pose",5, &WrappedMessageHandler::onRosAMCLPoseWrapped2852345798,this);
 sub1 = n.subscribe("/amcl_pose",5, &WrappedMessageHandler::onRosPoseWithCovarianceStamped2852345798,this);
 sub2 = n.subscribe("/wrapped/move_base_simple/goal",5, &WrappedMessageHandler::onRosGoalWrapped3037331423,this);
-sub3 = n.subscribe("/move_base_simple/goal",5, &WrappedMessageHandler::onRosPoseStamped3037331423,this);
 sub4 = n.subscribe("/wrapped/initialpose",5, &WrappedMessageHandler::onRosInitialPoseWrapped2637701444,this);
-sub5 = n.subscribe("/initialpose",5, &WrappedMessageHandler::onRosPoseWithCovarianceStamped2637701444,this);
 
 pubAMCLPoseWrapped_amcl_pose = n.advertise<ttb_msgs::AMCLPoseWrapped>("/wrapped/amcl_pose",5,false);
 pubPoseWithCovarianceStamped_amcl_pose = n.advertise<geometry_msgs::PoseWithCovarianceStamped>("/amcl_pose",5,false);
