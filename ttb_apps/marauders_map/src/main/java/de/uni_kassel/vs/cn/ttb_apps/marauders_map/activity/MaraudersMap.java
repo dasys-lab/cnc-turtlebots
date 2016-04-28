@@ -6,6 +6,7 @@ import android.widget.ListView;
 
 import com.github.ros_java.marauders_map.R;
 import de.uni_kassel.vs.cn.ttb_apps.marauders_map.model.Root;
+import de.uni_kassel.vs.cn.ttb_apps.marauders_map.model.TurtleBot;
 import de.uni_kassel.vs.cn.ttb_apps.marauders_map.node.AMCL_PoseListener;
 import de.uni_kassel.vs.cn.ttb_apps.marauders_map.node.AliciaPlanTreeInfoListener;
 import de.uni_kassel.vs.cn.ttb_apps.marauders_map.node.CommandTalker;
@@ -17,6 +18,7 @@ import org.ros.node.NodeConfiguration;
 import org.ros.node.NodeMainExecutor;
 
 import java.net.URI;
+import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
 import de.uni_kassel.vs.cn.ttb_apps.marauders_map.node.ParticleCloudListener;
@@ -57,7 +59,7 @@ public class MaraudersMap extends RosActivity
         });
         newThread.start();
         if(Root.getRobotQueue() == null) {
-            Root.setRobotQueue(new LinkedBlockingQueue<Integer>());
+            Root.setRobotQueue(new ArrayBlockingQueue<TurtleBot>(4,true));
         }
         Root.setMaraudersMap(this);
     }

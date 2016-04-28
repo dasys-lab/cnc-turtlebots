@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
 /**
@@ -22,7 +23,7 @@ public class Root {
 
     public static final Map<String, Long> topicHashmap = new HashMap<String, Long>();
 
-    private static LinkedBlockingQueue robotQueue;
+    private static ArrayBlockingQueue<TurtleBot> robotQueue;
 
     private static MaraudersMap maraudersMap;
 
@@ -39,11 +40,11 @@ public class Root {
     private static int activeRobot;
 
 
-    public static LinkedBlockingQueue<TurtleBot> getRobotQueue() {
+    public static ArrayBlockingQueue<TurtleBot> getRobotQueue() {
         return robotQueue;
     }
 
-    public static void setRobotQueue(LinkedBlockingQueue<Integer> robotQueue) {
+    public static void setRobotQueue(ArrayBlockingQueue<TurtleBot> robotQueue) {
         Root.robotQueue = robotQueue;
     }
 
