@@ -22,17 +22,11 @@
 
 
 #include "alica_ros_proxy/PlanTreeInfo.h"
-#include "alica_ros_proxy/AlicaEngineInfo.h"
-#include "alica_ros_proxy/SyncTalk.h"
-#include "alica_ros_proxy/SyncReady.h"
-#include "alica_ros_proxy/AllocationAuthorityInfo.h"
-#include "alica_ros_proxy/SolverResult.h"
 #include "process_manager/ProcessCommand.h"
 #include "process_manager/ProcessStats.h"
 #include "ttb_msgs/AMCLPoseWrapped.h"
 #include "ttb_msgs/GoalWrapped.h"
 #include "ttb_msgs/InitialPoseWrapped.h"
-#include "geometry_msgs/PoseArray.h"
 
 using namespace supplementary;
 
@@ -62,91 +56,6 @@ uint8_t* buffer = NULL;
 		buffer = new uint8_t[serial_size+sizeof(uint32_t)];
 		ros::serialization::OStream stream(buffer+sizeof(uint32_t), serial_size);
 		*((uint32_t*)buffer) = 3767756765u;
-		ros::serialization::serialize(stream, *message);
-		// write message to UDP
-		insocket->send_to(boost::asio::buffer((void*)buffer,serial_size+sizeof(uint32_t)),destEndPoint);
-	} catch(std::exception& e) {
-		ROS_ERROR_STREAM_THROTTLE(2,"Exception while sending UDP message:"<<e.what()<< " Discarding message!");
-	}
-	if(buffer!=NULL) delete[] buffer;
-}
-void onRosAlicaEngineInfo238666206(const ros::MessageEvent<alica_ros_proxy::AlicaEngineInfo>& event) {
-	if(0 == event.getPublisherName().compare(ownRosName)) return;
-uint8_t* buffer = NULL;
-	const alica_ros_proxy::AlicaEngineInfo::ConstPtr& message = event.getMessage();
-	try{
-		uint32_t serial_size = ros::serialization::serializationLength(*message);
-		buffer = new uint8_t[serial_size+sizeof(uint32_t)];
-		ros::serialization::OStream stream(buffer+sizeof(uint32_t), serial_size);
-		*((uint32_t*)buffer) = 238666206u;
-		ros::serialization::serialize(stream, *message);
-		// write message to UDP
-		insocket->send_to(boost::asio::buffer((void*)buffer,serial_size+sizeof(uint32_t)),destEndPoint);
-	} catch(std::exception& e) {
-		ROS_ERROR_STREAM_THROTTLE(2,"Exception while sending UDP message:"<<e.what()<< " Discarding message!");
-	}
-	if(buffer!=NULL) delete[] buffer;
-}
-void onRosSyncTalk4175715375(const ros::MessageEvent<alica_ros_proxy::SyncTalk>& event) {
-	if(0 == event.getPublisherName().compare(ownRosName)) return;
-uint8_t* buffer = NULL;
-	const alica_ros_proxy::SyncTalk::ConstPtr& message = event.getMessage();
-	try{
-		uint32_t serial_size = ros::serialization::serializationLength(*message);
-		buffer = new uint8_t[serial_size+sizeof(uint32_t)];
-		ros::serialization::OStream stream(buffer+sizeof(uint32_t), serial_size);
-		*((uint32_t*)buffer) = 4175715375u;
-		ros::serialization::serialize(stream, *message);
-		// write message to UDP
-		insocket->send_to(boost::asio::buffer((void*)buffer,serial_size+sizeof(uint32_t)),destEndPoint);
-	} catch(std::exception& e) {
-		ROS_ERROR_STREAM_THROTTLE(2,"Exception while sending UDP message:"<<e.what()<< " Discarding message!");
-	}
-	if(buffer!=NULL) delete[] buffer;
-}
-void onRosSyncReady636345472(const ros::MessageEvent<alica_ros_proxy::SyncReady>& event) {
-	if(0 == event.getPublisherName().compare(ownRosName)) return;
-uint8_t* buffer = NULL;
-	const alica_ros_proxy::SyncReady::ConstPtr& message = event.getMessage();
-	try{
-		uint32_t serial_size = ros::serialization::serializationLength(*message);
-		buffer = new uint8_t[serial_size+sizeof(uint32_t)];
-		ros::serialization::OStream stream(buffer+sizeof(uint32_t), serial_size);
-		*((uint32_t*)buffer) = 636345472u;
-		ros::serialization::serialize(stream, *message);
-		// write message to UDP
-		insocket->send_to(boost::asio::buffer((void*)buffer,serial_size+sizeof(uint32_t)),destEndPoint);
-	} catch(std::exception& e) {
-		ROS_ERROR_STREAM_THROTTLE(2,"Exception while sending UDP message:"<<e.what()<< " Discarding message!");
-	}
-	if(buffer!=NULL) delete[] buffer;
-}
-void onRosAllocationAuthorityInfo690246385(const ros::MessageEvent<alica_ros_proxy::AllocationAuthorityInfo>& event) {
-	if(0 == event.getPublisherName().compare(ownRosName)) return;
-uint8_t* buffer = NULL;
-	const alica_ros_proxy::AllocationAuthorityInfo::ConstPtr& message = event.getMessage();
-	try{
-		uint32_t serial_size = ros::serialization::serializationLength(*message);
-		buffer = new uint8_t[serial_size+sizeof(uint32_t)];
-		ros::serialization::OStream stream(buffer+sizeof(uint32_t), serial_size);
-		*((uint32_t*)buffer) = 690246385u;
-		ros::serialization::serialize(stream, *message);
-		// write message to UDP
-		insocket->send_to(boost::asio::buffer((void*)buffer,serial_size+sizeof(uint32_t)),destEndPoint);
-	} catch(std::exception& e) {
-		ROS_ERROR_STREAM_THROTTLE(2,"Exception while sending UDP message:"<<e.what()<< " Discarding message!");
-	}
-	if(buffer!=NULL) delete[] buffer;
-}
-void onRosSolverResult2276189600(const ros::MessageEvent<alica_ros_proxy::SolverResult>& event) {
-	if(0 == event.getPublisherName().compare(ownRosName)) return;
-uint8_t* buffer = NULL;
-	const alica_ros_proxy::SolverResult::ConstPtr& message = event.getMessage();
-	try{
-		uint32_t serial_size = ros::serialization::serializationLength(*message);
-		buffer = new uint8_t[serial_size+sizeof(uint32_t)];
-		ros::serialization::OStream stream(buffer+sizeof(uint32_t), serial_size);
-		*((uint32_t*)buffer) = 2276189600u;
 		ros::serialization::serialize(stream, *message);
 		// write message to UDP
 		insocket->send_to(boost::asio::buffer((void*)buffer,serial_size+sizeof(uint32_t)),destEndPoint);
@@ -240,36 +149,13 @@ uint8_t* buffer = NULL;
 	}
 	if(buffer!=NULL) delete[] buffer;
 }
-void onRosPoseArray2644558886(const ros::MessageEvent<geometry_msgs::PoseArray>& event) {
-	if(0 == event.getPublisherName().compare(ownRosName)) return;
-uint8_t* buffer = NULL;
-	const geometry_msgs::PoseArray::ConstPtr& message = event.getMessage();
-	try{
-		uint32_t serial_size = ros::serialization::serializationLength(*message);
-		buffer = new uint8_t[serial_size+sizeof(uint32_t)];
-		ros::serialization::OStream stream(buffer+sizeof(uint32_t), serial_size);
-		*((uint32_t*)buffer) = 2644558886u;
-		ros::serialization::serialize(stream, *message);
-		// write message to UDP
-		insocket->send_to(boost::asio::buffer((void*)buffer,serial_size+sizeof(uint32_t)),destEndPoint);
-	} catch(std::exception& e) {
-		ROS_ERROR_STREAM_THROTTLE(2,"Exception while sending UDP message:"<<e.what()<< " Discarding message!");
-	}
-	if(buffer!=NULL) delete[] buffer;
-}
 
 ros::Publisher pub3767756765;
-ros::Publisher pub238666206;
-ros::Publisher pub4175715375;
-ros::Publisher pub636345472;
-ros::Publisher pub690246385;
-ros::Publisher pub2276189600;
 ros::Publisher pub3108117629;
 ros::Publisher pub2783514677;
 ros::Publisher pub2611391888;
 ros::Publisher pub3867808201;
 ros::Publisher pub1388158846;
-ros::Publisher pub2644558886;
 
 boost::array<char,64000> inBuffer;
 void listenForPacket() {
@@ -291,31 +177,6 @@ case 3767756765ul: {
 alica_ros_proxy::PlanTreeInfo m3767756765;
 ros::serialization::Serializer<alica_ros_proxy::PlanTreeInfo>::read(stream, m3767756765);
 pub3767756765.publish<alica_ros_proxy::PlanTreeInfo>(m3767756765);
-break; }
-case 238666206ul: {
-alica_ros_proxy::AlicaEngineInfo m238666206;
-ros::serialization::Serializer<alica_ros_proxy::AlicaEngineInfo>::read(stream, m238666206);
-pub238666206.publish<alica_ros_proxy::AlicaEngineInfo>(m238666206);
-break; }
-case 4175715375ul: {
-alica_ros_proxy::SyncTalk m4175715375;
-ros::serialization::Serializer<alica_ros_proxy::SyncTalk>::read(stream, m4175715375);
-pub4175715375.publish<alica_ros_proxy::SyncTalk>(m4175715375);
-break; }
-case 636345472ul: {
-alica_ros_proxy::SyncReady m636345472;
-ros::serialization::Serializer<alica_ros_proxy::SyncReady>::read(stream, m636345472);
-pub636345472.publish<alica_ros_proxy::SyncReady>(m636345472);
-break; }
-case 690246385ul: {
-alica_ros_proxy::AllocationAuthorityInfo m690246385;
-ros::serialization::Serializer<alica_ros_proxy::AllocationAuthorityInfo>::read(stream, m690246385);
-pub690246385.publish<alica_ros_proxy::AllocationAuthorityInfo>(m690246385);
-break; }
-case 2276189600ul: {
-alica_ros_proxy::SolverResult m2276189600;
-ros::serialization::Serializer<alica_ros_proxy::SolverResult>::read(stream, m2276189600);
-pub2276189600.publish<alica_ros_proxy::SolverResult>(m2276189600);
 break; }
 case 3108117629ul: {
 process_manager::ProcessCommand m3108117629;
@@ -341,11 +202,6 @@ case 1388158846ul: {
 ttb_msgs::InitialPoseWrapped m1388158846;
 ros::serialization::Serializer<ttb_msgs::InitialPoseWrapped>::read(stream, m1388158846);
 pub1388158846.publish<ttb_msgs::InitialPoseWrapped>(m1388158846);
-break; }
-case 2644558886ul: {
-geometry_msgs::PoseArray m2644558886;
-ros::serialization::Serializer<geometry_msgs::PoseArray>::read(stream, m2644558886);
-pub2644558886.publish<geometry_msgs::PoseArray>(m2644558886);
 break; }
 			
 				default:
@@ -411,30 +267,18 @@ ros::init(argc, argv, "ttb_udp_proxy"); //   ros::init(argc, argv, "udpProxy");
     std::cout << ownRosName << std::endl;
     
 ros::Subscriber sub0 = n.subscribe("/AlicaEngine/PlanTreeInfo",5, onRosPlanTreeInfo3767756765,ros::TransportHints().unreliable().tcpNoDelay().reliable());
-ros::Subscriber sub1 = n.subscribe("/AlicaEngine/AlicaEngineInfo",5, onRosAlicaEngineInfo238666206,ros::TransportHints().unreliable().tcpNoDelay().reliable());
-ros::Subscriber sub2 = n.subscribe("/AlicaEngine/SyncTalk",5, onRosSyncTalk4175715375,ros::TransportHints().unreliable().tcpNoDelay().reliable());
-ros::Subscriber sub3 = n.subscribe("/AlicaEngine/SyncReady",5, onRosSyncReady636345472,ros::TransportHints().unreliable().tcpNoDelay().reliable());
-ros::Subscriber sub4 = n.subscribe("/AlicaEngine/AllocationAuthorityInfo",5, onRosAllocationAuthorityInfo690246385,ros::TransportHints().unreliable().tcpNoDelay().reliable());
-ros::Subscriber sub5 = n.subscribe("/AlicaEngine/SolverResult",5, onRosSolverResult2276189600,ros::TransportHints().unreliable().tcpNoDelay().reliable());
-ros::Subscriber sub6 = n.subscribe("/process_manager/ProcessCommand",5, onRosProcessCommand3108117629,ros::TransportHints().unreliable().tcpNoDelay().reliable());
-ros::Subscriber sub7 = n.subscribe("/process_manager/ProcessStats",5, onRosProcessStats2783514677,ros::TransportHints().unreliable().tcpNoDelay().reliable());
-ros::Subscriber sub8 = n.subscribe("/wrapped/amcl_pose",5, onRosAMCLPoseWrapped2611391888,ros::TransportHints().unreliable().tcpNoDelay().reliable());
-ros::Subscriber sub9 = n.subscribe("/wrapped/move_base_simple/goal",5, onRosGoalWrapped3867808201,ros::TransportHints().unreliable().tcpNoDelay().reliable());
-ros::Subscriber sub10 = n.subscribe("/wrapped/initialpose",5, onRosInitialPoseWrapped1388158846,ros::TransportHints().unreliable().tcpNoDelay().reliable());
-ros::Subscriber sub11 = n.subscribe("/particlecloud",5, onRosPoseArray2644558886,ros::TransportHints().unreliable().tcpNoDelay().reliable());
+ros::Subscriber sub1 = n.subscribe("/process_manager/ProcessCommand",5, onRosProcessCommand3108117629,ros::TransportHints().unreliable().tcpNoDelay().reliable());
+ros::Subscriber sub2 = n.subscribe("/process_manager/ProcessStats",5, onRosProcessStats2783514677,ros::TransportHints().unreliable().tcpNoDelay().reliable());
+ros::Subscriber sub3 = n.subscribe("/wrapped/amcl_pose",5, onRosAMCLPoseWrapped2611391888,ros::TransportHints().unreliable().tcpNoDelay().reliable());
+ros::Subscriber sub4 = n.subscribe("/wrapped/move_base_simple/goal",5, onRosGoalWrapped3867808201,ros::TransportHints().unreliable().tcpNoDelay().reliable());
+ros::Subscriber sub5 = n.subscribe("/wrapped/initialpose",5, onRosInitialPoseWrapped1388158846,ros::TransportHints().unreliable().tcpNoDelay().reliable());
 	
 pub3767756765 = n.advertise<alica_ros_proxy::PlanTreeInfo>("/AlicaEngine/PlanTreeInfo",5,false);
-pub238666206 = n.advertise<alica_ros_proxy::AlicaEngineInfo>("/AlicaEngine/AlicaEngineInfo",5,false);
-pub4175715375 = n.advertise<alica_ros_proxy::SyncTalk>("/AlicaEngine/SyncTalk",5,false);
-pub636345472 = n.advertise<alica_ros_proxy::SyncReady>("/AlicaEngine/SyncReady",5,false);
-pub690246385 = n.advertise<alica_ros_proxy::AllocationAuthorityInfo>("/AlicaEngine/AllocationAuthorityInfo",5,false);
-pub2276189600 = n.advertise<alica_ros_proxy::SolverResult>("/AlicaEngine/SolverResult",5,false);
 pub3108117629 = n.advertise<process_manager::ProcessCommand>("/process_manager/ProcessCommand",5,false);
 pub2783514677 = n.advertise<process_manager::ProcessStats>("/process_manager/ProcessStats",5,false);
 pub2611391888 = n.advertise<ttb_msgs::AMCLPoseWrapped>("/wrapped/amcl_pose",5,false);
 pub3867808201 = n.advertise<ttb_msgs::GoalWrapped>("/wrapped/move_base_simple/goal",5,false);
 pub1388158846 = n.advertise<ttb_msgs::InitialPoseWrapped>("/wrapped/initialpose",5,false);
-pub2644558886 = n.advertise<geometry_msgs::PoseArray>("/particlecloud",5,false);
 	
 	boost::thread iothread(run);
     
