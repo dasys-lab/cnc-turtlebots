@@ -80,9 +80,9 @@ void onRosInitialPoseWrapped2637701444(const ros::MessageEvent<ttb_msgs::Initial
         {
             this->robotID = id;
 
-sub0 = n.subscribe("/wrapped/amcl_pose",5, &WrappedMessageHandler::onRosAMCLPoseWrapped2852345798,this);
-sub1 = n.subscribe("/move_base_simple/goal",5, &WrappedMessageHandler::onRosPoseStamped3037331423,this);
-sub2 = n.subscribe("/initialpose",5, &WrappedMessageHandler::onRosPoseWithCovarianceStamped2637701444,this);
+sub0 = n.subscribe("/amcl_pose",5, &WrappedMessageHandler::onRosPoseWithCovarianceStamped2852345798,this);
+sub1 = n.subscribe("/wrapped/move_base_simple/goal",5, &WrappedMessageHandler::onRosGoalWrapped3037331423,this);
+sub2 = n.subscribe("/wrapped/initialpose",5, &WrappedMessageHandler::onRosInitialPoseWrapped2637701444,this);
 
 pubAMCLPoseWrapped_amcl_pose = n.advertise<ttb_msgs::AMCLPoseWrapped>("/wrapped/amcl_pose",5,false);
 pubPoseWithCovarianceStamped_amcl_pose = n.advertise<geometry_msgs::PoseWithCovarianceStamped>("/amcl_pose",5,false);
