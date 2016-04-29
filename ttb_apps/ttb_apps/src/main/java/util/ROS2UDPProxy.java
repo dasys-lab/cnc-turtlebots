@@ -121,27 +121,7 @@ public void onNewMessage(Object o) {
 	}
 	}
 
-{Root.topicHashmap.put("/wrapped/initialpose", 1388158846l);}	private class OnRosPlanTreeInfo3767756765Listener implements MessageListener {
-	@Override
-public void onNewMessage(Object o) {
-		PlanTreeInfo converted = (PlanTreeInfo) o;
-		MessageSerializer<PlanTreeInfo> serializer = node.getMessageSerializationFactory().newMessageSerializer("alica_ros_proxy/PlanTreeInfo");
-		ChannelBuffer buffer = ChannelBuffers.buffer(ByteOrder.LITTLE_ENDIAN,64000);
-		serializer.serialize(converted,buffer);
-		ByteBuffer idBuf = ByteBuffer.allocate(4).order(ByteOrder.LITTLE_ENDIAN).putInt((int) 3767756765l);
-		ChannelBuffer finalBuf = ChannelBuffers.copiedBuffer(ByteOrder.LITTLE_ENDIAN, idBuf.array(), buffer.array());
-		try {
-			MulticastSocket socket = new MulticastSocket();
-			socket.send(new DatagramPacket(finalBuf.array(),finalBuf.array().length,group,port));
-			socket.close();
-		} catch (IOException e) {
-			System.err.println("Exception while sending UDP message:" + converted._TYPE + " Discarding message!");
-		}
-
-	}
-	}
-
-{Root.topicHashmap.put("/AlicaEngine/PlanTreeInfo", 3767756765l);}    
+{Root.topicHashmap.put("/wrapped/initialpose", 1388158846l);}    
 private Publisher<AMCLPoseWrapped> pub2611391888;
 private Publisher<GoalWrapped> pub3867808201;
 private Publisher<InitialPoseWrapped> pub1388158846;
@@ -171,8 +151,6 @@ final Subscriber sub1 = connectedNode.newSubscriber("/wrapped/move_base_simple/g
 sub1.addMessageListener(new OnRosGoalWrapped3867808201Listener());
 final Subscriber sub2 = connectedNode.newSubscriber("/wrapped/initialpose", "ttb_msgs/InitialPoseWrapped");
 sub2.addMessageListener(new OnRosInitialPoseWrapped1388158846Listener());
-final Subscriber sub3 = connectedNode.newSubscriber("/AlicaEngine/PlanTreeInfo", "alica_ros_proxy/PlanTreeInfo");
-sub3.addMessageListener(new OnRosPlanTreeInfo3767756765Listener());
         
 pub2611391888 = connectedNode.newPublisher("/wrapped/amcl_pose", "ttb_msgs/AMCLPoseWrapped");
 pub3867808201 = connectedNode.newPublisher("/wrapped/move_base_simple/goal", "ttb_msgs/GoalWrapped");
@@ -251,25 +229,7 @@ pub3767756765 = connectedNode.newPublisher("/AlicaEngine/PlanTreeInfo", "alica_r
 			return;
 		}
 		long id = ChannelBuffers.copiedBuffer(ByteOrder.LITTLE_ENDIAN,Arrays.copyOfRange(packet.getData(), 0, 4)).getUnsignedInt(0);
-if(id == 2611391888l) {
-MessageDeserializer<AMCLPoseWrapped> deserializer = node.getMessageSerializationFactory().newMessageDeserializer(AMCLPoseWrapped._TYPE);
-byte[] message = Arrays.copyOfRange(packet.getData(), Integer.SIZE / Byte.SIZE, packet.getData().length-4);
-AMCLPoseWrapped m2611391888 = deserializer.deserialize(ChannelBuffers.copiedBuffer(ByteOrder.LITTLE_ENDIAN,message));
-pub2611391888.publish(m2611391888);
-}
-else if(id == 3867808201l) {
-MessageDeserializer<GoalWrapped> deserializer = node.getMessageSerializationFactory().newMessageDeserializer(GoalWrapped._TYPE);
-byte[] message = Arrays.copyOfRange(packet.getData(), Integer.SIZE / Byte.SIZE, packet.getData().length-4);
-GoalWrapped m3867808201 = deserializer.deserialize(ChannelBuffers.copiedBuffer(ByteOrder.LITTLE_ENDIAN,message));
-pub3867808201.publish(m3867808201);
-}
-else if(id == 1388158846l) {
-MessageDeserializer<InitialPoseWrapped> deserializer = node.getMessageSerializationFactory().newMessageDeserializer(InitialPoseWrapped._TYPE);
-byte[] message = Arrays.copyOfRange(packet.getData(), Integer.SIZE / Byte.SIZE, packet.getData().length-4);
-InitialPoseWrapped m1388158846 = deserializer.deserialize(ChannelBuffers.copiedBuffer(ByteOrder.LITTLE_ENDIAN,message));
-pub1388158846.publish(m1388158846);
-}
-else if(id == 3767756765l) {
+if(id == 3767756765l) {
 MessageDeserializer<PlanTreeInfo> deserializer = node.getMessageSerializationFactory().newMessageDeserializer(PlanTreeInfo._TYPE);
 byte[] message = Arrays.copyOfRange(packet.getData(), Integer.SIZE / Byte.SIZE, packet.getData().length-4);
 PlanTreeInfo m3767756765 = deserializer.deserialize(ChannelBuffers.copiedBuffer(ByteOrder.LITTLE_ENDIAN,message));
