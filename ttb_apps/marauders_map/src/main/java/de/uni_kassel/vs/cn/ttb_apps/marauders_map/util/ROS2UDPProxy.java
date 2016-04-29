@@ -30,10 +30,10 @@ import java.net.Inet4Address;
 
 
 import de.uni_kassel.vs.cn.ttb_apps.marauders_map.model.Root;
-import ttb_msgs.AMCLPoseWrapped;
 import ttb_msgs.GoalWrapped;
 import ttb_msgs.InitialPoseWrapped;
 import alica_ros_proxy.PlanTreeInfo;
+import ttb_msgs.AMCLPoseWrapped;
 
 /**
  * Created by marci on 22.10.15.
@@ -62,27 +62,7 @@ public class ROS2UDPProxy implements NodeMain {
 		return port;
 	}
 
-	private class OnRosAMCLPoseWrapped2611391888Listener implements MessageListener {
-		@Override
-		public void onNewMessage(Object o) {
-			AMCLPoseWrapped converted = (AMCLPoseWrapped) o;
-			MessageSerializer<AMCLPoseWrapped> serializer = node.getMessageSerializationFactory().newMessageSerializer("ttb_msgs/AMCLPoseWrapped");
-			ChannelBuffer buffer = ChannelBuffers.buffer(ByteOrder.LITTLE_ENDIAN,64000);
-			serializer.serialize(converted,buffer);
-			ByteBuffer idBuf = ByteBuffer.allocate(4).order(ByteOrder.LITTLE_ENDIAN).putInt((int) 2611391888l);
-			ChannelBuffer finalBuf = ChannelBuffers.copiedBuffer(ByteOrder.LITTLE_ENDIAN, idBuf.array(), buffer.array());
-			try {
-				MulticastSocket socket = new MulticastSocket();
-				socket.send(new DatagramPacket(finalBuf.array(),finalBuf.array().length,group,port));
-				socket.close();
-			} catch (IOException e) {
-				System.err.println("Exception while sending UDP message:" + converted._TYPE + " Discarding message!");
-			}
-
-		}
-	}
-
-	{Root.topicHashmap.put("/wrapped/amcl_pose", 2611391888l);}	private class OnRosGoalWrapped3867808201Listener implements MessageListener {
+	private class OnRosGoalWrapped3867808201Listener implements MessageListener {
 		@Override
 		public void onNewMessage(Object o) {
 			GoalWrapped converted = (GoalWrapped) o;
@@ -102,7 +82,8 @@ public class ROS2UDPProxy implements NodeMain {
 		}
 	}
 
-	{Root.topicHashmap.put("/wrapped/move_base_simple/goal", 3867808201l);}	private class OnRosInitialPoseWrapped1388158846Listener implements MessageListener {
+	{
+		Root.topicHashmap.put("/wrapped/move_base_simple/goal", 3867808201l);}	private class OnRosInitialPoseWrapped1388158846Listener implements MessageListener {
 		@Override
 		public void onNewMessage(Object o) {
 			InitialPoseWrapped converted = (InitialPoseWrapped) o;
@@ -123,10 +104,10 @@ public class ROS2UDPProxy implements NodeMain {
 	}
 
 	{Root.topicHashmap.put("/wrapped/initialpose", 1388158846l);}
-	private Publisher<AMCLPoseWrapped> pub2611391888;
 	private Publisher<GoalWrapped> pub3867808201;
 	private Publisher<InitialPoseWrapped> pub1388158846;
 	private Publisher<PlanTreeInfo> pub3767756765;
+	private Publisher<AMCLPoseWrapped> pub2611391888;
 
 	@Override
 	public GraphName getDefaultNodeName() {
@@ -146,17 +127,15 @@ public class ROS2UDPProxy implements NodeMain {
 			udpSocket.setLoopbackMode(false);
 			node = connectedNode;
 
-			final Subscriber sub0 = connectedNode.newSubscriber("/wrapped/amcl_pose", "ttb_msgs/AMCLPoseWrapped");
-			sub0.addMessageListener(new OnRosAMCLPoseWrapped2611391888Listener());
-			final Subscriber sub1 = connectedNode.newSubscriber("/wrapped/move_base_simple/goal", "ttb_msgs/GoalWrapped");
-			sub1.addMessageListener(new OnRosGoalWrapped3867808201Listener());
-			final Subscriber sub2 = connectedNode.newSubscriber("/wrapped/initialpose", "ttb_msgs/InitialPoseWrapped");
-			sub2.addMessageListener(new OnRosInitialPoseWrapped1388158846Listener());
+			final Subscriber sub0 = connectedNode.newSubscriber("/wrapped/move_base_simple/goal", "ttb_msgs/GoalWrapped");
+			sub0.addMessageListener(new OnRosGoalWrapped3867808201Listener());
+			final Subscriber sub1 = connectedNode.newSubscriber("/wrapped/initialpose", "ttb_msgs/InitialPoseWrapped");
+			sub1.addMessageListener(new OnRosInitialPoseWrapped1388158846Listener());
 
-			pub2611391888 = connectedNode.newPublisher("/wrapped/amcl_pose", "ttb_msgs/AMCLPoseWrapped");
 			pub3867808201 = connectedNode.newPublisher("/wrapped/move_base_simple/goal", "ttb_msgs/GoalWrapped");
 			pub1388158846 = connectedNode.newPublisher("/wrapped/initialpose", "ttb_msgs/InitialPoseWrapped");
 			pub3767756765 = connectedNode.newPublisher("/AlicaEngine/PlanTreeInfo", "alica_ros_proxy/PlanTreeInfo");
+			pub2611391888 = connectedNode.newPublisher("/wrapped/amcl_pose", "ttb_msgs/AMCLPoseWrapped");
 
 			listenForPacket(udpSocket);
 			ownRosName = connectedNode.getName().toString();
@@ -235,6 +214,12 @@ public class ROS2UDPProxy implements NodeMain {
 			byte[] message = Arrays.copyOfRange(packet.getData(), Integer.SIZE / Byte.SIZE, packet.getData().length-4);
 			PlanTreeInfo m3767756765 = deserializer.deserialize(ChannelBuffers.copiedBuffer(ByteOrder.LITTLE_ENDIAN,message));
 			pub3767756765.publish(m3767756765);
+		}
+		else if(id == 2611391888l) {
+			MessageDeserializer<AMCLPoseWrapped> deserializer = node.getMessageSerializationFactory().newMessageDeserializer(AMCLPoseWrapped._TYPE);
+			byte[] message = Arrays.copyOfRange(packet.getData(), Integer.SIZE / Byte.SIZE, packet.getData().length-4);
+			AMCLPoseWrapped m2611391888 = deserializer.deserialize(ChannelBuffers.copiedBuffer(ByteOrder.LITTLE_ENDIAN,message));
+			pub2611391888.publish(m2611391888);
 		}
 		else {
 			System.err.println("Cannot find Matching topic:" + id);

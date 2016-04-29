@@ -7,12 +7,9 @@ import org.ros.node.Node;
 import org.ros.node.NodeMain;
 import org.ros.node.topic.Subscriber;
 
-import java.util.concurrent.Semaphore;
-
 import de.uni_kassel.vs.cn.ttb_apps.marauders_map.model.Root;
 import de.uni_kassel.vs.cn.ttb_apps.marauders_map.model.TurtleBot;
 import geometry_msgs.Point;
-import geometry_msgs.PoseWithCovarianceStamped;
 import ttb_msgs.AMCLPoseWrapped;
 
 /**
