@@ -139,3 +139,103 @@ tangentialProperPart(1403B, organization).
 externallyConnected(1403A, 1403B).
 externallyConnected(1403B, 1403).
 disconnected(1403A, 1403).
+
+%%%% relations between rooms and POIs
+
+%%% 1411
+nonTangentialProperPart(StudentLab1, 1411)
+nonTangentialProperPart(Kicker, 1411)
+nonTangentialProperPart(StudentLab2, 1411)
+nonTangentialProperPart(StudentLabDoor1, 1411)
+
+%%%% 1411C
+nonTangentialProperPart(Floor1, 1411C)
+nonTangentialProperPart(StudentLabDoor2, 1411C)
+nonTangentialProperPart(HiWiDoor1, 1411C)
+
+%%%% 1411A
+nonTangentialProperPart(HiwiRoom, 1411A)
+nonTangentialProperPart(HiWiDoor2, 1411A)
+
+%%%% 1401A
+nonTangentialProperPart(Floor1Door1, 1401A)
+nonTangentialProperPart(Floor1Door2, 1401A)
+nonTangentialProperPart(Floor1Door3, 1401A)
+nonTangentialProperPart(Floor1Door4, 1401A)
+
+%%%% 1401B
+nonTangentialProperPart(Floor3Door1, 1401B)
+nonTangentialProperPart(Floor3Door2, 1401B)
+nonTangentialProperPart(Floor3Door3, 1401B)
+nonTangentialProperPart(Floor3Door4, 1401B)
+
+%%%% 1410
+nonTangentialProperPart(WorkShopDoor1, 1410)
+nonTangentialProperPart(WorkShopDoor2, 1410)
+
+%%%% 1407
+nonTangentialProperPart(Floor2Door1, 1407)
+nonTangentialProperPart(Floor2Door2, 1407)
+nonTangentialProperPart(Floor2Door3, 1407)
+nonTangentialProperPart(Floor2Door4, 1407)
+nonTangentialProperPart(Floor2Door5, 1407)
+nonTangentialProperPart(Floor2Door6, 1407)
+nonTangentialProperPart(Floor2Door7, 1407)
+nonTangentialProperPart(Floor2Door8, 1407)
+nonTangentialProperPart(Floor2Door9, 1407)
+
+%%%% 1410A
+nonTangentialProperPart(WorkShopDoor3, 1410A)
+nonTangentialProperPart(WorkShopRight, 1410A)
+
+%%%% 1410B
+nonTangentialProperPart(WorkShopDoor4, 1410B)
+nonTangentialProperPart(WorkShopLeft, 1410B)
+
+%%%% 1408A
+nonTangentialProperPart(Room1408A, 1408A)
+
+%%%% 1408B
+nonTangentialProperPart(Room1408BFront, 1408B)
+nonTangentialProperPart(Room1408BWindow, 1408B)
+
+%%%% 1408C
+nonTangentialProperPart(Room1408CFront, 1408C)
+nonTangentialProperPart(Room1408CWindow, 1408C)
+
+%%%% 1406A
+nonTangentialProperPart(Room1406AFront, 1406A)
+nonTangentialProperPart(Room1406AWindow, 1406A)
+
+%%%% 1406B
+nonTangentialProperPart(Room1406BFront, 1406B)
+nonTangentialProperPart(Room1406BWindow, 1406B)
+
+%%%% 1406C
+nonTangentialProperPart(Room1406C, 1406C)
+
+%%%% 1405B
+nonTangentialProperPart(Kitchen, 1405B)
+
+%%%% 1405A
+nonTangentialProperPart(Floor4, 1405A)
+nonTangentialProperPart(Floor4Door1, 1405A)
+nonTangentialProperPart(Floor4Door2, 1405A)
+
+%%%% 1405
+nonTangentialProperPart(MeetingRoom, 1405)
+
+%%%% 1403C
+nonTangentialProperPart(CopyRoom, 1403C)
+nonTangentialProperPart(CopyRoomDoor1, 1403C)
+nonTangentialProperPart(CopyRoomDoor2, 1403C)
+
+%%%% 1403A
+nonTangentialProperPart(SecreteriatDoor1, 1403A)
+nonTangentialProperPart(SecreteriatDoor2, 1403A)
+nonTangentialProperPart(SecreteriatDoor3, 1403A)
+nonTangentialProperPart(Secreteriat, 1403A)
+
+%%%% 1403
+nonTangentialProperPart(Room1403Door, 1403)
+nonTangentialProperPart(Room1403, 1403)

@@ -37,6 +37,7 @@
 #include "Robots.h"
 #include "TaskManager.h"
 #include "EventTrigger.h"
+#include "ttb_poi/TTBPointOfInterests.h"
 
 namespace supplementary {
 	class SystemConfig;
@@ -66,6 +67,7 @@ namespace ttb
 		RawSensorData rawSensorData;
 		TaskManager taskManager;
 		Robots robots;
+		TTBPointOfInterests pois;
 
 
 	private:

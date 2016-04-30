@@ -38,6 +38,7 @@ add_library(ttb_worldmodel
   src/sharedworldmodel/TTBSharedWorldModel.cpp
   src/RawSensorData.cpp
   src/Robots.cpp
+  src/ttb_poi/TTBPointOfInterests.cpp
 )
 
 add_dependencies(ttb_worldmodel kobuki_msgs_generate_messages_cpp geometry_msgs_generate_messages_cpp ${catkin_LIBRARIES})
