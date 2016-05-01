@@ -18,8 +18,6 @@ public class RobotPositionOverlay extends AbstractMapOverlay {
 
     private AMCL_PoseListener listener;
 
-    private ParticleCloudListener particleCloudListener;
-
     /**
      * @param imageView     the overlay needs an ImageView to apply to.
      * @param underlyingMap the map on which will be drawn on top.

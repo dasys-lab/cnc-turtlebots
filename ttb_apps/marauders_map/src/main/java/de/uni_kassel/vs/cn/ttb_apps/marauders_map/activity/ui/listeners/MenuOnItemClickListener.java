@@ -27,7 +27,6 @@ public class MenuOnItemClickListener implements AdapterView.OnItemClickListener 
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
         if(l >= 0 && l < adapterView.getResources().getStringArray(R.array.menu_options).length) {
-            String selectedOption = adapterView.getResources().getStringArray(R.array.menu_options)[(int)l];
             switch ((int) l) {
                 // Karte öffnen
                 case 0:

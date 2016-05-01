@@ -25,7 +25,7 @@ import java.util.concurrent.ArrayBlockingQueue;
 import de.uni_kassel.vs.cn.ttb_apps.marauders_map.node.ParticleCloudListener;
 import de.uni_kassel.vs.cn.ttb_apps.marauders_map.util.ROS2UDPProxy;
 
-public class MaraudersMap extends RosActivity
+public final class MaraudersMap extends RosActivity
 {
 
     private ListView listView;

@@ -68,7 +68,7 @@ public abstract class Command<T extends Message, S extends Message> {
             }
         };
 
-        asyncTask.execute(new Integer(id));
+        asyncTask.execute(Integer.valueOf(id));
     }
 
     public void sendMessage(int id, Object... arguments) {

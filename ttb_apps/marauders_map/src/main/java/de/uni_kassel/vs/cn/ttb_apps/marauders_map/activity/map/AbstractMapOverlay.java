@@ -70,7 +70,6 @@ public abstract class AbstractMapOverlay {
 
     public double[] getPixelForMeter(double meterX, double meterY) {
         int height = mapView.getDrawable().getBounds().height();
-        int width = mapView.getDrawable().getBounds().width();
 
         double xMetersFromOrigin = Math.abs(origin[0]) + meterX;
         double yMetersFromOrigin = Math.abs(origin[0]) + meterY;
@@ -83,7 +82,6 @@ public abstract class AbstractMapOverlay {
 
     public double[] getMeterForPixel(double pixelX, double pixelY) {
         int height = mapView.getDrawable().getBounds().height();
-        int width = mapView.getDrawable().getBounds().width();
         double meterY, meterX;
 
         meterY = ((pixelY - height) * -pixelToMeterResolution -12.2);

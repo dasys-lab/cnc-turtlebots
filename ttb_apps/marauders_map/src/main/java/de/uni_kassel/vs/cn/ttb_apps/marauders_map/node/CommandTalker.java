@@ -21,7 +21,6 @@ public class CommandTalker implements NodeMain {
     public static final String topic_name = "/mmTalker";
     private RosActivity activity;
     private Queue<String> currentCommands;
-    private ConnectedNode connectedNode;
 
     public CommandTalker() {
         super();
@@ -35,7 +34,6 @@ public class CommandTalker implements NodeMain {
 
     @Override
     public void onStart(ConnectedNode connectedNode) {
-        this.connectedNode = connectedNode;
         registerCommands(connectedNode);
     }
 

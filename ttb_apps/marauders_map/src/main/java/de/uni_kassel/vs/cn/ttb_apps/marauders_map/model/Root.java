@@ -18,7 +18,7 @@ import java.util.concurrent.ArrayBlockingQueue;
  * Created by marci on 27.11.15.
  */
 public class Root {
-    public static List<AbstractMapOverlay> overlays = new ArrayList<AbstractMapOverlay>();
+    public static final List<AbstractMapOverlay> overlays = new ArrayList<AbstractMapOverlay>();
 
     public static final Map<String, Long> topicHashmap = new HashMap<String, Long>();
 

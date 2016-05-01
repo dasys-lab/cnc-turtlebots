@@ -17,12 +17,10 @@ import de.uni_kassel.vs.cn.ttb_apps.marauders_map.model.Triple;
  */
 public class RobotSpinnerAdapter extends ArrayAdapter<Triple<String,Integer,Integer>>{
     private LayoutInflater inflater;
-    private Context context;
 
     public RobotSpinnerAdapter(Context context, int resource, int textViewResourceId) {
         super(context, resource, textViewResourceId);
         inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        this.context = context;
     }
 
     @Override
