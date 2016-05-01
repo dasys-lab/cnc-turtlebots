@@ -36,7 +36,7 @@ public class Root {
 
     private static ROS2UDPProxy ros2UDPProxy;
 
-    private static int activeRobot;
+    private static TurtleBot activeRobot;
 
 
     public static ArrayBlockingQueue<TurtleBot> getRobotQueue() {
@@ -63,11 +63,11 @@ public class Root {
         Root.mapListener = mapListener;
     }
 
-    public static int getActiveRobot() {
+    public static TurtleBot getActiveRobot() {
         return activeRobot;
     }
 
-    public static void setActiveRobot(int activeRobot) {
+    public static void setActiveRobot(TurtleBot activeRobot) {
         Root.activeRobot = activeRobot;
     }
 

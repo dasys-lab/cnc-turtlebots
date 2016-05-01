@@ -1,6 +1,7 @@
 package de.uni_kassel.vs.cn.ttb_apps.marauders_map.activity;
 
 import android.app.Activity;
+import android.database.DataSetObserver;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.ColorMatrix;
@@ -10,6 +11,8 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Spinner;
 
@@ -21,6 +24,7 @@ import de.uni_kassel.vs.cn.ttb_apps.marauders_map.activity.map.MapDrawer;
 import de.uni_kassel.vs.cn.ttb_apps.marauders_map.activity.map.RobotPositionOverlay;
 import de.uni_kassel.vs.cn.ttb_apps.marauders_map.activity.ui.MapView;
 import de.uni_kassel.vs.cn.ttb_apps.marauders_map.activity.ui.RobotSpinnerAdapter;
+import de.uni_kassel.vs.cn.ttb_apps.marauders_map.activity.ui.listeners.SelectedRobotListener;
 import de.uni_kassel.vs.cn.ttb_apps.marauders_map.command.Command;
 import de.uni_kassel.vs.cn.ttb_apps.marauders_map.command.GlobalCommandList;
 import de.uni_kassel.vs.cn.ttb_apps.marauders_map.command.InitialPoseCommand;
@@ -35,6 +39,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Map;
 
+import de.uni_kassel.vs.cn.ttb_apps.marauders_map.model.Triple;
+import de.uni_kassel.vs.cn.ttb_apps.marauders_map.model.TurtleBot;
 import de.uni_kassel.vs.cn.ttb_apps.marauders_map.util.PGMUtils;
 import uk.co.senab.photoview.PhotoViewAttacher;
 
@@ -49,6 +55,7 @@ public class MapScreen extends Activity {
     private PhotoViewAttacher attacher;
     private Spinner robotsSpinner;
     private MapDrawer mapDrawer;
+    private Button stopButton;
 
     // map details
     private static int width;
@@ -86,10 +93,8 @@ public class MapScreen extends Activity {
         super.onCreate(savedInstanceState);
         getActionBar().setDisplayHomeAsUpEnabled(true);
         setContentView(R.layout.map_screen);
-        //map = getPGMAsBitmap();
-        // readMap from File
         if (getBitmap() == null) {
-            try { // TODO FIX MYSTERIOUS MAP BUG URGENT
+            try {
                 int id = 1;
                 String mapPath = Environment.getExternalStorageDirectory() + "/currentMap_" + id + ".pgm";
                 PGMUtils.writePGMResourceToFile(id, this);
@@ -102,27 +107,25 @@ public class MapScreen extends Activity {
             }
         }
 
+        // init stopButton
+        stopButton = (Button) findViewById(R.id.stopButton);
 
+        stopButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Command command = GlobalCommandList.getCommandOfType(SendToGoalCommand.class);
+                TurtleBot activeRobot = Root.getActiveRobot();
+                command.sendMessage(activeRobot.getId(),new double[] {activeRobot.getPosition()[0],activeRobot.getPosition()[1],0,0});
+            }
+        });
         // init mapView
         mapView = (MapView) findViewById(R.id.imageView);
-        //getMapView().setImageBitmap(getBitmap());
-        /*ColorMatrix matrix = new ColorMatrix();
-        matrix.setSaturation(0);
-        float[] array = matrix.getArray();
-        // TODO find right brightness for map
-        array[4] = array[9] = array[14] = 150;
-        matrix.set(array);
-
-        // set grayscale filter, otherwise a blueish image would be shown because the of the bitmap are not correctly shifted
-        ColorMatrixColorFilter filter = new ColorMatrixColorFilter(matrix);
-        getMapView().setColorFilter(filter);*/
-
         // Init spinner for robot selection
         robotsSpinner = (Spinner) findViewById(R.id.robotsSpinner);
+        robotsSpinner.setOnItemSelectedListener(new SelectedRobotListener());
         spinnerAdapter = new RobotSpinnerAdapter(this,R.layout.spinner_rows,R.id.robotName);
         spinnerAdapter.setDropDownViewResource(R.layout.spinner_rows);
         robotsSpinner.setAdapter(spinnerAdapter);
-
         // attach PhotoView, which allows for easy zooming and scrolling auf the picture
         attacher = new PhotoViewAttacher(getMapView());
         attacher.setMaximumScale(10.0f);
@@ -171,7 +174,6 @@ public class MapScreen extends Activity {
 
         RobotPositionOverlay robotPositionOverlay = new RobotPositionOverlay(mapView, MapScreen.bitmap,canvas);
         robotPositionOverlay.setListener(Root.getAmcl_poseListener());
-        robotPositionOverlay.setParticleCloudListener(Root.getParticleCloudListener());
         Root.overlays.add(robotPositionOverlay);
         thread = new Thread(mapDrawer);
         thread.start();
@@ -184,43 +186,10 @@ public class MapScreen extends Activity {
         super.onContextItemSelected(item);
         if(item.getTitle().equals(getResources().getString(R.string.nav_goal))) {
             activeCommand = GlobalCommandList.getCommandOfType(SendToGoalCommand.class);
-            attacher.setOnPhotoTapListener(new PhotoViewAttacher.OnPhotoTapListener() {
-                double[] point1 = null;
-
-                @Override
-                public void onPhotoTap(View view, float x, float y) {
-                    double pixelX = ((double) x) * width;
-                    double pixelY = ((double) y) * height;
-                    double[] meterForPixel = Root.overlays.get(0).getMeterForPixel(pixelX, pixelY);
-                    if (point1 != null) {
-                        int id = Integer.parseInt(robotsSpinner.getSelectedItem().toString().split(" ")[1]);
-                        activeCommand.sendMessage(id,new double[] { point1[0], point1[1], meterForPixel[0], meterForPixel[1]});
-                        attacher.setOnPhotoTapListener(null);
-                    } else {
-                        point1 = meterForPixel;
-                    }
-                }
-            });
+            attacher.setOnPhotoTapListener(new PoseTapListener());
         } else if(item.getTitle().equals(getResources().getString(R.string.pose_estimate))) {
             activeCommand = GlobalCommandList.getCommandOfType(InitialPoseCommand.class);
-            attacher.setOnPhotoTapListener(new PhotoViewAttacher.OnPhotoTapListener() {
-
-                double[] point1 = null;
-
-                @Override
-                public void onPhotoTap(View view, float x, float y) {
-                    double pixelX = ((double) x) * width;
-                    double pixelY = ((double) y) * height;
-                    double[] meterForPixel = Root.overlays.get(0).getMeterForPixel(pixelX, pixelY);
-                    if (point1 != null) {
-                        int id = Integer.parseInt(robotsSpinner.getSelectedItem().toString().split(" ")[1]);
-                        activeCommand.sendMessage(id,new double[]{point1[0], point1[1], meterForPixel[0], meterForPixel[1]});
-                        attacher.setOnPhotoTapListener(null);
-                    } else {
-                        point1 = meterForPixel;
-                    }
-                }
-            });
+            attacher.setOnPhotoTapListener(new PoseTapListener());
         }
         return true;
     }
@@ -244,5 +213,23 @@ public class MapScreen extends Activity {
 
     public void setSpinnerAdapter(RobotSpinnerAdapter spinnerAdapter) {
         this.spinnerAdapter = spinnerAdapter;
+    }
+
+    private class PoseTapListener implements PhotoViewAttacher.OnPhotoTapListener {
+        double[] point1 = null;
+
+        @Override
+        public void onPhotoTap(View view, float x, float y) {
+            double pixelX = ((double) x) * width;
+            double pixelY = ((double) y) * height;
+            double[] meterForPixel = Root.overlays.get(0).getMeterForPixel(pixelX, pixelY);
+            if (point1 != null) {
+                int id = Root.getActiveRobot().getId();
+                activeCommand.sendMessage(id,new double[] { point1[0], point1[1], meterForPixel[0], meterForPixel[1]});
+                attacher.setOnPhotoTapListener(null);
+            } else {
+                point1 = meterForPixel;
+            }
+        }
     }
 }

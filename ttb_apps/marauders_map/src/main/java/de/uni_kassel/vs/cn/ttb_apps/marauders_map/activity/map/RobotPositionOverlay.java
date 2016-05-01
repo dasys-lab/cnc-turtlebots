@@ -2,9 +2,7 @@ package de.uni_kassel.vs.cn.ttb_apps.marauders_map.activity.map;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.Point;
 import android.widget.ImageView;
 
 
@@ -28,7 +26,6 @@ public class RobotPositionOverlay extends AbstractMapOverlay {
      */
     public RobotPositionOverlay(ImageView imageView, Bitmap underlyingMap, Canvas canvas) {
         super(imageView, underlyingMap, canvas);
-        //Drawable drawable = imageView.getResources().getDrawable(R.drawable.bot);
     }
 
     @Override
@@ -51,13 +48,5 @@ public class RobotPositionOverlay extends AbstractMapOverlay {
 
     public void setListener(AMCL_PoseListener listener) {
         this.listener = listener;
-    }
-
-    public ParticleCloudListener getParticleCloudListener() {
-        return particleCloudListener;
-    }
-
-    public void setParticleCloudListener(ParticleCloudListener particleCloudListener) {
-        this.particleCloudListener = particleCloudListener;
     }
 }

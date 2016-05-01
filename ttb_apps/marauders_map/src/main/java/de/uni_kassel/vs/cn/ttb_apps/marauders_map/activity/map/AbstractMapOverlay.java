@@ -2,9 +2,6 @@ package de.uni_kassel.vs.cn.ttb_apps.marauders_map.activity.map;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.ColorMatrix;
-import android.graphics.Paint;
 import android.widget.ImageView;
 
 /**
@@ -51,9 +48,6 @@ public abstract class AbstractMapOverlay {
 
     protected abstract void drawOverlay(Canvas canvas);
 
-        //canvas.drawCircle(currentX,currentY, 10,paint);
-
-
     public final void render() {
         redrawUnderlyingMap();
     }
@@ -91,8 +85,6 @@ public abstract class AbstractMapOverlay {
         int height = mapView.getDrawable().getBounds().height();
         int width = mapView.getDrawable().getBounds().width();
         double meterY, meterX;
-        //pixelY = pixelY - height;
-        //pixelY = height - pixelY;
 
         meterY = ((pixelY - height) * -pixelToMeterResolution -12.2);
         meterX = pixelX * pixelToMeterResolution;

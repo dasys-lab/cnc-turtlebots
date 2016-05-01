@@ -8,7 +8,6 @@ import org.ros.node.NodeMain;
 import org.ros.node.topic.Subscriber;
 
 import geometry_msgs.Point;
-import geometry_msgs.Point32;
 import geometry_msgs.Pose;
 import geometry_msgs.PoseArray;
 /**

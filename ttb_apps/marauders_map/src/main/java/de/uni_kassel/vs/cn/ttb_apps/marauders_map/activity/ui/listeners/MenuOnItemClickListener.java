@@ -1,4 +1,4 @@
-package de.uni_kassel.vs.cn.ttb_apps.marauders_map.activity;
+package de.uni_kassel.vs.cn.ttb_apps.marauders_map.activity.ui.listeners;
 
 import android.content.Intent;
 import android.os.Build;
@@ -6,6 +6,9 @@ import android.view.View;
 import android.widget.AdapterView;
 
 import com.github.ros_java.marauders_map.R;
+
+import de.uni_kassel.vs.cn.ttb_apps.marauders_map.activity.MapScreen;
+import de.uni_kassel.vs.cn.ttb_apps.marauders_map.activity.MaraudersMap;
 
 /**
  * Created by marci on 17.10.15.
