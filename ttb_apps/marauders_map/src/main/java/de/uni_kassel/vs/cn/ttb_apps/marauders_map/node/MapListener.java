@@ -1,9 +1,6 @@
 package de.uni_kassel.vs.cn.ttb_apps.marauders_map.node;
 
 import org.apache.commons.lang.ArrayUtils;
-import org.jboss.netty.buffer.ChannelBuffer;
-import org.jboss.netty.buffer.ChannelBuffers;
-import org.ros.internal.message.field.Field;
 import org.ros.message.MessageListener;
 import org.ros.namespace.GraphName;
 import org.ros.node.ConnectedNode;
@@ -11,7 +8,6 @@ import org.ros.node.Node;
 import org.ros.node.NodeMain;
 import org.ros.node.topic.Subscriber;
 
-import java.nio.ByteOrder;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -21,6 +17,8 @@ import nav_msgs.OccupancyGrid;
 /**
  * Created by marci on 04.12.15.
  */
+// This never made its way into the real program, mainly because the udp proxy can't handle messsages > 64KB
+// If the udp proxy is upgraded asking robots for their map might be an interesting feature.
 public class MapListener implements NodeMain {
 
     private List<OccupancyGrid> messagesList = Collections.synchronizedList(new ArrayList<OccupancyGrid>());

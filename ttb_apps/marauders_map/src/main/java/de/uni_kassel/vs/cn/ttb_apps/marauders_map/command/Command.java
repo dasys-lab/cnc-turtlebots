@@ -2,11 +2,6 @@ package de.uni_kassel.vs.cn.ttb_apps.marauders_map.command;
 
 import android.os.AsyncTask;
 import android.support.annotation.NonNull;
-
-import com.google.common.primitives.UnsignedInteger;
-
-import org.apache.commons.lang.ArrayUtils;
-import org.apache.xmlrpc.serializer.ByteArraySerializer;
 import org.jboss.netty.buffer.ChannelBuffer;
 import org.jboss.netty.buffer.ChannelBuffers;
 import org.ros.internal.message.Message;
@@ -19,10 +14,8 @@ import java.net.DatagramPacket;
 import java.net.MulticastSocket;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
-import java.util.Arrays;
 
 import de.uni_kassel.vs.cn.ttb_apps.marauders_map.model.Root;
-import de.uni_kassel.vs.cn.ttb_apps.marauders_map.util.UDPUtils;
 import de.uni_kassel.vs.cn.ttb_apps.marauders_map.util.net.WrappedMessageSender;
 
 /**
@@ -60,10 +53,6 @@ public abstract class Command<T extends Message, S extends Message> {
                 MessageSerializer<S> serializer = connectedNode.getMessageSerializationFactory().newMessageSerializer(wrappedMessageType);
                 ChannelBuffer buffer = ChannelBuffers.buffer(ByteOrder.LITTLE_ENDIAN, 64000);
                 serializer.serialize(wrap, buffer);
-
-                /*byte[] bytes = ((ByteBuffer) (ByteBuffer.allocate(Long.SIZE / Byte.SIZE)
-                        .order(ByteOrder.LITTLE_ENDIAN).putLong(Root.topicHashmap.get("/wrapped" + topic)))).array();
-                byte[] id = new byte[]{bytes[0],bytes[1],bytes[2],bytes[3]};*/
 
                 ByteBuffer idBuf = ByteBuffer.allocate(4).order(ByteOrder.LITTLE_ENDIAN).putInt((int)(Root.topicHashmap.get("/wrapped" + topic).longValue()));
 
