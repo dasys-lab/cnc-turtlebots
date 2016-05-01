@@ -11,6 +11,7 @@ import org.ros.node.NodeMain;
 import org.ros.node.topic.Subscriber;
 
 import alica_ros_proxy.PlanTreeInfo;
+import de.uni_kassel.vs.cn.ttb_apps.marauders_map.model.Triple;
 import de.uni_kassel.vs.cn.ttb_apps.marauders_map.model.TurtleBot;
 
 /**
@@ -24,7 +25,7 @@ public class AliciaPlanTreeInfoListener implements NodeMain{
     public void setActivity(MapScreen activity) {
         this.activity = activity;
         for(TurtleBot i : Root.getRobotQueue()) {
-            activity.getSpinnerAdapter().add("Robot " + i.getId());
+            activity.getSpinnerAdapter().add(new Triple<String, Integer, Integer>("Robot",i.getColor(),i.getId()));
         }
     }
 
@@ -49,12 +50,13 @@ public class AliciaPlanTreeInfoListener implements NodeMain{
                         return;
                     }
                 }
-                Root.getRobotQueue().add(new TurtleBot(planTreeInfo.getSenderID()));
+                final TurtleBot e = new TurtleBot(planTreeInfo.getSenderID());
+                Root.getRobotQueue().add(e);
                 if(activity != null) {
                     activity.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            activity.getSpinnerAdapter().add("Robot " + planTreeInfo.getSenderID());
+                            activity.getSpinnerAdapter().add(new Triple<String, Integer, Integer>("Robot", e.getColor(),planTreeInfo.getSenderID()));
                             activity.getSpinnerAdapter().notifyDataSetChanged();
                         }
                     });
