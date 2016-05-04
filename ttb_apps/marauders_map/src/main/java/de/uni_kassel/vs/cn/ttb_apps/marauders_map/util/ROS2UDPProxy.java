@@ -194,6 +194,8 @@ public class ROS2UDPProxy implements NodeMain {
 
 	@Override
 	public void onError(Node node, Throwable throwable) {
+		System.out.println("SHIT!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+		throw new RuntimeException(throwable);
 	}
 
 	public Activity getActivity() {

@@ -32,6 +32,7 @@ public final class MaraudersMap extends RosActivity
     private RosCore core;
     private CommandTalker talker;
     private MenuOnItemClickListener listener;
+    private boolean initFinished;
 
     public AliciaPlanTreeInfoListener getPlanTreeInfoListener() {
         return planTreeInfoListener;
@@ -89,7 +90,17 @@ public final class MaraudersMap extends RosActivity
      */
     @Override
     protected void init(NodeMainExecutor nodeMainExecutor) {
-
+        try {
+            while (core == null) {
+                try {
+                    Thread.sleep(50);
+                } catch (Exception e) {
+                }
+            }
+            core.awaitStart();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         // Configure ROS-Core
         NodeConfiguration nodeConfiguration = NodeConfiguration.newPublic(getRosHostname());
         nodeConfiguration.setMasterUri(getMasterUri());
@@ -125,6 +136,7 @@ public final class MaraudersMap extends RosActivity
         proxy.setActivity(this);
         nodeMainExecutor.execute(proxy, nodeConfiguration);
         Root.setRos2UDPProxy(proxy);
+        initFinished = true;
     }
 
     public CommandTalker getTalker() {
@@ -141,5 +153,9 @@ public final class MaraudersMap extends RosActivity
 
     public void setListener(MenuOnItemClickListener listener) {
         this.listener = listener;
+    }
+
+    public boolean isInitFinished() {
+        return initFinished;
     }
 }

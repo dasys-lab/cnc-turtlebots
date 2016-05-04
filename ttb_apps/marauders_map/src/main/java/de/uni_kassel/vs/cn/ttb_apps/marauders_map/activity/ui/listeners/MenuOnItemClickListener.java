@@ -31,6 +31,13 @@ public class MenuOnItemClickListener implements AdapterView.OnItemClickListener 
                 // Karte öffnen
                 case 0:
                     Intent intent = new Intent(maraudersMap,MapScreen.class);
+                    while (maraudersMap.isInitFinished() == false) {
+                        try {
+                            Thread.sleep(50);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    }
                     maraudersMap.startActivity(intent);
                     break;
                 // Neue Karte laden
