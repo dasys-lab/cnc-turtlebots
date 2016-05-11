@@ -338,7 +338,7 @@ namespace ttb
 				(*this->sc)["POI"]->get<float>("POI.Points", currentPoi.c_str(), "X", NULL),
 				(*this->sc)["POI"]->get<float>("POI.Points", currentPoi.c_str(), "Y", NULL));
 
-		currentPoi = "studentLabDoor2";
+		currentPoi = "StudentLabDoor2";
 		this->studentLabDoor2 = make_shared<POI>(
 				(*this->sc)["POI"]->get<int>("POI.Points", currentPoi.c_str(), "ID", NULL), currentPoi.c_str(),
 				(*this->sc)["POI"]->get<float>("POI.Points", currentPoi.c_str(), "X", NULL),
