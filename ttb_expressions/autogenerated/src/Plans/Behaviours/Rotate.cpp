@@ -32,7 +32,7 @@ namespace alica
         }
         else
         {
-            this->success = true;
+        	this->setSuccess(true);
         }
 
         /*PROTECTED REGION END*/

@@ -54,7 +54,7 @@ namespace alica
 
 		if (mbc.getState() == actionlib::SimpleClientGoalState::SUCCEEDED)
 		{
-			this->success = true;
+			this->setSuccess(true);
 		}
 
 //    	geometry_msgs::PoseStamped ps;
