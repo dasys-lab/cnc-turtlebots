@@ -14,6 +14,8 @@
 #include "clock/AlicaROSClock.h"
 #include "communication/AlicaRosCommunication.h"
 #include "SigFault.h"
+#include "SolverType.h"
+#include <alica_asp_solver/ASPSolver.h>
 
 using namespace std;
 
@@ -32,6 +34,9 @@ namespace ttb
 
 		wm = TTBWorldModel::get();
 		wm->setEngine(ae);
+
+		std::vector<char const *> args {"clingo", "-W", "no-atom-undefined", nullptr};
+		ae->addSolver(SolverType::ASPSOLVER, new alica::reasoner::ASPSolver(ae, args));
 
 		ae->init(bc, cc, uc, crc, roleSetName, masterPlanName, roleSetDir, false);
 	}
