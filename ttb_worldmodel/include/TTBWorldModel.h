@@ -59,6 +59,7 @@ namespace ttb
 		static TTBWorldModel* get(); /**< Singleton Getter */
 
 		bool setEngine(alica::AlicaEngine* ae);
+		alica::AlicaEngine* getEngine();
 		virtual ~TTBWorldModel();
 		InfoTime getTime();
 		int getRingBufferLength();

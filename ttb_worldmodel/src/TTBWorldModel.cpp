@@ -90,6 +90,11 @@ namespace ttb
 		}
 	}
 
+	alica::AlicaEngine* TTBWorldModel::getEngine()
+	{
+		return this->alicaEngine;
+	}
+
 	InfoTime TTBWorldModel::getTime()
 	{
 		if (this->alicaEngine != nullptr)

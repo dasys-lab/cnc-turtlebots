@@ -3,6 +3,8 @@
 
 #include "DomainBehaviour.h"
 /*PROTECTED REGION ID(inc1468494621581) ENABLED START*/ //Add additional includes here
+#include <engine/constraintmodul/ConstraintQuery.h>
+#include <clingo/clingocontrol.hh>
 /*PROTECTED REGION END*/
 namespace alica
 {
@@ -13,10 +15,12 @@ namespace alica
         virtual ~Carry();
         virtual void run(void* msg);
         /*PROTECTED REGION ID(pub1468494621581) ENABLED START*/ //Add additional public methods here
+        vector<Gringo::Value> result;
         /*PROTECTED REGION END*/
     protected:
         virtual void initialiseParameters();
         /*PROTECTED REGION ID(pro1468494621581) ENABLED START*/ //Add additional protected methods here
+        shared_ptr<alica::ConstraintQuery> query;
         /*PROTECTED REGION END*/
     private:
         /*PROTECTED REGION ID(prv1468494621581) ENABLED START*/ //Add additional private methods here
