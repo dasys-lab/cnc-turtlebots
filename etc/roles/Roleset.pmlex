@@ -12,4 +12,12 @@
     <key href="rolesDefinition.rdefset#1222973297047"/>
     <value collapsed="false"/>
   </extensions>
+  <extensions>
+    <key href="Roleset.graph#//@nodes.2"/>
+    <value xPos="484" yPos="199" width="143" height="68" collapsed="false"/>
+  </extensions>
+  <extensions>
+    <key href="Roleset.graph#//@nodes.3"/>
+    <value xPos="637" yPos="199" width="143" height="68" collapsed="false"/>
+  </extensions>
 </uiextensionmodel:PmlUiExtensionMap>

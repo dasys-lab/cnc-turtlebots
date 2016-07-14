@@ -2,6 +2,8 @@
 <alica:RoleSet xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:alica="http:///de.uni_kassel.vs.cn" id="1414682547945" name="Roleset.rset" comment="" usableWithPlanID="1454329729827" default="true">
   <mappings id="1414683008717" name="MISSING_NAME" comment="">
     <taskPriorities id="1414683008718" name="MISSING_NAME" comment="" key="1414681164704" value="0.5"/>
+    <taskPriorities id="1468494949571" name="MISSING_NAME" comment="" key="1414682595019" value="0.5"/>
+    <taskPriorities id="1468494949572" name="MISSING_NAME" comment="" key="1468494562045" value="0.5"/>
     <role>rolesDefinition.rdefset#1222973297047</role>
   </mappings>
 </alica:RoleSet>

@@ -28,7 +28,7 @@ namespace alica
         if ((wm->rawSensorData.getOwnBumperEvents() != nullptr)
                 && wm->rawSensorData.getOwnBumperEvents()->state == kobuki_msgs::BumperEvent::PRESSED)
         {
-        	this->setSuccess(true);
+            this->setSuccess(true);
         }
         else
         {
