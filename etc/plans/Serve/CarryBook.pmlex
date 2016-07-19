@@ -21,7 +21,15 @@
     <value xPos="363" yPos="259"/>
   </extensions>
   <extensions>
-    <key href="CarryBook.pml#1468495219218"/>
-    <value xPos="304" yPos="122"/>
+    <key href="CarryBook.pml#1468919156738"/>
+    <value xPos="522" yPos="198"/>
+  </extensions>
+  <extensions>
+    <key href="CarryBook.pml#1468919190912"/>
+    <value/>
+  </extensions>
+  <extensions>
+    <key href="CarryBook.pml#1468919500674"/>
+    <value xPos="10" yPos="-18"/>
   </extensions>
 </uiextensionmodel:PmlUiExtensionMap>

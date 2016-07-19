@@ -79,7 +79,7 @@ namespace ttb
 
 	bool TTBWorldModel::setEngine(alica::AlicaEngine* ae)
 	{
-		if (this->alicaEngine != nullptr)
+		if (this->alicaEngine == nullptr)
 		{
 			this->alicaEngine = ae;
 			return true;

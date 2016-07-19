@@ -13,7 +13,7 @@ namespace alica
             DomainBehaviour("Carry")
     {
         /*PROTECTED REGION ID(con1468494621581) ENABLED START*/ //Add additional options here
-    	 this->query = make_shared < alica::ConstraintQuery > (this->wm->getEngine());
+        this->query = make_shared < alica::ConstraintQuery > (this->wm->getEngine());
         /*PROTECTED REGION END*/
     }
     Carry::~Carry()
@@ -24,20 +24,32 @@ namespace alica
     void Carry::run(void* msg)
     {
         /*PROTECTED REGION ID(run1468494621581) ENABLED START*/ //Add additional options here
-    	query->getSolution(SolverType::ASPSOLVER, runningPlan, result);
-    	if(result.size() > 0)
-    	{
-    		cout << "Carry: ASP result found!" << endl;
-    	}
+        query->getSolution(SolverType::ASPSOLVER, runningPlan, result);
+        cout << "getSolion finished" << endl;
+        if (result.size() > 0)
+        {
+            cout << "Carry: ASP result found!" << endl;
+            cout << "\tResult contains the predicates: " << endl;
+            cout << "\t\t";
+            for (int i = 0; i < result.size(); i++)
+            {
+                cout << result.at(i) << " ";
+            }
+            cout << endl;
+            this->setSuccess(true);
+        }
+        else
+        {
+        	cout << "Result size == 0" << endl;
+        }
         /*PROTECTED REGION END*/
     }
     void Carry::initialiseParameters()
     {
         /*PROTECTED REGION ID(initialiseParameters1468494621581) ENABLED START*/ //Add additional options here
-    	query->clearDomainVariables();
-    	query->clearStaticVariables();
-    	query->addVariable(getVariablesByName("BookPlanVar"));
-    	result.clear();
+        query->clearStaticVariables();
+        query->addVariable(getVariablesByName("CarryVar"));
+        result.clear();
         /*PROTECTED REGION END*/
     }
 /*PROTECTED REGION ID(methods1468494621581) ENABLED START*/ //Add additional methods here

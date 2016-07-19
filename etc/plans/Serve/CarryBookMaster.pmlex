@@ -9,27 +9,15 @@
     <value width="704" height="472"/>
   </extensions>
   <extensions>
-    <key href="CarryBookMaster.pml#1468493942503"/>
-    <value/>
-  </extensions>
-  <extensions>
-    <key href="CarryBookMaster.pml#1468493959103"/>
-    <value xPos="139" yPos="172" width="81" height="67" collapsed="false"/>
-  </extensions>
-  <extensions>
-    <key href="CarryBookMaster.pml#1468493961311"/>
-    <value xPos="136" yPos="269" width="81" height="67"/>
-  </extensions>
-  <extensions>
-    <key href="CarryBookMaster.pml#1468494400454"/>
-    <value xPos="-75" yPos="232"/>
-  </extensions>
-  <extensions>
     <key href="CarryBookMaster.pml#1468494403537"/>
     <value xPos="-21" yPos="240"/>
   </extensions>
   <extensions>
     <key href="CarryBook.pml#1468494583802"/>
+    <value/>
+  </extensions>
+  <extensions>
+    <key href="../Behaviours/Stop.beh#1414681278745"/>
     <value/>
   </extensions>
 </uiextensionmodel:PmlUiExtensionMap>
