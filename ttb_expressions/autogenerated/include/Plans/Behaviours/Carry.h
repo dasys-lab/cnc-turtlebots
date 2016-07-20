@@ -15,7 +15,7 @@ namespace alica
         virtual ~Carry();
         virtual void run(void* msg);
         /*PROTECTED REGION ID(pub1468494621581) ENABLED START*/ //Add additional public methods here
-        vector<Gringo::Value> result;
+        vector<Gringo::ValVec> result;
         /*PROTECTED REGION END*/
     protected:
         virtual void initialiseParameters();

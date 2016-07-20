@@ -33,14 +33,27 @@ namespace alica
             cout << "\t\t";
             for (int i = 0; i < result.size(); i++)
             {
-                cout << result.at(i) << " ";
+                for (int j = 0; j < result.at(i).size(); j++)
+                {
+                    cout << result.at(i).at(j) << " ";
+                }
             }
             cout << endl;
+
+        }
+        else
+        {
+            cout << "Result size == 0" << endl;
+        }
+        auto satisfied = query->existsSolution(SolverType::ASPSOLVER, runningPlan);
+        if (satisfied)
+        {
+            cout << "Carry: query is satisfied!" << endl;
             this->setSuccess(true);
         }
         else
         {
-        	cout << "Result size == 0" << endl;
+            cout << "Carry: query isn't satisfied!" << endl;
         }
         /*PROTECTED REGION END*/
     }

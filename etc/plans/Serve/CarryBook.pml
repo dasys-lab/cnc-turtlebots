@@ -3,7 +3,7 @@
   <conditions xsi:type="alica:RuntimeCondition" id="1468495216221" name="NewRuntimeCondition" comment="" conditionString="" pluginName="DefaultPlugin">
     <vars>#1468494716925</vars>
   </conditions>
-  <conditions xsi:type="alica:PreCondition" id="1468919500674" name="NewPreCondition" comment="" conditionString="agent(A), in(A,p1462889426092, tsk1225112227903, S),  carries(A, harryPotter1)." pluginName="DefaultPlugin" enabled="true"/>
+  <conditions xsi:type="alica:PreCondition" id="1468919500674" name="NewPreCondition" comment="" conditionString="agent(A), in(A,p1468494583802, tsk1468494595479, S),  carries(A, harryPotter1)." pluginName="DefaultPlugin" enabled="true"/>
   <vars id="1468494716925" name="BookPlanVar" comment="" Type=""/>
   <states id="1468494595478" name="CarryBook" comment="agent(A), in(A,p1462889426092, tsk1225112227903, S),  carries(A, harryPotter1)." entryPoint="1468494595479">
     <parametrisation id="1468495008359" name="MISSING_NAME" comment="">
