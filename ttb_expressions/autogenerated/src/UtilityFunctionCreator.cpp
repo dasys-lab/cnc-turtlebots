@@ -13,6 +13,8 @@
 
 #include  "Plans/Serve/CarryBook1468494583802.h"
 
+#include  "Plans/Serve/ASPFindFeeDockingStationMaster1470041057806.h"
+
 #include  "Plans/Tests/TestPOI1454329810785.h"
 
 #include  "Plans/Serve/Charge1454331030770.h"
@@ -57,6 +59,10 @@ namespace alica
 
             case 1468494583802:
                 return make_shared<UtilityFunction1468494583802>();
+                break;
+
+            case 1470041057806:
+                return make_shared<UtilityFunction1470041057806>();
                 break;
 
             case 1454329810785:

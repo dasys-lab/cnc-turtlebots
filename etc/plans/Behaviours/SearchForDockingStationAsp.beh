@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="ASCII"?>
+<alica:Behaviour xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:alica="http:///de.uni_kassel.vs.cn" id="1470041810334" name="SearchForDockingStationAsp" comment="" destinationPath="Plans/Behaviours">
+  <configurations id="1470041828429" name="SearchForDockingStationAspDefault" comment="" masterPlan="false" utilityFunction="" utilityThreshold="0.1" destinationPath="" deferring="0" frequency="30" eventDriven="false">
+    <vars id="1470043788379" name="SearchVar" comment="" Type=""/>
+  </configurations>
+</alica:Behaviour>

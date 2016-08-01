@@ -9,6 +9,8 @@ using namespace std;
 
 #include  "Plans/Behaviours/SimpleDrive.h"
 
+#include  "Plans/Behaviours/SearchForDockingStationAsp.h"
+
 #include  "Plans/Behaviours/Rotate.h"
 
 #include  "Plans/Behaviours/ChargingDefault.h"
@@ -52,6 +54,11 @@ namespace alica
             case 1432735473356:
 
                 return make_shared<SimpleDrive>();
+                break;
+
+            case 1470041828429:
+
+                return make_shared<SearchForDockingStationAsp>();
                 break;
 
             case 1447068225787:

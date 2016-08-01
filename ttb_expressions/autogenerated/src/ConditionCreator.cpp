@@ -12,6 +12,8 @@
 
 #include  "Plans/Serve/CarryBook1468494583802.h"
 
+#include  "Plans/Serve/ASPFindFeeDockingStationMaster1470041057806.h"
+
 #include  "Plans/Tests/TestPOI1454329810785.h"
 
 #include  "Plans/Serve/Charge1454331030770.h"
@@ -167,6 +169,24 @@ namespace alica
             case 1468919192856:
 
                 return make_shared<TransitionCondition1468919192856>();
+
+                break;
+
+            case 1470042926317:
+
+                return make_shared<RunTimeCondition1470042926317>();
+
+                break;
+
+            case 1470041208746:
+
+                return make_shared<TransitionCondition1470041208746>();
+
+                break;
+
+            case 1470042249132:
+
+                return make_shared<TransitionCondition1470042249132>();
 
                 break;
 

@@ -1,8 +1,8 @@
-#program distributed_systems_rooms.
+#program distributedSystemsRooms.
 
-%%%%% Discribes the rcc8 relations between the rooms in distributed systems
+%%%%% Discribes the rcc4 relations between the rooms in distributed systems
 
-%%%%% rooms are par of a section
+%%%%% rooms are part of an area
 
 %%%% studentArea
 partialOverlapping(studentArea, mainHallA).
@@ -239,3 +239,91 @@ properPart(secreteriat, r1403A).
 %%%% 1403
 properPart(room1403Door, r1403).
 properPart(room1403, r1403).
+
+%%%%% Areas
+area(mainHallA).
+area(mainHallB).
+area(workshop).
+area(offices).
+area(utility).
+area(organization).
+area(studentArea).
+
+%%%%% Rooms
+room(r1411).
+room(r1411A).
+room(r1411C).
+room(r1410).
+room(r1410A).
+room(r1410B).
+room(r1407).
+room(r1408A).
+room(r1408B).
+room(r1408C).
+room(r1406A).
+room(r1406B).
+room(r1405).
+room(r1405A).
+room(r1405B).
+room(r1403C).
+room(r1403).
+room(r1403A).
+room(r1403B).
+
+%%%%% POI
+poi(studentLab1).
+poi(kicker).
+poi(studentLab2).
+poi(studentLabDoor1).
+poi(floor1).
+poi(studentLabDoor2).
+poi(hiWiDoor1).
+poi(hiwiroom).
+poi(hiWiDoor2).
+poi(floor1Door1).
+poi(floor1Door2).
+poi(floor1Door3).
+poi(floor1Door4).
+poi(floor3Door1).
+poi(floor3Door2).
+poi(floor3Door3).
+poi(floor3Door4).
+poi(workShopDoor1).
+poi(workShopDoor2).
+poi(floor2Door1).
+poi(floor2Door2).
+poi(floor2Door3).
+poi(floor2Door4).
+poi(floor2Door5).
+poi(floor2Door6).
+poi(floor2Door7).
+poi(floor2Door8).
+poi(floor2Door9).
+poi(workShopDoor3).
+poi(workShopright).
+poi(workShopDoor4).
+poi(workShopLeft).
+poi(room1408A).
+poi(room1408BFront).
+poi(room1408BWindow).
+poi(room1408CFront).
+poi(room1408CWindow).
+poi(room1406AFront).
+poi(room1406AWindow).
+poi(room1406BFront).
+poi(room1406BWindow).
+poi(room1406C).
+poi(kitchen).
+poi(floor4).
+poi(floor4Door1).
+poi(floor4Door2).
+poi(meetingroom).
+poi(copyroom).
+poi(copyroomDoor1).
+poi(copyroomDoor2).
+poi(secreteriatDoor1).
+poi(secreteriatDoor2).
+poi(secreteriatDoor3).
+poi(secreteriat).
+poi(room1403Door).
+poi(room1403).

@@ -13,6 +13,8 @@
 
 #include  "Plans/Serve/constraints/CarryBook1468494583802Constraints.h"
 
+#include  "Plans/Serve/constraints/ASPFindFeeDockingStationMaster1470041057806Constraints.h"
+
 #include  "Plans/Tests/constraints/TestPOI1454329810785Constraints.h"
 
 #include  "Plans/Serve/constraints/Charge1454331030770Constraints.h"
@@ -38,6 +40,10 @@ namespace alica
 
             case 1468495216221:
                 return make_shared<Constraint1468495216221>();
+                break;
+
+            case 1470042926317:
+                return make_shared<Constraint1470042926317>();
                 break;
 
             default:
