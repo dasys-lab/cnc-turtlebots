@@ -1,5 +1,5 @@
-#ifndef ASPFindFeeDockingStationMaster_H_
-#define ASPFindFeeDockingStationMaster_H_
+#ifndef ASPFindFreeDockingStationMaster_H_
+#define ASPFindFreeDockingStationMaster_H_
 
 #include "DomainCondition.h"
 #include "engine/BasicUtilityFunction.h"
