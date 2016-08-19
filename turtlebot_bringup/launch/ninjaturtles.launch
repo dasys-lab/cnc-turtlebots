@@ -1,5 +1,8 @@
 <?xml version="1.0"?>
 <launch>
+
+<group ns="$(env ROBOT)">
+
   <include file="$(find turtlebot_bringup)/launch/minimal.launch">
     <arg name="3d_sensor" value="ninjakinect" />
     <arg name="stacks" value="ninja-hexagons" />
@@ -37,5 +40,7 @@
   </node>
 
   <node name="soundplay_node" pkg="sound_play" type="soundplay_node.py"/>
+
+</group>
 
 </launch>
