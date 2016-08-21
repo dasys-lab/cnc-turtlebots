@@ -16,7 +16,7 @@ namespace alica
 			DomainBehaviour("SearchForDockingStationAsp")
 	{
 		/*PROTECTED REGION ID(con1470041810334) ENABLED START*/ //Add additional options here
-		this->query = make_shared < alica::ConstraintQuery > (this->wm->getEngine());
+		this->query = make_shared<alica::ConstraintQuery>(this->wm->getEngine());
 		/*PROTECTED REGION END*/
 	}
 	SearchForDockingStationAsp::~SearchForDockingStationAsp()
@@ -52,6 +52,11 @@ namespace alica
 			}
 			stringstream ss;
 			ss << result.at(0).at(0);
+			string result = ss.str();
+			size_t start = result.find("(");
+			size_t end = result.find(")", start);
+			string currentQuery = "";
+			currentQuery = result.substr(start + 1, end - start - 1);
 			shared_ptr<ttb::POI> dockingStation = this->wm->pois.getPOIByName(ss.str());
 			MoveBaseClient mbc("move_base", true);
 			move_base_msgs::MoveBaseGoal mbg;
