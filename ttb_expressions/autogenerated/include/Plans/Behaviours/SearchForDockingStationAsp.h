@@ -30,6 +30,7 @@ namespace alica
         /*PROTECTED REGION ID(prv1470041810334) ENABLED START*/ //Add additional private methods here
         kobuki::DockDrive dock;
         shared_ptr<alica::ConstraintQuery> query;
+        string extractPOI(string aspPredicate);
         /*PROTECTED REGION END*/};
 } /* namespace alica */
 

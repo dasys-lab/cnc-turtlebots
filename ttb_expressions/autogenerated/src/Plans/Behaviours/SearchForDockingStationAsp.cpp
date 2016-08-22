@@ -34,7 +34,6 @@ namespace alica
 		if ((int)core->charger == 0)
 		{
 			query->getSolution(SolverType::ASPSOLVER, runningPlan, result);
-			cout << "getSolion finished" << endl;
 			if (result.size() > 0)
 			{
 				cout << "Carry: ASP result found!" << endl;
@@ -50,14 +49,10 @@ namespace alica
 				cout << endl;
 
 			}
+
 			stringstream ss;
 			ss << result.at(0).at(0);
-			string result = ss.str();
-			size_t start = result.find("(");
-			size_t end = result.find(")", start);
-			string currentQuery = "";
-			currentQuery = result.substr(start + 1, end - start - 1);
-			shared_ptr<ttb::POI> dockingStation = this->wm->pois.getPOIByName(ss.str());
+			shared_ptr<ttb::POI> dockingStation = this->wm->pois.getPOIByName(extractPOI(ss.str()));
 			MoveBaseClient mbc("move_base", true);
 			move_base_msgs::MoveBaseGoal mbg;
 			mbg.target_pose.header.frame_id = "map";
@@ -109,5 +104,14 @@ namespace alica
 		/*PROTECTED REGION END*/
 	}
 /*PROTECTED REGION ID(methods1470041810334) ENABLED START*/ //Add additional methods here
+	string SearchForDockingStationAsp::extractPOI(string aspPredicate)
+	{
+		size_t start = aspPredicate.find("(");
+		size_t end = aspPredicate.find(")", start);
+		string ret = aspPredicate.substr(start + 1, end - start - 1);
+		return ret;
+	}
+
 /*PROTECTED REGION END*/
 } /* namespace alica */
+
