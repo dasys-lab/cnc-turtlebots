@@ -27,18 +27,15 @@
 #include "ttb_msgs/AMCLPoseWrapped.h"
 #include "ttb_msgs/GoalWrapped.h"
 #include "ttb_msgs/InitialPoseWrapped.h"
-#include "visualization_msgs/Marker.h"
-#include "geometry_msgs/PoseWithCovarianceStamped.h"
-#include "geometry_msgs/PoseStamped.h"
-#include "geometry_msgs/PoseWithCovarianceStamped.h"
-#include "nav_msgs/OccupancyGrid.h"
 #include "tf2_msgs/TFMessage.h"
 #include "visualization_msgs/Marker.h"
 #include "geometry_msgs/PoseWithCovarianceStamped.h"
 #include "geometry_msgs/PoseStamped.h"
 #include "geometry_msgs/PoseWithCovarianceStamped.h"
-#include "nav_msgs/OccupancyGrid.h"
-#include "tf2_msgs/TFMessage.h"
+#include "visualization_msgs/Marker.h"
+#include "geometry_msgs/PoseWithCovarianceStamped.h"
+#include "geometry_msgs/PoseStamped.h"
+#include "geometry_msgs/PoseWithCovarianceStamped.h"
 
 using namespace supplementary;
 
@@ -161,6 +158,23 @@ uint8_t* buffer = NULL;
 	}
 	if(buffer!=NULL) delete[] buffer;
 }
+void onRosTFMessage491265(const ros::MessageEvent<tf2_msgs::TFMessage>& event) {
+	if(0 == event.getPublisherName().compare(ownRosName)) return;
+uint8_t* buffer = NULL;
+	const tf2_msgs::TFMessage::ConstPtr& message = event.getMessage();
+	try{
+		uint32_t serial_size = ros::serialization::serializationLength(*message);
+		buffer = new uint8_t[serial_size+sizeof(uint32_t)];
+		ros::serialization::OStream stream(buffer+sizeof(uint32_t), serial_size);
+		*((uint32_t*)buffer) = 491265u;
+		ros::serialization::serialize(stream, *message);
+		// write message to UDP
+		insocket->send_to(boost::asio::buffer((void*)buffer,serial_size+sizeof(uint32_t)),destEndPoint);
+	} catch(std::exception& e) {
+		ROS_ERROR_STREAM_THROTTLE(2,"Exception while sending UDP message:"<<e.what()<< " Discarding message!");
+	}
+	if(buffer!=NULL) delete[] buffer;
+}
 void onRosMarker52450053(const ros::MessageEvent<visualization_msgs::Marker>& event) {
 	if(0 == event.getPublisherName().compare(ownRosName)) return;
 uint8_t* buffer = NULL;
@@ -221,40 +235,6 @@ uint8_t* buffer = NULL;
 		buffer = new uint8_t[serial_size+sizeof(uint32_t)];
 		ros::serialization::OStream stream(buffer+sizeof(uint32_t), serial_size);
 		*((uint32_t*)buffer) = 491912439u;
-		ros::serialization::serialize(stream, *message);
-		// write message to UDP
-		insocket->send_to(boost::asio::buffer((void*)buffer,serial_size+sizeof(uint32_t)),destEndPoint);
-	} catch(std::exception& e) {
-		ROS_ERROR_STREAM_THROTTLE(2,"Exception while sending UDP message:"<<e.what()<< " Discarding message!");
-	}
-	if(buffer!=NULL) delete[] buffer;
-}
-void onRosOccupancyGrid1773545984(const ros::MessageEvent<nav_msgs::OccupancyGrid>& event) {
-	if(0 == event.getPublisherName().compare(ownRosName)) return;
-uint8_t* buffer = NULL;
-	const nav_msgs::OccupancyGrid::ConstPtr& message = event.getMessage();
-	try{
-		uint32_t serial_size = ros::serialization::serializationLength(*message);
-		buffer = new uint8_t[serial_size+sizeof(uint32_t)];
-		ros::serialization::OStream stream(buffer+sizeof(uint32_t), serial_size);
-		*((uint32_t*)buffer) = 1773545984u;
-		ros::serialization::serialize(stream, *message);
-		// write message to UDP
-		insocket->send_to(boost::asio::buffer((void*)buffer,serial_size+sizeof(uint32_t)),destEndPoint);
-	} catch(std::exception& e) {
-		ROS_ERROR_STREAM_THROTTLE(2,"Exception while sending UDP message:"<<e.what()<< " Discarding message!");
-	}
-	if(buffer!=NULL) delete[] buffer;
-}
-void onRosTFMessage3547088152(const ros::MessageEvent<tf2_msgs::TFMessage>& event) {
-	if(0 == event.getPublisherName().compare(ownRosName)) return;
-uint8_t* buffer = NULL;
-	const tf2_msgs::TFMessage::ConstPtr& message = event.getMessage();
-	try{
-		uint32_t serial_size = ros::serialization::serializationLength(*message);
-		buffer = new uint8_t[serial_size+sizeof(uint32_t)];
-		ros::serialization::OStream stream(buffer+sizeof(uint32_t), serial_size);
-		*((uint32_t*)buffer) = 3547088152u;
 		ros::serialization::serialize(stream, *message);
 		// write message to UDP
 		insocket->send_to(boost::asio::buffer((void*)buffer,serial_size+sizeof(uint32_t)),destEndPoint);
@@ -331,40 +311,6 @@ uint8_t* buffer = NULL;
 	}
 	if(buffer!=NULL) delete[] buffer;
 }
-void onRosOccupancyGrid3354647595(const ros::MessageEvent<nav_msgs::OccupancyGrid>& event) {
-	if(0 == event.getPublisherName().compare(ownRosName)) return;
-uint8_t* buffer = NULL;
-	const nav_msgs::OccupancyGrid::ConstPtr& message = event.getMessage();
-	try{
-		uint32_t serial_size = ros::serialization::serializationLength(*message);
-		buffer = new uint8_t[serial_size+sizeof(uint32_t)];
-		ros::serialization::OStream stream(buffer+sizeof(uint32_t), serial_size);
-		*((uint32_t*)buffer) = 3354647595u;
-		ros::serialization::serialize(stream, *message);
-		// write message to UDP
-		insocket->send_to(boost::asio::buffer((void*)buffer,serial_size+sizeof(uint32_t)),destEndPoint);
-	} catch(std::exception& e) {
-		ROS_ERROR_STREAM_THROTTLE(2,"Exception while sending UDP message:"<<e.what()<< " Discarding message!");
-	}
-	if(buffer!=NULL) delete[] buffer;
-}
-void onRosTFMessage1011276903(const ros::MessageEvent<tf2_msgs::TFMessage>& event) {
-	if(0 == event.getPublisherName().compare(ownRosName)) return;
-uint8_t* buffer = NULL;
-	const tf2_msgs::TFMessage::ConstPtr& message = event.getMessage();
-	try{
-		uint32_t serial_size = ros::serialization::serializationLength(*message);
-		buffer = new uint8_t[serial_size+sizeof(uint32_t)];
-		ros::serialization::OStream stream(buffer+sizeof(uint32_t), serial_size);
-		*((uint32_t*)buffer) = 1011276903u;
-		ros::serialization::serialize(stream, *message);
-		// write message to UDP
-		insocket->send_to(boost::asio::buffer((void*)buffer,serial_size+sizeof(uint32_t)),destEndPoint);
-	} catch(std::exception& e) {
-		ROS_ERROR_STREAM_THROTTLE(2,"Exception while sending UDP message:"<<e.what()<< " Discarding message!");
-	}
-	if(buffer!=NULL) delete[] buffer;
-}
 
 ros::Publisher pub3767756765;
 ros::Publisher pub3108117629;
@@ -372,18 +318,15 @@ ros::Publisher pub2783514677;
 ros::Publisher pub2611391888;
 ros::Publisher pub3867808201;
 ros::Publisher pub1388158846;
+ros::Publisher pub491265;
 ros::Publisher pub52450053;
 ros::Publisher pub3236539441;
 ros::Publisher pub674080570;
 ros::Publisher pub491912439;
-ros::Publisher pub1773545984;
-ros::Publisher pub3547088152;
 ros::Publisher pub3651293756;
 ros::Publisher pub2944150132;
 ros::Publisher pub3380041709;
 ros::Publisher pub2830842050;
-ros::Publisher pub3354647595;
-ros::Publisher pub1011276903;
 
 boost::array<char,64000> inBuffer;
 void listenForPacket() {
@@ -431,6 +374,11 @@ ttb_msgs::InitialPoseWrapped m1388158846;
 ros::serialization::Serializer<ttb_msgs::InitialPoseWrapped>::read(stream, m1388158846);
 pub1388158846.publish<ttb_msgs::InitialPoseWrapped>(m1388158846);
 break; }
+case 491265ul: {
+tf2_msgs::TFMessage m491265;
+ros::serialization::Serializer<tf2_msgs::TFMessage>::read(stream, m491265);
+pub491265.publish<tf2_msgs::TFMessage>(m491265);
+break; }
 case 52450053ul: {
 visualization_msgs::Marker m52450053;
 ros::serialization::Serializer<visualization_msgs::Marker>::read(stream, m52450053);
@@ -451,16 +399,6 @@ geometry_msgs::PoseWithCovarianceStamped m491912439;
 ros::serialization::Serializer<geometry_msgs::PoseWithCovarianceStamped>::read(stream, m491912439);
 pub491912439.publish<geometry_msgs::PoseWithCovarianceStamped>(m491912439);
 break; }
-case 1773545984ul: {
-nav_msgs::OccupancyGrid m1773545984;
-ros::serialization::Serializer<nav_msgs::OccupancyGrid>::read(stream, m1773545984);
-pub1773545984.publish<nav_msgs::OccupancyGrid>(m1773545984);
-break; }
-case 3547088152ul: {
-tf2_msgs::TFMessage m3547088152;
-ros::serialization::Serializer<tf2_msgs::TFMessage>::read(stream, m3547088152);
-pub3547088152.publish<tf2_msgs::TFMessage>(m3547088152);
-break; }
 case 3651293756ul: {
 visualization_msgs::Marker m3651293756;
 ros::serialization::Serializer<visualization_msgs::Marker>::read(stream, m3651293756);
@@ -480,16 +418,6 @@ case 2830842050ul: {
 geometry_msgs::PoseWithCovarianceStamped m2830842050;
 ros::serialization::Serializer<geometry_msgs::PoseWithCovarianceStamped>::read(stream, m2830842050);
 pub2830842050.publish<geometry_msgs::PoseWithCovarianceStamped>(m2830842050);
-break; }
-case 3354647595ul: {
-nav_msgs::OccupancyGrid m3354647595;
-ros::serialization::Serializer<nav_msgs::OccupancyGrid>::read(stream, m3354647595);
-pub3354647595.publish<nav_msgs::OccupancyGrid>(m3354647595);
-break; }
-case 1011276903ul: {
-tf2_msgs::TFMessage m1011276903;
-ros::serialization::Serializer<tf2_msgs::TFMessage>::read(stream, m1011276903);
-pub1011276903.publish<tf2_msgs::TFMessage>(m1011276903);
 break; }
 			
 				default:
@@ -560,18 +488,15 @@ ros::Subscriber sub2 = n.subscribe("/process_manager/ProcessStats",5, onRosProce
 ros::Subscriber sub3 = n.subscribe("/wrapped/amcl_pose",5, onRosAMCLPoseWrapped2611391888,ros::TransportHints().unreliable().tcpNoDelay().reliable());
 ros::Subscriber sub4 = n.subscribe("/wrapped/move_base_simple/goal",5, onRosGoalWrapped3867808201,ros::TransportHints().unreliable().tcpNoDelay().reliable());
 ros::Subscriber sub5 = n.subscribe("/wrapped/initialpose",5, onRosInitialPoseWrapped1388158846,ros::TransportHints().unreliable().tcpNoDelay().reliable());
-ros::Subscriber sub6 = n.subscribe("/leonardo/visualization_marker",5, onRosMarker52450053,ros::TransportHints().unreliable().tcpNoDelay().reliable());
-ros::Subscriber sub7 = n.subscribe("/leonardo/amcl_pose",5, onRosPoseWithCovarianceStamped3236539441,ros::TransportHints().unreliable().tcpNoDelay().reliable());
-ros::Subscriber sub8 = n.subscribe("/leonardo/move_base_simple/goal",5, onRosPoseStamped674080570,ros::TransportHints().unreliable().tcpNoDelay().reliable());
-ros::Subscriber sub9 = n.subscribe("/leonardo/initialpose",5, onRosPoseWithCovarianceStamped491912439,ros::TransportHints().unreliable().tcpNoDelay().reliable());
-ros::Subscriber sub10 = n.subscribe("/leonardo/map",5, onRosOccupancyGrid1773545984,ros::TransportHints().unreliable().tcpNoDelay().reliable());
-ros::Subscriber sub11 = n.subscribe("/leonardo/tf",5, onRosTFMessage3547088152,ros::TransportHints().unreliable().tcpNoDelay().reliable());
-ros::Subscriber sub12 = n.subscribe("/rafael/visualization_marker",5, onRosMarker3651293756,ros::TransportHints().unreliable().tcpNoDelay().reliable());
-ros::Subscriber sub13 = n.subscribe("/rafael/amcl_pose",5, onRosPoseWithCovarianceStamped2944150132,ros::TransportHints().unreliable().tcpNoDelay().reliable());
-ros::Subscriber sub14 = n.subscribe("/rafael/move_base_simple/goal",5, onRosPoseStamped3380041709,ros::TransportHints().unreliable().tcpNoDelay().reliable());
-ros::Subscriber sub15 = n.subscribe("/rafael/initialpose",5, onRosPoseWithCovarianceStamped2830842050,ros::TransportHints().unreliable().tcpNoDelay().reliable());
-ros::Subscriber sub16 = n.subscribe("/rafael/map",5, onRosOccupancyGrid3354647595,ros::TransportHints().unreliable().tcpNoDelay().reliable());
-ros::Subscriber sub17 = n.subscribe("/rafael/tf",5, onRosTFMessage1011276903,ros::TransportHints().unreliable().tcpNoDelay().reliable());
+ros::Subscriber sub6 = n.subscribe("/tf",5, onRosTFMessage491265,ros::TransportHints().unreliable().tcpNoDelay().reliable());
+ros::Subscriber sub7 = n.subscribe("/leonardo/visualization_marker",5, onRosMarker52450053,ros::TransportHints().unreliable().tcpNoDelay().reliable());
+ros::Subscriber sub8 = n.subscribe("/leonardo/amcl_pose",5, onRosPoseWithCovarianceStamped3236539441,ros::TransportHints().unreliable().tcpNoDelay().reliable());
+ros::Subscriber sub9 = n.subscribe("/leonardo/move_base_simple/goal",5, onRosPoseStamped674080570,ros::TransportHints().unreliable().tcpNoDelay().reliable());
+ros::Subscriber sub10 = n.subscribe("/leonardo/initialpose",5, onRosPoseWithCovarianceStamped491912439,ros::TransportHints().unreliable().tcpNoDelay().reliable());
+ros::Subscriber sub11 = n.subscribe("/rafael/visualization_marker",5, onRosMarker3651293756,ros::TransportHints().unreliable().tcpNoDelay().reliable());
+ros::Subscriber sub12 = n.subscribe("/rafael/amcl_pose",5, onRosPoseWithCovarianceStamped2944150132,ros::TransportHints().unreliable().tcpNoDelay().reliable());
+ros::Subscriber sub13 = n.subscribe("/rafael/move_base_simple/goal",5, onRosPoseStamped3380041709,ros::TransportHints().unreliable().tcpNoDelay().reliable());
+ros::Subscriber sub14 = n.subscribe("/rafael/initialpose",5, onRosPoseWithCovarianceStamped2830842050,ros::TransportHints().unreliable().tcpNoDelay().reliable());
 	
 pub3767756765 = n.advertise<alica_ros_proxy::PlanTreeInfo>("/AlicaEngine/PlanTreeInfo",5,false);
 pub3108117629 = n.advertise<process_manager::ProcessCommand>("/process_manager/ProcessCommand",5,false);
@@ -579,18 +504,15 @@ pub2783514677 = n.advertise<process_manager::ProcessStats>("/process_manager/Pro
 pub2611391888 = n.advertise<ttb_msgs::AMCLPoseWrapped>("/wrapped/amcl_pose",5,false);
 pub3867808201 = n.advertise<ttb_msgs::GoalWrapped>("/wrapped/move_base_simple/goal",5,false);
 pub1388158846 = n.advertise<ttb_msgs::InitialPoseWrapped>("/wrapped/initialpose",5,false);
+pub491265 = n.advertise<tf2_msgs::TFMessage>("/tf",5,false);
 pub52450053 = n.advertise<visualization_msgs::Marker>("/leonardo/visualization_marker",5,false);
 pub3236539441 = n.advertise<geometry_msgs::PoseWithCovarianceStamped>("/leonardo/amcl_pose",5,false);
 pub674080570 = n.advertise<geometry_msgs::PoseStamped>("/leonardo/move_base_simple/goal",5,false);
 pub491912439 = n.advertise<geometry_msgs::PoseWithCovarianceStamped>("/leonardo/initialpose",5,false);
-pub1773545984 = n.advertise<nav_msgs::OccupancyGrid>("/leonardo/map",5,false);
-pub3547088152 = n.advertise<tf2_msgs::TFMessage>("/leonardo/tf",5,false);
 pub3651293756 = n.advertise<visualization_msgs::Marker>("/rafael/visualization_marker",5,false);
 pub2944150132 = n.advertise<geometry_msgs::PoseWithCovarianceStamped>("/rafael/amcl_pose",5,false);
 pub3380041709 = n.advertise<geometry_msgs::PoseStamped>("/rafael/move_base_simple/goal",5,false);
 pub2830842050 = n.advertise<geometry_msgs::PoseWithCovarianceStamped>("/rafael/initialpose",5,false);
-pub3354647595 = n.advertise<nav_msgs::OccupancyGrid>("/rafael/map",5,false);
-pub1011276903 = n.advertise<tf2_msgs::TFMessage>("/rafael/tf",5,false);
 	
 	boost::thread iothread(run);
     
