@@ -31,7 +31,7 @@
 
   <!-- Hokuyo Laser -->
   <node name="hokuyo_laser_driver" pkg="urg_node" type="urg_node">
-    <param name="frame_id" value="/base_link"/>
+    <param name="frame_id" value="/$(env ROBOT)/base_link"/>
     <param name="min_ang" value="-1.047"/>
     <param name="max_ang" value="1.047"/>
     <param name="intensity" value="false"/>
