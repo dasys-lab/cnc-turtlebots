@@ -10,6 +10,7 @@
 #include <clingo/clingocontrol.hh>
 #include <memory>
 #include "POI.h"
+//#define testWithoutTTB
 /*PROTECTED REGION END*/
 namespace alica
 {
@@ -28,7 +29,9 @@ namespace alica
         /*PROTECTED REGION END*/
     private:
         /*PROTECTED REGION ID(prv1470041810334) ENABLED START*/ //Add additional private methods here
+#ifdef testWithoutTTB
         kobuki::DockDrive dock;
+#endif
         shared_ptr<alica::ConstraintQuery> query;
         string extractPOI(string aspPredicate);
         /*PROTECTED REGION END*/};

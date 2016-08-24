@@ -31,12 +31,14 @@ namespace alica
 		auto core = wm->rawSensorData.getOwnMobileBaseSensorState();
 		auto infrRedDock = wm->rawSensorData.getOwnDockInfrRed();
 
+#ifdef testWithoutTTB
 		if ((int)core->charger == 0)
 		{
+#endif
 			query->getSolution(SolverType::ASPSOLVER, runningPlan, result);
 			if (result.size() > 0)
 			{
-				cout << "Carry: ASP result found!" << endl;
+				cout << "SearchForDockingStationAsp: ASP result found!" << endl;
 				cout << "\tResult contains the predicates: " << endl;
 				cout << "\t\t";
 				for (int i = 0; i < result.size(); i++)
@@ -53,6 +55,9 @@ namespace alica
 			stringstream ss;
 			ss << result.at(0).at(0);
 			shared_ptr<ttb::POI> dockingStation = this->wm->pois.getPOIByName(extractPOI(ss.str()));
+
+			cout << "SearchForDockingStationAsp: Dockingstation is located at (" << dockingStation->x << " | " << dockingStation->y << ")" << endl;
+
 			MoveBaseClient mbc("move_base", true);
 			move_base_msgs::MoveBaseGoal mbg;
 			mbg.target_pose.header.frame_id = "map";
@@ -63,8 +68,9 @@ namespace alica
 			mbc.sendGoal(mbg);
 			mbc.waitForResult();
 
-			if (mbc.getState() == actionlib::SimpleClientGoalState::SUCCEEDED)
+			if (mbc.getState() != actionlib::SimpleClientGoalState::SUCCEEDED)
 			{
+#ifdef testWithoutTTB
 				KDL::Rotation rot;
 				tf::quaternionMsgToKDL(odom->pose.pose.orientation, rot);
 
@@ -86,13 +92,15 @@ namespace alica
 				cmd_vel.angular.z = dock.getWZ();
 
 				send(cmd_vel);
+#endif
 			}
 			else
 			{
 				this->setSuccess(true);
 			}
+#ifdef testWithoutTTB
 		}
-
+#endif
 		/*PROTECTED REGION END*/
 	}
 	void SearchForDockingStationAsp::initialiseParameters()
