@@ -1,0 +1,9 @@
+<library path="lib/libttb_rviz_plugin">
+  <class name="ttb_rviz_plugin/MultibotTool"
+         type="ttb_rviz_plugin::MultibotTool"
+         base_class_type="rviz::Tool">
+    <description>
+      Tool to tell multiple robots where to go or where they are
+    </description>
+  </class>
+</library>
