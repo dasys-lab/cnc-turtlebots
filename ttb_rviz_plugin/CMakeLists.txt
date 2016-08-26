@@ -29,7 +29,10 @@ endif()
 add_definitions(-DQT_NO_KEYWORDS)
 
 add_library(${PROJECT_NAME}
-  src/MultibotTool.cpp 
+  src/LeonardoPoseEst.cpp 
+  src/LeonardoNavGoal.cpp 
+  src/RafaelPoseEst.cpp 
+  src/RafaelNavGoal.cpp 
 )
 
 target_link_libraries(${PROJECT_NAME} ${QT_LIBRARIES} ${catkin_LIBRARIES})

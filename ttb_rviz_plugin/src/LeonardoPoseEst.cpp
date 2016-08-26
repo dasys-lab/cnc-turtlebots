@@ -5,30 +5,32 @@
 #include <tf/transform_listener.h>
 #include <geometry_msgs/PoseWithCovarianceStamped.h>
 
-#include "MultibotTool.h"
+#include "LeonardoPoseEst.h"
 
 #define ROBOT "leonardo"
+#define TOPIC "initial_pose"
+#define DESC "Pose Estimate"
 
 namespace ttb_rviz_plugin
 {
 
-MultibotTool::MultibotTool()
+LeonardoPoseEst::LeonardoPoseEst()
 {
 }
 
-MultibotTool::~MultibotTool()
+LeonardoPoseEst::~LeonardoPoseEst()
 {
 }
 
-void MultibotTool::onInitialize()
+void LeonardoPoseEst::onInitialize()
 {
 	PoseTool::onInitialize();
-	setName("Pose Estimate(" ROBOT ")");
-	pub = nh.advertise<geometry_msgs::PoseWithCovarianceStamped>(ROBOT "/initial_pose", 1);
+	setName(DESC "(" ROBOT ")");
+	pub = nh.advertise<geometry_msgs::PoseWithCovarianceStamped>(ROBOT "/" TOPIC, 1);
 }
 
 // protected
-void MultibotTool::onPoseSet(double x, double y, double theta) {
+void LeonardoPoseEst::onPoseSet(double x, double y, double theta) {
 	std::string fixed_frame = context_->getFixedFrame().toStdString();
 	geometry_msgs::PoseWithCovarianceStamped pose;
 
@@ -54,5 +56,5 @@ void MultibotTool::onPoseSet(double x, double y, double theta) {
 } // namepsace
 
 #include <pluginlib/class_list_macros.h>
-PLUGINLIB_EXPORT_CLASS(ttb_rviz_plugin::MultibotTool, rviz::Tool)
+PLUGINLIB_EXPORT_CLASS(ttb_rviz_plugin::LeonardoPoseEst, rviz::Tool)
 

@@ -1,7 +1,3 @@
-#ifndef MULTIBOT_TOOL_H 
-#define MULTIBOT_TOOL_H 
-
-
 #ifndef Q_MOC_RUN  // See: https://bugreports.qt-project.org/browse/QTBUG-22829
 #include <QObject>
 
@@ -18,12 +14,12 @@ class Arrow;
 namespace ttb_rviz_plugin
 {
 
-class MultibotTool: public rviz::PoseTool
+class RafaelPoseEst: public rviz::PoseTool
 {
 Q_OBJECT
 public:
-	MultibotTool();
-	~MultibotTool();
+	RafaelPoseEst();
+	~RafaelPoseEst();
 
 	virtual void onInitialize();
 
@@ -38,5 +34,3 @@ private:
 };
 
 } // namespace
-
-#endif

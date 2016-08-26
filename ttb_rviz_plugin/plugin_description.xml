@@ -1,9 +1,35 @@
 <library path="lib/libttb_rviz_plugin">
-  <class name="ttb_rviz_plugin/MultibotTool"
-         type="ttb_rviz_plugin::MultibotTool"
+  <class name="ttb_rviz_plugin/LeonardoPoseEst"
+         type="ttb_rviz_plugin::LeonardoPoseEst"
          base_class_type="rviz::Tool">
     <description>
-      Tool to tell multiple robots where to go or where they are
+      Tool to tell leonardo where to go or where they are
     </description>
   </class>
+
+  <class name="ttb_rviz_plugin/RafaelPoseEst"
+         type="ttb_rviz_plugin::RafaelPoseEst"
+         base_class_type="rviz::Tool">
+    <description>
+      Tool to tell rafael to go or where they are
+    </description>
+  </class>
+
+  <class name="ttb_rviz_plugin/LeonardoNavGoal"
+         type="ttb_rviz_plugin::LeonardoNavGoal"
+         base_class_type="rviz::Tool">
+    <description>
+      Tool to tell leonardo where to go or where they are
+    </description>
+  </class>
+
+  <class name="ttb_rviz_plugin/RafaelNavGoal"
+         type="ttb_rviz_plugin::RafaelNavGoal"
+         base_class_type="rviz::Tool">
+    <description>
+      Tool to tell rafael to go or where they are
+    </description>
+  </class>
+
+
 </library>
