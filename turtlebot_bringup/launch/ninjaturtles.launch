@@ -1,12 +1,13 @@
 <?xml version="1.0"?>
 <launch>
 
-<group ns="$(env ROBOT)">
 
   <include file="$(find turtlebot_bringup)/launch/minimal.launch">
     <arg name="3d_sensor" value="ninjakinect" />
     <arg name="stacks" value="ninja-hexagons" />
   </include>
+
+<group ns="$(env ROBOT)">
 
   <!-- tf -->
   <!--node pkg="tf" type="static_transform_publisher" name="link1_broadcaster" args="0.080 -0.013 0.350 1.571 0 1.963 base_link camera_rgb_obtical_frame 210"/-->
