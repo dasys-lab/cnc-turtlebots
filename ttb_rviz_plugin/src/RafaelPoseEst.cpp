@@ -8,7 +8,7 @@
 #include "RafaelPoseEst.h"
 
 #define ROBOT "raphael"
-#define TOPIC "initial_pose"
+#define TOPIC "initialpose"
 #define DESC "Pose Estimate"
 
 namespace ttb_rviz_plugin
@@ -34,7 +34,7 @@ void RafaelPoseEst::onPoseSet(double x, double y, double theta) {
 	std::string fixed_frame = context_->getFixedFrame().toStdString();
 	geometry_msgs::PoseWithCovarianceStamped pose;
 
-	pose.header.frame_id = fixed_frame; 
+	pose.header.frame_id = std::string("/") + fixed_frame;
 	pose.header.stamp = ros::Time::now(); 
 	pose.pose.pose.position.x = x; 
 	pose.pose.pose.position.y = y; 
