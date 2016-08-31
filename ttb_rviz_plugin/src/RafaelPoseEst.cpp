@@ -7,7 +7,7 @@
 
 #include "RafaelPoseEst.h"
 
-#define ROBOT "rafael"
+#define ROBOT "raphael"
 #define TOPIC "initial_pose"
 #define DESC "Pose Estimate"
 

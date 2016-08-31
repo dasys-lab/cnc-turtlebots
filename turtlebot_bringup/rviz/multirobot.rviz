@@ -379,7 +379,7 @@ Visualization Manager:
           Value: true
       Name: RobotModel
       Robot Description: robot_description
-      TF Prefix: rafael
+      TF Prefix: raphael
       Update Interval: 0
       Value: true
       Visual Enabled: true

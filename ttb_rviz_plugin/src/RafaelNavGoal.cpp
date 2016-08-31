@@ -7,7 +7,7 @@
 
 #include "RafaelNavGoal.h"
 
-#define ROBOT "rafael"
+#define ROBOT "raphael"
 #define TOPIC "move_base_simple/goal"
 #define DESC "Nav Goal"
 

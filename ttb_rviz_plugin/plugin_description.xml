@@ -3,7 +3,7 @@
          type="ttb_rviz_plugin::LeonardoPoseEst"
          base_class_type="rviz::Tool">
     <description>
-      Tool to tell leonardo where to go or where they are
+      Tool to tell leonardo where he is
     </description>
   </class>
 
@@ -11,7 +11,7 @@
          type="ttb_rviz_plugin::RafaelPoseEst"
          base_class_type="rviz::Tool">
     <description>
-      Tool to tell rafael to go or where they are
+      Tool to tell raphael where he is
     </description>
   </class>
 
@@ -19,7 +19,7 @@
          type="ttb_rviz_plugin::LeonardoNavGoal"
          base_class_type="rviz::Tool">
     <description>
-      Tool to tell leonardo where to go or where they are
+      Tool to tell leonardo where to go
     </description>
   </class>
 
@@ -27,7 +27,7 @@
          type="ttb_rviz_plugin::RafaelNavGoal"
          base_class_type="rviz::Tool">
     <description>
-      Tool to tell rafael to go or where they are
+      Tool to tell raphael where to go
     </description>
   </class>
 
