@@ -25,6 +25,10 @@
     <arg name="publish_tf"                      value="$(arg publish_tf)"/>                         
     <arg name="depth_registration"              value="$(arg depth_registration)"/>                 
     <arg name="num_worker_threads"              value="$(arg num_worker_threads)" />                
+
+  <arg name="rgb_frame_id"   default="$(env ROBOT)/$(arg camera)_rgb_optical_frame" />
+  <arg name="depth_frame_id" default="$(env ROBOT)/$(arg camera)_depth_optical_frame" />
+
                                                                                                     
     <!-- Processing Modules -->                                                                     
     <arg name="rgb_processing"                  value="$(arg rgb_processing)"/>                     
