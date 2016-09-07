@@ -1,11 +1,12 @@
 <?xml version="1.0"?>
 <launch>
 
-
   <include file="$(find turtlebot_bringup)/launch/minimal.launch">
     <arg name="3d_sensor" value="ninjakinect" />
     <arg name="stacks" value="ninja-hexagons" />
   </include>
+
+  <node name="throttle" pkg="topic_tools" type="throttle" args="messages /mobile_base/sensors/core 1.0 /$(env ROBOT)/mobile_base/sensors/core" />
 
 <group ns="$(env ROBOT)">
 
