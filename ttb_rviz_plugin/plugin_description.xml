@@ -31,5 +31,13 @@
     </description>
   </class>
 
+  <class name="ttb_rviz_plugin/TurtlePanel"
+         type="ttb_rviz_plugin::TurtlePanel"
+         base_class_type="rviz::Panel">
+    <description>
+      A panel to read status from turtlebots and do related actions
+    </description>
+  </class>
+
 
 </library>

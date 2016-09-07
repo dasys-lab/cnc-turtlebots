@@ -33,6 +33,7 @@ add_library(${PROJECT_NAME}
   src/LeonardoNavGoal.cpp 
   src/RafaelPoseEst.cpp 
   src/RafaelNavGoal.cpp 
+  src/TurtlePanel.cpp 
 )
 
 target_link_libraries(${PROJECT_NAME} ${QT_LIBRARIES} ${catkin_LIBRARIES})
