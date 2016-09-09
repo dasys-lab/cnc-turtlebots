@@ -1,6 +1,8 @@
 package de.uni_kassel.vs.cn.ttb_apps.marauders_map.util;
 
 import android.app.Activity;
+import android.content.Context;
+import android.net.wifi.WifiManager;
 
 import com.github.ros_java.marauders_map.R;
 import org.jboss.netty.buffer.ChannelBuffer;
@@ -108,6 +110,7 @@ public class ROS2UDPProxy implements NodeMain {
 	private Publisher<InitialPoseWrapped> pub1388158846;
 	private Publisher<PlanTreeInfo> pub3767756765;
 	private Publisher<AMCLPoseWrapped> pub2611391888;
+	WifiManager.MulticastLock mLock = null;
 
 	@Override
 	public GraphName getDefaultNodeName() {
@@ -117,10 +120,15 @@ public class ROS2UDPProxy implements NodeMain {
 	@Override
 	public void onStart(ConnectedNode connectedNode) {
 		Properties udpConfig = new Properties();
+
 		try {
 			udpConfig.load(getActivity().getResources().openRawResource(R.raw.marauders_map));
 			java.lang.String multiCastAdress = udpConfig.getProperty("MulticastAddress");
 			port = Integer.parseInt(udpConfig.getProperty("Port"));
+			WifiManager wifi;
+			wifi = (WifiManager) this.activity.getSystemService(Context.WIFI_SERVICE);
+			mLock = wifi.createMulticastLock("lock");
+			mLock.acquire();
 			udpSocket = new MulticastSocket(port);
 			group = InetAddress.getByName(multiCastAdress);
 			udpSocket.joinGroup(group);
@@ -178,6 +186,12 @@ public class ROS2UDPProxy implements NodeMain {
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
+			}
+
+			@Override
+			public void run() {
+				super.run();
+				mLock.release();
 			}
 		});
 	}

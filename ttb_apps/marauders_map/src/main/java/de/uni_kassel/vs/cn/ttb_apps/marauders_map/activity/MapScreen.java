@@ -21,6 +21,7 @@ import com.github.ros_java.marauders_map.R;
 
 import de.uni_kassel.vs.cn.ttb_apps.marauders_map.activity.map.AbstractMapOverlay;
 import de.uni_kassel.vs.cn.ttb_apps.marauders_map.activity.map.MapDrawer;
+import de.uni_kassel.vs.cn.ttb_apps.marauders_map.activity.map.MapOverlay;
 import de.uni_kassel.vs.cn.ttb_apps.marauders_map.activity.map.RobotPositionOverlay;
 import de.uni_kassel.vs.cn.ttb_apps.marauders_map.activity.ui.MapView;
 import de.uni_kassel.vs.cn.ttb_apps.marauders_map.activity.ui.RobotSpinnerAdapter;
@@ -172,8 +173,11 @@ public class MapScreen extends Activity {
             e.printStackTrace();
         }
 
+
+        MapOverlay mapOverlay = new MapOverlay(mapView, MapScreen.bitmap, canvas);
         RobotPositionOverlay robotPositionOverlay = new RobotPositionOverlay(mapView, MapScreen.bitmap,canvas);
         robotPositionOverlay.setListener(Root.getAmcl_poseListener());
+        Root.overlays.add(mapOverlay);
         Root.overlays.add(robotPositionOverlay);
         thread = new Thread(mapDrawer);
         thread.start();

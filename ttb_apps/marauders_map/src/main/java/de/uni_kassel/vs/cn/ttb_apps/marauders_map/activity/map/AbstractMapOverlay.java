@@ -14,7 +14,7 @@ public abstract class AbstractMapOverlay {
 
     private ImageView mapView;
 
-    private Bitmap underlyinMap;
+    protected Bitmap underlyinMap;
 
     private final Canvas canvas;
 
@@ -38,7 +38,6 @@ public abstract class AbstractMapOverlay {
         mapView.post(new Runnable() {
             @Override
             public void run() {
-                canvas.drawBitmap(underlyinMap, 0, 0, null);
                 drawOverlay(canvas);
                 mapView.invalidate();
             }
@@ -84,9 +83,9 @@ public abstract class AbstractMapOverlay {
         int height = mapView.getDrawable().getBounds().height();
         double meterY, meterX;
 
-        meterY = ((pixelY - height) * -pixelToMeterResolution -12.2);
+        meterY = ((pixelY - height) * -pixelToMeterResolution + origin[1]);
         meterX = pixelX * pixelToMeterResolution;
-        meterX = meterX - Math.abs(origin[0]);
+        meterX = meterX + origin[0];
         return new double[] {meterX, meterY};
     }
 }
