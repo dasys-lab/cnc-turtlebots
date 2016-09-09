@@ -29,11 +29,13 @@ endif()
 add_definitions(-DQT_NO_KEYWORDS)
 
 add_library(${PROJECT_NAME}
-  src/LeonardoPoseEst.cpp 
-  src/LeonardoNavGoal.cpp 
-  src/RafaelPoseEst.cpp 
-  src/RafaelNavGoal.cpp 
-  src/TurtlePanel.cpp 
+  src/LeonardoPoseEst.cpp
+  src/LeonardoNavGoal.cpp
+  src/RafaelPoseEst.cpp
+  src/RafaelNavGoal.cpp
+  src/TurtlePanel.cpp
+  src/RobotBox.cpp
+  src/RobotBox.h
 )
 
 target_link_libraries(${PROJECT_NAME} ${QT_LIBRARIES} ${catkin_LIBRARIES})
@@ -49,5 +51,3 @@ install(TARGETS
 install(FILES
   plugin_description.xml
   DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION})
-
-
