@@ -1,12 +1,10 @@
-#ifndef Q_MOC_RUN
-# include <ros/ros.h>
-
-# include <rviz/panel.h>
-#endif
+#ifndef ROBOT_BOX
+#define ROBOT_BOX
 
 #include <kobuki_msgs/SensorState.h>
 
 #include <QGroupBox>
+#include <ros/ros.h>
 
 class QLabel;
 class QWidget;
@@ -50,3 +48,5 @@ protected:
 
 
 } // namespace ttb_rviz_plugin
+
+#endif // ROBOT_BOX

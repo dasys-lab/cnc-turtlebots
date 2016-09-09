@@ -8,6 +8,9 @@ catkin_package()
 include_directories(${catkin_INCLUDE_DIRS})
 link_directories(${catkin_LIBRARY_DIRS})
 
+## Use c++ 11x std
+set(CMAKE_CXX_FLAGS "-std=c++11 ${CMAKE_CXX_FLAGS}")
+
 set(CMAKE_AUTOMOC ON)
 
 ## This plugin includes Qt widgets, so we must include Qt.

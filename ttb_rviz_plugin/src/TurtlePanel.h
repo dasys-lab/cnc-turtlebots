@@ -1,10 +1,12 @@
-#ifndef Q_MOC_RUN
-# include <ros/ros.h>
+#ifndef TURTLE_PANEL
+#define TURTLE_PANEL
 
-# include <rviz/panel.h>
-#endif
-
+#include <ros/ros.h>
+#include <rviz/panel.h>
 #include <kobuki_msgs/SensorState.h>
+#include <vector>
+
+#include "RobotBox.h"
 
 class QLabel;
 class QPushButton;
@@ -16,39 +18,20 @@ class TurtlePanel : public rviz::Panel {
 Q_OBJECT
 public:
 
-	TurtlePanel(QWidget *parent = 0); 
-	~TurtlePanel(); 
+	TurtlePanel(QWidget *parent = 0);
+	~TurtlePanel();
 
+	// TODO: for configurable robots
 //	virtual void load(const rviz::Config& config);
 //	virtual void save(rviz::Config config);
 
-protected Q_SLOTS:
-
-	void displayReceived();
-	void abortPressed();
-
 protected:
+	// TODO: addRobot, removeRobot
 
-	unsigned long lastReceived;
-
-	void sensorCallback(const kobuki_msgs::SensorStateConstPtr& msg);
-
-	void displayBaseBattery(int battery);
-	void displayBatteryState(int state);
-
-
-	QLabel *batteryLabel;
-	QLabel *batteryStateLabel;
-	QLabel *lastReceivedLabel;
-	QPushButton *abortButton;
-
-	QTimer *timer;
-
-	ros::Subscriber batterySub;
-	ros::NodeHandle nh;
+	std::vector<RobotBox*> robotBoxes;
 };
 
 
 } // namespace ttb_rviz_plugin
 
-
+#endif // TURTLE_PANEL
