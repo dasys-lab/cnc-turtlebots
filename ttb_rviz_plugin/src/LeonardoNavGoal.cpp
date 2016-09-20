@@ -7,7 +7,7 @@
 
 #include "LeonardoNavGoal.h"
 
-#define ROBOT "leonardo"
+#define ROBOT "donatello"
 #define TOPIC "move_base_simple/goal"
 #define DESC "Nav Goal"
 
@@ -34,15 +34,15 @@ void LeonardoNavGoal::onPoseSet(double x, double y, double theta) {
 	std::string fixed_frame = context_->getFixedFrame().toStdString();
 	geometry_msgs::PoseStamped pose;
 
-	pose.header.frame_id = fixed_frame; 
-	pose.header.stamp = ros::Time::now(); 
-	pose.pose.position.x = x; 
-	pose.pose.position.y = y; 
+	pose.header.frame_id = fixed_frame;
+	pose.header.stamp = ros::Time::now();
+	pose.pose.position.x = x;
+	pose.pose.position.y = y;
 
-	tf::Quaternion quat; 
-	quat.setRPY(0.0, 0.0, theta); 
-	tf::quaternionTFToMsg(quat, 
-	                      pose.pose.orientation); 
+	tf::Quaternion quat;
+	quat.setRPY(0.0, 0.0, theta);
+	tf::quaternionTFToMsg(quat,
+	                      pose.pose.orientation);
 
 	ROS_INFO("Setting pose of " ROBOT "to : %.3f %.3f %.3f [frame=%s]", x, y, theta, fixed_frame.c_str(
 ));
@@ -54,4 +54,3 @@ void LeonardoNavGoal::onPoseSet(double x, double y, double theta) {
 
 #include <pluginlib/class_list_macros.h>
 PLUGINLIB_EXPORT_CLASS(ttb_rviz_plugin::LeonardoNavGoal, rviz::Tool)
-

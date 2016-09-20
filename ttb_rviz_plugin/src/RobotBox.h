@@ -10,6 +10,7 @@ class QLabel;
 class QWidget;
 class QString;
 class QPushButton;
+class QVBoxLayout;
 
 namespace ttb_rviz_plugin {
 
@@ -21,10 +22,15 @@ public:
 	RobotBox(const QString& robot, QWidget *parent);
 	~RobotBox();
 
+Q_SIGNALS:
+	void deletePressed(QString robotName);
+
 protected Q_SLOTS:
 
 	void displayReceived();
 	void abortPressed();
+	void deleteButtonPressed();
+	void toggled(bool on);
 
 protected:
 
@@ -35,10 +41,14 @@ protected:
 	void displayBaseBattery(int battery);
 	void displayBatteryState(int state);
 
+	QString robot;
+
+	QVBoxLayout *layout;
 	QLabel *batteryLabel;
 	QLabel *batteryStateLabel;
 	QLabel *lastReceivedLabel;
 	QPushButton *abortButton;
+	QPushButton *deleteButton;
 
 	QTimer *timer;
 

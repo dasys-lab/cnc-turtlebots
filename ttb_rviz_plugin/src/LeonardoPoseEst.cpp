@@ -7,7 +7,7 @@
 
 #include "LeonardoPoseEst.h"
 
-#define ROBOT "leonardo"
+#define ROBOT "donatello"
 #define TOPIC "initialpose"
 #define DESC "Pose Estimate"
 
@@ -35,18 +35,18 @@ void LeonardoPoseEst::onPoseSet(double x, double y, double theta) {
 	geometry_msgs::PoseWithCovarianceStamped pose;
 
 	pose.header.frame_id = std::string("/") + fixed_frame;
-	pose.header.stamp = ros::Time::now(); 
-	pose.pose.pose.position.x = x; 
-	pose.pose.pose.position.y = y; 
+	pose.header.stamp = ros::Time::now();
+	pose.pose.pose.position.x = x;
+	pose.pose.pose.position.y = y;
 
-	tf::Quaternion quat; 
-	quat.setRPY(0.0, 0.0, theta); 
-	tf::quaternionTFToMsg(quat, 
-	                      pose.pose.pose.orientation); 
+	tf::Quaternion quat;
+	quat.setRPY(0.0, 0.0, theta);
+	tf::quaternionTFToMsg(quat,
+	                      pose.pose.pose.orientation);
 
-	pose.pose.covariance[6*0+0] = 0.5 * 0.5; 
-	pose.pose.covariance[6*1+1] = 0.5 * 0.5; 
-	pose.pose.covariance[6*5+5] = M_PI/12.0 * M_PI/12.0; 
+	pose.pose.covariance[6*0+0] = 0.5 * 0.5;
+	pose.pose.covariance[6*1+1] = 0.5 * 0.5;
+	pose.pose.covariance[6*5+5] = M_PI/12.0 * M_PI/12.0;
 	ROS_INFO("Setting pose of " ROBOT "to : %.3f %.3f %.3f [frame=%s]", x, y, theta, fixed_frame.c_str(
 ));
 
@@ -57,4 +57,3 @@ void LeonardoPoseEst::onPoseSet(double x, double y, double theta) {
 
 #include <pluginlib/class_list_macros.h>
 PLUGINLIB_EXPORT_CLASS(ttb_rviz_plugin::LeonardoPoseEst, rviz::Tool)
-

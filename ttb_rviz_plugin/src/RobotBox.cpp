@@ -1,5 +1,6 @@
 #include <QLabel>
 #include <QVBoxLayout>
+#include <QHBoxLayout>
 #include <QTimer>
 #include <QPushButton>
 
@@ -16,23 +17,34 @@ using kobuki_msgs::SensorState;
 namespace ttb_rviz_plugin {
 
 RobotBox::RobotBox(const QString& robot, QWidget *parent)
-	: QGroupBox(robot , parent), lastReceived(0)
+	: QGroupBox(robot , parent), lastReceived(0), robot(robot)
 {
+	setCheckable(true);
 	// create widgets
 	lastReceivedLabel = new QLabel("No message received yet");
 	batteryLabel = new QLabel("Base Battery: Not received yet");
 	batteryStateLabel = new QLabel("State: ");
 	abortButton = new QPushButton("Abort Movement", parent);
+	deleteButton = new QPushButton("x", parent);
+	deleteButton->setMaximumWidth(20);
 
 	// layout setup
-	QVBoxLayout *layout = new QVBoxLayout;
-	layout->addWidget(lastReceivedLabel);
+	layout = new QVBoxLayout(parent);
+	QHBoxLayout *topLayout = new QHBoxLayout(parent);
+
+	topLayout->addWidget(lastReceivedLabel);
+	topLayout->addWidget(deleteButton);
+	layout->addLayout(topLayout);
+
 	layout->addWidget(batteryLabel);
 	layout->addWidget(batteryStateLabel);
-	layout->addWidget(abortButton);
+	// TODO: Implement goal watching
+	//layout->addWidget(abortButton);
 	setLayout(layout);
 
 	connect(abortButton, SIGNAL(clicked()), this, SLOT(abortPressed()));
+	connect(deleteButton, SIGNAL(clicked()), this, SLOT(deleteButtonPressed()));
+	connect(this, SIGNAL(toggled(bool)), this, SLOT(toggled(bool)));
 
 	// timer for last received
 	timer = new QTimer(parent);
@@ -54,6 +66,9 @@ RobotBox::~RobotBox()
 	delete batteryLabel;
 	delete batteryStateLabel;
 	delete timer;
+	delete deleteButton;
+	delete abortButton;
+	delete layout;
 }
 
 void RobotBox::displayReceived() {
@@ -75,11 +90,23 @@ void RobotBox::abortPressed() {
 	lastReceivedLabel->setText("Abort!");
 }
 
+void RobotBox::deleteButtonPressed() {
+	Q_EMIT deletePressed(robot);
+}
+
 void RobotBox::sensorCallback(const kobuki_msgs::SensorStateConstPtr& msg) {
 	lastReceived = time(NULL);
 
 	displayBaseBattery(msg->battery);
 	displayBatteryState(msg->charger);
+}
+
+void RobotBox::toggled(bool on) {
+	lastReceivedLabel->setVisible(on);
+	batteryLabel->setVisible(on);
+	batteryStateLabel->setVisible(on);
+	//abortButton->setVisible(on);
+	deleteButton->setVisible(on);
 }
 
 void RobotBox::displayBaseBattery(int battery) {

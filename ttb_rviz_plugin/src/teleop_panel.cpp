@@ -80,7 +80,7 @@ TeleopPanel::TeleopPanel( QWidget* parent )
   // Create a timer for sending the output.  Motor controllers want to
   // be reassured frequently that they are doing the right thing, so
   // we keep re-sending velocities even when they aren't changing.
-  // 
+  //
   // Here we take advantage of QObject's memory management behavior:
   // since "this" is passed to the new QTimer as its parent, the
   // QTimer is deleted by the QObject destructor when this TeleopPanel
@@ -196,5 +196,5 @@ void TeleopPanel::load( const rviz::Config& config )
 // loadable by pluginlib::ClassLoader must have these two lines
 // compiled in its .cpp file, outside of any namespace scope.
 #include <pluginlib/class_list_macros.h>
-PLUGINLIB_EXPORT_CLASS(rviz_plugin_tutorials::TeleopPanel,rviz::Panel )
+PLUGINLIB_EXPORT_CLASS(rviz_plugin_tutorials::TeleopPanel, rviz::Panel)
 // END_TUTORIAL

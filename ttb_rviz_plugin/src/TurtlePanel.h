@@ -11,6 +11,8 @@
 class QLabel;
 class QPushButton;
 class QVBoxLayout;
+class QHBoxLayout;
+class QLineEdit;
 
 namespace ttb_rviz_plugin {
 
@@ -22,10 +24,12 @@ public:
 	~TurtlePanel();
 
 	virtual void load(const rviz::Config& config);
-	virtual void save(rviz::Config config);
+	virtual void save(rviz::Config config) const;
 
 protected Q_SLOTS:
-	void updateRobots();
+	void updateRobots(QString robots);
+	void addRobotClicked();
+	void removeRobotClicked(QString robot);
 
 protected:
 	void addRobot(QString &name);
@@ -34,12 +38,15 @@ protected:
 	void removeRobot(QString &name);
 	void removeRobot(const char *name);
 
+	// Add Robot HBox
+	QHBoxLayout *addBox;
+	QLineEdit *robotLineEdit;
+	QPushButton *addRobotButton;
+
+	QVBoxLayout *boxesLayout;
 	std::map<QString, RobotBox*> robotBoxes;
 	QVBoxLayout *layout;
 	QWidget *parent;
-
-	// string containing all robot names seperated by comma(,)
-	QString allRobots;
 };
 
 } // namespace ttb_rviz_plugin
