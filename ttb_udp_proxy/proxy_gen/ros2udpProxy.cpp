@@ -33,21 +33,21 @@
 #include "geometry_msgs/PoseStamped.h"
 #include "geometry_msgs/PoseWithCovarianceStamped.h"
 #include "kobuki_msgs/SensorState.h"
-#include "actionlib_msgs/GoalStatus.h"
+#include "actionlib_msgs/GoalStatusArray.h"
 #include "actionlib_msgs/GoalID.h"
 #include "visualization_msgs/Marker.h"
 #include "geometry_msgs/PoseWithCovarianceStamped.h"
 #include "geometry_msgs/PoseStamped.h"
 #include "geometry_msgs/PoseWithCovarianceStamped.h"
 #include "kobuki_msgs/SensorState.h"
-#include "actionlib_msgs/GoalStatus.h"
+#include "actionlib_msgs/GoalStatusArray.h"
 #include "actionlib_msgs/GoalID.h"
 #include "visualization_msgs/Marker.h"
 #include "geometry_msgs/PoseWithCovarianceStamped.h"
 #include "geometry_msgs/PoseStamped.h"
 #include "geometry_msgs/PoseWithCovarianceStamped.h"
 #include "kobuki_msgs/SensorState.h"
-#include "actionlib_msgs/GoalStatus.h"
+#include "actionlib_msgs/GoalStatusArray.h"
 #include "actionlib_msgs/GoalID.h"
 
 using namespace supplementary;
@@ -273,10 +273,10 @@ uint8_t* buffer = NULL;
 	}
 	if(buffer!=NULL) delete[] buffer;
 }
-void onRosGoalStatus3689814070(const ros::MessageEvent<actionlib_msgs::GoalStatus>& event) {
+void onRosGoalStatusArray3689814070(const ros::MessageEvent<actionlib_msgs::GoalStatusArray>& event) {
 	if(0 == event.getPublisherName().compare(ownRosName)) return;
 uint8_t* buffer = NULL;
-	const actionlib_msgs::GoalStatus::ConstPtr& message = event.getMessage();
+	const actionlib_msgs::GoalStatusArray::ConstPtr& message = event.getMessage();
 	try{
 		uint32_t serial_size = ros::serialization::serializationLength(*message);
 		buffer = new uint8_t[serial_size+sizeof(uint32_t)];
@@ -392,10 +392,10 @@ uint8_t* buffer = NULL;
 	}
 	if(buffer!=NULL) delete[] buffer;
 }
-void onRosGoalStatus4284554391(const ros::MessageEvent<actionlib_msgs::GoalStatus>& event) {
+void onRosGoalStatusArray4284554391(const ros::MessageEvent<actionlib_msgs::GoalStatusArray>& event) {
 	if(0 == event.getPublisherName().compare(ownRosName)) return;
 uint8_t* buffer = NULL;
-	const actionlib_msgs::GoalStatus::ConstPtr& message = event.getMessage();
+	const actionlib_msgs::GoalStatusArray::ConstPtr& message = event.getMessage();
 	try{
 		uint32_t serial_size = ros::serialization::serializationLength(*message);
 		buffer = new uint8_t[serial_size+sizeof(uint32_t)];
@@ -511,10 +511,10 @@ uint8_t* buffer = NULL;
 	}
 	if(buffer!=NULL) delete[] buffer;
 }
-void onRosGoalStatus1948648876(const ros::MessageEvent<actionlib_msgs::GoalStatus>& event) {
+void onRosGoalStatusArray1948648876(const ros::MessageEvent<actionlib_msgs::GoalStatusArray>& event) {
 	if(0 == event.getPublisherName().compare(ownRosName)) return;
 uint8_t* buffer = NULL;
-	const actionlib_msgs::GoalStatus::ConstPtr& message = event.getMessage();
+	const actionlib_msgs::GoalStatusArray::ConstPtr& message = event.getMessage();
 	try{
 		uint32_t serial_size = ros::serialization::serializationLength(*message);
 		buffer = new uint8_t[serial_size+sizeof(uint32_t)];
@@ -652,9 +652,9 @@ ros::serialization::Serializer<kobuki_msgs::SensorState>::read(stream, m22240940
 pub2224094020.publish<kobuki_msgs::SensorState>(m2224094020);
 break; }
 case 3689814070ul: {
-actionlib_msgs::GoalStatus m3689814070;
-ros::serialization::Serializer<actionlib_msgs::GoalStatus>::read(stream, m3689814070);
-pub3689814070.publish<actionlib_msgs::GoalStatus>(m3689814070);
+actionlib_msgs::GoalStatusArray m3689814070;
+ros::serialization::Serializer<actionlib_msgs::GoalStatusArray>::read(stream, m3689814070);
+pub3689814070.publish<actionlib_msgs::GoalStatusArray>(m3689814070);
 break; }
 case 1068001852ul: {
 actionlib_msgs::GoalID m1068001852;
@@ -687,9 +687,9 @@ ros::serialization::Serializer<kobuki_msgs::SensorState>::read(stream, m42866607
 pub4286660741.publish<kobuki_msgs::SensorState>(m4286660741);
 break; }
 case 4284554391ul: {
-actionlib_msgs::GoalStatus m4284554391;
-ros::serialization::Serializer<actionlib_msgs::GoalStatus>::read(stream, m4284554391);
-pub4284554391.publish<actionlib_msgs::GoalStatus>(m4284554391);
+actionlib_msgs::GoalStatusArray m4284554391;
+ros::serialization::Serializer<actionlib_msgs::GoalStatusArray>::read(stream, m4284554391);
+pub4284554391.publish<actionlib_msgs::GoalStatusArray>(m4284554391);
 break; }
 case 1662742173ul: {
 actionlib_msgs::GoalID m1662742173;
@@ -722,9 +722,9 @@ ros::serialization::Serializer<kobuki_msgs::SensorState>::read(stream, m19546419
 pub1954641914.publish<kobuki_msgs::SensorState>(m1954641914);
 break; }
 case 1948648876ul: {
-actionlib_msgs::GoalStatus m1948648876;
-ros::serialization::Serializer<actionlib_msgs::GoalStatus>::read(stream, m1948648876);
-pub1948648876.publish<actionlib_msgs::GoalStatus>(m1948648876);
+actionlib_msgs::GoalStatusArray m1948648876;
+ros::serialization::Serializer<actionlib_msgs::GoalStatusArray>::read(stream, m1948648876);
+pub1948648876.publish<actionlib_msgs::GoalStatusArray>(m1948648876);
 break; }
 case 3621803954ul: {
 actionlib_msgs::GoalID m3621803954;
@@ -806,21 +806,21 @@ ros::Subscriber sub8 = n.subscribe("/leonardo/amcl_pose",5, onRosPoseWithCovaria
 ros::Subscriber sub9 = n.subscribe("/leonardo/move_base_simple/goal",5, onRosPoseStamped674080570,ros::TransportHints().unreliable().tcpNoDelay().reliable());
 ros::Subscriber sub10 = n.subscribe("/leonardo/initialpose",5, onRosPoseWithCovarianceStamped491912439,ros::TransportHints().unreliable().tcpNoDelay().reliable());
 ros::Subscriber sub11 = n.subscribe("/leonardo/mobile_base/sensors/core",5, onRosSensorState2224094020,ros::TransportHints().unreliable().tcpNoDelay().reliable());
-ros::Subscriber sub12 = n.subscribe("/leonardo/move_base/status",5, onRosGoalStatus3689814070,ros::TransportHints().unreliable().tcpNoDelay().reliable());
+ros::Subscriber sub12 = n.subscribe("/leonardo/move_base/status",5, onRosGoalStatusArray3689814070,ros::TransportHints().unreliable().tcpNoDelay().reliable());
 ros::Subscriber sub13 = n.subscribe("/leonardo/move_base/cancel",5, onRosGoalID1068001852,ros::TransportHints().unreliable().tcpNoDelay().reliable());
 ros::Subscriber sub14 = n.subscribe("/raphael/visualization_marker",5, onRosMarker979314518,ros::TransportHints().unreliable().tcpNoDelay().reliable());
 ros::Subscriber sub15 = n.subscribe("/raphael/amcl_pose",5, onRosPoseWithCovarianceStamped3076792854,ros::TransportHints().unreliable().tcpNoDelay().reliable());
 ros::Subscriber sub16 = n.subscribe("/raphael/move_base_simple/goal",5, onRosPoseStamped4093078319,ros::TransportHints().unreliable().tcpNoDelay().reliable());
 ros::Subscriber sub17 = n.subscribe("/raphael/initialpose",5, onRosPoseWithCovarianceStamped3004550932,ros::TransportHints().unreliable().tcpNoDelay().reliable());
 ros::Subscriber sub18 = n.subscribe("/raphael/mobile_base/sensors/core",5, onRosSensorState4286660741,ros::TransportHints().unreliable().tcpNoDelay().reliable());
-ros::Subscriber sub19 = n.subscribe("/raphael/move_base/status",5, onRosGoalStatus4284554391,ros::TransportHints().unreliable().tcpNoDelay().reliable());
+ros::Subscriber sub19 = n.subscribe("/raphael/move_base/status",5, onRosGoalStatusArray4284554391,ros::TransportHints().unreliable().tcpNoDelay().reliable());
 ros::Subscriber sub20 = n.subscribe("/raphael/move_base/cancel",5, onRosGoalID1662742173,ros::TransportHints().unreliable().tcpNoDelay().reliable());
 ros::Subscriber sub21 = n.subscribe("/donatello/visualization_marker",5, onRosMarker3940289819,ros::TransportHints().unreliable().tcpNoDelay().reliable());
 ros::Subscriber sub22 = n.subscribe("/donatello/amcl_pose",5, onRosPoseWithCovarianceStamped736595839,ros::TransportHints().unreliable().tcpNoDelay().reliable());
 ros::Subscriber sub23 = n.subscribe("/donatello/move_base_simple/goal",5, onRosPoseStamped2503873000,ros::TransportHints().unreliable().tcpNoDelay().reliable());
 ros::Subscriber sub24 = n.subscribe("/donatello/initialpose",5, onRosPoseWithCovarianceStamped2083032085,ros::TransportHints().unreliable().tcpNoDelay().reliable());
 ros::Subscriber sub25 = n.subscribe("/donatello/mobile_base/sensors/core",5, onRosSensorState1954641914,ros::TransportHints().unreliable().tcpNoDelay().reliable());
-ros::Subscriber sub26 = n.subscribe("/donatello/move_base/status",5, onRosGoalStatus1948648876,ros::TransportHints().unreliable().tcpNoDelay().reliable());
+ros::Subscriber sub26 = n.subscribe("/donatello/move_base/status",5, onRosGoalStatusArray1948648876,ros::TransportHints().unreliable().tcpNoDelay().reliable());
 ros::Subscriber sub27 = n.subscribe("/donatello/move_base/cancel",5, onRosGoalID3621803954,ros::TransportHints().unreliable().tcpNoDelay().reliable());
 	
 pub3767756765 = n.advertise<alica_ros_proxy::PlanTreeInfo>("/AlicaEngine/PlanTreeInfo",5,false);
@@ -835,21 +835,21 @@ pub3236539441 = n.advertise<geometry_msgs::PoseWithCovarianceStamped>("/leonardo
 pub674080570 = n.advertise<geometry_msgs::PoseStamped>("/leonardo/move_base_simple/goal",5,false);
 pub491912439 = n.advertise<geometry_msgs::PoseWithCovarianceStamped>("/leonardo/initialpose",5,false);
 pub2224094020 = n.advertise<kobuki_msgs::SensorState>("/leonardo/mobile_base/sensors/core",5,false);
-pub3689814070 = n.advertise<actionlib_msgs::GoalStatus>("/leonardo/move_base/status",5,false);
+pub3689814070 = n.advertise<actionlib_msgs::GoalStatusArray>("/leonardo/move_base/status",5,false);
 pub1068001852 = n.advertise<actionlib_msgs::GoalID>("/leonardo/move_base/cancel",5,false);
 pub979314518 = n.advertise<visualization_msgs::Marker>("/raphael/visualization_marker",5,false);
 pub3076792854 = n.advertise<geometry_msgs::PoseWithCovarianceStamped>("/raphael/amcl_pose",5,false);
 pub4093078319 = n.advertise<geometry_msgs::PoseStamped>("/raphael/move_base_simple/goal",5,false);
 pub3004550932 = n.advertise<geometry_msgs::PoseWithCovarianceStamped>("/raphael/initialpose",5,false);
 pub4286660741 = n.advertise<kobuki_msgs::SensorState>("/raphael/mobile_base/sensors/core",5,false);
-pub4284554391 = n.advertise<actionlib_msgs::GoalStatus>("/raphael/move_base/status",5,false);
+pub4284554391 = n.advertise<actionlib_msgs::GoalStatusArray>("/raphael/move_base/status",5,false);
 pub1662742173 = n.advertise<actionlib_msgs::GoalID>("/raphael/move_base/cancel",5,false);
 pub3940289819 = n.advertise<visualization_msgs::Marker>("/donatello/visualization_marker",5,false);
 pub736595839 = n.advertise<geometry_msgs::PoseWithCovarianceStamped>("/donatello/amcl_pose",5,false);
 pub2503873000 = n.advertise<geometry_msgs::PoseStamped>("/donatello/move_base_simple/goal",5,false);
 pub2083032085 = n.advertise<geometry_msgs::PoseWithCovarianceStamped>("/donatello/initialpose",5,false);
 pub1954641914 = n.advertise<kobuki_msgs::SensorState>("/donatello/mobile_base/sensors/core",5,false);
-pub1948648876 = n.advertise<actionlib_msgs::GoalStatus>("/donatello/move_base/status",5,false);
+pub1948648876 = n.advertise<actionlib_msgs::GoalStatusArray>("/donatello/move_base/status",5,false);
 pub3621803954 = n.advertise<actionlib_msgs::GoalID>("/donatello/move_base/cancel",5,false);
 	
 	boost::thread iothread(run);
