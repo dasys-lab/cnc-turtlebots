@@ -1,16 +1,20 @@
 #ifndef ROBOT_BOX
 #define ROBOT_BOX
 
-#include <kobuki_msgs/SensorState.h>
+#include <ros/ros.h>
 
 #include <QGroupBox>
-#include <ros/ros.h>
 
 class QLabel;
 class QWidget;
 class QString;
 class QPushButton;
 class QVBoxLayout;
+
+#include <actionlib_msgs/GoalID.h>
+#include <kobuki_msgs/SensorState.h>
+#include <actionlib_msgs/GoalStatus.h>
+#include <actionlib_msgs/GoalStatusArray.h>
 
 namespace ttb_rviz_plugin {
 
@@ -37,22 +41,27 @@ protected:
 	unsigned long lastReceived;
 
 	void sensorCallback(const kobuki_msgs::SensorStateConstPtr& msg);
+	void goalCallback(const actionlib_msgs::GoalStatusArray& msg);
 
 	void displayBaseBattery(int battery);
 	void displayBatteryState(int state);
 
 	QString robot;
+	std::string goalID;
 
 	QVBoxLayout *layout;
 	QLabel *batteryLabel;
 	QLabel *batteryStateLabel;
 	QLabel *lastReceivedLabel;
+	QLabel *goalStatusLabel;
 	QPushButton *abortButton;
 	QPushButton *deleteButton;
 
 	QTimer *timer;
 
 	ros::Subscriber batterySub;
+	ros::Subscriber statusSub;
+    	ros::Publisher abortPub;
 	ros::NodeHandle nh;
 };
 

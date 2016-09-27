@@ -1,6 +1,7 @@
 #include <QVBoxLayout>
 
 #include <QLineEdit>
+#include <QRegExpValidator>
 #include <QHBoxLayout>
 #include <QPushButton>
 
@@ -25,6 +26,9 @@ TurtlePanel::TurtlePanel(QWidget *parent)
 	// Add Robot HBox
 	addBox = new QHBoxLayout(parent);
 	robotLineEdit = new QLineEdit(parent);
+	QRegExp rx("[a-zA-Z]+");
+	QValidator *validator = new QRegExpValidator(rx, this);
+	robotLineEdit->setValidator(validator);
 	addRobotButton = new QPushButton("Add Robot", parent);
 	addBox->addWidget(robotLineEdit);
 	addBox->addWidget(addRobotButton);
@@ -34,6 +38,7 @@ TurtlePanel::TurtlePanel(QWidget *parent)
 	layout->addLayout(addBox);
 	layout->addLayout(boxesLayout);
 	layout->addStretch();
+
 }
 
 TurtlePanel::~TurtlePanel()
@@ -76,7 +81,7 @@ void TurtlePanel::updateRobots(QString robots) {
 
 
 void TurtlePanel::addRobot(QString &name) {
-	if (robotBoxes.count(name) < 1) {
+	if (robotBoxes.count(name) < 1 && !name.isEmpty()) {
 		RobotBox *box = new RobotBox(name, parent);
 		robotBoxes[name] = box;
 		boxesLayout->addWidget(box);
@@ -103,6 +108,9 @@ void TurtlePanel::removeRobot(const char *name) {
 
 void TurtlePanel::addRobotClicked() {
 	QString robotName = robotLineEdit->text();
+
+
+
 	robotLineEdit->setText("");
 	addRobot(robotName);
 }
