@@ -4,10 +4,9 @@
 #include <QRegExpValidator>
 #include <QHBoxLayout>
 #include <QPushButton>
+#include <QMap>
 
 #include "TurtlePanel.h"
-
-using kobuki_msgs::SensorState;
 
 #define CONFIG_NAME "Robots"
 
@@ -51,42 +50,80 @@ TurtlePanel::~TurtlePanel()
 
 void TurtlePanel::load(const rviz::Config& config) {
 	rviz::Panel::load(config);
-	QString robots;
-	if(config.mapGetString(CONFIG_NAME, &robots)) {
-		updateRobots(robots);
+
+	rviz::Config rc = config.mapGetChild(CONFIG_NAME);
+
+	for (auto iter = rc.mapIterator(); iter.isValid(); iter.advance()) {
+		const QString& rname = iter.currentKey();
+
+		RobotBox* rb = addRobot(rname);
+		if (rb == nullptr)
+			continue;
+
+		auto hc = iter.currentChild().mapGetChild("Home");
+		if (hc.isValid()) {
+			geometry_msgs::PoseStamped h;
+			QVariant v;
+
+			hc.mapGetValue("x", &v);
+			h.pose.position.x = v.toDouble();
+			hc.mapGetValue("y", &v);
+			h.pose.position.y = v.toDouble();
+			hc.mapGetValue("z", &v);
+			h.pose.position.z = v.toDouble();
+			hc.mapGetValue("qx", &v);
+			h.pose.orientation.x = v.toDouble();
+			hc.mapGetValue("qy", &v);
+			h.pose.orientation.y = v.toDouble();
+			hc.mapGetValue("qz", &v);
+			h.pose.orientation.z = v.toDouble();
+			hc.mapGetValue("qw", &v);
+			h.pose.orientation.z = v.toDouble();
+
+			h.header.frame_id = "map";
+			rb->setHome(h);
+		}
+
 	}
 }
 
 void TurtlePanel::save(rviz::Config config) const {
-	QString allRobots = "";
+	rviz::Config rcs = config.mapMakeChild(CONFIG_NAME);
 
-	for(auto const &robot: robotBoxes) {
-		allRobots += robot.first;
-		allRobots += ",";
+	for(auto const &relem: robotBoxes) {
+		const QString& rname = relem.first;
+		RobotBox* r = relem.second;
+
+		auto rc = rcs.mapMakeChild(rname);
+
+		if (r->hasHome()) {
+			auto h = r->getHome();
+			auto hc = rc.mapMakeChild("Home");
+
+			hc.mapSetValue("x", h->pose.position.x);
+			hc.mapSetValue("y", h->pose.position.y);
+			hc.mapSetValue("z", h->pose.position.z);
+
+			hc.mapSetValue("qx", h->pose.orientation.x);
+			hc.mapSetValue("qy", h->pose.orientation.y);
+			hc.mapSetValue("qz", h->pose.orientation.z);
+			hc.mapSetValue("qw", h->pose.orientation.w);
+		}
+
 	}
 
 	rviz::Panel::save(config);
-	config.mapSetValue(CONFIG_NAME, allRobots);
 }
 
-void TurtlePanel::updateRobots(QString robots) {
-	QStringList robotList = robots.split(",");
-
-	for (int i = 0; i < robotList.size(); i++) {
-		QString name = robotList.at(i);
-		if (!name.trimmed().isEmpty())
-			addRobot(name);
-	}
-}
-
-
-void TurtlePanel::addRobot(QString &name) {
+RobotBox *TurtlePanel::addRobot(const QString &name) {
 	if (robotBoxes.count(name) < 1 && !name.isEmpty()) {
 		RobotBox *box = new RobotBox(name, parent);
 		robotBoxes[name] = box;
 		boxesLayout->addWidget(box);
 		connect(box, SIGNAL(deletePressed(QString)), this, SLOT(removeRobotClicked(QString)));
+		return box;
 	}
+	return nullptr;
 }
 
 void TurtlePanel::addRobot(const char *name) {
@@ -108,9 +145,6 @@ void TurtlePanel::removeRobot(const char *name) {
 
 void TurtlePanel::addRobotClicked() {
 	QString robotName = robotLineEdit->text();
-
-
-
 	robotLineEdit->setText("");
 	addRobot(robotName);
 }

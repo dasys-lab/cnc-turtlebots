@@ -1,10 +1,10 @@
 #ifndef TURTLE_PANEL
 #define TURTLE_PANEL
 
-#include <ros/ros.h>
-#include <rviz/panel.h>
-#include <kobuki_msgs/SensorState.h>
 #include <vector>
+#include <rviz/panel.h>
+#include <ros/ros.h>
+#include <kobuki_msgs/SensorState.h>
 
 #include "RobotBox.h"
 
@@ -27,12 +27,12 @@ public:
 	virtual void save(rviz::Config config) const;
 
 protected Q_SLOTS:
-	void updateRobots(QString robots);
 	void addRobotClicked();
 	void removeRobotClicked(QString robot);
 
 protected:
-	void addRobot(QString &name);
+	RobotBox *addRobot(const QString &name);
+	void addRobot(QString &name, double &x, double &y);
 	void addRobot(const char *name);
 
 	void removeRobot(QString &name);
