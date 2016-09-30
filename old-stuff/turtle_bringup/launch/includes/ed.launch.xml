@@ -1,4 +1,0 @@
-<!-- Starts up the ED-Server -->
-<launch>
-  <node pkg="ed" type="ed" args="$(find turtle_bringup)/param/ed_config.yaml" name="ed_server"/>
-</launch>
