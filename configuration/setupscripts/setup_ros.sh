@@ -29,7 +29,7 @@ wget http://packages.ros.org/ros.key -O - | sudo apt-key add -
 
 msg "ROS packages will be installed and setup..."
 
-rospackages='ros-kinetic-desktop-full ros-kinetic-qt-gui-core ros-kinetic-qt-build ros-kinetic-serial python-catkin-tools'
+rospackages='ros-kinetic-desktop-full ros-kinetic-qt-gui-core ros-kinetic-qt-build ros-kinetic-serial python-catkin-tools ros-kinetic-turtlebot-gazebo'
 
 
 sudo apt-get update
