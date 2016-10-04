@@ -6,27 +6,39 @@ source ./funcs.sh
 
 ## Installiere ROS
 
-msg "ROS Repository wird eingerichtet"
+msg "ROS Repository will be setup..."
 
-ROS_REPO_FILE="/etc/apt/sources.list.d/ros-latest.list"
+# Distributionsversion auslesen
+codename=`lsb_release -cs`
 
-if [ -f $ROS_REPO_FILE ]; 
-then
-# FIXME: dont know how to use $ROS_REPO_FILE in the sudo sh -c command
-  sudo grep -q -F "deb http://packages.ros.org/ros/ubuntu trusty main" $ROS_REPO_FILE || sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu trusty main" >> /etc/apt/sources.list.d/ros-latest.list'
-else
- sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu trusty main" >> /etc/apt/sources.list.d/ros-latest.list'
-fi
+# Linux Mint korrektur
+case "${codename}" in
+    qiana | rebecca | rafaela | rosa)
+        codename=trusty
+        ;;
+    sarha)
+        codename=xenial
+        ;;
+esac
+
+
+
+add_to "deb http://packages.ros.org/ros/ubuntu ${codename} main" "/etc/apt/sources.list.d/ros-latest.list" "as_root"
 
 wget http://packages.ros.org/ros.key -O - | sudo apt-key add -
 
+msg "ROS packages will be installed and setup..."
 
-msg "ROS Pakete werden installiert und eingerichtet"
+rospackages='ros-kinetic-desktop-full ros-kinetic-qt-gui-core ros-kinetic-qt-build ros-kinetic-serial python-catkin-tools'
 
-rospackages='ros-indigo-desktop-full ros-indigo-qt-gui-core ros-indigo-qt-build python-rosinstall ros-indigo-turtlebots ros-indigo-ar-track-alvar ros-indigo-sound-play ros-indigo-urg-node ros-kinetic-kobuki-msgs ros-kinetic-ecl-geometry ros-kinetic-kobuki-dock-drive ros-kinetic-move-base-msgs'
 
 sudo apt-get update
-sudo apt-get -y install $rospackages
+if [ -z "$1" ]
+then
+   eval sudo apt-get install $rospackages
+else
+   eval sudo apt-get "${1}" install $rospackages
+fi
 
 set +e
 sudo rosdep init
@@ -34,15 +46,15 @@ rosdep update
 rosdep fix-permissions
 set -e
 
-msg "ROS Workspace wird angelegt und eingerichtet"
+msg "ROS Workspace will be created and setup..."
 
-add_to_bashrc "source /opt/ros/indigo/setup.bash"
+add_to "source /opt/ros/kinetic/setup.bash" ~/.bashrc
 
-source /opt/ros/indigo/setup.bash
+source /opt/ros/kinetic/setup.bash
 
-mkdir -p ~/cnws/src
-cd ~/cnws/src
-if [ ! -f ~/cnws/src/CMakeLists.txt ];
+mkdir -p ~/ttbws/src
+cd ~/ttbws
+if [ ! -f ~/ttbws/.catkin_tools/CATKIN_IGNORE ];
 then
-  catkin_init_workspace
+  catkin init
 fi

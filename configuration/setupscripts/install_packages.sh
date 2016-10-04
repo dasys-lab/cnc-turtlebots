@@ -5,22 +5,32 @@ set -e
 source ./funcs.sh
 
 ## System gegebenenfalls updaten
-
-msg "Ubuntu Paketquellen werden aktualisiert"
-#sudo apt-get -y update
-
-msg "Ubuntu Pakete werden bei bedarf geupdatet"
-#sudo apt-get -y upgrade
+if askSure "Update system?"
+then
+    if [ -z "$1" ]
+    then
+      msg "Ubuntu package sources will be updated..."
+      sudo apt-get update
+      msg "Ubuntu packages will be upgraded if necessary..."
+      sudo apt-get upgrade
+    else
+      msg "Ubuntu packages sources will be updated..."
+      sudo apt-get "${1}" update
+      msg "Ubuntu packages will be upgraded if necessary..."
+      sudo apt-get "${1}" upgrade
+    fi
+fi
 
 ## Installiere allgemeine Pakete fuer Entwicklung
+msg "Common development packages will be installed..."
 
-msg "Allgemeine Pakete zur Entwicklung werden installiert"
-
-packages='git vim gitk meld bison re2c libode-dev gnuplot-qt
-	libxv-dev libtbb-dev libcgal-demo libcgal-dev
-	xsdcxx libxerces-c-dev freeglut3-dev libvtk5-dev libvtk5-qt4-dev'
+packages='git mr vim gitk meld bison re2c libtbb-dev'
 
 
 echo $packages
-sudo apt-get -y install $packages
-
+if [ -z "$1" ]
+then
+  eval sudo apt-get install $packages
+else
+  eval sudo apt-get "${1}" install $packages
+fi
