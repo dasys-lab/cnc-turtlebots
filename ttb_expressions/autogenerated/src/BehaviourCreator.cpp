@@ -11,6 +11,8 @@ using namespace std;
 
 #include  "Plans/Behaviours/SearchForDockingStationAsp.h"
 
+#include  "Plans/Behaviours/ASPNavigation.h"
+
 #include  "Plans/Behaviours/Rotate.h"
 
 #include  "Plans/Behaviours/ChargingDefault.h"
@@ -59,6 +61,11 @@ namespace alica
             case 1470041828429:
 
                 return make_shared<SearchForDockingStationAsp>();
+                break;
+
+            case 1475693376771:
+
+                return make_shared<ASPNavigation>();
                 break;
 
             case 1447068225787:

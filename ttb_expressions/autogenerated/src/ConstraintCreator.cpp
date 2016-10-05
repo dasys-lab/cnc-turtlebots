@@ -7,6 +7,8 @@
 
 #include  "Plans/Serve/constraints/CarryBookMaster1468493942500Constraints.h"
 
+#include  "Plans/Serve/constraints/ASPNavigateMaster1475692538365Constraints.h"
+
 #include  "Plans/Serve/constraints/Serve1454331313621Constraints.h"
 
 #include  "Plans/Tests/constraints/TurtleGenericTestMaster1454329729827Constraints.h"
@@ -40,6 +42,10 @@ namespace alica
 
             case 1470042926317:
                 return make_shared<Constraint1470042926317>();
+                break;
+
+            case 1475692986360:
+                return make_shared<Constraint1475692986360>();
                 break;
 
             case 1468495216221:

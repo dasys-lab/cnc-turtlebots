@@ -6,6 +6,8 @@
 
 #include  "Plans/Serve/CarryBookMaster1468493942500.h"
 
+#include  "Plans/Serve/ASPNavigateMaster1475692538365.h"
+
 #include  "Plans/Serve/Serve1454331313621.h"
 
 #include  "Plans/Tests/TurtleGenericTestMaster1454329729827.h"
@@ -109,6 +111,12 @@ namespace alica
             case 1469016825041:
 
                 return make_shared<TransitionCondition1469016825041>();
+
+                break;
+
+            case 1475692986360:
+
+                return make_shared<RunTimeCondition1475692986360>();
 
                 break;
 
