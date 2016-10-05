@@ -1,4 +1,10 @@
 #program distributedSystemsRooms.
+%%%%% Relations for PathPlanning
+
+reachable(X, Y) :- reachable(Y, X), X!=Y.
+reachable(X, Z) :- reachable(X, Y), reachable(Y,Z), X!=Y, Y!=Z, X!=Z. 
+reachable(X, Y) :- partialOverlapping(X, Y), area(X), area(Y). 
+reachable(X, Y) :-
 
 %%%%% Discribes the rcc4 relations between the rooms in distributed systems
 

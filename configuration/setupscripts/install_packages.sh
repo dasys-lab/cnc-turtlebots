@@ -24,7 +24,7 @@ fi
 ## Installiere allgemeine Pakete fuer Entwicklung
 msg "Common development packages will be installed..."
 
-packages='git mr vim gitk meld bison re2c libtbb-dev'
+packages='git mr vim gitk meld bison re2c libtbb-dev scons ros-kinetic-ar-track-alvar* gstreamer1.0-* ros-kinetic-joy ros-kinetic-joy-teleop libgstreamer1.0-dev libgstreamer-plugins-base1.0-dev liblua5.1-0 liblua5.1-0-dev'
 
 
 echo $packages
