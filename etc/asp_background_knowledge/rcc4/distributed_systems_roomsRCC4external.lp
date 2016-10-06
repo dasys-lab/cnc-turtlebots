@@ -1,4 +1,4 @@
-#program distributedSystemsRooms.
+#program distributedSystemsRoomsExternal.
 %%%%% Relations for PathPlanning
 
 reachable(X, Y) :- reachable(Y, X), X!=Y.
@@ -10,8 +10,12 @@ reachable(X, Y) :- properPart(X, Y), room(X), area(Y).
 
 %%%%% rooms are part of an area
 
+%%%%%%%%%%% externals
+
 %%%% studentArea
-partialOverlapping(studentArea, mainHallA).
+#external partialOverlapping(studentArea, mainHallA).
+#external disconnected(studentArea, mainHallA).
+
 disconnected(studentArea, mainHallB).
 disconnected(studentArea, workshop).
 disconnected(studentArea, offices).
@@ -19,17 +23,23 @@ disconnected(studentArea, utility).
 disconnected(studentArea, organization).
 
 %%%% the studentArea consists of the rooms 1411 1411A and 1411C
-properPart(r1411, studentArea).
-properPart(r1411A, studentArea).
-properPart(r1411C, studentArea).
+#external properPart(r1411, studentArea).
+#external disconnected(r1411, studentArea).
+#external properPart(r1411A, studentArea).
+#external disconnected(r1411A, studentArea).
+#external properPart(r1411C, studentArea).
+#external disconnected(r1411C, studentArea).
 
 %%%% the rooms which are part of the studentArea are in relation to each other
-partialOverlapping(r1411, r1411C).
-partialOverlapping(r1411A, r1411C).
+#external partialOverlapping(r1411, r1411C).
+#external disconnected(r1411, r1411C).
+#external partialOverlapping(r1411A, r1411C).
+#external disconnected(r1411A, r1411C).
 disconnected(r1411, r1411A).
 
 %%%% workshop
-partialOverlapping(workshop, mainHallA).
+#external partialOverlapping(workshop, mainHallA).
+#external disconnected(workshop, mainHallA).
 disconnected(studentArea, mainHallB).
 disconnected(workshop, studentArea).
 disconnected(workshop, offices).
@@ -37,39 +47,60 @@ disconnected(workshop, utility).
 disconnected(workshop, organization).
 
 %%%% the workshop consists of the rooms 1410 1410A and 1410B
-properPart(r1410, workshop).
-properPart(r1410A, workshop).
-properPart(r1410B, workshop).
+#external properPart(r1410, workshop).
+#external disconnected(r1410, workshop).
+#external properPart(r1410A, workshop).
+#external disconnected(r1410A, workshop).
+#external properPart(r1410B, workshop).
+#external disconnected(r1410B, workshop).
 
 %%%% the rooms which are part of the workshop are in relation to each other
-partialOverlapping(r1410, r1410A).
-partialOverlapping(r1410, r1410B).
+#external partialOverlapping(r1410, r1410A).
+#external disconnected(r1410, r1410A).
+#external partialOverlapping(r1410, r1410B).
+#external disconnected(r1410, r1410B).
 disconnected(r1410A, r1410B).
 
 %%%% offices
-partialOverlapping(offices, mainHallA).
-partialOverlapping(offices, mainHallB).
-partialOverlapping(offices, utility).
+#external partialOverlapping(offices, mainHallA).
+#external disconnected(offices, mainHallA).
+#external partialOverlapping(offices, mainHallB).
+#external disconnected(offices, mainHallB).
+#external partialOverlapping(offices, utility).
+#external disconnected(offices, utility).
 disconnected(offices, workshop).
 disconnected(offices, studentArea).
 disconnected(offices, organization).
 
 %%%% the offices consists of the rooms 1407 1408A 1408B 1408C 1406A 1406B 1406C
-properPart(r1407, offices).
-properPart(r1408A, offices).
-properPart(r1408B, offices).
-properPart(r1408C, offices).
-properPart(r1406A, offices).
-properPart(r1406B, offices).
-properPart(r1406C, offices).
+#external properPart(r1407, offices).
+#external disconnected(r1407, offices).
+#external properPart(r1408A, offices).
+#external disconnected(r1408A, offices).
+#external properPart(r1408B, offices).
+#external disconnected(r1408B, offices).
+#external properPart(r1408C, offices).
+#external disconnected(r1408C, offices).
+#external properPart(r1406A, offices).
+#external disconnected(r1406A, offices).
+#external properPart(r1406B, offices).
+#external disconnected(r1406B, offices).
+#external properPart(r1406C, offices).
+#external disconnected(r1406C, offices).
 
 %%%% the rooms which are part of the offices are in relation to each other
-partialOverlapping(r1407, r1408A).
-partialOverlapping(r1407, r1408B).
-partialOverlapping(r1407, r1408C).
-partialOverlapping(r1407, r1406A).
-partialOverlapping(r1407, r1406B).
-partialOverlapping(r1407, r1406C).
+#external partialOverlapping(r1407, r1408A).
+#external disconnected(r1407, r1408A).
+#external partialOverlapping(r1407, r1408B).
+#external disconnected(r1407, r1408B).
+#external partialOverlapping(r1407, r1408C).
+#external disconnected(r1407, r1408C).
+#external partialOverlapping(r1407, r1406A).
+#external disconnected(r1407, r1406A).
+#external partialOverlapping(r1407, r1406B).
+#external disconnected(r1407, r1406B).
+#external partialOverlapping(r1407, r1406C).
+#external disconnected(r1407, r1406C).
 disconnected(r1408A, r1408B).
 disconnected(r1408A, r1408C).
 disconnected(r1408A, r1406A).
@@ -87,66 +118,91 @@ disconnected(r1406A, r1406C).
 disconnected(r1406B, r1406C).
 
 %%%% mainHallA only consists of room 1401A
-partialOverlapping(mainHallA, studentArea).
-partialOverlapping(mainHallA, mainHallB).
-partialOverlapping(mainHallA, workshop).
-partialOverlapping(mainHallA, offices).
+#external partialOverlapping(mainHallA, studentArea).
+#external disconnected(mainHallA, studentArea).
+#external partialOverlapping(mainHallA, mainHallB).
+#external disconnected(mainHallA, mainHallB).
+#external partialOverlapping(mainHallA, workshop).
+#external disconnected(mainHallA, workshop).
+#external partialOverlapping(mainHallA, offices).
+#external disconnected(mainHallA, offices).
 disconnected(mainHallA, utility).
 disconnected(mainHallA, organization).
 
 equal(r1401A, mainHallA).
 
 %%%% mainHallB only consists of 1401B
-partialOverlapping(mainHallB, mainHallA).
-partialOverlapping(mainHallB, offices).
-partialOverlapping(mainHallB, utility).
-partialOverlapping(mainHallB, organization).
+#external partialOverlapping(mainHallB, mainHallA).
+#external disconnected(mainHallB, mainHallA).
+#external partialOverlapping(mainHallB, offices).
+#external disconnected(mainHallB, offices).
+#external partialOverlapping(mainHallB, utility).
+#external disconnected(mainHallB, utility).
+#external partialOverlapping(mainHallB, organization).
+#external disconnected(mainHallB, organization).
 disconnected(mainHallB, studentArea).
 disconnected(mainHallB, workshop).
 
 equal(r1401B, mainHallB).
 
 %%%% utility
-partialOverlapping(utility, mainHallB).
-partialOverlapping(utility, organization).
-partialOverlapping(utility, offices).
+#external partialOverlapping(utility, mainHallB).
+#external disconnected(utility, mainHallB).
+#external partialOverlapping(utility, organization).
+#external disconnected(utility, organization).
+#external partialOverlapping(utility, offices).
+#external disconnected(utility, offices).
 disconnected(utility, workshop).
 disconnected(utility, studentArea).
 disconnected(utility, mainHallA).
 
 %%%% the utility area consists of the rooms 1405 1405A 1405B and 1403C
-properPart(r1405, utility).
-properPart(r1405A, utility).
-properPart(r1405B, utility).
-properPart(r1403C, utility).
+#external properPart(r1405, utility).
+#external disconnected(r1405, utility).
+#external properPart(r1405A, utility).
+#external disconnected(r1405A, utility).
+#external properPart(r1405B, utility).
+#external disconnected(r1405B, utility).
+#external properPart(r1403C, utility).
+#external disconnected(r1403C, utility).
 
 %%%% the rooms which are part of the utility area are in relation to each other
-partialOverlapping(r1405, r1405A).
-partialOverlapping(r1405A, r1405B).
-partialOverlapping(r1405A, r1403C).
+#external partialOverlapping(r1405, r1405A).
+#external disconnected(r1405, r1405A).
+#external partialOverlapping(r1405A, r1405B).
+#external disconnected(r1405A, r1405B).
+#external partialOverlapping(r1405A, r1403C).
+#external disconnected(r1405A, r1403C).
 disconnected(r1410A, r1410B).
 disconnected(r1410A, r1410B).
 disconnected(r1410A, r1410B).
 
 %%%% organization
-partialOverlapping(organization, mainHallB).
-partialOverlapping(organization, utility).
+#external partialOverlapping(organization, mainHallB).
+#external disconnected(organization, mainHallB).
+#external partialOverlapping(organization, utility).
+#external disconnected(organization, utility).
 disconnected(organization, mainHallA).
 disconnected(organization, workshop).
 disconnected(organization, offices).
 disconnected(organization, studentArea).
 
 %%%% the organization area consists of the rooms 1403 1403A and 1403B
-properPart(r1403, organization).
-properPart(r1403A, organization).
-properPart(r1403B, organization).
+#external properPart(r1403, organization).
+#external disconnected(r1403, organization).
+#external properPart(r1403A, organization).
+#external disconnected(r1403A, organization).
+#external properPart(r1403B, organization).
+#external disconnected(r1403B, organization).
 
 %%%% the rooms which are part of the organization area are in relation to each other
-partialOverlapping(r1403A, r1403B).
-partialOverlapping(r1403B, r1403).
+#external partialOverlapping(r1403A, r1403B).
+#external disconnected(r1403A, r1403B).
+#external partialOverlapping(r1403B, r1403).
+#external disconnected(r1403B, r1403).
 disconnected(r1403A, r1403).
 
-%%%% relations between rooms and POIs
+%%%%%%% relations between rooms and POIs
 
 %%% 1411
 properPart(studentLab1, r1411).
