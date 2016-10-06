@@ -20,4 +20,12 @@
     <key href="../Behaviours/ASPNavigation.beh#1475693376771"/>
     <value/>
   </extensions>
+  <extensions>
+    <key href="ASPNavigateMaster.pml#1475752156074"/>
+    <value xPos="632" yPos="179"/>
+  </extensions>
+  <extensions>
+    <key href="ASPNavigateMaster.pml#1475752160047"/>
+    <value/>
+  </extensions>
 </uiextensionmodel:PmlUiExtensionMap>
