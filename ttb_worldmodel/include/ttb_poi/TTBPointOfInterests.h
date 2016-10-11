@@ -21,6 +21,7 @@ namespace ttb
 		TTBPointOfInterests(TTBWorldModel* wm);
 		shared_ptr<POI> getPOIByName(string name);
 		shared_ptr<POI> getPOIByID(int id);
+		shared_ptr<POI>	getPOIByASPString(string aspPredicate);
 		virtual ~TTBPointOfInterests();
 		 shared_ptr<POI> getCopyRoom();
 		 shared_ptr<POI> getCopyRoomDoor1();

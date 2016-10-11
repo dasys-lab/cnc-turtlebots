@@ -33,7 +33,6 @@ namespace alica
         kobuki::DockDrive dock;
 #endif
         shared_ptr<alica::ConstraintQuery> query;
-        string extractPOI(string aspPredicate);
         /*PROTECTED REGION END*/};
 } /* namespace alica */
 

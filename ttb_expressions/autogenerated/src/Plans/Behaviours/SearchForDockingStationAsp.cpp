@@ -58,7 +58,7 @@ namespace alica
 
         stringstream ss;
         ss << result.at(0).at(0);
-        shared_ptr < ttb::POI > dockingStation = this->wm->pois.getPOIByName(extractPOI(ss.str()));
+        shared_ptr < ttb::POI > dockingStation = this->wm->pois.getPOIByASPString(ss.str());
 
         cout << "SearchForDockingStationAsp: Dockingstation is located at (" << dockingStation->x << " | "
                 << dockingStation->y << ")" << endl;
@@ -117,13 +117,6 @@ namespace alica
         /*PROTECTED REGION END*/
     }
     /*PROTECTED REGION ID(methods1470041810334) ENABLED START*/ //Add additional methods here
-    string SearchForDockingStationAsp::extractPOI(string aspPredicate)
-    {
-        size_t start = aspPredicate.find("(");
-        size_t end = aspPredicate.find(")", start);
-        string ret = aspPredicate.substr(start + 1, end - start - 1);
-        return ret;
-    }
 
 /*PROTECTED REGION END*/
 } /* namespace alica */

@@ -48,6 +48,25 @@ namespace ttb
 		return ret;
 	}
 
+	shared_ptr<POI> TTBPointOfInterests::getPOIByASPString(string aspPredicate)
+	{
+
+        size_t start = aspPredicate.find("(");
+        size_t end = aspPredicate.find(")", start);
+        string p = aspPredicate.substr(start + 1, end - start - 1);
+
+		shared_ptr<POI> ret = nullptr;
+		for (auto poi : this->pois)
+		{
+			if(poi->name.compare(p) == 0)
+			{
+				ret = poi;
+				break;
+			}
+		}
+		return ret;
+	}
+
 	shared_ptr<POI> TTBPointOfInterests::getCopyRoom()
 	{
 		return this->copyRoom;

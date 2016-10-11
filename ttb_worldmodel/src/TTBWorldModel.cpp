@@ -24,7 +24,7 @@ namespace ttb
 	}
 
 	TTBWorldModel::TTBWorldModel() :
-			ringBufferLength(10), rawSensorData(this, 10), robots(this, 10), pois(this), alicaEngine(nullptr)
+			ringBufferLength(10), rawSensorData(this, 10), robots(this, 10), pois(this), alicaEngine(nullptr), doors(this)
 	{
 		ownID = supplementary::SystemConfig::getOwnRobotID();
 

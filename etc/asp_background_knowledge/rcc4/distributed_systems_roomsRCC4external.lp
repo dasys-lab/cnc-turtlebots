@@ -195,7 +195,7 @@ disconnected(mainHallA, offices) :- doorClosed(mainHallA, offices).
 disconnected(mainHallA, utility).
 disconnected(mainHallA, organization).
 
-equal(r1401A, mainHallA).
+properPart(r1401A, mainHallA).
 
 %%%% mainHallB only consists of 1401B
 #external doorClosed(mainHallB, mainHallA).
@@ -217,7 +217,7 @@ disconnected(mainHallB, organization) :- doorClosed(mainHallB, organization).
 disconnected(mainHallB, studentArea).
 disconnected(mainHallB, workshop).
 
-equal(r1401B, mainHallB).
+properPart(r1401B, mainHallB).
 
 %%%% utility
 #external doorClosed(utility, mainHallB).

@@ -26,6 +26,7 @@ namespace alica
     void ASPNavigation::run(void* msg)
     {
         /*PROTECTED REGION ID(run1475693360605) ENABLED START*/ //Add additional options here
+
         std::chrono::_V2::system_clock::time_point start = std::chrono::high_resolution_clock::now();
         query->getSolution(SolverType::ASPSOLVER, runningPlan, result);
         std::chrono::_V2::system_clock::time_point end = std::chrono::high_resolution_clock::now();
@@ -64,12 +65,5 @@ namespace alica
         /*PROTECTED REGION END*/
     }
     /*PROTECTED REGION ID(methods1475693360605) ENABLED START*/ //Add additional methods here
-    string ASPNavigation::extractPOI(string aspPredicate)
-    {
-        size_t start = aspPredicate.find("(");
-        size_t end = aspPredicate.find(")", start);
-        string ret = aspPredicate.substr(start + 1, end - start - 1);
-        return ret;
-    }
 /*PROTECTED REGION END*/
 } /* namespace alica */

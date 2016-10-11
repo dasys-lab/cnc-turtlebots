@@ -26,7 +26,6 @@ namespace alica
     private:
         /*PROTECTED REGION ID(prv1475693360605) ENABLED START*/ //Add additional private methods here
         shared_ptr<alica::ConstraintQuery> query;
-        string extractPOI(string aspPredicate);
         /*PROTECTED REGION END*/};
 } /* namespace alica */
 

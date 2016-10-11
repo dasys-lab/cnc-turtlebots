@@ -38,6 +38,7 @@
 #include "TaskManager.h"
 #include "EventTrigger.h"
 #include "ttb_poi/TTBPointOfInterests.h"
+#include "Doors.h"
 
 namespace supplementary {
 	class SystemConfig;
@@ -69,6 +70,7 @@ namespace ttb
 		TaskManager taskManager;
 		Robots robots;
 		TTBPointOfInterests pois;
+		Doors doors;
 
 
 	private:
