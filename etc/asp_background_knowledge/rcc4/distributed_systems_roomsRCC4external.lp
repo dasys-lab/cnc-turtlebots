@@ -8,9 +8,9 @@ reachable(X, Y) :- properPart(X, Y), room(X), area(Y).
 
 %%%%% checks
 %% areas cant be part of each other
-wrongProperPart(X, Y) :- properPart(X, Y), area(X), area(Y).
+%wrongProperPart(X, Y) :- properPart(X, Y), area(X), area(Y).
 %% rooms cant be partially overlapping
-wrongPartialOverlapping(X, Y) :- partialOverlapping(X, Y), room(X), room(Y). 
+%wrongPartialOverlapping(X, Y) :- partialOverlapping(X, Y), room(X), room(Y). 
 
 %%%%% Discribes the rcc4 relations between the rooms in distributed systems
 

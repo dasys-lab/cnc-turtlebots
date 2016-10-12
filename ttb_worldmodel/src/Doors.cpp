@@ -14,8 +14,8 @@ namespace ttb
 	{
 		this->wm = wm;
 		this->sc = supplementary::SystemConfig::getInstance();
-		this->readDoors();
 		this->doors = make_shared<map<string, bool>>();
+		this->readDoors();
 
 	}
 
@@ -114,7 +114,7 @@ namespace ttb
 
 	shared_ptr<map<string, bool> > Doors::getDoors()
 	{
-		return doors;
+		return this->doors;
 	}
 }
 
