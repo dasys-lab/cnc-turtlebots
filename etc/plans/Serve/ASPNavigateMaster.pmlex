@@ -2,7 +2,7 @@
 <uiextensionmodel:PmlUiExtensionMap xmlns:uiextensionmodel="http:///de.uni_kassel.vs.cn/planDesigner/pmlextension/uiextensionmodel">
   <extensions>
     <key href="ASPNavigateMaster.pml#1475692538366"/>
-    <value xPos="106" yPos="137" width="82" height="67" collapsed="false"/>
+    <value xPos="216" yPos="132" width="215" height="86" collapsed="false"/>
   </extensions>
   <extensions>
     <key href="ASPNavigateMaster.pml#1475692538365"/>
@@ -21,11 +21,19 @@
     <value/>
   </extensions>
   <extensions>
-    <key href="ASPNavigateMaster.pml#1475752156074"/>
-    <value xPos="632" yPos="179"/>
+    <key href="../Behaviours/Stop.beh#1414681278745"/>
+    <value/>
   </extensions>
   <extensions>
-    <key href="ASPNavigateMaster.pml#1475752160047"/>
+    <key href="../Behaviours/ASPNavigation.beh#1476356448920"/>
+    <value/>
+  </extensions>
+  <extensions>
+    <key href="ASPNavigateMaster.pml#1476366084811"/>
+    <value xPos="469" yPos="88" width="82" height="67"/>
+  </extensions>
+  <extensions>
+    <key href="ASPNavigateMaster.pml#1476366087934"/>
     <value/>
   </extensions>
 </uiextensionmodel:PmlUiExtensionMap>

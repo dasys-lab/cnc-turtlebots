@@ -3,4 +3,8 @@
   <configurations id="1475693376771" name="ASPNavigationDefault" comment="" masterPlan="false" utilityFunction="" utilityThreshold="0.1" destinationPath="" deferring="0" frequency="30" eventDriven="false">
     <vars id="1475698026578" name="NavVar" comment="" Type=""/>
   </configurations>
+  <configurations id="1476356448920" name="ASPNavigationOpenDoors" comment="" masterPlan="false" utilityFunction="" utilityThreshold="0.1" destinationPath="" deferring="0" frequency="30" eventDriven="false">
+    <vars id="1476356492203" name="openDoorVar" comment="" Type=""/>
+    <parameters id="1476356478562" name="MISSING_NAME" comment="" key="openDoors" value="true"/>
+  </configurations>
 </alica:Behaviour>

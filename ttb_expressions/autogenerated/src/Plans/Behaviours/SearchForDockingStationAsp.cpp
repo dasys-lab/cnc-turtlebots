@@ -116,7 +116,6 @@ namespace alica
         result.clear();
         /*PROTECTED REGION END*/
     }
-    /*PROTECTED REGION ID(methods1470041810334) ENABLED START*/ //Add additional methods here
-
+/*PROTECTED REGION ID(methods1470041810334) ENABLED START*/ //Add additional methods here
 /*PROTECTED REGION END*/
 } /* namespace alica */

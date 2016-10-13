@@ -11,15 +11,16 @@
       <var>#1475698052801</var>
     </parametrisation>
     <plans xsi:type="alica:BehaviourConfiguration">../Behaviours/ASPNavigation.beh#1475693376771</plans>
-    <outTransitions>#1475752160047</outTransitions>
+    <outTransitions>#1476366087934</outTransitions>
   </states>
-  <states xsi:type="alica:SuccessState" id="1475752156074" name="NewSuccessState" comment="">
-    <inTransitions>#1475752160047</inTransitions>
+  <states id="1476366084811" name="Stop" comment="">
+    <plans xsi:type="alica:BehaviourConfiguration">../Behaviours/Stop.beh#1414681278745</plans>
+    <inTransitions>#1476366087934</inTransitions>
   </states>
-  <transitions id="1475752160047" name="MISSING_NAME" comment="success" msg="">
-    <preCondition id="1475752162193" name="MISSING_NAME" comment="" conditionString="" pluginName="DefaultPlugin" enabled="true"/>
+  <transitions id="1476366087934" name="MISSING_NAME" comment="" msg="">
+    <preCondition id="1476366089212" name="MISSING_NAME" comment="" conditionString="" pluginName="DefaultPlugin" enabled="true"/>
     <inState>#1475692538366</inState>
-    <outState>#1475752156074</outState>
+    <outState>#1476366084811</outState>
   </transitions>
   <entryPoints id="1475692538367" name="MISSING_NAME" comment="" successRequired="false" minCardinality="0" maxCardinality="2147483647">
     <task>../../Misc/taskrepository.tsk#1414681164704</task>

@@ -65,6 +65,8 @@ namespace alica
 
             case 1475693376771:
 
+            case 1476356448920:
+
                 return make_shared<ASPNavigation>();
                 break;
 

@@ -93,14 +93,15 @@ namespace ttb
 
 	void Doors::changeDoorValue(string doorPredicate, bool value)
 	{
-		for(auto pair : *(this->doors))
-		{
-			if(pair.first.compare(doorPredicate) == 0)
-			{
-				pair.second = value;
-				break;
-			}
-		}
+		this->doors->at(doorPredicate) = value;
+//		for(auto pair : *(this->doors))
+//		{
+//			if(pair.first.compare(doorPredicate) == 0)
+//			{
+//				pair.second = value;
+//				break;
+//			}
+//		}
 	}
 
 	void Doors::readDoor(string door)
