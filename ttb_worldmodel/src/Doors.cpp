@@ -32,12 +32,14 @@ namespace ttb
 		this->readDoor("doorClosed(r1411C, studentArea)");
 		this->readDoor("doorClosed(r1411, r1411C)");
 		this->readDoor("doorClosed(r1411A, r1411C)");
+
 		this->readDoor("doorClosed(workshop, mainHallA)");
 		this->readDoor("doorClosed(r1410, workshop)");
 		this->readDoor("doorClosed(r1410A, workshop)");
 		this->readDoor("doorClosed(r1410B, workshop)");
 		this->readDoor("doorClosed(r1410, r1410A)");
 		this->readDoor("doorClosed(r1410, r1410B)");
+
 		this->readDoor("doorClosed(offices, mainHallA)");
 		this->readDoor("doorClosed(offices, mainHallB)");
 		this->readDoor("doorClosed(offices, utility)");
@@ -54,13 +56,17 @@ namespace ttb
 		this->readDoor("doorClosed(r1407, r1406A)");
 		this->readDoor("doorClosed(r1407, r1406B)");
 		this->readDoor("doorClosed(r1407, r1406C)");
+
 		this->readDoor("doorClosed(mainHallA, studentArea)");
 		this->readDoor("doorClosed(mainHallA, mainHallB)");
 		this->readDoor("doorClosed(mainHallA, workshop)");
+		this->readDoor("doorClosed(mainHallA, offices)");
+
 		this->readDoor("doorClosed(mainHallB, mainHallA)");
 		this->readDoor("doorClosed(mainHallB, offices)");
 		this->readDoor("doorClosed(mainHallB, utility)");
 		this->readDoor("doorClosed(mainHallB, organization)");
+
 		this->readDoor("doorClosed(utility, mainHallB)");
 		this->readDoor("doorClosed(utility, organization)");
 		this->readDoor("doorClosed(utility, offices)");
@@ -71,6 +77,7 @@ namespace ttb
 		this->readDoor("doorClosed(r1405, r1405A)");
 		this->readDoor("doorClosed(r1405A, r1405B)");
 		this->readDoor("doorClosed(r1405A, r1403C)");
+
 		this->readDoor("doorClosed(organization, mainHallB)");
 		this->readDoor("doorClosed(organization, utility)");
 		this->readDoor("doorClosed(r1403, organization)");
