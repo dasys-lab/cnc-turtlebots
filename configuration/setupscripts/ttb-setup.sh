@@ -157,7 +157,7 @@ clone_git_repos() {
 	msg "Cloning repos \"$repos\" into ${workspace_src}..."
 	
 	# FIXME: temporary branches and repos
-	git clone -b asp-integration ${github_url}cnc-turtlebots "${workspace_src}/cnc-turtlebot"
+	git clone -b asp-integration ${github_url}cnc-turtlebots "${workspace_src}/cnc-turtlebots"
 	git clone ${github_url}symrock "${workspace_src}/symrock"
 	git clone ${github_url}clingo_cpp "${workspace_src}/clingo_cpp"
 	git clone https://github.com/StephanOpfer/turtlebot "${workspace_src}/turtlebot"
