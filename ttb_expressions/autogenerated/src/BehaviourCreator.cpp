@@ -3,17 +3,23 @@ using namespace std;
 #include "BehaviourCreator.h"
 #include "engine/BasicBehaviour.h"
 
-#include  "Plans/Behaviours/SearchDockingStation.h"
+#include  "Plans/Behaviours/Stop.h"
 
 #include  "Plans/Behaviours/DriveToPOI.h"
 
-#include  "Plans/Behaviours/Rotate.h"
-
 #include  "Plans/Behaviours/SimpleDrive.h"
 
-#include  "Plans/Behaviours/Stop.h"
+#include  "Plans/Behaviours/SearchForDockingStationAsp.h"
+
+#include  "Plans/Behaviours/ASPNavigation.h"
+
+#include  "Plans/Behaviours/Rotate.h"
 
 #include  "Plans/Behaviours/ChargingDefault.h"
+
+#include  "Plans/Behaviours/Carry.h"
+
+#include  "Plans/Behaviours/SearchDockingStation.h"
 
 namespace alica
 {
@@ -31,9 +37,9 @@ namespace alica
         switch (behaviourConfId)
         {
 
-            case 1414681446065:
+            case 1414681278745:
 
-                return make_shared<SearchDockingStation>();
+                return make_shared<Stop>();
                 break;
 
             case 1454329864420:
@@ -47,24 +53,41 @@ namespace alica
                 return make_shared<DriveToPOI>();
                 break;
 
-            case 1447068225787:
-
-                return make_shared<Rotate>();
-                break;
-
             case 1432735473356:
 
                 return make_shared<SimpleDrive>();
                 break;
 
-            case 1414681278745:
+            case 1470041828429:
 
-                return make_shared<Stop>();
+                return make_shared<SearchForDockingStationAsp>();
+                break;
+
+            case 1475693376771:
+
+            case 1476356448920:
+
+                return make_shared<ASPNavigation>();
+                break;
+
+            case 1447068225787:
+
+                return make_shared<Rotate>();
                 break;
 
             case 1447958132701:
 
                 return make_shared<ChargingDefault>();
+                break;
+
+            case 1468494631985:
+
+                return make_shared<Carry>();
+                break;
+
+            case 1414681446065:
+
+                return make_shared<SearchDockingStation>();
                 break;
 
             default:

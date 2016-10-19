@@ -12,15 +12,15 @@ disconnected(studentArea, offices).
 disconnected(studentArea, utility).
 disconnected(studentArea, organization).
 
-%%%% the studenArea consists of the rooms 1411 1411A and 1411C
-tangentialProperPart(1411, studenArea).
-tangentialProperPart(1411A, studenArea).
-tangentialProperPart(1411C, studenArea).
+%%%% the studentArea consists of the rooms 1411 1411A and 1411C
+tangentialProperPart(r1411, studentArea).
+tangentialProperPart(r1411A, studentArea).
+tangentialProperPart(r1411C, studentArea).
 
 %%%% the rooms which are part of the studentArea are in relation to each other
-externallyConnected(1411, 1411C).
-externallyConnected(1411A, 1411C).
-disconnected(1411, 1411A).
+externallyConnected(r1411, r1411C).
+externallyConnected(r1411A, r1411C).
+disconnected(r1411, r1411A).
 
 %%%% workshop
 externallyConnected(workshop, mainHallA).
@@ -31,54 +31,54 @@ disconnected(workshop, utility).
 disconnected(workshop, organization).
 
 %%%% the workshop consists of the rooms 1410 1410A and 1410B
-tangentialProperPart(1410, workshop).
-tangentialProperPart(1410A, workshop).
-tangentialProperPart(1410B, workshop).
+tangentialProperPart(r1410, workshop).
+tangentialProperPart(r1410A, workshop).
+tangentialProperPart(r1410B, workshop).
 
 %%%% the rooms which are part of the workshop are in relation to each other
-externallyConnected(1410, 1410A).
-externallyConnected(1410, 1410B).
-disconnected(1410A, 1410B).
+externallyConnected(r1410, r1410A).
+externallyConnected(r1410, r1410B).
+disconnected(r1410A, r1410B).
 
 %%%% offices
-externallyConnected(offices,mainHallA).
-externallyConnected(offices,mainHallB).
-externallyConnected(offices,utility).
-disconnected(offices,workshop).
-disconnected(offices,studentArea).
-disconnected(offices,organization).
+externallyConnected(offices, mainHallA).
+externallyConnected(offices, mainHallB).
+externallyConnected(offices, utility).
+disconnected(offices, workshop).
+disconnected(offices, studentArea).
+disconnected(offices, organization).
 
 %%%% the offices consists of the rooms 1407 1408A 1408B 1408C 1406A 1406B 1406C
-tangentialProperPart(1407, offices).
-tangentialProperPart(1408A, offices).
-tangentialProperPart(1408B, offices).
-tangentialProperPart(1408C, offices).
-tangentialProperPart(1406A, offices).
-tangentialProperPart(1406B, offices).
-tangentialProperPart(1406C, offices).
+tangentialProperPart(r1407, offices).
+tangentialProperPart(r1408A, offices).
+tangentialProperPart(r1408B, offices).
+tangentialProperPart(r1408C, offices).
+tangentialProperPart(r1406A, offices).
+tangentialProperPart(r1406B, offices).
+tangentialProperPart(r1406C, offices).
 
 %%%% the rooms which are part of the offices are in relation to each other
-externallyConnected(1407, 1408A).
-externallyConnected(1407, 1408B).
-externallyConnected(1407, 1408C).
-externallyConnected(1407, 1406A).
-externallyConnected(1407, 1406B).
-externallyConnected(1407, 1406C).
-disconnected(1408A, 1408B).
-disconnected(1408A, 1408C).
-disconnected(1408A, 1406A).
-disconnected(1408A, 1406B).
-disconnected(1408A, 1406C).
-disconnected(1408B, 1408C).
-disconnected(1408B, 1406A).
-disconnected(1408B, 1406B).
-disconnected(1408B, 1406C).
-disconnected(1408C, 1406A).
-disconnected(1408C, 1406B).
-disconnected(1408C, 1406C).
-disconnected(1406A, 1406B).
-disconnected(1406A, 1406C).
-disconnected(1406B, 1406C).
+externallyConnected(r1407, r1408A).
+externallyConnected(r1407, r1408B).
+externallyConnected(r1407, r1408C).
+externallyConnected(r1407, r1406A).
+externallyConnected(r1407, r1406B).
+externallyConnected(r1407, r1406C).
+disconnected(r1408A, r1408B).
+disconnected(r1408A, r1408C).
+disconnected(r1408A, r1406A).
+disconnected(r1408A, r1406B).
+disconnected(r1408A, r1406C).
+disconnected(r1408B, r1408C).
+disconnected(r1408B, r1406A).
+disconnected(r1408B, r1406B).
+disconnected(r1408B, r1406C).
+disconnected(r1408C, r1406A).
+disconnected(r1408C, r1406B).
+disconnected(r1408C, r1406C).
+disconnected(r1406A, r1406B).
+disconnected(r1406A, r1406C).
+disconnected(r1406B, r1406C).
 
 %%%% mainHallA only consists of room 1401A
 externallyConnected(mainHallA, studentArea).
@@ -88,7 +88,7 @@ externallyConnected(mainHallA, offices).
 disconnected(mainHallA, utility).
 disconnected(mainHallA, organization).
 
-equal(1401A, mainHallA).
+equal(r1401A, mainHallA).
 
 %%%% mainHallB only consists of 1401B
 externallyConnected(mainHallB, mainHallA).
@@ -98,7 +98,7 @@ externallyConnected(mainHallB, organization).
 disconnected(mainHallB, studentArea).
 disconnected(mainHallB, workshop).
 
-equal(1401B, mainHallB).
+equal(r1401B, mainHallB).
 
 %%%% utility
 externallyConnected(utility, mainHallB).
@@ -109,18 +109,18 @@ disconnected(utility, studentArea).
 disconnected(utility, mainHallA).
 
 %%%% the utility area consists of the rooms 1405 1405A 1405B and 1403C
-tangentialProperPart(1405, utility).
-tangentialProperPart(1405A, utility).
-tangentialProperPart(1405B, utility).
-tangentialProperPart(1403C, utility).
+tangentialProperPart(r1405, utility).
+tangentialProperPart(r1405A, utility).
+tangentialProperPart(r1405B, utility).
+tangentialProperPart(r1403C, utility).
 
 %%%% the rooms which are part of the utility area are in relation to each other
-externallyConnected(1405, 1405A).
-externallyConnected(1405A, 1405B).
-externallyConnected(1405A, 1403C).
-disconnected(1410A, 1410B).
-disconnected(1410A, 1410B).
-disconnected(1410A, 1410B).
+externallyConnected(r1405, r1405A).
+externallyConnected(r1405A, r1405B).
+externallyConnected(r1405A, r1403C).
+disconnected(r1410A, r1410B).
+disconnected(r1410A, r1410B).
+disconnected(r1410A, r1410B).
 
 %%%% organization
 externallyConnected(organization, mainHallB).
@@ -131,111 +131,111 @@ disconnected(organization, offices).
 disconnected(organization, studentArea).
 
 %%%% the organization area consists of the rooms 1403 1403A and 1403B
-tangentialProperPart(1403, organization).
-tangentialProperPart(1403A, organization).
-tangentialProperPart(1403B, organization).
+tangentialProperPart(r1403, organization).
+tangentialProperPart(r1403A, organization).
+tangentialProperPart(r1403B, organization).
 
 %%%% the rooms which are part of the organization area are in relation to each other
-externallyConnected(1403A, 1403B).
-externallyConnected(1403B, 1403).
-disconnected(1403A, 1403).
+externallyConnected(r1403A, r1403B).
+externallyConnected(r1403B, r1403).
+disconnected(r1403A, r1403).
 
 %%%% relations between rooms and POIs
 
 %%% 1411
-nonTangentialProperPart(StudentLab1, 1411).
-nonTangentialProperPart(Kicker, 1411).
-nonTangentialProperPart(StudentLab2, 1411).
-nonTangentialProperPart(StudentLabDoor1, 1411).
+nonTangentialProperPart(studentLab1, r1411).
+nonTangentialProperPart(kicker, r1411).
+nonTangentialProperPart(studentLab2, r1411).
+nonTangentialProperPart(studentLabDoor1, r1411).
 
 %%%% 1411C
-nonTangentialProperPart(Floor1, 1411C).
-nonTangentialProperPart(StudentLabDoor2, 1411C).
-nonTangentialProperPart(HiWiDoor1, 1411C).
+nonTangentialProperPart(floor1, r1411C).
+nonTangentialProperPart(studentLabDoor2, r1411C).
+nonTangentialProperPart(hiWiDoor1, r1411C).
 
 %%%% 1411A
-nonTangentialProperPart(HiwiRoom, 1411A).
-nonTangentialProperPart(HiWiDoor2, 1411A).
+nonTangentialProperPart(hiwiroom, r1411A).
+nonTangentialProperPart(hiWiDoor2, r1411A).
 
 %%%% 1401A
-nonTangentialProperPart(Floor1Door1, 1401A).
-nonTangentialProperPart(Floor1Door2, 1401A).
-nonTangentialProperPart(Floor1Door3, 1401A).
-nonTangentialProperPart(Floor1Door4, 1401A).
+nonTangentialProperPart(floor1Door1, r1401A).
+nonTangentialProperPart(floor1Door2, r1401A).
+nonTangentialProperPart(floor1Door3, r1401A).
+nonTangentialProperPart(floor1Door4, r1401A).
 
 %%%% 1401B
-nonTangentialProperPart(Floor3Door1, 1401B).
-nonTangentialProperPart(Floor3Door2, 1401B).
-nonTangentialProperPart(Floor3Door3, 1401B).
-nonTangentialProperPart(Floor3Door4, 1401B).
+nonTangentialProperPart(floor3Door1, r1401B).
+nonTangentialProperPart(floor3Door2, r1401B).
+nonTangentialProperPart(floor3Door3, r1401B).
+nonTangentialProperPart(floor3Door4, r1401B).
 
 %%%% 1410
-nonTangentialProperPart(WorkShopDoor1, 1410).
-nonTangentialProperPart(WorkShopDoor2, 1410).
+nonTangentialProperPart(workShopDoor1, r1410).
+nonTangentialProperPart(workShopDoor2, r1410).
 
 %%%% 1407
-nonTangentialProperPart(Floor2Door1, 1407).
-nonTangentialProperPart(Floor2Door2, 1407).
-nonTangentialProperPart(Floor2Door3, 1407).
-nonTangentialProperPart(Floor2Door4, 1407).
-nonTangentialProperPart(Floor2Door5, 1407).
-nonTangentialProperPart(Floor2Door6, 1407).
-nonTangentialProperPart(Floor2Door7, 1407).
-nonTangentialProperPart(Floor2Door8, 1407).
-nonTangentialProperPart(Floor2Door9, 1407).
+nonTangentialProperPart(floor2Door1, r1407).
+nonTangentialProperPart(floor2Door2, r1407).
+nonTangentialProperPart(floor2Door3, r1407).
+nonTangentialProperPart(floor2Door4, r1407).
+nonTangentialProperPart(floor2Door5, r1407).
+nonTangentialProperPart(floor2Door6, r1407).
+nonTangentialProperPart(floor2Door7, r1407).
+nonTangentialProperPart(floor2Door8, r1407).
+nonTangentialProperPart(floor2Door9, r1407).
 
 %%%% 1410A
-nonTangentialProperPart(WorkShopDoor3, 1410A).
-nonTangentialProperPart(WorkShopRight, 1410A).
+nonTangentialProperPart(workShopDoor3, r1410A).
+nonTangentialProperPart(workShopright, r1410A).
 
 %%%% 1410B
-nonTangentialProperPart(WorkShopDoor4, 1410B).
-nonTangentialProperPart(WorkShopLeft, 1410B).
+nonTangentialProperPart(workShopDoor4, r1410B).
+nonTangentialProperPart(workShopLeft, r1410B).
 
 %%%% 1408A
-nonTangentialProperPart(Room1408A, 1408A).
+nonTangentialProperPart(room1408A, r1408A).
 
 %%%% 1408B
-nonTangentialProperPart(Room1408BFront, 1408B).
-nonTangentialProperPart(Room1408BWindow, 1408B).
+nonTangentialProperPart(room1408BFront, r1408B).
+nonTangentialProperPart(room1408BWindow, r1408B).
 
 %%%% 1408C
-nonTangentialProperPart(Room1408CFront, 1408C).
-nonTangentialProperPart(Room1408CWindow, 1408C).
+nonTangentialProperPart(room1408CFront, r1408C).
+nonTangentialProperPart(room1408CWindow, r1408C).
 
 %%%% 1406A
-nonTangentialProperPart(Room1406AFront, 1406A).
-nonTangentialProperPart(Room1406AWindow, 1406A).
+nonTangentialProperPart(room1406AFront, r1406A).
+nonTangentialProperPart(room1406AWindow, r1406A).
 
 %%%% 1406B
-nonTangentialProperPart(Room1406BFront, 1406B).
-nonTangentialProperPart(Room1406BWindow, 1406B).
+nonTangentialProperPart(room1406BFront, r1406B).
+nonTangentialProperPart(room1406BWindow, r1406B).
 
 %%%% 1406C
-nonTangentialProperPart(Room1406C, 1406C).
+nonTangentialProperPart(room1406C, r1406C).
 
 %%%% 1405B
-nonTangentialProperPart(Kitchen, 1405B).
+nonTangentialProperPart(kitchen, r1405B).
 
 %%%% 1405A
-nonTangentialProperPart(Floor4, 1405A).
-nonTangentialProperPart(Floor4Door1, 1405A).
-nonTangentialProperPart(Floor4Door2, 1405A).
+nonTangentialProperPart(floor4, r1405A).
+nonTangentialProperPart(floor4Door1, r1405A).
+nonTangentialProperPart(floor4Door2, r1405A).
 
 %%%% 1405
-nonTangentialProperPart(MeetingRoom, 1405).
+nonTangentialProperPart(meetingroom, r1405).
 
 %%%% 1403C
-nonTangentialProperPart(CopyRoom, 1403C).
-nonTangentialProperPart(CopyRoomDoor1, 1403C).
-nonTangentialProperPart(CopyRoomDoor2, 1403C).
+nonTangentialProperPart(copyroom, r1403C).
+nonTangentialProperPart(copyroomDoor1, r1403C).
+nonTangentialProperPart(copyroomDoor2, r1403C).
 
 %%%% 1403A
-nonTangentialProperPart(SecreteriatDoor1, 1403A).
-nonTangentialProperPart(SecreteriatDoor2, 1403A).
-nonTangentialProperPart(SecreteriatDoor3, 1403A).
-nonTangentialProperPart(Secreteriat, 1403A).
+nonTangentialProperPart(secreteriatDoor1, r1403A).
+nonTangentialProperPart(secreteriatDoor2, r1403A).
+nonTangentialProperPart(secreteriatDoor3, r1403A).
+nonTangentialProperPart(secreteriat, r1403A).
 
 %%%% 1403
-nonTangentialProperPart(Room1403Door, 1403).
-nonTangentialProperPart(Room1403, 1403).
+nonTangentialProperPart(room1403Door, r1403).
+nonTangentialProperPart(room1403, r1403).

@@ -21,7 +21,7 @@ find_package(catkin REQUIRED COMPONENTS cnc_geometry system_config event_handlin
 catkin_package(
   INCLUDE_DIRS include
   LIBRARIES ttb_worldmodel
-  CATKIN_DEPENDS cnc_geometry system_config event_handling
+  CATKIN_DEPENDS cnc_geometry system_config event_handling robot_control ttb_msgs
 #  DEPENDS system_lib
 )
  
@@ -39,9 +39,10 @@ add_library(ttb_worldmodel
   src/RawSensorData.cpp
   src/Robots.cpp
   src/ttb_poi/TTBPointOfInterests.cpp
+  src/Doors.cpp
 )
 
-add_dependencies(ttb_worldmodel kobuki_msgs_generate_messages_cpp geometry_msgs_generate_messages_cpp ${catkin_LIBRARIES})
+add_dependencies(ttb_worldmodel kobuki_msgs_generate_messages_cpp geometry_msgs_generate_messages_cpp robot_control_generate_messages_cpp)
 
 target_link_libraries(ttb_worldmodel
   ${catkin_LIBRARIES} 

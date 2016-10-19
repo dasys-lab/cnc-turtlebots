@@ -24,7 +24,7 @@ namespace alica
         auto core = wm->rawSensorData.getOwnMobileBaseSensorState();
         if ((int)core->charger == 2 || (int)core->charger == 18)
         {
-        	this->setSuccess(true);
+            this->setSuccess(true);
         }
         else
         {

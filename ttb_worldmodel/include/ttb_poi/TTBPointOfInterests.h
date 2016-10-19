@@ -19,6 +19,9 @@ namespace ttb
 	{
 	public:
 		TTBPointOfInterests(TTBWorldModel* wm);
+		shared_ptr<POI> getPOIByName(string name);
+		shared_ptr<POI> getPOIByID(int id);
+		shared_ptr<POI>	getPOIByASPString(string aspPredicate);
 		virtual ~TTBPointOfInterests();
 		 shared_ptr<POI> getCopyRoom();
 		 shared_ptr<POI> getCopyRoomDoor1();
@@ -81,6 +84,7 @@ namespace ttb
 		TTBWorldModel* wm;
 		supplementary::SystemConfig* sc;
 		void readPOIs();
+		vector<shared_ptr<POI>> pois;
 		shared_ptr<POI> floor1;
 		shared_ptr<POI> hiwiRoom;
 		shared_ptr<POI> studentLab1;

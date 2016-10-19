@@ -1,8 +1,0 @@
-<!-- Starts up the ED-Server as Nodelet variant -->
-<launch>
-	
-  <arg name="nodelet_manager_name" default="mobile_base_nodelet_manager"/>
-
-  <node pkg="nodelet" type="nodelet" name="EDServerNodelet" args="load ed/EdNodelet $(arg nodelet_manager_name) $(find turtle_bringup)/param/ed_config.yaml" output="screen">
-  </node>
-</launch>

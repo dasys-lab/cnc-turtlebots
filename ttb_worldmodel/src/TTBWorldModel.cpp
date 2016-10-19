@@ -24,7 +24,7 @@ namespace ttb
 	}
 
 	TTBWorldModel::TTBWorldModel() :
-			ringBufferLength(10), rawSensorData(this, 10), robots(this, 10), pois(this), alicaEngine(nullptr)
+			ringBufferLength(10), rawSensorData(this, 10), robots(this, 10), pois(this), alicaEngine(nullptr), doors(this)
 	{
 		ownID = supplementary::SystemConfig::getOwnRobotID();
 
@@ -79,7 +79,7 @@ namespace ttb
 
 	bool TTBWorldModel::setEngine(alica::AlicaEngine* ae)
 	{
-		if (this->alicaEngine != nullptr)
+		if (this->alicaEngine == nullptr)
 		{
 			this->alicaEngine = ae;
 			return true;
@@ -88,6 +88,11 @@ namespace ttb
 		{
 			return false;
 		}
+	}
+
+	alica::AlicaEngine* TTBWorldModel::getEngine()
+	{
+		return this->alicaEngine;
 	}
 
 	InfoTime TTBWorldModel::getTime()

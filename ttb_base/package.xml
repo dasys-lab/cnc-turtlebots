@@ -21,6 +21,8 @@
   <build_depend>ttb_worldmodel</build_depend>
   <build_depend>message_generation</build_depend>
   <build_depend>alica_ros_proxy</build_depend>
+  <build_depend>alica_asp_solver</build_depend>
+  <build_depend>robot_control</build_depend>
   
   <run_depend>alica_ros_proxy</run_depend>
   <run_depend>ttb_expressions</run_depend>
@@ -30,7 +32,9 @@
   <run_depend>alica_engine</run_depend>
   <run_depend>system_config</run_depend>
   <run_depend>roscpp</run_depend>
-  <build_depend>autodiff</build_depend>
+  <run_depend>autodiff</run_depend>
+  <run_depend>alica_asp_solver</run_depend>
+  <run_depend>robot_control</run_depend>
 
   <export>
 

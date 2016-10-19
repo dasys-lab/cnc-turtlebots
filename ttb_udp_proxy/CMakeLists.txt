@@ -13,6 +13,9 @@ find_package(catkin REQUIRED COMPONENTS
   roslib
   system_config
   udp_proxy_generator
+  process_manager
+  ttb_msgs
+  kobuki_msgs
 )
 
 ## System dependencies are found with CMake's conventions
@@ -67,4 +70,4 @@ target_link_libraries(${PROJECT_NAME} ${catkin_LIBRARIES} ${Boost_LIBRARIES})
 
 ## Add cmake target dependencies of the executable/library
 ## as an example, message headers may need to be generated before nodes
-add_dependencies(${PROJECT_NAME} ${catkin_LIBRARIES} ${Boost_LIBRARIES} process_manager_generate_messages_cpp)
+add_dependencies(${PROJECT_NAME} process_manager_generate_messages_cpp)

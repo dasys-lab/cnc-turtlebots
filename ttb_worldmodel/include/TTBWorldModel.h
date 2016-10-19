@@ -38,6 +38,7 @@
 #include "TaskManager.h"
 #include "EventTrigger.h"
 #include "ttb_poi/TTBPointOfInterests.h"
+#include "Doors.h"
 
 namespace supplementary {
 	class SystemConfig;
@@ -59,6 +60,7 @@ namespace ttb
 		static TTBWorldModel* get(); /**< Singleton Getter */
 
 		bool setEngine(alica::AlicaEngine* ae);
+		alica::AlicaEngine* getEngine();
 		virtual ~TTBWorldModel();
 		InfoTime getTime();
 		int getRingBufferLength();
@@ -68,6 +70,7 @@ namespace ttb
 		TaskManager taskManager;
 		Robots robots;
 		TTBPointOfInterests pois;
+		Doors doors;
 
 
 	private:

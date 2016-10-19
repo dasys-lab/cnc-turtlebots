@@ -11,9 +11,21 @@ set(CMAKE_CXX_FLAGS "-rdynamic -g -fnon-call-exceptions -ggdb ${CMAKE_CXX_FLAGS}
 ## Find catkin macros and libraries
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
-find_package(catkin REQUIRED COMPONENTS roscpp system_config system_util fsystem autodiff event_handling alica_engine alica_ros_proxy ttb_expressions ttb_worldmodel tf)
-#message(">>> BASE: catkin_LIBRARIES: ${catkin_LIBRARIES}")
-#message(">>> BASE: catkin_INCLUDE_DIRS: ${catkin_INCLUDE_DIRS}")
+find_package(catkin REQUIRED COMPONENTS 
+  roscpp 
+  system_config 
+  system_util 
+  fsystem 
+  autodiff 
+  event_handling 
+  alica_engine 
+  alica_ros_proxy 
+  ttb_expressions 
+  ttb_worldmodel
+  robot_control 
+  tf 
+  alica_asp_solver
+)
 
 ###################################
 ## catkin specific configuration ##
@@ -42,9 +54,5 @@ include_directories(include ${catkin_INCLUDE_DIRS})
 ## Declare a cpp executable
 add_executable(ttb_base src/Base.cpp)
 
-## Add cmake target dependencies of the executable/library
-## as an example, message headers may need to be generated before nodes
-add_dependencies(ttb_base ${catkin_LIBRARIES})
-
 ## Specify libraries to link a library or executable target against
- target_link_libraries(ttb_base ${catkin_LIBRARIES} )
+target_link_libraries(ttb_base ${catkin_LIBRARIES} )

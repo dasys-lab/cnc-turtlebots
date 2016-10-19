@@ -1,7 +1,0 @@
-<library path="lib/libturtle_base_nodelet">
-	<class name="turtle_base/BaseNodelet" type="turtle::BaseNodelet" base_class_type="nodelet::Nodelet">
-		<description>
-			Nodelet Version of the Base Node for the Turtle Base.
-		</description>
-	</class>
-</library>

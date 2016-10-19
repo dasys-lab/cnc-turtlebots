@@ -27,6 +27,22 @@
 #include "ttb_msgs/AMCLPoseWrapped.h"
 #include "ttb_msgs/GoalWrapped.h"
 #include "ttb_msgs/InitialPoseWrapped.h"
+#include "tf2_msgs/TFMessage.h"
+#include "visualization_msgs/Marker.h"
+#include "geometry_msgs/PoseWithCovarianceStamped.h"
+#include "geometry_msgs/PoseStamped.h"
+#include "geometry_msgs/PoseWithCovarianceStamped.h"
+#include "kobuki_msgs/SensorState.h"
+#include "visualization_msgs/Marker.h"
+#include "geometry_msgs/PoseWithCovarianceStamped.h"
+#include "geometry_msgs/PoseStamped.h"
+#include "geometry_msgs/PoseWithCovarianceStamped.h"
+#include "kobuki_msgs/SensorState.h"
+#include "visualization_msgs/Marker.h"
+#include "geometry_msgs/PoseWithCovarianceStamped.h"
+#include "geometry_msgs/PoseStamped.h"
+#include "geometry_msgs/PoseWithCovarianceStamped.h"
+#include "kobuki_msgs/SensorState.h"
 
 using namespace supplementary;
 
@@ -149,6 +165,278 @@ uint8_t* buffer = NULL;
 	}
 	if(buffer!=NULL) delete[] buffer;
 }
+void onRosTFMessage491265(const ros::MessageEvent<tf2_msgs::TFMessage>& event) {
+	if(0 == event.getPublisherName().compare(ownRosName)) return;
+uint8_t* buffer = NULL;
+	const tf2_msgs::TFMessage::ConstPtr& message = event.getMessage();
+	try{
+		uint32_t serial_size = ros::serialization::serializationLength(*message);
+		buffer = new uint8_t[serial_size+sizeof(uint32_t)];
+		ros::serialization::OStream stream(buffer+sizeof(uint32_t), serial_size);
+		*((uint32_t*)buffer) = 491265u;
+		ros::serialization::serialize(stream, *message);
+		// write message to UDP
+		insocket->send_to(boost::asio::buffer((void*)buffer,serial_size+sizeof(uint32_t)),destEndPoint);
+	} catch(std::exception& e) {
+		ROS_ERROR_STREAM_THROTTLE(2,"Exception while sending UDP message:"<<e.what()<< " Discarding message!");
+	}
+	if(buffer!=NULL) delete[] buffer;
+}
+void onRosMarker52450053(const ros::MessageEvent<visualization_msgs::Marker>& event) {
+	if(0 == event.getPublisherName().compare(ownRosName)) return;
+uint8_t* buffer = NULL;
+	const visualization_msgs::Marker::ConstPtr& message = event.getMessage();
+	try{
+		uint32_t serial_size = ros::serialization::serializationLength(*message);
+		buffer = new uint8_t[serial_size+sizeof(uint32_t)];
+		ros::serialization::OStream stream(buffer+sizeof(uint32_t), serial_size);
+		*((uint32_t*)buffer) = 52450053u;
+		ros::serialization::serialize(stream, *message);
+		// write message to UDP
+		insocket->send_to(boost::asio::buffer((void*)buffer,serial_size+sizeof(uint32_t)),destEndPoint);
+	} catch(std::exception& e) {
+		ROS_ERROR_STREAM_THROTTLE(2,"Exception while sending UDP message:"<<e.what()<< " Discarding message!");
+	}
+	if(buffer!=NULL) delete[] buffer;
+}
+void onRosPoseWithCovarianceStamped3236539441(const ros::MessageEvent<geometry_msgs::PoseWithCovarianceStamped>& event) {
+	if(0 == event.getPublisherName().compare(ownRosName)) return;
+uint8_t* buffer = NULL;
+	const geometry_msgs::PoseWithCovarianceStamped::ConstPtr& message = event.getMessage();
+	try{
+		uint32_t serial_size = ros::serialization::serializationLength(*message);
+		buffer = new uint8_t[serial_size+sizeof(uint32_t)];
+		ros::serialization::OStream stream(buffer+sizeof(uint32_t), serial_size);
+		*((uint32_t*)buffer) = 3236539441u;
+		ros::serialization::serialize(stream, *message);
+		// write message to UDP
+		insocket->send_to(boost::asio::buffer((void*)buffer,serial_size+sizeof(uint32_t)),destEndPoint);
+	} catch(std::exception& e) {
+		ROS_ERROR_STREAM_THROTTLE(2,"Exception while sending UDP message:"<<e.what()<< " Discarding message!");
+	}
+	if(buffer!=NULL) delete[] buffer;
+}
+void onRosPoseStamped674080570(const ros::MessageEvent<geometry_msgs::PoseStamped>& event) {
+	if(0 == event.getPublisherName().compare(ownRosName)) return;
+uint8_t* buffer = NULL;
+	const geometry_msgs::PoseStamped::ConstPtr& message = event.getMessage();
+	try{
+		uint32_t serial_size = ros::serialization::serializationLength(*message);
+		buffer = new uint8_t[serial_size+sizeof(uint32_t)];
+		ros::serialization::OStream stream(buffer+sizeof(uint32_t), serial_size);
+		*((uint32_t*)buffer) = 674080570u;
+		ros::serialization::serialize(stream, *message);
+		// write message to UDP
+		insocket->send_to(boost::asio::buffer((void*)buffer,serial_size+sizeof(uint32_t)),destEndPoint);
+	} catch(std::exception& e) {
+		ROS_ERROR_STREAM_THROTTLE(2,"Exception while sending UDP message:"<<e.what()<< " Discarding message!");
+	}
+	if(buffer!=NULL) delete[] buffer;
+}
+void onRosPoseWithCovarianceStamped491912439(const ros::MessageEvent<geometry_msgs::PoseWithCovarianceStamped>& event) {
+	if(0 == event.getPublisherName().compare(ownRosName)) return;
+uint8_t* buffer = NULL;
+	const geometry_msgs::PoseWithCovarianceStamped::ConstPtr& message = event.getMessage();
+	try{
+		uint32_t serial_size = ros::serialization::serializationLength(*message);
+		buffer = new uint8_t[serial_size+sizeof(uint32_t)];
+		ros::serialization::OStream stream(buffer+sizeof(uint32_t), serial_size);
+		*((uint32_t*)buffer) = 491912439u;
+		ros::serialization::serialize(stream, *message);
+		// write message to UDP
+		insocket->send_to(boost::asio::buffer((void*)buffer,serial_size+sizeof(uint32_t)),destEndPoint);
+	} catch(std::exception& e) {
+		ROS_ERROR_STREAM_THROTTLE(2,"Exception while sending UDP message:"<<e.what()<< " Discarding message!");
+	}
+	if(buffer!=NULL) delete[] buffer;
+}
+void onRosSensorState2224094020(const ros::MessageEvent<kobuki_msgs::SensorState>& event) {
+	if(0 == event.getPublisherName().compare(ownRosName)) return;
+uint8_t* buffer = NULL;
+	const kobuki_msgs::SensorState::ConstPtr& message = event.getMessage();
+	try{
+		uint32_t serial_size = ros::serialization::serializationLength(*message);
+		buffer = new uint8_t[serial_size+sizeof(uint32_t)];
+		ros::serialization::OStream stream(buffer+sizeof(uint32_t), serial_size);
+		*((uint32_t*)buffer) = 2224094020u;
+		ros::serialization::serialize(stream, *message);
+		// write message to UDP
+		insocket->send_to(boost::asio::buffer((void*)buffer,serial_size+sizeof(uint32_t)),destEndPoint);
+	} catch(std::exception& e) {
+		ROS_ERROR_STREAM_THROTTLE(2,"Exception while sending UDP message:"<<e.what()<< " Discarding message!");
+	}
+	if(buffer!=NULL) delete[] buffer;
+}
+void onRosMarker979314518(const ros::MessageEvent<visualization_msgs::Marker>& event) {
+	if(0 == event.getPublisherName().compare(ownRosName)) return;
+uint8_t* buffer = NULL;
+	const visualization_msgs::Marker::ConstPtr& message = event.getMessage();
+	try{
+		uint32_t serial_size = ros::serialization::serializationLength(*message);
+		buffer = new uint8_t[serial_size+sizeof(uint32_t)];
+		ros::serialization::OStream stream(buffer+sizeof(uint32_t), serial_size);
+		*((uint32_t*)buffer) = 979314518u;
+		ros::serialization::serialize(stream, *message);
+		// write message to UDP
+		insocket->send_to(boost::asio::buffer((void*)buffer,serial_size+sizeof(uint32_t)),destEndPoint);
+	} catch(std::exception& e) {
+		ROS_ERROR_STREAM_THROTTLE(2,"Exception while sending UDP message:"<<e.what()<< " Discarding message!");
+	}
+	if(buffer!=NULL) delete[] buffer;
+}
+void onRosPoseWithCovarianceStamped3076792854(const ros::MessageEvent<geometry_msgs::PoseWithCovarianceStamped>& event) {
+	if(0 == event.getPublisherName().compare(ownRosName)) return;
+uint8_t* buffer = NULL;
+	const geometry_msgs::PoseWithCovarianceStamped::ConstPtr& message = event.getMessage();
+	try{
+		uint32_t serial_size = ros::serialization::serializationLength(*message);
+		buffer = new uint8_t[serial_size+sizeof(uint32_t)];
+		ros::serialization::OStream stream(buffer+sizeof(uint32_t), serial_size);
+		*((uint32_t*)buffer) = 3076792854u;
+		ros::serialization::serialize(stream, *message);
+		// write message to UDP
+		insocket->send_to(boost::asio::buffer((void*)buffer,serial_size+sizeof(uint32_t)),destEndPoint);
+	} catch(std::exception& e) {
+		ROS_ERROR_STREAM_THROTTLE(2,"Exception while sending UDP message:"<<e.what()<< " Discarding message!");
+	}
+	if(buffer!=NULL) delete[] buffer;
+}
+void onRosPoseStamped4093078319(const ros::MessageEvent<geometry_msgs::PoseStamped>& event) {
+	if(0 == event.getPublisherName().compare(ownRosName)) return;
+uint8_t* buffer = NULL;
+	const geometry_msgs::PoseStamped::ConstPtr& message = event.getMessage();
+	try{
+		uint32_t serial_size = ros::serialization::serializationLength(*message);
+		buffer = new uint8_t[serial_size+sizeof(uint32_t)];
+		ros::serialization::OStream stream(buffer+sizeof(uint32_t), serial_size);
+		*((uint32_t*)buffer) = 4093078319u;
+		ros::serialization::serialize(stream, *message);
+		// write message to UDP
+		insocket->send_to(boost::asio::buffer((void*)buffer,serial_size+sizeof(uint32_t)),destEndPoint);
+	} catch(std::exception& e) {
+		ROS_ERROR_STREAM_THROTTLE(2,"Exception while sending UDP message:"<<e.what()<< " Discarding message!");
+	}
+	if(buffer!=NULL) delete[] buffer;
+}
+void onRosPoseWithCovarianceStamped3004550932(const ros::MessageEvent<geometry_msgs::PoseWithCovarianceStamped>& event) {
+	if(0 == event.getPublisherName().compare(ownRosName)) return;
+uint8_t* buffer = NULL;
+	const geometry_msgs::PoseWithCovarianceStamped::ConstPtr& message = event.getMessage();
+	try{
+		uint32_t serial_size = ros::serialization::serializationLength(*message);
+		buffer = new uint8_t[serial_size+sizeof(uint32_t)];
+		ros::serialization::OStream stream(buffer+sizeof(uint32_t), serial_size);
+		*((uint32_t*)buffer) = 3004550932u;
+		ros::serialization::serialize(stream, *message);
+		// write message to UDP
+		insocket->send_to(boost::asio::buffer((void*)buffer,serial_size+sizeof(uint32_t)),destEndPoint);
+	} catch(std::exception& e) {
+		ROS_ERROR_STREAM_THROTTLE(2,"Exception while sending UDP message:"<<e.what()<< " Discarding message!");
+	}
+	if(buffer!=NULL) delete[] buffer;
+}
+void onRosSensorState4286660741(const ros::MessageEvent<kobuki_msgs::SensorState>& event) {
+	if(0 == event.getPublisherName().compare(ownRosName)) return;
+uint8_t* buffer = NULL;
+	const kobuki_msgs::SensorState::ConstPtr& message = event.getMessage();
+	try{
+		uint32_t serial_size = ros::serialization::serializationLength(*message);
+		buffer = new uint8_t[serial_size+sizeof(uint32_t)];
+		ros::serialization::OStream stream(buffer+sizeof(uint32_t), serial_size);
+		*((uint32_t*)buffer) = 4286660741u;
+		ros::serialization::serialize(stream, *message);
+		// write message to UDP
+		insocket->send_to(boost::asio::buffer((void*)buffer,serial_size+sizeof(uint32_t)),destEndPoint);
+	} catch(std::exception& e) {
+		ROS_ERROR_STREAM_THROTTLE(2,"Exception while sending UDP message:"<<e.what()<< " Discarding message!");
+	}
+	if(buffer!=NULL) delete[] buffer;
+}
+void onRosMarker3940289819(const ros::MessageEvent<visualization_msgs::Marker>& event) {
+	if(0 == event.getPublisherName().compare(ownRosName)) return;
+uint8_t* buffer = NULL;
+	const visualization_msgs::Marker::ConstPtr& message = event.getMessage();
+	try{
+		uint32_t serial_size = ros::serialization::serializationLength(*message);
+		buffer = new uint8_t[serial_size+sizeof(uint32_t)];
+		ros::serialization::OStream stream(buffer+sizeof(uint32_t), serial_size);
+		*((uint32_t*)buffer) = 3940289819u;
+		ros::serialization::serialize(stream, *message);
+		// write message to UDP
+		insocket->send_to(boost::asio::buffer((void*)buffer,serial_size+sizeof(uint32_t)),destEndPoint);
+	} catch(std::exception& e) {
+		ROS_ERROR_STREAM_THROTTLE(2,"Exception while sending UDP message:"<<e.what()<< " Discarding message!");
+	}
+	if(buffer!=NULL) delete[] buffer;
+}
+void onRosPoseWithCovarianceStamped736595839(const ros::MessageEvent<geometry_msgs::PoseWithCovarianceStamped>& event) {
+	if(0 == event.getPublisherName().compare(ownRosName)) return;
+uint8_t* buffer = NULL;
+	const geometry_msgs::PoseWithCovarianceStamped::ConstPtr& message = event.getMessage();
+	try{
+		uint32_t serial_size = ros::serialization::serializationLength(*message);
+		buffer = new uint8_t[serial_size+sizeof(uint32_t)];
+		ros::serialization::OStream stream(buffer+sizeof(uint32_t), serial_size);
+		*((uint32_t*)buffer) = 736595839u;
+		ros::serialization::serialize(stream, *message);
+		// write message to UDP
+		insocket->send_to(boost::asio::buffer((void*)buffer,serial_size+sizeof(uint32_t)),destEndPoint);
+	} catch(std::exception& e) {
+		ROS_ERROR_STREAM_THROTTLE(2,"Exception while sending UDP message:"<<e.what()<< " Discarding message!");
+	}
+	if(buffer!=NULL) delete[] buffer;
+}
+void onRosPoseStamped2503873000(const ros::MessageEvent<geometry_msgs::PoseStamped>& event) {
+	if(0 == event.getPublisherName().compare(ownRosName)) return;
+uint8_t* buffer = NULL;
+	const geometry_msgs::PoseStamped::ConstPtr& message = event.getMessage();
+	try{
+		uint32_t serial_size = ros::serialization::serializationLength(*message);
+		buffer = new uint8_t[serial_size+sizeof(uint32_t)];
+		ros::serialization::OStream stream(buffer+sizeof(uint32_t), serial_size);
+		*((uint32_t*)buffer) = 2503873000u;
+		ros::serialization::serialize(stream, *message);
+		// write message to UDP
+		insocket->send_to(boost::asio::buffer((void*)buffer,serial_size+sizeof(uint32_t)),destEndPoint);
+	} catch(std::exception& e) {
+		ROS_ERROR_STREAM_THROTTLE(2,"Exception while sending UDP message:"<<e.what()<< " Discarding message!");
+	}
+	if(buffer!=NULL) delete[] buffer;
+}
+void onRosPoseWithCovarianceStamped2083032085(const ros::MessageEvent<geometry_msgs::PoseWithCovarianceStamped>& event) {
+	if(0 == event.getPublisherName().compare(ownRosName)) return;
+uint8_t* buffer = NULL;
+	const geometry_msgs::PoseWithCovarianceStamped::ConstPtr& message = event.getMessage();
+	try{
+		uint32_t serial_size = ros::serialization::serializationLength(*message);
+		buffer = new uint8_t[serial_size+sizeof(uint32_t)];
+		ros::serialization::OStream stream(buffer+sizeof(uint32_t), serial_size);
+		*((uint32_t*)buffer) = 2083032085u;
+		ros::serialization::serialize(stream, *message);
+		// write message to UDP
+		insocket->send_to(boost::asio::buffer((void*)buffer,serial_size+sizeof(uint32_t)),destEndPoint);
+	} catch(std::exception& e) {
+		ROS_ERROR_STREAM_THROTTLE(2,"Exception while sending UDP message:"<<e.what()<< " Discarding message!");
+	}
+	if(buffer!=NULL) delete[] buffer;
+}
+void onRosSensorState1954641914(const ros::MessageEvent<kobuki_msgs::SensorState>& event) {
+	if(0 == event.getPublisherName().compare(ownRosName)) return;
+uint8_t* buffer = NULL;
+	const kobuki_msgs::SensorState::ConstPtr& message = event.getMessage();
+	try{
+		uint32_t serial_size = ros::serialization::serializationLength(*message);
+		buffer = new uint8_t[serial_size+sizeof(uint32_t)];
+		ros::serialization::OStream stream(buffer+sizeof(uint32_t), serial_size);
+		*((uint32_t*)buffer) = 1954641914u;
+		ros::serialization::serialize(stream, *message);
+		// write message to UDP
+		insocket->send_to(boost::asio::buffer((void*)buffer,serial_size+sizeof(uint32_t)),destEndPoint);
+	} catch(std::exception& e) {
+		ROS_ERROR_STREAM_THROTTLE(2,"Exception while sending UDP message:"<<e.what()<< " Discarding message!");
+	}
+	if(buffer!=NULL) delete[] buffer;
+}
 
 ros::Publisher pub3767756765;
 ros::Publisher pub3108117629;
@@ -156,6 +444,22 @@ ros::Publisher pub2783514677;
 ros::Publisher pub2611391888;
 ros::Publisher pub3867808201;
 ros::Publisher pub1388158846;
+ros::Publisher pub491265;
+ros::Publisher pub52450053;
+ros::Publisher pub3236539441;
+ros::Publisher pub674080570;
+ros::Publisher pub491912439;
+ros::Publisher pub2224094020;
+ros::Publisher pub979314518;
+ros::Publisher pub3076792854;
+ros::Publisher pub4093078319;
+ros::Publisher pub3004550932;
+ros::Publisher pub4286660741;
+ros::Publisher pub3940289819;
+ros::Publisher pub736595839;
+ros::Publisher pub2503873000;
+ros::Publisher pub2083032085;
+ros::Publisher pub1954641914;
 
 boost::array<char,64000> inBuffer;
 void listenForPacket() {
@@ -202,6 +506,86 @@ case 1388158846ul: {
 ttb_msgs::InitialPoseWrapped m1388158846;
 ros::serialization::Serializer<ttb_msgs::InitialPoseWrapped>::read(stream, m1388158846);
 pub1388158846.publish<ttb_msgs::InitialPoseWrapped>(m1388158846);
+break; }
+case 491265ul: {
+tf2_msgs::TFMessage m491265;
+ros::serialization::Serializer<tf2_msgs::TFMessage>::read(stream, m491265);
+pub491265.publish<tf2_msgs::TFMessage>(m491265);
+break; }
+case 52450053ul: {
+visualization_msgs::Marker m52450053;
+ros::serialization::Serializer<visualization_msgs::Marker>::read(stream, m52450053);
+pub52450053.publish<visualization_msgs::Marker>(m52450053);
+break; }
+case 3236539441ul: {
+geometry_msgs::PoseWithCovarianceStamped m3236539441;
+ros::serialization::Serializer<geometry_msgs::PoseWithCovarianceStamped>::read(stream, m3236539441);
+pub3236539441.publish<geometry_msgs::PoseWithCovarianceStamped>(m3236539441);
+break; }
+case 674080570ul: {
+geometry_msgs::PoseStamped m674080570;
+ros::serialization::Serializer<geometry_msgs::PoseStamped>::read(stream, m674080570);
+pub674080570.publish<geometry_msgs::PoseStamped>(m674080570);
+break; }
+case 491912439ul: {
+geometry_msgs::PoseWithCovarianceStamped m491912439;
+ros::serialization::Serializer<geometry_msgs::PoseWithCovarianceStamped>::read(stream, m491912439);
+pub491912439.publish<geometry_msgs::PoseWithCovarianceStamped>(m491912439);
+break; }
+case 2224094020ul: {
+kobuki_msgs::SensorState m2224094020;
+ros::serialization::Serializer<kobuki_msgs::SensorState>::read(stream, m2224094020);
+pub2224094020.publish<kobuki_msgs::SensorState>(m2224094020);
+break; }
+case 979314518ul: {
+visualization_msgs::Marker m979314518;
+ros::serialization::Serializer<visualization_msgs::Marker>::read(stream, m979314518);
+pub979314518.publish<visualization_msgs::Marker>(m979314518);
+break; }
+case 3076792854ul: {
+geometry_msgs::PoseWithCovarianceStamped m3076792854;
+ros::serialization::Serializer<geometry_msgs::PoseWithCovarianceStamped>::read(stream, m3076792854);
+pub3076792854.publish<geometry_msgs::PoseWithCovarianceStamped>(m3076792854);
+break; }
+case 4093078319ul: {
+geometry_msgs::PoseStamped m4093078319;
+ros::serialization::Serializer<geometry_msgs::PoseStamped>::read(stream, m4093078319);
+pub4093078319.publish<geometry_msgs::PoseStamped>(m4093078319);
+break; }
+case 3004550932ul: {
+geometry_msgs::PoseWithCovarianceStamped m3004550932;
+ros::serialization::Serializer<geometry_msgs::PoseWithCovarianceStamped>::read(stream, m3004550932);
+pub3004550932.publish<geometry_msgs::PoseWithCovarianceStamped>(m3004550932);
+break; }
+case 4286660741ul: {
+kobuki_msgs::SensorState m4286660741;
+ros::serialization::Serializer<kobuki_msgs::SensorState>::read(stream, m4286660741);
+pub4286660741.publish<kobuki_msgs::SensorState>(m4286660741);
+break; }
+case 3940289819ul: {
+visualization_msgs::Marker m3940289819;
+ros::serialization::Serializer<visualization_msgs::Marker>::read(stream, m3940289819);
+pub3940289819.publish<visualization_msgs::Marker>(m3940289819);
+break; }
+case 736595839ul: {
+geometry_msgs::PoseWithCovarianceStamped m736595839;
+ros::serialization::Serializer<geometry_msgs::PoseWithCovarianceStamped>::read(stream, m736595839);
+pub736595839.publish<geometry_msgs::PoseWithCovarianceStamped>(m736595839);
+break; }
+case 2503873000ul: {
+geometry_msgs::PoseStamped m2503873000;
+ros::serialization::Serializer<geometry_msgs::PoseStamped>::read(stream, m2503873000);
+pub2503873000.publish<geometry_msgs::PoseStamped>(m2503873000);
+break; }
+case 2083032085ul: {
+geometry_msgs::PoseWithCovarianceStamped m2083032085;
+ros::serialization::Serializer<geometry_msgs::PoseWithCovarianceStamped>::read(stream, m2083032085);
+pub2083032085.publish<geometry_msgs::PoseWithCovarianceStamped>(m2083032085);
+break; }
+case 1954641914ul: {
+kobuki_msgs::SensorState m1954641914;
+ros::serialization::Serializer<kobuki_msgs::SensorState>::read(stream, m1954641914);
+pub1954641914.publish<kobuki_msgs::SensorState>(m1954641914);
 break; }
 			
 				default:
@@ -272,6 +656,22 @@ ros::Subscriber sub2 = n.subscribe("/process_manager/ProcessStats",5, onRosProce
 ros::Subscriber sub3 = n.subscribe("/wrapped/amcl_pose",5, onRosAMCLPoseWrapped2611391888,ros::TransportHints().unreliable().tcpNoDelay().reliable());
 ros::Subscriber sub4 = n.subscribe("/wrapped/move_base_simple/goal",5, onRosGoalWrapped3867808201,ros::TransportHints().unreliable().tcpNoDelay().reliable());
 ros::Subscriber sub5 = n.subscribe("/wrapped/initialpose",5, onRosInitialPoseWrapped1388158846,ros::TransportHints().unreliable().tcpNoDelay().reliable());
+ros::Subscriber sub6 = n.subscribe("/tf",5, onRosTFMessage491265,ros::TransportHints().unreliable().tcpNoDelay().reliable());
+ros::Subscriber sub7 = n.subscribe("/leonardo/visualization_marker",5, onRosMarker52450053,ros::TransportHints().unreliable().tcpNoDelay().reliable());
+ros::Subscriber sub8 = n.subscribe("/leonardo/amcl_pose",5, onRosPoseWithCovarianceStamped3236539441,ros::TransportHints().unreliable().tcpNoDelay().reliable());
+ros::Subscriber sub9 = n.subscribe("/leonardo/move_base_simple/goal",5, onRosPoseStamped674080570,ros::TransportHints().unreliable().tcpNoDelay().reliable());
+ros::Subscriber sub10 = n.subscribe("/leonardo/initialpose",5, onRosPoseWithCovarianceStamped491912439,ros::TransportHints().unreliable().tcpNoDelay().reliable());
+ros::Subscriber sub11 = n.subscribe("/leonardo/mobile_base/sensors/core",5, onRosSensorState2224094020,ros::TransportHints().unreliable().tcpNoDelay().reliable());
+ros::Subscriber sub12 = n.subscribe("/raphael/visualization_marker",5, onRosMarker979314518,ros::TransportHints().unreliable().tcpNoDelay().reliable());
+ros::Subscriber sub13 = n.subscribe("/raphael/amcl_pose",5, onRosPoseWithCovarianceStamped3076792854,ros::TransportHints().unreliable().tcpNoDelay().reliable());
+ros::Subscriber sub14 = n.subscribe("/raphael/move_base_simple/goal",5, onRosPoseStamped4093078319,ros::TransportHints().unreliable().tcpNoDelay().reliable());
+ros::Subscriber sub15 = n.subscribe("/raphael/initialpose",5, onRosPoseWithCovarianceStamped3004550932,ros::TransportHints().unreliable().tcpNoDelay().reliable());
+ros::Subscriber sub16 = n.subscribe("/raphael/mobile_base/sensors/core",5, onRosSensorState4286660741,ros::TransportHints().unreliable().tcpNoDelay().reliable());
+ros::Subscriber sub17 = n.subscribe("/donatello/visualization_marker",5, onRosMarker3940289819,ros::TransportHints().unreliable().tcpNoDelay().reliable());
+ros::Subscriber sub18 = n.subscribe("/donatello/amcl_pose",5, onRosPoseWithCovarianceStamped736595839,ros::TransportHints().unreliable().tcpNoDelay().reliable());
+ros::Subscriber sub19 = n.subscribe("/donatello/move_base_simple/goal",5, onRosPoseStamped2503873000,ros::TransportHints().unreliable().tcpNoDelay().reliable());
+ros::Subscriber sub20 = n.subscribe("/donatello/initialpose",5, onRosPoseWithCovarianceStamped2083032085,ros::TransportHints().unreliable().tcpNoDelay().reliable());
+ros::Subscriber sub21 = n.subscribe("/donatello/mobile_base/sensors/core",5, onRosSensorState1954641914,ros::TransportHints().unreliable().tcpNoDelay().reliable());
 	
 pub3767756765 = n.advertise<alica_ros_proxy::PlanTreeInfo>("/AlicaEngine/PlanTreeInfo",5,false);
 pub3108117629 = n.advertise<process_manager::ProcessCommand>("/process_manager/ProcessCommand",5,false);
@@ -279,6 +679,22 @@ pub2783514677 = n.advertise<process_manager::ProcessStats>("/process_manager/Pro
 pub2611391888 = n.advertise<ttb_msgs::AMCLPoseWrapped>("/wrapped/amcl_pose",5,false);
 pub3867808201 = n.advertise<ttb_msgs::GoalWrapped>("/wrapped/move_base_simple/goal",5,false);
 pub1388158846 = n.advertise<ttb_msgs::InitialPoseWrapped>("/wrapped/initialpose",5,false);
+pub491265 = n.advertise<tf2_msgs::TFMessage>("/tf",5,false);
+pub52450053 = n.advertise<visualization_msgs::Marker>("/leonardo/visualization_marker",5,false);
+pub3236539441 = n.advertise<geometry_msgs::PoseWithCovarianceStamped>("/leonardo/amcl_pose",5,false);
+pub674080570 = n.advertise<geometry_msgs::PoseStamped>("/leonardo/move_base_simple/goal",5,false);
+pub491912439 = n.advertise<geometry_msgs::PoseWithCovarianceStamped>("/leonardo/initialpose",5,false);
+pub2224094020 = n.advertise<kobuki_msgs::SensorState>("/leonardo/mobile_base/sensors/core",5,false);
+pub979314518 = n.advertise<visualization_msgs::Marker>("/raphael/visualization_marker",5,false);
+pub3076792854 = n.advertise<geometry_msgs::PoseWithCovarianceStamped>("/raphael/amcl_pose",5,false);
+pub4093078319 = n.advertise<geometry_msgs::PoseStamped>("/raphael/move_base_simple/goal",5,false);
+pub3004550932 = n.advertise<geometry_msgs::PoseWithCovarianceStamped>("/raphael/initialpose",5,false);
+pub4286660741 = n.advertise<kobuki_msgs::SensorState>("/raphael/mobile_base/sensors/core",5,false);
+pub3940289819 = n.advertise<visualization_msgs::Marker>("/donatello/visualization_marker",5,false);
+pub736595839 = n.advertise<geometry_msgs::PoseWithCovarianceStamped>("/donatello/amcl_pose",5,false);
+pub2503873000 = n.advertise<geometry_msgs::PoseStamped>("/donatello/move_base_simple/goal",5,false);
+pub2083032085 = n.advertise<geometry_msgs::PoseWithCovarianceStamped>("/donatello/initialpose",5,false);
+pub1954641914 = n.advertise<kobuki_msgs::SensorState>("/donatello/mobile_base/sensors/core",5,false);
 	
 	boost::thread iothread(run);
     
