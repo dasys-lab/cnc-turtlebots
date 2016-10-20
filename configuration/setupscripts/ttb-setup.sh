@@ -14,7 +14,7 @@ workspace_path="$HOME/ttbws"
 workspace_src="${workspace_path}/src"
 ros_setup_file="/opt/ros/${ros_distro}/setup.sh"
 github_url='git@github.com:carpe-noctem-cassel/'
-repos='alica alica-plan-designer supplementary'
+repos='alica alica-plan-designer supplementary symrock clingo_cpp'
 
 # functions
 msg() {
@@ -156,19 +156,15 @@ git_setup() {
 clone_git_repos() {
 	msg "Cloning repos \"$repos\" into ${workspace_src}..."
 	
-	# FIXME: temporary branches and repos
-	git clone -b asp-integration ${github_url}cnc-turtlebots "${workspace_src}/cnc-turtlebots"
-	git clone ${github_url}symrock "${workspace_src}/symrock"
-	git clone ${github_url}clingo_cpp "${workspace_src}/clingo_cpp"
+	# FIXME: move repo to cnc?
 	git clone https://github.com/StephanOpfer/turtlebot "${workspace_src}/turtlebot"
-	branch=kinetic
 
 	for r in $repos
 	do
 		if [ ! -d ${workspace_src}/${r} ]
 		then
 			msg "Cloning repository $r"
-			git clone -b $branch ${github_url}${r}'.git' "${workspace_src}/${r}"
+			git clone ${github_url}${r}'.git' "${workspace_src}/${r}"
 		else
 			msg "$r already exists!"
 		fi
@@ -202,8 +198,14 @@ setup_bashrc() {
 	append_bashrc "# Fancy prompt that also shows the current branch"
 	append_bashrc "export PS1='\[\033[01;32m\]\u@\h\[\033[01;34m\] \w \[\033[01;31m\]\$(__git_ps1 \"[%s]\")\[\033[01;34m\]\$\[\033[00m\] '"
 
+	append_bashrc "export TURTLEBOT_STACKS=ninja-hexagons"
+	append_bashrc "export TURTLEBOT_3D_SENSOR=ninja-kinect"
+
 	# The only way to break a habit
 	append_bashrc "alias catkin_make='catkin build'"
+
+	# For eclipse users
+	append_bashrc "alias eclipse='~/eclipse/eclipse'"
 }
 
 # This portion of the script has to be run as root
