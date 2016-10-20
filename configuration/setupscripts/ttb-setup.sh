@@ -14,7 +14,7 @@ workspace_path="$HOME/ttbws"
 workspace_src="${workspace_path}/src"
 ros_setup_file="/opt/ros/${ros_distro}/setup.sh"
 github_url='git@github.com:carpe-noctem-cassel/'
-repos='alica alica-plan-designer supplementary symrock clingo_cpp cnc-turtlebots'
+repos='alica alica-plan-designer supplementary symrock clingo_cpp cnc-turtlebots turtlebot'
 
 # functions
 msg() {
@@ -156,9 +156,6 @@ git_setup() {
 clone_git_repos() {
 	msg "Cloning repos \"$repos\" into ${workspace_src}..."
 	
-	# FIXME: move repo to cnc?
-	git clone https://github.com/StephanOpfer/turtlebot "${workspace_src}/turtlebot"
-
 	for r in $repos
 	do
 		if [ ! -d ${workspace_src}/${r} ]
