@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="ASCII"?>
+<uiextensionmodel:PmlUiExtensionMap xmlns:uiextensionmodel="http:///de.uni_kassel.vs.cn/planDesigner/pmlextension/uiextensionmodel">
+  <extensions>
+    <key href="ASPMinimizePathMaster.pml#1477125857344"/>
+    <value xPos="229" yPos="109" width="82" height="67" collapsed="false"/>
+  </extensions>
+  <extensions>
+    <key href="ASPMinimizePathMaster.pml#1477125857343"/>
+    <value xPos="5" yPos="-3" width="699" height="436"/>
+  </extensions>
+  <extensions>
+    <key href="ASPMinimizePathMaster.pml#1477125857346"/>
+    <value/>
+  </extensions>
+  <extensions>
+    <key href="ASPMinimizePathMaster.pml#1477125906086"/>
+    <value xPos="336" yPos="327"/>
+  </extensions>
+  <extensions>
+    <key href="../Behaviours/ASPMinimizePath.beh#1477125946392"/>
+    <value/>
+  </extensions>
+</uiextensionmodel:PmlUiExtensionMap>

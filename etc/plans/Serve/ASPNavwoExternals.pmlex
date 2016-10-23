@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="ASCII"?>
+<uiextensionmodel:PmlUiExtensionMap xmlns:uiextensionmodel="http:///de.uni_kassel.vs.cn/planDesigner/pmlextension/uiextensionmodel">
+  <extensions>
+    <key href="ASPNavwoExternals.pml#1477229620131"/>
+    <value xPos="62" yPos="80" width="82" height="67" collapsed="false"/>
+  </extensions>
+  <extensions>
+    <key href="ASPNavwoExternals.pml#1477229620130"/>
+    <value width="547" height="295"/>
+  </extensions>
+  <extensions>
+    <key href="ASPNavwoExternals.pml#1477229620132"/>
+    <value/>
+  </extensions>
+  <extensions>
+    <key href="ASPNavwoExternals.pml#1477229628161"/>
+    <value xPos="269" yPos="81" width="82" height="67"/>
+  </extensions>
+  <extensions>
+    <key href="ASPNavwoExternals.pml#1477229632397"/>
+    <value/>
+  </extensions>
+  <extensions>
+    <key href="ASPNavwoExternalsInner.pml#1477229638868"/>
+    <value/>
+  </extensions>
+  <extensions>
+    <key href="ASPNavwoExternals.pml#1477229672639"/>
+    <value xPos="411" yPos="41"/>
+  </extensions>
+  <extensions>
+    <key href="ASPNavwoExternals.pml#1477229678856"/>
+    <value/>
+  </extensions>
+  <extensions>
+    <key href="ASPNavwoExternals.pml#1477229706852"/>
+    <value xPos="241" yPos="250"/>
+  </extensions>
+  <extensions>
+    <key href="../Behaviours/ASPNavwoExt.beh#1477229777461"/>
+    <value/>
+  </extensions>
+</uiextensionmodel:PmlUiExtensionMap>

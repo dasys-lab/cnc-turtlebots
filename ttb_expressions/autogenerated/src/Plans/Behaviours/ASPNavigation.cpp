@@ -28,18 +28,18 @@ namespace alica
     void ASPNavigation::run(void* msg)
     {
         /*PROTECTED REGION ID(run1475693360605) ENABLED START*/ //Add additional options here
-    	this->iterationCounter++;
+        this->iterationCounter++;
         this->wm->doors.openDoor("doorClosed(r1411, studentArea)");
         this->wm->doors.openDoor("doorClosed(r1411C, studentArea)");
         this->wm->doors.openDoor("doorClosed(r1411, r1411C)");
         this->wm->doors.openDoor("doorClosed(studentArea, mainHallA)");
-        if(this->iterationCounter > 10)
+        if (this->iterationCounter > 5)
         {
-        	this->wm->doors.closeDoor("doorClosed(mainHallA, mainHallB)");
+            this->wm->doors.closeDoor("doorClosed(mainHallA, mainHallB)");
         }
         else
         {
-			this->wm->doors.openDoor("doorClosed(mainHallA, mainHallB)");
+            this->wm->doors.openDoor("doorClosed(mainHallA, mainHallB)");
         }
         this->wm->doors.openDoor("doorClosed(mainHallB, utility)");
         this->wm->doors.openDoor("doorClosed(r1405B, utility)");
@@ -70,7 +70,10 @@ namespace alica
         {
             cout << "ASPNavigation: no result found!" << endl;
         }
-//        this->setSuccess(true);
+        if (this->iterationCounter >= 10)
+        {
+            this->setSuccess(true);
+        }
 
         /*PROTECTED REGION END*/
     }
