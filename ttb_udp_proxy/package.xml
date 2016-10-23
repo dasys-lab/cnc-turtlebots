@@ -11,13 +11,21 @@
   <buildtool_depend>catkin</buildtool_depend>
 
   <build_depend>roscpp</build_depend>
+  <build_depend>process_manager</build_depend>
   <build_depend>roslib</build_depend>
   <build_depend>system_config</build_depend>
   <build_depend>udp_proxy_generator</build_depend>
+  <build_depend>ttb_msgs</build_depend>
+  <build_depend>kobuki_msgs</build_depend>
+  <build_depend>alica_ros_proxy</build_depend>
 
   <run_depend>roscpp</run_depend>
+  <run_depend>process_manager</run_depend>
   <run_depend>roslib</run_depend>
   <run_depend>system_config</run_depend>
   <run_depend>udp_proxy_generator</run_depend>
+  <run_depend>ttb_msgs</run_depend>
+  <run_depend>kobuki_msgs</run_depend>
+  <run_depend>alica_ros_proxy</run_depend>
 
 </package>

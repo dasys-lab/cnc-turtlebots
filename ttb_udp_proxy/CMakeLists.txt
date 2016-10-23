@@ -5,7 +5,7 @@ project(ttb_udp_proxy)
 set(CMAKE_CXX_FLAGS "-std=c++11  ${CMAKE_CXX_FLAGS}")
 
 find_package(catkin REQUIRED COMPONENTS
-#  alica_ros_proxy
+  alica_ros_proxy
   roscpp
   roslib
   system_config
@@ -20,8 +20,7 @@ find_package(Boost REQUIRED COMPONENTS system filesystem regex)
 catkin_package(
   #INCLUDE_DIRS include
   #LIBRARIES ttb_udp_proxy
-  #CATKIN_DEPENDS alica_ros_proxy roscpp roslib system_config udp_proxy_generator
-  CATKIN_DEPENDS roscpp roslib system_config udp_proxy_generator
+  CATKIN_DEPENDS alica_ros_proxy roscpp roslib system_config udp_proxy_generator
   #DEPENDS
 )
 
