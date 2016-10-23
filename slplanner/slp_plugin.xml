@@ -1,0 +1,7 @@
+<library path="lib/libslplanner">
+    <class name="ttb_path_planner/SimpleLocalPlanner" type="ttb_path_planner::SimpleLocalPlanner" base_class_type="nav_core::BaseLocalPlanner">
+    <description>
+      An implementation of a local planner using specific for indoor application of the turtlebot.
+    </description>
+  </class>
+</library>
