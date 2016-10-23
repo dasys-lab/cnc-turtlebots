@@ -4,11 +4,8 @@ project(ttb_udp_proxy)
 ## Use c++ 11x std
 set(CMAKE_CXX_FLAGS "-std=c++11  ${CMAKE_CXX_FLAGS}")
 
-## Find catkin macros and libraries
-## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
-## is used, also find other catkin packages
 find_package(catkin REQUIRED COMPONENTS
-  alica_ros_proxy
+#  alica_ros_proxy
   roscpp
   roslib
   system_config
@@ -18,33 +15,16 @@ find_package(catkin REQUIRED COMPONENTS
   kobuki_msgs
 )
 
-## System dependencies are found with CMake's conventions
 find_package(Boost REQUIRED COMPONENTS system filesystem regex)
 
-
-###################################
-## catkin specific configuration ##
-###################################
-## The catkin_package macro generates cmake config files for your package
-## Declare things to be passed to dependent projects
-## INCLUDE_DIRS: uncomment this if you package contains header files
-## LIBRARIES: libraries you create in this project that dependent projects also need
-## CATKIN_DEPENDS: catkin_packages dependent projects also need
-## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
-#  INCLUDE_DIRS include
-#  LIBRARIES ttb_udp_proxy
-  CATKIN_DEPENDS alica_ros_proxy roscpp roslib system_config udp_proxy_generator
-  DEPENDS system filesystem regex
+  #INCLUDE_DIRS include
+  #LIBRARIES ttb_udp_proxy
+  #CATKIN_DEPENDS alica_ros_proxy roscpp roslib system_config udp_proxy_generator
+  CATKIN_DEPENDS roscpp roslib system_config udp_proxy_generator
+  #DEPENDS
 )
 
-###########
-## Build ##
-###########
-
-## Specify additional locations of header files
-## Your package locations should be listed before other locations
-# include_directories(include)
 include_directories(
   ${catkin_INCLUDE_DIRS} ${Boost_INCLUIDE_DIRS}
 )
@@ -60,14 +40,10 @@ add_custom_command(
     COMMENT "${PROJECT_NAME}: Generating Code ..."
 )
 
-## Declare a cpp executable
 add_executable(${PROJECT_NAME}
   proxy_gen/ros2udpProxy.cpp
 )
 
-## Specify libraries to link a library or executable target against
 target_link_libraries(${PROJECT_NAME} ${catkin_LIBRARIES} ${Boost_LIBRARIES})
 
-## Add cmake target dependencies of the executable/library
-## as an example, message headers may need to be generated before nodes
 add_dependencies(${PROJECT_NAME} process_manager_generate_messages_cpp)
