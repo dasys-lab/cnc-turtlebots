@@ -3,7 +3,11 @@ using namespace std;
 #include "BehaviourCreator.h"
 #include "engine/BasicBehaviour.h"
 
+#include  "Plans/Behaviours/ASPMinimizePath.h"
+
 #include  "Plans/Behaviours/Stop.h"
+
+#include  "Plans/Behaviours/ASPNavwoExt.h"
 
 #include  "Plans/Behaviours/DriveToPOI.h"
 
@@ -37,9 +41,21 @@ namespace alica
         switch (behaviourConfId)
         {
 
+            case 1477125946392:
+
+                return make_shared<ASPMinimizePath>();
+                break;
+
             case 1414681278745:
 
                 return make_shared<Stop>();
+                break;
+
+            case 1477229777461:
+
+            case 1477229800616:
+
+                return make_shared<ASPNavwoExt>();
                 break;
 
             case 1454329864420:
