@@ -1,0 +1,31 @@
+\chapter{External Software}
+\label{chap:ExtSoftware}
+
+This chapter is intended to give a short introduction to external software packages or frameworks, we utilise for the Carpe Noctem Cassel software framework.
+
+\section{GIT and GitHub}
+\label{sec:Git}
+
+GIT is one of the most advanced version control systems currently available. Nevertheless, during our daily work we only use 20\% of its functionality. So for starters try to learn the stuff you need and ignore its advanced features like \emph{rebase} and \emph{cherry pick}.
+
+The best reference and documentation about GIT can be found at \url{http://www.git-scm.com/docs}
+
+Most of our software is published open source under the MIT License at our \href{https://github.com/carpe-noctem-cassel}{GitHub Repositories}. Therefore, it is also interesting to read about the features of GitHub, like SSH-Key based authorization, groups, organisations, and MarkDown.
+
+The README.md files in our repositories are written in \href{https://en.wikipedia.org/wiki/Markdown}{MarkDown}, because GitHub parses these MarkDown files and auto-generates and HTML documentation from it.
+
+\section{Robot Operating System (ROS)}
+\label{sec:ROS}
+
+ROS, as we use it, is a simple inter process communication middleware. Before you ask, yes it is not intended to be used for inter machine/robot communication. Therefore, we have developed a simple ROSUdpProxy, for our purposes at RoboCup. 
+
+Tutorials for ROS can be found here: \url{http://wiki.ros.org/ROS/Tutorials}
+
+\section{Build Chain}
+\label{sec:BuildChain}
+
+We utilise \emph{catkin} from the ROS Universe as our build chain. Catkin is basically a workspace-oriented extension of \href{http://www.cmake.org/}{CMake}. Therefore, it heavily relies on CMake and in order to understand catkin it is recommended to understand CMake first.
+
+CMake is open source and developed by \href{http://www.kitware.com/company/about.html}{KitWare}. Basically CMake autogenerates Makefiles out of CMakeLists.txt files located in each software module. Therefore, our build chain can really be considered as a chain \smiley: 
+
+Catkin $\xrightarrow{manages}$ CMake $\xrightarrow{auto-generates}$ Makefiles $\xrightarrow{commands}$ GCC $\xrightarrow{to\ compile}$ executables and libraries.
