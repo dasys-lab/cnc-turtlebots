@@ -2,7 +2,7 @@
 %%%%% Relations for PathPlanning
 
 reachable(X, Y, 1) :- reachable(Y, X, 1), X!=Y.
-reachable(X, Z, 1) :- reachable(X, Y, 1), reachable(Y,Z), X!=Y, Y!=Z, X!=Z. 
+reachable(X, Z, 1) :- reachable(X, Y, 1), reachable(Y, Z, 1), X!=Y, Y!=Z, X!=Z. 
 reachable(X, Y, 1) :- partialOverlapping(X, Y, 1), area(X, 1), area(Y, 1). 
 reachable(X, Y, 1) :- properPart(X, Y, 1), room(X, 1), area(Y, 1).
 
@@ -104,7 +104,7 @@ partialOverlapping(mainHallB, organization, 1).
 disconnected(mainHallB, studentArea, 1).
 disconnected(mainHallB, workshop, 1).
 
-equal(r1401B, mainHallB).
+equal(r1401B, mainHallB, 1).
 
 %%%% utility
 partialOverlapping(utility, mainHallB, 1).
@@ -318,7 +318,7 @@ poi(room1406AFront, 1).
 poi(room1406AWindow, 1).
 poi(room1406BFront, 1).
 poi(room1406BWindow, 1).
-poi(room1406C), 1.
+poi(room1406C, 1).
 poi(kitchen, 1).
 poi(floor4, 1).
 poi(floor4Door1, 1).

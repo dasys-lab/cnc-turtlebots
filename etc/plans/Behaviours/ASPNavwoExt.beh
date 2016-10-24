@@ -6,6 +6,6 @@
   </configurations>
   <configurations id="1477229800616" name="ASPNavwoExt2" comment="" masterPlan="false" utilityFunction="" utilityThreshold="0.1" destinationPath="" deferring="0" frequency="30" eventDriven="false">
     <vars id="1477229925769" name="NavVar2" comment="" Type=""/>
-    <parameters id="1477229885381" name="MISSING_NAME" comment="" key="doorConfig" value="config2"/>
+    <parameters id="1477339842529" name="MISSING_NAME" comment="" key="doorConfig" value="config2"/>
   </configurations>
 </alica:Behaviour>

@@ -3,6 +3,9 @@
 
 #include "DomainBehaviour.h"
 /*PROTECTED REGION ID(inc1477229760910) ENABLED START*/ //Add additional includes here
+#include <engine/constraintmodul/ConstraintQuery.h>
+#include <clingo/clingocontrol.hh>
+#include <memory>
 /*PROTECTED REGION END*/
 namespace alica
 {
@@ -13,6 +16,7 @@ namespace alica
         virtual ~ASPNavwoExt();
         virtual void run(void* msg);
         /*PROTECTED REGION ID(pub1477229760910) ENABLED START*/ //Add additional public methods here
+        vector<Gringo::ValVec> result;
         /*PROTECTED REGION END*/
     protected:
         virtual void initialiseParameters();
@@ -20,6 +24,9 @@ namespace alica
         /*PROTECTED REGION END*/
     private:
         /*PROTECTED REGION ID(prv1477229760910) ENABLED START*/ //Add additional private methods here
+        shared_ptr<alica::ConstraintQuery> query;
+        string doorConfig;
+        int iterationCounter;
         /*PROTECTED REGION END*/};
 } /* namespace alica */
 
