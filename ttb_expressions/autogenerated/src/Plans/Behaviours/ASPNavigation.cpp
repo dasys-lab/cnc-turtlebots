@@ -36,11 +36,14 @@ namespace alica
 			this->wm->doors.openDoor("doorClosed(studentArea, mainHallA)");
 			this->wm->doors.openDoor("doorClosed(mainHallB, utility)");
 			this->wm->doors.openDoor("doorClosed(r1405B, utility)");
-			this->wm->doors.openDoor("doorClosed(mainHallA, mainHallB)");
 		}
-		if (this->iterationCounter == 5)
+		if (this->iterationCounter % 2 == 0)
 		{
 			this->wm->doors.closeDoor("doorClosed(mainHallA, mainHallB)");
+		}
+		else
+		{
+			this->wm->doors.openDoor("doorClosed(mainHallA, mainHallB)");
 		}
 
 //        this->wm->doors.openDoor("doorClosed(mainHallA, offices)");
