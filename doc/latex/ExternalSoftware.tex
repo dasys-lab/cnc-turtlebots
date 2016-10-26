@@ -1,4 +1,4 @@
-\chapter{External Software}
+\chapter{External Software and Developing Tools}
 \label{chap:ExtSoftware}
 
 This chapter is intended to give a short introduction to external software packages or frameworks, we utilise for the Carpe Noctem Cassel software framework.
@@ -14,12 +14,31 @@ Most of our software is published open source under the MIT License at our \href
 
 The README.md files in our repositories are written in \href{https://en.wikipedia.org/wiki/Markdown}{MarkDown}, because GitHub parses these MarkDown files and auto-generates and HTML documentation from it.
 
+A list of GIT commands, that should be enough for the start, can be found on \href{https://www.git-tower.com/blog/git-cheat-sheet/}{git-tower.com}.
+
 \section{Robot Operating System (ROS)}
 \label{sec:ROS}
 
 ROS, as we use it, is a simple inter process communication middleware. Before you ask, yes it is not intended to be used for inter machine/robot communication. Therefore, we have developed a simple ROSUdpProxy, for our purposes at RoboCup. 
 
 Tutorials for ROS can be found here: \url{http://wiki.ros.org/ROS/Tutorials}
+
+After following this tutorial you should be able to explain a bunch of things:
+
+\begin{description}
+  \item [Topics:]
+  \item [Nodes:]
+  \item [roscore:]
+  \item [packages.xml:]
+  \item [CMakeLists.txt:]
+  \item [Console Commands:]
+  \item [catkin\_make:]
+  \item [ROS-Workspace:] 
+  \item [ROS-Services:]
+  \item [ROS-Messages:]
+  \item [roscpp API:]
+\end{description}
+
 
 \section{Build Chain}
 \label{sec:BuildChain}
