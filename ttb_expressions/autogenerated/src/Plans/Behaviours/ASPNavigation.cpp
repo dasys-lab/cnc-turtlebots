@@ -87,23 +87,6 @@ namespace alica
 		query->clearStaticVariables();
 		query->addVariable(getVariablesByName("NavVar"));
 		result.clear();
-		bool success = true;
-		string tmp = "";
-		try
-		{
-			success &= getParameter("openDoors", tmp);
-		}
-
-		catch (exception& e)
-		{
-			cerr << "Could not cast the parameter properly" << endl;
-		}
-		if (!success)
-		{
-			cerr << "ASP: Parameter does not exist" << endl;
-		}
-		std::istringstream is(tmp);
-		is >> std::boolalpha >> this->openDoors;
 		/*PROTECTED REGION END*/
 	}
 /*PROTECTED REGION ID(methods1475693360605) ENABLED START*/ //Add additional methods here
