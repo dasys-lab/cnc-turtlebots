@@ -46,8 +46,8 @@ namespace alica
 			this->wm->doors.openDoor("doorClosed(mainHallA, mainHallB)");
 		}
 
-//        this->wm->doors.openDoor("doorClosed(mainHallA, offices)");
-//        this->wm->doors.openDoor("doorClosed(offices, utility)");
+//      this->wm->doors.openDoor("doorClosed(mainHallA, offices)");
+//      this->wm->doors.openDoor("doorClosed(offices, utility)");
 
 		std::chrono::_V2::system_clock::time_point start = std::chrono::high_resolution_clock::now();
 		query->getSolution(SolverType::ASPSOLVER, runningPlan, result);
@@ -87,6 +87,23 @@ namespace alica
 		query->clearStaticVariables();
 		query->addVariable(getVariablesByName("NavVar"));
 		result.clear();
+		bool success = true;
+		string tmp = "";
+		try
+		{
+			success &= getParameter("openDoors", tmp);
+		}
+
+		catch (exception& e)
+		{
+			cerr << "Could not cast the parameter properly" << endl;
+		}
+		if (!success)
+		{
+			cerr << "ASPNavigation: Parameter does not exist" << endl;
+		}
+		std::istringstream is(tmp);
+		is >> std::boolalpha >> this->openDoors;
 		/*PROTECTED REGION END*/
 	}
 /*PROTECTED REGION ID(methods1475693360605) ENABLED START*/ //Add additional methods here
