@@ -72,7 +72,6 @@ namespace ttb
 		TTBPointOfInterests pois;
 		Doors doors;
 
-
 	private:
 
 		TTBWorldModel(); /**< Private Singleton Constructor */
