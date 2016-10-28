@@ -86,7 +86,7 @@ namespace alica
 		/*PROTECTED REGION ID(initialiseParameters1475693360605) ENABLED START*/ //Add additional options here
 		query->clearStaticVariables();
 		query->addVariable(getVariablesByName("NavVar"));
-		result.clear();
+		//result.clear(); // <-- this is done in each query->getSolution call
 		/*PROTECTED REGION END*/
 	}
 /*PROTECTED REGION ID(methods1475693360605) ENABLED START*/ //Add additional methods here
