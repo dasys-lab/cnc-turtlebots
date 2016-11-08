@@ -7,6 +7,7 @@
 #include <clingo/clingocontrol.hh>
 #include <memory>
 #include "POI.h"
+#include <alica_asp_solver/AnnotatedValVec.h>
 /*PROTECTED REGION END*/
 namespace alica
 {
@@ -17,7 +18,7 @@ namespace alica
         virtual ~ASPNavigation();
         virtual void run(void* msg);
         /*PROTECTED REGION ID(pub1475693360605) ENABLED START*/ //Add additional public methods here
-        vector<Gringo::ValVec> result;
+        vector<alica::reasoner::AnnotatedValVec> result;
         /*PROTECTED REGION END*/
     protected:
         virtual void initialiseParameters();

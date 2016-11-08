@@ -5,12 +5,11 @@ reachable(X, Y) :- reachable(Y, X), X!=Y.
 reachable(X, Z) :- reachable(X, Y), reachable(Y,Z), X!=Y, Y!=Z, X!=Z. 
 reachable(X, Y) :- partialOverlapping(X, Y), area(X), area(Y). 
 reachable(X, Y) :- properPart(X, Y), room(X), area(Y).
+reachable(X, Y) :- partialOverlapping(X, Y), room(X), room(Y). 
 
 %%%%% checks
 %% areas cant be part of each other
 %wrongProperPart(X, Y) :- properPart(X, Y), area(X), area(Y).
-%% rooms cant be partially overlapping
-%wrongPartialOverlapping(X, Y) :- partialOverlapping(X, Y), room(X), room(Y). 
 
 %%%%% Discribes the rcc4 relations between the rooms in distributed systems
 
@@ -44,11 +43,11 @@ disconnected(r1411C, studentArea) :- doorClosed(r1411C, studentArea).
 
 %%%% the rooms which are part of the studentArea are in relation to each other
 #external doorClosed(r1411, r1411C).
-properPart(r1411, r1411C) :- not doorClosed(r1411, r1411C).
+partialOverlapping(r1411, r1411C) :- not doorClosed(r1411, r1411C).
 disconnected(r1411, r1411C) :- doorClosed(r1411, r1411C).
 
 #external doorClosed(r1411A, r1411C).
-properPart(r1411A, r1411C) :- not doorClosed(r1411A, r1411C).
+partialOverlapping(r1411A, r1411C) :- not doorClosed(r1411A, r1411C).
 disconnected(r1411A, r1411C) :- doorClosed(r1411A, r1411C).
 
 disconnected(r1411, r1411A).
@@ -79,11 +78,11 @@ disconnected(r1410B, workshop) :- doorClosed(r1410B, workshop).
 
 %%%% the rooms which are part of the workshop are in relation to each other
 #external doorClosed(r1410, r1410A).
-properPart(r1410, r1410A) :- not doorClosed(r1410, r1410A).
+partialOverlapping(r1410, r1410A) :- not doorClosed(r1410, r1410A).
 disconnected(r1410, r1410A) :- doorClosed(r1410, r1410A).
 
 #external doorClosed(r1410, r1410B).
-properPart(r1410, r1410B) :- not doorClosed(r1410, r1410B).
+partialOverlapping(r1410, r1410B) :- not doorClosed(r1410, r1410B).
 disconnected(r1410, r1410B) :- doorClosed(r1410, r1410B).
 
 disconnected(r1410A, r1410B).
@@ -136,27 +135,27 @@ disconnected(r1406C, offices) :- doorClosed(r1406C, offices).
 
 %%%% the rooms which are part of the offices are in relation to each other
 #external doorClosed(r1407, r1408A).
-properPart(r1407, r1408A) :- not doorClosed(r1408C, r1408A).
+partialOverlapping(r1407, r1408A) :- not doorClosed(r1408C, r1408A).
 disconnected(r1407, r1408A) :- doorClosed(r1408C, r1408A).
 
 #external doorClosed(r1407, r1408B).
-properPart(r1407, r1408B) :- not doorClosed(r1407, r1408B).
+partialOverlapping(r1407, r1408B) :- not doorClosed(r1407, r1408B).
 disconnected(r1407, r1408B) :- doorClosed(r1407, r1408B).
 
 #external doorClosed(r1407, r1408C).
-properPart(r1407, r1408C) :- not doorClosed(r1407, r1408C).
+partialOverlapping(r1407, r1408C) :- not doorClosed(r1407, r1408C).
 disconnected(r1407, r1408C) :- doorClosed(r1407, r1408C).
 
 #external doorClosed(r1407, r1406A).
-properPart(r1407, r1406A) :- not doorClosed(r1407, r1406A).
+partialOverlapping(r1407, r1406A) :- not doorClosed(r1407, r1406A).
 disconnected(r1407, r1406A) :- doorClosed(r1407, r1406A).
 
 #external doorClosed(r1407, r1406B).
-properPart(r1407, r1406B) :- not doorClosed(r1407, r1406B).
+partialOverlapping(r1407, r1406B) :- not doorClosed(r1407, r1406B).
 disconnected(r1407, r1406B) :- doorClosed(r1407, r1406B).
 
 #external doorClosed(r1407, r1406C).
-properPart(r1407, r1406C) :- not doorClosed(r1407, r1406C).
+partialOverlapping(r1407, r1406C) :- not doorClosed(r1407, r1406C).
 disconnected(r1407, r1406C) :- doorClosed(r1407, r1406C).
 
 disconnected(r1408A, r1408B).
@@ -255,15 +254,15 @@ disconnected(r1403C, utility) :- doorClosed(r1403C, utility).
 
 %%%% the rooms which are part of the utility area are in relation to each other
 #external doorClosed(r1405, r1405A).
-properPart(r1405, r1405A) :- not doorClosed(r1405, r1405A).
+partialOverlapping(r1405, r1405A) :- not doorClosed(r1405, r1405A).
 disconnected(r1405, r1405A) :- doorClosed(r1405, r1405A).
 
 #external doorClosed(r1405A, r1405B).
-properPart(r1405A, r1405B) :- not doorClosed(r1405A, r1405B).
+partialOverlapping(r1405A, r1405B) :- not doorClosed(r1405A, r1405B).
 disconnected(r1405A, r1405B) :- doorClosed(r1405A, r1405B).
 
 #external doorClosed(r1405A, r1403C).
-properPart(r1405A, r1403C) :- not doorClosed(r1405A, r1403C).
+partialOverlapping(r1405A, r1403C) :- not doorClosed(r1405A, r1403C).
 disconnected(r1405A, r1403C) :- doorClosed(r1405A, r1403C).
 
 disconnected(r1410A, r1410B).
@@ -299,11 +298,11 @@ disconnected(r1403B, organization) :- doorClosed(r1403B, organization).
 
 %%%% the rooms which are part of the organization area are in relation to each other
 #external doorClosed(r1403A, r1403B).
-properPart(r1403A, r1403B) :- not doorClosed(r1403A, r1403B).
+partialOverlapping(r1403A, r1403B) :- not doorClosed(r1403A, r1403B).
 disconnected(r1403A, r1403B) :- doorClosed(r1403A, r1403B).
 
 #external doorClosed(r1403B, r1403).
-properPart(r1403B, r1403) :- not doorClosed(r1403B, r1403).
+partialOverlapping(r1403B, r1403) :- not doorClosed(r1403B, r1403).
 disconnected(r1403B, r1403) :- doorClosed(r1403B, r1403).
 
 disconnected(r1403A, r1403).

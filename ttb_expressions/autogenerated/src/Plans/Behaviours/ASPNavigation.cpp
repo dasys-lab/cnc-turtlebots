@@ -54,19 +54,35 @@ namespace alica
 		std::chrono::_V2::system_clock::time_point end = std::chrono::high_resolution_clock::now();
 		cout << "ASPNavigation: Measured Solving and Grounding Time: "
 				<< std::chrono::duration_cast<chrono::milliseconds>(end - start).count() << " ms" << endl;
-		if (result.size() > 0 && result.at(0).size() > 0)
+		if (result.size() > 0)
 		{
-			cout << "ASPNavigation: ASP result found!" << endl;
-//            cout << "\tResult contains the predicates: " << endl;
-//            cout << "\t\t";
-//            for (int i = 0; i < result.size(); i++)
-//            {
-//                for (int j = 0; j < result.at(i).size(); j++)
-//                {
-//                    cout << result.at(i).at(j) << " ";
-//                }
-//            }
-//            cout << endl;
+			auto it = find_if(result.begin(), result.end(), [](alica::reasoner::AnnotatedValVec element)
+			{	return element.id == 1475692986360;});
+			if (it != result.end() && it->values.size() > 0)
+			{
+				cout << "ASPNavigation: ASP result found!" << endl;
+//				cout << "\tResult contains the predicates: " << endl;
+//				cout << "\t\t";
+//				for (int i = 0; i < result.size(); i++)
+//				{
+//					for (int j = 0; j < result.at(i).values.size(); j++)
+//					{
+//						cout << result.at(i).values.at(j) << " ";
+//					}
+//				}
+//				cout << endl;
+//				cout << "\tThe model contains the predicates: " << endl;
+//				cout << "\t\t";
+//				for (int i = 0; i < it->query->getCurrentModels()->at(0).size(); i++)
+//				{
+//					cout << it->query->getCurrentModels()->at(0).at(i) << " ";
+//				}
+//				cout << endl;
+			}
+			else
+			{
+				cout << "ASPNavigation: no result found!" << endl;
+			}
 
 		}
 		else
