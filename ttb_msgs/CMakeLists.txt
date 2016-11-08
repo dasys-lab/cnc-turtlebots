@@ -39,6 +39,7 @@ find_package(catkin REQUIRED COMPONENTS
    GoalWrapped.msg
    InitialPoseWrapped.msg
    AMCLPoseWrapped.msg
+   LogicalCamera.msg
  )
  
  generate_messages(DEPENDENCIES std_msgs geometry_msgs)
