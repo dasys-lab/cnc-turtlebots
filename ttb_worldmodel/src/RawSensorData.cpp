@@ -20,7 +20,7 @@ namespace ttb
 					ringBufferLength), ownBumperSensors(ringBufferLength), ownImuData(ringBufferLength), ownCameraPcl(
 					ringBufferLength), ownCliffEvent(ringBufferLength), ownCameraImageRaw(ringBufferLength), ownRobotOnOff(
 					ringBufferLength), ownMobileBaseSensorState(ringBufferLength), ownDockInfrRed(ringBufferLength), ownOdom(
-					ringBufferLength), ownDriveToPOICommand(ringBufferLength)
+					ringBufferLength), ownDriveToPOICommand(ringBufferLength), ownLogicalCamera(ringBufferLength)
 	{
 		this->wm = wm;
 		ownID = supplementary::SystemConfig::getOwnRobotID();
@@ -257,6 +257,19 @@ namespace ttb
 		this->wm->taskManager.pushDriveToPOITask(owndriveToPOICommandInfo);
 	}
 
+	void ttb::RawSensorData::processLogicalCamera(ttb_msgs::LogicalCameraPtr logicalCamera)
+	{
+		InfoTime time = wm->getTime();
+
+		shared_ptr<ttb_msgs::LogicalCamera> logicalCameraPtr = shared_ptr<ttb_msgs::LogicalCamera>(
+				logicalCamera.get(), [logicalCamera](ttb_msgs::LogicalCamera*) mutable
+				{	logicalCamera.reset();});
+		shared_ptr<InformationElement<ttb_msgs::LogicalCamera>> ownLogicalCameraInfo = make_shared<
+				InformationElement<ttb_msgs::LogicalCamera>>(logicalCameraPtr, time);
+		ownLogicalCamera.add(ownLogicalCameraInfo);
+	}
+
+
 	shared_ptr<geometry::CNPosition> RawSensorData::getOwnPosition(int index)
 	{
 		auto x = ownPositionMotion.getLast(index);
@@ -392,6 +405,18 @@ namespace ttb
 	shared_ptr<nav_msgs::Odometry> RawSensorData::getOwnOdom(int index)
 	{
 		auto x = ownOdom.getLast(index);
+
+		if (x == nullptr || wm->getTime() - x->timeStamp > maxInformationAge)
+		{
+			return nullptr;
+		}
+
+		return x->getInformation();
+	}
+
+	shared_ptr<ttb_msgs::LogicalCamera> RawSensorData::getLogicalCamera(int index)
+	{
+		auto x = ownLogicalCamera.getLast(index);
 
 		if (x == nullptr || wm->getTime() - x->timeStamp > maxInformationAge)
 		{

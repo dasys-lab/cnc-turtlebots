@@ -18,6 +18,8 @@
 #include "kobuki_msgs/SensorState.h"
 #include "kobuki_msgs/DockInfraRed.h"
 #include "ar_track_alvar_msgs/AlvarMarkers.h"
+#include "ttb_msgs/DriveToPOI.h"
+#include "ttb_msgs/LogicalCamera.h"
 
 #include "RingBuffer.h"
 #include "InformationElement.h"
@@ -50,6 +52,7 @@ namespace ttb
 		void processDockInfrRed(kobuki_msgs::DockInfraRedPtr dockInfrRedData);
 		void processAlvarData(ar_track_alvar_msgs::AlvarMarkersPtr alvarData);
 		void processDriveToPOICommand(ttb_msgs::DriveToPOIPtr driveToPOICommand);
+		void processLogicalCamera(ttb_msgs::LogicalCameraPtr logicalCamera);
 
 		shared_ptr<geometry::CNPosition> getOwnPosition(int index = 0);
 		shared_ptr<geometry::CNVelocity2D> getOwnVelocityMotion(int index = 0);
@@ -65,6 +68,7 @@ namespace ttb
 		shared_ptr<kobuki_msgs::DockInfraRed> getOwnDockInfrRed(int index = 0);
 		shared_ptr<nav_msgs::Odometry> getOwnOdom(int index = 0);
 		shared_ptr<ar_track_alvar_msgs::AlvarMarkers> getAlvar(int index = 0);
+		shared_ptr<ttb_msgs::LogicalCamera> getLogicalCamera(int index = 0);
 
 	private:
 		int ownID;
@@ -87,6 +91,7 @@ namespace ttb
 		RingBuffer<InformationElement<kobuki_msgs::SensorState>> ownMobileBaseSensorState;
 		RingBuffer<InformationElement<kobuki_msgs::DockInfraRed>> ownDockInfrRed;
 		RingBuffer<InformationElement<ttb_msgs::DriveToPOI>> ownDriveToPOICommand;
+		RingBuffer<InformationElement<ttb_msgs::LogicalCamera>> ownLogicalCamera;
 
 	};
 
