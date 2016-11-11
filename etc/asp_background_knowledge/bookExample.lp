@@ -1,5 +1,7 @@
 #program bookExample.
 
+-test(5).
+
 agent(raphael).
 agent(donatello).
 agent(leonardo).

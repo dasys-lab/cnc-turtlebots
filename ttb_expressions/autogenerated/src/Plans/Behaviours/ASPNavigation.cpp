@@ -6,6 +6,7 @@ using namespace std;
 #include "SolverType.h"
 #include "actionlib/client/simple_action_client.h"
 #include "move_base_msgs/MoveBaseAction.h"
+#include <alica_asp_solver/ASPSolver.h>
 /*PROTECTED REGION END*/
 namespace alica
 {
@@ -28,6 +29,25 @@ namespace alica
 	void ASPNavigation::run(void* msg)
 	{
 		/*PROTECTED REGION ID(run1475693360605) ENABLED START*/ //Add additional options here
+//		auto solver = (alica::reasoner::ASPSolver*)this->wm->getEngine()->getSolver(SolverType::ASPSOLVER);
+//		solver->loadFileFromConfig("bookExample");
+//		solver->getClingo()->ground({ {"bookExample", {}}}, nullptr);
+//		solver->solve();
+//		auto model = solver->getCurrentModels();
+//		auto val1 = Gringo::Value(solver->getGringoModule()->parseValue("test(5)"));
+//		for(int i = 0; i < model.at(0).size(); i++)
+//		{
+//			if(solver->checkMatchValues(&val1, &(model.at(0).at(i))))
+//			{
+//				cout << "match found: " << val1 << " " <<  model.at(0).at(i) << endl;
+//				break;
+//			}
+//			else
+//			{
+//				cout << model.at(0).at(i);
+//			}
+//		}
+//		cout << endl;
 		if (this->iterationCounter == 0)
 		{
 			this->wm->doors.openDoor("doorClosed(r1411, studentArea)");
@@ -37,7 +57,7 @@ namespace alica
 			this->wm->doors.openDoor("doorClosed(mainHallB, utility)");
 			this->wm->doors.openDoor("doorClosed(r1405B, utility)");
 		}
-		if (this->iterationCounter % 2 == 0)
+		if (this->iterationCounter % 2 == 1)
 		{
 			this->wm->doors.closeDoor("doorClosed(mainHallA, mainHallB)");
 		}
@@ -53,7 +73,7 @@ namespace alica
 		query->getSolution(SolverType::ASPSOLVER, runningPlan, result);
 		std::chrono::_V2::system_clock::time_point end = std::chrono::high_resolution_clock::now();
 		cout << "ASPNavigation: Measured Solving and Grounding Time: "
-				<< std::chrono::duration_cast<chrono::milliseconds>(end - start).count() << " ms" << endl;
+				<< std::chrono::duration_cast<chrono::nanoseconds>(end - start).count() / 1000000.0<< " ms" << endl;
 		if (result.size() > 0)
 		{
 			auto it = find_if(result.begin(), result.end(), [](alica::reasoner::AnnotatedValVec element)
