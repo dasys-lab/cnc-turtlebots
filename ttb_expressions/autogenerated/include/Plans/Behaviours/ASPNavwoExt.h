@@ -3,8 +3,8 @@
 
 #include "DomainBehaviour.h"
 /*PROTECTED REGION ID(inc1477229760910) ENABLED START*/ //Add additional includes here
-#include <engine/constraintmodul/ConstraintQuery.h>
 #include <clingo/clingocontrol.hh>
+#include <engine/constraintmodul/Query.h>
 #include <memory>
 /*PROTECTED REGION END*/
 namespace alica
@@ -24,7 +24,7 @@ namespace alica
         /*PROTECTED REGION END*/
     private:
         /*PROTECTED REGION ID(prv1477229760910) ENABLED START*/ //Add additional private methods here
-        shared_ptr<alica::ConstraintQuery> query;
+        shared_ptr<alica::Query> query;
         string doorConfig;
         int iterationCounter;
         /*PROTECTED REGION END*/};

@@ -15,7 +15,7 @@ namespace alica
 			DomainBehaviour("ASPNavigation")
 	{
 		/*PROTECTED REGION ID(con1475693360605) ENABLED START*/ //Add additional options here
-		this->query = make_shared<alica::ConstraintQuery>(this->wm->getEngine());
+		this->query = make_shared<alica::Query>(this->wm->getEngine());
 		this->openDoors = false;
 		this->iterationCounter = 0;
 		/*PROTECTED REGION END*/

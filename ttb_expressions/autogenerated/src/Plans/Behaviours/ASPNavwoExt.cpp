@@ -13,7 +13,7 @@ namespace alica
             DomainBehaviour("ASPNavwoExt")
     {
         /*PROTECTED REGION ID(con1477229760910) ENABLED START*/ //Add additional options here
-        this->query = make_shared < alica::ConstraintQuery > (this->wm->getEngine());
+        this->query = make_shared < alica::Query > (this->wm->getEngine());
         this->doorConfig = "";
         this->iterationCounter = 0;
         /*PROTECTED REGION END*/

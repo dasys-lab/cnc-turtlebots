@@ -12,7 +12,7 @@ namespace alica
             DomainBehaviour("ASPMinimizePath")
     {
         /*PROTECTED REGION ID(con1477125924367) ENABLED START*/ //Add additional options here
-        this->query = make_shared < alica::ConstraintQuery > (this->wm->getEngine());
+        this->query = make_shared < alica::Query > (this->wm->getEngine());
         /*PROTECTED REGION END*/
     }
     ASPMinimizePath::~ASPMinimizePath()

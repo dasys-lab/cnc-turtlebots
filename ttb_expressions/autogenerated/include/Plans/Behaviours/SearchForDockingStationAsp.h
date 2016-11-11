@@ -6,8 +6,8 @@
 #include <kdl_conversions/kdl_msg.h>
 #include <ecl/geometry/pose2d.hpp>
 #include <kobuki_dock_drive/dock_drive.hpp>
-#include <engine/constraintmodul/ConstraintQuery.h>
 #include <clingo/clingocontrol.hh>
+#include <engine/constraintmodul/Query.h>
 #include <memory>
 #include "POI.h"
 //#define testWithoutTTB
@@ -32,7 +32,7 @@ namespace alica
 #ifdef testWithoutTTB
         kobuki::DockDrive dock;
 #endif
-        shared_ptr<alica::ConstraintQuery> query;
+        shared_ptr<alica::Query> query;
         /*PROTECTED REGION END*/};
 } /* namespace alica */
 
