@@ -36,7 +36,7 @@ namespace random_drive
 				msg.angular.z = 0;
 				int count = 0;
 
-				if (msgBool || count > 0){
+				if (!msgBool || count > 0){
 
 					msg.linear.x = 0;
 					msg.angular.z = 0.5;
