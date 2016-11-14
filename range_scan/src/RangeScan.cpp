@@ -21,7 +21,7 @@ namespace range_scan
 			passfree(true)
 	{
 		this->direction_pub = n.advertise<std_msgs::Bool>("drive", 1000);
-		this->laser_sub = this->n.subscribe("scan", 1000, &RangeScan::laserCallback, (RangeScan*)this);
+		this->laser_sub = this->n.subscribe("leonardo/scan_hokuyo", 1000, &RangeScan::laserCallback, (RangeScan*)this);
 
 		this->t1=new std::thread(&RangeScan::run,(RangeScan*)this);
 	}
@@ -33,10 +33,15 @@ namespace range_scan
 
 	void RangeScan::laserCallback(const sensor_msgs::LaserScan::ConstPtr& msg)
 	{
+std::cout<<"Range at 135 degrees: " <<msg->ranges[540]<<std::endl; 
 
-		if (msg->ranges[500]<0.5f){
+		if (msg->ranges[540]<0.5){
+std::cout<<"Range at 135 degrees for <0.5: " <<msg->ranges[540]<<std::endl; 
+
 			passfree=false;
 		}else{
+std::cout<<"Range at 135 degrees for >0.5: " <<msg->ranges[540]<<std::endl; 
+
 			passfree=true;
 		}
 	}
@@ -50,7 +55,7 @@ namespace range_scan
 			msg.data = passfree;
 
 			this->direction_pub.publish(msg);
-			sleep(2);
+			sleep(0.5);
 		}
 	}
 

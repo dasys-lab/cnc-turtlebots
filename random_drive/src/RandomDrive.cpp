@@ -69,7 +69,6 @@ int main(int argc, char **argv)
 	{
 		ros::init(argc, argv, "randomDriveController");
 
-
 		random_drive::RandomDrive randomDrive;
 		ros::Rate loop_rate(10);
 
@@ -78,6 +77,7 @@ int main(int argc, char **argv)
 				ros::spinOnce();
 				loop_rate.sleep();
 			}
+
 
 
 
