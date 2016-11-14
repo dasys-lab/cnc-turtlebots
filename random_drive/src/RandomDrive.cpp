@@ -49,9 +49,9 @@ int main(int argc, char **argv)
 		{
 			geometry_msgs::Twist msg;
 //			msg.data= "[0.5, 0.0, 0.0] [0.0, 0.0, 0.0]";
-			if (){
+//			if (){
 
-			}
+//			}
 			msg.linear.x = 1.0;
 			randomDriveController_pub.publish(msg);
 //			msg.data= "[0.0, 0.0, 0.0] [0.0, 0.0, 1.0]";
