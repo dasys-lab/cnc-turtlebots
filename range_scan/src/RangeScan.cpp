@@ -50,7 +50,7 @@ namespace range_scan
 			msg.data = passfree;
 
 			this->direction_pub.publish(msg);
-			sleep(200);
+			sleep(2);
 		}
 	}
 
