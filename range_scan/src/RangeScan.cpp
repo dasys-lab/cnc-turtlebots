@@ -21,7 +21,7 @@ namespace range_scan
 			passfree(true)
 	{
 		this->direction_pub = n.advertise<std_msgs::Bool>("drive", 1000);
-		this->laser_sub = this->n.subscribe("scan", 1000, &RangeScan::laserCallback, (RangeScan*)this);
+		this->laser_sub = this->n.subscribe("leonardo/scan_hokuyo", 1000, &RangeScan::laserCallback, (RangeScan*)this);
 
 		this->t1=new std::thread(&RangeScan::run,(RangeScan*)this);
 	}
