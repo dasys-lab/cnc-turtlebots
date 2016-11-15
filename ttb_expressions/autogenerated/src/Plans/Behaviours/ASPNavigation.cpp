@@ -87,13 +87,21 @@ namespace alica
 			this->wm->doors.openDoor("doorClosed(mainHallB, utility)");
 			this->wm->doors.openDoor("doorClosed(r1405B, utility)");
 		}
-		if (this->iterationCounter % 2 == 1)
+		if (this->iterationCounter % 4 == 0)
 		{
 			this->wm->doors.closeDoor("doorClosed(mainHallA, mainHallB)");
 		}
-		else
+		else if(this->iterationCounter % 4 == 1)
+		{
+
+		}
+		else if(this->iterationCounter % 4 == 2)
 		{
 			this->wm->doors.openDoor("doorClosed(mainHallA, mainHallB)");
+		}
+		else
+		{
+
 		}
 
 //      this->wm->doors.openDoor("doorClosed(mainHallA, offices)");
@@ -153,7 +161,7 @@ namespace alica
 		{
 			cout << "ASPNavigation: no result found!" << endl;
 		}
-		if (this->iterationCounter >= 10)
+		if (this->iterationCounter >= 5)
 		{
 			this->setSuccess(true);
 		}
