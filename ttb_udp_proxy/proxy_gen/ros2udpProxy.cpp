@@ -28,6 +28,7 @@
 #include "ttb_msgs/GoalWrapped.h"
 #include "ttb_msgs/InitialPoseWrapped.h"
 #include "tf2_msgs/TFMessage.h"
+#include "tf2_msgs/TFMessage.h"
 #include "visualization_msgs/Marker.h"
 #include "geometry_msgs/PoseWithCovarianceStamped.h"
 #include "geometry_msgs/PoseStamped.h"
@@ -174,6 +175,23 @@ uint8_t* buffer = NULL;
 		buffer = new uint8_t[serial_size+sizeof(uint32_t)];
 		ros::serialization::OStream stream(buffer+sizeof(uint32_t), serial_size);
 		*((uint32_t*)buffer) = 491265u;
+		ros::serialization::serialize(stream, *message);
+		// write message to UDP
+		insocket->send_to(boost::asio::buffer((void*)buffer,serial_size+sizeof(uint32_t)),destEndPoint);
+	} catch(std::exception& e) {
+		ROS_ERROR_STREAM_THROTTLE(2,"Exception while sending UDP message:"<<e.what()<< " Discarding message!");
+	}
+	if(buffer!=NULL) delete[] buffer;
+}
+void onRosTFMessage85788968(const ros::MessageEvent<tf2_msgs::TFMessage>& event) {
+	if(0 == event.getPublisherName().compare(ownRosName)) return;
+uint8_t* buffer = NULL;
+	const tf2_msgs::TFMessage::ConstPtr& message = event.getMessage();
+	try{
+		uint32_t serial_size = ros::serialization::serializationLength(*message);
+		buffer = new uint8_t[serial_size+sizeof(uint32_t)];
+		ros::serialization::OStream stream(buffer+sizeof(uint32_t), serial_size);
+		*((uint32_t*)buffer) = 85788968u;
 		ros::serialization::serialize(stream, *message);
 		// write message to UDP
 		insocket->send_to(boost::asio::buffer((void*)buffer,serial_size+sizeof(uint32_t)),destEndPoint);
@@ -445,6 +463,7 @@ ros::Publisher pub2611391888;
 ros::Publisher pub3867808201;
 ros::Publisher pub1388158846;
 ros::Publisher pub491265;
+ros::Publisher pub85788968;
 ros::Publisher pub52450053;
 ros::Publisher pub3236539441;
 ros::Publisher pub674080570;
@@ -511,6 +530,11 @@ case 491265ul: {
 tf2_msgs::TFMessage m491265;
 ros::serialization::Serializer<tf2_msgs::TFMessage>::read(stream, m491265);
 pub491265.publish<tf2_msgs::TFMessage>(m491265);
+break; }
+case 85788968ul: {
+tf2_msgs::TFMessage m85788968;
+ros::serialization::Serializer<tf2_msgs::TFMessage>::read(stream, m85788968);
+pub85788968.publish<tf2_msgs::TFMessage>(m85788968);
 break; }
 case 52450053ul: {
 visualization_msgs::Marker m52450053;
@@ -657,21 +681,22 @@ ros::Subscriber sub3 = n.subscribe("/wrapped/amcl_pose",5, onRosAMCLPoseWrapped2
 ros::Subscriber sub4 = n.subscribe("/wrapped/move_base_simple/goal",5, onRosGoalWrapped3867808201,ros::TransportHints().unreliable().tcpNoDelay().reliable());
 ros::Subscriber sub5 = n.subscribe("/wrapped/initialpose",5, onRosInitialPoseWrapped1388158846,ros::TransportHints().unreliable().tcpNoDelay().reliable());
 ros::Subscriber sub6 = n.subscribe("/tf",5, onRosTFMessage491265,ros::TransportHints().unreliable().tcpNoDelay().reliable());
-ros::Subscriber sub7 = n.subscribe("/leonardo/visualization_marker",5, onRosMarker52450053,ros::TransportHints().unreliable().tcpNoDelay().reliable());
-ros::Subscriber sub8 = n.subscribe("/leonardo/amcl_pose",5, onRosPoseWithCovarianceStamped3236539441,ros::TransportHints().unreliable().tcpNoDelay().reliable());
-ros::Subscriber sub9 = n.subscribe("/leonardo/move_base_simple/goal",5, onRosPoseStamped674080570,ros::TransportHints().unreliable().tcpNoDelay().reliable());
-ros::Subscriber sub10 = n.subscribe("/leonardo/initialpose",5, onRosPoseWithCovarianceStamped491912439,ros::TransportHints().unreliable().tcpNoDelay().reliable());
-ros::Subscriber sub11 = n.subscribe("/leonardo/mobile_base/sensors/core",5, onRosSensorState2224094020,ros::TransportHints().unreliable().tcpNoDelay().reliable());
-ros::Subscriber sub12 = n.subscribe("/raphael/visualization_marker",5, onRosMarker979314518,ros::TransportHints().unreliable().tcpNoDelay().reliable());
-ros::Subscriber sub13 = n.subscribe("/raphael/amcl_pose",5, onRosPoseWithCovarianceStamped3076792854,ros::TransportHints().unreliable().tcpNoDelay().reliable());
-ros::Subscriber sub14 = n.subscribe("/raphael/move_base_simple/goal",5, onRosPoseStamped4093078319,ros::TransportHints().unreliable().tcpNoDelay().reliable());
-ros::Subscriber sub15 = n.subscribe("/raphael/initialpose",5, onRosPoseWithCovarianceStamped3004550932,ros::TransportHints().unreliable().tcpNoDelay().reliable());
-ros::Subscriber sub16 = n.subscribe("/raphael/mobile_base/sensors/core",5, onRosSensorState4286660741,ros::TransportHints().unreliable().tcpNoDelay().reliable());
-ros::Subscriber sub17 = n.subscribe("/donatello/visualization_marker",5, onRosMarker3940289819,ros::TransportHints().unreliable().tcpNoDelay().reliable());
-ros::Subscriber sub18 = n.subscribe("/donatello/amcl_pose",5, onRosPoseWithCovarianceStamped736595839,ros::TransportHints().unreliable().tcpNoDelay().reliable());
-ros::Subscriber sub19 = n.subscribe("/donatello/move_base_simple/goal",5, onRosPoseStamped2503873000,ros::TransportHints().unreliable().tcpNoDelay().reliable());
-ros::Subscriber sub20 = n.subscribe("/donatello/initialpose",5, onRosPoseWithCovarianceStamped2083032085,ros::TransportHints().unreliable().tcpNoDelay().reliable());
-ros::Subscriber sub21 = n.subscribe("/donatello/mobile_base/sensors/core",5, onRosSensorState1954641914,ros::TransportHints().unreliable().tcpNoDelay().reliable());
+ros::Subscriber sub7 = n.subscribe("/tf_static",5, onRosTFMessage85788968,ros::TransportHints().unreliable().tcpNoDelay().reliable());
+ros::Subscriber sub8 = n.subscribe("/leonardo/visualization_marker",5, onRosMarker52450053,ros::TransportHints().unreliable().tcpNoDelay().reliable());
+ros::Subscriber sub9 = n.subscribe("/leonardo/amcl_pose",5, onRosPoseWithCovarianceStamped3236539441,ros::TransportHints().unreliable().tcpNoDelay().reliable());
+ros::Subscriber sub10 = n.subscribe("/leonardo/move_base_simple/goal",5, onRosPoseStamped674080570,ros::TransportHints().unreliable().tcpNoDelay().reliable());
+ros::Subscriber sub11 = n.subscribe("/leonardo/initialpose",5, onRosPoseWithCovarianceStamped491912439,ros::TransportHints().unreliable().tcpNoDelay().reliable());
+ros::Subscriber sub12 = n.subscribe("/leonardo/mobile_base/sensors/core",5, onRosSensorState2224094020,ros::TransportHints().unreliable().tcpNoDelay().reliable());
+ros::Subscriber sub13 = n.subscribe("/raphael/visualization_marker",5, onRosMarker979314518,ros::TransportHints().unreliable().tcpNoDelay().reliable());
+ros::Subscriber sub14 = n.subscribe("/raphael/amcl_pose",5, onRosPoseWithCovarianceStamped3076792854,ros::TransportHints().unreliable().tcpNoDelay().reliable());
+ros::Subscriber sub15 = n.subscribe("/raphael/move_base_simple/goal",5, onRosPoseStamped4093078319,ros::TransportHints().unreliable().tcpNoDelay().reliable());
+ros::Subscriber sub16 = n.subscribe("/raphael/initialpose",5, onRosPoseWithCovarianceStamped3004550932,ros::TransportHints().unreliable().tcpNoDelay().reliable());
+ros::Subscriber sub17 = n.subscribe("/raphael/mobile_base/sensors/core",5, onRosSensorState4286660741,ros::TransportHints().unreliable().tcpNoDelay().reliable());
+ros::Subscriber sub18 = n.subscribe("/donatello/visualization_marker",5, onRosMarker3940289819,ros::TransportHints().unreliable().tcpNoDelay().reliable());
+ros::Subscriber sub19 = n.subscribe("/donatello/amcl_pose",5, onRosPoseWithCovarianceStamped736595839,ros::TransportHints().unreliable().tcpNoDelay().reliable());
+ros::Subscriber sub20 = n.subscribe("/donatello/move_base_simple/goal",5, onRosPoseStamped2503873000,ros::TransportHints().unreliable().tcpNoDelay().reliable());
+ros::Subscriber sub21 = n.subscribe("/donatello/initialpose",5, onRosPoseWithCovarianceStamped2083032085,ros::TransportHints().unreliable().tcpNoDelay().reliable());
+ros::Subscriber sub22 = n.subscribe("/donatello/mobile_base/sensors/core",5, onRosSensorState1954641914,ros::TransportHints().unreliable().tcpNoDelay().reliable());
 	
 pub3767756765 = n.advertise<alica_ros_proxy::PlanTreeInfo>("/AlicaEngine/PlanTreeInfo",5,false);
 pub3108117629 = n.advertise<process_manager::ProcessCommand>("/process_manager/ProcessCommand",5,false);
@@ -680,6 +705,7 @@ pub2611391888 = n.advertise<ttb_msgs::AMCLPoseWrapped>("/wrapped/amcl_pose",5,fa
 pub3867808201 = n.advertise<ttb_msgs::GoalWrapped>("/wrapped/move_base_simple/goal",5,false);
 pub1388158846 = n.advertise<ttb_msgs::InitialPoseWrapped>("/wrapped/initialpose",5,false);
 pub491265 = n.advertise<tf2_msgs::TFMessage>("/tf",5,false);
+pub85788968 = n.advertise<tf2_msgs::TFMessage>("/tf_static",5,false);
 pub52450053 = n.advertise<visualization_msgs::Marker>("/leonardo/visualization_marker",5,false);
 pub3236539441 = n.advertise<geometry_msgs::PoseWithCovarianceStamped>("/leonardo/amcl_pose",5,false);
 pub674080570 = n.advertise<geometry_msgs::PoseStamped>("/leonardo/move_base_simple/goal",5,false);
