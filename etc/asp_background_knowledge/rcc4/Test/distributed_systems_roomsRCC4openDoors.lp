@@ -5,6 +5,7 @@ reachable(X, Y, 1) :- reachable(Y, X, 1), X!=Y.
 reachable(X, Z, 1) :- reachable(X, Y, 1), reachable(Y, Z, 1), X!=Y, Y!=Z, X!=Z. 
 reachable(X, Y, 1) :- partialOverlapping(X, Y, 1), area(X, 1), area(Y, 1). 
 reachable(X, Y, 1) :- properPart(X, Y, 1), room(X, 1), area(Y, 1).
+reachable(X, Y, 2) :- partialOverlapping(X, Y, 1), room(X, 1), room(Y, 1). 
 
 %%%%% Discribes the rcc4 relations between the rooms in distributed systems
 
