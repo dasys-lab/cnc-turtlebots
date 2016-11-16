@@ -4,7 +4,6 @@
 #include "DomainBehaviour.h"
 /*PROTECTED REGION ID(inc1477229760910) ENABLED START*/ //Add additional includes here
 #include <engine/constraintmodul/ConstraintQuery.h>
-#include <clingo/clingocontrol.hh>
 #include <memory>
 #include <alica_asp_solver/AnnotatedValVec.h>
 /*PROTECTED REGION END*/

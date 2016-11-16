@@ -4,7 +4,7 @@
 #include "DomainBehaviour.h"
 /*PROTECTED REGION ID(inc1468494621581) ENABLED START*/ //Add additional includes here
 #include <engine/constraintmodul/ConstraintQuery.h>
-#include <clingo/clingocontrol.hh>
+#include <alica_asp_solver/AnnotatedValVec.h>
 /*PROTECTED REGION END*/
 namespace alica
 {
@@ -15,7 +15,7 @@ namespace alica
         virtual ~Carry();
         virtual void run(void* msg);
         /*PROTECTED REGION ID(pub1468494621581) ENABLED START*/ //Add additional public methods here
-        vector<Gringo::ValVec> result;
+        vector<alica::reasoner::AnnotatedValVec> result;
         /*PROTECTED REGION END*/
     protected:
         virtual void initialiseParameters();

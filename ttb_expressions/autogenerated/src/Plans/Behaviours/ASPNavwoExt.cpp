@@ -36,7 +36,8 @@ namespace alica
 		query->getSolution(SolverType::ASPSOLVER, runningPlan, result);
 		std::chrono::_V2::system_clock::time_point end = std::chrono::high_resolution_clock::now();
 		cout << "ASPNavigation: Measured Solving and Grounding Time: "
-				<< std::chrono::duration_cast<chrono::nanoseconds>(end - start).count() / 1000000.0 << " ms" << endl;
+		 << std::chrono::duration_cast<chrono::nanoseconds>(end - start).count() / 1000000.0 << " ms" << endl
+		;
 		if (result.size() > 0)
 		{
 			auto it = result.end();
@@ -52,13 +53,13 @@ namespace alica
 			}
 			else
 			{
-				cout << "wrong config" << endl;
+				cout << "ASPNavwoExt: wrong config" << endl;
 			}
 			if (it != result.end())
 			{
 				if (it->values.size() > 0)
 				{
-					cout << "ASPNavigation: ASP result found!" << endl;
+					cout << "ASPNavwoExt: ASP result found!" << endl;
 //                    cout << "\tResult contains the predicates: " << endl;
 //                    cout << "\t\t";
 //                    for (int i = 0; i < result.size(); i++)
@@ -79,7 +80,7 @@ namespace alica
 				}
 				else
 				{
-					cout << "ASPNavigation: no result found!" << endl;
+					cout << "ASPNavwoExt: no result found!" << endl;
 //                    cout << "\tThe model contains the predicates: " << endl;
 //                    cout << "\t\t";
 //                    for (int i = 0; i < it->query->getCurrentModels()->at(0).size(); i++)
@@ -91,13 +92,13 @@ namespace alica
 			}
 			else
 			{
-				cout << "ASPNavigation: no result found!" << endl;
+				cout << "ASPNavwoExt: no result found!" << endl;
 			}
 
 		}
 		else
 		{
-			cout << "ASPNavigation: no result found!" << endl;
+			cout << "ASPNavwoExt: no result found!" << endl;
 		}
 		if (iterationCounter == 1)
 		{
