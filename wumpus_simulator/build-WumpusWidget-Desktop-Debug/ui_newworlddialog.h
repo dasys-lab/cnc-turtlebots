@@ -28,12 +28,11 @@ QT_BEGIN_NAMESPACE
 class Ui_Dialog
 {
 public:
-    QAction *actionOnRandomPressed;
     QDialogButtonBox *buttonBox;
     QWidget *verticalLayoutWidget;
     QHBoxLayout *horizontalLayout;
     QLabel *label;
-    QLineEdit *size;
+    QLineEdit *sizePlayground;
     QWidget *verticalLayoutWidget_2;
     QHBoxLayout *horizontalLayout_2;
     QLabel *label_2;
@@ -50,8 +49,6 @@ public:
         if (Dialog->objectName().isEmpty())
             Dialog->setObjectName(QString::fromUtf8("Dialog"));
         Dialog->resize(400, 191);
-        actionOnRandomPressed = new QAction(Dialog);
-        actionOnRandomPressed->setObjectName(QString::fromUtf8("actionOnRandomPressed"));
         buttonBox = new QDialogButtonBox(Dialog);
         buttonBox->setObjectName(QString::fromUtf8("buttonBox"));
         buttonBox->setGeometry(QRect(40, 148, 341, 32));
@@ -69,16 +66,16 @@ public:
 
         horizontalLayout->addWidget(label);
 
-        size = new QLineEdit(verticalLayoutWidget);
-        size->setObjectName(QString::fromUtf8("size"));
+        sizePlayground = new QLineEdit(verticalLayoutWidget);
+        sizePlayground->setObjectName(QString::fromUtf8("sizePlayground"));
         QSizePolicy sizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
         sizePolicy.setHorizontalStretch(0);
         sizePolicy.setVerticalStretch(0);
-        sizePolicy.setHeightForWidth(size->sizePolicy().hasHeightForWidth());
-        size->setSizePolicy(sizePolicy);
-        size->setMaximumSize(QSize(100, 25));
+        sizePolicy.setHeightForWidth(sizePlayground->sizePolicy().hasHeightForWidth());
+        sizePlayground->setSizePolicy(sizePolicy);
+        sizePlayground->setMaximumSize(QSize(100, 25));
 
-        horizontalLayout->addWidget(size);
+        horizontalLayout->addWidget(sizePlayground);
 
         verticalLayoutWidget_2 = new QWidget(Dialog);
         verticalLayoutWidget_2->setObjectName(QString::fromUtf8("verticalLayoutWidget_2"));
@@ -130,7 +127,6 @@ public:
         retranslateUi(Dialog);
         QObject::connect(buttonBox, SIGNAL(accepted()), Dialog, SLOT(accept()));
         QObject::connect(buttonBox, SIGNAL(rejected()), Dialog, SLOT(reject()));
-        QObject::connect(randomButton, SIGNAL(clicked()), randomButton, SLOT(click()));
 
         QMetaObject::connectSlotsByName(Dialog);
     } // setupUi
@@ -138,10 +134,6 @@ public:
     void retranslateUi(QDialog *Dialog)
     {
         Dialog->setWindowTitle(QApplication::translate("Dialog", "Dialog", 0, QApplication::UnicodeUTF8));
-        actionOnRandomPressed->setText(QApplication::translate("Dialog", "onRandomPressed", 0, QApplication::UnicodeUTF8));
-#ifndef QT_NO_TOOLTIP
-        actionOnRandomPressed->setToolTip(QApplication::translate("Dialog", "Random Values", 0, QApplication::UnicodeUTF8));
-#endif // QT_NO_TOOLTIP
         label->setText(QApplication::translate("Dialog", "Playground Size: ", 0, QApplication::UnicodeUTF8));
         label_2->setText(QApplication::translate("Dialog", "Traps:", 0, QApplication::UnicodeUTF8));
         label_3->setText(QApplication::translate("Dialog", "Wumpus:", 0, QApplication::UnicodeUTF8));

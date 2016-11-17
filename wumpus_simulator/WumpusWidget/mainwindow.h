@@ -4,7 +4,7 @@
 #include <QMainWindow>
 #include <QFileDialog>
 #include <iostream>
-#include "ui_newworlddialog.h"
+#include "newworlddialog.h"
 
 namespace Ui {
 class MainWindow;
@@ -25,13 +25,10 @@ private slots:
 
     void on_actionSave_triggered();
 
-    void on_randomButton_clicked();
-
 private:
     Ui::MainWindow *ui;
 
-    QDialog *newWorldForm;
-    Ui::Dialog NewWorldView;
+
 };
 
 #endif // MAINWINDOW_H

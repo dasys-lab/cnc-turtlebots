@@ -1,8 +1,5 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include <time.h>
-#include <stdlib.h>
-#include <math.h>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -19,11 +16,8 @@ MainWindow::~MainWindow()
 void MainWindow::on_actionNew_triggered()
 {
 
-    newWorldForm = new QDialog(0,0);
-    newWorldForm->setModal(true);
-    NewWorldView.setupUi(newWorldForm);
+    NewWorldDialog* newWorldForm = new NewWorldDialog(this);
     newWorldForm->show();
-
 
 }
 
@@ -62,26 +56,6 @@ void MainWindow::on_actionSave_triggered()
 
         //TODO: Do magic things
         qDebug(filename.toAscii());
-
-    }
-}
-
-void MainWindow::on_randomButton_clicked()
-{
-    std::cout << "test" << std::endl;
-    srand(time(NULL));
-    int random = rand() % 50 + 4;
-    srand(time(NULL));
-    int random2 = rand() % (random * random);
-    srand(time(NULL));
-    int random3 = rand() % (int)pow(random - random2, 2);
-    NewWorldView.size->setText(QString(random));
-    NewWorldView.traps->setText(QString(random2));
-    NewWorldView.wumpus->setText(QString(random3));
-
-    if(random % 2 == 0) {
-
-        NewWorldView.arrow->toggle();
 
     }
 }

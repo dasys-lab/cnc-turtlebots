@@ -53,7 +53,7 @@
      </widget>
     </item>
     <item>
-     <widget class="QLineEdit" name="size">
+     <widget class="QLineEdit" name="sizePlayground">
       <property name="sizePolicy">
        <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
         <horstretch>0</horstretch>
@@ -178,14 +178,6 @@
     <string>Random Values</string>
    </property>
   </widget>
-  <action name="actionOnRandomPressed">
-   <property name="text">
-    <string>onRandomPressed</string>
-   </property>
-   <property name="toolTip">
-    <string>Random Values</string>
-   </property>
-  </action>
  </widget>
  <resources/>
  <connections>
@@ -218,22 +210,6 @@
     <hint type="destinationlabel">
      <x>286</x>
      <y>274</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>randomButton</sender>
-   <signal>clicked()</signal>
-   <receiver>randomButton</receiver>
-   <slot>click()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>100</x>
-     <y>163</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>100</x>
-     <y>163</y>
     </hint>
    </hints>
   </connection>

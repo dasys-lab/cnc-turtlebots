@@ -12,9 +12,11 @@ TARGET = WumpusWidget
 TEMPLATE = app
 
 SOURCES += main.cpp\
-        mainwindow.cpp
+        mainwindow.cpp \
+    newworlddialog.cpp
 
-HEADERS  += mainwindow.h
+HEADERS  += mainwindow.h \
+    newworlddialog.h
 
 FORMS    += mainwindow.ui \
     newworlddialog.ui
