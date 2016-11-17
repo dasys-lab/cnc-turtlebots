@@ -19,9 +19,9 @@ void NewWorldDialog::on_randomButton_clicked()
     int random2 = rand() % (random * random);
     srand(time(NULL));
     int random3 = rand() % (int)pow(random - random2, 2);
-    this->sizePlayground->setText(QString(random));
-    this->traps->setText(QString(random2));
-    this->wumpus->setText(QString(random3));
+    this->sizePlayground->setText(QString::number(random));
+    this->traps->setText(QString::number(random2));
+    this->wumpus->setText(QString::number(random3));
 
     if(random % 2 == 0) {
 
