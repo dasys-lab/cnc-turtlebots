@@ -20,4 +20,12 @@
     <key href="../Behaviours/ASPNavwoExt.beh#1477229800616"/>
     <value/>
   </extensions>
+  <extensions>
+    <key href="ASPNavwoExternalsInner.pml#1479298294756"/>
+    <value xPos="272" yPos="78"/>
+  </extensions>
+  <extensions>
+    <key href="ASPNavwoExternalsInner.pml#1479298299806"/>
+    <value/>
+  </extensions>
 </uiextensionmodel:PmlUiExtensionMap>

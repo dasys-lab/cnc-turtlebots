@@ -2,9 +2,10 @@
 %%%%% Relations for PathPlanning
 
 reachable(X, Y, 2) :- reachable(Y, X, 2), X!=Y.
-reachable(X, Z, 2) :- reachable(X, Y, 2), reachable(Y,Z, 2), X!=Y, Y!=Z, X!=Z. 
-reachable(X, Y, 2) :- disconnected(X, Y, 2), area(X, 2), area(Y, 2). 
-reachable(X, Y, 2) :- disconnected(X, Y, 2), room(X, 2), area(Y, 2).
+reachable(X, Z, 2) :- reachable(X, Y, 2), reachable(Y, Z, 2), X!=Y, Y!=Z, X!=Z. 
+reachable(X, Y, 2) :- partialOverlapping(X, Y, 2), area(X, 2), area(Y, 2). 
+reachable(X, Y, 2) :- properPart(X, Y, 2), room(X, 2), area(Y, 2).
+reachable(X, Y, 2) :- partialOverlapping(X, Y, 2), room(X, 2), room(Y, 2). 
 
 %%%%% Discribes the rcc4 relations between the rooms in distributed systems
 
