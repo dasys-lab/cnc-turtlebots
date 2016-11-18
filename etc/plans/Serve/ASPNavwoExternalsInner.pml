@@ -11,8 +11,17 @@
       <var>#1477229909334</var>
     </parametrisation>
     <plans xsi:type="alica:BehaviourConfiguration">../Behaviours/ASPNavwoExt.beh#1477229800616</plans>
+    <outTransitions>#1479298299806</outTransitions>
   </states>
-  <entryPoints id="1477229659175" name="MISSING_NAME" comment="" successRequired="false" minCardinality="0" maxCardinality="2147483647">
+  <states xsi:type="alica:SuccessState" id="1479298294756" name="NewSuccessState" comment="">
+    <inTransitions>#1479298299806</inTransitions>
+  </states>
+  <transitions id="1479298299806" name="MISSING_NAME" comment="success" msg="">
+    <preCondition id="1479298302100" name="MISSING_NAME" comment="" conditionString="" pluginName="DefaultPlugin" enabled="true"/>
+    <inState>#1477229659174</inState>
+    <outState>#1479298294756</outState>
+  </transitions>
+  <entryPoints id="1477229659175" name="MISSING_NAME" comment="" successRequired="true" minCardinality="0" maxCardinality="2147483647">
     <task>../../Misc/taskrepository.tsk#1414681164704</task>
     <state>#1477229659174</state>
   </entryPoints>

@@ -48,7 +48,7 @@ namespace ttb
 		return ret;
 	}
 
-	shared_ptr<POI> TTBPointOfInterests::getPOIByASPString(string aspPredicate)
+	shared_ptr<POI> TTBPointOfInterests::getPOIByUnaryASPPredicate(string aspPredicate)
 	{
 
         size_t start = aspPredicate.find("(");

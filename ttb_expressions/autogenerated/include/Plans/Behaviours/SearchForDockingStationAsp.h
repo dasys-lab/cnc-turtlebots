@@ -4,12 +4,11 @@
 #include "DomainBehaviour.h"
 /*PROTECTED REGION ID(inc1470041810334) ENABLED START*/ //Add additional includes here
 #include <kdl_conversions/kdl_msg.h>
-#include <ecl/geometry/pose2d.hpp>
 #include <kobuki_dock_drive/dock_drive.hpp>
-#include <clingo/clingocontrol.hh>
 #include <engine/constraintmodul/Query.h>
 #include <memory>
 #include "POI.h"
+#include <alica_asp_solver/AnnotatedValVec.h>
 //#define testWithoutTTB
 /*PROTECTED REGION END*/
 namespace alica
@@ -21,7 +20,7 @@ namespace alica
         virtual ~SearchForDockingStationAsp();
         virtual void run(void* msg);
         /*PROTECTED REGION ID(pub1470041810334) ENABLED START*/ //Add additional public methods here
-        vector<Gringo::ValVec> result;
+        vector<alica::reasoner::AnnotatedValVec> result;
         /*PROTECTED REGION END*/
     protected:
         virtual void initialiseParameters();
@@ -33,6 +32,7 @@ namespace alica
         kobuki::DockDrive dock;
 #endif
         shared_ptr<alica::Query> query;
+        string getPOIName(string predicate);
         /*PROTECTED REGION END*/};
 } /* namespace alica */
 

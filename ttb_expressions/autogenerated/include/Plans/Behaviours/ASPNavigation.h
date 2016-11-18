@@ -3,7 +3,6 @@
 
 #include "DomainBehaviour.h"
 /*PROTECTED REGION ID(inc1475693360605) ENABLED START*/ //Add additional includes here
-#include <clingo/clingocontrol.hh>
 #include <memory>
 #include "POI.h"
 #include <alica_asp_solver/AnnotatedValVec.h>
