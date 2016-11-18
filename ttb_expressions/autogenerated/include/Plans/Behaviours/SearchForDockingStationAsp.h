@@ -4,7 +4,6 @@
 #include "DomainBehaviour.h"
 /*PROTECTED REGION ID(inc1470041810334) ENABLED START*/ //Add additional includes here
 #include <kdl_conversions/kdl_msg.h>
-#include <ecl/geometry/pose2d.hpp>
 #include <kobuki_dock_drive/dock_drive.hpp>
 #include <engine/constraintmodul/ConstraintQuery.h>
 #include <memory>
