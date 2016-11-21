@@ -24,7 +24,7 @@ namespace range_scan
 			roboradius(0.18)
 	{
 		this->direction_pub = n.advertise<std_msgs::Bool>("drive", 1000);
-		this->laser_sub = this->n.subscribe("leonardo/scan_hokuyo", 1000, &RangeScan::laserCallback, (RangeScan*)this);
+		this->laser_sub = this->n.subscribe("donatello/scan_hokuyo", 1000, &RangeScan::laserCallback, (RangeScan*)this);
 
 		this->t1=new std::thread(&RangeScan::run,(RangeScan*)this);
 	}
