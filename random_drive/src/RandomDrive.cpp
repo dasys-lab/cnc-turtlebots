@@ -18,7 +18,7 @@ namespace random_drive
 	RandomDrive::RandomDrive()
 	{
 
-		randomDriveController_pub = n.advertise<geometry_msgs::Twist>("mobile_base/commands/velocity",1000);
+		randomDriveController_pub = n.advertise<geometry_msgs::Twist>("cmd_vel_mux/input/teleop",1000);
 		sub = n.subscribe("drive", 1000, &RandomDrive::chatterCallback, (RandomDrive*)this);
 		this->t1=new std::thread(&RandomDrive::run,(RandomDrive*)this);
 
