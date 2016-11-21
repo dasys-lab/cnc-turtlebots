@@ -18,23 +18,28 @@ namespace random_drive
 	RandomDrive::RandomDrive()
 	{
 
-		randomDriveController_pub = n.advertise<geometry_msgs::Twist>("mobile_base/commands/velocity",1000);
+		randomDriveController_pub = n.advertise<geometry_msgs::Twist>("cmd_vel_mux/input/teleop",1000);
 		sub = n.subscribe("drive", 1000, &RandomDrive::chatterCallback, (RandomDrive*)this);
 		this->t1=new std::thread(&RandomDrive::run,(RandomDrive*)this);
 
 		msgBool = false;
 	}
+
 	void RandomDrive::chatterCallback(const std_msgs::Bool::ConstPtr& msg)
 	{
 	   msgBool = msg->data;
 	}
+
 	void RandomDrive::run(){
+
+	int count = 0;
+	geometry_msgs::Twist msg;
+
 	while(ros::ok())
 			{
-				geometry_msgs::Twist msg;
+				
 				msg.linear.x = 0.5;
 				msg.angular.z = 0;
-				int count = 0;
 
 				if (!msgBool || count > 0){
 
