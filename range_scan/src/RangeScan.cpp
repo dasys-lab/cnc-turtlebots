@@ -24,7 +24,8 @@ namespace range_scan
 			roboradius(0.18)
 	{
 		this->direction_pub = n.advertise<std_msgs::Bool>("drive", 1000);
-		this->laser_sub = this->n.subscribe("donatello/scan_hokuyo", 1000, &RangeScan::laserCallback, (RangeScan*)this);
+		std::string robot = this->getEnv("ROBOT");
+		this->laser_sub = this->n.subscribe(robot+"/scan_hokuyo", 1000, &RangeScan::laserCallback, (RangeScan*)this);
 
 		this->t1=new std::thread(&RangeScan::run,(RangeScan*)this);
 	}
@@ -37,26 +38,32 @@ namespace range_scan
 	void RangeScan::laserCallback(const sensor_msgs::LaserScan::ConstPtr& msg)
 	{
 
-	double actualdist;
-	for(int i = 0; i <= 720; i++){
+		double minDist;
+		passfree=true;
 
-		actualdist = roboradius/cos(i/4);		
+		for(int i = 0; i <= 720; i++){
+			double angle = (i/4)*M_PI/180;
+			if (i < 320)
+			{ // left edge
+				minDist = roboradius/cos(angle);
+			}
+			else if (i < 400)
+			{ // front edge
+				minDist = 1/cos(M_PI/2-angle);
+			}
+			else
+			{ // right edge
+				minDist = roboradius/cos(M_PI-angle);
+			}
 
-		if(cos(i/4) == 0){
-			if(msg->ranges[180 + i] < dist){
-				passfree = false;
-			}else{
-				passfree=true;
-			}		
-		}else{
-			if(actualdist<dist){
+			std::cout << "RS: minDist i: " << i << " dist: " << minDist << std::endl;
+			if(msg->ranges[180+i] < minDist)
+			{
 				passfree=false;
-			}else{
-				passfree=true;
 			}
 		}
-		
-	}
+
+		std::cout << "RS: Is " << (passfree ? " FREE!" : " NOT free!") << std::endl;
 //std::cout<<"Range at 135 degrees: " <<msg->ranges[540]<<std::endl; 
 //
 //		if (msg->ranges[540]<0.5){
@@ -80,6 +87,21 @@ namespace range_scan
 
 			this->direction_pub.publish(msg);
 			sleep(0.5);
+		}
+	}
+
+	std::string RangeScan::getEnv(const std::string & var)
+	{
+		const char * val = ::getenv(var.c_str());
+		if (val == 0)
+		{
+			std::cerr << "RS: Environment Variable " << var << " is null" << std::endl;
+			return "";
+		}
+		else
+		{
+			std::cout << "RS: Environment Variable " << var << " is " << val << std::endl;
+			return val;
 		}
 	}
 

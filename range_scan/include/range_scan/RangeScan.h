@@ -21,7 +21,7 @@ namespace range_scan
 		RangeScan();
 		virtual ~RangeScan();
 		void laserCallback(const sensor_msgs::LaserScan::ConstPtr& msg);
-
+		std::string getEnv(const std::string & var);
 
 		void run();
 
