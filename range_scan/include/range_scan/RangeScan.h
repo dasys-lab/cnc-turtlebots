@@ -28,6 +28,8 @@ namespace range_scan
 	private:
 		bool passfree;
 		bool running;
+		double dist;
+		double roboradius;
 		ros::Publisher direction_pub;
 		ros::Subscriber laser_sub;
 		ros::NodeHandle n;
