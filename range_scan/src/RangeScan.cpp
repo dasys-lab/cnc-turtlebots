@@ -38,24 +38,28 @@ namespace range_scan
 	void RangeScan::laserCallback(const sensor_msgs::LaserScan::ConstPtr& msg)
 	{
 
-	double actualdist;
+	double minDist;
 	for(int i = 0; i <= 720; i++){
+		double angle = (i/4)*180/M_PI;
+		if (i < 320)
+		{ // left edge
+			minDist = roboradius/cos(angle);
+		}
+		else if (i < 400)
+		{ // front edge
+			minDist = 1/cos(M_PI/2-angle);
+		}
+		else
+		{ // right edge
+			minDist = roboradius/cos(M_PI-angle);
+		}
 
-
-
-		if(cos(i/4) == 0){
-			if(msg->ranges[180 + i] < dist){
-				passfree = false;
-			}else{
-				passfree=true;
-			}		
+		if(msg->ranges[180+i] < minDist){
+			std::cout << "RS: Is NOT free!" << std::endl;
+			passfree=false;
 		}else{
-			actualdist = roboradius/cos(i/4);
-			if(msg->ranges[180+i] < actualdist){
-				passfree=false;
-			}else{
-				passfree=true;
-			}
+			std::cout << "RS: Is FREE!" << std::endl;
+			passfree=true;
 		}
 		
 	}
