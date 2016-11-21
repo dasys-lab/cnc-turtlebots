@@ -38,31 +38,32 @@ namespace range_scan
 	void RangeScan::laserCallback(const sensor_msgs::LaserScan::ConstPtr& msg)
 	{
 
-	double minDist;
-	for(int i = 0; i <= 720; i++){
-		double angle = (i/4)*180/M_PI;
-		if (i < 320)
-		{ // left edge
-			minDist = roboradius/cos(angle);
-		}
-		else if (i < 400)
-		{ // front edge
-			minDist = 1/cos(M_PI/2-angle);
-		}
-		else
-		{ // right edge
-			minDist = roboradius/cos(M_PI-angle);
+		double minDist;
+		passfree=true;
+
+		for(int i = 0; i <= 720; i++){
+			double angle = (i/4)*180/M_PI;
+			if (i < 320)
+			{ // left edge
+				minDist = roboradius/cos(angle);
+			}
+			else if (i < 400)
+			{ // front edge
+				minDist = 1/cos(M_PI/2-angle);
+			}
+			else
+			{ // right edge
+				minDist = roboradius/cos(M_PI-angle);
+			}
+
+			std::cout << "RS: minDist i: " << i << " dist: " << minDist << std::endl;
+			if(msg->ranges[180+i] < minDist)
+			{
+				passfree=false;
+			}
 		}
 
-		if(msg->ranges[180+i] < minDist){
-			std::cout << "RS: Is NOT free!" << std::endl;
-			passfree=false;
-		}else{
-			std::cout << "RS: Is FREE!" << std::endl;
-			passfree=true;
-		}
-		
-	}
+		std::cout << "RS: Is " << (passfree ? " FREE!" : " NOT free!") << std::endl;
 //std::cout<<"Range at 135 degrees: " <<msg->ranges[540]<<std::endl; 
 //
 //		if (msg->ranges[540]<0.5){
