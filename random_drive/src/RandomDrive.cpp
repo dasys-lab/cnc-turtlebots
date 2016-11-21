@@ -47,7 +47,7 @@ namespace random_drive
 				msg.linear.x = 0;
 				msg.angular.z = 0.5;
 				count++;
-				if (count >= 50)
+				if (count >= 10)
 				{
 					count = 0;
 				}
