@@ -86,7 +86,7 @@ namespace range_scan
 			msg.data = passfree;
 
 			this->direction_pub.publish(msg);
-			sleep(0.5);
+			sleep(1);
 		}
 	}
 
