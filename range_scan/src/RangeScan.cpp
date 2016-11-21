@@ -42,6 +42,9 @@ namespace range_scan
 		passfree=true;
 
 		for(int i = 0; i <= 720; i++){
+			if (msg->ranges[180+i] == 0.001)
+				continue;
+
 			double angle = (i/4)*M_PI/180;
 			if (i < 320)
 			{ // left edge
