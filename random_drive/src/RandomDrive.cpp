@@ -51,9 +51,9 @@ namespace random_drive
 				{
 					count = 0;
 				}
-				//std::cout<<count;
+				std::cout<<count;
 			}
-			//std::cout<<"sending msg"<<msg.linear.x<<msg.angular.z;
+			std::cout<<"sending msg"<<msg.linear.x<<msg.angular.z;
 			randomDriveController_pub.publish(msg);
 
 		}
@@ -70,7 +70,7 @@ int main(int argc, char **argv)
 	ros::init(argc, argv, "randomDriveController");
 
 	random_drive::RandomDrive randomDrive;
-	ros::Rate loop_rate(5);
+	ros::Rate loop_rate(10);
 
 	while (ros::ok())
 	{
