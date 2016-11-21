@@ -51,9 +51,9 @@ namespace random_drive
 				{
 					count = 0;
 				}
-
+				std::cout<<count;
 			}
-
+			std::cout<<"sending msg"<<msg.linear.x<<msg.angular.z;
 			randomDriveController_pub.publish(msg);
 
 		}
