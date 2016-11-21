@@ -41,7 +41,7 @@ namespace range_scan
 	double actualdist;
 	for(int i = 0; i <= 720; i++){
 
-		actualdist = roboradius/cos(i/4);		
+
 
 		if(cos(i/4) == 0){
 			if(msg->ranges[180 + i] < dist){
@@ -50,7 +50,8 @@ namespace range_scan
 				passfree=true;
 			}		
 		}else{
-			if(actualdist<dist){
+			actualdist = roboradius/cos(i/4);
+			if(msg->ranges[180+i] < actualdist){
 				passfree=false;
 			}else{
 				passfree=true;
