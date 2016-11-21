@@ -24,7 +24,8 @@ namespace range_scan
 			roboradius(0.18)
 	{
 		this->direction_pub = n.advertise<std_msgs::Bool>("drive", 1000);
-		this->laser_sub = this->n.subscribe("donatello/scan_hokuyo", 1000, &RangeScan::laserCallback, (RangeScan*)this);
+		std::string robot = this->getEnv("ROBOT");
+		this->laser_sub = this->n.subscribe(robot+"/scan_hokuyo", 1000, &RangeScan::laserCallback, (RangeScan*)this);
 
 		this->t1=new std::thread(&RangeScan::run,(RangeScan*)this);
 	}
@@ -80,6 +81,21 @@ namespace range_scan
 
 			this->direction_pub.publish(msg);
 			sleep(0.5);
+		}
+	}
+
+	std::string RangeScan::getEnv(const std::string & var)
+	{
+		const char * val = ::getenv(var.c_str());
+		if (val == 0)
+		{
+			std::cerr << "RS: Environment Variable " << var << " is null" << std::endl;
+			return "";
+		}
+		else
+		{
+			std::cout << "RS: Environment Variable " << var << " is " << val << std::endl;
+			return val;
 		}
 	}
 
