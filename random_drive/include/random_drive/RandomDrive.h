@@ -26,7 +26,7 @@ namespace random_drive
 
 	private:
 		void chatterCallback(const std_msgs::Bool::ConstPtr& msg);
-		bool msgBool;
+		bool wayIsFree;
 		ros::NodeHandle n;
 		ros::Publisher randomDriveController_pub;
 		ros::Subscriber sub;
