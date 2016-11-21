@@ -56,7 +56,7 @@ namespace range_scan
 				minDist = roboradius/cos(M_PI-angle);
 			}
 
-			std::cout << "RS: minDist i: " << i << " dist: " << minDist << std::endl;
+			std::cout << "RS: minDist i: " << i << " dist: " << minDist << " Range: " << msg->ranges[180+i] << std::endl;
 			if(msg->ranges[180+i] < minDist)
 			{
 				passfree=false;
