@@ -70,7 +70,7 @@ int main(int argc, char **argv)
 	ros::init(argc, argv, "randomDriveController");
 
 	random_drive::RandomDrive randomDrive;
-	ros::Rate loop_rate(30);
+	ros::Rate loop_rate(5);
 
 	while (ros::ok())
 	{
