@@ -9,6 +9,7 @@
 
 #include "std_msgs/String.h"
 #include "std_msgs/Bool.h"
+#include "math.h"
 
 #include <sstream>
 #include <thread>
@@ -18,7 +19,9 @@ namespace range_scan
 
 	RangeScan::RangeScan() :
 			running(true),
-			passfree(true)
+			passfree(true),
+			dist(0.5),
+			roboradius(0.18)
 	{
 		this->direction_pub = n.advertise<std_msgs::Bool>("drive", 1000);
 		this->laser_sub = this->n.subscribe("leonardo/scan_hokuyo", 1000, &RangeScan::laserCallback, (RangeScan*)this);
@@ -33,17 +36,38 @@ namespace range_scan
 
 	void RangeScan::laserCallback(const sensor_msgs::LaserScan::ConstPtr& msg)
 	{
-std::cout<<"Range at 135 degrees: " <<msg->ranges[540]<<std::endl; 
 
-		if (msg->ranges[540]<0.5){
-std::cout<<"Range at 135 degrees for <0.5: " <<msg->ranges[540]<<std::endl; 
+	double actualdist;
+	for(int i = 0; i <= 720; i++){
 
-			passfree=false;
+		actualdist = roboradius/cos(i/4);		
+
+		if(cos(i/4) == 0){
+			if(msg->ranges[180 + i] < dist){
+				passfree = false;
+			}else{
+				passfree=true;
+			}		
 		}else{
-std::cout<<"Range at 135 degrees for >0.5: " <<msg->ranges[540]<<std::endl; 
-
-			passfree=true;
+			if(actualdist<dist){
+				passfree=false;
+			}else{
+				passfree=true;
+			}
 		}
+		
+	}
+//std::cout<<"Range at 135 degrees: " <<msg->ranges[540]<<std::endl; 
+//
+//		if (msg->ranges[540]<0.5){
+//std::cout<<"Range at 135 degrees for <0.5: " <<msg->ranges[540]<<std::endl; 
+//
+//			passfree=false;
+//		}else{
+//std::cout<<"Range at 135 degrees for >0.5: " <<msg->ranges[540]<<std::endl; 
+//
+//			passfree=true;
+//		}
 	}
 
 	void RangeScan::run()
