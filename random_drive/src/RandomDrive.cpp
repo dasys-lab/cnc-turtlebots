@@ -24,17 +24,22 @@ namespace random_drive
 
 		msgBool = false;
 	}
+
 	void RandomDrive::chatterCallback(const std_msgs::Bool::ConstPtr& msg)
 	{
 	   msgBool = msg->data;
 	}
+
 	void RandomDrive::run(){
+
+	int count = 0;
+	geometry_msgs::Twist msg;
+
 	while(ros::ok())
 			{
-				geometry_msgs::Twist msg;
+				
 				msg.linear.x = 0.5;
 				msg.angular.z = 0;
-				int count = 0;
 
 				if (!msgBool || count > 0){
 
