@@ -42,7 +42,7 @@ namespace range_scan
 		passfree=true;
 
 		for(int i = 0; i <= 720; i++){
-			double angle = (i/4)*180/M_PI;
+			double angle = (i/4)*M_PI/180;
 			if (i < 320)
 			{ // left edge
 				minDist = roboradius/cos(angle);
