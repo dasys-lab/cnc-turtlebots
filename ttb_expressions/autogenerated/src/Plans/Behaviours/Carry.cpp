@@ -73,7 +73,7 @@ namespace alica
 	{
 		/*PROTECTED REGION ID(initialiseParameters1468494621581) ENABLED START*/ //Add additional options here
 		query->clearStaticVariables();
-		query->addVariable(getVariablesByName("CarryVar"));
+		query->addStaticVariable(getVariablesByName("CarryVar"));
 		result.clear();
 		/*PROTECTED REGION END*/
 	}
