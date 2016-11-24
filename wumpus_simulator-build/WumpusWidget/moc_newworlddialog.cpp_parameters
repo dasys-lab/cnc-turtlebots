@@ -1,0 +1,7 @@
+-I/home/lab-user/ttbws/src/cnc-turtlebots/wumpus_simulator
+-I/home/lab-user/ttbws/src/cnc-turtlebots/wumpus_simulator-build
+-DROS_PACKAGE_NAME="wumpus_simulator"
+-DROSCONSOLE_BACKEND_LOG4CXX
+-o
+/home/lab-user/ttbws/src/cnc-turtlebots/wumpus_simulator-build/WumpusWidget/moc_newworlddialog.cpp
+/home/lab-user/ttbws/src/cnc-turtlebots/wumpus_simulator/WumpusWidget/newworlddialog.h

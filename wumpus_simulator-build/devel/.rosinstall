@@ -1,0 +1,2 @@
+- setup-file:
+    local-name: /home/lab-user/ttbws/src/cnc-turtlebots/wumpus_simulator-build/devel/setup.sh

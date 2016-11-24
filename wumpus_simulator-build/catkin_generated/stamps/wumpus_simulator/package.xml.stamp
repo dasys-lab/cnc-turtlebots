@@ -11,20 +11,25 @@
   
   <buildtool_depend>catkin</buildtool_depend>
 
-  <build_depend>message_generation</build_depend>
-  <build_depend>std_msgs</build_depend>
-  <build_depend>rqt_gui</build_depend>
-  <build_depend>rqt_gui_cpp</build_depend>
+  <build_depend>qtbase5-dev</build_depend>
+  <build_depend>roscpp</build_depend>
+  <build_depend>ttb_msgs</build_depend>
   <build_depend>system_config</build_depend>
 
-  <run_depend>message_runtime</run_depend>
-  <run_depend>std_msgs</run_depend>
+
   <run_depend>rqt_gui</run_depend>
+  <run_depend>ttb_msgs</run_depend>
   <run_depend>rqt_gui_cpp</run_depend>
   <run_depend>system_config</run_depend>
-  
+
+  <run_depend>libqt5-core</run_depend>
+  <run_depend>libqt5-gui</run_depend>
+  <run_depend>libqt5-widgets</run_depend>
+  <run_depend>roscpp</run_depend>
+
+  <!-- The export tag contains other, unspecified, tags -->
   <export>
-    <rqt_gui plugin="${prefix}/plugin.xml"/>
+    <!-- Other tools can request additional information be placed here -->
+
   </export>
-  
 </package>
