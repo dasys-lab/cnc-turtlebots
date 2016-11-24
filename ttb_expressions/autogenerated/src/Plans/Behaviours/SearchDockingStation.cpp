@@ -1,4 +1,3 @@
-using namespace std;
 #include "Plans/Behaviours/SearchDockingStation.h"
 
 /*PROTECTED REGION ID(inccpp1414681429307) ENABLED START*/ //Add additional includes here
@@ -34,7 +33,7 @@ namespace alica
             double r, p, y;
             rot.GetRPY(r, p, y);
 
-            ecl::Pose2D<double> pose;
+            ecl::LegacyPose2D<double> pose;
             pose.x(odom->pose.pose.position.x);
             pose.y(odom->pose.pose.position.y);
             pose.heading(y);

@@ -21,13 +21,15 @@ namespace range_scan
 		RangeScan();
 		virtual ~RangeScan();
 		void laserCallback(const sensor_msgs::LaserScan::ConstPtr& msg);
-
+		std::string getEnv(const std::string & var);
 
 		void run();
 
 	private:
 		bool passfree;
 		bool running;
+		double dist;
+		double roboradius;
 		ros::Publisher direction_pub;
 		ros::Subscriber laser_sub;
 		ros::NodeHandle n;

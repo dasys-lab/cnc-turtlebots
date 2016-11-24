@@ -4,7 +4,7 @@
 #include "DomainBehaviour.h"
 /*PROTECTED REGION ID(inc1414681429307) ENABLED START*/ //Add additional includes here
 #include <kdl_conversions/kdl_msg.h>
-#include <ecl/geometry/pose2d.hpp>
+#include <ecl/geometry/legacy_pose2d.hpp>
 #include <kobuki_dock_drive/dock_drive.hpp>
 /*PROTECTED REGION END*/
 namespace alica

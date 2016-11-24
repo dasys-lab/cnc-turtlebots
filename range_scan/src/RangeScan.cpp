@@ -9,6 +9,7 @@
 
 #include "std_msgs/String.h"
 #include "std_msgs/Bool.h"
+#include "math.h"
 
 #include <sstream>
 #include <thread>
@@ -18,10 +19,13 @@ namespace range_scan
 
 	RangeScan::RangeScan() :
 			running(true),
-			passfree(true)
+			passfree(true),
+			dist(0.5),
+			roboradius(0.18)
 	{
 		this->direction_pub = n.advertise<std_msgs::Bool>("drive", 1000);
-		this->laser_sub = this->n.subscribe("leonardo/scan_hokuyo", 1000, &RangeScan::laserCallback, (RangeScan*)this);
+		std::string robot = this->getEnv("ROBOT");
+		this->laser_sub = this->n.subscribe(robot+"/scan_hokuyo", 1000, &RangeScan::laserCallback, (RangeScan*)this);
 
 		this->t1=new std::thread(&RangeScan::run,(RangeScan*)this);
 	}
@@ -33,17 +37,47 @@ namespace range_scan
 
 	void RangeScan::laserCallback(const sensor_msgs::LaserScan::ConstPtr& msg)
 	{
-std::cout<<"Range at 135 degrees: " <<msg->ranges[540]<<std::endl; 
 
-		if (msg->ranges[540]<0.5){
-std::cout<<"Range at 135 degrees for <0.5: " <<msg->ranges[540]<<std::endl; 
+		double minDist;
+		passfree=true;
 
-			passfree=false;
-		}else{
-std::cout<<"Range at 135 degrees for >0.5: " <<msg->ranges[540]<<std::endl; 
+		for(int i = 0; i <= 720; i++){
+			if (msg->ranges[180+i] == 0.001)
+				continue;
 
-			passfree=true;
+			double angle = (i/4)*M_PI/180;
+			if (i < 320)
+			{ // left edge
+				minDist = roboradius/cos(angle);
+			}
+			else if (i < 400)
+			{ // front edge
+				minDist = 1/cos(M_PI/2-angle);
+			}
+			else
+			{ // right edge
+				minDist = roboradius/cos(M_PI-angle);
+			}
+
+			std::cout << "RS: minDist i: " << i << " dist: " << minDist << " Range: " << msg->ranges[180+i] << std::endl;
+			if(msg->ranges[180+i] < minDist)
+			{
+				passfree=false;
+			}
 		}
+
+		std::cout << "RS: Is " << (passfree ? " FREE!" : " NOT free!") << std::endl;
+//std::cout<<"Range at 135 degrees: " <<msg->ranges[540]<<std::endl; 
+//
+//		if (msg->ranges[540]<0.5){
+//std::cout<<"Range at 135 degrees for <0.5: " <<msg->ranges[540]<<std::endl; 
+//
+//			passfree=false;
+//		}else{
+//std::cout<<"Range at 135 degrees for >0.5: " <<msg->ranges[540]<<std::endl; 
+//
+//			passfree=true;
+//		}
 	}
 
 	void RangeScan::run()
@@ -55,7 +89,22 @@ std::cout<<"Range at 135 degrees for >0.5: " <<msg->ranges[540]<<std::endl;
 			msg.data = passfree;
 
 			this->direction_pub.publish(msg);
-			sleep(0.5);
+			sleep(1);
+		}
+	}
+
+	std::string RangeScan::getEnv(const std::string & var)
+	{
+		const char * val = ::getenv(var.c_str());
+		if (val == 0)
+		{
+			std::cerr << "RS: Environment Variable " << var << " is null" << std::endl;
+			return "";
+		}
+		else
+		{
+			std::cout << "RS: Environment Variable " << var << " is " << val << std::endl;
+			return val;
 		}
 	}
 
