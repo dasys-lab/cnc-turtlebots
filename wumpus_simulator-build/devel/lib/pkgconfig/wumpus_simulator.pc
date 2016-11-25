@@ -1,8 +1,0 @@
-prefix=/home/lab-user/ttbws/src/cnc-turtlebots/wumpus_simulator-build/devel
-
-Name: wumpus_simulator
-Description: Description of wumpus_simulator
-Version: 0.0.0
-Cflags: 
-Libs: -L/home/lab-user/ttbws/src/cnc-turtlebots/wumpus_simulator-build/devel/lib -lwumpus_simulator
-Requires: system_config

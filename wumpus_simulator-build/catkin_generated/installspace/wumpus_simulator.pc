@@ -1,8 +1,0 @@
-prefix=/usr/local
-
-Name: wumpus_simulator
-Description: Description of wumpus_simulator
-Version: 0.0.0
-Cflags: 
-Libs: -L/usr/local/lib -lwumpus_simulator
-Requires: system_config
