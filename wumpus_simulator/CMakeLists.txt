@@ -36,18 +36,30 @@ catkin_python_setup()
 
 set(wumpuswidget_SRCS
   src/wumpus_simulator/WumpusSimulator.cpp
-#  src/wumpus_simulator/main.cpp
-#  src/wumpus_simulator/newworlddialog.cpp
+  src/wumpus_simulator/NewWorldDialog.cpp
+  src/wumpus_simulator/SettingsDialog.cpp
+  src/model/Agent.cpp
+  src/model/GroundTile.cpp
+  src/model/Simulator.cpp
+  src/model/Wumpus.cpp
+  src/model/Movable.cpp
 )
 
 set(wumpuswidget_HDRS
   include/wumpus_simulator/WumpusSimulator.h  
-#  include/wumpus_simulator/newworlddialog.h
+  include/wumpus_simulator/NewWorldDialog.h
+  include/wumpus_simulator/SettingsDialog.h
+  include/model/Agent.h
+  include/model/GroundTile.h
+  include/model/Simulator.h
+  include/model/Wumpus.h
+  include/model/Movable.h
 )
 
 set(wumpuswidget_UIS
   ui/mainwindow.ui
   ui/newworlddialog.ui
+  ui/settingsdialog.ui
 )
 
 set(wumpus_simulator_INCLUDE_DIRECTORIES

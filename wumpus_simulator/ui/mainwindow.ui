@@ -15,20 +15,6 @@
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
-    <widget class="QMenuBar" name="menuBar">
-     <widget class="QMenu" name="menuWumpus_Simulator">
-      <property name="title">
-       <string>File</string>
-      </property>
-      <addaction name="actionNew"/>
-      <addaction name="separator"/>
-      <addaction name="actionLoad"/>
-      <addaction name="actionSave"/>
-     </widget>
-     <addaction name="menuWumpus_Simulator"/>
-    </widget>
-   </item>
-   <item>
     <layout class="QGridLayout" name="gridLayout_2">
      <item row="0" column="0">
       <widget class="QSplitter" name="splitter_2">
@@ -53,7 +39,7 @@
           <string>Arrow:</string>
          </property>
         </widget>
-        <widget class="QLabel" name="wumusLabel">
+        <widget class="QLabel" name="wumpusLabel">
          <property name="minimumSize">
           <size>
            <width>0</width>
@@ -90,6 +76,17 @@
          </property>
          <property name="text">
           <string>Size: {{n}}x{{n}}</string>
+         </property>
+        </widget>
+        <widget class="QPushButton" name="settingsBtn">
+         <property name="maximumSize">
+          <size>
+           <width>100</width>
+           <height>16777215</height>
+          </size>
+         </property>
+         <property name="text">
+          <string>Settings</string>
          </property>
         </widget>
        </widget>

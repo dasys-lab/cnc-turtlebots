@@ -1,63 +1,19 @@
 #include "../../include/wumpus_simulator/WumpusSimulator.h"
 
-#include <qfiledialog.h>
-#include <qdebug.h>
 #include <pluginlib/class_list_macros.h>
 #include <ros/master.h>
+#include "wumpus_simulator/SettingsDialog.h"
 
 namespace wumpus_simulator
 {
 	WumpusSimulator::WumpusSimulator() :
-			rqt_gui_cpp::Plugin(), widget_(0), guiUpdateTimer_(nullptr)
+			rqt_gui_cpp::Plugin(), widget_(0)
 	{
 		setObjectName("WumpusSimulator");
-		rosNode = new ros::NodeHandle();
 	}
 
 	WumpusSimulator::~WumpusSimulator()
 	{
-	}
-
-	void WumpusSimulator::on_actionNew_triggered()
-	{
-		//Open the new world dialog
-//		NewWorldDialog* newWorldForm = new NewWorldDialog(this);
-//		newWorldForm->exec();
-	}
-
-	void WumpusSimulator::on_actionLoad_triggered()
-	{
-
-//		Open load file dialog to select a pregenerated wumpus world
-		QString filename = QFileDialog::getOpenFileName(this->widget_, tr("Load World"), QDir::currentPath(),
-														tr("Wumpus World File (*.wumpus)"), 0,
-														QFileDialog::DontUseNativeDialog);
-
-		//Check if the user selected a correct file
-		if (!filename.isNull())
-		{
-
-			//TODO: Do magic things
-			qDebug(filename.toLatin1());
-
-		}
-	}
-
-	void WumpusSimulator::on_actionSave_triggered()
-	{
-		//Open save file dialog to select a pregenerated wumpus world
-		QString filename = QFileDialog::getSaveFileName(this->widget_, tr("Save World"), QDir::currentPath(),
-														tr("Wumpus World File (*.wumpus)"), 0,
-														QFileDialog::DontUseNativeDialog);
-
-		//Check if the user selected a correct file
-		if (!filename.isNull())
-		{
-
-			//TODO: Do magic things
-			qDebug(filename.toLatin1());
-
-		}
 	}
 
 	void WumpusSimulator::initPlugin(qt_gui_cpp::PluginContext& context)
@@ -71,9 +27,7 @@ namespace wumpus_simulator
 			this->widget_->setWindowTitle(this->widget_->windowTitle() + " (" + QString::number(context.serialNumber()) + ")");
 		}
 		context.addWidget(this->widget_);
-		this->guiUpdateTimer_= new QTimer();
-		QObject::connect(this->guiUpdateTimer_, SIGNAL(timeout()), this, SLOT(run()));
-		this->guiUpdateTimer_->start(200);
+		connect(this->mainwindow.settingsBtn, SIGNAL(released()), SLOT(on_settingsBtn_clicked()));
 	}
 
 	void WumpusSimulator::shutdownPlugin()
@@ -89,6 +43,13 @@ namespace wumpus_simulator
 											const qt_gui_cpp::Settings& instance_settings)
 	{
 	}
+
+	void WumpusSimulator::on_settingsBtn_clicked()
+	{
+		auto settingsDialog = new SettingsDialog(this->widget_, this);
+		settingsDialog->exec();
+	}
+
 }
 
 PLUGINLIB_EXPORT_CLASS(wumpus_simulator::WumpusSimulator, rqt_gui_cpp::Plugin)

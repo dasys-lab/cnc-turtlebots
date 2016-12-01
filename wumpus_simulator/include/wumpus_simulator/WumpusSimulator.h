@@ -8,15 +8,16 @@
 #include <QtGui>
 #include <QWidget>
 #include <QDialog>
+#include <iostream>
 
 #include <ui_mainwindow.h>
-
+#include <ui_settingsdialog.h>
 
 namespace wumpus_simulator
 {
 	class WumpusSimulator : public rqt_gui_cpp::Plugin
 	{
-		Q_OBJECT
+	Q_OBJECT
 
 	public:
 		WumpusSimulator();
@@ -25,21 +26,14 @@ namespace wumpus_simulator
 		virtual void initPlugin(qt_gui_cpp::PluginContext& context);
 		virtual void shutdownPlugin();
 		virtual void saveSettings(qt_gui_cpp::Settings& plugin_settings, qt_gui_cpp::Settings& instance_settings) const;
-		virtual void restoreSettings(const qt_gui_cpp::Settings& plugin_settings, const qt_gui_cpp::Settings& instance_settings);
-
-		ros::NodeHandle* rosNode;
+		virtual void restoreSettings(const qt_gui_cpp::Settings& plugin_settings,
+										const qt_gui_cpp::Settings& instance_settings);
 
 		QWidget* widget_;
-		QTimer* guiUpdateTimer_;
 		Ui::MainWindow mainwindow;
 
-	public Q_SLOTS:
-
-		void on_actionNew_triggered();
-
-		void on_actionLoad_triggered();
-
-		void on_actionSave_triggered();
+	private slots:
+		void on_settingsBtn_clicked();
 
 	private:
 	};
