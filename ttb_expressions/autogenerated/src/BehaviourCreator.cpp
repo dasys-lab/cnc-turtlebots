@@ -25,6 +25,8 @@ using namespace std;
 
 #include  "Plans/Behaviours/SearchDockingStation.h"
 
+#include  "Plans/Behaviours/ASPRCCTest.h"
+
 namespace alica
 {
 
@@ -104,6 +106,11 @@ namespace alica
             case 1414681446065:
 
                 return make_shared<SearchDockingStation>();
+                break;
+
+            case 1480766599215:
+
+                return make_shared<ASPRCCTest>();
                 break;
 
             default:

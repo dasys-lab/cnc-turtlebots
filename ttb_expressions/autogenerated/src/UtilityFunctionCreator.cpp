@@ -23,6 +23,8 @@
 
 #include  "Plans/Tests/TurtleGenericTestMaster1454329729827.h"
 
+#include  "Plans/Serve/ASPRCCTestMaster1480766525772.h"
+
 #include  "Plans/Tests/TestPOI1454329810785.h"
 
 #include  "Plans/Serve/Charge1454331030770.h"
@@ -87,6 +89,10 @@ namespace alica
 
             case 1454329729827:
                 return make_shared<UtilityFunction1454329729827>();
+                break;
+
+            case 1480766525772:
+                return make_shared<UtilityFunction1480766525772>();
                 break;
 
             case 1454329810785:
