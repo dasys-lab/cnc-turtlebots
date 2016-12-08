@@ -9,16 +9,27 @@
 #define INCLUDE_MODEL_WUMPUS_H_
 
 #include <model/Movable.h>
+#include <memory>
+
+
+
+using namespace std;
 
 namespace wumpus_simulator
 {
+	class GroundTile;
 
 	class Wumpus : public Movable
 	{
 	public:
-		Wumpus();
+		Wumpus(shared_ptr<GroundTile> tile);
 		virtual ~Wumpus();
+
+	private:
+		shared_ptr<GroundTile> tile;
+
 	};
+
 
 } /* namespace wumpus_simulator */
 

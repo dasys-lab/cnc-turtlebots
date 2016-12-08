@@ -21,9 +21,9 @@ namespace wumpus_simulator
 
 	private slots:
 
-		void on_randomButton_clicked();
-		void on_buttonBox_accepted();
-		void on_buttonBox_rejected();
+		void randomButton();
+		void buttonBox_acc();
+		void buttonBox_rej();
 
 	private:
 		Ui::NewWorldDialog NewWorldView;

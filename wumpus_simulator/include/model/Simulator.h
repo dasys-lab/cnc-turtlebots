@@ -35,6 +35,8 @@ namespace wumpus_simulator
 		bool agentHasArrow;
 		vector<vector<shared_ptr<GroundTile>>> playGround;
 		vector<shared_ptr<Movable>> movableObjects;
+		void setBreeze(int x, int y);
+		void setStench(int x, int y);
 	};
 
 } /* namespace wumpus_simulator */

@@ -14,6 +14,10 @@ namespace wumpus_simulator
 	{
 		this->x = x;
 		this->y = y;
+		this->hasGold = false;
+		this->hasTrap = false;
+		this->hasStench = false;
+		this->hasBreeze = false;
 	}
 
 	GroundTile::~GroundTile()
@@ -29,6 +33,61 @@ namespace wumpus_simulator
 	int GroundTile::getY()
 	{
 		return y;
+	}
+
+	bool GroundTile::getGold()
+	{
+		return hasGold;
+	}
+
+	bool GroundTile::getStench()
+	{
+		return hasStench;
+	}
+
+	bool GroundTile::getTrap()
+	{
+		return hasTrap;
+	}
+
+	void GroundTile::setGold(bool value) {
+		hasGold = value;
+	}
+
+	void GroundTile::setTrap(bool value) {
+		hasTrap = value;
+	}
+
+	void GroundTile::setStench(bool value) {
+		hasStench = value;
+	}
+
+	bool GroundTile::hasWumpus(){
+		if(wumpus) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	shared_ptr<Wumpus> GroundTile::getWumpus()
+	{
+		return wumpus;
+	}
+
+	void GroundTile::setWumpus(shared_ptr<Wumpus> wumpus)
+	{
+		this->wumpus = wumpus;
+	}
+
+	bool GroundTile::getBreeze()
+	{
+		return hasBreeze;
+	}
+
+	void GroundTile::setBreeze(bool hasBreeze)
+	{
+		this->hasBreeze = hasBreeze;
 	}
 
 } /* namespace wumpus_simulator */

@@ -13,6 +13,8 @@
 #include <ui_mainwindow.h>
 #include <ui_settingsdialog.h>
 
+using namespace std;
+
 namespace wumpus_simulator
 {
 	class WumpusSimulator : public rqt_gui_cpp::Plugin
@@ -29,11 +31,14 @@ namespace wumpus_simulator
 		virtual void restoreSettings(const qt_gui_cpp::Settings& plugin_settings,
 										const qt_gui_cpp::Settings& instance_settings);
 
+		void createWorld(bool arrow, string size, string traps, string wumpus);
+
+
 		QWidget* widget_;
 		Ui::MainWindow mainwindow;
 
 	private slots:
-		void on_settingsBtn_clicked();
+		void settingsBtn();
 
 	private:
 	};

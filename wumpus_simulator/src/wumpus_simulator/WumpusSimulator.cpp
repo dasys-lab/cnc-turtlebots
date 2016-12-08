@@ -3,6 +3,7 @@
 #include <pluginlib/class_list_macros.h>
 #include <ros/master.h>
 #include "wumpus_simulator/SettingsDialog.h"
+#include "model/Simulator.h"
 
 namespace wumpus_simulator
 {
@@ -24,10 +25,11 @@ namespace wumpus_simulator
 
 		if (context.serialNumber() > 1)
 		{
-			this->widget_->setWindowTitle(this->widget_->windowTitle() + " (" + QString::number(context.serialNumber()) + ")");
+			this->widget_->setWindowTitle(
+					this->widget_->windowTitle() + " (" + QString::number(context.serialNumber()) + ")");
 		}
 		context.addWidget(this->widget_);
-		connect(this->mainwindow.settingsBtn, SIGNAL(released()), SLOT(on_settingsBtn_clicked()));
+		connect(this->mainwindow.settingsBtn, SIGNAL(released()), SLOT(settingsBtn()));
 	}
 
 	void WumpusSimulator::shutdownPlugin()
@@ -44,12 +46,22 @@ namespace wumpus_simulator
 	{
 	}
 
-	void WumpusSimulator::on_settingsBtn_clicked()
+	void WumpusSimulator::settingsBtn()
 	{
 		auto settingsDialog = new SettingsDialog(this->widget_, this);
 		settingsDialog->exec();
 	}
 
+	void WumpusSimulator::createWorld(bool arrow, string size, string traps, string wumpus)
+	{
+
+		//Init the playground
+		Simulator::get()->init(stoi(size), stoi(wumpus), stoi(traps), arrow);
+
+		//Load grid
+
+
+	}
 }
 
 PLUGINLIB_EXPORT_CLASS(wumpus_simulator::WumpusSimulator, rqt_gui_cpp::Plugin)

@@ -15,13 +15,16 @@ namespace wumpus_simulator
 		this->NewWorldView.setupUi(this);
 		//Connect the ok button to a method
 		connect(this->NewWorldView.buttonBox->button(QDialogButtonBox::Ok), SIGNAL(clicked()),
-				SLOT(on_buttonBox_accepted()));
+				SLOT(buttonBox_acc()));
 		connect(this->NewWorldView.buttonBox->button(QDialogButtonBox::Cancel), SIGNAL(clicked()),
-				SLOT(on_buttonBox_rejected()));
+				SLOT(buttonBox_rej()));
+		connect(this->NewWorldView.randomButton, SIGNAL(clicked()),
+				SLOT(randomButton()));
+
 
 	}
 
-	void NewWorldDialog::on_randomButton_clicked()
+	void NewWorldDialog::randomButton()
 	{
 		//Calculate the field size, number of traps and wumpus randomly
 		srand(time(NULL));
@@ -41,7 +44,7 @@ namespace wumpus_simulator
 		}
 	}
 
-	void NewWorldDialog::on_buttonBox_accepted()
+	void NewWorldDialog::buttonBox_acc()
 	{
 		if(this->NewWorldView.sizePlayground->text().size() == 0 ||
 				this->NewWorldView.wumpus->text().size() == 0 ||
@@ -59,12 +62,15 @@ namespace wumpus_simulator
 		this->sim->mainwindow.wumpusLabel->setText(
 				QString("Wumpus: ").append(this->NewWorldView.wumpus->text()));
 
-		//TODO create model
+		this->sim->createWorld(this->NewWorldView.arrow->isChecked(),
+							   this->NewWorldView.sizePlayground->text().toStdString(),
+							   this->NewWorldView.traps->text().toStdString(),
+							   this->NewWorldView.wumpus->text().toStdString());
 
 		this->close();
 	}
 
-	void NewWorldDialog::on_buttonBox_rejected()
+	void NewWorldDialog::buttonBox_rej()
 	{
 		this->close();
 	}
