@@ -2,7 +2,7 @@
 <uiextensionmodel:PmlUiExtensionMap xmlns:uiextensionmodel="http:///de.uni_kassel.vs.cn/planDesigner/pmlextension/uiextensionmodel">
   <extensions>
     <key href="ServeMaster.pml#1454332108134"/>
-    <value xPos="100" yPos="82" width="81" height="67" collapsed="false"/>
+    <value xPos="102" yPos="77" width="81" height="67" collapsed="false"/>
   </extensions>
   <extensions>
     <key href="ServeMaster.pml#1454332108133"/>
@@ -41,7 +41,7 @@
   <extensions>
     <key href="ServeMaster.pml#1454332146639"/>
     <value>
-      <bendpoints xPos="379" yPos="131"/>
+      <bendpoints xPos="372" yPos="141"/>
     </value>
   </extensions>
   <extensions>
@@ -58,6 +58,10 @@
   </extensions>
   <extensions>
     <key href="CarryBookMaster.pml#1468493942500"/>
+    <value/>
+  </extensions>
+  <extensions>
+    <key href="PKVR16/CollectBoxes.pml#1481544845570"/>
     <value/>
   </extensions>
 </uiextensionmodel:PmlUiExtensionMap>
