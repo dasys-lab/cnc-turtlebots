@@ -30,7 +30,7 @@ disconnected(r1411A, r1411C, 2).
 disconnected(r1411, r1411A, 2).
 
 %%%% workshop
-partialOverdisconnectedlapping(workshop, mainHallA, 2).
+disconnected(workshop, mainHallA, 2).
 disconnected(studentArea, mainHallB, 2).
 disconnected(workshop, studentArea, 2).
 disconnected(workshop, offices, 2).
