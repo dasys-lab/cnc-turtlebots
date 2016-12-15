@@ -22,17 +22,17 @@ if (${CMAKE_EXTRA_GENERATOR} MATCHES "Eclipse CDT4")
 	add_definitions (-DCMAKE_ECLIPSE_GENERATE_SOURCE_PROJECT=TRUE)
 endif (${CMAKE_EXTRA_GENERATOR} MATCHES "Eclipse CDT4")
 
-add_message_files(
-  FILES
+# add_message_files(
+#  FILES
 #  RobotCommand.msg
-)
+# )
 
 catkin_python_setup()
 
-generate_messages(
-  DEPENDENCIES
-  std_msgs
-)
+#generate_messages(
+#  DEPENDENCIES
+#  std_msgs
+#)
 
 set(wumpuswidget_SRCS
   src/wumpus_simulator/WumpusSimulator.cpp
@@ -58,6 +58,7 @@ set(wumpuswidget_HDRS
 
 set(wumpuswidget_UIS
   ui/mainwindow.ui
+  ui/mainwindow_webview.ui
   ui/newworlddialog.ui
   ui/settingsdialog.ui
 )
@@ -87,7 +88,7 @@ QT5_WRAP_UI(wumpus_UIS_H ${wumpuswidget_UIS})
 
 
 add_library(${PROJECT_NAME} ${wumpuswidget_SRCS} ${wumpus_MOCS} ${wumpus_UIS_H})
-target_link_libraries(${PROJECT_NAME} ${catkin_LIBRARIES} ${Qt5Core_location} ${Qt5Gui_location} ${Qt5Network_location})
+target_link_libraries(${PROJECT_NAME} ${catkin_LIBRARIES} ${Qt5Widgets_location} ${Qt5Core_location} ${Qt5Gui_location} ${Qt5Network_location} QtWebKit)
 
 #add_dependencies(${PROJECT_NAME} robot_control_generate_messages_cpp)
 

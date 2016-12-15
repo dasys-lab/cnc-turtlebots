@@ -10,7 +10,7 @@
 #include <QDialog>
 #include <iostream>
 
-#include <ui_mainwindow.h>
+#include <ui_mainwindow_webview.h>
 #include <ui_settingsdialog.h>
 
 using namespace std;
@@ -43,7 +43,7 @@ namespace wumpus_simulator
 
 
 		QWidget* widget_;
-		Ui::MainWindow mainwindow;
+		Ui::MainWindowWebView mainwindow;
 
 	private slots:
 		void settingsBtn();

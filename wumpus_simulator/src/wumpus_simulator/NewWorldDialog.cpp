@@ -46,28 +46,28 @@ namespace wumpus_simulator
 
 	void NewWorldDialog::buttonBox_acc()
 	{
-		if(this->NewWorldView.sizePlayground->text().size() == 0 ||
-				this->NewWorldView.wumpus->text().size() == 0 ||
-				this->NewWorldView.traps->text().size() == 0)
-		{
-			return;
-		}
-		this->sim->mainwindow.arrowActiveLabel->setText(
-				this->NewWorldView.arrow->isChecked() ? "Arrow: true" : "Arrow: false");
-		this->sim->mainwindow.fieldSizeLabel->setText(
-				QString("Size: ").append(this->NewWorldView.sizePlayground->text()).append(" x ").append(
-						this->NewWorldView.sizePlayground->text()));
-		this->sim->mainwindow.trapLabel->setText(
-				QString("Traps: ").append(this->NewWorldView.traps->text()));
-		this->sim->mainwindow.wumpusLabel->setText(
-				QString("Wumpus: ").append(this->NewWorldView.wumpus->text()));
-
-		this->sim->createWorld(this->NewWorldView.arrow->isChecked(),
-							   this->NewWorldView.sizePlayground->text().toStdString(),
-							   this->NewWorldView.traps->text().toStdString(),
-							   this->NewWorldView.wumpus->text().toStdString());
-
-		this->close();
+//		if(this->NewWorldView.sizePlayground->text().size() == 0 ||
+//				this->NewWorldView.wumpus->text().size() == 0 ||
+//				this->NewWorldView.traps->text().size() == 0)
+//		{
+//			return;
+//		}
+//		this->sim->mainwindow.arrowActiveLabel->setText(
+//				this->NewWorldView.arrow->isChecked() ? "Arrow: true" : "Arrow: false");
+//		this->sim->mainwindow.fieldSizeLabel->setText(
+//				QString("Size: ").append(this->NewWorldView.sizePlayground->text()).append(" x ").append(
+//						this->NewWorldView.sizePlayground->text()));
+//		this->sim->mainwindow.trapLabel->setText(
+//				QString("Traps: ").append(this->NewWorldView.traps->text()));
+//		this->sim->mainwindow.wumpusLabel->setText(
+//				QString("Wumpus: ").append(this->NewWorldView.wumpus->text()));
+//
+//		this->sim->createWorld(this->NewWorldView.arrow->isChecked(),
+//							   this->NewWorldView.sizePlayground->text().toStdString(),
+//							   this->NewWorldView.traps->text().toStdString(),
+//							   this->NewWorldView.wumpus->text().toStdString());
+//
+//		this->close();
 	}
 
 	void NewWorldDialog::buttonBox_rej()
