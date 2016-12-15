@@ -4,6 +4,7 @@
 #include <ros/master.h>
 #include "wumpus_simulator/SettingsDialog.h"
 #include "model/Simulator.h"
+#include <qgridlayout.h>
 
 namespace wumpus_simulator
 {

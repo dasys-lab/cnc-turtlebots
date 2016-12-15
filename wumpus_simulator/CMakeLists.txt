@@ -22,17 +22,17 @@ if (${CMAKE_EXTRA_GENERATOR} MATCHES "Eclipse CDT4")
 	add_definitions (-DCMAKE_ECLIPSE_GENERATE_SOURCE_PROJECT=TRUE)
 endif (${CMAKE_EXTRA_GENERATOR} MATCHES "Eclipse CDT4")
 
-#add_message_files(
-#  FILES
+add_message_files(
+  FILES
 #  RobotCommand.msg
-#)
+)
 
 catkin_python_setup()
 
-#generate_messages(
-#  DEPENDENCIES
-#  std_msgs
-#)
+generate_messages(
+  DEPENDENCIES
+  std_msgs
+)
 
 set(wumpuswidget_SRCS
   src/wumpus_simulator/WumpusSimulator.cpp
