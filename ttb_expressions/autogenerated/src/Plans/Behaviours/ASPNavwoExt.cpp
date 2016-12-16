@@ -130,11 +130,11 @@ namespace alica
         }
         if (this->doorConfig.compare("config1") == 0)
         {
-            query->addVariable(getVariablesByName("NavVar1"));
+            query->addStaticVariable(getVariablesByName("NavVar1"));
         }
         else
         {
-            query->addVariable(getVariablesByName("NavVar2"));
+            query->addStaticVariable(getVariablesByName("NavVar2"));
         }
         /*PROTECTED REGION END*/
     }
