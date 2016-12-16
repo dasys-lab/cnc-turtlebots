@@ -78,11 +78,10 @@ namespace alica
 //			}
 //		}
 //		cout << endl;
-    	if(this->isSuccess())
-    	{
-    		return;
-    	}
-
+        if (this->isSuccess())
+        {
+            return;
+        }
         if (this->iterationCounter == 0)
         {
             this->wm->doors.openDoor("doorClosed(r1411, studentArea)");

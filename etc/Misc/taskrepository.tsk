@@ -3,4 +3,6 @@
   <tasks id="1414681164704" name="DefaultTask" comment="" description=""/>
   <tasks id="1414682595019" name="CleanUp" comment="" description=""/>
   <tasks id="1468494562045" name="Fetch" comment="" description=""/>
+  <tasks id="1481544910904" name="Search" comment="" description=""/>
+  <tasks id="1481544924225" name="Transport" comment="" description=""/>
 </alica:TaskRepository>
