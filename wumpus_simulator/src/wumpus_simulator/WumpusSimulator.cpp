@@ -6,7 +6,8 @@
 #include "model/Simulator.h"
 #include <qgridlayout.h>
 #include <qrect.h>
-#include <QtWebKitWidgets/QWebView>
+#include <QUrl>
+#include <QtNetwork/qnetworkproxy.h>
 
 namespace wumpus_simulator
 {

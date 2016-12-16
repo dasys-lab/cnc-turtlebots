@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 2.8.3)
 project(wumpus_simulator)
 
-find_package(catkin REQUIRED COMPONENTS rqt_gui rqt_gui_cpp roscpp message_generation ttb_msgs system_config)
+find_package(catkin REQUIRED COMPONENTS rqt_gui rqt_gui_cpp roscpp message_generation ttb_msgs system_config qt_gui)
 
 find_package(Qt5Core REQUIRED)
 get_target_property(Qt5Core_location Qt5::Core LOCATION)
@@ -11,6 +11,8 @@ find_package(Qt5Network REQUIRED)
 get_target_property(Qt5Network_location Qt5::Network LOCATION)
 find_package(Qt5Widgets REQUIRED)
 get_target_property(Qt5Widgets_location Qt5::Widgets LOCATION)
+find_package(Qt5WebKitWidgets REQUIRED)
+get_target_property(Qt5WebKitWidgetst_location Qt5::WebKit LOCATION)
 SET( QT_USE_QTXML TRUE )
 SET( QT_WRAP_CPP TRUE )
 
@@ -36,8 +38,8 @@ catkin_python_setup()
 
 set(wumpuswidget_SRCS
   src/wumpus_simulator/WumpusSimulator.cpp
-  src/wumpus_simulator/NewWorldDialog.cpp
-  src/wumpus_simulator/SettingsDialog.cpp
+  #src/wumpus_simulator/NewWorldDialog.cpp
+  #src/wumpus_simulator/SettingsDialog.cpp
   src/model/Agent.cpp
   src/model/GroundTile.cpp
   src/model/Simulator.cpp
@@ -47,8 +49,8 @@ set(wumpuswidget_SRCS
 
 set(wumpuswidget_HDRS
   include/wumpus_simulator/WumpusSimulator.h  
-  include/wumpus_simulator/NewWorldDialog.h
-  include/wumpus_simulator/SettingsDialog.h
+  #include/wumpus_simulator/NewWorldDialog.h
+  #include/wumpus_simulator/SettingsDialog.h
   include/model/Agent.h
   include/model/GroundTile.h
   include/model/Simulator.h
@@ -57,10 +59,10 @@ set(wumpuswidget_HDRS
 )
 
 set(wumpuswidget_UIS
-  ui/mainwindow.ui
+  #ui/mainwindow.ui
   ui/mainwindow_webview.ui
-  ui/newworlddialog.ui
-  ui/settingsdialog.ui
+  #ui/newworlddialog.ui
+  #ui/settingsdialog.ui
 )
 
 set(wumpus_simulator_INCLUDE_DIRECTORIES
@@ -69,6 +71,7 @@ set(wumpus_simulator_INCLUDE_DIRECTORIES
     ${Qt5Gui_INCLUDE_DIRS}
     ${Qt5Network_INCLUDE_DIRS}
     ${Qt5Widgets_INCLUDE_DIRS}
+    ${Qt5WebKitWidgets_INCLUDE_DIRS}
     ${CMAKE_CURRENT_BINARY_DIR}
 )
 include_directories(${wumpus_simulator_INCLUDE_DIRECTORIES} ${catkin_INCLUDE_DIRS})
@@ -80,7 +83,7 @@ include_directories(${wumpus_simulator_INCLUDE_DIRECTORIES} ${catkin_INCLUDE_DIR
 catkin_package(
   INCLUDE_DIRS ${wumpus_simulator_INCLUDE_DIRECTORIES}
   LIBRARIES ${PROJECT_NAME}
-  CATKIN_DEPENDS rqt_gui rqt_gui_cpp system_config
+  CATKIN_DEPENDS qt_gui rqt_gui rqt_gui_cpp system_config
 )
 
 QT5_WRAP_CPP(wumpus_MOCS ${wumpuswidget_HDRS})
@@ -88,7 +91,7 @@ QT5_WRAP_UI(wumpus_UIS_H ${wumpuswidget_UIS})
 
 
 add_library(${PROJECT_NAME} ${wumpuswidget_SRCS} ${wumpus_MOCS} ${wumpus_UIS_H})
-target_link_libraries(${PROJECT_NAME} ${catkin_LIBRARIES} ${Qt5Widgets_location} ${Qt5Core_location} ${Qt5Gui_location} ${Qt5Network_location} QtWebKit)
+target_link_libraries(${PROJECT_NAME} ${catkin_LIBRARIES} ${Qt5Widgets_location} ${Qt5Core_location} ${Qt5Gui_location} ${Qt5Network_location} ${Qt5WebKitWidgets_location} Qt5WebKitWidgets )
 
 #add_dependencies(${PROJECT_NAME} robot_control_generate_messages_cpp)
 

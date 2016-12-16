@@ -9,7 +9,7 @@
 #include <QWidget>
 #include <QDialog>
 #include <iostream>
-
+#include <QtWebKitWidgets/qwebview.h>
 #include <ui_mainwindow_webview.h>
 #include <ui_settingsdialog.h>
 
