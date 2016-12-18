@@ -1,3 +1,39 @@
 \chapter{TurtleBot Gazebo Simulation}
 \label{chap:TurtleBotGazeboSimulation}
 
+	
+\section{.bashrc}
+	\texttt{export TURTLEBOT\_STACKS = ninja-hexagons}
+	\\
+	\texttt{export TURTLEBOT\_3D\_SENSOR = ninja-kinect}
+	\\
+	\texttt{export GAZEBO\_MODEL\_PATH}
+
+
+\section{Starting Gazebo simulation}
+
+\texttt{roslaunch turtlebot\_bringup simulation.launch}
+	
+	Starts Gazebo, the map server and the robot	
+	\\	
+	\\	
+		
+\texttt{roslaunch turtlebot\_bringup navigation\_gazebo.launch}
+	
+	Starts amcl move\_base
+	\\
+	\\
+	
+\texttt{roslaunch rviz\_sim.launch}
+	
+	Starts local cost map
+
+\section{topics}
+
+\texttt{/leonardo/move\_base\_simple/goal}
+
+	to publish the robots destination
+\\
+\\
+\texttt{/leonardo/initialpose}
+	pose estimate	
