@@ -109,7 +109,7 @@ archive=true
 column=14
 encoding=UTF-8
 highlight=LaTeX
-line=79
+line=58
 mode=LaTeX
 open=true
 order=0
@@ -174,6 +174,6 @@ ViMarks=
 
 [view-settings,view=0,item:Software_Reference_Book.tex]
 CursorColumn=14
-CursorLine=79
+CursorLine=58
 JumpList=
-ViMarks=.,79,2,[,79,2,],79,13
+ViMarks=.,0,0,[,0,0,],-1,-1

@@ -6,7 +6,10 @@ In this chapter topics that are tackled during the lecture are introduced in a b
 \section{Agents}
 \label{sec:agents}
 
-Although not every agent is autonomous, our focus in this lecture is to design autnomous agents. Autonomous means, that the agent is not controlled from some external entitiy. It only perceives its environment and acts in order to change it. Why it tries to change its environment depends on the agent's properties. Agents can be reactive or proactive, they can communicate with other agents, remember the history of the environment, and predict the future of the environment according to some model. As a designer of the agents, you need to decide what kind of agents you need to achieve your goal. The famous book \emph{Artificial Intelligence \textendash\ A Modern Approach}, written by Russel and Norvic, elaborates properties of agents and environment in chapter two. The book is available in our library. It is recommmended to read chapter two for your exam preparations.
+Although not every agent is autonomous, our focus in this lecture is to design autonomous agents. Autonomous means, that the agent is not controlled from some external entity. It only perceives its environment and acts in order to change it. Why it tries to change its environment depends on the agent's properties. Agents can be reactive or proactive, they can communicate with other agents, remember the history of the environment, and predict the future of the environment according to some model. As a designer of the agents, you need to decide what kind of agents you need to achieve your goal. The famous book \emph{Artificial Intelligence \textendash\ A Modern Approach}, written by Russel and Norvic, elaborates properties of agents and environment in chapter two. The book is available in our library. It is recommended to read chapter two for your exam preparations.
+
+\subsection{Robot Control Architectures}
+\label{ssec:robotcontrolarch}
 
 \begin{figure}[htbp]
   \centering
@@ -25,7 +28,6 @@ Usually it is believed that the agent is interacting with its environment \texte
 \begin{figure}[htbp]
   \centering
   \begin{tikzpicture}[every node/.append style={thick}]
-    \node(Knowledge)[anchor=center, draw=ukorange!85, fill=ukorange!10, rounded corners, text width=2.5cm, align=center] at (3,-1.3) {Symbolic Knowledge};
     
     \node(Data) at (0,0) {Data Layers};
     \node(SymbolLayer)[highLayer, anchor=north] at (Data.south) {};
@@ -43,7 +45,6 @@ Usually it is believed that the agent is interacting with its environment \texte
     \node(ButtomUp)[single arrow, shape border rotate=90, draw, anchor=center, minimum height=5.02cm, xshift=-1cm, text width=1cm, align=center] at (IntermediateLayer.west) {\tiny{Data Abstraction}};
     \draw[->, bend right] (IntermediateLayerData.east) to node [processingArrow] {\tiny{Symbol\\Grounding,\\Anchoring}} (SymbolLayerData.south east);
     \draw[->, bend right] (SensorimotorLayerData.east) to node [processingArrow] {\tiny{Smoothing,\\ Filtering}} (IntermediateLayerData.south east);
-    \draw[->, bend left] (SymbolLayerData.east) to node [above, xshift=3mm] {\tiny{Updates}} (Knowledge.west);
 
     \node(Processing) at (6,0) {Control Layers};
     \node(DeliberateLayer)[highLayer, anchor=north] at (Processing.south) {};
@@ -61,20 +62,44 @@ Usually it is believed that the agent is interacting with its environment \texte
     \node(TopDown)[single arrow, shape border rotate=270, draw, anchor=center, minimum height=5.02cm, xshift=+1cm, text width=1cm, align=center] at (SequencerLayer.east) {\tiny{Decision Making and Execution}};
     \draw[<-, bend left] (SequencerLayerData.west) to node [processingArrow, text width=1cm, left, yshift=2mm] {\tiny{Strategy\\Adaption}} (DeliberateLayerData.south west);
     \draw[<-, bend left] (ControlLayerData.west) to node [processingArrow, text width=1.1cm, left, yshift=2mm] {\tiny{Behaviour\\Adaption}} (SequencerLayerData.south west);
-    \draw[->, bend left] (Knowledge.east) to node [above, xshift=-3mm] {\tiny{Queries}} (DeliberateLayerData.west);
     
     \node(Environment) [minimum width=9cm, minimum height=0.8cm, draw=black!85] at (3,-7) {Environment};
     \draw[->, bend right] (ControlLayerData.west) to node [left] {\tiny{act}} ([xshift=1.3cm]Environment.north);
     \draw[->, bend right] ([xshift=-1.8cm]Environment.north) to node [right] {\tiny{sense}} (SensorimotorLayerData.east);
+    
+    \draw[<->] ([yshift=5mm]SymbolLayer.east) to ([yshift=5mm]DeliberateLayer.west);
+    \draw[<->] ([yshift=-5mm]IntermediateLayer.east) to ([yshift=-5mm]SequencerLayer.west);
+    \draw[<->] (SensorimotorLayer.east) to (ControlLayer.west);
   \end{tikzpicture}
   \caption{Control Loop}
   \label{fig:controlloop}
 \end{figure}
 
- In Figure~\ref{fig:controlloop} an overview of the details of a state-of-the-art robot control system is shown. The Data Layers on the left hand side represent the utilised algorithms to gain information and knowledge from raw sensor data. During the data processing, the data are continuously filtered, condensed, and abstracted until symbols and relations can be integrated into the symbolic knowledge representation. This knowledge is required by the algorithms on the right hand side of Figure~\ref{fig:controlloop}. The Deliberation Layer, including algorithms for planning, communication, and strategy evaluation, computes its decisions based on the knowledge of the symbolic knowledge representation. The results are processed by the Sequencer Layer and transformed into commands for controlling actuators of the robot. 
+In Figure~\ref{fig:controlloop} an overview of the details of a state-of-the-art robot control system is shown. You should consider a robot as a physical agent, i.d., an agent with a physical representation. The Data Layers on the left hand side represent the utilised algorithms to gain information and knowledge from raw sensor data. During the data processing, the data is continuously filtered, condensed, and abstracted until symbols and relations can be integrated into a symbolic knowledge representation. This knowledge is required by the algorithms on the right hand side of Figure~\ref{fig:controlloop}. The Deliberation Layer, including algorithms for planning, communication, and strategy evaluation, computes its decisions based on the knowledge of the symbolic knowledge representation. The results are processed by the Sequencer Layer and transformed into commands for controlling actuators of the robot. 
+ 
+The data abstraction and decision making cycle is not perfectly followed in all applications. Often the abstraction of data up to the level of symbols and relations is not necessary. Moreover, it isn't clever to make everything a decision on the top most available layers. Think of a robot control architecture as of a human brain. A lot of things in a human body are handled without having the brain actively thinking about it, e.g., breathing, heart beat, reflexes on your knee, sneezing, blinking, etc. For a robot the corresponding things could be obstacle avoidance, motor controlling, avoiding rough terrain such as stairs, etc. Things like that should also in a robot control architecture be handled on lower levels and not bothering algorithms for planning or communication. 
+ 
+However, don't take this easy. It can be quit difficult or even impossible to assign a certain task to a certain level. Obstacle avoidance, for example, is sometimes part of all three layers: While driving along a path, the robot in a office environment avoids humans or other robots by directly reacting to its 2D distance scans from its laser scanner (lower layers). The path itself is planned in order to avoid already known walls and finding the shortest path (intermediate layers). Planning this path is influenced by some knowledge about the environment, e.g., the robot knows that there is currently a meeting going on in some room and as the robots motion is relative noisy, it knows that it should avoid meetings like a virtual obstacle, in order to not disturb the meeting (top layers).
+
+If you are in the position to decide on which layer something should be implemented, it sometimes helps to think about the following. The effort for abstracting data rises with each necessary processing step, therefore creating symbolic knowledge is often very costly. On the one hand, this argues for putting everything as on the lowest levels. On the other hand, the data on the lowest levels is often very large in terms of memory. You often have to ponder, whether it is more efficient to abstract the data and thereby reduce it to the smallest possible size or whether it is more efficient to directly operate on millions of raw camera pixel values without explicitly representing objects in the environment. Sometimes technical limitations also force you to a certain direction. If your robots, for example, need to communicate about objects it is probably impossible to send whole images of the objects to each other due to bandwidth limitations. Instead, the objects have to be abstracted to symbols or coordinates in order to match the bandwidth restrictions.
 
 \section{Sensors}
 \label{sec:sensor}
+
+Sensors are the only option for an agent to perceive its environment. This also means, that everything that helps an agent to perceive its environment can be considered as a sensor. Nevertheless, sensors are also used to measure internal values, not belonging to the environment. Before we are going to deep, let us start the sensor topic a little bit more general. There are two sensor properties that help to categorise the plethora of sensors available nowadays: Active vs. passive sensors and external vs. internal sensors. Whether a sensor is active or passive determines the way it measures some value.
+
+\begin{description}
+ \item [active:] An active sensor emits something, e.g., energy, for measuring what ever it should measure. Typical examples are laser scanners or radars that emit electro-magnetic waves of different wave length.
+ \item [passive:] Passive sensors directly measure energy from the environment. A camera for example perceives sunlight that is reflected from a surface, furthermore a compass measures the terrestrial magnetic field.
+\end{description}
+
+The difference between an internal or external sensor are the type of values the sensor measures, not how it measures it.
+ 
+\begin{description}
+ \item [internal:] Internal sensors measure values that are part of the system itself. Therefore it depends on the borders between the system and its environment. In case of a robot an internal sensor value could be its battery levels.
+ \item [external:] External sensors measure values from the outside of the system, i.d., values from its environment. Typical values are distances, light, and sound.
+\end{description}
+
 
 \section{Actuators}
 \label{sec:actuators}
