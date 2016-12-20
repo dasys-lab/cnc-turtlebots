@@ -7,8 +7,7 @@
 #include <qrect.h>
 #include <QUrl>
 #include <QtNetwork/qnetworkproxy.h>
-#include <QWebSettings>
-#include <QWebInspector>
+#include <QtWebKitWidgets/qwebinspector.h>
 
 namespace wumpus_simulator
 {
