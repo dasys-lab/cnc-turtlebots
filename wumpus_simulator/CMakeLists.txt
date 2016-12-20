@@ -76,9 +76,7 @@ set(wumpus_simulator_INCLUDE_DIRECTORIES
 )
 include_directories(${wumpus_simulator_INCLUDE_DIRECTORIES} ${catkin_INCLUDE_DIRS})
 
-#set(wumpus_simulator_RCS
-#    resources/resources.qrc
-#)
+file(GLOB QT_RESOURCES RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} resources/*.qrc)
 
 catkin_package(
   INCLUDE_DIRS ${wumpus_simulator_INCLUDE_DIRECTORIES}
@@ -86,11 +84,11 @@ catkin_package(
   CATKIN_DEPENDS qt_gui rqt_gui rqt_gui_cpp system_config
 )
 
+QT5_ADD_RESOURCES(QT_RESOURCES_CPP ${QT_RESOURCES})
 QT5_WRAP_CPP(wumpus_MOCS ${wumpuswidget_HDRS})
 QT5_WRAP_UI(wumpus_UIS_H ${wumpuswidget_UIS})
 
-
-add_library(${PROJECT_NAME} ${wumpuswidget_SRCS} ${wumpus_MOCS} ${wumpus_UIS_H})
+add_library(${PROJECT_NAME} ${wumpuswidget_SRCS} ${wumpus_MOCS} ${wumpus_UIS_H} ${QT_RESOURCES_CPP})
 target_link_libraries(${PROJECT_NAME} ${catkin_LIBRARIES} ${Qt5Widgets_location} ${Qt5Core_location} ${Qt5Gui_location} ${Qt5Network_location} ${Qt5WebKitWidgets_location} Qt5WebKitWidgets )
 
 #add_dependencies(${PROJECT_NAME} robot_control_generate_messages_cpp)

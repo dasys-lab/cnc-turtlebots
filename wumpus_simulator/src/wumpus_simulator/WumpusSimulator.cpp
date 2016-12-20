@@ -2,19 +2,19 @@
 
 #include <pluginlib/class_list_macros.h>
 #include <ros/master.h>
-#include "wumpus_simulator/SettingsDialog.h"
 #include "model/Simulator.h"
 #include <qgridlayout.h>
 #include <qrect.h>
 #include <QUrl>
 #include <QtNetwork/qnetworkproxy.h>
+#include <QWebSettings>
+#include <QWebInspector>
 
 namespace wumpus_simulator
 {
 	WumpusSimulator::WumpusSimulator() :
 			rqt_gui_cpp::Plugin(), widget_(0)
 	{
-		cout <<"test" << endl;
 		setObjectName("WumpusSimulator");
 	}
 
@@ -25,7 +25,6 @@ namespace wumpus_simulator
 	void WumpusSimulator::initPlugin(qt_gui_cpp::PluginContext& context)
 	{
 
-		cout <<"test" << endl;
 		this->widget_ = new QWidget();
 		this->widget_->setAttribute(Qt::WA_AlwaysShowToolTips, true);
 		this->mainwindow.setupUi(this->widget_);
@@ -37,8 +36,16 @@ namespace wumpus_simulator
 					this->widget_->windowTitle() + " (" + QString::number(context.serialNumber()) + ")");
 		}
 		context.addWidget(this->widget_);
-		//TODO: Add a modal to the ui
-//		connect(this->mainwindow.settingsBtn, SIGNAL(released()), SLOT(settingsBtn()));
+
+		//Allow to show a inspector in the web view, nice inline debugging of javascript
+		this->mainwindow.webView->page()->settings()->setAttribute(QWebSettings::DeveloperExtrasEnabled, true);
+		QWebInspector inspector;
+		inspector.setPage(this->mainwindow.webView->page());
+		inspector.setVisible(true);
+
+		//Initialize web view
+		this->mainwindow.webView->load(QUrl("qrc:///www/index.html"));
+
 	}
 
 	void WumpusSimulator::shutdownPlugin()
@@ -55,19 +62,11 @@ namespace wumpus_simulator
 	{
 	}
 
-//	void WumpusSimulator::settingsBtn()
-//	{
-//		auto settingsDialog = new SettingsDialog(this->widget_, this);
-//		settingsDialog->exec();
-//	}
-
 	void WumpusSimulator::createWorld(bool arrow, string size, string traps, string wumpus)
 	{
 
 		//Init the playground
 		Simulator::get()->init(stoi(size), stoi(wumpus), stoi(traps), arrow);
-
-		//Load grid
 
 
 

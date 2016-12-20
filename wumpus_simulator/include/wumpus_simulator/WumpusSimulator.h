@@ -11,7 +11,7 @@
 #include <iostream>
 #include <QtWebKitWidgets/qwebview.h>
 #include <ui_mainwindow_webview.h>
-#include <ui_settingsdialog.h>
+#include <QtNetwork/qnetworkreply.h>
 
 using namespace std;
 
@@ -42,11 +42,10 @@ namespace wumpus_simulator
 		void createWorld(bool arrow, string size, string traps, string wumpus);
 
 
+
+
 		QWidget* widget_;
 		Ui::MainWindowWebView mainwindow;
-
-	private slots:
-		void settingsBtn();
 
 	private:
 	};
