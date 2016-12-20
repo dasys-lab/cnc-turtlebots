@@ -16,7 +16,7 @@ namespace alica
             DomainBehaviour("ASPNavigation")
     {
         /*PROTECTED REGION ID(con1475693360605) ENABLED START*/ //Add additional options here
-        this->query = make_shared < alica::ConstraintQuery > (this->wm->getEngine());
+        this->query = make_shared < alica::Query > (this->wm->getEngine());
         this->openDoors = false;
         this->iterationCounter = 0;
         /*PROTECTED REGION END*/
@@ -78,10 +78,10 @@ namespace alica
 //			}
 //		}
 //		cout << endl;
-    	if(this->isSuccess())
-    	{
-    		return;
-    	}
+        if (this->isSuccess())
+        {
+            return;
+        }
         if (this->iterationCounter == 0)
         {
             this->wm->doors.openDoor("doorClosed(r1411, studentArea)");
@@ -90,7 +90,6 @@ namespace alica
             this->wm->doors.openDoor("doorClosed(studentArea, mainHallA)");
             this->wm->doors.openDoor("doorClosed(mainHallB, utility)");
             this->wm->doors.openDoor("doorClosed(r1405B, utility)");
-
             this->wm->doors.closeDoor("doorClosed(mainHallA, mainHallB)");
         }
         if (this->iterationCounter == 2)
@@ -167,7 +166,7 @@ namespace alica
     {
         /*PROTECTED REGION ID(initialiseParameters1475693360605) ENABLED START*/ //Add additional options here
         query->clearStaticVariables();
-        query->addVariable(getVariablesByName("NavVar"));
+        query->addStaticVariable(getVariablesByName("NavVar"));
         //result.clear(); // <-- this is done in each query->getSolution call
         /*PROTECTED REGION END*/
     }

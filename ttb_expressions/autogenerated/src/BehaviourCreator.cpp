@@ -7,6 +7,8 @@ using namespace std;
 
 #include  "Plans/Behaviours/Stop.h"
 
+#include  "Plans/Serve/PKVR16/DriveSearchPattern.h"
+
 #include  "Plans/Behaviours/ASPNavwoExt.h"
 
 #include  "Plans/Behaviours/DriveToPOI.h"
@@ -49,6 +51,11 @@ namespace alica
             case 1414681278745:
 
                 return make_shared<Stop>();
+                break;
+
+            case 1481546413105:
+
+                return make_shared<DriveSearchPattern>();
                 break;
 
             case 1477229777461:

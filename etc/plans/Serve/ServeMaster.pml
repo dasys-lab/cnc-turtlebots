@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="ASCII"?>
 <alica:Plan xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:alica="http:///de.uni_kassel.vs.cn" id="1454332108133" name="ServeMaster" comment="" masterPlan="true" utilityFunction="" utilityThreshold="0.1" destinationPath="Plans/Serve" priority="0.0" minCardinality="0" maxCardinality="2147483647">
   <states id="1454332108134" name="Stop" comment="" entryPoint="1454332108135">
+    <plans xsi:type="alica:BehaviourConfiguration">../Behaviours/Stop.beh#1414681278745</plans>
     <inTransitions>#1454332141413</inTransitions>
     <inTransitions>#1454332145537</inTransitions>
     <outTransitions>#1454332146639</outTransitions>
   </states>
   <states id="1454332119685" name="Serve" comment="">
-    <plans xsi:type="alica:Plan">Serve.pml#1454331313621</plans>
+    <plans xsi:type="alica:Plan">PKVR16/CollectBoxes.pml#1481544845570</plans>
     <inTransitions>#1454332144573</inTransitions>
     <inTransitions>#1454332146639</inTransitions>
     <outTransitions>#1454332142505</outTransitions>

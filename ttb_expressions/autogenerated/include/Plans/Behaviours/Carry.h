@@ -3,7 +3,7 @@
 
 #include "DomainBehaviour.h"
 /*PROTECTED REGION ID(inc1468494621581) ENABLED START*/ //Add additional includes here
-#include <engine/constraintmodul/ConstraintQuery.h>
+#include <engine/constraintmodul/Query.h>
 #include <alica_asp_solver/AnnotatedValVec.h>
 /*PROTECTED REGION END*/
 namespace alica
@@ -20,7 +20,7 @@ namespace alica
     protected:
         virtual void initialiseParameters();
         /*PROTECTED REGION ID(pro1468494621581) ENABLED START*/ //Add additional protected methods here
-        shared_ptr<alica::ConstraintQuery> query;
+        shared_ptr<alica::Query> query;
         /*PROTECTED REGION END*/
     private:
         /*PROTECTED REGION ID(prv1468494621581) ENABLED START*/ //Add additional private methods here

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="ASCII"?>
+<uiextensionmodel:PmlUiExtensionMap xmlns:uiextensionmodel="http:///de.uni_kassel.vs.cn/planDesigner/pmlextension/uiextensionmodel">
+  <extensions>
+    <key href="CollectBoxes.pml#1481544845571"/>
+    <value xPos="167" yPos="30" width="97" height="67" collapsed="false"/>
+  </extensions>
+  <extensions>
+    <key href="CollectBoxes.pml#1481544845570"/>
+    <value width="673" height="488"/>
+  </extensions>
+  <extensions>
+    <key href="CollectBoxes.pml#1481544845572"/>
+    <value/>
+  </extensions>
+  <extensions>
+    <key href="CollectBoxes.pml#1481544865851"/>
+    <value xPos="86" yPos="292"/>
+  </extensions>
+  <extensions>
+    <key href="CollectBoxes.pml#1481544999230"/>
+    <value xPos="162" yPos="261" width="118" height="67"/>
+  </extensions>
+  <extensions>
+    <key href="SearchBoxes.pml#1481545038564"/>
+    <value/>
+  </extensions>
+</uiextensionmodel:PmlUiExtensionMap>

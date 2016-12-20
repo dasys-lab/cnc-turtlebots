@@ -16,13 +16,29 @@ namespace random_drive
 
 	RandomDrive::RandomDrive()
 	{
-
-		randomDriveController_pub = n.advertise<geometry_msgs::Twist>("cmd_vel_mux/input/teleop", 1000);
+		std::string robot = this->getEnv("ROBOT");
+		randomDriveController_pub = n.advertise<geometry_msgs::Twist>(robot + "/cmd_vel_mux/input/teleop", 1000);
 		sub = n.subscribe("drive", 1000, &RandomDrive::chatterCallback, (RandomDrive*)this);
 		this->t1 = new std::thread(&RandomDrive::run, (RandomDrive*)this);
 
 		wayIsFree = false;
 	}
+
+	std::string RandomDrive::getEnv(const std::string & var)
+        {
+                const char * val = ::getenv(var.c_str());
+                if (val == 0)
+                {
+                        std::cerr << "RS: Environment Variable " << var << " is null" << std::endl;
+                        return "";
+                }
+                else
+                {
+                        std::cout << "RS: Environment Variable " << var << " is " << val << std::endl;
+                        return val;
+                }
+        }
+
 
 	void RandomDrive::chatterCallback(const std_msgs::Bool::ConstPtr& msg)
 	{
