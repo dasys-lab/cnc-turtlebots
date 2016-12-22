@@ -4,10 +4,11 @@
 #include <ros/master.h>
 #include "model/Simulator.h"
 #include <qgridlayout.h>
-#include <qrect.h>
 #include <QUrl>
 #include <QtNetwork/qnetworkproxy.h>
 #include <QtWebKitWidgets/qwebinspector.h>
+#include <QtWebKitWidgets/qwebframe.h>
+#include "model/GroundTile.h"
 
 namespace wumpus_simulator
 {
@@ -15,6 +16,7 @@ namespace wumpus_simulator
 			rqt_gui_cpp::Plugin(), widget_(0)
 	{
 		setObjectName("WumpusSimulator");
+		this->sim = nullptr;
 	}
 
 	WumpusSimulator::~WumpusSimulator()
@@ -27,7 +29,6 @@ namespace wumpus_simulator
 		this->widget_ = new QWidget();
 		this->widget_->setAttribute(Qt::WA_AlwaysShowToolTips, true);
 		this->mainwindow.setupUi(this->widget_);
-
 
 		if (context.serialNumber() > 1)
 		{
@@ -43,8 +44,8 @@ namespace wumpus_simulator
 		inspector.setVisible(true);
 
 		//Initialize web view
+		connect(this->mainwindow.webView->page()->mainFrame(), SIGNAL(javaScriptWindowObjectCleared()), this, SLOT(addSimToJS()));
 		this->mainwindow.webView->load(QUrl("qrc:///www/index.html"));
-
 	}
 
 	void WumpusSimulator::shutdownPlugin()
@@ -61,15 +62,72 @@ namespace wumpus_simulator
 	{
 	}
 
-	void WumpusSimulator::createWorld(bool arrow, string size, string traps, string wumpus)
+	Simulator* WumpusSimulator::getSim()
+	{
+		return this->sim;
+	}
+
+	void WumpusSimulator::addSimToJS()
+	{
+		this->mainwindow.webView->page()->mainFrame()->addToJavaScriptWindowObject("wumpus_simulator", this);
+	}
+
+	void WumpusSimulator::createWorld(bool arrow, int wumpus, int traps, int size)
 	{
 
+		cout << "Test: " << arrow << " " << wumpus << " " << traps << " " << size << endl;
 		//Init the playground
-		Simulator::get()->init(stoi(size), stoi(wumpus), stoi(traps), arrow);
+		this->sim = Simulator::get();
+		this->sim->init(arrow, wumpus, traps, size);
+		updatePlayground();
+	}
 
+	void WumpusSimulator::updatePlayground()
+	{
+		QString clear = QString("clearTiles();");
+		this->mainwindow.webView->page()->mainFrame()->evaluateJavaScript(clear);
+		auto playGround = this->sim->getPlayGround();
+		for(int i = 0; i < this->sim->getPlayGroundSize(); i++)
+		{
+			for(int j = 0; j < this->sim->getPlayGroundSize(); j++)
+			{
+				if(playGround.at(i).at(j)->getStench())
+				{
+					QString func = QString("addStenchClass(%1,%2);").arg(i).arg(j);
+					this->mainwindow.webView->page()->mainFrame()->evaluateJavaScript(func);
+				}
+				if(playGround.at(i).at(j)->getBreeze())
+				{
+					QString func = QString("addBreezeClass(%1,%2);").arg(i).arg(j);
+					this->mainwindow.webView->page()->mainFrame()->evaluateJavaScript(func);
+				}
+			}
+		}
+		for(int i = 0; i < this->sim->getPlayGroundSize(); i++)
+		{
+			for(int j = 0; j < this->sim->getPlayGroundSize(); j++)
+			{
 
+				if(playGround.at(i).at(j)->getTrap())
+				{
+					QString func = QString("addTrapClass(%1,%2);").arg(i).arg(j);
+					this->mainwindow.webView->page()->mainFrame()->evaluateJavaScript(func);
+				}
+				if(playGround.at(i).at(j)->hasWumpus())
+				{
+					QString func = QString("addWumpusClass(%1,%2);").arg(i).arg(j);
+					this->mainwindow.webView->page()->mainFrame()->evaluateJavaScript(func);
+				}
+				if(playGround.at(i).at(j)->getGold())
+				{
+					QString func = QString("addGoldClass(%1,%2);").arg(i).arg(j);
+					this->mainwindow.webView->page()->mainFrame()->evaluateJavaScript(func);
+				}
+			}
+		}
 
 	}
+
 }
 
 PLUGINLIB_EXPORT_CLASS(wumpus_simulator::WumpusSimulator, rqt_gui_cpp::Plugin)

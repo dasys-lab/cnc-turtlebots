@@ -15,7 +15,7 @@ $(document).ready(function() {
     $('#randomValuesBtn').click(function() {
 
         //Calculate the field size, number of traps and wumpus randomly
-        fieldSize = Math.floor((Math.random() * 12) + 4); //Adjust the % value to the the upper bounce
+        fieldSize = Math.floor((Math.random() * 21) + 4); //Adjust the % value to the the upper bounce
         traps = Math.floor((Math.random() * (Math.pow(fieldSize, 2) / 4)) + 1);
         wumpus = Math.floor((Math.random() * fieldSize) + 1);
 
@@ -52,11 +52,21 @@ $(document).ready(function() {
         //Check if there are all needed values
         if($('#playgroundSize').val() && $('#trapNumbers').val() && $('#wumpusNumbers').val()) {
 
+            wumpus = $('#wumpusNumbers').val();
+            traps = $('#trapNumbers').val();
+            fieldSize = $('#playgroundSize').val();
+            var hasArrow = $('#arrowAgent').prop('checked');
+
             //Set the labels from the info bar
-            $('#arrow').text('Arrow: ' + (fieldSize % 2 === 0));
+            $('#arrow').text('Arrow: ' + hasArrow);
             $('#wumpus').text('Wumpus: ' + wumpus);
             $('#traps').text('Traps: ' + traps);
             $('#size').text('Size: ' + fieldSize);
+
+            //Draw the playground
+            drawPlayground();
+
+            wumpus_simulator.createWorld(hasArrow, wumpus, traps, fieldSize);
 
             //Remove the last entry from the settings modal
             $('#playgroundSize').val('');
@@ -65,12 +75,8 @@ $(document).ready(function() {
             $('#arrowAgent').prop('checked', false);
             Materialize.updateTextFields();
 
-            //Draw the playground
-            drawPlayground();
-
             //Close the modal
             $('#newWorldModal').modal('close');
-
         }
     });
 });
@@ -88,17 +94,17 @@ function drawPlayground() {
 
     //Create html grid content
     var grid = '';
+    var gridElement;
 
     for(var i = 0; i < fieldSize; i++) {
-
         //Append a row
         grid += '<div style="line-height: 1px;">';
 
         for(var j = 0; j < fieldSize; j++) {
 
             //Append a new cell to the last row, the size of a single cell is set in the ground css class in the style.css
-            grid += '<div class="ground"></div>';
 
+            grid += '<div class="ground"></div>';
         }
 
         //Close the row div
@@ -109,5 +115,31 @@ function drawPlayground() {
     //Add the grid to the board
     root.html(grid);
 
+
+}
+
+function clearTiles() {
+    $(".ground").removeClass(" wumpusTile trapTile stenchTile breezeTile goldTile");
+}
+
+function addWumpusClass(i, j) {
+    $($(".ground")[i*fieldSize+j]).addClass("wumpusTile");
+}
+
+function addTrapClass(i, j) {
+    $($(".ground")[i*fieldSize+j]).addClass("trapTile");
+}
+
+function addStenchClass(i, j) {
+    $($(".ground")[i*fieldSize+j]).addClass("stenchTile");
+}
+
+function addBreezeClass(i, j) {
+    $($(".ground")[i*fieldSize+j]).addClass("breezeTile");
+}
+
+function addGoldClass(i, j) {
+    // $($(".ground")[i*fieldSize+j]).addClass("goldTile");
+    $($(".ground")[i*fieldSize+j]).prepend("<img src='img/gold.png' > </img>");
 }
 

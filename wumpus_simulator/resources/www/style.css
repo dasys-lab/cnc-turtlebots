@@ -25,3 +25,26 @@ body html {
     border: 1px solid black;
 
 }
+
+.stenchTile {
+    background-color: lightcoral;
+}
+
+.breezeTile {
+    background-color: lightblue;
+}
+.wumpusTile {
+    background-color: red;
+}
+
+.trapTile {
+    background-color: blue;
+}
+
+.goldTile {
+    background-color: gold;
+}
+
+.image {
+    position: absolute;
+}

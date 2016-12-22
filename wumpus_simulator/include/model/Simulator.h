@@ -24,7 +24,14 @@ namespace wumpus_simulator
 	public:
 		static Simulator* get();
 		virtual ~Simulator();
-		void init(int playGroundSize, int wumpusCount, int trapCount, bool agentHasArrow);
+		void init(bool agentHasArrow, int wumpusCount, int trapCount, int playGroundSize);
+
+		shared_ptr<GroundTile> getTile(int x, int y);
+		bool isAgentHasArrow();
+		int getPlayGroundSize();
+		int getTrapCount();
+		int getWumpusCount();
+		vector<vector<shared_ptr<GroundTile>>> getPlayGround();
 
 	private:
 		ros::NodeHandle* rosNode;

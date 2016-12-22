@@ -17,6 +17,7 @@ using namespace std;
 
 namespace wumpus_simulator
 {
+	class Simulator;
 	class WumpusSimulator : public rqt_gui_cpp::Plugin
 	{
 	Q_OBJECT
@@ -39,15 +40,23 @@ namespace wumpus_simulator
 		 * @param traps string number of traps
 		 * @param wumpus string number of wumpus
 		 */
-		void createWorld(bool arrow, string size, string traps, string wumpus);
-
+		Q_INVOKABLE void createWorld(bool arrow, int wumpus, int traps, int size);
+		Simulator* getSim();
 
 
 
 		QWidget* widget_;
 		Ui::MainWindowWebView mainwindow;
 
+	public slots:
+		void addSimToJS();
+
 	private:
+		/**
+		 * colors playground according to model
+		 */
+		void updatePlayground();
+		Simulator* sim;
 	};
 }
 

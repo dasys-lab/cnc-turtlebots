@@ -20,8 +20,9 @@ namespace wumpus_simulator
 		return &instance;
 	}
 
-	void Simulator::init(int playGroundSize, int wumpusCount, int trapCount, bool agentHasArrow)
+	void Simulator::init(bool agentHasArrow, int wumpusCount, int trapCount, int playGroundSize)
 	{
+		this->playGround.clear();
 		this->agentHasArrow = agentHasArrow;
 		this->playGroundSize = playGroundSize;
 		this->trapCount = trapCount;
@@ -134,6 +135,31 @@ namespace wumpus_simulator
 		}
 	}
 
+	bool Simulator::isAgentHasArrow()
+	{
+		return agentHasArrow;
+	}
+
+	int Simulator::getPlayGroundSize()
+	{
+		return playGroundSize;
+	}
+
+	int Simulator::getTrapCount()
+	{
+		return trapCount;
+	}
+
+	int Simulator::getWumpusCount()
+	{
+		return wumpusCount;
+	}
+
+	vector<vector<shared_ptr<GroundTile>>> Simulator::getPlayGround()
+	{
+		return playGround;
+	}
+
 	void Simulator::setStench(int x, int y)
 	{
 		if (x == 0)
@@ -163,4 +189,10 @@ namespace wumpus_simulator
 		}
 	}
 
+	shared_ptr<GroundTile> Simulator::getTile(int x, int y)
+	{
+		return this->playGround.at(x).at(y);
+	}
+
 } /* namespace wumpus_simulator */
+

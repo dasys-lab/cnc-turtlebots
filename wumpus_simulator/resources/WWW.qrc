@@ -6,5 +6,13 @@
         <file>www/lib/jquery.min.js</file>
         <file>www/lib/js/materialize.min.js</file>
         <file>www/lib/css/materialize.min.css</file>
+        <file>www/img/wumpus.jpg</file>
+        <file>www/img/trap.png</file>
+        <file>www/img/stench.png</file>
+        <file>www/img/gold.png</file>
+        <file>www/img/dirt.png</file>
+        <file>www/img/dirt.jpg</file>
+        <file>www/img/breeze.png</file>
+        <file>www/img/breeze.jpeg</file>
     </qresource>
 </RCC>
