@@ -26,25 +26,22 @@ body html {
 
 }
 
-.stenchTile {
-    background-color: lightcoral;
+.firstImage {
+ z-index: 1;
+ position: relative;
 }
 
-.breezeTile {
-    background-color: lightblue;
-}
-.wumpusTile {
-    background-color: red;
+.secondImage {
+ z-index: 2;
+ position: absolute;
 }
 
-.trapTile {
-    background-color: blue;
+.thirdImage {
+ z-index: 3;
+position: absolute;
 }
 
-.goldTile {
-    background-color: gold;
-}
-
-.image {
-    position: absolute;
+.fourthImage {
+ z-index: 4;
+position: absolute;
 }

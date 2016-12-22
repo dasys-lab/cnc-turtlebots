@@ -84,43 +84,39 @@ namespace wumpus_simulator
 
 	void WumpusSimulator::updatePlayground()
 	{
-		QString clear = QString("clearTiles();");
-		this->mainwindow.webView->page()->mainFrame()->evaluateJavaScript(clear);
+//		QString clear = QString("clearTiles();");
+//		this->mainwindow.webView->page()->mainFrame()->evaluateJavaScript(clear);
 		auto playGround = this->sim->getPlayGround();
 		for(int i = 0; i < this->sim->getPlayGroundSize(); i++)
 		{
 			for(int j = 0; j < this->sim->getPlayGroundSize(); j++)
 			{
+				QString f = QString("addDirtImage(%1,%2);").arg(i).arg(j);
+				this->mainwindow.webView->page()->mainFrame()->evaluateJavaScript(f);
 				if(playGround.at(i).at(j)->getStench())
 				{
-					QString func = QString("addStenchClass(%1,%2);").arg(i).arg(j);
+					QString func = QString("addStenchImage(%1,%2);").arg(i).arg(j);
 					this->mainwindow.webView->page()->mainFrame()->evaluateJavaScript(func);
 				}
 				if(playGround.at(i).at(j)->getBreeze())
 				{
-					QString func = QString("addBreezeClass(%1,%2);").arg(i).arg(j);
+					QString func = QString("addBreezeImage(%1,%2);").arg(i).arg(j);
 					this->mainwindow.webView->page()->mainFrame()->evaluateJavaScript(func);
 				}
-			}
-		}
-		for(int i = 0; i < this->sim->getPlayGroundSize(); i++)
-		{
-			for(int j = 0; j < this->sim->getPlayGroundSize(); j++)
-			{
 
 				if(playGround.at(i).at(j)->getTrap())
 				{
-					QString func = QString("addTrapClass(%1,%2);").arg(i).arg(j);
+					QString func = QString("addTrapImage(%1,%2);").arg(i).arg(j);
 					this->mainwindow.webView->page()->mainFrame()->evaluateJavaScript(func);
 				}
 				if(playGround.at(i).at(j)->hasWumpus())
 				{
-					QString func = QString("addWumpusClass(%1,%2);").arg(i).arg(j);
+					QString func = QString("addWumpusImage(%1,%2);").arg(i).arg(j);
 					this->mainwindow.webView->page()->mainFrame()->evaluateJavaScript(func);
 				}
 				if(playGround.at(i).at(j)->getGold())
 				{
-					QString func = QString("addGoldClass(%1,%2);").arg(i).arg(j);
+					QString func = QString("addGoldImage(%1,%2);").arg(i).arg(j);
 					this->mainwindow.webView->page()->mainFrame()->evaluateJavaScript(func);
 				}
 			}

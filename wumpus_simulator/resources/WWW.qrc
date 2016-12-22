@@ -14,5 +14,6 @@
         <file>www/img/dirt.jpg</file>
         <file>www/img/breeze.png</file>
         <file>www/img/breeze.jpeg</file>
+        <file>www/img/wumpus.png</file>
     </qresource>
 </RCC>

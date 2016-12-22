@@ -118,28 +118,32 @@ function drawPlayground() {
 
 }
 
-function clearTiles() {
-    $(".ground").removeClass(" wumpusTile trapTile stenchTile breezeTile goldTile");
+function addWumpusImage(i, j) {
+    //$($(".ground")[i*fieldSize+j]).addClass("wumpusTile");
+      $($(".ground")[i*fieldSize+j]).prepend("<img class='secondImage' src='img/wumpus.png' > </img>");
 }
 
-function addWumpusClass(i, j) {
-    $($(".ground")[i*fieldSize+j]).addClass("wumpusTile");
+function addTrapImage(i, j) {
+   // $($(".ground")[i*fieldSize+j]).addClass("trapTile");
+      $($(".ground")[i*fieldSize+j]).prepend("<img class='secondImage' src='img/trap.png' > </img>");
 }
 
-function addTrapClass(i, j) {
-    $($(".ground")[i*fieldSize+j]).addClass("trapTile");
+function addStenchImage(i, j) {
+    //$($(".ground")[i*fieldSize+j]).addClass("stenchTile");
+      $($(".ground")[i*fieldSize+j]).prepend("<img class='thirdImage' src='img/stench.png' > </img>");
 }
 
-function addStenchClass(i, j) {
-    $($(".ground")[i*fieldSize+j]).addClass("stenchTile");
+function addBreezeImage(i, j) {
+    //$($(".ground")[i*fieldSize+j]).addClass("breezeTile");
+      $($(".ground")[i*fieldSize+j]).prepend("<img class='fourthImage' src='img/breeze.png' > </img>");
 }
 
-function addBreezeClass(i, j) {
-    $($(".ground")[i*fieldSize+j]).addClass("breezeTile");
-}
-
-function addGoldClass(i, j) {
+function addGoldImage(i, j) {
     // $($(".ground")[i*fieldSize+j]).addClass("goldTile");
-    $($(".ground")[i*fieldSize+j]).prepend("<img src='img/gold.png' > </img>");
+    $($(".ground")[i*fieldSize+j]).prepend("<img class='secondImage' src='img/gold.png' > </img>");
+}
+
+function addDirtImage(i, j) {
+    $($(".ground")[i*fieldSize+j]).prepend("<img class='firstImage' src='img/dirt.png' > </img>");
 }
 
