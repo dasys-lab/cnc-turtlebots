@@ -118,6 +118,10 @@ function drawPlayground() {
 
 }
 
+function clearTiles() {
+    $(".ground").empty();
+}
+
 function addWumpusImage(i, j) {
     //$($(".ground")[i*fieldSize+j]).addClass("wumpusTile");
       $($(".ground")[i*fieldSize+j]).prepend("<img class='secondImage' src='img/wumpus.png' > </img>");
