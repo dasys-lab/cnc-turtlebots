@@ -114,16 +114,19 @@ namespace alica
                 if (it->values.size() > 0)
                 {
                     cout << "ASPNavigation: ASP result found!" << endl;
-//					cout << "\tResult contains the predicates: " << endl;
-//					cout << "\t\t";
-//					for (int i = 0; i < result.size(); i++)
-//					{
-//						for (int j = 0; j < result.at(i).values.size(); j++)
-//						{
-//							cout << result.at(i).values.at(j) << " ";
-//						}
-//					}
-//					cout << endl;
+					cout << "\tResult contains the predicates: " << endl;
+					cout << "\t\t";
+					for (int i = 0; i < result.size(); i++)
+					{
+						for (int j = 0; j < result.at(i).values.size(); j++)
+						{
+							for(int k = 0; k < result.at(i).values.at(j).size(); k++)
+							{
+								cout << result.at(i).values.at(j).at(k) << " ";
+							}
+						}
+					}
+					cout << endl;
 //					cout << "\tThe model contains the predicates: " << endl;
 //					cout << "\t\t";
 //					for (int i = 0; i < it->query->getCurrentModels()->at(0).size(); i++)
@@ -134,7 +137,7 @@ namespace alica
                 }
                 else
                 {
-                    cout << "ASPNavigation: no result found!" << endl;
+//                    cout << "ASPNavigation: no result found!" << endl;
 //					cout << "\tThe model contains the predicates: " << endl;
 //					cout << "\t\t";
 //					for (int i = 0; i < it->query->getCurrentModels()->at(0).size(); i++)
@@ -146,13 +149,13 @@ namespace alica
             }
             else
             {
-                cout << "ASPNavigation: no result found!" << endl;
+                cout << "ASPNavigation: no result found!!" << endl;
             }
 
         }
         else
         {
-            cout << "ASPNavigation: no result found!" << endl;
+            cout << "ASPNavigation: no result found!!!" << endl;
         }
         if (this->iterationCounter == 3)
         {
