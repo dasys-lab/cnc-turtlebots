@@ -42,21 +42,43 @@ namespace alica
 		}
 		else
 		{
-			ROS_ERROR("Failed to call service add_two_ints");
+			cout << "Failed to call service /static_map. Is there a map_server running?" << endl;
 		}
 		pointsWidth = mapWidth/(scanRange/2);
 		pointsHeight = mapHeight/(scanRange/2);
 //		bool pattern[][] = new bool [pointsWidth][pointsHeight];
 		vector<geometry_msgs::Point> list;
+
 		for(double x = 0; x < mapWidth; x += (scanRange/2)){
 			for(double y = 0; y < mapHeight; y += (scanRange/2)){
 				geometry_msgs::Point p;
 				p.x = x;
 				p.y = y;
 				p.z = 0;
+				//cout << p << endl;
 				list.push_back(p);
 			}
 		}
+
+		move_base_msgs::MoveBaseGoal goal;
+		goal.target_pose.pose.orientation.w = 1;
+		goal.target_pose.pose.position = list[0];
+
+		goal.target_pose.header.frame_id = 1;
+		goal.target_pose.header.stamp = ros::Time::now();
+		goal.target_pose.header.seq = 0;
+
+
+		if(getMoveState() != actionlib::SimpleClientGoalState::ACTIVE){
+			send(goal);
+
+		}
+
+
+//		printf("X-Coordinate: %d", list[1].x);
+//		printf("MapHeight: %f ", mapHeight);
+//		printf("MapWidth: %f ", mapWidth);
+//		printf("Reslution: %f\n", resolution);
 
 
 		// 2. Punkte der reihe nach abfahren
