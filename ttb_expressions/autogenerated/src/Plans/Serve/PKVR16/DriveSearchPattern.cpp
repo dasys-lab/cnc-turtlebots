@@ -14,6 +14,7 @@ namespace alica
 	double resolution;
 	int pointsWidth;
 	int pointsHeight;
+	int listPoint = 0;
 	/*PROTECTED REGION END*/
 	DriveSearchPattern::DriveSearchPattern() :
 			DomainBehaviour("DriveSearchPattern")
@@ -39,6 +40,7 @@ namespace alica
 			resolution = srv.response.map.info.resolution;
 			mapHeight = srv.response.map.info.height * resolution;
 			mapWidth = srv.response.map.info.width * resolution;
+			//srv.response.map.info.origin.position.x todo move all points by origin to avoid points outside of the map
 		}
 		else
 		{
@@ -46,7 +48,6 @@ namespace alica
 		}
 		pointsWidth = mapWidth/(scanRange/2);
 		pointsHeight = mapHeight/(scanRange/2);
-//		bool pattern[][] = new bool [pointsWidth][pointsHeight];
 		vector<geometry_msgs::Point> list;
 
 		for(double x = 0; x < mapWidth; x += (scanRange/2)){
@@ -60,20 +61,33 @@ namespace alica
 			}
 		}
 
+		auto state = getMoveState();
 		move_base_msgs::MoveBaseGoal goal;
-		goal.target_pose.pose.orientation.w = 1;
-		goal.target_pose.pose.position = list[0];
+		switch (state.state_) {
+			case actionlib::SimpleClientGoalState::ACTIVE:
+				cout << "DriveSearchPattern: Goal is active!" << endl;
+				break;
+			case actionlib::SimpleClientGoalState::PENDING:
+			case actionlib::SimpleClientGoalState::RECALLED:
+			case actionlib::SimpleClientGoalState::REJECTED:
+			case actionlib::SimpleClientGoalState::PREEMPTED:
+			case actionlib::SimpleClientGoalState::ABORTED:
+			case actionlib::SimpleClientGoalState::SUCCEEDED:
+			case actionlib::SimpleClientGoalState::LOST:
+				listPoint++;
 
-		goal.target_pose.header.frame_id = "map";
-		goal.target_pose.header.stamp = ros::Time::now();
-		goal.target_pose.header.seq = 0;
+				goal.target_pose.pose.orientation.w = 1;
+				goal.target_pose.pose.position = list[listPoint];
 
-
-		if(getMoveState() != actionlib::SimpleClientGoalState::ACTIVE){
-			cout << "DSP: Sending goal!" << endl;
-			send(goal);
+				goal.target_pose.header.frame_id = "map";
+				goal.target_pose.header.stamp = ros::Time::now();
+				goal.target_pose.header.seq = 0;
+				cout << "DriveSearchPattern: Sending next Goal: (" << list[listPoint].x << "," << list[listPoint].y << ")" << endl;
+				send(goal);
+				break;
+			default:
+				break;
 		}
-
 
 //		printf("X-Coordinate: %d", list[1].x);
 //		printf("MapHeight: %f ", mapHeight);
@@ -86,6 +100,7 @@ namespace alica
 
 		/*PROTECTED REGION END*/
 	}
+
 	void DriveSearchPattern::initialiseParameters()
 	{
 		/*PROTECTED REGION ID(initialiseParameters1481545714198) ENABLED START*/ //Add additional options here
