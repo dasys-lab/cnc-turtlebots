@@ -64,7 +64,7 @@ namespace alica
 		goal.target_pose.pose.orientation.w = 1;
 		goal.target_pose.pose.position = list[0];
 
-		goal.target_pose.header.frame_id = 1;
+		goal.target_pose.header.frame_id = "map";
 		goal.target_pose.header.stamp = ros::Time::now();
 		goal.target_pose.header.seq = 0;
 
