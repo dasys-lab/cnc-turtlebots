@@ -204,5 +204,13 @@ namespace ttb
 		return ringBufferLength;
 	}
 
+	void TTBWorldModel::onLogicalCameraData(ttb_msgs::LogicalCameraPtr logicalCameraData)
+	{
+		lock_guard<mutex> lock(wmMutex);
+		rawSensorData.processLogicalCamera(logicalCameraData);
+//		logicalCameraData.processLogicalCamera(logicalCameraData);
+	}
+
 } /* namespace ttb */
+
 

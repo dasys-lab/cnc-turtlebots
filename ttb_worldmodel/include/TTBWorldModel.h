@@ -31,6 +31,7 @@
 #include "ar_track_alvar_msgs/AlvarMarkers.h"
 #include "tf/transform_listener.h"
 #include "ttb_msgs/DriveToPOI.h"
+#include "ttb_msgs/LogicalCamera.h"
 
 #include "SystemConfig.h"
 #include "RawSensorData.h"
@@ -137,6 +138,7 @@ namespace ttb
 		void onMobileBaseSensorStateData(kobuki_msgs::SensorStatePtr mobileBaseSensorStateData);
 		void onDockInfrRedData(kobuki_msgs::DockInfraRedPtr dockInfrRedData);
 		void onDriveToPOICommand(ttb_msgs::DriveToPOIPtr driveToPOICommand);
+		void onLogicalCameraData(ttb_msgs::LogicalCameraPtr logicalCameraData);
 
 	protected:
 

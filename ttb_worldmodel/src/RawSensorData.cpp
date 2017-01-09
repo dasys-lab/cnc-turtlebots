@@ -221,6 +221,7 @@ namespace ttb
 				InformationElement<robot_control::RobotCommand>>(robotOnOffDataPtr, time);
 		ownRobotOnOff.add(ownRobotOnOffInfo);
 	}
+
 	void RawSensorData::processMobileBaseSensorState(kobuki_msgs::SensorStatePtr mobileBaseSensorStateData)
 	{
 		InfoTime time = wm->getTime();
@@ -257,7 +258,7 @@ namespace ttb
 		this->wm->taskManager.pushDriveToPOITask(owndriveToPOICommandInfo);
 	}
 
-	void ttb::RawSensorData::processLogicalCamera(ttb_msgs::LogicalCameraPtr logicalCamera)
+	void RawSensorData::processLogicalCamera(ttb_msgs::LogicalCameraPtr logicalCamera)
 	{
 		InfoTime time = wm->getTime();
 
@@ -268,7 +269,6 @@ namespace ttb
 				InformationElement<ttb_msgs::LogicalCamera>>(logicalCameraPtr, time);
 		ownLogicalCamera.add(ownLogicalCameraInfo);
 	}
-
 
 	shared_ptr<geometry::CNPosition> RawSensorData::getOwnPosition(int index)
 	{
