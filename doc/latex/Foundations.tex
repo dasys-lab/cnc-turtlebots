@@ -105,16 +105,72 @@ The difference between an internal or external sensor are the type of values the
  \item [external:] External sensors measure values from the outside of the system, i.d., values from its environment. Typical values are distances, light, and sound.
 \end{description}
 
+\subsection{Sensor Properties}
+\label{ssec:sensorproperties}
+
+Subsection~\ref{ssec:sensorcategories} is for categorising different types of sensors. If you need to choose a sensor for your application these categories are only a first orientation. In this subsection you will get a short overview of general things you have to consider in your decision for taking the right sensor for your application.
+
+\begin{description}
+ \item [Size] Does the sensor fit into your robot?
+ \item [Weight] Can the sensor be lifted or carried by your robot (especially relevant for drones)?
+ \item [Energy Consumption] Does the energy consumption of the sensor significantly reduce the runtime of your robot?
+ \item [Sensor Range] Sensors often have minimum and maximum values they can measure, e.g., distance starting from 0.4m up to 100m. Does the range fit your application?
+ \item [Field of View] In which direction can the sensor measure? Is it big enough? Can it be integrated into your robot without limiting the field of view?
+ \item [Operating Conditions] Some sensors are sensitive to temperature, vibration, light and so on. Does your application match their operating conditions?
+ \item [Resolution] What is the granularity of the measured values (directly influences properties from Subsection~\ref{ssec:valuepropoerties})?
+ \item [Value Transformation] Is the value received from the sensor in the unit you need? If not, do you know the transformation and how long does the transformation take?
+ \item [Linearity] Does a linear change in the value to be measured induce a linear change in the value received from the sensor? If not, what is the relation (see Value Transformation)?
+\end{description}
+
 \subsection{Sensor Value Properties}
 \label{ssec:valuepropoerties}
 
-Explain 
+The sensor value properties of possible sensors are very important for making the right choice, too. In this subsection we collect these properties, explain their meaning, and explain why they are important. 
+
+The sketched definitions given below follow the \href{https://en.wikipedia.org/wiki/Accuracy_and_precision#ISO_definition_.28ISO_5725.29}{ISO Standard 5725}.
+
+\begin{description}
+ \item [Precision] Precision is about the reproducability or repeatability of measurements. The sensor has a high precision, if it always measures the same values under same conditions. Note that this measured values can be completely wrong!
+ \item [Accuracy] Accuracy is the average difference between the reference value (correct value) and the measured values. Please read this carefully, as it only slightly differs from trueness.
+ \item [Trueness] Trueness is the difference between the reference value (correct value) and the average of the measured values.
+\end{description}
+
+\begin{figure}[htbp]
+ \centering
+ \begin{subfigure}[b]{0.5\textwidth}
+ \includegraphics[width=\textwidth]{pic/trueness_and_precision.png}
+ \caption{Trueness vs. Precision}
+ \label{sfig:trueness_vs_precision}
+ \end{subfigure}
+ \begin{subfigure}[b]{0.2\textwidth}
+ \includegraphics[width=\textwidth]{pic/High_accuracy_Low_precision.png}
+ \caption{Low accuracy, poor precision, good trueness}
+ \label{sfig:poor_precision}
+ \end{subfigure}
+ \begin{subfigure}[b]{0.2\textwidth}
+ \includegraphics[width=\textwidth]{pic/High_precision_Low_accuracy.png}
+ \caption{Low accuracy, good precision, poor trueness}
+ \label{sfig:high_precision}
+ \end{subfigure}
+ \caption{Examples for Precision, Accuracy and Trueness (Source: \href{https://en.wikipedia.org/wiki/Accuracy_and_precision}{Wikipedia})}
+ \label{fig:prec_accur_truen}
+\end{figure}
+
+In Figure~\ref{fig:prec_accur_truen} several helpful pictures for understanding the above definitions are given. Especially the targets make the difference between accuracy and trueness comprehensible. In order to get a feeling for the relevance of precision, accuracy and trueness in practice let us exercise the utilisation of sensors with different properties. Imaging your task is to get to know what the correct value for a certain distance is. 
+
+The easiest case is when you have a highly accurate sensor, because this means that each measurement is relatively close to the correct value. It also means that the precision of the sensor must be relatively high, too. Here is why: If all measurements are close to a single static value (being accurate), the measurements cannot vary very much at the same time (low precision).
+
+Now let us consider to use a sensor with low accuracy, but with high precision (like in Subfigure~\ref{sfig:high_precision}). The measured values are relatively wrong, but the are reproduceable. Therefore, the sensor will measure under the same conditions the same wrong values. That gives you the chance to correct this relative constant offset or error by calibrating your sensor. For calibration you need a series of measurements for that you know the correct value. As you have a precise sensor, the difference between the measured values and the correct value should be more or less the same. In a naive calibration you could simply take this difference and correct the sensor's measurements by this difference at runtime. The problem is that precision means reproducability under the \textbf{same conditions}. These conditions often include the following parameters: the correct value, the state of the sensor (temperature, power supply, operation modes), and properties relevant for the measurement process (temperature, surfaces, light conditions). Therefore, calibration means to find the correct offset for all possible parameter combinations that influence the operating conditions of the sensor. Maybe this sounds like an almost unmanageable task, but here are some arguments against it:
 
 \begin{itemize}
- \item Precision
- \item Trueness
- \item Accuracy
+ \item The sensor already can calibrate itself with a special operation mode that you only have to trigger from time to time.
+ \item The most parameters are irrelevant for the measuring.
+ \item Have a look at your application scenario, hopefully a lot of parameters are constant in you application (artificial lights, indoor temperatures).
 \end{itemize}
+
+As a last relevant case, let us consider a sensor with low accuracy, but with high trueness (like in Subfigure~\ref{sfig:poor_precision}). Here the average of the measured values is relatively close the correct value. Therefore, you only need to take the average of some measurements, in order to know the correct value. The only question is: ``How much measurements are necessary?'' Simply make some experiments where you observe the change of the average relative to the increasing number of measurements. When the change of the average is low enough for your application you know the minimal number of measurements necessary to calculate a good average for determining the correct value. Think about your application then: Is it possible to make this number of measurements before the correct value actual changes, e.g., distance to moving obstacles. Obviously, you need more measurements if the standard deviation of the measurements is high, and less if its low. Note that a sensor with high trueness and a small standard deviation is actually an accurate sensor.
+
+To summarise: Accurate sensors are fine, precise sensors need to be calibrated, and sensors with high trueness demand for calculating the average of some measurements.
 
 \section{Actuators}
 \label{sec:actuators}

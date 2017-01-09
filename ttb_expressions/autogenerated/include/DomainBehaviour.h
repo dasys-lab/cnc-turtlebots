@@ -52,6 +52,7 @@ namespace alica
 		ros::Publisher move_base_simpleGoalPub;
 		ros::Publisher move_base_ActionGoalPub;
 		actionlib::SimpleActionClient<move_base_msgs::MoveBaseAction>* ac;
+		bool goalActive;
 //		void alica::DomainBehaviour::done_cb();
 //		void alica::DomainBehaviour::active_cb();
 //		void alica::DomainBehaviour::feedback_cb();
