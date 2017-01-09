@@ -62,9 +62,10 @@ namespace alica
 		if (goalActive)
 		{
 			auto state = ac->getState();
+			cout << "DomainBehaviour::getMoveState(): MoveState requested!" << endl;
 			return state;
 		}
-		cerr << "DomainBehaviour::getMoveState() no Goal started" << endl;
+		cerr << "DomainBehaviour::getMoveState(): no Goal started" << endl;
 		return actionlib::SimpleClientGoalState::REJECTED;
 
 	}

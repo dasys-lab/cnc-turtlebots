@@ -70,8 +70,8 @@ namespace alica
 
 
 		if(getMoveState() != actionlib::SimpleClientGoalState::ACTIVE){
+			cout << "DSP: Sending goal!" << endl;
 			send(goal);
-
 		}
 
 
