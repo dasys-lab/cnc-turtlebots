@@ -21,13 +21,14 @@ namespace alica
 
 		moveBaseActionGoalTopic = robotName + (*sc)["Drive"]->get<string>("Topics.MoveBaseActionGoalTopic", NULL);
 		moveBaseGoalTopic = robotName + (*sc)["Drive"]->get<string>("Topics.MoveBaseGoalTopic", NULL);
+		moveBaseActionClientNamespace = robotName + (*sc)["Drive"]->get<string>("Topics.MoveBaseActionClientNamespace", NULL);
 
 		mobile_baseCommandVelocityPub = n.advertise<geometry_msgs::Twist>(velocityTopic, 10);
 		soundRequestPub = n.advertise<sound_play::SoundRequest>(soundRequesTopic, 10);
 
 		move_base_simpleGoalPub = n.advertise<geometry_msgs::PoseStamped>(moveBaseGoalTopic, 10);
 
-		ac = new actionlib::SimpleActionClient<move_base_msgs::MoveBaseAction>("move", true);
+		ac = new actionlib::SimpleActionClient<move_base_msgs::MoveBaseAction>(moveBaseActionClientNamespace, true);
 
 		goalActive = false;
 	}

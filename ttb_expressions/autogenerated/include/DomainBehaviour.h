@@ -46,6 +46,7 @@ namespace alica
 		string soundRequesTopic;
 		string velocityTopic;
 		string moveBaseGoalTopic;
+		string moveBaseActionClientNamespace;
 		string moveBaseActionGoalTopic;
 		ros::Publisher mobile_baseCommandVelocityPub;
 		ros::Publisher soundRequestPub;
