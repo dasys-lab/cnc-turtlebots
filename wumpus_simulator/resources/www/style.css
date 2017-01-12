@@ -27,21 +27,26 @@ body html {
 }
 
 .firstImage {
- z-index: 1;
- position: relative;
+    z-index: 1;
+    position: relative;
 }
 
 .secondImage {
- z-index: 2;
- position: absolute;
+    z-index: 2;
+    position: absolute;
 }
 
 .thirdImage {
- z-index: 3;
-position: absolute;
+    z-index: 3;
+    position: absolute;
 }
 
 .fourthImage {
- z-index: 4;
-position: absolute;
+    z-index: 4;
+    position: absolute;
+}
+
+.fifthImage {
+    z-index: 5;
+    position: absolute;
 }

@@ -11,8 +11,6 @@
 #include <model/Movable.h>
 #include <memory>
 
-
-
 using namespace std;
 
 namespace wumpus_simulator
@@ -24,10 +22,6 @@ namespace wumpus_simulator
 	public:
 		Wumpus(shared_ptr<GroundTile> tile);
 		virtual ~Wumpus();
-
-	private:
-		shared_ptr<GroundTile> tile;
-
 	};
 
 

@@ -10,15 +10,36 @@
 namespace wumpus_simulator
 {
 
-	Agent::Agent()
+	Agent::Agent(shared_ptr<GroundTile> tile)
 	{
-		// TODO Auto-generated constructor stub
-
+		this->tile = tile;
+		agentID = -1;
+		type = "agent";
+		arrow = false;
 	}
 
 	Agent::~Agent()
 	{
-		// TODO Auto-generated destructor stub
+	}
+
+	int Agent::getAgentID()
+	{
+		return agentID;
+	}
+
+	void Agent::setAgentID(int value)
+	{
+		agentID = value;
+	}
+
+	bool Agent::hasArrow()
+	{
+		return arrow;
+	}
+
+	void Agent::setArrow(bool value)
+	{
+		this->arrow = value;
 	}
 
 } /* namespace wumpus_simulator */

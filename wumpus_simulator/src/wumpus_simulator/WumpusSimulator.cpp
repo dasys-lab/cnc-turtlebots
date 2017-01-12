@@ -8,6 +8,8 @@
 #include <QtNetwork/qnetworkproxy.h>
 #include <QtWebKitWidgets/qwebinspector.h>
 #include <QtWebKitWidgets/qwebframe.h>
+#include <qfiledialog.h>
+#include <qdebug.h>
 #include "model/GroundTile.h"
 
 namespace wumpus_simulator
@@ -85,6 +87,75 @@ namespace wumpus_simulator
 
 	}
 
+	void WumpusSimulator::saveWorld()
+	{
+
+		//Open save file dialog to select a pregenerated wumpus world
+		QString filename = QFileDialog::getSaveFileName(this->widget_, tr("Save World"), QDir::currentPath(),
+														tr("Wumpus World File (*.wwf)"), 0,
+														QFileDialog::DontUseNativeDialog);
+
+		if (!filename.endsWith(".wwf"))
+		{
+			filename += ".wwf";
+		}
+
+		//Check if the user selected a correct file
+		if (!filename.isNull())
+		{
+
+			//Create file
+			QFile file(filename);
+
+			if (!file.open(QIODevice::WriteOnly))
+			{
+				qWarning("Couldn't open save file.");
+				return;
+			}
+
+			//Serialize the world as JSON
+			auto worldJson = this->sim->toJSON();
+
+			//Write to file
+			QJsonDocument saveDoc(worldJson);
+			file.write(saveDoc.toJson());
+
+		}
+
+	}
+
+	void WumpusSimulator::loadWorld()
+	{
+		this->sim = Simulator::get();
+		//Open load file dialog to select a pregenerated wumpus world
+		QString filename = QFileDialog::getOpenFileName(this->widget_, tr("Load World"), QDir::currentPath(),
+														tr("Wumpus World File (*.wwf)"), 0,
+														QFileDialog::DontUseNativeDialog);
+
+		//Check if the user selected a correct file
+		if (!filename.isNull())
+		{
+			//Open file
+			QFile file(filename);
+			if (!file.open(QIODevice::ReadOnly))
+			{
+				qWarning("Couldn't open save file.");
+				return;
+			}
+
+			QByteArray saveData = file.readAll();
+			QJsonDocument loadDoc(QJsonDocument::fromJson(saveData));
+			this->sim->fromJSON(loadDoc.object());
+			this->mainwindow.webView->page()->mainFrame()->evaluateJavaScript(
+					QString("setInitialValues(%1, %2, %3, %4);").arg(this->sim->getPlayGroundSize()).arg(
+							this->sim->getTrapCount()).arg(this->sim->getWumpusCount()).arg(
+							this->sim->isAgentHasArrow()));
+			this->mainwindow.webView->page()->mainFrame()->evaluateJavaScript(QString("drawPlayground();"));
+			updatePlayground();
+
+		}
+	}
+
 	void WumpusSimulator::updatePlayground()
 	{
 		QString clear = QString("clearTiles();");
@@ -112,10 +183,19 @@ namespace wumpus_simulator
 					QString func = QString("addTrapImage(%1,%2);").arg(i).arg(j);
 					this->mainwindow.webView->page()->mainFrame()->evaluateJavaScript(func);
 				}
-				if (playGround.at(i).at(j)->hasWumpus())
+				if (playGround.at(i).at(j)->hasMovable())
 				{
-					QString func = QString("addWumpusImage(%1,%2);").arg(i).arg(j);
-					this->mainwindow.webView->page()->mainFrame()->evaluateJavaScript(func);
+					if (playGround.at(i).at(j)->getMovable()->getType().contains("wumpus"))
+					{
+						QString func = QString("addWumpusImage(%1,%2);").arg(i).arg(j);
+						this->mainwindow.webView->page()->mainFrame()->evaluateJavaScript(func);
+					}
+					if (playGround.at(i).at(j)->getMovable()->getType().contains("agent"))
+					{
+						//TODO drawing method
+						QString func = QString("addWumpusImage(%1,%2);").arg(i).arg(j);
+						this->mainwindow.webView->page()->mainFrame()->evaluateJavaScript(func);
+					}
 				}
 				if (playGround.at(i).at(j)->getGold())
 				{

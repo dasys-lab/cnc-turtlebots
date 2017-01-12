@@ -14,10 +14,13 @@ namespace wumpus_simulator
 	{
 		this->x = x;
 		this->y = y;
+		this->startAgentID = -1;
 		this->hasGold = false;
 		this->hasTrap = false;
 		this->hasStench = false;
 		this->hasBreeze = false;
+		this->isStartpoint = false;
+		this->movable = nullptr;
 	}
 
 	GroundTile::~GroundTile()
@@ -50,34 +53,61 @@ namespace wumpus_simulator
 		return hasTrap;
 	}
 
-	void GroundTile::setGold(bool value) {
+	int GroundTile::getStartAgentID()
+	{
+		return startAgentID;
+	}
+
+	void GroundTile::setStartAgentID(int value)
+	{
+		startAgentID = value;
+	}
+
+	void GroundTile::setStartpoint(bool value)
+	{
+		isStartpoint = value;
+	}
+
+	bool GroundTile::getStartpoint()
+	{
+		return isStartpoint;
+	}
+
+	void GroundTile::setGold(bool value)
+	{
 		hasGold = value;
 	}
 
-	void GroundTile::setTrap(bool value) {
+	void GroundTile::setTrap(bool value)
+	{
 		hasTrap = value;
 	}
 
-	void GroundTile::setStench(bool value) {
+	void GroundTile::setStench(bool value)
+	{
 		hasStench = value;
 	}
 
-	bool GroundTile::hasWumpus(){
-		if(wumpus) {
+	bool GroundTile::hasMovable()
+	{
+		if (movable != nullptr)
+		{
 			return true;
-		} else {
+		}
+		else
+		{
 			return false;
 		}
 	}
 
-	shared_ptr<Wumpus> GroundTile::getWumpus()
+	shared_ptr<Movable> GroundTile::getMovable()
 	{
-		return wumpus;
+		return movable;
 	}
 
-	void GroundTile::setWumpus(shared_ptr<Wumpus> wumpus)
+	void GroundTile::setMovable(shared_ptr<Movable> movable)
 	{
-		this->wumpus = wumpus;
+		this->movable = movable;
 	}
 
 	bool GroundTile::getBreeze()
@@ -91,3 +121,4 @@ namespace wumpus_simulator
 	}
 
 } /* namespace wumpus_simulator */
+

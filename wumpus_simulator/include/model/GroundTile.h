@@ -13,7 +13,7 @@ using namespace std;
 
 namespace wumpus_simulator
 {
-	class Wumpus;
+	class Movable;
 	class GroundTile
 	{
 
@@ -22,27 +22,33 @@ namespace wumpus_simulator
 		virtual ~GroundTile();
 		int getX();
 		int getY();
+		void setStartAgentID(int value);
+		void setStartpoint(bool value);
 		void setTrap(bool value);
 		void setStench(bool value);
 		void setGold(bool value);
-		shared_ptr<Wumpus> getWumpus();
-		void setWumpus(shared_ptr<Wumpus> wumpus);
+		shared_ptr<Movable> getMovable();
+		void setMovable(shared_ptr<Movable> movable);
 		void setBreeze(bool hasBreeze);
 
+		int getStartAgentID();
 		bool getTrap();
 		bool getGold();
 		bool getStench();
-		bool hasWumpus();
+		bool hasMovable();
 		bool getBreeze();
+		bool getStartpoint();
 
 	private :
 		int x;
 		int y;
+		int startAgentID;
 		bool hasTrap;
 		bool hasGold;
 		bool hasStench;
 		bool hasBreeze;
-		shared_ptr<Wumpus> wumpus;
+		bool isStartpoint;
+		shared_ptr<Movable> movable;
 	};
 
 } /* namespace wumpus_simulator */

@@ -41,9 +41,10 @@ namespace wumpus_simulator
 		 * @param wumpus string number of wumpus
 		 */
 		Q_INVOKABLE void createWorld(bool arrow, int wumpus, int traps, int size);
+		Q_INVOKABLE void saveWorld();
+		Q_INVOKABLE void loadWorld();
+
 		Simulator* getSim();
-
-
 
 		QWidget* widget_;
 		Ui::MainWindowWebView mainwindow;

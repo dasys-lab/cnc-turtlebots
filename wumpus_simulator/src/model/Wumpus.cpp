@@ -13,6 +13,7 @@ namespace wumpus_simulator
 
 	Wumpus::Wumpus(shared_ptr<GroundTile> tile) {
 		this->tile = tile;
+		type = "wumpus";
 	}
 
 	Wumpus::~Wumpus()

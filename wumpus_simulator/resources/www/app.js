@@ -56,11 +56,7 @@ $(document).ready(function() {
             fieldSize = $('#playgroundSize').val();
             var hasArrow = $('#arrowAgent').prop('checked');
 
-            //Set the labels from the info bar
-            $('#arrow').text('Arrow: ' + hasArrow);
-            $('#wumpus').text('Wumpus: ' + wumpus);
-            $('#traps').text('Traps: ' + traps);
-            $('#size').text('Size: ' + fieldSize);
+            setInitialValues(wumpus, traps, fieldSize, hasArrow);
 
             //Draw the playground
             drawPlayground();
@@ -100,6 +96,21 @@ $(document).ready(function() {
 
 
 //---------------------METHODS---------------------
+//Set the variables from the info bar
+function setInitialValues(w, t, f, a) {
+
+    //Set the labels from the info bar
+    $('#arrow').text('Arrow: ' + a);
+    $('#wumpus').text('Wumpus: ' + w);
+    $('#traps').text('Traps: ' + t);
+    $('#size').text('Size: ' + f);
+
+    fieldSize = f;
+    traps = t;
+    wumpus = w;
+
+}
+
 //Draws the playground, just a grid depending on the field size
 function drawPlayground() {
 
@@ -137,30 +148,38 @@ function drawPlayground() {
 }
 
 function clearTiles() {
-    $(".ground").empty();
+    $('.ground').empty();
 }
 
 function addWumpusImage(i, j) {
-      $($(".ground")[i*fieldSize+j]).prepend("<img class='secondImage' src='img/wumpus.png' > </img>");
+      $($('.ground')[i*fieldSize+j]).prepend('<img class="secondImage" src="img/wumpus.png" > </img>');
 }
 
 function addTrapImage(i, j) {
-      $($(".ground")[i*fieldSize+j]).prepend("<img class='secondImage' src='img/trap.png' > </img>");
+      $($('.ground')[i*fieldSize+j]).prepend('<img class="secondImage" src="img/trap.png" > </img>');
 }
 
 function addStenchImage(i, j) {
-      $($(".ground")[i*fieldSize+j]).prepend("<img class='thirdImage' src='img/stench.png' > </img>");
+      $($('.ground')[i*fieldSize+j]).prepend('<img class="thirdImage" src="img/stench.png" > </img>');
 }
 
 function addBreezeImage(i, j) {
-      $($(".ground")[i*fieldSize+j]).prepend("<img class='fourthImage' src='img/breeze.png' > </img>");
+      $($('.ground')[i*fieldSize+j]).prepend('<img class="fourthImage" src="img/breeze.png" > </img>');
 }
 
 function addGoldImage(i, j) {
-    $($(".ground")[i*fieldSize+j]).prepend("<img class='secondImage' src='img/gold.png' > </img>");
+    $($('.ground')[i*fieldSize+j]).prepend('<img class="secondImage" src="img/gold.png" > </img>');
 }
 
 function addDirtImage(i, j) {
-    $($(".ground")[i*fieldSize+j]).prepend("<img class='firstImage' src='img/dirt.png' > </img>");
+    $($('.ground')[i*fieldSize+j]).prepend('<img class="firstImage" src="img/soil.png" > </img>');
+}
+
+function addMaleAgent(i, j) {
+    $($('.ground')[i*fieldSize+j]).prepend('<img class="fifthImage" src="img/male_agent.png" > </img>');
+}
+
+function addFemaleAgent(i, j) {
+    $($('.ground')[i*fieldSize+j]).prepend('<img class="fifthImage" src="img/femaleAgent.png" > </img>');
 }
 

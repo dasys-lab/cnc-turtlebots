@@ -13,6 +13,7 @@
 #include "GroundTile.h"
 #include "ros/ros.h"
 #include <memory>
+#include <qdebug.h>
 
 using namespace std;
 
@@ -33,6 +34,9 @@ namespace wumpus_simulator
 		int getWumpusCount();
 		vector<vector<shared_ptr<GroundTile>>> getPlayGround();
 
+		QJsonObject toJSON();
+		void fromJSON(QJsonObject root);
+
 	private:
 		ros::NodeHandle* rosNode;
 		Simulator();
@@ -41,9 +45,9 @@ namespace wumpus_simulator
 		int trapCount;
 		bool agentHasArrow;
 		vector<vector<shared_ptr<GroundTile>>> playGround;
-		vector<shared_ptr<Movable>> movableObjects;
 		void setBreeze(int x, int y);
 		void setStench(int x, int y);
+
 	};
 
 } /* namespace wumpus_simulator */

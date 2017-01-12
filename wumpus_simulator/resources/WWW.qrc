@@ -6,14 +6,11 @@
         <file>www/lib/jquery.min.js</file>
         <file>www/lib/js/materialize.min.js</file>
         <file>www/lib/css/materialize.min.css</file>
-        <file>www/img/wumpus.jpg</file>
         <file>www/img/trap.png</file>
         <file>www/img/stench.png</file>
         <file>www/img/gold.png</file>
         <file>www/img/dirt.png</file>
-        <file>www/img/dirt.jpg</file>
         <file>www/img/breeze.png</file>
-        <file>www/img/breeze.jpeg</file>
         <file>www/img/wumpus.png</file>
         <file>www/lib/fonts/roboto/Roboto-Thin.woff</file>
         <file>www/lib/fonts/roboto/Roboto-Regular.woff</file>
@@ -25,5 +22,8 @@
         <file>www/lib/fonts/roboto/Roboto-Medium.ttf</file>
         <file>www/lib/fonts/roboto/Roboto-Regular.ttf</file>
         <file>www/lib/fonts/roboto/Roboto-Thin.ttf</file>
+        <file>www/img/soil.png</file>
+        <file>www/img/male_agent.png</file>
+        <file>www/img/femaleAgent.png</file>
     </qresource>
 </RCC>
