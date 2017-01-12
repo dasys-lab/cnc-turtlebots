@@ -45,7 +45,6 @@ $(document).ready(function() {
 
     });
 
-
     //Listen on the ok button from the settings modal
     $('#settingsOk').click(function() {
 
@@ -66,6 +65,7 @@ $(document).ready(function() {
             //Draw the playground
             drawPlayground();
 
+            //This variable comes from qt, web interface. Creates the model
             wumpus_simulator.createWorld(hasArrow, wumpus, traps, fieldSize);
 
             //Remove the last entry from the settings modal
@@ -77,7 +77,24 @@ $(document).ready(function() {
 
             //Close the modal
             $('#newWorldModal').modal('close');
+
         }
+    });
+
+    //Listen on the save world button
+    $('#save').click(function () {
+
+        //Call save function from qt
+        wumpus_simulator.saveWorld();
+
+    });
+
+    //Listen on the load world button
+    $('#load').click(function() {
+
+        //call load function from qt
+        wumpus_simulator.loadWorld();
+
     });
 });
 
@@ -97,14 +114,15 @@ function drawPlayground() {
     var gridElement;
 
     for(var i = 0; i < fieldSize; i++) {
+
         //Append a row
         grid += '<div style="line-height: 1px;">';
 
         for(var j = 0; j < fieldSize; j++) {
 
             //Append a new cell to the last row, the size of a single cell is set in the ground css class in the style.css
-
             grid += '<div class="ground"></div>';
+
         }
 
         //Close the row div
@@ -123,27 +141,22 @@ function clearTiles() {
 }
 
 function addWumpusImage(i, j) {
-    //$($(".ground")[i*fieldSize+j]).addClass("wumpusTile");
       $($(".ground")[i*fieldSize+j]).prepend("<img class='secondImage' src='img/wumpus.png' > </img>");
 }
 
 function addTrapImage(i, j) {
-   // $($(".ground")[i*fieldSize+j]).addClass("trapTile");
       $($(".ground")[i*fieldSize+j]).prepend("<img class='secondImage' src='img/trap.png' > </img>");
 }
 
 function addStenchImage(i, j) {
-    //$($(".ground")[i*fieldSize+j]).addClass("stenchTile");
       $($(".ground")[i*fieldSize+j]).prepend("<img class='thirdImage' src='img/stench.png' > </img>");
 }
 
 function addBreezeImage(i, j) {
-    //$($(".ground")[i*fieldSize+j]).addClass("breezeTile");
       $($(".ground")[i*fieldSize+j]).prepend("<img class='fourthImage' src='img/breeze.png' > </img>");
 }
 
 function addGoldImage(i, j) {
-    // $($(".ground")[i*fieldSize+j]).addClass("goldTile");
     $($(".ground")[i*fieldSize+j]).prepend("<img class='secondImage' src='img/gold.png' > </img>");
 }
 

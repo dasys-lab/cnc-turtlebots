@@ -15,5 +15,15 @@
         <file>www/img/breeze.png</file>
         <file>www/img/breeze.jpeg</file>
         <file>www/img/wumpus.png</file>
+        <file>www/lib/fonts/roboto/Roboto-Thin.woff</file>
+        <file>www/lib/fonts/roboto/Roboto-Regular.woff</file>
+        <file>www/lib/fonts/roboto/Roboto-Medium.woff</file>
+        <file>www/lib/fonts/roboto/Roboto-Light.woff</file>
+        <file>www/lib/fonts/roboto/Roboto-Bold.woff</file>
+        <file>www/lib/fonts/roboto/Roboto-Bold.ttf</file>
+        <file>www/lib/fonts/roboto/Roboto-Light.ttf</file>
+        <file>www/lib/fonts/roboto/Roboto-Medium.ttf</file>
+        <file>www/lib/fonts/roboto/Roboto-Regular.ttf</file>
+        <file>www/lib/fonts/roboto/Roboto-Thin.ttf</file>
     </qresource>
 </RCC>

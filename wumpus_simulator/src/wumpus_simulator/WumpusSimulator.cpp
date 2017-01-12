@@ -82,6 +82,7 @@ namespace wumpus_simulator
 		this->sim = Simulator::get();
 		this->sim->init(arrow, wumpus, traps, size);
 		updatePlayground();
+
 	}
 
 	void WumpusSimulator::updatePlayground()
@@ -123,9 +124,7 @@ namespace wumpus_simulator
 				}
 			}
 		}
-
 	}
-
 }
 
 PLUGINLIB_EXPORT_CLASS(wumpus_simulator::WumpusSimulator, rqt_gui_cpp::Plugin)
