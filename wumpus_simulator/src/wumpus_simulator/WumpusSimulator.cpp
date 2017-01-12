@@ -44,7 +44,8 @@ namespace wumpus_simulator
 		inspector.setVisible(true);
 
 		//Initialize web view
-		connect(this->mainwindow.webView->page()->mainFrame(), SIGNAL(javaScriptWindowObjectCleared()), this, SLOT(addSimToJS()));
+		connect(this->mainwindow.webView->page()->mainFrame(), SIGNAL(javaScriptWindowObjectCleared()), this,
+				SLOT(addSimToJS()));
 		this->mainwindow.webView->load(QUrl("qrc:///www/index.html"));
 	}
 
@@ -75,7 +76,8 @@ namespace wumpus_simulator
 	void WumpusSimulator::createWorld(bool arrow, int wumpus, int traps, int size)
 	{
 
-		cout << "Test: " << arrow << " " << wumpus << " " << traps << " " << size << endl;
+		cout << "WumpusSimulator: Creating world with: arrow: " << (arrow ? "true" : "false") << " wumpus count: "
+				<< wumpus << " trap count: " << traps << " field size: " << size << endl;
 		//Init the playground
 		this->sim = Simulator::get();
 		this->sim->init(arrow, wumpus, traps, size);
@@ -87,40 +89,36 @@ namespace wumpus_simulator
 		QString clear = QString("clearTiles();");
 		this->mainwindow.webView->page()->mainFrame()->evaluateJavaScript(clear);
 		auto playGround = this->sim->getPlayGround();
-		for(int i = 0; i < this->sim->getPlayGroundSize(); i++)
+		for (int i = 0; i < this->sim->getPlayGroundSize(); i++)
 		{
-			for(int j = 0; j < this->sim->getPlayGroundSize(); j++)
+			for (int j = 0; j < this->sim->getPlayGroundSize(); j++)
 			{
-				if(playGround.at(i).at(j)->getStench())
+				QString f = QString("addDirtImage(%1,%2);").arg(i).arg(j);
+				this->mainwindow.webView->page()->mainFrame()->evaluateJavaScript(f);
+				if (playGround.at(i).at(j)->getStench())
 				{
-					QString func = QString("addStenchClass(%1,%2);").arg(i).arg(j);
+					QString func = QString("addStenchImage(%1,%2);").arg(i).arg(j);
 					this->mainwindow.webView->page()->mainFrame()->evaluateJavaScript(func);
 				}
-				if(playGround.at(i).at(j)->getBreeze())
+				if (playGround.at(i).at(j)->getBreeze())
 				{
-					QString func = QString("addBreezeClass(%1,%2);").arg(i).arg(j);
+					QString func = QString("addBreezeImage(%1,%2);").arg(i).arg(j);
 					this->mainwindow.webView->page()->mainFrame()->evaluateJavaScript(func);
 				}
-			}
-		}
-		for(int i = 0; i < this->sim->getPlayGroundSize(); i++)
-		{
-			for(int j = 0; j < this->sim->getPlayGroundSize(); j++)
-			{
 
-				if(playGround.at(i).at(j)->getTrap())
+				if (playGround.at(i).at(j)->getTrap())
 				{
-					QString func = QString("addTrapClass(%1,%2);").arg(i).arg(j);
+					QString func = QString("addTrapImage(%1,%2);").arg(i).arg(j);
 					this->mainwindow.webView->page()->mainFrame()->evaluateJavaScript(func);
 				}
-				if(playGround.at(i).at(j)->hasWumpus())
+				if (playGround.at(i).at(j)->hasWumpus())
 				{
-					QString func = QString("addWumpusClass(%1,%2);").arg(i).arg(j);
+					QString func = QString("addWumpusImage(%1,%2);").arg(i).arg(j);
 					this->mainwindow.webView->page()->mainFrame()->evaluateJavaScript(func);
 				}
-				if(playGround.at(i).at(j)->getGold())
+				if (playGround.at(i).at(j)->getGold())
 				{
-					QString func = QString("addGoldClass(%1,%2);").arg(i).arg(j);
+					QString func = QString("addGoldImage(%1,%2);").arg(i).arg(j);
 					this->mainwindow.webView->page()->mainFrame()->evaluateJavaScript(func);
 				}
 			}

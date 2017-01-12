@@ -38,9 +38,9 @@ namespace wumpus_simulator
 				this->playGround.at(i).push_back(make_shared<GroundTile>(i, j));
 			}
 		}
-		// Place given number of traps on field
 		/* initialize random seed: */
 		srand(time(NULL));
+		// Place given number of traps on field
 		for (int i = 0; i < trapCount; i++)
 		{
 			int randx = rand() % (playGroundSize - 1);
@@ -87,6 +87,17 @@ namespace wumpus_simulator
 			{
 				playGround.at(randx).at(randy)->setGold(true);
 				placed = true;
+			}
+		}
+		for(int i = 0; i < this->playGround.size(); i++)
+		{
+			for(int j = 0; j < this->playGround.size(); j++)
+			{
+				if(this->playGround.at(i).at(j)->hasWumpus() || this->playGround.at(i).at(j)->getTrap())
+				{
+					this->playGround.at(i).at(j)->setBreeze(false);
+					this->playGround.at(i).at(j)->setStench(false);
+				}
 			}
 		}
 		cout << "Simulator: Finished initiating the playground!" << endl;

@@ -52,8 +52,8 @@ namespace alica
                 {
                     cout << "SearchForDockingStationAsp: ASP result found!" << endl;
                     stringstream ss;
-                    ss << it->values.at(0);
-                    cout << it->values.at(0) << endl;
+                    ss << it->values.at(0).at(0);
+                    cout << it->values.at(0).at(0) << endl;
                     shared_ptr < ttb::POI > dockingStation = this->wm->pois.getPOIByName(getPOIName(ss.str()));
 
                     cout << "SearchForDockingStationAsp: Docking station is located at (" << dockingStation->x << " | "
