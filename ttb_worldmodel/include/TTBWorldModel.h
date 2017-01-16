@@ -32,6 +32,7 @@
 #include "tf/transform_listener.h"
 #include "ttb_msgs/DriveToPOI.h"
 #include "gazebo_msgs/ModelStates.h"
+#include "ttb_msgs/LogicalCamera.h"
 
 #include "SystemConfig.h"
 #include "RawSensorData.h"
@@ -142,6 +143,7 @@ namespace ttb
 		void onDockInfrRedData(kobuki_msgs::DockInfraRedPtr dockInfrRedData);
 		void onDriveToPOICommand(ttb_msgs::DriveToPOIPtr driveToPOICommand);
 		void onGazeboModelState(gazebo_msgs::ModelStatesPtr msg);
+		void onLogicalCameraData(ttb_msgs::LogicalCameraPtr logicalCameraData);
 
 	protected:
 
