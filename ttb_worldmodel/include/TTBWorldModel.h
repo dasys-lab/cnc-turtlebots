@@ -31,6 +31,7 @@
 #include "ar_track_alvar_msgs/AlvarMarkers.h"
 #include "tf/transform_listener.h"
 #include "ttb_msgs/DriveToPOI.h"
+#include "gazebo_msgs/ModelStates.h"
 
 #include "SystemConfig.h"
 #include "RawSensorData.h"
@@ -106,6 +107,8 @@ namespace ttb
 		string mobileBaseSensorStateTopic;
 		string dockInfrRedTopic;
 
+		InfoTime timeLastSimMsgReceived;
+
 		ros::Subscriber odometrySub;
 		ros::Subscriber alvarSub;
 		ros::Subscriber driveToPOISub;
@@ -121,6 +124,7 @@ namespace ttb
 		ros::Subscriber robotOnOffSub;
 		ros::Subscriber mobileBaseSensorStateSub;
 		ros::Subscriber dockInfrRedSub;
+		ros::Subscriber gazeboWorldModelSub;
 
 		void onAlvarData(ar_track_alvar_msgs::AlvarMarkersPtr alvarData);
 		void onOdometryData(nav_msgs::OdometryPtr odometryData);
@@ -137,6 +141,7 @@ namespace ttb
 		void onMobileBaseSensorStateData(kobuki_msgs::SensorStatePtr mobileBaseSensorStateData);
 		void onDockInfrRedData(kobuki_msgs::DockInfraRedPtr dockInfrRedData);
 		void onDriveToPOICommand(ttb_msgs::DriveToPOIPtr driveToPOICommand);
+		void onGazeboModelState(gazebo_msgs::ModelStatesPtr msg);
 
 	protected:
 

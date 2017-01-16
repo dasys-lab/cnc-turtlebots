@@ -16,7 +16,7 @@ namespace ttb
 {
 
 	RawSensorData::RawSensorData(TTBWorldModel* wm, int ringBufferLength) :
-			ownPositionMotion(ringBufferLength), ownVelocityMotion(ringBufferLength), ownLaserScans(ringBufferLength), ownBumperEvents(
+			ownPositionMotion(ringBufferLength), ownPositionGazebo(ringBufferLength), ownVelocityMotion(ringBufferLength), ownLaserScans(ringBufferLength), ownBumperEvents(
 					ringBufferLength), ownBumperSensors(ringBufferLength), ownImuData(ringBufferLength), ownCameraPcl(
 					ringBufferLength), ownCliffEvent(ringBufferLength), ownCameraImageRaw(ringBufferLength), ownRobotOnOff(
 					ringBufferLength), ownMobileBaseSensorState(ringBufferLength), ownDockInfrRed(ringBufferLength), ownOdom(
@@ -198,6 +198,36 @@ namespace ttb
 
 	}
 
+	void RawSensorData::processGazeboMsgData(geometry_msgs::Pose gazeboMsgData)
+	{
+		InfoTime time = wm->getTime();
+
+		// Position
+		shared_ptr<geometry::CNPosition> position = make_shared<geometry::CNPosition>(
+				gazeboMsgData.position.x,gazeboMsgData.position.y,gazeboMsgData.orientation.z / gazeboMsgData.orientation.w);
+		shared_ptr<InformationElement<geometry::CNPosition>> ownPositionGazeboInfo = make_shared<
+				InformationElement<geometry::CNPosition>>(position, time);
+		ownPositionGazeboInfo->certainty = 1.0;
+		ownPositionGazebo.add(ownPositionGazeboInfo);
+
+//		// Velocity
+//		shared_ptr<geometry::CNVelocity2D> velocity = make_shared<geometry::CNVelocity2D>(
+//				odometryData->twist.twist.linear.x, odometryData->twist.twist.linear.y);
+//		shared_ptr<InformationElement<geometry::CNVelocity2D>> ownVelocityMotionInfo = make_shared<
+//				InformationElement<geometry::CNVelocity2D>>(velocity, time);
+//		ownVelocityMotionInfo->certainty = 1.0;
+//		ownVelocityMotion.add(ownVelocityMotionInfo);
+//
+//		//Odom
+//		shared_ptr<nav_msgs::Odometry> odomDataPtr = shared_ptr<nav_msgs::Odometry>(
+//				odometryData.get(), [odometryData](nav_msgs::Odometry*) mutable
+//				{	odometryData.reset();});
+//		shared_ptr<InformationElement<nav_msgs::Odometry>> ownOdomScanInfo = make_shared<
+//				InformationElement<nav_msgs::Odometry>>(odomDataPtr, time);
+//		ownOdom.add(ownOdomScanInfo);
+
+	}
+
 	void RawSensorData::processCameraImageRaw(sensor_msgs::ImagePtr cameraImageRawData)
 	{
 		InfoTime time = wm->getTime();
@@ -270,7 +300,7 @@ namespace ttb
 	}
 
 
-	shared_ptr<geometry::CNPosition> RawSensorData::getOwnPosition(int index)
+	shared_ptr<geometry::CNPosition> RawSensorData::getOwnOdomPosition(int index)
 	{
 		auto x = ownPositionMotion.getLast(index);
 
@@ -281,6 +311,17 @@ namespace ttb
 
 		return x->getInformation();
 	}
+	shared_ptr<geometry::CNPosition> RawSensorData::getOwnPosition(int index)
+		{
+			auto x = ownPositionGazebo.getLast(index);
+
+			if (x == nullptr || wm->getTime() - x->timeStamp > maxInformationAge)
+			{
+				return nullptr;
+			}
+
+			return x->getInformation();
+		}
 	shared_ptr<geometry::CNVelocity2D> RawSensorData::getOwnVelocityMotion(int index)
 	{
 		auto x = ownVelocityMotion.getLast(index);

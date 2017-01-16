@@ -20,6 +20,7 @@
 #include "ar_track_alvar_msgs/AlvarMarkers.h"
 #include "ttb_msgs/DriveToPOI.h"
 #include "ttb_msgs/LogicalCamera.h"
+#include "geometry_msgs/Pose.h"
 
 #include "RingBuffer.h"
 #include "InformationElement.h"
@@ -53,8 +54,9 @@ namespace ttb
 		void processAlvarData(ar_track_alvar_msgs::AlvarMarkersPtr alvarData);
 		void processDriveToPOICommand(ttb_msgs::DriveToPOIPtr driveToPOICommand);
 		void processLogicalCamera(ttb_msgs::LogicalCameraPtr logicalCamera);
+		void processGazeboMsgData(geometry_msgs::Pose gazeboMsgData);
 
-		shared_ptr<geometry::CNPosition> getOwnPosition(int index = 0);
+		shared_ptr<geometry::CNPosition> getOwnOdomPosition(int index = 0);
 		shared_ptr<geometry::CNVelocity2D> getOwnVelocityMotion(int index = 0);
 		shared_ptr<sensor_msgs::LaserScan> getOwnLaserScans(int index = 0);
 		shared_ptr<kobuki_msgs::BumperEvent> getOwnBumperEvents(int index = 0);
@@ -69,6 +71,7 @@ namespace ttb
 		shared_ptr<nav_msgs::Odometry> getOwnOdom(int index = 0);
 		shared_ptr<ar_track_alvar_msgs::AlvarMarkers> getAlvar(int index = 0);
 		shared_ptr<ttb_msgs::LogicalCamera> getLogicalCamera(int index = 0);
+		shared_ptr<geometry::CNPosition> getOwnPosition(int index = 0);
 
 	private:
 		int ownID;
@@ -78,6 +81,7 @@ namespace ttb
 		tf::TransformListener listener;
 		map<unsigned int, shared_ptr<RingBuffer<InformationElement<geometry_msgs::PoseStamped>>>> ownAlvarMap;
 		RingBuffer<InformationElement<geometry::CNPosition>> ownPositionMotion;
+		RingBuffer<InformationElement<geometry::CNPosition>> ownPositionGazebo;
 		RingBuffer<InformationElement<nav_msgs::Odometry>> ownOdom;
 		RingBuffer<InformationElement<geometry::CNVelocity2D>> ownVelocityMotion;
 		RingBuffer<InformationElement<sensor_msgs::LaserScan>> ownLaserScans;
