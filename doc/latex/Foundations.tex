@@ -175,7 +175,7 @@ To summarise: Accurate sensors are fine, precise sensors need to be calibrated, 
 \section{Actuators}
 \label{sec:actuators}
 
-Actuators are the counterpart to sensors. While an agent perceives its environment with the help of sensors, it changes its environment with the help of actuators. Let's consider some examples and try to derive general categories from it.
+Actuators are the counterpart to sensors. While an agent perceives its environment with the help of sensors, it changes its environment with the help of actuators. Let's consider some examples and try to derive general categories from it (see Figure~\ref{fig:actuator_examples}.
 
 \begin{figure}[htbp]
  \begin{subfigure}[b]{0.3\textwidth}
@@ -195,7 +195,19 @@ Actuators are the counterpart to sensors. While an agent perceives its environme
   \caption{Hard Disk Drive (Source: \href{https://en.wikipedia.org/wiki/Hard_disk_drive\#/media/File:Laptop-hard-drive-exposed.jpg}{Wikipedia})}
   \label{sfig:robot_locomotion}
  \end{subfigure}
+ \caption{Examples for Actuators of Agents}
+ \label{fig:actuator_examples}
 \end{figure}
+
+Subfigure~\ref{sfig:robot_arm} shows a robto arm in a laboratory environment. This arm can manipulate the environment, e.g., by executing pick-and-place tasks, but it also represents the whole robot. In the context of this lecture we barely consider this arm as a physical agent for the following reasons: It is not autonomous, it has no external sensors for perceiving its environment, and it probably does the same movements over and over again. However, imagine that this arm is mounted on a mobile platform and controlled by an autonomous control architecture (see Subsection~\ref{ssec:robotcontrolarch}) that is also able to perceive its environment through dedicated sensors. Let us collect a list of rather blunt and naiv statements about this actuator. 
+\begin{itemize}
+ \item The arm is made for manipulating the environment, so it is not just an actuator, it is a manipulator.
+ \item It has a certain flexibility which is often denoted as degrees-of-freedom (DOF). 
+ \item Reaching out from its mobile platform, its range is limited.
+ \item Depending on its motors and energy sources, it can execute its movement with a limited force / speed.
+ \item Depending on the mechanism at the end of the arm, it can only manipulate objects that suit this mechanism (denoted as Endeffector).
+\end{itemize}
+
 
 
 \section{Communication}
