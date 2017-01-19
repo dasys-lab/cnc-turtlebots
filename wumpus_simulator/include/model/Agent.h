@@ -22,13 +22,10 @@ namespace wumpus_simulator
 		Agent(shared_ptr<GroundTile> tile);
 		virtual ~Agent();
 
-		int getAgentID();
-		void setAgentID(int value);
 		bool hasArrow();
 		void setArrow(bool value);
 
 	private:
-		int agentID;
 		bool arrow;
 	};
 

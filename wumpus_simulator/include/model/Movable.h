@@ -25,8 +25,11 @@ namespace wumpus_simulator
 		QString getType();
 		shared_ptr<GroundTile> getTile();
 		void setTile(shared_ptr<GroundTile> tile);
+		int getId();
+		void setId(int id);
 
 	protected:
+		int id;
 		shared_ptr<GroundTile> tile;
 		QString type;
 	};

@@ -25,5 +25,6 @@
         <file>www/img/soil.png</file>
         <file>www/img/male_agent.png</file>
         <file>www/img/femaleAgent.png</file>
+        <file>www/img/start.png</file>
     </qresource>
 </RCC>

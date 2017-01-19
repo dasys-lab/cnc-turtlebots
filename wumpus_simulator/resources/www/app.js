@@ -147,6 +147,19 @@ function drawPlayground() {
 
 }
 
+function moveAgent(x, y, agentID) {
+
+    //Get the agent
+    var agent = $('#' + agentID);
+
+    //Remove the agent from the current field
+    agent.parent().removeChild(agent);
+
+    //Put the agent to the new field
+    $($('.ground')[i*fieldSize+j]).prepend(agent);
+
+}
+
 function clearTiles() {
     $('.ground').empty();
 }
@@ -175,11 +188,15 @@ function addDirtImage(i, j) {
     $($('.ground')[i*fieldSize+j]).prepend('<img class="firstImage" src="img/soil.png" > </img>');
 }
 
-function addMaleAgent(i, j) {
-    $($('.ground')[i*fieldSize+j]).prepend('<img class="fifthImage" src="img/male_agent.png" > </img>');
+function addMaleAgent(i, j, agentID) {
+    $($('.ground')[i*fieldSize+j]).prepend('<img id="' + agentID + '" class="fifthImage" src="img/male_agent.png" > </img>');
 }
 
-function addFemaleAgent(i, j) {
-    $($('.ground')[i*fieldSize+j]).prepend('<img class="fifthImage" src="img/femaleAgent.png" > </img>');
+function addFemaleAgent(i, j, agentID) {
+    $($('.ground')[i*fieldSize+j]).prepend('<img id="' + agentID + '" class="fifthImage" src="img/femaleAgent.png" > </img>');
+}
+
+function addEntryPoint(i, j) {
+    $($('.ground')[i*fieldSize+j]).prepend('<img class="fourthImage" src="img/start.png" > </img>');
 }
 

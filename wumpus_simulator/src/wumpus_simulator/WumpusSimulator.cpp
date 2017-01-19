@@ -11,6 +11,7 @@
 #include <qfiledialog.h>
 #include <qdebug.h>
 #include "model/GroundTile.h"
+#include "model/Agent.h"
 
 namespace wumpus_simulator
 {
@@ -19,6 +20,17 @@ namespace wumpus_simulator
 	{
 		setObjectName("WumpusSimulator");
 		this->sim = nullptr;
+
+		spawnAgentSub = n.subscribe("/wumpus_simulator/SpawnAgentRequest", 10, &WumpusSimulator::onSpawnAgent,
+									(WumpusSimulator*)this);
+		actionSub = n.subscribe("/wumpus_simulator/ActionRequest", 10, &WumpusSimulator::onAction, (WumpusSimulator*)this);
+
+		spawnAgentPub = n.advertise<wumpus_simulator::InitialPose>("/wumpus_simulator/SpawnAgentResponse", 10);
+		actionPub = n.advertise<wumpus_simulator::Action>("/wumpus_simulator/ActionResponse", 10);
+
+		spinner = new ros::AsyncSpinner(4);
+		spinner->start();
+		this->ready = false;
 	}
 
 	WumpusSimulator::~WumpusSimulator()
@@ -49,6 +61,8 @@ namespace wumpus_simulator
 		connect(this->mainwindow.webView->page()->mainFrame(), SIGNAL(javaScriptWindowObjectCleared()), this,
 				SLOT(addSimToJS()));
 		this->mainwindow.webView->load(QUrl("qrc:///www/index.html"));
+		connect(this, SIGNAL(modelChanged()), this, SLOT(callUpdatePlayground()));
+		ready = false;
 	}
 
 	void WumpusSimulator::shutdownPlugin()
@@ -84,6 +98,7 @@ namespace wumpus_simulator
 		this->sim = Simulator::get();
 		this->sim->init(arrow, wumpus, traps, size);
 		updatePlayground();
+		ready = true;
 
 	}
 
@@ -121,7 +136,6 @@ namespace wumpus_simulator
 			file.write(saveDoc.toJson());
 
 		}
-
 	}
 
 	void WumpusSimulator::loadWorld()
@@ -147,8 +161,8 @@ namespace wumpus_simulator
 			QJsonDocument loadDoc(QJsonDocument::fromJson(saveData));
 			this->sim->fromJSON(loadDoc.object());
 			this->mainwindow.webView->page()->mainFrame()->evaluateJavaScript(
-					QString("setInitialValues(%1, %2, %3, %4);").arg(this->sim->getPlayGroundSize()).arg(
-							this->sim->getTrapCount()).arg(this->sim->getWumpusCount()).arg(
+					QString("setInitialValues(%1, %2, %3, %4);").arg(this->sim->getWumpusCount()).arg(
+							this->sim->getTrapCount()).arg(this->sim->getPlayGroundSize()).arg(
 							this->sim->isAgentHasArrow()));
 			this->mainwindow.webView->page()->mainFrame()->evaluateJavaScript(QString("drawPlayground();"));
 			updatePlayground();
@@ -159,8 +173,8 @@ namespace wumpus_simulator
 	void WumpusSimulator::updatePlayground()
 	{
 		QString clear = QString("clearTiles();");
-		this->mainwindow.webView->page()->mainFrame()->evaluateJavaScript(clear);
 		auto playGround = this->sim->getPlayGround();
+		this->mainwindow.webView->page()->mainFrame()->evaluateJavaScript(clear);
 		for (int i = 0; i < this->sim->getPlayGroundSize(); i++)
 		{
 			for (int j = 0; j < this->sim->getPlayGroundSize(); j++)
@@ -192,9 +206,18 @@ namespace wumpus_simulator
 					}
 					if (playGround.at(i).at(j)->getMovable()->getType().contains("agent"))
 					{
-						//TODO drawing method
-						QString func = QString("addWumpusImage(%1,%2);").arg(i).arg(j);
-						this->mainwindow.webView->page()->mainFrame()->evaluateJavaScript(func);
+						if (playGround.at(i).at(j)->getMovable()->getId() % 2 == 0)
+						{
+							QString func = QString("addFemaleAgent(%1,%2,%3);").arg(i).arg(j).arg(
+									playGround.at(i).at(j)->getMovable()->getId());
+							this->mainwindow.webView->page()->mainFrame()->evaluateJavaScript(func);
+						}
+						else
+						{
+							QString func = QString("addMaleAgent(%1,%2,%3);").arg(i).arg(j).arg(
+									playGround.at(i).at(j)->getMovable()->getId());
+							this->mainwindow.webView->page()->mainFrame()->evaluateJavaScript(func);
+						}
 					}
 				}
 				if (playGround.at(i).at(j)->getGold())
@@ -202,9 +225,81 @@ namespace wumpus_simulator
 					QString func = QString("addGoldImage(%1,%2);").arg(i).arg(j);
 					this->mainwindow.webView->page()->mainFrame()->evaluateJavaScript(func);
 				}
+				if (playGround.at(i).at(j)->getStartpoint())
+				{
+					QString func = QString("addEntryPoint(%1,%2);").arg(i).arg(j);
+					this->mainwindow.webView->page()->mainFrame()->evaluateJavaScript(func);
+				}
 			}
 		}
 	}
+
+	void WumpusSimulator::onSpawnAgent(InitialPosePtr msg)
+	{
+		if(!ready)
+		{
+			return;
+		}
+		placeAgent(msg->agentId, msg->hasArrow);
+	}
+
+	void WumpusSimulator::callUpdatePlayground()
+	{
+		updatePlayground();
+	}
+
+	void WumpusSimulator::onAction(ActionPtr msg)
+	{
+		if(!ready)
+		{
+			return;
+		}
+
+	}
+
+	void WumpusSimulator::placeAgent(int agentId, bool hasArrow)
+	{
+		for (int i = 0; i < sim->movables.size(); i++)
+		{
+			if (this->sim->movables.at(i)->getId() == agentId)
+			{
+				cout << "WumpusSimulator: Agent with this id already placed!" << endl;
+				return;
+			}
+		}
+		/* initialize random seed: */
+		srand(time(NULL));
+		bool placed = false;
+		InitialPose msg;
+		while (!placed)
+		{
+			int randx = rand() % (this->sim->getPlayGroundSize() - 1);
+			int randy = rand() % (this->sim->getPlayGroundSize() - 1);
+
+			auto tile = this->sim->getPlayGround().at(randx).at(randy);
+			if (!tile->getTrap() && !tile->hasMovable() && !tile->getGold() && !tile->getBreeze() && !tile->getStench()
+					&& !tile->getStartpoint())
+			{
+				this->sim->getPlayGround().at(randx).at(randy)->setStartAgentID(agentId);
+				auto agent = make_shared<Agent>(this->sim->getPlayGround().at(randx).at(randy));
+				agent->setId(agentId);
+				agent->setArrow(hasArrow);
+				this->sim->getPlayGround().at(randx).at(randy)->setMovable(agent);
+				this->sim->movables.push_back(agent);
+				tile->setStartAgentID(agentId);
+				tile->setStartpoint(true);
+				placed = true;
+				msg.x = randx;
+				msg.y = randy;
+				msg.agentId = agentId;
+				msg.fieldSize = this->sim->getPlayGroundSize();
+				msg.hasArrow = hasArrow;
+				this->spawnAgentPub.publish(msg);
+			}
+		}
+		emit modelChanged();
+	}
+
 }
 
 PLUGINLIB_EXPORT_CLASS(wumpus_simulator::WumpusSimulator, rqt_gui_cpp::Plugin)

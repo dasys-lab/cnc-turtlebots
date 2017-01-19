@@ -12,6 +12,8 @@
 #include <QtWebKitWidgets/qwebview.h>
 #include <ui_mainwindow_webview.h>
 #include <QtNetwork/qnetworkreply.h>
+#include "wumpus_simulator/InitialPose.h"
+#include "wumpus_simulator/Action.h"
 
 using namespace std;
 
@@ -49,8 +51,19 @@ namespace wumpus_simulator
 		QWidget* widget_;
 		Ui::MainWindowWebView mainwindow;
 
+		// ROS Stuff
+		ros::NodeHandle n;
+		ros::AsyncSpinner* spinner;
+
+		ros::Subscriber spawnAgentSub;
+		ros::Subscriber actionSub;
+
+		ros::Publisher spawnAgentPub;
+		ros::Publisher actionPub;
+
 	public slots:
 		void addSimToJS();
+		void callUpdatePlayground();
 
 	private:
 		/**
@@ -58,6 +71,15 @@ namespace wumpus_simulator
 		 */
 		void updatePlayground();
 		Simulator* sim;
+
+		void onSpawnAgent(InitialPosePtr msg);
+		void onAction(ActionPtr msg);
+		void placeAgent(int agentId, bool hasArrow);
+		void handleAction(int agentId);
+		bool ready;
+
+	signals :
+		void modelChanged();
 	};
 }
 

@@ -33,6 +33,7 @@ namespace wumpus_simulator
 		int getTrapCount();
 		int getWumpusCount();
 		vector<vector<shared_ptr<GroundTile>>> getPlayGround();
+		vector<shared_ptr<Movable>> movables;
 
 		QJsonObject toJSON();
 		void fromJSON(QJsonObject root);
@@ -45,6 +46,7 @@ namespace wumpus_simulator
 		int trapCount;
 		bool agentHasArrow;
 		vector<vector<shared_ptr<GroundTile>>> playGround;
+
 		void setBreeze(int x, int y);
 		void setStench(int x, int y);
 
