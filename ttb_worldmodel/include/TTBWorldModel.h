@@ -36,6 +36,7 @@
 
 #include "SystemConfig.h"
 #include "RawSensorData.h"
+#include "LogicalCameraData.h"
 #include "Robots.h"
 #include "TaskManager.h"
 #include "EventTrigger.h"
@@ -49,8 +50,6 @@ namespace supplementary {
 namespace alica {
 	class AlicaEngine;
 }
-
-using namespace std;
 
 namespace ttb
 {
@@ -68,11 +67,12 @@ namespace ttb
 		int getRingBufferLength();
 
 		// Public Data Access Classes
-		RawSensorData rawSensorData;
-		TaskManager taskManager;
-		Robots robots;
-		TTBPointOfInterests pois;
-		Doors doors;
+		wm::RawSensorData rawSensorData;
+		wm::LogicalCameraData logicalCameraData;
+		wm::TaskManager taskManager;
+		wm::Robots robots;
+		wm::TTBPointOfInterests pois;
+		wm::Doors doors;
 
 	private:
 

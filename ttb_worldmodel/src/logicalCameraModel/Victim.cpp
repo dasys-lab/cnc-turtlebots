@@ -5,15 +5,14 @@
  *      Author: lab-user
  */
 
-#include "Victim.h"
+#include <logicalCameraModel/Victim.h>
 
 namespace ttb
 {
 	namespace wm
 	{
-		Victim::Victim()
+		Victim::Victim(ttb_msgs::LogicalCameraPtr logicalCameraData) : LogicalObject(logicalCameraData)
 		{
-			// TODO Auto-generated constructor stub
 
 		}
 

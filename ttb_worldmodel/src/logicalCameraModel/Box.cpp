@@ -1,22 +1,23 @@
 /*
- * LogicalObject.cpp
+ * Box.cpp
  *
  *  Created on: Jan 9, 2017
  *      Author: lab-user
  */
 
-#include "LogicalObject.h"
+#include <logicalCameraModel/Box.h>
+
 namespace ttb
 {
 	namespace wm
 	{
-		LogicalObject::LogicalObject()
+		Box::Box(ttb_msgs::LogicalCameraPtr logicalCameraData) : LogicalObject(logicalCameraData)
 		{
 			// TODO Auto-generated constructor stub
 
 		}
 
-		LogicalObject::~LogicalObject()
+		Box::~Box()
 		{
 			// TODO Auto-generated destructor stub
 		}

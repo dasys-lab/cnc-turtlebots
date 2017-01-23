@@ -12,8 +12,7 @@
 #include <SystemConfig.h>
 #include <container/CNPosition.h>
 
-namespace ttb
-{
+namespace ttb { namespace wm {
 
 	RawSensorData::RawSensorData(TTBWorldModel* wm, int ringBufferLength) :
 			ownPositionMotion(ringBufferLength), ownPositionGazebo(ringBufferLength), ownVelocityMotion(ringBufferLength), ownLaserScans(ringBufferLength), ownBumperEvents(
@@ -312,16 +311,16 @@ namespace ttb
 		return x->getInformation();
 	}
 	shared_ptr<geometry::CNPosition> RawSensorData::getOwnPosition(int index)
+	{
+		auto x = ownPositionGazebo.getLast(index);
+
+		if (x == nullptr || wm->getTime() - x->timeStamp > maxInformationAge)
 		{
-			auto x = ownPositionGazebo.getLast(index);
-
-			if (x == nullptr || wm->getTime() - x->timeStamp > maxInformationAge)
-			{
-				return nullptr;
-			}
-
-			return x->getInformation();
+			return nullptr;
 		}
+
+		return x->getInformation();
+	}
 	shared_ptr<geometry::CNVelocity2D> RawSensorData::getOwnVelocityMotion(int index)
 	{
 		auto x = ownVelocityMotion.getLast(index);
@@ -467,5 +466,5 @@ namespace ttb
 		return x->getInformation();
 	}
 
-} /* namespace ttb */
+}} /* namespace ttb */
 

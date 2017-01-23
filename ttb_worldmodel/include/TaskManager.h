@@ -13,9 +13,7 @@
 #include "POI.h"
 #include <SystemConfig.h>
 
-using namespace std;
-
-namespace ttb
+namespace ttb { namespace wm
 {
 
 	class TaskManager
@@ -39,6 +37,6 @@ namespace ttb
 		vector<shared_ptr<InformationElement<ttb_msgs::DriveToPOI>>> unfinishedDriveToPOITasks;
 	};
 
-} /* namespace ttb */
+}} /* namespace ttb */
 
 #endif /* SRC_TASKMANAGER_H_ */

@@ -7,7 +7,7 @@
 
 #include "TaskManager.h"
 
-namespace ttb
+namespace ttb { namespace wm
 {
 
 	TaskManager::TaskManager()
@@ -88,4 +88,4 @@ namespace ttb
 		}
 	}
 
-} /* namespace ttb */
+}} /* namespace ttb */

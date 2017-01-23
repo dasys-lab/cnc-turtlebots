@@ -40,6 +40,11 @@ add_library(ttb_worldmodel
   src/Robots.cpp
   src/ttb_poi/TTBPointOfInterests.cpp
   src/Doors.cpp
+  src/LogicalCameraData.cpp
+  src/logicalCameraModel/LogicalObject.cpp
+  src/logicalCameraModel/Box.cpp
+  src/logicalCameraModel/Fire.cpp
+  src/logicalCameraModel/Victim.cpp
 )
 
 add_dependencies(ttb_worldmodel kobuki_msgs_generate_messages_cpp geometry_msgs_generate_messages_cpp robot_control_generate_messages_cpp)

@@ -5,13 +5,13 @@
  *      Author: lab-user
  */
 
-#include "Fire.h"
+#include <logicalCameraModel/Fire.h>
 
 namespace ttb
 {
 	namespace wm
 	{
-		Fire::Fire()
+		Fire::Fire(ttb_msgs::LogicalCameraPtr logicalCameraData) : LogicalObject(logicalCameraData)
 		{
 			// TODO Auto-generated constructor stub
 

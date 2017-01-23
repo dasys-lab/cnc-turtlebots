@@ -56,7 +56,7 @@ template<typename T>
      *
      * Returns the last element or NULL if no element exists.
      */
-    std::shared_ptr<T> getLast()
+    std::shared_ptr<T> getLast() const
     {
       return this->getLast(0);
     }
@@ -68,21 +68,18 @@ template<typename T>
      *
      * \param n The n-th last element, 0 will return the newest one.
      */
-    std::shared_ptr<T> getLast(int n)
+    std::shared_ptr<T> getLast(int n) const
     {
-      std::shared_ptr<T> ptr;
-      lock_guard<mutex> guard(mtx_);
+//      lock_guard<mutex> guard(mtx_);
 
       if (this->index < 0 || this->bufferSize <= n || this->identifierCounter <= n)
       {
-        return ptr;
+        return nullptr;
       }
 
       int index = (this->index - n) % this->bufferSize;
 
-      ptr = this->ringBuffer[index];
-
-      return ptr;
+      return this->ringBuffer[index];
     }
 
     /*!
@@ -96,10 +93,11 @@ template<typename T>
     {
       lock_guard<mutex> guard(mtx_);
 
-      int index = (++this->index) % this->bufferSize;
+      int index = (1+this->index) % this->bufferSize;
 
       this->ringBuffer[index] = element;
 
+      ++this->index;
       return this->identifierCounter++;
     }
 

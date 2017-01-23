@@ -247,11 +247,11 @@ namespace ttb
 		}
 	}
 
-	void TTBWorldModel::onLogicalCameraData(ttb_msgs::LogicalCameraPtr logicalCameraData)
+	void TTBWorldModel::onLogicalCameraData(ttb_msgs::LogicalCameraPtr logicalCameraMsg)
 	{
 		lock_guard<mutex> lock(wmMutex);
-		rawSensorData.processLogicalCamera(logicalCameraData);
-//		logicalCameraData.processLogicalCamera(logicalCameraData);
+		rawSensorData.processLogicalCamera(logicalCameraMsg);
+		logicalCameraData.processLogicalCamera(logicalCameraMsg);
 	}
 
 } /* namespace ttb */

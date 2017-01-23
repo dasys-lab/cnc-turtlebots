@@ -25,13 +25,12 @@
 #include "RingBuffer.h"
 #include "InformationElement.h"
 
-
-using namespace std;
-
-namespace ttb
-{
-
+namespace ttb {
 	class TTBWorldModel;
+}
+
+namespace ttb { namespace wm
+{
 	class RawSensorData
 	{
 	public:
@@ -99,6 +98,6 @@ namespace ttb
 
 	};
 
-} /* namespace ttb */
+}} /* namespace ttb */
 
 #endif /* CNC_TTB_TTB_WORLDMODEL_RAWSENSORDATA_H_ */
