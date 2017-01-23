@@ -30,12 +30,35 @@ namespace alica
 		ownPosition = wm->rawSensorData.getOwnPosition();
 		cout << "DriveSearchPattern: Own Pos: "<<ownPosition->x<<", "<<ownPosition->y<<", "<<ownPosition->theta<<endl;
 
+		cout << "Before Switch: listPoint x: " << list[listPoint].x << " ; ownPosition: " << ownPosition->x << endl;
+		cout << "Before Switch: listPoint y: " << list[listPoint].y << " ; ownPosition: " << ownPosition->y << endl;
+
 		auto state = getMoveState();
 		move_base_msgs::MoveBaseGoal goal;
 		switch (state.state_) {
 			case actionlib::SimpleClientGoalState::ACTIVE:
 				cout << "DriveSearchPattern: Goal is active!" << endl;
 				cout << "current goal:" << list[listPoint].x << "," << list[listPoint].y << endl;
+				cout << "Before: listPoint x: " << list[listPoint].x << " ; ownPosition: " << ownPosition->x << endl;
+				distanceGoalX = fabs(list[listPoint].x - ownPosition->x);
+				cout << "After: listPoint x: " << list[listPoint].x << " ; ownPosition: " << ownPosition->x << endl;
+				cout << "Before: listPoint y: " << list[listPoint].y << " ; ownPosition: " << ownPosition->y << endl;
+				distanceGoalY = fabs(list[listPoint].y - ownPosition->y);
+				cout << "After: listPoint y: " << list[listPoint].y << " ; ownPosition: " << ownPosition->y << endl;
+				distanceToGoal = sqrt(distanceGoalX * distanceGoalX + distanceGoalY * distanceGoalY);
+				cout << " DistanceGoalX: " << distanceGoalX << " ; DistanceGoalY: " << distanceGoalY << " ; Goal: " << list[listPoint].x << ", " << list[listPoint].y << endl;
+				cout << "DistanceToGoal: " << distanceToGoal << endl;
+				if(distanceToGoal < scanRange/4){
+					// TODO interrupt Goal, set next Goal
+//					state.SimpleClientGoalState(actionlib::SimpleClientGoalState::SUCCEEDED);
+					//stop old state
+					cancelGoal();
+					//state.SimpleClientGoalState().c
+//					state.state_ = actionlib::SimpleClientGoalState::SUCCEEDED;
+
+
+					cout << "Goal reached in scanRange/4. Distance:" << distanceToGoal << " " << state.state_<< endl;
+				}
 				break;
 			case actionlib::SimpleClientGoalState::PENDING:
 			case actionlib::SimpleClientGoalState::RECALLED:
@@ -44,7 +67,9 @@ namespace alica
 			case actionlib::SimpleClientGoalState::ABORTED:
 			case actionlib::SimpleClientGoalState::SUCCEEDED:
 			case actionlib::SimpleClientGoalState::LOST:
-				listPoint++;
+//				if (listPoint < list.size()){
+					listPoint++;
+//				}
 
 				goal.target_pose.pose.orientation.w = 1;
 				goal.target_pose.pose.position = list[listPoint];
@@ -54,6 +79,7 @@ namespace alica
 				goal.target_pose.header.seq = 0;
 				cout << "DriveSearchPattern: Sending next Goal: (" << list[listPoint].x << "," << list[listPoint].y << ")" << endl;
 				send(goal);
+
 				break;
 			default:
 				break;

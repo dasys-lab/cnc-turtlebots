@@ -29,6 +29,9 @@ namespace alica
     	int listPoint = 0;
     	double mapCorrectX;
     	double mapCorrectY;
+    	double distanceGoalX;
+    	double distanceGoalY;
+    	double distanceToGoal;
     	shared_ptr<geometry::CNPosition> ownPosition;
     	vector<geometry_msgs::Point> list;
         /*PROTECTED REGION END*/};
