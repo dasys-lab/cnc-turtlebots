@@ -26,8 +26,10 @@ endif (${CMAKE_EXTRA_GENERATOR} MATCHES "Eclipse CDT4")
 
 add_message_files(
   FILES
-  InitialPose.msg
-  Action.msg
+  InitialPoseRequest.msg
+  ActionRequest.msg
+  ActionResponse.msg
+  InitialPoseResponse.msg
 )
 
 catkin_python_setup()

@@ -13,6 +13,7 @@
 #include <time.h>
 #include <QJsonObject>
 #include <QJsonArray>
+#include <memory>
 
 namespace wumpus_simulator
 {
@@ -71,8 +72,9 @@ namespace wumpus_simulator
 			}
 			else
 			{
-				playGround.at(randx).at(randy)->setMovable(make_shared<Wumpus>(playGround.at(randx).at(randy)));
-				setStench(randx, randy);
+				auto tmp = make_shared<Wumpus>(playGround.at(randx).at(randy));
+				playGround.at(randx).at(randy)->setMovable(tmp);
+				setStench(randx, randy, tmp);
 			}
 
 		}
@@ -171,7 +173,7 @@ namespace wumpus_simulator
 		return playGround;
 	}
 
-	void Simulator::setStench(int x, int y)
+	void Simulator::setStench(int x, int y, shared_ptr<Wumpus> wumpus)
 	{
 		if (x == 0)
 		{
@@ -236,10 +238,25 @@ namespace wumpus_simulator
 				if (playGround.at(i).at(j)->getMovable() != nullptr)
 				{
 					ground["movableType"] = playGround.at(i).at(j)->getMovable()->getType();
+					auto tmp = dynamic_pointer_cast<Agent>(playGround.at(i).at(j)->getMovable());
+					if (tmp != nullptr)
+					{
+						ground["agentHeading"] = tmp->getHeading();
+						ground["agentId"] = tmp->getId();
+						ground["agentHasGold"] = tmp->getHasGold();
+						ground["agentHasArrow"] = tmp->hasArrow();
+					}
+					else
+					{
+						ground["agentHeading"] = "unknown";
+						ground["agantId"] = -1;
+					}
 				}
 				else
 				{
 					ground["movableType"] = "unknown";
+					ground["agentHeading"] = "unknown";
+					ground["agentId"] = -1;
 				}
 
 				playground.append(ground);
@@ -258,6 +275,7 @@ namespace wumpus_simulator
 
 		//Clear the old vectors
 		this->playGround.clear();
+		this->movables.clear();
 		//Reset global variables
 		this->agentHasArrow = root["agentHasArrow"].toBool();
 		this->playGroundSize = root["playGroundSize"].toInt();
@@ -289,18 +307,76 @@ namespace wumpus_simulator
 			groundTile->setStartAgentID(tile["startAgentID"].toInt());
 			groundTile->setStartpoint(tile["isStartpoint"].toBool());
 			groundTile->setTrap(tile["hasTrap"].toBool());
-			if(tile["movableType"].toString().contains("wumpus"))
+			if (tile["movableType"].toString().contains("wumpus"))
 			{
 				auto wumpus = make_shared<Wumpus>(this->playGround.at(x).at(y));
+				this->movables.push_back(wumpus);
 				groundTile->setMovable(wumpus);
 			}
-			else if(tile["movableType"].toString().contains("agent"))
+			else if (tile["movableType"].toString().contains("agent"))
 			{
 				auto agent = make_shared<Agent>(this->playGround.at(x).at(y));
+				agent->setHeading((WumpusEnums::heading)tile["agentHeading"].toInt());
+				agent->setId(tile["agentId"].toInt());
+				agent->setHasGold(tile["agentHasGold"].toBool());
+				agent->setArrow(tile["agentHasArrow"].toBool());
+				this->movables.push_back(agent);
 				groundTile->setMovable(agent);
 			}
 
 		}
+	}
+
+	shared_ptr<Agent> Simulator::getAgentByID(int id)
+	{
+
+		for (auto mov : this->movables)
+		{
+
+			if (mov->getId() == id)
+			{
+				return dynamic_pointer_cast<Agent>(mov);
+
+			}
+		}
+	}
+
+	void Simulator::removeAgent(shared_ptr<Agent> agent)
+	{
+		agent->getTile()->setMovable(nullptr);
+		agent->setTile(nullptr);
+	}
+
+	void Simulator::removeWumpus(shared_ptr<Wumpus> wumpus)
+	{
+		int x = wumpus->getTile()->getX();
+		int y = wumpus->getTile()->getY();
+		if (x == 0)
+		{
+			playGround.at(x + 1).at(y)->setStench(false);
+
+		}
+		else if (x == playGroundSize - 1)
+		{
+			playGround.at(x - 1).at(y)->setStench(false);
+
+		}
+		else
+		{
+			playGround.at(x - 1).at(y)->setStench(false);
+			playGround.at(x + 1).at(y)->setStench(false);
+		}
+
+		if (y > 0)
+		{
+			playGround.at(x).at(y - 1)->setStench(false);
+		}
+
+		if (y < playGroundSize - 1)
+		{
+			playGround.at(x).at(y + 1)->setStench(false);
+		}
+		wumpus->getTile()->setMovable(nullptr);
 	}
 
 } /* namespace wumpus_simulator */

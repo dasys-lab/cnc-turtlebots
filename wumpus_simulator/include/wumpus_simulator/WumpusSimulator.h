@@ -12,8 +12,10 @@
 #include <QtWebKitWidgets/qwebview.h>
 #include <ui_mainwindow_webview.h>
 #include <QtNetwork/qnetworkreply.h>
-#include "wumpus_simulator/InitialPose.h"
-#include "wumpus_simulator/Action.h"
+#include "wumpus_simulator/InitialPoseRequest.h"
+#include "wumpus_simulator/ActionResponse.h"
+#include "wumpus_simulator/InitialPoseResponse.h"
+#include "wumpus_simulator/ActionRequest.h"
 
 using namespace std;
 
@@ -72,10 +74,17 @@ namespace wumpus_simulator
 		void updatePlayground();
 		Simulator* sim;
 
-		void onSpawnAgent(InitialPosePtr msg);
-		void onAction(ActionPtr msg);
+		void onSpawnAgent(InitialPoseRequestPtr msg);
+		void onAction(ActionRequestPtr msg);
 		void placeAgent(int agentId, bool hasArrow);
-		void handleAction(int agentId);
+		void handleAction(ActionRequestPtr agentId);
+		void handleTurnRight(ActionRequestPtr msg);
+		void handleTurnLeft(ActionRequestPtr msg);
+		void handleShoot(ActionRequestPtr msg);
+		void handlePickUpGold(ActionRequestPtr msg);
+		void handleExit(ActionRequestPtr msg);
+		void handleMove(ActionRequestPtr msg);
+
 		bool ready;
 
 	signals :

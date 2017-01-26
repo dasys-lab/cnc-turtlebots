@@ -38,6 +38,7 @@ namespace wumpus_simulator
 		bool hasMovable();
 		bool getBreeze();
 		bool getStartpoint();
+		bool hasWumpus();
 
 	private :
 		int x;

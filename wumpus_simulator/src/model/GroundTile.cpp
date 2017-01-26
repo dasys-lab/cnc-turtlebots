@@ -6,6 +6,7 @@
  */
 
 #include <model/GroundTile.h>
+#include <model/Wumpus.h>
 
 namespace wumpus_simulator
 {
@@ -120,5 +121,18 @@ namespace wumpus_simulator
 		this->hasBreeze = hasBreeze;
 	}
 
+	bool GroundTile::hasWumpus()
+	{
+		if(!this->hasMovable())
+		{
+			return false;
+		}
+		else
+		{
+			return dynamic_pointer_cast<Wumpus>(this->movable) != nullptr;
+		}
+	}
+
 } /* namespace wumpus_simulator */
+
 

@@ -16,7 +16,6 @@ using namespace std;
 namespace wumpus_simulator
 {
 	class GroundTile;
-
 	class Wumpus : public Movable
 	{
 	public:

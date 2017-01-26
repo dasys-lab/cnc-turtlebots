@@ -10,6 +10,7 @@
 
 #include <model/Movable.h>
 #include <memory>
+#include "WumpusEnums.h"
 
 using namespace std;
 
@@ -24,9 +25,16 @@ namespace wumpus_simulator
 
 		bool hasArrow();
 		void setArrow(bool value);
+		WumpusEnums::heading getHeading();
+		void setHeading(WumpusEnums::heading heading);
+		void setHasGold(bool value);
+		bool getHasGold();
+
 
 	private:
 		bool arrow;
+		bool hasGold;
+		WumpusEnums::heading heading;
 	};
 
 } /* namespace wumpus_simulator */

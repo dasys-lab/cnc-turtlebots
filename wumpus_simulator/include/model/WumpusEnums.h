@@ -10,9 +10,21 @@
 
 class WumpusEnums
 {
-	enum actions {move, turnLeft, turnRight, shoot, pickUpGold, exit};
+public:
+	enum actions
+	{
+		move, turnLeft, turnRight, shoot, pickUpGold, leave
+	};
 
-	enum responses {bump, scream, silence, goldFound, exited, notAllowed};
+	enum responses
+	{
+		bump, scream, silence, goldFound, exited, notAllowed, drafty, stinky, shiny, dead, otherAgent
+	};
+
+	enum heading
+	{
+		up, left, down, right
+	};
 };
 
 #endif /* INCLUDE_MODEL_WUMPUSENUMS_H_ */

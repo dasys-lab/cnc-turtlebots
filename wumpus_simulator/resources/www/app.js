@@ -147,19 +147,6 @@ function drawPlayground() {
 
 }
 
-function moveAgent(x, y, agentID) {
-
-    //Get the agent
-    var agent = $('#' + agentID);
-
-    //Remove the agent from the current field
-    agent.parent().removeChild(agent);
-
-    //Put the agent to the new field
-    $($('.ground')[i*fieldSize+j]).prepend(agent);
-
-}
-
 function clearTiles() {
     $('.ground').empty();
 }
@@ -185,15 +172,39 @@ function addGoldImage(i, j) {
 }
 
 function addDirtImage(i, j) {
-    $($('.ground')[i*fieldSize+j]).prepend('<img class="firstImage" src="img/soil.png" > </img>');
+    $($('.ground')[i*fieldSize+j]).prepend('<img class="firstImage" src="img/ground.png" > </img>');
 }
 
-function addMaleAgent(i, j, agentID) {
-    $($('.ground')[i*fieldSize+j]).prepend('<img id="' + agentID + '" class="fifthImage" src="img/male_agent.png" > </img>');
-}
+function addAgent(i, j, agentID, gender, heading) {
 
-function addFemaleAgent(i, j, agentID) {
-    $($('.ground')[i*fieldSize+j]).prepend('<img id="' + agentID + '" class="fifthImage" src="img/femaleAgent.png" > </img>');
+    var html = '<img id="' + agentID + '" class="fifthImage" src="img/' + gender + 'Agent';
+
+    switch (heading) {
+
+        case 0:
+            html += 'Up';
+            break;
+
+        case 1:
+            html += 'Left';
+            break;
+
+        case 2:
+            html += 'Down';
+            break;
+
+        case 3:
+            html += 'Right';
+            break;
+
+        default:
+            break;
+    }
+
+    html += '.png" > </img>';
+
+    $($('.ground')[i*fieldSize+j]).prepend(html);
+
 }
 
 function addEntryPoint(i, j) {

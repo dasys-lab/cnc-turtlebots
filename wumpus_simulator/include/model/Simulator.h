@@ -20,6 +20,8 @@ using namespace std;
 namespace wumpus_simulator
 {
 
+	class Wumpus;
+	class Agent;
 	class Simulator
 	{
 	public:
@@ -35,8 +37,13 @@ namespace wumpus_simulator
 		vector<vector<shared_ptr<GroundTile>>> getPlayGround();
 		vector<shared_ptr<Movable>> movables;
 
+		shared_ptr<Agent> getAgentByID(int id);
+
 		QJsonObject toJSON();
 		void fromJSON(QJsonObject root);
+
+		void removeAgent(shared_ptr<Agent> agent);
+		void removeWumpus(shared_ptr<Wumpus> wumpus);
 
 	private:
 		ros::NodeHandle* rosNode;
@@ -48,7 +55,7 @@ namespace wumpus_simulator
 		vector<vector<shared_ptr<GroundTile>>> playGround;
 
 		void setBreeze(int x, int y);
-		void setStench(int x, int y);
+		void setStench(int x, int y, shared_ptr<Wumpus> wumpus);
 
 	};
 
