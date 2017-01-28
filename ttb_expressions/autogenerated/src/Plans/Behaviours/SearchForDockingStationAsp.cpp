@@ -6,6 +6,7 @@ using namespace std;
 #include "SolverType.h"
 #include "actionlib/client/simple_action_client.h"
 #include "move_base_msgs/MoveBaseAction.h"
+#include <asp_commons/ASPQuery.h>
 /*PROTECTED REGION END*/
 namespace alica
 {
@@ -44,7 +45,7 @@ namespace alica
         shared_ptr < ttb::POI > dockingStation = nullptr;
         if (result.size() > 0)
         {
-            auto it = find_if(result.begin(), result.end(), [](alica::reasoner::AnnotatedValVec element)
+            auto it = find_if(result.begin(), result.end(), [](::reasoner::AnnotatedValVec element)
             {   return element.id == 1470042926317;});
             if (it != result.end())
             {

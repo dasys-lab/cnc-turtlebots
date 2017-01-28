@@ -3,6 +3,7 @@ using namespace std;
 
 /*PROTECTED REGION ID(inccpp1477125924367) ENABLED START*/ //Add additional includes here
 #include "SolverType.h"
+#include <asp_commons/ASPQuery.h>
 /*PROTECTED REGION END*/
 namespace alica
 {
@@ -35,7 +36,7 @@ namespace alica
 				<< std::chrono::duration_cast<chrono::milliseconds>(end - start).count() << " ms" << endl;
 		if (result.size() > 0)
 		{
-			auto it = find_if(result.begin(), result.end(), [](alica::reasoner::AnnotatedValVec element)
+			auto it = find_if(result.begin(), result.end(), [](::reasoner::AnnotatedValVec element)
 			{	return element.id == 1477125906086;});
 			if (it != result.end())
 			{

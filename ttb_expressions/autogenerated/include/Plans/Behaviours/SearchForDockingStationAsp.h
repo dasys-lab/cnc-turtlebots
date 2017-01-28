@@ -8,7 +8,7 @@
 #include <engine/constraintmodul/Query.h>
 #include <memory>
 #include "POI.h"
-#include <alica_asp_solver/AnnotatedValVec.h>
+#include <asp_commons/AnnotatedValVec.h>
 //#define testWithoutTTB
 /*PROTECTED REGION END*/
 namespace alica
@@ -20,7 +20,7 @@ namespace alica
         virtual ~SearchForDockingStationAsp();
         virtual void run(void* msg);
         /*PROTECTED REGION ID(pub1470041810334) ENABLED START*/ //Add additional public methods here
-        vector<alica::reasoner::AnnotatedValVec> result;
+        vector<::reasoner::AnnotatedValVec> result;
         /*PROTECTED REGION END*/
     protected:
         virtual void initialiseParameters();

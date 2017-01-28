@@ -3,7 +3,9 @@ using namespace std;
 
 /*PROTECTED REGION ID(inccpp1477229760910) ENABLED START*/ //Add additional includes here
 #include "SolverType.h"
-#include <alica_asp_solver/ASPSolver.h>
+#include <asp_commons/IASPSolver.h>
+#include <asp_solver_wrapper/ASPSolverWrapper.h>
+#include <asp_commons/ASPQuery.h>
 /*PROTECTED REGION END*/
 namespace alica
 {
@@ -31,8 +33,8 @@ namespace alica
         {
             return;
         }
-        alica::reasoner::ASPSolver* aspSolver =
-                dynamic_cast<alica::reasoner::ASPSolver*>(this->wm->getEngine()->getSolver(SolverType::ASPSOLVER));
+        alica::reasoner::ASPSolverWrapper* aspSolver =
+                dynamic_cast<alica::reasoner::ASPSolverWrapper*>(this->wm->getEngine()->getSolver(SolverType::ASPSOLVER));
         std::chrono::_V2::system_clock::time_point start = std::chrono::high_resolution_clock::now();
         query->getSolution(SolverType::ASPSOLVER, runningPlan, result);
         std::chrono::_V2::system_clock::time_point end = std::chrono::high_resolution_clock::now();
@@ -43,12 +45,12 @@ namespace alica
             auto it = result.end();
             if (this->doorConfig.compare("config1") == 0)
             {
-                it = find_if(result.begin(), result.end(), [](alica::reasoner::AnnotatedValVec element)
+                it = find_if(result.begin(), result.end(), [](::reasoner::AnnotatedValVec element)
                 {   return element.id == 1477229706852;});
             }
             else if (this->doorConfig.compare("config2") == 0)
             {
-                it = find_if(result.begin(), result.end(), [](alica::reasoner::AnnotatedValVec element)
+                it = find_if(result.begin(), result.end(), [](::reasoner::AnnotatedValVec element)
                 {   return element.id == 1477229712321;});
             }
             else

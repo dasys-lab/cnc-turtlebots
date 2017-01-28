@@ -6,7 +6,8 @@ using namespace std;
 #include "SolverType.h"
 #include "actionlib/client/simple_action_client.h"
 #include "move_base_msgs/MoveBaseAction.h"
-#include <alica_asp_solver/ASPSolver.h>
+#include <asp_solver_wrapper/ASPSolverWrapper.h>
+#include <asp_commons/ASPQuery.h>
 /*PROTECTED REGION END*/
 namespace alica
 {
@@ -29,7 +30,7 @@ namespace alica
     void ASPNavigation::run(void* msg)
     {
         /*PROTECTED REGION ID(run1475693360605) ENABLED START*/ //Add additional options here
-//		auto solver = (alica::reasoner::ASPSolver*)this->wm->getEngine()->getSolver(SolverType::ASPSOLVER);
+		auto solver = (alica::reasoner::ASPSolverWrapper*)this->wm->getEngine()->getSolver(SolverType::ASPSOLVER);
 //		if (this->iterationCounter == 0)
 //		{
 //			cout << "ASPNavigation: grounding navTest" << endl;
@@ -107,7 +108,7 @@ namespace alica
                 < chrono::nanoseconds > (end - start).count() / 1000000.0 << " ms" << endl;
         if (result.size() > 0)
         {
-            auto it = find_if(result.begin(), result.end(), [](alica::reasoner::AnnotatedValVec element)
+            auto it = find_if(result.begin(), result.end(), [](::reasoner::AnnotatedValVec element)
             {   return element.id == 1475692986360;});
             if (it != result.end())
             {
@@ -127,13 +128,13 @@ namespace alica
 						}
 					}
 					cout << endl;
-//					cout << "\tThe model contains the predicates: " << endl;
-//					cout << "\t\t";
-//					for (int i = 0; i < it->query->getCurrentModels()->at(0).size(); i++)
-//					{
-//						cout << it->query->getCurrentModels()->at(0).at(i) << " ";
-//					}
-//					cout << endl;
+					cout << "\tThe model contains the predicates: " << endl;
+					cout << "\t\t";
+					for (int i = 0; i < it->query->getCurrentModels()->at(0).size(); i++)
+					{
+						cout << it->query->getCurrentModels()->at(0).at(i) << " ";
+					}
+					cout << endl;
                 }
                 else
                 {

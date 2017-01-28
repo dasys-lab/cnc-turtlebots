@@ -15,7 +15,9 @@
 #include "communication/AlicaRosCommunication.h"
 #include "SigFault.h"
 #include "SolverType.h"
-#include <alica_asp_solver/ASPSolver.h>
+#include <asp_commons/IASPSolver.h>
+#include <asp_solver_wrapper/ASPSolverWrapper.h>
+#include <asp_solver/ASPSolver.h>
 
 using namespace std;
 
@@ -36,8 +38,10 @@ namespace ttb
 		wm->setEngine(ae);
 		// "clingo", "-W", "no-atom-undefined",  "--number=0", nullptr
 		std::vector<char const *> args {"clingo", "-W", "no-atom-undefined", nullptr};
-		auto solver = new alica::reasoner::ASPSolver(ae, args);
-		ae->addSolver(SolverType::ASPSOLVER, solver);
+		auto solver = new ::reasoner::ASPSolver(args);
+		auto solverWrapper = new alica::reasoner::ASPSolverWrapper(ae, args);
+		solverWrapper->init(solver);
+		ae->addSolver(SolverType::ASPSOLVER, solverWrapper);
 		ae->init(bc, cc, uc, crc, roleSetName, masterPlanName, roleSetDir, false);
 	}
 

@@ -27,7 +27,7 @@ namespace alica
         query->getSolution(SolverType::ASPSOLVER, runningPlan, result);
         if (result.size() > 0)
         {
-            auto it = find_if(result.begin(), result.end(), [](alica::reasoner::AnnotatedValVec element)
+            auto it = find_if(result.begin(), result.end(), [](::reasoner::AnnotatedValVec element)
             {   return element.id == 1468495216221;});
             if (it != result.end())
             {
