@@ -44,7 +44,7 @@ namespace ttb
 		mobileBaseSensorStateTopic = (*sc)["TTBWorldModel"]->get<string>("Sensors.SensorStateTopic", NULL);
 		dockInfrRedTopic = (*sc)["TTBWorldModel"]->get<string>("Sensors.DockInfrRedTopic", NULL);
 		alvarTopic = (*sc)["TTBWorldModel"]->get<string>("Sensors.AlvarTopic", NULL);
-		logicalCameraSensorTopic = (*sc)["TTBWorldModel"]->get<string>("Sensors.logicalCameraSensorTopic", NULL);
+		logicalCameraSensorTopic = (*sc)["TTBWorldModel"]->get<string>("Sensors.LogicalCameraSensorTopic", NULL);
 		logicalCameraSensorTopic = "/leonardo" + logicalCameraSensorTopic;
 
 		drivePOITopic = (*sc)["TTBWorldModel"]->get<string>("Commands.DriveToPOITopic", NULL);
