@@ -107,6 +107,7 @@ namespace ttb
 		string robotOnOffTopic;
 		string mobileBaseSensorStateTopic;
 		string dockInfrRedTopic;
+		string logicalCameraSensorTopic;
 
 		InfoTime timeLastSimMsgReceived;
 
@@ -126,6 +127,7 @@ namespace ttb
 		ros::Subscriber mobileBaseSensorStateSub;
 		ros::Subscriber dockInfrRedSub;
 		ros::Subscriber gazeboWorldModelSub;
+		ros::Subscriber logicalCameraSensorSub;
 
 		void onAlvarData(ar_track_alvar_msgs::AlvarMarkersPtr alvarData);
 		void onOdometryData(nav_msgs::OdometryPtr odometryData);

@@ -44,7 +44,11 @@ namespace ttb
 		mobileBaseSensorStateTopic = (*sc)["TTBWorldModel"]->get<string>("Sensors.SensorStateTopic", NULL);
 		dockInfrRedTopic = (*sc)["TTBWorldModel"]->get<string>("Sensors.DockInfrRedTopic", NULL);
 		alvarTopic = (*sc)["TTBWorldModel"]->get<string>("Sensors.AlvarTopic", NULL);
+		logicalCameraSensorTopic = (*sc)["TTBWorldModel"]->get<string>("Sensors.logicalCameraSensorTopic", NULL);
+		logicalCameraSensorTopic = "/leonardo" + logicalCameraSensorTopic;
+
 		drivePOITopic = (*sc)["TTBWorldModel"]->get<string>("Commands.DriveToPOITopic", NULL);
+
 
 		// SET ROS STUFF
 		odometrySub = n.subscribe(odometryTopic, 10, &TTBWorldModel::onOdometryData, (TTBWorldModel*)this);
@@ -63,6 +67,9 @@ namespace ttb
 												&TTBWorldModel::onMobileBaseSensorStateData, (TTBWorldModel*)this);
 		dockInfrRedSub = n.subscribe(dockInfrRedTopic, 10, &TTBWorldModel::onDockInfrRedData, (TTBWorldModel*)this);
 		alvarSub = n.subscribe(alvarTopic, 10, &TTBWorldModel::onAlvarData, (TTBWorldModel*)this);
+		logicalCameraSensorSub = n.subscribe(logicalCameraSensorTopic, 10, &TTBWorldModel::onLogicalCameraData, (TTBWorldModel*)this);
+
+
 		driveToPOISub = n.subscribe(drivePOITopic, 10, &TTBWorldModel::onDriveToPOICommand, (TTBWorldModel*)this);
 		wrappedMessageHandler = new WrappedMessageHandler();
 		wrappedMessageHandler->init(ownID);
