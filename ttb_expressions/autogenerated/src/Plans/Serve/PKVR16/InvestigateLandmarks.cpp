@@ -21,7 +21,7 @@ namespace alica
     void InvestigateLandmarks::run(void* msg)
     {
         /*PROTECTED REGION ID(run1485780420922) ENABLED START*/ //Add additional options here
-    	cout<<"PKVR16::InvestigateLandmarks: Hallo Pizza!"<<endl;
+        cout << "PKVR16::InvestigateLandmarks: Hallo Pizza!" << endl;
         /*PROTECTED REGION END*/
     }
     void InvestigateLandmarks::initialiseParameters()

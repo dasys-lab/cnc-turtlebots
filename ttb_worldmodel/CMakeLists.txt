@@ -45,6 +45,7 @@ add_library(ttb_worldmodel
   src/logicalCameraModel/Box.cpp
   src/logicalCameraModel/Fire.cpp
   src/logicalCameraModel/Victim.cpp
+  src/logicalCameraModel/Landmark.cpp
 )
 
 add_dependencies(ttb_worldmodel kobuki_msgs_generate_messages_cpp geometry_msgs_generate_messages_cpp robot_control_generate_messages_cpp)

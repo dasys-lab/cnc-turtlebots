@@ -26,9 +26,13 @@ namespace alica
     {
         /*PROTECTED REGION ID(run1481545714198) ENABLED START*/ //Add additional options here
         ownPosition = wm->rawSensorData.getOwnPosition();
+        cout << "DriveSearchPattern: seen objects:" << wm->logicalCameraData.getLogicalObjects("landmark").size()
+                << endl;
+
         if (wm->logicalCameraData.getLogicalObjects("landmark").size() == 4)
         {
             this->setSuccess(true);
+            cout << "DriveSearchPattern:: found all 4 objects" << endl;
             return;
         }
 
@@ -57,7 +61,7 @@ namespace alica
             case actionlib::SimpleClientGoalState::LOST:
 //                if (listPoint < list.size())
 //                {
-                    listPoint++;
+                listPoint++;
 //                }
 
                 goal.target_pose.pose.orientation.w = 1;
