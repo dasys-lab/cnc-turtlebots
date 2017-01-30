@@ -43,6 +43,8 @@ namespace ttb
 				return os;
 			}
 
+			std::list<shared_ptr<LogicalObject>> getLogicalObjects(string type);
+
 		private:
 			map<string, list<shared_ptr<LogicalObject>>> dict;
 			shared_ptr<LogicalObject> createLogicalObject(ttb_msgs::LogicalCameraPtr logicalCameraData);

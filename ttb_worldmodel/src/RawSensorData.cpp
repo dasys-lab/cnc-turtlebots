@@ -4,13 +4,21 @@
  *  Created on: May 27, 2015
  *      Author: Stephan Opfer
  */
+#include <RawSensorData.h>
 
-#include "TTBWorldModel.h"
+#include <TTBWorldModel.h>
+#include <nav_msgs/Odometry.h>
+#include <kobuki_msgs/CliffEvent.h>
 
-#include "RawSensorData.h"
-
+#include <ar_track_alvar_msgs/AlvarMarker.h>
 #include <SystemConfig.h>
-#include <container/CNPosition.h>
+
+
+#include <exception>
+#include <iostream>
+#include <map>
+#include <memory>
+#include <utility>
 
 namespace ttb { namespace wm {
 
@@ -31,6 +39,7 @@ namespace ttb { namespace wm {
 	{
 
 	}
+
 	void RawSensorData::processAlvarData(ar_track_alvar_msgs::AlvarMarkersPtr alvarData)
 	{
 

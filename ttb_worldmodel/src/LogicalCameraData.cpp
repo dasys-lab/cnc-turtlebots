@@ -4,11 +4,12 @@
  *  Created on: Jan 9, 2017
  *      Author: lab-user
  */
+#include <LogicalCameraData.h>
 
 #include <logicalCameraModel/Box.h>
 #include <logicalCameraModel/Fire.h>
 #include <logicalCameraModel/Victim.h>
-#include <LogicalCameraData.h>
+
 #include <algorithm>
 #include <iostream>
 #include <memory>
@@ -17,13 +18,10 @@ namespace ttb {
 namespace wm {
 LogicalCameraData::LogicalCameraData()
 {
-	// TODO Auto-generated constructor stub
-
 }
 
 LogicalCameraData::~LogicalCameraData()
 {
-	// TODO Auto-generated destructor stub
 }
 
 void LogicalCameraData::processLogicalCamera(ttb_msgs::LogicalCameraPtr logicalCameraData)
@@ -50,7 +48,6 @@ void LogicalCameraData::processLogicalCamera(ttb_msgs::LogicalCameraPtr logicalC
 			// does not exist, yet
 			logicalObjectsList->second.push_back(this->createLogicalObject(logicalCameraData));
 		}
-
 	}
 	else
 	{
@@ -58,7 +55,19 @@ void LogicalCameraData::processLogicalCamera(ttb_msgs::LogicalCameraPtr logicalC
 		this->dict[type] = list<shared_ptr<LogicalObject>>();
 		this->dict[type].push_back(this->createLogicalObject(logicalCameraData));
 	}
+}
 
+std::list<shared_ptr<LogicalObject>> LogicalCameraData::getLogicalObjects(string type)
+{
+	auto list = this->dict.find(type);
+	if (list == this->dict.end())
+	{
+		return std::list<shared_ptr<LogicalObject>>();
+	}
+	else
+	{
+		return list->second;
+	}
 }
 
 std::shared_ptr<LogicalObject> LogicalCameraData::createLogicalObject(ttb_msgs::LogicalCameraPtr logicalCameraData)

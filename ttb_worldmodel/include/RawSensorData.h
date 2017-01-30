@@ -8,25 +8,49 @@
 #ifndef CNC_TTB_TTB_WORLDMODEL_RAWSENSORDATA_H_
 #define CNC_TTB_TTB_WORLDMODEL_RAWSENSORDATA_H_
 
-#include <vector>
-#include "nav_msgs/Odometry.h"
-#include "sensor_msgs/LaserScan.h"
-#include "sensor_msgs/Image.h"
-#include "container/CNPosition.h"
-#include "container/CNVelocity2D.h"
-#include "robot_control/RobotCommand.h"
-#include "kobuki_msgs/SensorState.h"
-#include "kobuki_msgs/DockInfraRed.h"
-#include "ar_track_alvar_msgs/AlvarMarkers.h"
-#include "ttb_msgs/DriveToPOI.h"
-#include "ttb_msgs/LogicalCamera.h"
-#include "geometry_msgs/Pose.h"
-
 #include "RingBuffer.h"
 #include "InformationElement.h"
 
+#include <container/CNPosition.h>
+#include <container/CNVelocity2D.h>
+
+#include <tf/transform_listener.h>
+#include <vector>
+
 namespace ttb {
 	class TTBWorldModel;
+}
+
+namespace sensor_msgs {
+	ROS_DECLARE_MESSAGE(PointCloud2)
+	ROS_DECLARE_MESSAGE(Imu)
+	ROS_DECLARE_MESSAGE(JointState)
+	ROS_DECLARE_MESSAGE(LaserScan)
+	ROS_DECLARE_MESSAGE(Image)
+}
+
+namespace kobuki_msgs {
+	ROS_DECLARE_MESSAGE(SensorState)
+	ROS_DECLARE_MESSAGE(BumperEvent)
+	ROS_DECLARE_MESSAGE(DockInfraRed)
+	ROS_DECLARE_MESSAGE(CliffEvent)
+}
+
+namespace ar_track_alvar_msgs {
+	ROS_DECLARE_MESSAGE(AlvarMarkers)
+}
+
+namespace ttb_msgs {
+	ROS_DECLARE_MESSAGE(DriveToPOI)
+	ROS_DECLARE_MESSAGE(LogicalCamera)
+}
+
+namespace robot_control {
+	ROS_DECLARE_MESSAGE(RobotCommand)
+}
+
+namespace nav_msgs {
+	ROS_DECLARE_MESSAGE(Odometry)
 }
 
 namespace ttb { namespace wm
@@ -95,7 +119,6 @@ namespace ttb { namespace wm
 		RingBuffer<InformationElement<kobuki_msgs::DockInfraRed>> ownDockInfrRed;
 		RingBuffer<InformationElement<ttb_msgs::DriveToPOI>> ownDriveToPOICommand;
 		RingBuffer<InformationElement<ttb_msgs::LogicalCamera>> ownLogicalCamera;
-
 	};
 
 }} /* namespace ttb */
