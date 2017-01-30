@@ -36,16 +36,16 @@ namespace alica
                     cout << "Carry: ASP result found!" << endl;
                     cout << "\tResult contains the predicates: " << endl;
                     cout << "\t\t";
-					for (int i = 0; i < result.size(); i++)
-					{
-						for (int j = 0; j < result.at(i).values.size(); j++)
-						{
-							for(int k = 0; k < result.at(i).values.at(j).size(); k++)
-							{
-								cout << result.at(i).values.at(j).at(k) << " ";
-							}
-						}
-					}
+                    for (int i = 0; i < result.size(); i++)
+                    {
+                        for (int j = 0; j < result.at(i).values.size(); j++)
+                        {
+                            for (int k = 0; k < result.at(i).values.at(j).size(); k++)
+                            {
+                                cout << result.at(i).values.at(j).at(k) << " ";
+                            }
+                        }
+                    }
                 }
                 else
                 {
