@@ -45,6 +45,7 @@ namespace ttb
 		dockInfrRedTopic = (*sc)["TTBWorldModel"]->get<string>("Sensors.DockInfrRedTopic", NULL);
 		alvarTopic = (*sc)["TTBWorldModel"]->get<string>("Sensors.AlvarTopic", NULL);
 		logicalCameraSensorTopic = (*sc)["TTBWorldModel"]->get<string>("Sensors.LogicalCameraSensorTopic", NULL);
+		// TODO remove this line when base is integrated into launch file
 		logicalCameraSensorTopic = "/leonardo" + logicalCameraSensorTopic;
 
 		drivePOITopic = (*sc)["TTBWorldModel"]->get<string>("Commands.DriveToPOITopic", NULL);
