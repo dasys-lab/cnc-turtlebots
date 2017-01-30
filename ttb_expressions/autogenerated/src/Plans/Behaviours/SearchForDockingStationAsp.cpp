@@ -24,7 +24,6 @@ namespace alica
         /*PROTECTED REGION ID(dcon1470041810334) ENABLED START*/ //Add additional options here
         /*PROTECTED REGION END*/
     }
-    
     void SearchForDockingStationAsp::run(void* msg)
     {
         /*PROTECTED REGION ID(run1470041810334) ENABLED START*/ //Add additional options here
@@ -129,7 +128,7 @@ namespace alica
 #ifdef testWithoutTTB
     }
 #endif
-    /*PROTECTED REGION END*/
+        /*PROTECTED REGION END*/
     }
     void SearchForDockingStationAsp::initialiseParameters()
     {
