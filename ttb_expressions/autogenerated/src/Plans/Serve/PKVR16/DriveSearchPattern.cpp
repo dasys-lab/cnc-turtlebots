@@ -55,10 +55,10 @@ namespace alica
             case actionlib::SimpleClientGoalState::ABORTED:
             case actionlib::SimpleClientGoalState::SUCCEEDED:
             case actionlib::SimpleClientGoalState::LOST:
-                if (listPoint < list.size())
-                {
+//                if (listPoint < list.size())
+//                {
                     listPoint++;
-                }
+//                }
 
                 goal.target_pose.pose.orientation.w = 1;
                 goal.target_pose.pose.position = list[listPoint];
