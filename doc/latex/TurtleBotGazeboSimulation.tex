@@ -1,53 +1,132 @@
 \chapter{TurtleBot Gazebo Simulation}
 \label{chap:TurtleBotGazeboSimulation}
 
-	
-\section{.bashrc}
-	\texttt{export TURTLEBOT\_STACKS = ninja-hexagons}
-	\\
-	\texttt{export TURTLEBOT\_3D\_SENSOR = ninja-kinect}
-	\\
-	\texttt{export GAZEBO\_MODEL\_PATH}
+\section{Quickstart Simulation}
+\label{sec:QuickstartSimulation}
 
+With this section, you should be able to start one of our TurtleBot Gazebo simulation environments. 
 
-\section{Starting Gazebo simulation}
+\subsection{Setting up your .bashrc file}
+\label{ssec:bashrc}
 
-\texttt{roslaunch turtlebot\_bringup simulation.launch}
-	
-	Starts Gazebo, the map server and the robot	
-	\\	
-	\\	
-		
-\texttt{roslaunch turtlebot\_bringup navigation\_gazebo.launch}
-	
-	Starts amcl move\_base
-	\\
-	\\
-	
-\texttt{roslaunch rviz\_sim.launch}
-	
-	Starts local cost map
+You should have the the lines form Figure~\ref{fig:template_bashrc} inserted and adapted in your \verb$.bashrc$ file. The \verb$.bashrc$ file is located in your home folder. 
+\begin{landscape}
+  \begin{figure}[htbp]
+    \begin{verbatim}
+# ROS specific 
+source /opt/ros/kinetic/setup.bash
 
-\section{topics}
+# TurtleBots
+ttbws_path=<insert your path to the ttbws folder here>
 
-\texttt{/leonardo/move\_base\_simple/goal}
+source ${ttbws_path}/devel/setup.bash
 
-	to publish the robots destination
-\\
-\\
-\texttt{/leonardo/initialpose}
-	pose estimate	
+# ALICA/ttb_base specific stuff
+export DOMAIN_FOLDER=${ttbws_path}/src/cnc-turtlebots/
+export DOMAIN_CONFIG_FOLDER=${DOMAIN_FOLDER}/etc
 
+# for loading the right models (environment and robot)
+export GAZEBO_MODEL_PATH=${GAZEBO_MODEL_PATH}:${ttbws_path}/src/turtlebot/turtlebot_bringup/models
+export TURTLEBOT_STACKS=ninja-hexagons
+export TURTLEBOT_3D_SENSOR=ninja-kinect
+
+#fancy prompt that also shows the current git branch
+export PS1='\[\033[01;32m\]\u@\h\[\033[01;34m\] \w \[\033[01;31m\]$(__git_ps1 "[%s]")\[\033[01;34m\]\$\[\033[00m\] '
+    \end{verbatim}
+    \caption{Template for your .bashrc}
+    \label{fig:template_bashrc}
+  \end{figure}
+\end{landscape}
+
+Don't forget to close the terminal after you edited the \verb$.bashrc$ file. It will only be reloaded after you reopen the terminal or you type \verb$. .bashrc$ into each of the currently open consoles.
+
+\subsection{Starting Gazebo simulation}
+\label{ssec:StartSimulation}
+
+The following command starts gazebo with the turtlebots in the map of our department and provides a ROS map\_server node.
+
+\verb$roslaunch turtlebot_bringup simulation.launch$
+
+Another possible environment is \verb$disaster.launch$.
+
+Next you can start the navigation and localization stack for your turtlebots. The following command starts the Adaptive Monte Carlo Localization (AMCL) and move\_base including its local and global path planners, costmaps, and recovery behaviours.
+
+\verb$roslaunch turtlebot_bringup navigation_gazebo.launch$
+
+For debugging purposes ROS provides us with the Robot Vizualization program (rviz). We have an already configured launch file for rviz:
+
+\verb$roslaunch rviz_sim.launch$
+
+\section{TurtleBot Topics}
+\label{sec:TurtleBotTopics}
+
+At this point it is expected that you have profound understanding of ROS topics and the corresponding commandline tools. The purpose of this section is to help investigating or debugging typical topic errors related with our TurtleBot simulation environment. Furthermore the most intresting topics are listed and explained.
+
+\subsection{Investigating Topics}
+\label{ssec:Investigating Topics}
+
+The first approach is always to see which topics are available in your running system. Therefore, type \verb$rostopic list$ into your terminal. The output looks like this:
+
+\begin{verbatim}
+  /clock
+  /gazebo/link_states
+  /gazebo/model_states
+  /gazebo/parameter_descriptions
+  /gazebo/parameter_updates
+  /gazebo/set_link_state
+  /gazebo/set_model_state
+  /leonardo/amcl/parameter_descriptions
+  /leonardo/amcl/parameter_updates
+  /leonardo/amcl_pose
+  /leonardo/camera/depth/camera_info
+  /leonardo/camera/depth/image_raw
+  /leonardo/camera/depth/points
+  /leonardo/camera/parameter_descriptions
+  /leonardo/camera/parameter_updates
+  /leonardo/camera/rgb/camera_info
+  /leonardo/camera/rgb/image_raw
+  ...
+\end{verbatim}
+
+Much more information can be gained with the verbosity option of the same command: \verb$rostopic list -v$. Now the output is distinguished in published topics and subscribed topics, including the corresponding numbers of publishers and subscribers currently registered at the rosmaster process. As you should already know, the rosmaster process is the central ROS communication registry. It is spawned by the roscore process which in turn is spawned by any roslaunch process in case roscore is not running already. Here is an example for the verbatim output:
+
+\begin{verbatim}
+  Published topics:
+  * /map_metadata [nav_msgs/MapMetaData] 1 publisher
+  * /leonardo/move_base/local_costmap/obstacle_layer/parameter_updates [dynamic_reconfigure/Config] 1 publisher
+  * /leonardo/move_base/local_costmap/footprint [geometry_msgs/PolygonStamped] 1 publisher
+  * /leonardo/odom [nav_msgs/Odometry] 1 publisher
+  ...
+  
+  Subscribed topics:
+  * /leonardo/cmd_vel_mux/input/teleop [geometry_msgs/Twist] 1 subscriber
+  * /gazebo/set_link_state [gazebo_msgs/LinkState] 1 subscriber
+  * /tf [tf2_msgs/TFMessage] 2 subscribers
+  * /leonardo/move_base/global_costmap/footprint [geometry_msgs/PolygonStamped] 1 subscriber
+  * /leonardo/scan_hokuyo [sensor_msgs/LaserScan] 2 subscribers
+  ...
+\end{verbatim}
+
+As you may have noticed, the message type of each topic is given in square braces. Gaining this information that way, is sometimes much faster than surfing to the corresponding ROS documentation website.
+
+One typical error, during programming your own ROS node, is that the topics of your node are not prefixed with the name of your robot at hand. When your node is working and is integrated into one of our launch files above the topics will be prefixed automatically, but if you test your node ``by hand'' you have to take care by yourself, that the topics include the robots name (if necessary). The prefixes are necessary, for example, in order to have one path planning topic for each spawned robot. Otherwise all robots would receive the same path planning goals and drive to them. 
+
+\subsection{Interesting Topics}
+\label{ssec:InterestingTopics}
+
+Interacting with the move\_base node is a little bit complex, as it uses an \href{http://wiki.ros.org/actionlib/Tutorials}{ROS Action Server}. For simply posting a path planning goal to move\_base you can use the topic \verb$/leonardo/move_base_simple/goal$. The move\_base node will drive to that goal without giving you feedback about it. 
+
+AMCL is not able to localize itself globally on the map. Therefore, the AMCL node on each robot needs to receive its initial position from extern. The topic for this is \verb$/leonardo/initialpose$. Note that is much easier to send this information via RVIZ and its \emph{initial pose estimate} command.
 
 \section{Turtlebot Sensor Plugin}
 
-To simulate various Scenarios using the Turtlebot there was a need for a more specific and configurable type of sensor. We developed a sensor plugin for gazebo to accomplish that. It allows the user to configure detection angles, range and the type of object in a configuration file. 
+To simulate various scenarios using the TurtleBot there was a need for a more specific and configurable type of sensor. We developed a sensor plugin for gazebo to accomplish that. It allows the user to configure detection angles, range and the type of object in a configuration file. You may think of it, as a laser scanner sensor, that can reach through walls and perfectly detects what ever it was specified for.
 
 \subsection{Configuration}
 
-The configuration format uses a similar syntax as the configuration for the ProcessManager mentioned in a previous section of this document.
+The configuration format uses a similar syntax as the configuration for the ProcessManager mentioned in Section~\ref{chap:ProcMan}.
 
-The file itself is located at the configuration path (usually \textit{~/ttbws/cnc-turtlebots/etc/}) and has the filename \textit{LogicalCamera.conf}.
+The file itself is located at the configuration path defined by the \verb$DOMAIN_CONFIG_FOLDER$ environement variable (see Section~\ref{ssec:bashrc}) and has the filename \textit{LogicalCamera.conf}.
 
 Let's take a look at the following example configuration:
 
@@ -86,9 +165,9 @@ Let's take a look at the following example configuration:
 [!LogicalCamera]
 \end{verbatim}
 
-The first Block \texttt{[LogicalCamera]} is the uppermost block and has to be followed by \texttt{[!LogicalCamera]} at the end.
+The first Block \verb$[LogicalCamera]$ is the uppermost block and has to be followed by \verb$[!LogicalCamera]$ at the end.
 
-In this example we want to detect two types of objects. The first one is the presence of victims and the second one is fire. Each distinct type has to be defined as a block, similar to the uppermost LogicalCamera Block. Hence we have \texttt{[Victim] ... [!Victim]} and \texttt{[Fire] ... [!Fire]} here.
+In this example we want to detect two types of objects. The first one is the presence of victims and the second one is fire. Each distinct type has to be defined as a block, similar to the uppermost LogicalCamera Block. Hence we have \verb$[Victim] ... [!Victim]$ and \verb$[Fire] ... [!Fire]$ here.
 
 In these type blocks, we now have to define the properties of the sensor for that given type of object.
 
@@ -100,46 +179,52 @@ Using the parameter \textbf{publishingRateHz} as the name suggests you can set t
 
 Next, the block \textbf{DetectAngles} allows you to specify multiple sections in which the robot can detect the object.
 
-Anlges have to be in a range from -180° to 180°.
+Angles have to be in a range from -180° to 180°.
 
-The following picture clarifies, how the angles have to be speciefied:
+Figure~\ref{fig:TurtleBotSensorAngles} shows how the angles have to be speciefied.
 
-\includegraphics[width=1.0\textwidth]{ttbangles.pdf}
+\begin{figure}[htbp]
+  \includegraphics[width=1.0\textwidth]{ttbangles.pdf}
+  \caption{How to specify the sensor angles}
+  \label{fig:TurtleBotSensorAngles}
+\end{figure}
 
 \subsection{Sensor message}
 
 Every time an object has been detected according to the configuration, a ROS message gets sent.
 
-The name of the ros topic is \textit{logical\_camera} and is namespaced with the robot name, as configured in the \textit{robot.simulation} file. So for a robot named leonardo, the message will get published on the topic  /leonardo/logical\_camera.\\
+The name of the ros topic is \verb$logical\_camera$ and is namespaced with the robot name, as configured in the \textit{robot.simulation} file. So for a robot named leonardo, the message will get published on the topic  /leonardo/logical\_camera.
 
 The message itself has the following fields:
 
-\texttt{string modelName}
+\verb$string modelName$
 
-	Name of the detected model/object in gazebo
+Name of the detected model/object in gazebo
 
-\texttt{geometry\_msgs/Pose2D pose}
+\verb$geometry\_msgs/Pose2D pose$
 
-	Posoition of the object on the x,y plane(map seen from top)
+Posoition of the object on the x,y plane(map seen from top)
 
-\texttt{ObjectSize size}
+\verb${ObjectSize size$
 
-	Approximate size of an object. Contains fields xsize, ysize and zsize.
+Approximate size of an object. Contains fields xsize, ysize and zsize.
 
-\texttt{time timeStamp}
+\verb$time timeStamp$
 
-	Time, when the object was detected.
+Time, when the object was detected.
 
-\texttt{string type}
+\verb$string type$
 
-	Object type. See Configuration Section for details.
+Object type. See Configuration Section for details.
 
-\newpage
 \subsection{Robot coordinate system}
 
-Looking from the top at the turtlebot, the coordinate system looks like that:
-
-\includegraphics[width=1.0\textwidth]{ttbtop.pdf}
+Looking from the top at the turtlebot, the coordinate system looks like shown in Figure~\ref{fig:TurtleBotCoordinates}.
+\begin{figure}[htbp]
+  \includegraphics[width=1.0\textwidth]{ttbtop.pdf} 
+  \caption{The TurtleBot Coordinate System}
+  \label{fig:TurtleBotCoordinates}
+\end{figure}
 
 So the a positive X coordinate means, an object is ahead of the robot, while a negative one means, it is behind the robot. In the same way, a positive Y means that an object is detected left of the robot, while a positive Y coordinate means that it was detected on the right side.
 
