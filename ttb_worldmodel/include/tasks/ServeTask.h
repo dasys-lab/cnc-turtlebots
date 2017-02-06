@@ -20,7 +20,9 @@ class ServeTask
     ServeTask();
     virtual ~ServeTask();
     std::string name;
+
     TaskType type;
+    std::string entity;
 };
 
 } /* namespace wm */

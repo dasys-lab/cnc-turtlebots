@@ -46,6 +46,11 @@ add_library(ttb_worldmodel
   src/logicalCameraModel/Fire.cpp
   src/logicalCameraModel/Victim.cpp
   src/logicalCameraModel/Landmark.cpp
+  src/tasks/DriveToTask.cpp
+  src/tasks/PickUpTask.cpp
+  src/tasks/PutDownTask.cpp
+  src/tasks/SearchTask.cpp
+  src/tasks/ServeTask.cpp
 )
 
 add_dependencies(ttb_worldmodel kobuki_msgs_generate_messages_cpp geometry_msgs_generate_messages_cpp robot_control_generate_messages_cpp)

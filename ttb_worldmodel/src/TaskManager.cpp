@@ -6,6 +6,11 @@
  */
 
 #include "TaskManager.h"
+#include <tasks/DriveToTask.h>
+#include <tasks/PickUpTask.h>
+#include <tasks/PointOfInterest.h>
+#include <tasks/PutDownTask.h>
+#include <tasks/SearchTask.h>
 #include <tasks/ServeTask.h>
 #include <ttb_msgs/ServeTask.h>
 
@@ -19,9 +24,9 @@ TaskManager::TaskManager()
     auto poiSections = (*this->sc)["POI"]->getSections("POI.Points", NULL);
     for (auto &poiSectionName : (*poiSections))
     {
-    	PointOfInterest currentPOI((*this->sc)["POI"]->get<int>("POI.Points", poiSectionName.c_str(), "ID", NULL), poiSectionName,
-                       (*this->sc)["POI"]->get<float>("POI.Points", poiSectionName.c_str(), "X", NULL),
-                       (*this->sc)["POI"]->get<float>("POI.Points", poiSectionName.c_str(), "Y", NULL));
+        PointOfInterest currentPOI((*this->sc)["POI"]->get<int>("POI.Points", poiSectionName.c_str(), "ID", NULL), poiSectionName,
+                                   (*this->sc)["POI"]->get<float>("POI.Points", poiSectionName.c_str(), "X", NULL),
+                                   (*this->sc)["POI"]->get<float>("POI.Points", poiSectionName.c_str(), "Y", NULL));
         this->poiMap.emplace(currentPOI.id, currentPOI);
     }
 }
@@ -32,11 +37,39 @@ TaskManager::~TaskManager()
 
 void TaskManager::pushTask(shared_ptr<InformationElement<ttb_msgs::ServeTask>> task)
 {
-    // TODO: convert msg into world model object of corresponding type
-    //this->pendingTasks.push_back(task);
+    switch (task->getInformation()->type)
+    {
+    case ttb_msgs::ServeTask::PICK_UP:
+    {
+        auto pickUpTask = make_shared<PickUpTask>();
+        this->pendingTasks.push_back(make_shared<InformationElement<ServeTask>>(pickUpTask, task->timeStamp));
+    }
+    break;
+    case ttb_msgs::ServeTask::PUT_DOWN:
+    {
+        auto pickUpTask = make_shared<PutDownTask>();
+        this->pendingTasks.push_back(make_shared<InformationElement<ServeTask>>(pickUpTask, task->timeStamp));
+    }
+    break;
+    case ttb_msgs::ServeTask::SEARCH:
+    {
+        auto pickUpTask = make_shared<SearchTask>();
+        this->pendingTasks.push_back(make_shared<InformationElement<ServeTask>>(pickUpTask, task->timeStamp));
+    }
+    break;
+    case ttb_msgs::ServeTask::DRIVE_TO:
+    {
+        auto pickUpTask = make_shared<DriveToTask>();
+        this->pendingTasks.push_back(make_shared<InformationElement<ServeTask>>(pickUpTask, task->timeStamp));
+    }
+    break;
+    default:
+        cerr << "TaskManager: Unknown Task Type received!" << endl;
+        break;
+    }
 }
 
-//POI TaskManager::getPOI(int id)
+// POI TaskManager::getPOI(int id)
 //{
 //    auto iter = this->poiMap.find(id);
 //    if (iter != this->poiMap.end())
@@ -49,7 +82,7 @@ void TaskManager::pushTask(shared_ptr<InformationElement<ttb_msgs::ServeTask>> t
 //    }
 //}
 //
-//POI TaskManager::popNextPOI()
+// POI TaskManager::popNextPOI()
 //{
 //    auto driveToPOI = this->popNextDriveToPOI();
 //    auto iter = this->poiMap.find(driveToPOI->getInformation()->poiId);

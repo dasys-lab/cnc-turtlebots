@@ -1,23 +1,23 @@
 /*
- * PutDownTask.cpp
+ * SearchTask.cpp
  *
  *  Created on: Feb 6, 2017
  *      Author: lab-user
  */
 
-#include "tasks/PutDownTask.h"
+#include "tasks/SearchTask.h"
 
 namespace ttb
 {
 namespace wm
 {
 
-PutDownTask::PutDownTask()
+SearchTask::SearchTask()
 {
     // TODO Auto-generated constructor stub
 }
 
-PutDownTask::~PutDownTask()
+SearchTask::~SearchTask()
 {
     // TODO Auto-generated destructor stub
 }
