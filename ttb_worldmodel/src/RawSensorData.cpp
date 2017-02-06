@@ -283,18 +283,18 @@ namespace ttb { namespace wm {
 		ownDockInfrRed.add(ownDockInfrRedInfo);
 	}
 
-	void RawSensorData::processDriveToPOICommand(ttb_msgs::DriveToPOIPtr driveToPOICommand)
-	{
-		InfoTime time = wm->getTime();
-
-		shared_ptr<ttb_msgs::DriveToPOI> driveToPOICommandPtr = shared_ptr<ttb_msgs::DriveToPOI>(
-				driveToPOICommand.get(), [driveToPOICommand](ttb_msgs::DriveToPOI*) mutable
-				{	driveToPOICommand.reset();});
-		shared_ptr<InformationElement<ttb_msgs::DriveToPOI>> owndriveToPOICommandInfo = make_shared<
-				InformationElement<ttb_msgs::DriveToPOI>>(driveToPOICommandPtr, time);
-		ownDriveToPOICommand.add(owndriveToPOICommandInfo);
-		this->wm->taskManager.pushTask(owndriveToPOICommandInfo);
-	}
+//	void RawSensorData::processDriveToPOICommand(ttb_msgs::DriveToPOIPtr driveToPOICommand)
+//	{
+//		InfoTime time = wm->getTime();
+//
+//		shared_ptr<ttb_msgs::DriveToPOI> driveToPOICommandPtr = shared_ptr<ttb_msgs::DriveToPOI>(
+//				driveToPOICommand.get(), [driveToPOICommand](ttb_msgs::DriveToPOI*) mutable
+//				{	driveToPOICommand.reset();});
+//		shared_ptr<InformationElement<ServeTask>> owndriveToPOICommandInfo = make_shared<
+//				InformationElement<ServeTask>>(driveToPOICommandPtr, time);
+//		ownDriveToPOICommand.add(owndriveToPOICommandInfo);
+//		this->wm->taskManager.pushTask(owndriveToPOICommandInfo);
+//	}
 
 	void RawSensorData::processLogicalCamera(ttb_msgs::LogicalCameraPtr logicalCamera)
 	{

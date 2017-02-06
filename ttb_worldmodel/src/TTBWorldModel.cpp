@@ -48,7 +48,7 @@ namespace ttb
 		// TODO remove this line when base is integrated into launch file
 		logicalCameraSensorTopic = "/leonardo" + logicalCameraSensorTopic;
 
-		drivePOITopic = (*sc)["TTBWorldModel"]->get<string>("Commands.DriveToPOITopic", NULL);
+		serveTaskTopic = (*sc)["TTBWorldModel"]->get<string>("Commands.ServeTaskTopic", NULL);
 
 
 		// SET ROS STUFF
@@ -71,7 +71,7 @@ namespace ttb
 		logicalCameraSensorSub = n.subscribe(logicalCameraSensorTopic, 10, &TTBWorldModel::onLogicalCameraData, (TTBWorldModel*)this);
 
 
-		driveToPOISub = n.subscribe(drivePOITopic, 10, &TTBWorldModel::onDriveToPOICommand, (TTBWorldModel*)this);
+		serveTaskSub = n.subscribe(serveTaskTopic, 10, &TTBWorldModel::onServeTask, (TTBWorldModel*)this);
 		wrappedMessageHandler = new WrappedMessageHandler();
 		wrappedMessageHandler->init(ownID);
 
@@ -133,14 +133,14 @@ namespace ttb
 		lock_guard<mutex> lock(wmMutex);
 		rawSensorData.processDockInfrRed(dockInfrRedData);
 	}
-	void TTBWorldModel::onDriveToPOICommand(ttb_msgs::DriveToPOIPtr driveToPOICommand)
-	{
-		if (driveToPOICommand->receiverId == this->ownID)
-		{
-			lock_guard<mutex> lock(wmMutex);
-			rawSensorData.processDriveToPOICommand(driveToPOICommand);
-		}
-	}
+//	void TTBWorldModel::onDriveToPOICommand(ttb_msgs::DriveToPOIPtr driveToPOICommand)
+//	{
+//		if (driveToPOICommand->receiverId == this->ownID)
+//		{
+//			lock_guard<mutex> lock(wmMutex);
+//			rawSensorData.processDriveToPOICommand(driveToPOICommand);
+//		}
+//	}
 	void TTBWorldModel::onCommandVelData(geometry_msgs::TwistPtr commandVelData)
 	{
 //		cout << "WM: Received command velocity Message!" << endl;

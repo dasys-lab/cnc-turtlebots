@@ -4,7 +4,7 @@
 #include "DomainBehaviour.h"
 /*PROTECTED REGION ID(inc1475693360605) ENABLED START*/ //Add additional includes here
 #include <memory>
-#include "POI.h"
+#include "tasks/PointOfInterest.h"
 #include <alica_asp_solver/AnnotatedValVec.h>
 #include <engine/constraintmodul/Query.h>
 /*PROTECTED REGION END*/

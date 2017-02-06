@@ -75,7 +75,7 @@ namespace ttb { namespace wm
 		void processMobileBaseSensorState(kobuki_msgs::SensorStatePtr mobileBaseSensorStateData);
 		void processDockInfrRed(kobuki_msgs::DockInfraRedPtr dockInfrRedData);
 		void processAlvarData(ar_track_alvar_msgs::AlvarMarkersPtr alvarData);
-		void processDriveToPOICommand(ttb_msgs::DriveToPOIPtr driveToPOICommand);
+//		void processDriveToPOICommand(ttb_msgs::DriveToPOIPtr driveToPOICommand);
 		void processLogicalCamera(ttb_msgs::LogicalCameraPtr logicalCamera);
 		void processGazeboMsgData(geometry_msgs::Pose gazeboMsgData);
 

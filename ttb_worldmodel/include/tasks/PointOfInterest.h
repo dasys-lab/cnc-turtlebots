@@ -1,5 +1,5 @@
 /*
- * POI.h
+ * PointOfInterest.h
  *
  *  Created on: Feb 1, 2016
  *      Author: lab-user
