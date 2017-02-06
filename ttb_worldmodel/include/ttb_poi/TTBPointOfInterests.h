@@ -1,15 +1,15 @@
 /*
- * TTBPointOfInterests.h
+ * TTBPointOfInterestntOfInterests.h
  *
  *  Created on: Apr 30, 2016
  *      Author: Stefan Jakob
  */
 
-#ifndef CNC_TURTLEBOTS_TTB_WORLDMODEL_INCLUDE_TTB_POI_TTBPOINTOFINTERESTS_H_
-#define CNC_TURTLEBOTS_TTB_WORLDMODEL_INCLUDE_TTB_POI_TTBPOINTOFINTERESTS_H_
+#ifndef CNC_TURTLEBOTS_TTB_WORLDMODEL_INCLUDE_TTB_PointOfInterest_TTBPointOfInterestNTOFINTERESTS_H_
+#define CNC_TURTLEBOTS_TTB_WORLDMODEL_INCLUDE_TTB_PointOfInterest_TTBPointOfInterestNTOFINTERESTS_H_
 
 #include "SystemConfig.h"
-#include "POI.h"
+#include "PointOfInterest.h"
 
 namespace ttb {
 class TTBWorldModel;
@@ -18,133 +18,133 @@ class TTBWorldModel;
 namespace ttb {
 namespace wm {
 
-class TTBPointOfInterests
+class TTBPointOfInterestntOfInterests
 {
 public:
-	TTBPointOfInterests(TTBWorldModel* wm);
-	virtual ~TTBPointOfInterests();
-	shared_ptr<POI> getPOIByName(string name);
-	shared_ptr<POI> getPOIByID(int id);
-	shared_ptr<POI> getPOIByUnaryASPPredicate(string aspPredicate);
-	shared_ptr<POI> getCopyRoom();
-	shared_ptr<POI> getCopyRoomDoor1();
-	shared_ptr<POI> getCopyRoomDoor2();
-	shared_ptr<POI> getFloor1();
-	shared_ptr<POI> getFloor1Door1();
-	shared_ptr<POI> getFloor1Door2();
-	shared_ptr<POI> getFloor1Door3();
-	shared_ptr<POI> getFloor1Door4();
-	shared_ptr<POI> getFloor2Door1();
-	shared_ptr<POI> getFloor2Door2();
-	shared_ptr<POI> getFloor2Door3();
-	shared_ptr<POI> getFloor2Door4();
-	shared_ptr<POI> getFloor2Door5();
-	shared_ptr<POI> getFloor2Door6();
-	shared_ptr<POI> getFloor2Door7();
-	shared_ptr<POI> getFloor2Door8();
-	shared_ptr<POI> getFloor2Door9();
-	shared_ptr<POI> getFloor3Door1();
-	shared_ptr<POI> getFloor3Door2();
-	shared_ptr<POI> getFloor3Door3();
-	shared_ptr<POI> getFloor3Door4();
-	shared_ptr<POI> getFloor4();
-	shared_ptr<POI> getFloor4Door1();
-	shared_ptr<POI> getFloor4Door2();
-	shared_ptr<POI> getHiWiDoor1();
-	shared_ptr<POI> getHiWiDoor2();
-	shared_ptr<POI> getHiwiRoom();
-	shared_ptr<POI> getKicker();
-	shared_ptr<POI> getKitchen();
-	shared_ptr<POI> getMeetingRoom();
-	shared_ptr<POI> getRoom1403();
-	shared_ptr<POI> getRoom1403Door();
-	shared_ptr<POI> getRoom1406AFront();
-	shared_ptr<POI> getRoom1406AWindow();
-	shared_ptr<POI> getRoom1406BFront();
-	shared_ptr<POI> getRoom1406BWindow();
-	shared_ptr<POI> getRoom1406C();
-	shared_ptr<POI> getRoom1408A();
-	shared_ptr<POI> getRoom1408BFront();
-	shared_ptr<POI> getRoom1408BWindow();
-	shared_ptr<POI> getRoom1408CFront();
-	shared_ptr<POI> getRoom1408CWindow();
-	shared_ptr<POI> getSecreteriat();
-	shared_ptr<POI> getSecreteriatDoor1();
-	shared_ptr<POI> getSecreteriatDoor2();
-	shared_ptr<POI> getSecreteriatDoor3();
-	shared_ptr<POI> getStudentLab1();
-	shared_ptr<POI> getStudentLab2();
-	shared_ptr<POI> getStudentLabDoor1();
-	shared_ptr<POI> getStudentLabDoor2();
-	shared_ptr<POI> getWorkShopDoor1();
-	shared_ptr<POI> getWorkShopDoor2();
-	shared_ptr<POI> getWorkShopDoor3();
-	shared_ptr<POI> getWorkShopDoor4();
-	shared_ptr<POI> getWorkShopLeft();
-	shared_ptr<POI> getWorkShopRight();
+	TTBPointOfInterestntOfInterests(TTBWorldModel* wm);
+	virtual ~TTBPointOfInterestntOfInterests();
+	shared_ptr<PointOfInterest> getPointOfInterestByName(string name);
+	shared_ptr<PointOfInterest> getPointOfInterestByID(int id);
+	shared_ptr<PointOfInterest> getPointOfInterestByUnaryASPPredicate(string aspPredicate);
+	shared_ptr<PointOfInterest> getCopyRoom();
+	shared_ptr<PointOfInterest> getCopyRoomDoor1();
+	shared_ptr<PointOfInterest> getCopyRoomDoor2();
+	shared_ptr<PointOfInterest> getFloor1();
+	shared_ptr<PointOfInterest> getFloor1Door1();
+	shared_ptr<PointOfInterest> getFloor1Door2();
+	shared_ptr<PointOfInterest> getFloor1Door3();
+	shared_ptr<PointOfInterest> getFloor1Door4();
+	shared_ptr<PointOfInterest> getFloor2Door1();
+	shared_ptr<PointOfInterest> getFloor2Door2();
+	shared_ptr<PointOfInterest> getFloor2Door3();
+	shared_ptr<PointOfInterest> getFloor2Door4();
+	shared_ptr<PointOfInterest> getFloor2Door5();
+	shared_ptr<PointOfInterest> getFloor2Door6();
+	shared_ptr<PointOfInterest> getFloor2Door7();
+	shared_ptr<PointOfInterest> getFloor2Door8();
+	shared_ptr<PointOfInterest> getFloor2Door9();
+	shared_ptr<PointOfInterest> getFloor3Door1();
+	shared_ptr<PointOfInterest> getFloor3Door2();
+	shared_ptr<PointOfInterest> getFloor3Door3();
+	shared_ptr<PointOfInterest> getFloor3Door4();
+	shared_ptr<PointOfInterest> getFloor4();
+	shared_ptr<PointOfInterest> getFloor4Door1();
+	shared_ptr<PointOfInterest> getFloor4Door2();
+	shared_ptr<PointOfInterest> getHiWiDoor1();
+	shared_ptr<PointOfInterest> getHiWiDoor2();
+	shared_ptr<PointOfInterest> getHiwiRoom();
+	shared_ptr<PointOfInterest> getKicker();
+	shared_ptr<PointOfInterest> getKitchen();
+	shared_ptr<PointOfInterest> getMeetingRoom();
+	shared_ptr<PointOfInterest> getRoom1403();
+	shared_ptr<PointOfInterest> getRoom1403Door();
+	shared_ptr<PointOfInterest> getRoom1406AFront();
+	shared_ptr<PointOfInterest> getRoom1406AWindow();
+	shared_ptr<PointOfInterest> getRoom1406BFront();
+	shared_ptr<PointOfInterest> getRoom1406BWindow();
+	shared_ptr<PointOfInterest> getRoom1406C();
+	shared_ptr<PointOfInterest> getRoom1408A();
+	shared_ptr<PointOfInterest> getRoom1408BFront();
+	shared_ptr<PointOfInterest> getRoom1408BWindow();
+	shared_ptr<PointOfInterest> getRoom1408CFront();
+	shared_ptr<PointOfInterest> getRoom1408CWindow();
+	shared_ptr<PointOfInterest> getSecreteriat();
+	shared_ptr<PointOfInterest> getSecreteriatDoor1();
+	shared_ptr<PointOfInterest> getSecreteriatDoor2();
+	shared_ptr<PointOfInterest> getSecreteriatDoor3();
+	shared_ptr<PointOfInterest> getStudentLab1();
+	shared_ptr<PointOfInterest> getStudentLab2();
+	shared_ptr<PointOfInterest> getStudentLabDoor1();
+	shared_ptr<PointOfInterest> getStudentLabDoor2();
+	shared_ptr<PointOfInterest> getWorkShopDoor1();
+	shared_ptr<PointOfInterest> getWorkShopDoor2();
+	shared_ptr<PointOfInterest> getWorkShopDoor3();
+	shared_ptr<PointOfInterest> getWorkShopDoor4();
+	shared_ptr<PointOfInterest> getWorkShopLeft();
+	shared_ptr<PointOfInterest> getWorkShopRight();
 
 private:
 	TTBWorldModel* wm;
 	::supplementary::SystemConfig* sc;
-	void readPOIs();
-	vector<shared_ptr<POI>> pois;
-	shared_ptr<POI> floor1;
-	shared_ptr<POI> hiwiRoom;
-	shared_ptr<POI> studentLab1;
-	shared_ptr<POI> kicker;
-	shared_ptr<POI> studentLab2;
-	shared_ptr<POI> studentLabDoor1;
-	shared_ptr<POI> studentLabDoor2;
-	shared_ptr<POI> hiWiDoor1;
-	shared_ptr<POI> hiWiDoor2;
-	shared_ptr<POI> floor1Door1;
-	shared_ptr<POI> floor1Door2;
-	shared_ptr<POI> workShopDoor1;
-	shared_ptr<POI> workShopDoor2;
-	shared_ptr<POI> workShopDoor3;
-	shared_ptr<POI> workShopRight;
-	shared_ptr<POI> workShopDoor4;
-	shared_ptr<POI> workShopLeft;
-	shared_ptr<POI> floor1Door3;
-	shared_ptr<POI> floor2Door1;
-	shared_ptr<POI> floor2Door2;
-	shared_ptr<POI> room1408A;
-	shared_ptr<POI> floor2Door3;
-	shared_ptr<POI> room1408BFront;
-	shared_ptr<POI> room1408BWindow;
-	shared_ptr<POI> floor2Door4;
-	shared_ptr<POI> room1408CFront;
-	shared_ptr<POI> room1408CWindow;
-	shared_ptr<POI> floor2Door5;
-	shared_ptr<POI> room1406AFront;
-	shared_ptr<POI> room1406AWindow;
-	shared_ptr<POI> floor2Door6;
-	shared_ptr<POI> room1406BFront;
-	shared_ptr<POI> room1406BWindow;
-	shared_ptr<POI> floor2Door7;
-	shared_ptr<POI> floor2Door8;
-	shared_ptr<POI> room1406C;
-	shared_ptr<POI> floor2Door9;
-	shared_ptr<POI> floor3Door1;
-	shared_ptr<POI> floor3Door2;
-	shared_ptr<POI> floor1Door4;
-	shared_ptr<POI> kitchen;
-	shared_ptr<POI> floor4;
-	shared_ptr<POI> floor4Door1;
-	shared_ptr<POI> floor3Door3;
-	shared_ptr<POI> floor4Door2;
-	shared_ptr<POI> meetingRoom;
-	shared_ptr<POI> copyRoom;
-	shared_ptr<POI> copyRoomDoor1;
-	shared_ptr<POI> copyRoomDoor2;
-	shared_ptr<POI> secreteriatDoor1;
-	shared_ptr<POI> secreteriatDoor2;
-	shared_ptr<POI> floor3Door4;
-	shared_ptr<POI> secreteriatDoor3;
-	shared_ptr<POI> room1403Door;
-	shared_ptr<POI> room1403;
-	shared_ptr<POI> secreteriat;
+	void readPointOfInterests();
+	vector<shared_ptr<PointOfInterest>> PointOfInterests;
+	shared_ptr<PointOfInterest> floor1;
+	shared_ptr<PointOfInterest> hiwiRoom;
+	shared_ptr<PointOfInterest> studentLab1;
+	shared_ptr<PointOfInterest> kicker;
+	shared_ptr<PointOfInterest> studentLab2;
+	shared_ptr<PointOfInterest> studentLabDoor1;
+	shared_ptr<PointOfInterest> studentLabDoor2;
+	shared_ptr<PointOfInterest> hiWiDoor1;
+	shared_ptr<PointOfInterest> hiWiDoor2;
+	shared_ptr<PointOfInterest> floor1Door1;
+	shared_ptr<PointOfInterest> floor1Door2;
+	shared_ptr<PointOfInterest> workShopDoor1;
+	shared_ptr<PointOfInterest> workShopDoor2;
+	shared_ptr<PointOfInterest> workShopDoor3;
+	shared_ptr<PointOfInterest> workShopRight;
+	shared_ptr<PointOfInterest> workShopDoor4;
+	shared_ptr<PointOfInterest> workShopLeft;
+	shared_ptr<PointOfInterest> floor1Door3;
+	shared_ptr<PointOfInterest> floor2Door1;
+	shared_ptr<PointOfInterest> floor2Door2;
+	shared_ptr<PointOfInterest> room1408A;
+	shared_ptr<PointOfInterest> floor2Door3;
+	shared_ptr<PointOfInterest> room1408BFront;
+	shared_ptr<PointOfInterest> room1408BWindow;
+	shared_ptr<PointOfInterest> floor2Door4;
+	shared_ptr<PointOfInterest> room1408CFront;
+	shared_ptr<PointOfInterest> room1408CWindow;
+	shared_ptr<PointOfInterest> floor2Door5;
+	shared_ptr<PointOfInterest> room1406AFront;
+	shared_ptr<PointOfInterest> room1406AWindow;
+	shared_ptr<PointOfInterest> floor2Door6;
+	shared_ptr<PointOfInterest> room1406BFront;
+	shared_ptr<PointOfInterest> room1406BWindow;
+	shared_ptr<PointOfInterest> floor2Door7;
+	shared_ptr<PointOfInterest> floor2Door8;
+	shared_ptr<PointOfInterest> room1406C;
+	shared_ptr<PointOfInterest> floor2Door9;
+	shared_ptr<PointOfInterest> floor3Door1;
+	shared_ptr<PointOfInterest> floor3Door2;
+	shared_ptr<PointOfInterest> floor1Door4;
+	shared_ptr<PointOfInterest> kitchen;
+	shared_ptr<PointOfInterest> floor4;
+	shared_ptr<PointOfInterest> floor4Door1;
+	shared_ptr<PointOfInterest> floor3Door3;
+	shared_ptr<PointOfInterest> floor4Door2;
+	shared_ptr<PointOfInterest> meetingRoom;
+	shared_ptr<PointOfInterest> copyRoom;
+	shared_ptr<PointOfInterest> copyRoomDoor1;
+	shared_ptr<PointOfInterest> copyRoomDoor2;
+	shared_ptr<PointOfInterest> secreteriatDoor1;
+	shared_ptr<PointOfInterest> secreteriatDoor2;
+	shared_ptr<PointOfInterest> floor3Door4;
+	shared_ptr<PointOfInterest> secreteriatDoor3;
+	shared_ptr<PointOfInterest> room1403Door;
+	shared_ptr<PointOfInterest> room1403;
+	shared_ptr<PointOfInterest> secreteriat;
 };
 }
 }
-#endif /* CNC_TURTLEBOTS_TTB_WORLDMODEL_INCLUDE_TTB_POI_TTBPOINTOFINTERESTS_H_ */
+#endif /* CNC_TURTLEBOTS_TTB_WORLDMODEL_INCLUDE_TTB_PointOfInterest_TTBPointOfInterestNTOFINTERESTS_H_ */

@@ -293,7 +293,7 @@ namespace ttb { namespace wm {
 		shared_ptr<InformationElement<ttb_msgs::DriveToPOI>> owndriveToPOICommandInfo = make_shared<
 				InformationElement<ttb_msgs::DriveToPOI>>(driveToPOICommandPtr, time);
 		ownDriveToPOICommand.add(owndriveToPOICommandInfo);
-		this->wm->taskManager.pushDriveToPOITask(owndriveToPOICommandInfo);
+		this->wm->taskManager.pushTask(owndriveToPOICommandInfo);
 	}
 
 	void RawSensorData::processLogicalCamera(ttb_msgs::LogicalCameraPtr logicalCamera)
