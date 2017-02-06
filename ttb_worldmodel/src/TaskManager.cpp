@@ -6,6 +6,7 @@
  */
 
 #include "TaskManager.h"
+#include <tasks/ServeTask.h>
 
 namespace ttb
 {
