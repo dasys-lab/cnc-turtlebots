@@ -6,6 +6,7 @@ using namespace std;
 #include "SolverType.h"
 #include "actionlib/client/simple_action_client.h"
 #include "move_base_msgs/MoveBaseAction.h"
+#include <tasks/PointOfInterest.h>
 /*PROTECTED REGION END*/
 namespace alica
 {
@@ -40,7 +41,7 @@ namespace alica
         std::chrono::_V2::system_clock::time_point end = std::chrono::high_resolution_clock::now();
         cout << "SearchForDockingStationAsp: Measured Solving and Grounding Time: " << std::chrono::duration_cast
                 < chrono::nanoseconds > (end - start).count() / 1000000.0 << " ms" << endl;
-        shared_ptr < ttb::POI > dockingStation = nullptr;
+        shared_ptr < ttb::wm::PointOfInterest > dockingStation = nullptr;
         if (result.size() > 0)
         {
             auto it = find_if(result.begin(), result.end(), [](alica::reasoner::AnnotatedValVec element)
@@ -53,7 +54,7 @@ namespace alica
                     stringstream ss;
                     ss << it->values.at(0).at(0);
                     cout << it->values.at(0).at(0) << endl;
-                    shared_ptr < ttb::POI > dockingStation = this->wm->pois.getPOIByName(getPOIName(ss.str()));
+                    shared_ptr < ttb::wm::PointOfInterest > dockingStation = this->wm->pois.getPointOfInterestByName(getPOIName(ss.str()));
 
                     cout << "SearchForDockingStationAsp: Docking station is located at (" << dockingStation->x << " | "
                             << dockingStation->y << ")" << endl;

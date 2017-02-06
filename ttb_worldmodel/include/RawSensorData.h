@@ -41,7 +41,7 @@ namespace ar_track_alvar_msgs {
 }
 
 namespace ttb_msgs {
-	ROS_DECLARE_MESSAGE(DriveToPOI)
+	ROS_DECLARE_MESSAGE(ServeTask)
 	ROS_DECLARE_MESSAGE(LogicalCamera)
 }
 
@@ -75,7 +75,7 @@ namespace ttb { namespace wm
 		void processMobileBaseSensorState(kobuki_msgs::SensorStatePtr mobileBaseSensorStateData);
 		void processDockInfrRed(kobuki_msgs::DockInfraRedPtr dockInfrRedData);
 		void processAlvarData(ar_track_alvar_msgs::AlvarMarkersPtr alvarData);
-//		void processDriveToPOICommand(ttb_msgs::DriveToPOIPtr driveToPOICommand);
+		void processServeTask(ttb_msgs::ServeTaskPtr serveTask);
 		void processLogicalCamera(ttb_msgs::LogicalCameraPtr logicalCamera);
 		void processGazeboMsgData(geometry_msgs::Pose gazeboMsgData);
 
@@ -117,7 +117,7 @@ namespace ttb { namespace wm
 		RingBuffer<InformationElement<robot_control::RobotCommand>> ownRobotOnOff;
 		RingBuffer<InformationElement<kobuki_msgs::SensorState>> ownMobileBaseSensorState;
 		RingBuffer<InformationElement<kobuki_msgs::DockInfraRed>> ownDockInfrRed;
-		RingBuffer<InformationElement<ttb_msgs::DriveToPOI>> ownDriveToPOICommand;
+		RingBuffer<InformationElement<ttb_msgs::ServeTask>> ownServeTasks;
 		RingBuffer<InformationElement<ttb_msgs::LogicalCamera>> ownLogicalCamera;
 	};
 

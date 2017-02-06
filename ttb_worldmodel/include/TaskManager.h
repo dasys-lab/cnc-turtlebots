@@ -12,6 +12,7 @@
 #include "InformationElement.h"
 #include <SystemConfig.h>
 #include <tasks/PointOfInterest.h>
+#include <ttb_msgs/ServeTask.h>
 
 namespace ttb { namespace wm
 {
@@ -27,7 +28,7 @@ namespace ttb { namespace wm
 		TaskManager();
 		virtual ~TaskManager();
 
-		void pushTask(shared_ptr<InformationElement<ServeTask>> task);
+		void pushTask(shared_ptr<InformationElement<ttb_msgs::ServeTask>> task);
 
 		shared_ptr<InformationElement<ServeTask>> popNextTask();
 		shared_ptr<InformationElement<ServeTask>> getNextTask();

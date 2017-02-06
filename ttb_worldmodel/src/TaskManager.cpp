@@ -7,6 +7,7 @@
 
 #include "TaskManager.h"
 #include <tasks/ServeTask.h>
+#include <ttb_msgs/ServeTask.h>
 
 namespace ttb
 {
@@ -27,13 +28,12 @@ TaskManager::TaskManager()
 
 TaskManager::~TaskManager()
 {
-    // TODO Auto-generated destructor stub
 }
 
-void TaskManager::pushTask(shared_ptr<InformationElement<ServeTask>> task)
+void TaskManager::pushTask(shared_ptr<InformationElement<ttb_msgs::ServeTask>> task)
 {
-    //if (this->poiMap.find(task->getInformation()->poiId) != this->poiMap.end())
-        this->pendingTasks.push_back(task);
+    // TODO: convert msg into world model object of corresponding type
+    //this->pendingTasks.push_back(task);
 }
 
 //POI TaskManager::getPOI(int id)

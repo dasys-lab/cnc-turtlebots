@@ -1,4 +1,4 @@
-using namespace std;
+ using namespace std;
 #include "Plans/Behaviours/DriveToPOI.h"
 
 /*PROTECTED REGION ID(inccpp1454329856163) ENABLED START*/ //Add additional includes here
@@ -25,15 +25,16 @@ namespace alica
     void DriveToPOI::run(void* msg)
     {
         /*PROTECTED REGION ID(run1454329856163) ENABLED START*/ //Add additional options here
-        ttb::POI currentPOI;
-        if (this->id == 0)
-        {
-            currentPOI = this->wm->taskManager.popNextPOI();
-        }
-        else
-        {
-            currentPOI = this->wm->taskManager.getPOI(id);
-        }
+        ttb::wm::PointOfInterest currentPOI;
+        // TODO
+//        if (this->id == 0)
+//        {
+//            currentPOI = this->wm->taskManager.popNextTask();
+//        }
+//        else
+//        {
+//            currentPOI = this->wm->taskManager.getPOI(id);
+//        }
 
         MoveBaseClient mbc("move_base", true);
 

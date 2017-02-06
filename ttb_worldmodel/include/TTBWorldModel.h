@@ -142,7 +142,7 @@ class TTBWorldModel
     void onRobotOnOff(robot_control::RobotCommandPtr robotOnOffData);
     void onMobileBaseSensorStateData(kobuki_msgs::SensorStatePtr mobileBaseSensorStateData);
     void onDockInfrRedData(kobuki_msgs::DockInfraRedPtr dockInfrRedData);
-    void onServeTask(ttb_msgs::ServeTask serveTask);
+    void onServeTask(ttb_msgs::ServeTaskPtr serveTask);
     void onGazeboModelState(gazebo_msgs::ModelStatesPtr msg);
     void onLogicalCameraData(ttb_msgs::LogicalCameraPtr logicalCameraData);
 
