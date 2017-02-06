@@ -26,10 +26,9 @@ namespace alica
     {
         /*PROTECTED REGION ID(run1481545714198) ENABLED START*/ //Add additional options here
         ownPosition = wm->rawSensorData.getOwnPosition();
-        cout << "DriveSearchPattern: seen objects:" << wm->logicalCameraData.getLogicalObjects("landmark").size()
-                << endl;
+        cout << "DriveSearchPattern: seen objects:" << wm->logicalCameraData.getLogicalObjects("box").size() << endl;
 
-        if (wm->logicalCameraData.getLogicalObjects("landmark").size() == 4)
+        if (wm->logicalCameraData.getLogicalObjects("box").size() == 4)
         {
             this->setSuccess(true);
             cout << "DriveSearchPattern:: found all 4 objects" << endl;

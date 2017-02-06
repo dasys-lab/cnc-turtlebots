@@ -5,7 +5,7 @@
     <outTransitions>#1485789245855</outTransitions>
   </states>
   <states id="1485789207566" name="Investigate" comment="">
-    <plans xsi:type="alica:BehaviourConfiguration">InvestigateLandmarks.beh#1485780464626</plans>
+    <plans xsi:type="alica:BehaviourConfiguration">PickUp.beh#1486381497239</plans>
     <inTransitions>#1485789245855</inTransitions>
   </states>
   <transitions id="1485789245855" name="MISSING_NAME" comment="all landmarks found" msg="">

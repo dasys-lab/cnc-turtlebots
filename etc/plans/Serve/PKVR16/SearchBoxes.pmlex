@@ -18,7 +18,7 @@
   </extensions>
   <extensions>
     <key href="SearchBoxes.pml#1485789207566"/>
-    <value xPos="348" yPos="258"/>
+    <value xPos="348" yPos="258" collapsed="false"/>
   </extensions>
   <extensions>
     <key href="InvestigateLandmarks.beh#1485780464626"/>
@@ -26,6 +26,10 @@
   </extensions>
   <extensions>
     <key href="SearchBoxes.pml#1485789245855"/>
+    <value/>
+  </extensions>
+  <extensions>
+    <key href="PickUp.beh#1486381497239"/>
     <value/>
   </extensions>
 </uiextensionmodel:PmlUiExtensionMap>

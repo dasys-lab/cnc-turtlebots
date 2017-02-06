@@ -3,6 +3,8 @@ using namespace std;
 #include "BehaviourCreator.h"
 #include "engine/BasicBehaviour.h"
 
+#include  "Plans/Serve/PKVR16/PickUp.h"
+
 #include  "Plans/Behaviours/SearchForDockingStationAsp.h"
 
 #include  "Plans/Behaviours/ASPNavigation.h"
@@ -44,6 +46,11 @@ namespace alica
     {
         switch (behaviourConfId)
         {
+
+            case 1486381497239:
+
+                return make_shared<PickUp>();
+                break;
 
             case 1470041828429:
 
