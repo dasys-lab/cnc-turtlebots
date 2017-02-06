@@ -2,6 +2,7 @@ using namespace std;
 #include "Plans/Serve/PKVR16/PickUp.h"
 
 /*PROTECTED REGION ID(inccpp1486381476387) ENABLED START*/ // Add additional includes here
+#include "gazebo_msgs/ModelState.h"
 /*PROTECTED REGION END*/
 namespace alica
 {
@@ -23,21 +24,15 @@ void PickUp::run(void *msg)
     /*PROTECTED REGION ID(run1486381476387) ENABLED START*/ // Add additional options here
     cout << "PKVR16::PickUp: Hallo Pizza!" << endl;
     gazebo_msgs::ModelState ms;
-    ms.model_name = "football";
-    try
-    {
-        ms.pose.position.x = stod(this->gazeboControlWidget_.ballXEdit->text().toStdString()) / 1000.0;
-        ms.pose.position.y = stod(this->gazeboControlWidget_.ballYEdit->text().toStdString()) / 1000.0;
-    }
-    catch (const std::exception &ex)
-    {
-        cerr << "GazeboControl: Cannot convert your coordinates. Please enter a correct double coordinates for the ball." << endl;
-        ms.pose.position.x = 0;
-        ms.pose.position.y = 0;
-    }
-    ms.pose.position.z = 0;
-    ms.reference_frame = "world";
-    this->setModelPublisher.publish(ms);
+
+    // TODO should be done in some virtual actuator of the ttb robot class (antonym of worldmodel)
+//    ms.model_name = "";
+//    ms.pose.position.x = 0;
+//    ms.pose.position.y = 0;
+//    ms.pose.position.z = 0;
+//    ms.reference_frame = "world";
+//    this->setModelPublisher.publish(ms);
+
     /*PROTECTED REGION END*/
 }
 void PickUp::initialiseParameters()
