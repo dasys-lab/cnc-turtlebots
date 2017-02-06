@@ -7,7 +7,7 @@
     <outTransitions>#1454332146639</outTransitions>
   </states>
   <states id="1454332119685" name="Serve" comment="">
-    <plans xsi:type="alica:Plan">PKVR16/CollectBoxes.pml#1481544845570</plans>
+    <plans xsi:type="alica:Plan">Serve.pml#1454331313621</plans>
     <inTransitions>#1454332144573</inTransitions>
     <inTransitions>#1454332146639</inTransitions>
     <outTransitions>#1454332142505</outTransitions>

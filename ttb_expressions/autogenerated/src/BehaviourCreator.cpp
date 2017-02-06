@@ -25,8 +25,6 @@ using namespace std;
 
 #include  "Plans/Behaviours/SimpleDrive.h"
 
-#include  "Plans/Serve/PKVR16/InvestigateLandmarks.h"
-
 #include  "Plans/Behaviours/Rotate.h"
 
 #include  "Plans/Behaviours/SearchDockingStation.h"
@@ -110,11 +108,6 @@ namespace alica
             case 1432735473356:
 
                 return make_shared<SimpleDrive>();
-                break;
-
-            case 1485780464626:
-
-                return make_shared<InvestigateLandmarks>();
                 break;
 
             case 1447068225787:

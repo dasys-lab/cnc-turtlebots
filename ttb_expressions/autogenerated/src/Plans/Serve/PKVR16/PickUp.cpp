@@ -21,6 +21,7 @@ namespace alica
     void PickUp::run(void* msg)
     {
         /*PROTECTED REGION ID(run1486381476387) ENABLED START*/ //Add additional options here
+        cout << "PKVR16::PickUp: Hallo Pizza!" << endl;
         /*PROTECTED REGION END*/
     }
     void PickUp::initialiseParameters()

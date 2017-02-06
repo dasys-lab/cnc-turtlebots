@@ -4,8 +4,6 @@
 
 #include  "Plans/Serve/PKVR16/SearchBoxes1481545038564.h"
 
-#include  "Plans/Serve/PKVR16/CollectBoxes1481544845570.h"
-
 #include  "Plans/Serve/ServeMaster1454332108133.h"
 
 #include  "Plans/Serve/ASPNavwoExternals1477229620130.h"
@@ -64,9 +62,9 @@ namespace alica
 
                 break;
 
-            case 1485789247329:
+            case 1486383886372:
 
-                return make_shared<TransitionCondition1485789247329>();
+                return make_shared<TransitionCondition1486383886372>();
 
                 break;
 
@@ -241,6 +239,24 @@ namespace alica
             case 1454331503425:
 
                 return make_shared<TransitionCondition1454331503425>();
+
+                break;
+
+            case 1486383768270:
+
+                return make_shared<TransitionCondition1486383768270>();
+
+                break;
+
+            case 1486383787970:
+
+                return make_shared<TransitionCondition1486383787970>();
+
+                break;
+
+            case 1486383790747:
+
+                return make_shared<TransitionCondition1486383790747>();
 
                 break;
 

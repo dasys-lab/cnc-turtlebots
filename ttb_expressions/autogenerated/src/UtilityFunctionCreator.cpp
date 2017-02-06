@@ -5,8 +5,6 @@
 
 #include  "Plans/Serve/PKVR16/SearchBoxes1481545038564.h"
 
-#include  "Plans/Serve/PKVR16/CollectBoxes1481544845570.h"
-
 #include  "Plans/Serve/ServeMaster1454332108133.h"
 
 #include  "Plans/Serve/ASPNavwoExternals1477229620130.h"
@@ -55,10 +53,6 @@ namespace alica
 
             case 1481545038564:
                 return make_shared<UtilityFunction1481545038564>();
-                break;
-
-            case 1481544845570:
-                return make_shared<UtilityFunction1481544845570>();
                 break;
 
             case 1454332108133:
