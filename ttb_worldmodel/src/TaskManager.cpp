@@ -17,14 +17,6 @@ namespace wm
 
 TaskManager::TaskManager()
 {
-    auto poiSections = (*this->sc)["POI"]->getSections("POI.Points", NULL);
-    for (auto &poiSectionName : (*poiSections))
-    {
-        PointOfInterest currentPOI((*this->sc)["POI"]->get<int>("POI.Points", poiSectionName.c_str(), "ID", NULL), poiSectionName,
-                                   (*this->sc)["POI"]->get<float>("POI.Points", poiSectionName.c_str(), "X", NULL),
-                                   (*this->sc)["POI"]->get<float>("POI.Points", poiSectionName.c_str(), "Y", NULL));
-        this->poiMap.emplace(currentPOI.id, currentPOI);
-    }
 }
 
 TaskManager::~TaskManager()
@@ -36,33 +28,6 @@ void TaskManager::pushTask(shared_ptr<InformationElement<ttb_msgs::ServeTask>> t
 	auto serveTask = make_shared<ServeTask>(taskMsg);
 	this->pendingTasks.push_back(make_shared<InformationElement<ServeTask>>(serveTask, taskMsg->timeStamp));
 }
-
-// POI TaskManager::getPOI(int id)
-//{
-//    auto iter = this->poiMap.find(id);
-//    if (iter != this->poiMap.end())
-//    {
-//        return iter->second;
-//    }
-//    else
-//    {
-//        return POI();
-//    }
-//}
-//
-// POI TaskManager::popNextPOI()
-//{
-//    auto driveToPOI = this->popNextDriveToPOI();
-//    auto iter = this->poiMap.find(driveToPOI->getInformation()->poiId);
-//    if (iter != this->poiMap.end())
-//    {
-//        return iter->second;
-//    }
-//    else
-//    {
-//        return POI();
-//    }
-//}
 
 shared_ptr<InformationElement<ServeTask>> TaskManager::popNextTask()
 {
@@ -102,5 +67,6 @@ bool TaskManager::isNextTask(TaskType type)
         return false;
     }
 }
+
 }
 } /* namespace ttb */

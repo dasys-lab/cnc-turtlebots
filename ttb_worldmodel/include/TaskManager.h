@@ -19,7 +19,7 @@ namespace ttb { namespace wm
 	class ServeTask;
 
 	enum TaskType {
-		SERVE, POI, SEARCH, PICKUP, PUTDOWN
+		SERVE, DRIVE_TO, SEARCH, PICK_UP, PUT_DOWN
 	};
 
 	class TaskManager
@@ -35,14 +35,8 @@ namespace ttb { namespace wm
 
 		bool isNextTask(TaskType type);
 
-//		POI getPOI(int id);
-//		POI popNextPOI();
-
 
 	private:
-		shared_ptr<supplementary::SystemConfig> sc;
-		map<int, PointOfInterest> poiMap;
-
 		vector<shared_ptr<InformationElement<ServeTask>>> pendingTasks;
 	};
 

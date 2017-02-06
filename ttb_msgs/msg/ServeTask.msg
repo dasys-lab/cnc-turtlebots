@@ -7,7 +7,7 @@ int32 receiverId
 uint8 type
 
 # Denotes the item to pickup, to putdown, to search for, or the poi id to drive to  
-string entitiy
+string entity
 
 
 # constants for type
