@@ -26,12 +26,12 @@ void PickUp::run(void *msg)
 	cout<<"PickUp::run picking up!"<<endl;
     gazebo_msgs::ModelState ms;
     //ms.model_name = this->wm->taskManager.getNextTask().entity;
-    ms.model_name= 'box_1';
+    ms.model_name= "box_1";
     shared_ptr<geometry::CNPosition> ownPos = this->wm->rawSensorData.getOwnPosition();
-    ms.pose.position.x = ownPos->x;
+    ms.pose.position.x = ownPos->x-0.12;
     ms.pose.position.y = ownPos->y;
-    ms.pose.position.z = 1;
-    ms.reference_frame = "world";
+    ms.pose.position.z = 0.5;
+    ms.reference_frame = "";
     this->modelPosition_pub.publish(ms);
     // TODO should be done in some virtual actuator of the ttb robot class (antonym of worldmodel)
 
