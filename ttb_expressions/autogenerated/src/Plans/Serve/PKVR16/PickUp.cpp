@@ -21,7 +21,7 @@ PickUp::~PickUp()
 void PickUp::run(void *msg)
 {
     /*PROTECTED REGION ID(run1486381476387) ENABLED START*/ // Add additional options here
-    cout << "GC: setModel(" << checked << ") called from button \"Ball Set\"" << endl;
+    cout << "PKVR16::PickUp: Hallo Pizza!" << endl;
     gazebo_msgs::ModelState ms;
     ms.model_name = "football";
     try
