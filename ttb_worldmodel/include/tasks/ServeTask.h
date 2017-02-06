@@ -17,9 +17,8 @@ namespace wm
 class ServeTask
 {
   public:
-    ServeTask();
+    ServeTask(shared_ptr<InformationElement<ttb_msgs::ServeTask>> taskMsg);
     virtual ~ServeTask();
-    std::string name;
 
     TaskType type;
     std::string entity;

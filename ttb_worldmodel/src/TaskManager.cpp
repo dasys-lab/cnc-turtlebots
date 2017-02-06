@@ -6,11 +6,7 @@
  */
 
 #include "TaskManager.h"
-#include <tasks/DriveToTask.h>
-#include <tasks/PickUpTask.h>
 #include <tasks/PointOfInterest.h>
-#include <tasks/PutDownTask.h>
-#include <tasks/SearchTask.h>
 #include <tasks/ServeTask.h>
 #include <ttb_msgs/ServeTask.h>
 
@@ -35,38 +31,10 @@ TaskManager::~TaskManager()
 {
 }
 
-void TaskManager::pushTask(shared_ptr<InformationElement<ttb_msgs::ServeTask>> task)
+void TaskManager::pushTask(shared_ptr<InformationElement<ttb_msgs::ServeTask>> taskMsg)
 {
-    switch (task->getInformation()->type)
-    {
-    case ttb_msgs::ServeTask::PICK_UP:
-    {
-        auto pickUpTask = make_shared<PickUpTask>();
-        this->pendingTasks.push_back(make_shared<InformationElement<ServeTask>>(pickUpTask, task->timeStamp));
-    }
-    break;
-    case ttb_msgs::ServeTask::PUT_DOWN:
-    {
-        auto pickUpTask = make_shared<PutDownTask>();
-        this->pendingTasks.push_back(make_shared<InformationElement<ServeTask>>(pickUpTask, task->timeStamp));
-    }
-    break;
-    case ttb_msgs::ServeTask::SEARCH:
-    {
-        auto pickUpTask = make_shared<SearchTask>();
-        this->pendingTasks.push_back(make_shared<InformationElement<ServeTask>>(pickUpTask, task->timeStamp));
-    }
-    break;
-    case ttb_msgs::ServeTask::DRIVE_TO:
-    {
-        auto pickUpTask = make_shared<DriveToTask>();
-        this->pendingTasks.push_back(make_shared<InformationElement<ServeTask>>(pickUpTask, task->timeStamp));
-    }
-    break;
-    default:
-        cerr << "TaskManager: Unknown Task Type received!" << endl;
-        break;
-    }
+	auto serveTask = make_shared<ServeTask>(taskMsg);
+	this->pendingTasks.push_back(make_shared<InformationElement<ServeTask>>(serveTask, taskMsg->timeStamp));
 }
 
 // POI TaskManager::getPOI(int id)
