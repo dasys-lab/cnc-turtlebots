@@ -352,448 +352,448 @@ void TTBPointOfInterests::readPOIs()
 	string currentPoi = "floor1";
 	this->floor1 =
 			make_shared < PointOfInterest
-					> ((*this->sc)["PointOfInterest"]->get<int>("PointOfInterest.Points", currentPoi.c_str(), "ID", NULL), currentPoi.c_str(), (*this->sc)["PointOfInterest"]->get<
-							float>("PointOfInterest.Points", currentPoi.c_str(), "X", NULL), (*this->sc)["PointOfInterest"]->get<float>(
-							"PointOfInterest.Points", currentPoi.c_str(), "Y", NULL));
+					> ((*this->sc)["POI"]->get<int>("POI.Points", currentPoi.c_str(), "ID", NULL), currentPoi.c_str(), (*this->sc)["POI"]->get<
+							float>("POI.Points", currentPoi.c_str(), "X", NULL), (*this->sc)["POI"]->get<float>(
+							"POI.Points", currentPoi.c_str(), "Y", NULL));
 	this->pois.push_back(this->floor1);
 
 	currentPoi = "hiwiRoom";
 	this->hiwiRoom =
 			make_shared < PointOfInterest
-					> ((*this->sc)["PointOfInterest"]->get<int>("PointOfInterest.Points", currentPoi.c_str(), "ID", NULL), currentPoi.c_str(), (*this->sc)["PointOfInterest"]->get<
-							float>("PointOfInterest.Points", currentPoi.c_str(), "X", NULL), (*this->sc)["PointOfInterest"]->get<float>(
-							"PointOfInterest.Points", currentPoi.c_str(), "Y", NULL));
+					> ((*this->sc)["POI"]->get<int>("POI.Points", currentPoi.c_str(), "ID", NULL), currentPoi.c_str(), (*this->sc)["POI"]->get<
+							float>("POI.Points", currentPoi.c_str(), "X", NULL), (*this->sc)["POI"]->get<float>(
+							"POI.Points", currentPoi.c_str(), "Y", NULL));
 	this->pois.push_back(this->hiwiRoom);
 
 	currentPoi = "studentLab1";
 	this->studentLab1 =
 			make_shared < PointOfInterest
-					> ((*this->sc)["PointOfInterest"]->get<int>("PointOfInterest.Points", currentPoi.c_str(), "ID", NULL), currentPoi.c_str(), (*this->sc)["PointOfInterest"]->get<
-							float>("PointOfInterest.Points", currentPoi.c_str(), "X", NULL), (*this->sc)["PointOfInterest"]->get<float>(
-							"PointOfInterest.Points", currentPoi.c_str(), "Y", NULL));
+					> ((*this->sc)["POI"]->get<int>("POI.Points", currentPoi.c_str(), "ID", NULL), currentPoi.c_str(), (*this->sc)["POI"]->get<
+							float>("POI.Points", currentPoi.c_str(), "X", NULL), (*this->sc)["POI"]->get<float>(
+							"POI.Points", currentPoi.c_str(), "Y", NULL));
 	this->pois.push_back(this->studentLab1);
 
 	currentPoi = "kicker";
 	this->kicker =
 			make_shared < PointOfInterest
-					> ((*this->sc)["PointOfInterest"]->get<int>("PointOfInterest.Points", currentPoi.c_str(), "ID", NULL), currentPoi.c_str(), (*this->sc)["PointOfInterest"]->get<
-							float>("PointOfInterest.Points", currentPoi.c_str(), "X", NULL), (*this->sc)["PointOfInterest"]->get<float>(
-							"PointOfInterest.Points", currentPoi.c_str(), "Y", NULL));
+					> ((*this->sc)["POI"]->get<int>("POI.Points", currentPoi.c_str(), "ID", NULL), currentPoi.c_str(), (*this->sc)["POI"]->get<
+							float>("POI.Points", currentPoi.c_str(), "X", NULL), (*this->sc)["POI"]->get<float>(
+							"POI.Points", currentPoi.c_str(), "Y", NULL));
 	this->pois.push_back(this->kicker);
 
 	currentPoi = "studentLab2";
 	this->studentLab2 =
 			make_shared < PointOfInterest
-					> ((*this->sc)["PointOfInterest"]->get<int>("PointOfInterest.Points", currentPoi.c_str(), "ID", NULL), currentPoi.c_str(), (*this->sc)["PointOfInterest"]->get<
-							float>("PointOfInterest.Points", currentPoi.c_str(), "X", NULL), (*this->sc)["PointOfInterest"]->get<float>(
-							"PointOfInterest.Points", currentPoi.c_str(), "Y", NULL));
+					> ((*this->sc)["POI"]->get<int>("POI.Points", currentPoi.c_str(), "ID", NULL), currentPoi.c_str(), (*this->sc)["POI"]->get<
+							float>("POI.Points", currentPoi.c_str(), "X", NULL), (*this->sc)["POI"]->get<float>(
+							"POI.Points", currentPoi.c_str(), "Y", NULL));
 	this->pois.push_back(this->studentLab2);
 
 	currentPoi = "studentLabDoor1";
 	this->studentLabDoor1 =
 			make_shared < PointOfInterest
-					> ((*this->sc)["PointOfInterest"]->get<int>("PointOfInterest.Points", currentPoi.c_str(), "ID", NULL), currentPoi.c_str(), (*this->sc)["PointOfInterest"]->get<
-							float>("PointOfInterest.Points", currentPoi.c_str(), "X", NULL), (*this->sc)["PointOfInterest"]->get<float>(
-							"PointOfInterest.Points", currentPoi.c_str(), "Y", NULL));
+					> ((*this->sc)["POI"]->get<int>("POI.Points", currentPoi.c_str(), "ID", NULL), currentPoi.c_str(), (*this->sc)["POI"]->get<
+							float>("POI.Points", currentPoi.c_str(), "X", NULL), (*this->sc)["POI"]->get<float>(
+							"POI.Points", currentPoi.c_str(), "Y", NULL));
 	this->pois.push_back(this->studentLabDoor1);
 
 	currentPoi = "studentLabDoor2";
 	this->studentLabDoor2 =
 			make_shared < PointOfInterest
-					> ((*this->sc)["PointOfInterest"]->get<int>("PointOfInterest.Points", currentPoi.c_str(), "ID", NULL), currentPoi.c_str(), (*this->sc)["PointOfInterest"]->get<
-							float>("PointOfInterest.Points", currentPoi.c_str(), "X", NULL), (*this->sc)["PointOfInterest"]->get<float>(
-							"PointOfInterest.Points", currentPoi.c_str(), "Y", NULL));
+					> ((*this->sc)["POI"]->get<int>("POI.Points", currentPoi.c_str(), "ID", NULL), currentPoi.c_str(), (*this->sc)["POI"]->get<
+							float>("POI.Points", currentPoi.c_str(), "X", NULL), (*this->sc)["POI"]->get<float>(
+							"POI.Points", currentPoi.c_str(), "Y", NULL));
 	this->pois.push_back(this->studentLabDoor2);
 
 	currentPoi = "hiWiDoor1";
 	this->hiWiDoor1 =
 			make_shared < PointOfInterest
-					> ((*this->sc)["PointOfInterest"]->get<int>("PointOfInterest.Points", currentPoi.c_str(), "ID", NULL), currentPoi.c_str(), (*this->sc)["PointOfInterest"]->get<
-							float>("PointOfInterest.Points", currentPoi.c_str(), "X", NULL), (*this->sc)["PointOfInterest"]->get<float>(
-							"PointOfInterest.Points", currentPoi.c_str(), "Y", NULL));
+					> ((*this->sc)["POI"]->get<int>("POI.Points", currentPoi.c_str(), "ID", NULL), currentPoi.c_str(), (*this->sc)["POI"]->get<
+							float>("POI.Points", currentPoi.c_str(), "X", NULL), (*this->sc)["POI"]->get<float>(
+							"POI.Points", currentPoi.c_str(), "Y", NULL));
 	this->pois.push_back(this->hiWiDoor1);
 
 	currentPoi = "hiWiDoor2";
 	this->hiWiDoor2 =
 			make_shared < PointOfInterest
-					> ((*this->sc)["PointOfInterest"]->get<int>("PointOfInterest.Points", currentPoi.c_str(), "ID", NULL), currentPoi.c_str(), (*this->sc)["PointOfInterest"]->get<
-							float>("PointOfInterest.Points", currentPoi.c_str(), "X", NULL), (*this->sc)["PointOfInterest"]->get<float>(
-							"PointOfInterest.Points", currentPoi.c_str(), "Y", NULL));
+					> ((*this->sc)["POI"]->get<int>("POI.Points", currentPoi.c_str(), "ID", NULL), currentPoi.c_str(), (*this->sc)["POI"]->get<
+							float>("POI.Points", currentPoi.c_str(), "X", NULL), (*this->sc)["POI"]->get<float>(
+							"POI.Points", currentPoi.c_str(), "Y", NULL));
 	this->pois.push_back(this->hiWiDoor2);
 
 	currentPoi = "floor1Door1";
 	this->floor1Door1 =
 			make_shared < PointOfInterest
-					> ((*this->sc)["PointOfInterest"]->get<int>("PointOfInterest.Points", currentPoi.c_str(), "ID", NULL), currentPoi.c_str(), (*this->sc)["PointOfInterest"]->get<
-							float>("PointOfInterest.Points", currentPoi.c_str(), "X", NULL), (*this->sc)["PointOfInterest"]->get<float>(
-							"PointOfInterest.Points", currentPoi.c_str(), "Y", NULL));
+					> ((*this->sc)["POI"]->get<int>("POI.Points", currentPoi.c_str(), "ID", NULL), currentPoi.c_str(), (*this->sc)["POI"]->get<
+							float>("POI.Points", currentPoi.c_str(), "X", NULL), (*this->sc)["POI"]->get<float>(
+							"POI.Points", currentPoi.c_str(), "Y", NULL));
 	this->pois.push_back(this->floor1Door1);
 
 	currentPoi = "floor1Door2";
 	this->floor1Door2 =
 			make_shared < PointOfInterest
-					> ((*this->sc)["PointOfInterest"]->get<int>("PointOfInterest.Points", currentPoi.c_str(), "ID", NULL), currentPoi.c_str(), (*this->sc)["PointOfInterest"]->get<
-							float>("PointOfInterest.Points", currentPoi.c_str(), "X", NULL), (*this->sc)["PointOfInterest"]->get<float>(
-							"PointOfInterest.Points", currentPoi.c_str(), "Y", NULL));
+					> ((*this->sc)["POI"]->get<int>("POI.Points", currentPoi.c_str(), "ID", NULL), currentPoi.c_str(), (*this->sc)["POI"]->get<
+							float>("POI.Points", currentPoi.c_str(), "X", NULL), (*this->sc)["POI"]->get<float>(
+							"POI.Points", currentPoi.c_str(), "Y", NULL));
 	this->pois.push_back(this->floor1Door2);
 
 	currentPoi = "workShopDoor1";
 	this->workShopDoor1 =
 			make_shared < PointOfInterest
-					> ((*this->sc)["PointOfInterest"]->get<int>("PointOfInterest.Points", currentPoi.c_str(), "ID", NULL), currentPoi.c_str(), (*this->sc)["PointOfInterest"]->get<
-							float>("PointOfInterest.Points", currentPoi.c_str(), "X", NULL), (*this->sc)["PointOfInterest"]->get<float>(
-							"PointOfInterest.Points", currentPoi.c_str(), "Y", NULL));
+					> ((*this->sc)["POI"]->get<int>("POI.Points", currentPoi.c_str(), "ID", NULL), currentPoi.c_str(), (*this->sc)["POI"]->get<
+							float>("POI.Points", currentPoi.c_str(), "X", NULL), (*this->sc)["POI"]->get<float>(
+							"POI.Points", currentPoi.c_str(), "Y", NULL));
 	this->pois.push_back(this->workShopDoor1);
 
 	currentPoi = "workShopDoor2";
 	this->workShopDoor2 =
 			make_shared < PointOfInterest
-					> ((*this->sc)["PointOfInterest"]->get<int>("PointOfInterest.Points", currentPoi.c_str(), "ID", NULL), currentPoi.c_str(), (*this->sc)["PointOfInterest"]->get<
-							float>("PointOfInterest.Points", currentPoi.c_str(), "X", NULL), (*this->sc)["PointOfInterest"]->get<float>(
-							"PointOfInterest.Points", currentPoi.c_str(), "Y", NULL));
+					> ((*this->sc)["POI"]->get<int>("POI.Points", currentPoi.c_str(), "ID", NULL), currentPoi.c_str(), (*this->sc)["POI"]->get<
+							float>("POI.Points", currentPoi.c_str(), "X", NULL), (*this->sc)["POI"]->get<float>(
+							"POI.Points", currentPoi.c_str(), "Y", NULL));
 	this->pois.push_back(this->workShopDoor2);
 
 	currentPoi = "workShopDoor3";
 	this->workShopDoor3 =
 			make_shared < PointOfInterest
-					> ((*this->sc)["PointOfInterest"]->get<int>("PointOfInterest.Points", currentPoi.c_str(), "ID", NULL), currentPoi.c_str(), (*this->sc)["PointOfInterest"]->get<
-							float>("PointOfInterest.Points", currentPoi.c_str(), "X", NULL), (*this->sc)["PointOfInterest"]->get<float>(
-							"PointOfInterest.Points", currentPoi.c_str(), "Y", NULL));
+					> ((*this->sc)["POI"]->get<int>("POI.Points", currentPoi.c_str(), "ID", NULL), currentPoi.c_str(), (*this->sc)["POI"]->get<
+							float>("POI.Points", currentPoi.c_str(), "X", NULL), (*this->sc)["POI"]->get<float>(
+							"POI.Points", currentPoi.c_str(), "Y", NULL));
 	this->pois.push_back(this->workShopDoor3);
 
 	currentPoi = "workShopRight";
 	this->workShopRight =
 			make_shared < PointOfInterest
-					> ((*this->sc)["PointOfInterest"]->get<int>("PointOfInterest.Points", currentPoi.c_str(), "ID", NULL), currentPoi.c_str(), (*this->sc)["PointOfInterest"]->get<
-							float>("PointOfInterest.Points", currentPoi.c_str(), "X", NULL), (*this->sc)["PointOfInterest"]->get<float>(
-							"PointOfInterest.Points", currentPoi.c_str(), "Y", NULL));
+					> ((*this->sc)["POI"]->get<int>("POI.Points", currentPoi.c_str(), "ID", NULL), currentPoi.c_str(), (*this->sc)["POI"]->get<
+							float>("POI.Points", currentPoi.c_str(), "X", NULL), (*this->sc)["POI"]->get<float>(
+							"POI.Points", currentPoi.c_str(), "Y", NULL));
 	this->pois.push_back(this->workShopRight);
 
 	currentPoi = "workShopDoor4";
 	this->workShopDoor4 =
 			make_shared < PointOfInterest
-					> ((*this->sc)["PointOfInterest"]->get<int>("PointOfInterest.Points", currentPoi.c_str(), "ID", NULL), currentPoi.c_str(), (*this->sc)["PointOfInterest"]->get<
-							float>("PointOfInterest.Points", currentPoi.c_str(), "X", NULL), (*this->sc)["PointOfInterest"]->get<float>(
-							"PointOfInterest.Points", currentPoi.c_str(), "Y", NULL));
+					> ((*this->sc)["POI"]->get<int>("POI.Points", currentPoi.c_str(), "ID", NULL), currentPoi.c_str(), (*this->sc)["POI"]->get<
+							float>("POI.Points", currentPoi.c_str(), "X", NULL), (*this->sc)["POI"]->get<float>(
+							"POI.Points", currentPoi.c_str(), "Y", NULL));
 	this->pois.push_back(this->workShopDoor4);
 
 	currentPoi = "workShopLeft";
 	this->workShopLeft =
 			make_shared < PointOfInterest
-					> ((*this->sc)["PointOfInterest"]->get<int>("PointOfInterest.Points", currentPoi.c_str(), "ID", NULL), currentPoi.c_str(), (*this->sc)["PointOfInterest"]->get<
-							float>("PointOfInterest.Points", currentPoi.c_str(), "X", NULL), (*this->sc)["PointOfInterest"]->get<float>(
-							"PointOfInterest.Points", currentPoi.c_str(), "Y", NULL));
+					> ((*this->sc)["POI"]->get<int>("POI.Points", currentPoi.c_str(), "ID", NULL), currentPoi.c_str(), (*this->sc)["POI"]->get<
+							float>("POI.Points", currentPoi.c_str(), "X", NULL), (*this->sc)["POI"]->get<float>(
+							"POI.Points", currentPoi.c_str(), "Y", NULL));
 	this->pois.push_back(this->workShopLeft);
 
 	currentPoi = "floor1Door3";
 	this->floor1Door3 =
 			make_shared < PointOfInterest
-					> ((*this->sc)["PointOfInterest"]->get<int>("PointOfInterest.Points", currentPoi.c_str(), "ID", NULL), currentPoi.c_str(), (*this->sc)["PointOfInterest"]->get<
-							float>("PointOfInterest.Points", currentPoi.c_str(), "X", NULL), (*this->sc)["PointOfInterest"]->get<float>(
-							"PointOfInterest.Points", currentPoi.c_str(), "Y", NULL));
+					> ((*this->sc)["POI"]->get<int>("POI.Points", currentPoi.c_str(), "ID", NULL), currentPoi.c_str(), (*this->sc)["POI"]->get<
+							float>("POI.Points", currentPoi.c_str(), "X", NULL), (*this->sc)["POI"]->get<float>(
+							"POI.Points", currentPoi.c_str(), "Y", NULL));
 	this->pois.push_back(this->floor1Door3);
 
 	currentPoi = "floor2Door1";
 	this->floor2Door1 =
 			make_shared < PointOfInterest
-					> ((*this->sc)["PointOfInterest"]->get<int>("PointOfInterest.Points", currentPoi.c_str(), "ID", NULL), currentPoi.c_str(), (*this->sc)["PointOfInterest"]->get<
-							float>("PointOfInterest.Points", currentPoi.c_str(), "X", NULL), (*this->sc)["PointOfInterest"]->get<float>(
-							"PointOfInterest.Points", currentPoi.c_str(), "Y", NULL));
+					> ((*this->sc)["POI"]->get<int>("POI.Points", currentPoi.c_str(), "ID", NULL), currentPoi.c_str(), (*this->sc)["POI"]->get<
+							float>("POI.Points", currentPoi.c_str(), "X", NULL), (*this->sc)["POI"]->get<float>(
+							"POI.Points", currentPoi.c_str(), "Y", NULL));
 	this->pois.push_back(this->floor2Door1);
 
 	currentPoi = "floor2Door2";
 	this->floor2Door2 =
 			make_shared < PointOfInterest
-					> ((*this->sc)["PointOfInterest"]->get<int>("PointOfInterest.Points", currentPoi.c_str(), "ID", NULL), currentPoi.c_str(), (*this->sc)["PointOfInterest"]->get<
-							float>("PointOfInterest.Points", currentPoi.c_str(), "X", NULL), (*this->sc)["PointOfInterest"]->get<float>(
-							"PointOfInterest.Points", currentPoi.c_str(), "Y", NULL));
+					> ((*this->sc)["POI"]->get<int>("POI.Points", currentPoi.c_str(), "ID", NULL), currentPoi.c_str(), (*this->sc)["POI"]->get<
+							float>("POI.Points", currentPoi.c_str(), "X", NULL), (*this->sc)["POI"]->get<float>(
+							"POI.Points", currentPoi.c_str(), "Y", NULL));
 	this->pois.push_back(this->floor2Door2);
 
 	currentPoi = "room1408A";
 	this->room1408A =
 			make_shared < PointOfInterest
-					> ((*this->sc)["PointOfInterest"]->get<int>("PointOfInterest.Points", currentPoi.c_str(), "ID", NULL), currentPoi.c_str(), (*this->sc)["PointOfInterest"]->get<
-							float>("PointOfInterest.Points", currentPoi.c_str(), "X", NULL), (*this->sc)["PointOfInterest"]->get<float>(
-							"PointOfInterest.Points", currentPoi.c_str(), "Y", NULL));
+					> ((*this->sc)["POI"]->get<int>("POI.Points", currentPoi.c_str(), "ID", NULL), currentPoi.c_str(), (*this->sc)["POI"]->get<
+							float>("POI.Points", currentPoi.c_str(), "X", NULL), (*this->sc)["POI"]->get<float>(
+							"POI.Points", currentPoi.c_str(), "Y", NULL));
 	this->pois.push_back(this->room1408A);
 
 	currentPoi = "floor2Door3";
 	this->floor2Door3 =
 			make_shared < PointOfInterest
-					> ((*this->sc)["PointOfInterest"]->get<int>("PointOfInterest.Points", currentPoi.c_str(), "ID", NULL), currentPoi.c_str(), (*this->sc)["PointOfInterest"]->get<
-							float>("PointOfInterest.Points", currentPoi.c_str(), "X", NULL), (*this->sc)["PointOfInterest"]->get<float>(
-							"PointOfInterest.Points", currentPoi.c_str(), "Y", NULL));
+					> ((*this->sc)["POI"]->get<int>("POI.Points", currentPoi.c_str(), "ID", NULL), currentPoi.c_str(), (*this->sc)["POI"]->get<
+							float>("POI.Points", currentPoi.c_str(), "X", NULL), (*this->sc)["POI"]->get<float>(
+							"POI.Points", currentPoi.c_str(), "Y", NULL));
 	this->pois.push_back(this->floor2Door3);
 
 	currentPoi = "room1408BFront";
 	this->room1408BFront =
 			make_shared < PointOfInterest
-					> ((*this->sc)["PointOfInterest"]->get<int>("PointOfInterest.Points", currentPoi.c_str(), "ID", NULL), currentPoi.c_str(), (*this->sc)["PointOfInterest"]->get<
-							float>("PointOfInterest.Points", currentPoi.c_str(), "X", NULL), (*this->sc)["PointOfInterest"]->get<float>(
-							"PointOfInterest.Points", currentPoi.c_str(), "Y", NULL));
+					> ((*this->sc)["POI"]->get<int>("POI.Points", currentPoi.c_str(), "ID", NULL), currentPoi.c_str(), (*this->sc)["POI"]->get<
+							float>("POI.Points", currentPoi.c_str(), "X", NULL), (*this->sc)["POI"]->get<float>(
+							"POI.Points", currentPoi.c_str(), "Y", NULL));
 	this->pois.push_back(this->room1408BFront);
 
 	currentPoi = "room1408BWindow";
 	this->room1408BWindow =
 			make_shared < PointOfInterest
-					> ((*this->sc)["PointOfInterest"]->get<int>("PointOfInterest.Points", currentPoi.c_str(), "ID", NULL), currentPoi.c_str(), (*this->sc)["PointOfInterest"]->get<
-							float>("PointOfInterest.Points", currentPoi.c_str(), "X", NULL), (*this->sc)["PointOfInterest"]->get<float>(
-							"PointOfInterest.Points", currentPoi.c_str(), "Y", NULL));
+					> ((*this->sc)["POI"]->get<int>("POI.Points", currentPoi.c_str(), "ID", NULL), currentPoi.c_str(), (*this->sc)["POI"]->get<
+							float>("POI.Points", currentPoi.c_str(), "X", NULL), (*this->sc)["POI"]->get<float>(
+							"POI.Points", currentPoi.c_str(), "Y", NULL));
 	this->pois.push_back(this->room1408BWindow);
 
 	currentPoi = "floor2Door4";
 	this->floor2Door4 =
 			make_shared < PointOfInterest
-					> ((*this->sc)["PointOfInterest"]->get<int>("PointOfInterest.Points", currentPoi.c_str(), "ID", NULL), currentPoi.c_str(), (*this->sc)["PointOfInterest"]->get<
-							float>("PointOfInterest.Points", currentPoi.c_str(), "X", NULL), (*this->sc)["PointOfInterest"]->get<float>(
-							"PointOfInterest.Points", currentPoi.c_str(), "Y", NULL));
+					> ((*this->sc)["POI"]->get<int>("POI.Points", currentPoi.c_str(), "ID", NULL), currentPoi.c_str(), (*this->sc)["POI"]->get<
+							float>("POI.Points", currentPoi.c_str(), "X", NULL), (*this->sc)["POI"]->get<float>(
+							"POI.Points", currentPoi.c_str(), "Y", NULL));
 	this->pois.push_back(this->floor2Door4);
 
 	currentPoi = "room1408CFront";
 	this->room1408CFront =
 			make_shared < PointOfInterest
-					> ((*this->sc)["PointOfInterest"]->get<int>("PointOfInterest.Points", currentPoi.c_str(), "ID", NULL), currentPoi.c_str(), (*this->sc)["PointOfInterest"]->get<
-							float>("PointOfInterest.Points", currentPoi.c_str(), "X", NULL), (*this->sc)["PointOfInterest"]->get<float>(
-							"PointOfInterest.Points", currentPoi.c_str(), "Y", NULL));
+					> ((*this->sc)["POI"]->get<int>("POI.Points", currentPoi.c_str(), "ID", NULL), currentPoi.c_str(), (*this->sc)["POI"]->get<
+							float>("POI.Points", currentPoi.c_str(), "X", NULL), (*this->sc)["POI"]->get<float>(
+							"POI.Points", currentPoi.c_str(), "Y", NULL));
 	this->pois.push_back(this->room1408CFront);
 
 	currentPoi = "room1408CWindow";
 	this->room1408CWindow =
 			make_shared < PointOfInterest
-					> ((*this->sc)["PointOfInterest"]->get<int>("PointOfInterest.Points", currentPoi.c_str(), "ID", NULL), currentPoi.c_str(), (*this->sc)["PointOfInterest"]->get<
-							float>("PointOfInterest.Points", currentPoi.c_str(), "X", NULL), (*this->sc)["PointOfInterest"]->get<float>(
-							"PointOfInterest.Points", currentPoi.c_str(), "Y", NULL));
+					> ((*this->sc)["POI"]->get<int>("POI.Points", currentPoi.c_str(), "ID", NULL), currentPoi.c_str(), (*this->sc)["POI"]->get<
+							float>("POI.Points", currentPoi.c_str(), "X", NULL), (*this->sc)["POI"]->get<float>(
+							"POI.Points", currentPoi.c_str(), "Y", NULL));
 
 	currentPoi = "floor2Door5";
 	this->floor2Door5 =
 			make_shared < PointOfInterest
-					> ((*this->sc)["PointOfInterest"]->get<int>("PointOfInterest.Points", currentPoi.c_str(), "ID", NULL), currentPoi.c_str(), (*this->sc)["PointOfInterest"]->get<
-							float>("PointOfInterest.Points", currentPoi.c_str(), "X", NULL), (*this->sc)["PointOfInterest"]->get<float>(
-							"PointOfInterest.Points", currentPoi.c_str(), "Y", NULL));
+					> ((*this->sc)["POI"]->get<int>("POI.Points", currentPoi.c_str(), "ID", NULL), currentPoi.c_str(), (*this->sc)["POI"]->get<
+							float>("POI.Points", currentPoi.c_str(), "X", NULL), (*this->sc)["POI"]->get<float>(
+							"POI.Points", currentPoi.c_str(), "Y", NULL));
 	this->pois.push_back(this->floor2Door5);
 
 	currentPoi = "room1406AFront";
 	this->room1406AFront =
 			make_shared < PointOfInterest
-					> ((*this->sc)["PointOfInterest"]->get<int>("PointOfInterest.Points", currentPoi.c_str(), "ID", NULL), currentPoi.c_str(), (*this->sc)["PointOfInterest"]->get<
-							float>("PointOfInterest.Points", currentPoi.c_str(), "X", NULL), (*this->sc)["PointOfInterest"]->get<float>(
-							"PointOfInterest.Points", currentPoi.c_str(), "Y", NULL));
+					> ((*this->sc)["POI"]->get<int>("POI.Points", currentPoi.c_str(), "ID", NULL), currentPoi.c_str(), (*this->sc)["POI"]->get<
+							float>("POI.Points", currentPoi.c_str(), "X", NULL), (*this->sc)["POI"]->get<float>(
+							"POI.Points", currentPoi.c_str(), "Y", NULL));
 	this->pois.push_back(this->room1406AFront);
 
 	currentPoi = "room1406AWindow";
 	this->room1406AWindow =
 			make_shared < PointOfInterest
-					> ((*this->sc)["PointOfInterest"]->get<int>("PointOfInterest.Points", currentPoi.c_str(), "ID", NULL), currentPoi.c_str(), (*this->sc)["PointOfInterest"]->get<
-							float>("PointOfInterest.Points", currentPoi.c_str(), "X", NULL), (*this->sc)["PointOfInterest"]->get<float>(
-							"PointOfInterest.Points", currentPoi.c_str(), "Y", NULL));
+					> ((*this->sc)["POI"]->get<int>("POI.Points", currentPoi.c_str(), "ID", NULL), currentPoi.c_str(), (*this->sc)["POI"]->get<
+							float>("POI.Points", currentPoi.c_str(), "X", NULL), (*this->sc)["POI"]->get<float>(
+							"POI.Points", currentPoi.c_str(), "Y", NULL));
 	this->pois.push_back(this->room1406AWindow);
 
 	currentPoi = "floor2Door6";
 	this->floor2Door6 =
 			make_shared < PointOfInterest
-					> ((*this->sc)["PointOfInterest"]->get<int>("PointOfInterest.Points", currentPoi.c_str(), "ID", NULL), currentPoi.c_str(), (*this->sc)["PointOfInterest"]->get<
-							float>("PointOfInterest.Points", currentPoi.c_str(), "X", NULL), (*this->sc)["PointOfInterest"]->get<float>(
-							"PointOfInterest.Points", currentPoi.c_str(), "Y", NULL));
+					> ((*this->sc)["POI"]->get<int>("POI.Points", currentPoi.c_str(), "ID", NULL), currentPoi.c_str(), (*this->sc)["POI"]->get<
+							float>("POI.Points", currentPoi.c_str(), "X", NULL), (*this->sc)["POI"]->get<float>(
+							"POI.Points", currentPoi.c_str(), "Y", NULL));
 	this->pois.push_back(this->floor2Door6);
 
 	currentPoi = "room1406BFront";
 	this->room1406BFront =
 			make_shared < PointOfInterest
-					> ((*this->sc)["PointOfInterest"]->get<int>("PointOfInterest.Points", currentPoi.c_str(), "ID", NULL), currentPoi.c_str(), (*this->sc)["PointOfInterest"]->get<
-							float>("PointOfInterest.Points", currentPoi.c_str(), "X", NULL), (*this->sc)["PointOfInterest"]->get<float>(
-							"PointOfInterest.Points", currentPoi.c_str(), "Y", NULL));
+					> ((*this->sc)["POI"]->get<int>("POI.Points", currentPoi.c_str(), "ID", NULL), currentPoi.c_str(), (*this->sc)["POI"]->get<
+							float>("POI.Points", currentPoi.c_str(), "X", NULL), (*this->sc)["POI"]->get<float>(
+							"POI.Points", currentPoi.c_str(), "Y", NULL));
 	this->pois.push_back(this->room1406BFront);
 
 	currentPoi = "room1406BWindow";
 	this->room1406BWindow =
 			make_shared < PointOfInterest
-					> ((*this->sc)["PointOfInterest"]->get<int>("PointOfInterest.Points", currentPoi.c_str(), "ID", NULL), currentPoi.c_str(), (*this->sc)["PointOfInterest"]->get<
-							float>("PointOfInterest.Points", currentPoi.c_str(), "X", NULL), (*this->sc)["PointOfInterest"]->get<float>(
-							"PointOfInterest.Points", currentPoi.c_str(), "Y", NULL));
+					> ((*this->sc)["POI"]->get<int>("POI.Points", currentPoi.c_str(), "ID", NULL), currentPoi.c_str(), (*this->sc)["POI"]->get<
+							float>("POI.Points", currentPoi.c_str(), "X", NULL), (*this->sc)["POI"]->get<float>(
+							"POI.Points", currentPoi.c_str(), "Y", NULL));
 	this->pois.push_back(this->room1406BWindow);
 
 	currentPoi = "floor2Door7";
 	this->floor2Door7 =
 			make_shared < PointOfInterest
-					> ((*this->sc)["PointOfInterest"]->get<int>("PointOfInterest.Points", currentPoi.c_str(), "ID", NULL), currentPoi.c_str(), (*this->sc)["PointOfInterest"]->get<
-							float>("PointOfInterest.Points", currentPoi.c_str(), "X", NULL), (*this->sc)["PointOfInterest"]->get<float>(
-							"PointOfInterest.Points", currentPoi.c_str(), "Y", NULL));
+					> ((*this->sc)["POI"]->get<int>("POI.Points", currentPoi.c_str(), "ID", NULL), currentPoi.c_str(), (*this->sc)["POI"]->get<
+							float>("POI.Points", currentPoi.c_str(), "X", NULL), (*this->sc)["POI"]->get<float>(
+							"POI.Points", currentPoi.c_str(), "Y", NULL));
 	this->pois.push_back(this->floor2Door7);
 
 	currentPoi = "floor2Door8";
 	this->floor2Door8 =
 			make_shared < PointOfInterest
-					> ((*this->sc)["PointOfInterest"]->get<int>("PointOfInterest.Points", currentPoi.c_str(), "ID", NULL), currentPoi.c_str(), (*this->sc)["PointOfInterest"]->get<
-							float>("PointOfInterest.Points", currentPoi.c_str(), "X", NULL), (*this->sc)["PointOfInterest"]->get<float>(
-							"PointOfInterest.Points", currentPoi.c_str(), "Y", NULL));
+					> ((*this->sc)["POI"]->get<int>("POI.Points", currentPoi.c_str(), "ID", NULL), currentPoi.c_str(), (*this->sc)["POI"]->get<
+							float>("POI.Points", currentPoi.c_str(), "X", NULL), (*this->sc)["POI"]->get<float>(
+							"POI.Points", currentPoi.c_str(), "Y", NULL));
 	this->pois.push_back(this->floor2Door8);
 
 	currentPoi = "room1406C";
 	this->room1406C =
 			make_shared < PointOfInterest
-					> ((*this->sc)["PointOfInterest"]->get<int>("PointOfInterest.Points", currentPoi.c_str(), "ID", NULL), currentPoi.c_str(), (*this->sc)["PointOfInterest"]->get<
-							float>("PointOfInterest.Points", currentPoi.c_str(), "X", NULL), (*this->sc)["PointOfInterest"]->get<float>(
-							"PointOfInterest.Points", currentPoi.c_str(), "Y", NULL));
+					> ((*this->sc)["POI"]->get<int>("POI.Points", currentPoi.c_str(), "ID", NULL), currentPoi.c_str(), (*this->sc)["POI"]->get<
+							float>("POI.Points", currentPoi.c_str(), "X", NULL), (*this->sc)["POI"]->get<float>(
+							"POI.Points", currentPoi.c_str(), "Y", NULL));
 	this->pois.push_back(this->room1406C);
 
 	currentPoi = "floor2Door9";
 	this->floor2Door9 =
 			make_shared < PointOfInterest
-					> ((*this->sc)["PointOfInterest"]->get<int>("PointOfInterest.Points", currentPoi.c_str(), "ID", NULL), currentPoi.c_str(), (*this->sc)["PointOfInterest"]->get<
-							float>("PointOfInterest.Points", currentPoi.c_str(), "X", NULL), (*this->sc)["PointOfInterest"]->get<float>(
-							"PointOfInterest.Points", currentPoi.c_str(), "Y", NULL));
+					> ((*this->sc)["POI"]->get<int>("POI.Points", currentPoi.c_str(), "ID", NULL), currentPoi.c_str(), (*this->sc)["POI"]->get<
+							float>("POI.Points", currentPoi.c_str(), "X", NULL), (*this->sc)["POI"]->get<float>(
+							"POI.Points", currentPoi.c_str(), "Y", NULL));
 	this->pois.push_back(this->floor2Door9);
 
 	currentPoi = "floor3Door1";
 	this->floor3Door1 =
 			make_shared < PointOfInterest
-					> ((*this->sc)["PointOfInterest"]->get<int>("PointOfInterest.Points", currentPoi.c_str(), "ID", NULL), currentPoi.c_str(), (*this->sc)["PointOfInterest"]->get<
-							float>("PointOfInterest.Points", currentPoi.c_str(), "X", NULL), (*this->sc)["PointOfInterest"]->get<float>(
-							"PointOfInterest.Points", currentPoi.c_str(), "Y", NULL));
+					> ((*this->sc)["POI"]->get<int>("POI.Points", currentPoi.c_str(), "ID", NULL), currentPoi.c_str(), (*this->sc)["POI"]->get<
+							float>("POI.Points", currentPoi.c_str(), "X", NULL), (*this->sc)["POI"]->get<float>(
+							"POI.Points", currentPoi.c_str(), "Y", NULL));
 	this->pois.push_back(this->floor3Door1);
 
 	currentPoi = "floor3Door2";
 	this->floor3Door2 =
 			make_shared < PointOfInterest
-					> ((*this->sc)["PointOfInterest"]->get<int>("PointOfInterest.Points", currentPoi.c_str(), "ID", NULL), currentPoi.c_str(), (*this->sc)["PointOfInterest"]->get<
-							float>("PointOfInterest.Points", currentPoi.c_str(), "X", NULL), (*this->sc)["PointOfInterest"]->get<float>(
-							"PointOfInterest.Points", currentPoi.c_str(), "Y", NULL));
+					> ((*this->sc)["POI"]->get<int>("POI.Points", currentPoi.c_str(), "ID", NULL), currentPoi.c_str(), (*this->sc)["POI"]->get<
+							float>("POI.Points", currentPoi.c_str(), "X", NULL), (*this->sc)["POI"]->get<float>(
+							"POI.Points", currentPoi.c_str(), "Y", NULL));
 	this->pois.push_back(this->floor3Door2);
 
 	currentPoi = "floor1Door4";
 	this->floor1Door4 =
 			make_shared < PointOfInterest
-					> ((*this->sc)["PointOfInterest"]->get<int>("PointOfInterest.Points", currentPoi.c_str(), "ID", NULL), currentPoi.c_str(), (*this->sc)["PointOfInterest"]->get<
-							float>("PointOfInterest.Points", currentPoi.c_str(), "X", NULL), (*this->sc)["PointOfInterest"]->get<float>(
-							"PointOfInterest.Points", currentPoi.c_str(), "Y", NULL));
+					> ((*this->sc)["POI"]->get<int>("POI.Points", currentPoi.c_str(), "ID", NULL), currentPoi.c_str(), (*this->sc)["POI"]->get<
+							float>("POI.Points", currentPoi.c_str(), "X", NULL), (*this->sc)["POI"]->get<float>(
+							"POI.Points", currentPoi.c_str(), "Y", NULL));
 	this->pois.push_back(this->floor1Door4);
 
 	currentPoi = "kitchen";
 	this->kitchen =
 			make_shared < PointOfInterest
-					> ((*this->sc)["PointOfInterest"]->get<int>("PointOfInterest.Points", currentPoi.c_str(), "ID", NULL), currentPoi.c_str(), (*this->sc)["PointOfInterest"]->get<
-							float>("PointOfInterest.Points", currentPoi.c_str(), "X", NULL), (*this->sc)["PointOfInterest"]->get<float>(
-							"PointOfInterest.Points", currentPoi.c_str(), "Y", NULL));
+					> ((*this->sc)["POI"]->get<int>("POI.Points", currentPoi.c_str(), "ID", NULL), currentPoi.c_str(), (*this->sc)["POI"]->get<
+							float>("POI.Points", currentPoi.c_str(), "X", NULL), (*this->sc)["POI"]->get<float>(
+							"POI.Points", currentPoi.c_str(), "Y", NULL));
 	this->pois.push_back(this->kitchen);
 
 	currentPoi = "floor4";
 	this->floor4 =
 			make_shared < PointOfInterest
-					> ((*this->sc)["PointOfInterest"]->get<int>("PointOfInterest.Points", currentPoi.c_str(), "ID", NULL), currentPoi.c_str(), (*this->sc)["PointOfInterest"]->get<
-							float>("PointOfInterest.Points", currentPoi.c_str(), "X", NULL), (*this->sc)["PointOfInterest"]->get<float>(
-							"PointOfInterest.Points", currentPoi.c_str(), "Y", NULL));
+					> ((*this->sc)["POI"]->get<int>("POI.Points", currentPoi.c_str(), "ID", NULL), currentPoi.c_str(), (*this->sc)["POI"]->get<
+							float>("POI.Points", currentPoi.c_str(), "X", NULL), (*this->sc)["POI"]->get<float>(
+							"POI.Points", currentPoi.c_str(), "Y", NULL));
 	this->pois.push_back(this->floor4);
 
 	currentPoi = "floor4Door1";
 	this->floor4Door1 =
 			make_shared < PointOfInterest
-					> ((*this->sc)["PointOfInterest"]->get<int>("PointOfInterest.Points", currentPoi.c_str(), "ID", NULL), currentPoi.c_str(), (*this->sc)["PointOfInterest"]->get<
-							float>("PointOfInterest.Points", currentPoi.c_str(), "X", NULL), (*this->sc)["PointOfInterest"]->get<float>(
-							"PointOfInterest.Points", currentPoi.c_str(), "Y", NULL));
+					> ((*this->sc)["POI"]->get<int>("POI.Points", currentPoi.c_str(), "ID", NULL), currentPoi.c_str(), (*this->sc)["POI"]->get<
+							float>("POI.Points", currentPoi.c_str(), "X", NULL), (*this->sc)["POI"]->get<float>(
+							"POI.Points", currentPoi.c_str(), "Y", NULL));
 	this->pois.push_back(this->floor4Door1);
 
 	currentPoi = "floor3Door3";
 	this->floor3Door3 =
 			make_shared < PointOfInterest
-					> ((*this->sc)["PointOfInterest"]->get<int>("PointOfInterest.Points", currentPoi.c_str(), "ID", NULL), currentPoi.c_str(), (*this->sc)["PointOfInterest"]->get<
-							float>("PointOfInterest.Points", currentPoi.c_str(), "X", NULL), (*this->sc)["PointOfInterest"]->get<float>(
-							"PointOfInterest.Points", currentPoi.c_str(), "Y", NULL));
+					> ((*this->sc)["POI"]->get<int>("POI.Points", currentPoi.c_str(), "ID", NULL), currentPoi.c_str(), (*this->sc)["POI"]->get<
+							float>("POI.Points", currentPoi.c_str(), "X", NULL), (*this->sc)["POI"]->get<float>(
+							"POI.Points", currentPoi.c_str(), "Y", NULL));
 	this->pois.push_back(this->floor3Door3);
 
 	currentPoi = "floor4Door2";
 	this->floor4Door2 =
 			make_shared < PointOfInterest
-					> ((*this->sc)["PointOfInterest"]->get<int>("PointOfInterest.Points", currentPoi.c_str(), "ID", NULL), currentPoi.c_str(), (*this->sc)["PointOfInterest"]->get<
-							float>("PointOfInterest.Points", currentPoi.c_str(), "X", NULL), (*this->sc)["PointOfInterest"]->get<float>(
-							"PointOfInterest.Points", currentPoi.c_str(), "Y", NULL));
+					> ((*this->sc)["POI"]->get<int>("POI.Points", currentPoi.c_str(), "ID", NULL), currentPoi.c_str(), (*this->sc)["POI"]->get<
+							float>("POI.Points", currentPoi.c_str(), "X", NULL), (*this->sc)["POI"]->get<float>(
+							"POI.Points", currentPoi.c_str(), "Y", NULL));
 	this->pois.push_back(this->floor4Door2);
 
 	currentPoi = "meetingRoom";
 	this->meetingRoom =
 			make_shared < PointOfInterest
-					> ((*this->sc)["PointOfInterest"]->get<int>("PointOfInterest.Points", currentPoi.c_str(), "ID", NULL), currentPoi.c_str(), (*this->sc)["PointOfInterest"]->get<
-							float>("PointOfInterest.Points", currentPoi.c_str(), "X", NULL), (*this->sc)["PointOfInterest"]->get<float>(
-							"PointOfInterest.Points", currentPoi.c_str(), "Y", NULL));
+					> ((*this->sc)["POI"]->get<int>("POI.Points", currentPoi.c_str(), "ID", NULL), currentPoi.c_str(), (*this->sc)["POI"]->get<
+							float>("POI.Points", currentPoi.c_str(), "X", NULL), (*this->sc)["POI"]->get<float>(
+							"POI.Points", currentPoi.c_str(), "Y", NULL));
 	this->pois.push_back(this->meetingRoom);
 
 	currentPoi = "copyRoom";
 	this->copyRoom =
 			make_shared < PointOfInterest
-					> ((*this->sc)["PointOfInterest"]->get<int>("PointOfInterest.Points", currentPoi.c_str(), "ID", NULL), currentPoi.c_str(), (*this->sc)["PointOfInterest"]->get<
-							float>("PointOfInterest.Points", currentPoi.c_str(), "X", NULL), (*this->sc)["PointOfInterest"]->get<float>(
-							"PointOfInterest.Points", currentPoi.c_str(), "Y", NULL));
+					> ((*this->sc)["POI"]->get<int>("POI.Points", currentPoi.c_str(), "ID", NULL), currentPoi.c_str(), (*this->sc)["POI"]->get<
+							float>("POI.Points", currentPoi.c_str(), "X", NULL), (*this->sc)["POI"]->get<float>(
+							"POI.Points", currentPoi.c_str(), "Y", NULL));
 	this->pois.push_back(this->copyRoom);
 
 	currentPoi = "copyRoomDoor1";
 	this->copyRoomDoor1 =
 			make_shared < PointOfInterest
-					> ((*this->sc)["PointOfInterest"]->get<int>("PointOfInterest.Points", currentPoi.c_str(), "ID", NULL), currentPoi.c_str(), (*this->sc)["PointOfInterest"]->get<
-							float>("PointOfInterest.Points", currentPoi.c_str(), "X", NULL), (*this->sc)["PointOfInterest"]->get<float>(
-							"PointOfInterest.Points", currentPoi.c_str(), "Y", NULL));
+					> ((*this->sc)["POI"]->get<int>("POI.Points", currentPoi.c_str(), "ID", NULL), currentPoi.c_str(), (*this->sc)["POI"]->get<
+							float>("POI.Points", currentPoi.c_str(), "X", NULL), (*this->sc)["POI"]->get<float>(
+							"POI.Points", currentPoi.c_str(), "Y", NULL));
 	this->pois.push_back(this->copyRoomDoor1);
 
 	currentPoi = "copyRoomDoor2";
 	this->copyRoomDoor2 =
 			make_shared < PointOfInterest
-					> ((*this->sc)["PointOfInterest"]->get<int>("PointOfInterest.Points", currentPoi.c_str(), "ID", NULL), currentPoi.c_str(), (*this->sc)["PointOfInterest"]->get<
-							float>("PointOfInterest.Points", currentPoi.c_str(), "X", NULL), (*this->sc)["PointOfInterest"]->get<float>(
-							"PointOfInterest.Points", currentPoi.c_str(), "Y", NULL));
+					> ((*this->sc)["POI"]->get<int>("POI.Points", currentPoi.c_str(), "ID", NULL), currentPoi.c_str(), (*this->sc)["POI"]->get<
+							float>("POI.Points", currentPoi.c_str(), "X", NULL), (*this->sc)["POI"]->get<float>(
+							"POI.Points", currentPoi.c_str(), "Y", NULL));
 	this->pois.push_back(this->copyRoomDoor2);
 
 	currentPoi = "secreteriatDoor1";
 	this->secreteriatDoor1 =
 			make_shared < PointOfInterest
-					> ((*this->sc)["PointOfInterest"]->get<int>("PointOfInterest.Points", currentPoi.c_str(), "ID", NULL), currentPoi.c_str(), (*this->sc)["PointOfInterest"]->get<
-							float>("PointOfInterest.Points", currentPoi.c_str(), "X", NULL), (*this->sc)["PointOfInterest"]->get<float>(
-							"PointOfInterest.Points", currentPoi.c_str(), "Y", NULL));
+					> ((*this->sc)["POI"]->get<int>("POI.Points", currentPoi.c_str(), "ID", NULL), currentPoi.c_str(), (*this->sc)["POI"]->get<
+							float>("POI.Points", currentPoi.c_str(), "X", NULL), (*this->sc)["POI"]->get<float>(
+							"POI.Points", currentPoi.c_str(), "Y", NULL));
 	this->pois.push_back(this->secreteriatDoor1);
 
 	currentPoi = "secreteriatDoor2";
 	this->secreteriatDoor2 =
 			make_shared < PointOfInterest
-					> ((*this->sc)["PointOfInterest"]->get<int>("PointOfInterest.Points", currentPoi.c_str(), "ID", NULL), currentPoi.c_str(), (*this->sc)["PointOfInterest"]->get<
-							float>("PointOfInterest.Points", currentPoi.c_str(), "X", NULL), (*this->sc)["PointOfInterest"]->get<float>(
-							"PointOfInterest.Points", currentPoi.c_str(), "Y", NULL));
+					> ((*this->sc)["POI"]->get<int>("POI.Points", currentPoi.c_str(), "ID", NULL), currentPoi.c_str(), (*this->sc)["POI"]->get<
+							float>("POI.Points", currentPoi.c_str(), "X", NULL), (*this->sc)["POI"]->get<float>(
+							"POI.Points", currentPoi.c_str(), "Y", NULL));
 	this->pois.push_back(this->secreteriatDoor2);
 
 	currentPoi = "floor3Door4";
 	this->floor3Door4 =
 			make_shared < PointOfInterest
-					> ((*this->sc)["PointOfInterest"]->get<int>("PointOfInterest.Points", currentPoi.c_str(), "ID", NULL), currentPoi.c_str(), (*this->sc)["PointOfInterest"]->get<
-							float>("PointOfInterest.Points", currentPoi.c_str(), "X", NULL), (*this->sc)["PointOfInterest"]->get<float>(
-							"PointOfInterest.Points", currentPoi.c_str(), "Y", NULL));
+					> ((*this->sc)["POI"]->get<int>("POI.Points", currentPoi.c_str(), "ID", NULL), currentPoi.c_str(), (*this->sc)["POI"]->get<
+							float>("POI.Points", currentPoi.c_str(), "X", NULL), (*this->sc)["POI"]->get<float>(
+							"POI.Points", currentPoi.c_str(), "Y", NULL));
 	this->pois.push_back(this->floor3Door4);
 
 	currentPoi = "secreteriatDoor3";
 	this->secreteriatDoor3 =
 			make_shared < PointOfInterest
-					> ((*this->sc)["PointOfInterest"]->get<int>("PointOfInterest.Points", currentPoi.c_str(), "ID", NULL), currentPoi.c_str(), (*this->sc)["PointOfInterest"]->get<
-							float>("PointOfInterest.Points", currentPoi.c_str(), "X", NULL), (*this->sc)["PointOfInterest"]->get<float>(
-							"PointOfInterest.Points", currentPoi.c_str(), "Y", NULL));
+					> ((*this->sc)["POI"]->get<int>("POI.Points", currentPoi.c_str(), "ID", NULL), currentPoi.c_str(), (*this->sc)["POI"]->get<
+							float>("POI.Points", currentPoi.c_str(), "X", NULL), (*this->sc)["POI"]->get<float>(
+							"POI.Points", currentPoi.c_str(), "Y", NULL));
 	this->pois.push_back(this->secreteriatDoor3);
 
 	currentPoi = "room1403Door";
 	this->room1403Door =
 			make_shared < PointOfInterest
-					> ((*this->sc)["PointOfInterest"]->get<int>("PointOfInterest.Points", currentPoi.c_str(), "ID", NULL), currentPoi.c_str(), (*this->sc)["PointOfInterest"]->get<
-							float>("PointOfInterest.Points", currentPoi.c_str(), "X", NULL), (*this->sc)["PointOfInterest"]->get<float>(
-							"PointOfInterest.Points", currentPoi.c_str(), "Y", NULL));
+					> ((*this->sc)["POI"]->get<int>("POI.Points", currentPoi.c_str(), "ID", NULL), currentPoi.c_str(), (*this->sc)["POI"]->get<
+							float>("POI.Points", currentPoi.c_str(), "X", NULL), (*this->sc)["POI"]->get<float>(
+							"POI.Points", currentPoi.c_str(), "Y", NULL));
 	this->pois.push_back(this->room1403Door);
 
 	currentPoi = "room1403";
 	this->room1403 =
 			make_shared < PointOfInterest
-					> ((*this->sc)["PointOfInterest"]->get<int>("PointOfInterest.Points", currentPoi.c_str(), "ID", NULL), currentPoi.c_str(), (*this->sc)["PointOfInterest"]->get<
-							float>("PointOfInterest.Points", currentPoi.c_str(), "X", NULL), (*this->sc)["PointOfInterest"]->get<float>(
-							"PointOfInterest.Points", currentPoi.c_str(), "Y", NULL));
+					> ((*this->sc)["POI"]->get<int>("POI.Points", currentPoi.c_str(), "ID", NULL), currentPoi.c_str(), (*this->sc)["POI"]->get<
+							float>("POI.Points", currentPoi.c_str(), "X", NULL), (*this->sc)["POI"]->get<float>(
+							"POI.Points", currentPoi.c_str(), "Y", NULL));
 	this->pois.push_back(this->room1403);
 
 	currentPoi = "secreteriat";
 	this->secreteriat =
 			make_shared < PointOfInterest
-					> ((*this->sc)["PointOfInterest"]->get<int>("PointOfInterest.Points", currentPoi.c_str(), "ID", NULL), currentPoi.c_str(), (*this->sc)["PointOfInterest"]->get<
-							float>("PointOfInterest.Points", currentPoi.c_str(), "X", NULL), (*this->sc)["PointOfInterest"]->get<float>(
-							"PointOfInterest.Points", currentPoi.c_str(), "Y", NULL));
+					> ((*this->sc)["POI"]->get<int>("POI.Points", currentPoi.c_str(), "ID", NULL), currentPoi.c_str(), (*this->sc)["POI"]->get<
+							float>("POI.Points", currentPoi.c_str(), "X", NULL), (*this->sc)["POI"]->get<float>(
+							"POI.Points", currentPoi.c_str(), "Y", NULL));
 	this->pois.push_back(this->secreteriat);
 }
 }
