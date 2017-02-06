@@ -7,6 +7,7 @@
 
 #ifndef SRC_TASKS_SERVETASK_H_
 #define SRC_TASKS_SERVETASK_H_
+#include <TaskManager.h>
 
 namespace ttb
 {

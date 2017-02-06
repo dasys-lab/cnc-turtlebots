@@ -9,7 +9,7 @@
 #define CNC_TURTLEBOTS_TTB_WORLDMODEL_INCLUDE_TTB_PointOfInterest_TTBPointOfInterestNTOFINTERESTS_H_
 
 #include "SystemConfig.h"
-#include "PointOfInterest.h"
+#include "tasks/PointOfInterest.h"
 
 namespace ttb {
 class TTBWorldModel;
@@ -18,11 +18,11 @@ class TTBWorldModel;
 namespace ttb {
 namespace wm {
 
-class TTBPointOfInterestntOfInterests
+class TTBPointOfInterests
 {
 public:
-	TTBPointOfInterestntOfInterests(TTBWorldModel* wm);
-	virtual ~TTBPointOfInterestntOfInterests();
+	TTBPointOfInterests(TTBWorldModel* wm);
+	virtual ~TTBPointOfInterests();
 	shared_ptr<PointOfInterest> getPointOfInterestByName(string name);
 	shared_ptr<PointOfInterest> getPointOfInterestByID(int id);
 	shared_ptr<PointOfInterest> getPointOfInterestByUnaryASPPredicate(string aspPredicate);
@@ -86,8 +86,8 @@ public:
 private:
 	TTBWorldModel* wm;
 	::supplementary::SystemConfig* sc;
-	void readPointOfInterests();
-	vector<shared_ptr<PointOfInterest>> PointOfInterests;
+	void readPOIs();
+	vector<shared_ptr<PointOfInterest>> pois;
 	shared_ptr<PointOfInterest> floor1;
 	shared_ptr<PointOfInterest> hiwiRoom;
 	shared_ptr<PointOfInterest> studentLab1;

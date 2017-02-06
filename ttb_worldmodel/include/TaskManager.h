@@ -15,6 +15,7 @@
 
 namespace ttb { namespace wm
 {
+	class ServeTask;
 
 	enum TaskType {
 		SERVE, POI, SEARCH, PICKUP, PUTDOWN
@@ -39,7 +40,7 @@ namespace ttb { namespace wm
 
 	private:
 		shared_ptr<supplementary::SystemConfig> sc;
-		map<int, POI> poiMap;
+		map<int, PointOfInterest> poiMap;
 
 		vector<shared_ptr<InformationElement<ServeTask>>> pendingTasks;
 	};
