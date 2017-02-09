@@ -12,7 +12,7 @@ namespace wumpus_simulator
 
 	Movable::Movable()
 	{
-		this->id = -1;
+		this->id = 0;
 		type = "unknown";
 	}
 

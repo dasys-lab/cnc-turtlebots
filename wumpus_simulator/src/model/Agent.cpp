@@ -45,7 +45,7 @@ namespace wumpus_simulator
 
 	void wumpus_simulator::Agent::setHasGold(bool value)
 	{
-		this->hasGold = hasGold;
+		this->hasGold = value;
 	}
 
 	bool wumpus_simulator::Agent::getHasGold()

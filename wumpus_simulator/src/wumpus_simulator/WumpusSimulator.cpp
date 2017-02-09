@@ -1,8 +1,8 @@
+#include <model/Model.h>
 #include "../../include/wumpus_simulator/WumpusSimulator.h"
 
 #include <pluginlib/class_list_macros.h>
 #include <ros/master.h>
-#include "model/Simulator.h"
 #include <qgridlayout.h>
 #include <QUrl>
 #include <QtNetwork/qnetworkproxy.h>
@@ -22,7 +22,8 @@ namespace wumpus_simulator
 			rqt_gui_cpp::Plugin(), widget_(0)
 	{
 		setObjectName("WumpusSimulator");
-		this->sim = nullptr;
+		this->model = nullptr;
+		turnIndex = 0;
 
 		spawnAgentSub = n.subscribe("/wumpus_simulator/SpawnAgentRequest", 10, &WumpusSimulator::onSpawnAgent,
 									(WumpusSimulator*)this);
@@ -83,9 +84,9 @@ namespace wumpus_simulator
 	{
 	}
 
-	Simulator* WumpusSimulator::getSim()
+	Model* WumpusSimulator::getModel()
 	{
-		return this->sim;
+		return this->model;
 	}
 
 	void WumpusSimulator::addSimToJS()
@@ -99,11 +100,10 @@ namespace wumpus_simulator
 		cout << "WumpusSimulator: Creating world with: arrow: " << (arrow ? "true" : "false") << " wumpus count: "
 				<< wumpus << " trap count: " << traps << " field size: " << size << endl;
 		//Init the playground
-		this->sim = Simulator::get();
-		this->sim->init(arrow, wumpus, traps, size);
+		this->model = Model::get();
+		this->model->init(arrow, wumpus, traps, size);
 		updatePlayground();
 		ready = true;
-
 	}
 
 	void WumpusSimulator::saveWorld()
@@ -114,37 +114,40 @@ namespace wumpus_simulator
 														tr("Wumpus World File (*.wwf)"), 0,
 														QFileDialog::DontUseNativeDialog);
 
-		if (!filename.endsWith(".wwf"))
-		{
-			filename += ".wwf";
-		}
-
-		//Check if the user selected a correct file
 		if (!filename.isNull())
 		{
-
-			//Create file
-			QFile file(filename);
-
-			if (!file.open(QIODevice::WriteOnly))
+			if (!filename.endsWith(".wwf"))
 			{
-				qWarning("Couldn't open save file.");
-				return;
+				filename += ".wwf";
 			}
 
-			//Serialize the world as JSON
-			auto worldJson = this->sim->toJSON();
+			//Check if the user selected a correct file
+			if (!filename.isNull())
+			{
 
-			//Write to file
-			QJsonDocument saveDoc(worldJson);
-			file.write(saveDoc.toJson());
+				//Create file
+				QFile file(filename);
 
+				if (!file.open(QIODevice::WriteOnly))
+				{
+					qWarning("Couldn't open save file.");
+					return;
+				}
+
+				//Serialize the world as JSON
+				auto worldJson = this->model->toJSON();
+
+				//Write to file
+				QJsonDocument saveDoc(worldJson);
+				file.write(saveDoc.toJson());
+
+			}
 		}
 	}
 
 	void WumpusSimulator::loadWorld()
 	{
-		this->sim = Simulator::get();
+		this->model = Model::get();
 		//Open load file dialog to select a pregenerated wumpus world
 		QString filename = QFileDialog::getOpenFileName(this->widget_, tr("Load World"), QDir::currentPath(),
 														tr("Wumpus World File (*.wwf)"), 0,
@@ -163,11 +166,11 @@ namespace wumpus_simulator
 
 			QByteArray saveData = file.readAll();
 			QJsonDocument loadDoc(QJsonDocument::fromJson(saveData));
-			this->sim->fromJSON(loadDoc.object());
+			this->model->fromJSON(loadDoc.object());
 			this->mainwindow.webView->page()->mainFrame()->evaluateJavaScript(
-					QString("setInitialValues(%1, %2, %3, %4);").arg(this->sim->getWumpusCount()).arg(
-							this->sim->getTrapCount()).arg(this->sim->getPlayGroundSize()).arg(
-							this->sim->isAgentHasArrow()));
+					QString("setInitialValues(%1, %2, %3, %4);").arg(this->model->getWumpusCount()).arg(
+							this->model->getTrapCount()).arg(this->model->getPlayGroundSize()).arg(
+							this->model->isAgentHasArrow()));
 			this->mainwindow.webView->page()->mainFrame()->evaluateJavaScript(QString("drawPlayground();"));
 			updatePlayground();
 			ready = true;
@@ -177,11 +180,11 @@ namespace wumpus_simulator
 	void WumpusSimulator::updatePlayground()
 	{
 		QString clear = QString("clearTiles();");
-		auto playGround = this->sim->getPlayGround();
+		auto playGround = this->model->getPlayGround();
 		this->mainwindow.webView->page()->mainFrame()->evaluateJavaScript(clear);
-		for (int i = 0; i < this->sim->getPlayGroundSize(); i++)
+		for (int i = 0; i < this->model->getPlayGroundSize(); i++)
 		{
-			for (int j = 0; j < this->sim->getPlayGroundSize(); j++)
+			for (int j = 0; j < this->model->getPlayGroundSize(); j++)
 			{
 				QString f = QString("addDirtImage(%1,%2);").arg(i).arg(j);
 				this->mainwindow.webView->page()->mainFrame()->evaluateJavaScript(f);
@@ -252,7 +255,18 @@ namespace wumpus_simulator
 		{
 			return;
 		}
-		placeAgent(msg->agentId, this->sim->isAgentHasArrow());
+		if (msg->agentId > 0)
+		{
+			placeAgent(msg->agentId, this->model->isAgentHasArrow());
+		}
+		else if (msg->agentId < 0)
+		{
+			possessWumpus(msg->agentId);
+		}
+		else
+		{
+			cout << "WumpusSimulator: ID = 0 not supported!" << endl;
+		}
 	}
 
 	void WumpusSimulator::callUpdatePlayground()
@@ -266,16 +280,66 @@ namespace wumpus_simulator
 		{
 			return;
 		}
+		if(msg->agentId != this->turns.at(this->turnIndex))
+		{
+			cout << "WumpusSimulator: agent is not allowed to move! It's agent's " << this->turns.at(this->turnIndex) << " turn!" << endl;
+			return;
+		}
+		bool found = false;
+		for (auto mov : this->model->movables)
+		{
+			if (msg->agentId == mov->getId())
+			{
+				found = true;
+				break;
+			}
+		}
+		if (found)
+		{
+			if (msg->agentId > 0)
+			{
+				handleAction(msg);
+			}
+			else
+			{
+				handleWumpusAction(msg);
+			}
+		}
 
-		handleAction(msg);
+	}
 
+	void WumpusSimulator::possessWumpus(int wumpusId)
+	{
+		for (int i = 0; i < model->movables.size(); i++)
+		{
+			if (this->model->movables.at(i)->getId() == wumpusId)
+			{
+				cout << "WumpusSimulator: Wumpus with this id already possessed!" << endl;
+				return;
+			}
+		}
+		bool available = false;
+		for (auto mov : this->model->movables)
+		{
+			if (mov->getId() == 0)
+			{
+				mov->setId(wumpusId);
+				turns.push_back(wumpusId);
+				available = true;
+				break;
+			}
+		}
+		if (!available)
+		{
+			cout << "WumpusSimulator: no Wumpus available!" << endl;
+		}
 	}
 
 	void WumpusSimulator::placeAgent(int agentId, bool hasArrow)
 	{
-		for (int i = 0; i < sim->movables.size(); i++)
+		for (int i = 0; i < model->movables.size(); i++)
 		{
-			if (this->sim->movables.at(i)->getId() == agentId)
+			if (this->model->movables.at(i)->getId() == agentId)
 			{
 				cout << "WumpusSimulator: Agent with this id already placed!" << endl;
 				return;
@@ -285,33 +349,48 @@ namespace wumpus_simulator
 		srand(time(NULL));
 		bool placed = false;
 		InitialPoseResponse msg;
+		int attempts = 0;
 		while (!placed)
 		{
-			int randx = rand() % (this->sim->getPlayGroundSize() - 1);
-			int randy = rand() % (this->sim->getPlayGroundSize() - 1);
+			if(attempts > (model->getPlayGroundSize() * model->getPlayGroundSize())) {
+				cout << "Abort! Cannot find empty tile to place agent on." << endl;
+				break;
+			}
+			int randx = rand() % (this->model->getPlayGroundSize() - 1);
+			int randy = rand() % (this->model->getPlayGroundSize() - 1);
 
-			auto tile = this->sim->getPlayGround().at(randx).at(randy);
+			auto tile = this->model->getPlayGround().at(randx).at(randy);
 			if (!tile->getTrap() && !tile->hasMovable() && !tile->getGold() && !tile->getBreeze() && !tile->getStench()
 					&& !tile->getStartpoint())
 			{
-				this->sim->getPlayGround().at(randx).at(randy)->setStartAgentID(agentId);
-				auto agent = make_shared<Agent>(this->sim->getPlayGround().at(randx).at(randy));
+				auto agent = make_shared<Agent>(this->model->getPlayGround().at(randx).at(randy));
 				agent->setId(agentId);
 				agent->setArrow(hasArrow);
 				agent->setHeading(WumpusEnums::heading::up);
-				this->sim->getPlayGround().at(randx).at(randy)->setMovable(agent);
-				this->sim->movables.push_back(agent);
+				this->model->getPlayGround().at(randx).at(randy)->setMovable(agent);
+				this->model->movables.push_back(agent);
 				tile->setStartAgentID(agentId);
 				tile->setStartpoint(true);
 				placed = true;
 				msg.x = randx;
 				msg.y = randy;
 				msg.agentId = agentId;
-				msg.fieldSize = this->sim->getPlayGroundSize();
+				msg.fieldSize = this->model->getPlayGroundSize();
 				msg.hasArrow = hasArrow;
 				msg.heading = agent->getHeading();
 				this->spawnAgentPub.publish(msg);
+				turns.push_back(agent->getId());
+				if(turns.size() == 1)
+				{
+					ActionResponse msg2;
+					msg2.x = agent->getTile()->getX();
+					msg2.y = agent->getTile()->getY();
+					msg2.agentId = agent->getId();
+					msg2.heading = agent->getHeading();
+					msg2.responses.push_back(WumpusEnums::responses::yourTurn);
+				}
 			}
+			attempts++;
 		}
 		emit modelChanged();
 	}
@@ -319,9 +398,10 @@ namespace wumpus_simulator
 	void WumpusSimulator::handleTurnRight(ActionRequestPtr msg)
 	{
 		ActionResponse response;
-		auto agent = this->sim->getAgentByID(msg->agentId);
+		auto agent = this->model->getAgentByID(msg->agentId);
 		auto tmp = (((agent->getHeading() - 1) + 4) % 4);
 		agent->setHeading((WumpusEnums::heading)(tmp));
+		response.agentId = agent->getId();
 		response.x = agent->getTile()->getX();
 		response.y = agent->getTile()->getY();
 		response.heading = tmp;
@@ -332,9 +412,10 @@ namespace wumpus_simulator
 	void WumpusSimulator::handleTurnLeft(ActionRequestPtr msg)
 	{
 		ActionResponse response;
-		auto agent = this->sim->getAgentByID(msg->agentId);
+		auto agent = this->model->getAgentByID(msg->agentId);
 		auto tmp = ((agent->getHeading() + 1) % 4);
 		agent->setHeading((WumpusEnums::heading)(tmp));
+		response.agentId = agent->getId();
 		response.x = agent->getTile()->getX();
 		response.y = agent->getTile()->getY();
 		response.heading = tmp;
@@ -345,7 +426,8 @@ namespace wumpus_simulator
 	void WumpusSimulator::handleShoot(ActionRequestPtr msg)
 	{
 		ActionResponse response;
-		auto agent = this->sim->getAgentByID(msg->agentId);
+		auto agent = this->model->getAgentByID(msg->agentId);
+		response.agentId = agent->getId();
 		response.x = agent->getTile()->getX();
 		response.y = agent->getTile()->getY();
 		response.heading = agent->getHeading();
@@ -362,12 +444,12 @@ namespace wumpus_simulator
 				{
 					for (int i = agent->getTile()->getY() - 1; i >= 0; i--)
 					{
-						if (this->getSim()->getPlayGround().at(agent->getTile()->getX()).at(i)->hasWumpus())
+						if (this->getModel()->getPlayGround().at(agent->getTile()->getX()).at(i)->hasWumpus())
 						{
 							wumpusDead = true;
-							this->getSim()->removeWumpus(
+							this->getModel()->removeWumpus(
 									dynamic_pointer_cast<Wumpus>(
-											this->getSim()->getPlayGround().at(agent->getTile()->getX()).at(i)->getMovable()));
+											this->getModel()->getPlayGround().at(agent->getTile()->getX()).at(i)->getMovable()));
 						}
 					}
 					if (wumpusDead)
@@ -382,20 +464,20 @@ namespace wumpus_simulator
 			}
 			else if (agent->getHeading() == WumpusEnums::heading::right)
 			{
-				if (agent->getTile()->getY() == 0)
+				if (agent->getTile()->getY() == this->model->getPlayGroundSize() - 1)
 				{
 					response.responses.push_back(WumpusEnums::responses::silence);
 				}
 				else
 				{
-					for (int i = agent->getTile()->getY() + 1; i <= this->sim->getPlayGroundSize() - 1; i++)
+					for (int i = agent->getTile()->getY() + 1; i <= this->model->getPlayGroundSize() - 1; i++)
 					{
-						if (this->getSim()->getPlayGround().at(agent->getTile()->getX()).at(i)->hasWumpus())
+						if (this->getModel()->getPlayGround().at(agent->getTile()->getX()).at(i)->hasWumpus())
 						{
 							wumpusDead = true;
-							this->getSim()->removeWumpus(
+							this->getModel()->removeWumpus(
 									dynamic_pointer_cast<Wumpus>(
-											this->getSim()->getPlayGround().at(agent->getTile()->getX()).at(i)->getMovable()));
+											this->getModel()->getPlayGround().at(agent->getTile()->getX()).at(i)->getMovable()));
 						}
 					}
 					if (wumpusDead)
@@ -418,12 +500,12 @@ namespace wumpus_simulator
 				{
 					for (int i = agent->getTile()->getX() - 1; i >= 0; i--)
 					{
-						if (this->getSim()->getPlayGround().at(i).at(agent->getTile()->getY())->hasWumpus())
+						if (this->getModel()->getPlayGround().at(i).at(agent->getTile()->getY())->hasWumpus())
 						{
 							wumpusDead = true;
-							this->getSim()->removeWumpus(
+							this->getModel()->removeWumpus(
 									dynamic_pointer_cast<Wumpus>(
-											this->getSim()->getPlayGround().at(i).at(agent->getTile()->getY())->getMovable()));
+											this->getModel()->getPlayGround().at(i).at(agent->getTile()->getY())->getMovable()));
 						}
 					}
 					if (wumpusDead)
@@ -438,20 +520,20 @@ namespace wumpus_simulator
 			}
 			else
 			{
-				if (agent->getTile()->getX() == 0)
+				if (agent->getTile()->getX() == this->model->getPlayGroundSize() - 1)
 				{
 					response.responses.push_back(WumpusEnums::responses::silence);
 				}
 				else
 				{
-					for (int i = agent->getTile()->getX() + 1; i <= this->sim->getPlayGroundSize() - 1; i++)
+					for (int i = agent->getTile()->getX() + 1; i <= this->model->getPlayGroundSize() - 1; i++)
 					{
-						if (this->getSim()->getPlayGround().at(i).at(agent->getTile()->getY())->hasWumpus())
+						if (this->getModel()->getPlayGround().at(i).at(agent->getTile()->getY())->hasWumpus())
 						{
 							wumpusDead = true;
-							this->getSim()->removeWumpus(
+							this->getModel()->removeWumpus(
 									dynamic_pointer_cast<Wumpus>(
-											this->getSim()->getPlayGround().at(i).at(agent->getTile()->getY())->getMovable()));
+											this->getModel()->getPlayGround().at(i).at(agent->getTile()->getY())->getMovable()));
 						}
 					}
 					if (wumpusDead)
@@ -502,7 +584,8 @@ namespace wumpus_simulator
 	void WumpusSimulator::handlePickUpGold(ActionRequestPtr msg)
 	{
 		ActionResponse response;
-		auto agent = this->sim->getAgentByID(msg->agentId);
+		auto agent = this->model->getAgentByID(msg->agentId);
+		response.agentId = agent->getId();
 		response.x = agent->getTile()->getX();
 		response.y = agent->getTile()->getY();
 		response.heading = agent->getHeading();
@@ -530,13 +613,17 @@ namespace wumpus_simulator
 	void WumpusSimulator::handleExit(ActionRequestPtr msg)
 	{
 		ActionResponse response;
-		auto agent = this->sim->getAgentByID(msg->agentId);
+		auto agent = this->model->getAgentByID(msg->agentId);
+		response.agentId = agent->getId();
 		response.x = agent->getTile()->getX();
 		response.y = agent->getTile()->getY();
 		response.heading = agent->getHeading();
+		cout << "handleExit: " << agent->getTile()->getStartAgentID() << " : " << agent->getId() << " : "
+				<< agent->getHasGold() << endl;
 		if (agent->getHasGold() && agent->getTile()->getStartAgentID() == agent->getId())
 		{
 			response.responses.push_back(WumpusEnums::responses::exited);
+			this->model->exit(agent);
 		}
 		else
 		{
@@ -549,13 +636,14 @@ namespace wumpus_simulator
 	void WumpusSimulator::handleMove(ActionRequestPtr msg)
 	{
 		ActionResponse response;
-		auto agent = this->sim->getAgentByID(msg->agentId);
+		auto agent = this->model->getAgentByID(msg->agentId);
+		response.agentId = agent->getId();
 		int x = agent->getTile()->getX();
 		int y = agent->getTile()->getY();
 		if ((x == 0 && agent->getHeading() == WumpusEnums::heading::up)
-				|| (x == this->sim->getPlayGroundSize() - 1 && agent->getHeading() == WumpusEnums::heading::down)
+				|| (x == this->model->getPlayGroundSize() - 1 && agent->getHeading() == WumpusEnums::heading::down)
 				|| (y == 0 && agent->getHeading() == WumpusEnums::heading::left)
-				|| (y == this->sim->getPlayGroundSize() - 1 && agent->getHeading() == WumpusEnums::heading::right))
+				|| (y == this->model->getPlayGroundSize() - 1 && agent->getHeading() == WumpusEnums::heading::right))
 		{
 			response.x = x;
 			response.y = y;
@@ -585,12 +673,13 @@ namespace wumpus_simulator
 			response.y = y;
 			response.heading = agent->getHeading();
 
-			if (this->sim->getTile(x, y)->getTrap() || this->sim->getTile(x, y)->hasWumpus())
+			if (this->model->getTile(x, y)->getTrap() || this->model->getTile(x, y)->hasWumpus())
 			{
-				this->sim->removeAgent(agent);
+				cout << 1 << endl;
 				response.responses.push_back(WumpusEnums::responses::dead);
+				this->model->exit(agent);
 			}
-			else if(this->sim->getTile(x, y)->hasMovable() && !this->sim->getTile(x, y)->hasWumpus())
+			else if (this->model->getTile(x, y)->hasMovable() && !this->model->getTile(x, y)->hasWumpus())
 			{
 				response.x = agent->getTile()->getX();
 				response.y = agent->getTile()->getY();
@@ -598,12 +687,12 @@ namespace wumpus_simulator
 			}
 			else
 			{
-				this->sim->removeAgent(agent);
-				agent->setTile(this->sim->getTile(x, y));
+				this->model->removeAgent(agent);
+				agent->setTile(this->model->getTile(x, y));
 				agent->getTile()->setMovable(agent);
 			}
 		}
-		auto tmp = this->sim->getTile(x, y);
+		auto tmp = this->model->getTile(x, y);
 		if (tmp->getGold())
 		{
 			response.responses.push_back(WumpusEnums::responses::shiny);
@@ -621,6 +710,81 @@ namespace wumpus_simulator
 		emit modelChanged();
 	}
 
+	void WumpusSimulator::handleWumpusAction(ActionRequestPtr msg)
+	{
+		if (!(msg->action == WumpusEnums::heading::up || msg->action == WumpusEnums::heading::down
+				|| msg->action == WumpusEnums::heading::left || msg->action == WumpusEnums::heading::right))
+		{
+
+			cout << "WumpusSimulator: unknown Action received" << endl;
+			return;
+		}
+
+		ActionResponse response;
+		auto wumpus = this->model->getWumpusByID(msg->agentId);
+		response.agentId = wumpus->getId();
+		int x = wumpus->getTile()->getX();
+		int y = wumpus->getTile()->getY();
+		if ((x == 0 && msg->action == WumpusEnums::heading::up)
+				|| (x == this->model->getPlayGroundSize() - 1 && msg->action == WumpusEnums::heading::down)
+				|| (y == 0 && msg->action == WumpusEnums::heading::left)
+				|| (y == this->model->getPlayGroundSize() - 1 && msg->action == WumpusEnums::heading::right))
+		{
+			response.x = x;
+			response.y = y;
+			response.heading = WumpusEnums::heading::down;
+			response.responses.push_back(WumpusEnums::responses::bump);
+		}
+		else
+		{
+			if (msg->action == WumpusEnums::heading::up)
+			{
+				x -= 1;
+			}
+			else if (msg->action == WumpusEnums::heading::down)
+			{
+				x += 1;
+			}
+			else if (msg->action == WumpusEnums::heading::left)
+			{
+				y -= 1;
+			}
+			else
+			{
+				y += 1;
+			}
+
+			response.x = x;
+			response.y = y;
+			response.heading = WumpusEnums::heading::down;
+
+			if (this->model->getTile(x, y)->hasWumpus())
+			{
+				response.x = wumpus->getTile()->getX();
+				response.y = wumpus->getTile()->getY();
+				response.responses.push_back(WumpusEnums::responses::otherAgent);
+			}
+
+			if (this->model->getTile(x, y)->hasMovable() && !this->model->getTile(x, y)->hasWumpus())
+			{
+				auto tmp = dynamic_pointer_cast<Agent>(this->model->getTile(x, y)->getMovable());
+				this->model->exit(tmp);
+				//TODO tell agent
+				response.responses.push_back(WumpusEnums::responses::killedAgent);
+			}
+
+			this->model->removeWumpus(wumpus);
+			wumpus->setTile(this->model->getTile(x, y));
+			wumpus->getTile()->setMovable(wumpus);
+			this->model->setStench(x,y, wumpus);
+
+		}
+		this->actionPub.publish(response);
+		//TODO call next agent
+		emit modelChanged();
+
+	}
+
 	void WumpusSimulator::handleAction(ActionRequestPtr msg)
 	{
 
@@ -634,6 +798,7 @@ namespace wumpus_simulator
 			case WumpusEnums::actions::leave:
 			{
 				handleExit(msg);
+				//TODO remove from turns
 				break;
 			}
 			case WumpusEnums::actions::pickUpGold:
@@ -644,6 +809,7 @@ namespace wumpus_simulator
 			case WumpusEnums::actions::shoot:
 			{
 				handleShoot(msg);
+				//TODO remove wumpuses from turn
 				break;
 			}
 			case WumpusEnums::actions::turnLeft:
@@ -661,7 +827,14 @@ namespace wumpus_simulator
 				cout << "WumpusSimulator: unknown Action received" << endl;
 				break;
 		}
+		//TODO call next agent
 
+	}
+
+	void WumpusSimulator::getNext()
+	{
+		this->turnIndex++;
+		this->turnIndex = turnIndex % this->turns.size();
 	}
 
 }

@@ -21,7 +21,7 @@ using namespace std;
 
 namespace wumpus_simulator
 {
-	class Simulator;
+	class Model;
 	class WumpusSimulator : public rqt_gui_cpp::Plugin
 	{
 	Q_OBJECT
@@ -48,7 +48,7 @@ namespace wumpus_simulator
 		Q_INVOKABLE void saveWorld();
 		Q_INVOKABLE void loadWorld();
 
-		Simulator* getSim();
+		Model* getModel();
 
 		QWidget* widget_;
 		Ui::MainWindowWebView mainwindow;
@@ -72,12 +72,14 @@ namespace wumpus_simulator
 		 * colors playground according to model
 		 */
 		void updatePlayground();
-		Simulator* sim;
+		Model* model;
 
 		void onSpawnAgent(InitialPoseRequestPtr msg);
 		void onAction(ActionRequestPtr msg);
 		void placeAgent(int agentId, bool hasArrow);
-		void handleAction(ActionRequestPtr agentId);
+		void possessWumpus(int wumpusId);
+		void handleAction(ActionRequestPtr msg);
+		void handleWumpusAction(ActionRequestPtr msg);
 		void handleTurnRight(ActionRequestPtr msg);
 		void handleTurnLeft(ActionRequestPtr msg);
 		void handleShoot(ActionRequestPtr msg);
@@ -86,6 +88,12 @@ namespace wumpus_simulator
 		void handleMove(ActionRequestPtr msg);
 
 		bool ready;
+		int turnIndex;
+		vector<int> turns;
+		//TODO fill list with dead agents and wumpus
+		//TODO new agent only if its not there and it was not told that it is dead
+		vector<int> dead;
+ 		void getNext();
 
 	signals :
 		void modelChanged();

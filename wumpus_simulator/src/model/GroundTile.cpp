@@ -15,7 +15,7 @@ namespace wumpus_simulator
 	{
 		this->x = x;
 		this->y = y;
-		this->startAgentID = -1;
+		this->startAgentID = 0;
 		this->hasGold = false;
 		this->hasTrap = false;
 		this->hasStench = false;

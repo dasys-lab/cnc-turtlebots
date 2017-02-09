@@ -18,7 +18,7 @@ public:
 
 	enum responses
 	{
-		bump, scream, silence, goldFound, exited, notAllowed, drafty, stinky, shiny, dead, otherAgent
+		bump, scream, silence, goldFound, exited, notAllowed, drafty, stinky, shiny, dead, otherAgent, killedAgent, yourTurn
 	};
 
 	enum heading

@@ -43,16 +43,16 @@ set(wumpuswidget_SRCS
   src/wumpus_simulator/WumpusSimulator.cpp
   src/model/Agent.cpp
   src/model/GroundTile.cpp
-  src/model/Simulator.cpp
+  src/model/Model.cpp
   src/model/Wumpus.cpp
   src/model/Movable.cpp
 )
 
 set(wumpuswidget_HDRS
-  include/wumpus_simulator/WumpusSimulator.h  
+  include/wumpus_simulator/WumpusSimulator.h 
   include/model/Agent.h
   include/model/GroundTile.h
-  include/model/Simulator.h
+  include/model/Model.h
   include/model/Wumpus.h
   include/model/Movable.h
   include/model/WumpusEnums.h

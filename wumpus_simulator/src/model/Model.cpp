@@ -5,10 +5,10 @@
  *      Author: stefan
  */
 
-#include <model/Simulator.h>
 #include <model/Wumpus.h>
 #include "model/Agent.h"
 #include <model/GroundTile.h>
+#include <model/Model.h>
 #include <stdlib.h>     /* srand, rand */
 #include <time.h>
 #include <QJsonObject>
@@ -18,13 +18,13 @@
 namespace wumpus_simulator
 {
 
-	Simulator* Simulator::get()
+	Model* Model::get()
 	{
-		static Simulator instance;
+		static Model instance;
 		return &instance;
 	}
 
-	void Simulator::init(bool agentHasArrow, int wumpusCount, int trapCount, int playGroundSize)
+	void Model::init(bool agentHasArrow, int wumpusCount, int trapCount, int playGroundSize)
 	{
 		this->playGround.clear();
 		this->agentHasArrow = agentHasArrow;
@@ -42,6 +42,7 @@ namespace wumpus_simulator
 				this->playGround.at(i).push_back(make_shared<GroundTile>(i, j));
 			}
 		}
+		cout << "Tiles created" << endl;
 		/* initialize random seed: */
 		srand(time(NULL));
 		// Place given number of traps on field
@@ -60,6 +61,7 @@ namespace wumpus_simulator
 				i--;
 			}
 		}
+		cout << "Traps created" << endl;
 		// Place Wumpus on field
 		for (int i = 0; i < wumpusCount; i++)
 		{
@@ -75,9 +77,12 @@ namespace wumpus_simulator
 				auto tmp = make_shared<Wumpus>(playGround.at(randx).at(randy));
 				playGround.at(randx).at(randy)->setMovable(tmp);
 				setStench(randx, randy, tmp);
+				this->movables.push_back(tmp);
 			}
 
 		}
+		cout << "Wumpus created" << endl;
+
 		// Place Gold on field
 		bool placed = false;
 		while (!placed)
@@ -91,6 +96,7 @@ namespace wumpus_simulator
 				placed = true;
 			}
 		}
+		cout << "Gold placed" << endl;
 		for (int i = 0; i < this->playGround.size(); i++)
 		{
 			for (int j = 0; j < this->playGround.size(); j++)
@@ -102,10 +108,10 @@ namespace wumpus_simulator
 				}
 			}
 		}
-		cout << "Simulator: Finished initiating the playground!" << endl;
+		cout << "Model: Finished initiating the playground!" << endl;
 	}
 
-	Simulator::Simulator()
+	Model::Model()
 	{
 		rosNode = new ros::NodeHandle();
 		this->agentHasArrow = false;
@@ -115,11 +121,11 @@ namespace wumpus_simulator
 
 	}
 
-	Simulator::~Simulator()
+	Model::~Model()
 	{
 	}
 
-	void Simulator::setBreeze(int x, int y)
+	void Model::setBreeze(int x, int y)
 	{
 		if (x == 0)
 		{
@@ -148,32 +154,51 @@ namespace wumpus_simulator
 		}
 	}
 
-	bool Simulator::isAgentHasArrow()
+	bool Model::isAgentHasArrow()
 	{
 		return agentHasArrow;
 	}
 
-	int Simulator::getPlayGroundSize()
+	int Model::getPlayGroundSize()
 	{
 		return playGroundSize;
 	}
 
-	int Simulator::getTrapCount()
+	int Model::getTrapCount()
 	{
 		return trapCount;
 	}
 
-	int Simulator::getWumpusCount()
+	int Model::getWumpusCount()
 	{
 		return wumpusCount;
 	}
 
-	vector<vector<shared_ptr<GroundTile>>> Simulator::getPlayGround()
+	vector<vector<shared_ptr<GroundTile>>> Model::getPlayGround()
 	{
 		return playGround;
 	}
 
-	void Simulator::setStench(int x, int y, shared_ptr<Wumpus> wumpus)
+	void Model::exit(shared_ptr<Agent> agent)
+	{
+		this->movables.erase(remove(this->movables.begin(), this->movables.end(), agent), this->movables.end());
+		agent->getTile()->setMovable(nullptr);
+		agent->setTile(nullptr);
+		for(auto tileVec : this->playGround)
+		{
+			for(auto tile : tileVec)
+			{
+				if(tile->getStartAgentID() == agent->getId())
+				{
+					tile->setStartAgentID(0);
+					tile->setStartpoint(false);
+					break;
+				}
+			}
+		}
+	}
+
+	void Model::setStench(int x, int y, shared_ptr<Wumpus> wumpus)
 	{
 		if (x == 0)
 		{
@@ -202,12 +227,12 @@ namespace wumpus_simulator
 		}
 	}
 
-	shared_ptr<GroundTile> Simulator::getTile(int x, int y)
+	shared_ptr<GroundTile> Model::getTile(int x, int y)
 	{
 		return this->playGround.at(x).at(y);
 	}
 
-	QJsonObject Simulator::toJSON()
+	QJsonObject Model::toJSON()
 	{
 		//Root JSON object
 		QJsonObject world;
@@ -249,14 +274,14 @@ namespace wumpus_simulator
 					else
 					{
 						ground["agentHeading"] = "unknown";
-						ground["agantId"] = -1;
+						ground["agantId"] = 0;
 					}
 				}
 				else
 				{
 					ground["movableType"] = "unknown";
 					ground["agentHeading"] = "unknown";
-					ground["agentId"] = -1;
+					ground["agentId"] = 0;
 				}
 
 				playground.append(ground);
@@ -270,7 +295,7 @@ namespace wumpus_simulator
 
 	}
 
-	void Simulator::fromJSON(QJsonObject root)
+	void Model::fromJSON(QJsonObject root)
 	{
 
 		//Clear the old vectors
@@ -327,7 +352,7 @@ namespace wumpus_simulator
 		}
 	}
 
-	shared_ptr<Agent> Simulator::getAgentByID(int id)
+	shared_ptr<Agent> Model::getAgentByID(int id)
 	{
 
 		for (auto mov : this->movables)
@@ -341,13 +366,27 @@ namespace wumpus_simulator
 		}
 	}
 
-	void Simulator::removeAgent(shared_ptr<Agent> agent)
+	shared_ptr<Wumpus> Model::getWumpusByID(int id)
+	{
+
+		for (auto mov : this->movables)
+		{
+
+			if (mov->getId() == id)
+			{
+				return dynamic_pointer_cast<Wumpus>(mov);
+
+			}
+		}
+	}
+
+	void Model::removeAgent(shared_ptr<Agent> agent)
 	{
 		agent->getTile()->setMovable(nullptr);
 		agent->setTile(nullptr);
 	}
 
-	void Simulator::removeWumpus(shared_ptr<Wumpus> wumpus)
+	void Model::removeWumpus(shared_ptr<Wumpus> wumpus)
 	{
 		int x = wumpus->getTile()->getX();
 		int y = wumpus->getTile()->getY();

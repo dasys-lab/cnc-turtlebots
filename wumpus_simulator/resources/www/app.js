@@ -56,6 +56,10 @@ $(document).ready(function() {
             fieldSize = $('#playgroundSize').val();
             var hasArrow = $('#arrowAgent').prop('checked');
 
+            if((+traps + +wumpus) > ((fieldSize*fieldSize) / 2)) {
+                return;
+            }
+
             setInitialValues(wumpus, traps, fieldSize, hasArrow);
 
             //Draw the playground
@@ -100,7 +104,7 @@ $(document).ready(function() {
 function setInitialValues(w, t, f, a) {
 
     //Set the labels from the info bar
-    $('#arrow').text('Arrow: ' + a);
+    $('#arrow').text('Arrow: ' + Boolean(a));
     $('#wumpus').text('Wumpus: ' + w);
     $('#traps').text('Traps: ' + t);
     $('#size').text('Size: ' + f);
