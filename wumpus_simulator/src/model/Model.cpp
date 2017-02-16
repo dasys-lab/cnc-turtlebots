@@ -43,7 +43,7 @@ namespace wumpus_simulator
 			}
 		}
 		cout << "Tiles created" << endl;
-		/* initialize random seed: */
+		// initialize random seed:
 		srand(time(NULL));
 		// Place given number of traps on field
 		for (int i = 0; i < trapCount; i++)
@@ -76,7 +76,7 @@ namespace wumpus_simulator
 			{
 				auto tmp = make_shared<Wumpus>(playGround.at(randx).at(randy));
 				playGround.at(randx).at(randy)->setMovable(tmp);
-				setStench(randx, randy, tmp);
+				setStench(randx, randy);
 				this->movables.push_back(tmp);
 			}
 
@@ -154,7 +154,7 @@ namespace wumpus_simulator
 		}
 	}
 
-	bool Model::isAgentHasArrow()
+	bool Model::getAgentHasArrow()
 	{
 		return agentHasArrow;
 	}
@@ -198,7 +198,7 @@ namespace wumpus_simulator
 		}
 	}
 
-	void Model::setStench(int x, int y, shared_ptr<Wumpus> wumpus)
+	void Model::setStench(int x, int y)
 	{
 		if (x == 0)
 		{
@@ -364,6 +364,7 @@ namespace wumpus_simulator
 
 			}
 		}
+		return nullptr;
 	}
 
 	shared_ptr<Wumpus> Model::getWumpusByID(int id)
@@ -378,6 +379,7 @@ namespace wumpus_simulator
 
 			}
 		}
+		return nullptr;
 	}
 
 	void Model::removeAgent(shared_ptr<Agent> agent)

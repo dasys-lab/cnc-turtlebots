@@ -1,8 +1,5 @@
-/*
- * Wumpus.h
- *
- *  Created on: Dec 1, 2016
- *      Author: stefan
+/**
+ * Class representing the wumpus. Can be controlled from outside the simulator
  */
 
 #ifndef INCLUDE_MODEL_WUMPUS_H_

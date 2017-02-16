@@ -1,8 +1,5 @@
-/*
- * GroundTile.h
- *
- *  Created on: Dec 1, 2016
- *      Author: stefan
+/**
+ * Basic element of the field
  */
 
 #ifndef INCLUDE_MODEL_GROUNDTILE_H_

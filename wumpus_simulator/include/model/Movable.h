@@ -1,8 +1,5 @@
-/*
- * Movable.h
- *
- *  Created on: Dec 1, 2016
- *      Author: stefan
+/**
+ * Interface for every object that can be moved from outside the simulator
  */
 
 #ifndef INCLUDE_MODEL_MOVABLE_H_

@@ -36,10 +36,13 @@ namespace wumpus_simulator
 		spinner = new ros::AsyncSpinner(4);
 		spinner->start();
 		this->ready = false;
+		this->timer = new QTimer(this);
+		this->timer->setSingleShot(true);
 	}
 
 	WumpusSimulator::~WumpusSimulator()
 	{
+		delete this->timer;
 	}
 
 	void WumpusSimulator::initPlugin(qt_gui_cpp::PluginContext& context)
@@ -62,12 +65,16 @@ namespace wumpus_simulator
 		inspector.setPage(this->mainwindow.webView->page());
 		inspector.setVisible(true);
 
+		this->connect(timer, SIGNAL(timeout()), this, SLOT(handleTimeOut()));
+
 		//Initialize web view
-		connect(this->mainwindow.webView->page()->mainFrame(), SIGNAL(javaScriptWindowObjectCleared()), this,
-				SLOT(addSimToJS()));
+		this->connect(this->mainwindow.webView->page()->mainFrame(), SIGNAL(javaScriptWindowObjectCleared()), this,
+						SLOT(addSimToJS()));
 		this->mainwindow.webView->load(QUrl("qrc:///www/index.html"));
-		connect(this, SIGNAL(modelChanged()), this, SLOT(callUpdatePlayground()));
-		ready = false;
+		this->connect(this, SIGNAL(modelChanged()), this, SLOT(callUpdatePlayground()));
+		this->connect(this, SIGNAL(timerStart()), this, SLOT(handleStart()));
+		this->connect(this, SIGNAL(timerStop()), this, SLOT(handleStop()));
+		this->ready = false;
 	}
 
 	void WumpusSimulator::shutdownPlugin()
@@ -148,6 +155,7 @@ namespace wumpus_simulator
 	void WumpusSimulator::loadWorld()
 	{
 		this->model = Model::get();
+		this->turns.clear();
 		//Open load file dialog to select a pregenerated wumpus world
 		QString filename = QFileDialog::getOpenFileName(this->widget_, tr("Load World"), QDir::currentPath(),
 														tr("Wumpus World File (*.wwf)"), 0,
@@ -170,7 +178,7 @@ namespace wumpus_simulator
 			this->mainwindow.webView->page()->mainFrame()->evaluateJavaScript(
 					QString("setInitialValues(%1, %2, %3, %4);").arg(this->model->getWumpusCount()).arg(
 							this->model->getTrapCount()).arg(this->model->getPlayGroundSize()).arg(
-							this->model->isAgentHasArrow()));
+							this->model->getAgentHasArrow()));
 			this->mainwindow.webView->page()->mainFrame()->evaluateJavaScript(QString("drawPlayground();"));
 			updatePlayground();
 			ready = true;
@@ -257,7 +265,7 @@ namespace wumpus_simulator
 		}
 		if (msg->agentId > 0)
 		{
-			placeAgent(msg->agentId, this->model->isAgentHasArrow());
+			placeAgent(msg->agentId, this->model->getAgentHasArrow());
 		}
 		else if (msg->agentId < 0)
 		{
@@ -280,9 +288,10 @@ namespace wumpus_simulator
 		{
 			return;
 		}
-		if(msg->agentId != this->turns.at(this->turnIndex))
+		if (msg->agentId != this->turns.at(this->turnIndex))
 		{
-			cout << "WumpusSimulator: agent is not allowed to move! It's agent's " << this->turns.at(this->turnIndex) << " turn!" << endl;
+			cout << "WumpusSimulator: agent is not allowed to move! It's agent's " << this->turns.at(this->turnIndex)
+					<< " turn!" << endl;
 			return;
 		}
 		bool found = false;
@@ -296,6 +305,7 @@ namespace wumpus_simulator
 		}
 		if (found)
 		{
+			emit timerStop();
 			if (msg->agentId > 0)
 			{
 				handleAction(msg);
@@ -304,6 +314,7 @@ namespace wumpus_simulator
 			{
 				handleWumpusAction(msg);
 			}
+			emit timerStart();
 		}
 
 	}
@@ -352,7 +363,8 @@ namespace wumpus_simulator
 		int attempts = 0;
 		while (!placed)
 		{
-			if(attempts > (model->getPlayGroundSize() * model->getPlayGroundSize())) {
+			if (attempts > (pow(model->getPlayGroundSize(), 3)))
+			{
 				cout << "Abort! Cannot find empty tile to place agent on." << endl;
 				break;
 			}
@@ -380,7 +392,7 @@ namespace wumpus_simulator
 				msg.heading = agent->getHeading();
 				this->spawnAgentPub.publish(msg);
 				turns.push_back(agent->getId());
-				if(turns.size() == 1)
+				if (turns.size() == 1)
 				{
 					ActionResponse msg2;
 					msg2.x = agent->getTile()->getX();
@@ -388,6 +400,9 @@ namespace wumpus_simulator
 					msg2.agentId = agent->getId();
 					msg2.heading = agent->getHeading();
 					msg2.responses.push_back(WumpusEnums::responses::yourTurn);
+					handlePerception(msg2, agent->getTile());
+					this->actionPub.publish(msg2);
+					emit timerStart();
 				}
 			}
 			attempts++;
@@ -431,151 +446,31 @@ namespace wumpus_simulator
 		response.x = agent->getTile()->getX();
 		response.y = agent->getTile()->getY();
 		response.heading = agent->getHeading();
-		bool wumpusDead = false;
 		if (agent->hasArrow())
 		{
 			if (agent->getHeading() == WumpusEnums::heading::left)
 			{
-				if (agent->getTile()->getY() == 0)
-				{
-					response.responses.push_back(WumpusEnums::responses::silence);
-				}
-				else
-				{
-					for (int i = agent->getTile()->getY() - 1; i >= 0; i--)
-					{
-						if (this->getModel()->getPlayGround().at(agent->getTile()->getX()).at(i)->hasWumpus())
-						{
-							wumpusDead = true;
-							this->getModel()->removeWumpus(
-									dynamic_pointer_cast<Wumpus>(
-											this->getModel()->getPlayGround().at(agent->getTile()->getX()).at(i)->getMovable()));
-						}
-					}
-					if (wumpusDead)
-					{
-						response.responses.push_back(WumpusEnums::responses::scream);
-					}
-					else
-					{
-						response.responses.push_back(WumpusEnums::responses::silence);
-					}
-				}
+				handleShootLeft(response, agent);
 			}
 			else if (agent->getHeading() == WumpusEnums::heading::right)
 			{
-				if (agent->getTile()->getY() == this->model->getPlayGroundSize() - 1)
-				{
-					response.responses.push_back(WumpusEnums::responses::silence);
-				}
-				else
-				{
-					for (int i = agent->getTile()->getY() + 1; i <= this->model->getPlayGroundSize() - 1; i++)
-					{
-						if (this->getModel()->getPlayGround().at(agent->getTile()->getX()).at(i)->hasWumpus())
-						{
-							wumpusDead = true;
-							this->getModel()->removeWumpus(
-									dynamic_pointer_cast<Wumpus>(
-											this->getModel()->getPlayGround().at(agent->getTile()->getX()).at(i)->getMovable()));
-						}
-					}
-					if (wumpusDead)
-					{
-						response.responses.push_back(WumpusEnums::responses::scream);
-					}
-					else
-					{
-						response.responses.push_back(WumpusEnums::responses::silence);
-					}
-				}
+				handleShootRight(response, agent);
 			}
 			else if (agent->getHeading() == WumpusEnums::heading::up)
 			{
-				if (agent->getTile()->getX() == 0)
-				{
-					response.responses.push_back(WumpusEnums::responses::silence);
-				}
-				else
-				{
-					for (int i = agent->getTile()->getX() - 1; i >= 0; i--)
-					{
-						if (this->getModel()->getPlayGround().at(i).at(agent->getTile()->getY())->hasWumpus())
-						{
-							wumpusDead = true;
-							this->getModel()->removeWumpus(
-									dynamic_pointer_cast<Wumpus>(
-											this->getModel()->getPlayGround().at(i).at(agent->getTile()->getY())->getMovable()));
-						}
-					}
-					if (wumpusDead)
-					{
-						response.responses.push_back(WumpusEnums::responses::scream);
-					}
-					else
-					{
-						response.responses.push_back(WumpusEnums::responses::silence);
-					}
-				}
+				handleShootUp(response, agent);
 			}
 			else
 			{
-				if (agent->getTile()->getX() == this->model->getPlayGroundSize() - 1)
-				{
-					response.responses.push_back(WumpusEnums::responses::silence);
-				}
-				else
-				{
-					for (int i = agent->getTile()->getX() + 1; i <= this->model->getPlayGroundSize() - 1; i++)
-					{
-						if (this->getModel()->getPlayGround().at(i).at(agent->getTile()->getY())->hasWumpus())
-						{
-							wumpusDead = true;
-							this->getModel()->removeWumpus(
-									dynamic_pointer_cast<Wumpus>(
-											this->getModel()->getPlayGround().at(i).at(agent->getTile()->getY())->getMovable()));
-						}
-					}
-					if (wumpusDead)
-					{
-						response.responses.push_back(WumpusEnums::responses::scream);
-					}
-					else
-					{
-						response.responses.push_back(WumpusEnums::responses::silence);
-					}
-				}
+				handleShootDown(response, agent);
 			}
-
 			agent->setArrow(false);
-			if (agent->getTile()->getGold())
-			{
-				response.responses.push_back(WumpusEnums::responses::shiny);
-			}
-			if (agent->getTile()->getBreeze())
-			{
-				response.responses.push_back(WumpusEnums::responses::drafty);
-			}
-			if (agent->getTile()->getStench())
-			{
-				response.responses.push_back(WumpusEnums::responses::stinky);
-			}
+			handlePerception(response, agent->getTile());
 		}
 		else
 		{
 			response.responses.push_back(WumpusEnums::responses::notAllowed);
-			if (agent->getTile()->getGold())
-			{
-				response.responses.push_back(WumpusEnums::responses::shiny);
-			}
-			if (agent->getTile()->getBreeze())
-			{
-				response.responses.push_back(WumpusEnums::responses::drafty);
-			}
-			if (agent->getTile()->getStench())
-			{
-				response.responses.push_back(WumpusEnums::responses::stinky);
-			}
+			handlePerception(response, agent->getTile());
 		}
 		this->actionPub.publish(response);
 		emit modelChanged();
@@ -598,14 +493,7 @@ namespace wumpus_simulator
 		{
 			response.responses.push_back(WumpusEnums::responses::notAllowed);
 		}
-		if (agent->getTile()->getBreeze())
-		{
-			response.responses.push_back(WumpusEnums::responses::drafty);
-		}
-		if (agent->getTile()->getStench())
-		{
-			response.responses.push_back(WumpusEnums::responses::stinky);
-		}
+		handlePerception(response, agent->getTile());
 		this->actionPub.publish(response);
 		emit modelChanged();
 	}
@@ -675,9 +563,7 @@ namespace wumpus_simulator
 
 			if (this->model->getTile(x, y)->getTrap() || this->model->getTile(x, y)->hasWumpus())
 			{
-				cout << 1 << endl;
-				response.responses.push_back(WumpusEnums::responses::dead);
-				this->model->exit(agent);
+				this->killAgent(agent);
 			}
 			else if (this->model->getTile(x, y)->hasMovable() && !this->model->getTile(x, y)->hasWumpus())
 			{
@@ -693,18 +579,7 @@ namespace wumpus_simulator
 			}
 		}
 		auto tmp = this->model->getTile(x, y);
-		if (tmp->getGold())
-		{
-			response.responses.push_back(WumpusEnums::responses::shiny);
-		}
-		if (tmp->getBreeze())
-		{
-			response.responses.push_back(WumpusEnums::responses::drafty);
-		}
-		if (tmp->getStench())
-		{
-			response.responses.push_back(WumpusEnums::responses::stinky);
-		}
+		handlePerception(response, tmp);
 
 		this->actionPub.publish(response);
 		emit modelChanged();
@@ -768,19 +643,18 @@ namespace wumpus_simulator
 			if (this->model->getTile(x, y)->hasMovable() && !this->model->getTile(x, y)->hasWumpus())
 			{
 				auto tmp = dynamic_pointer_cast<Agent>(this->model->getTile(x, y)->getMovable());
-				this->model->exit(tmp);
-				//TODO tell agent
+				this->killAgent(tmp);
 				response.responses.push_back(WumpusEnums::responses::killedAgent);
 			}
 
 			this->model->removeWumpus(wumpus);
 			wumpus->setTile(this->model->getTile(x, y));
 			wumpus->getTile()->setMovable(wumpus);
-			this->model->setStench(x,y, wumpus);
+			this->model->setStench(x, y);
 
 		}
 		this->actionPub.publish(response);
-		//TODO call next agent
+		handleNextTurn();
 		emit modelChanged();
 
 	}
@@ -798,7 +672,6 @@ namespace wumpus_simulator
 			case WumpusEnums::actions::leave:
 			{
 				handleExit(msg);
-				//TODO remove from turns
 				break;
 			}
 			case WumpusEnums::actions::pickUpGold:
@@ -809,7 +682,6 @@ namespace wumpus_simulator
 			case WumpusEnums::actions::shoot:
 			{
 				handleShoot(msg);
-				//TODO remove wumpuses from turn
 				break;
 			}
 			case WumpusEnums::actions::turnLeft:
@@ -827,13 +699,240 @@ namespace wumpus_simulator
 				cout << "WumpusSimulator: unknown Action received" << endl;
 				break;
 		}
-		//TODO call next agent
+		handleNextTurn();
 
+	}
+
+	void WumpusSimulator::handleNextTurn()
+	{
+		if (this->turns.size() == 0)
+		{
+			return;
+		}
+		getNext();
+		ActionResponse response;
+		auto id = this->turns.at(turnIndex);
+		response.agentId = id;
+		if (id > 0)
+		{
+			auto agent = this->model->getAgentByID(id);
+			response.heading = agent->getHeading();
+			auto tmp = agent->getTile();
+			handlePerception(response, tmp);
+			response.x = tmp->getX();
+			response.y = tmp->getY();
+		}
+		else
+		{
+			auto wumpus = this->model->getWumpusByID(id);
+			auto tmp = wumpus->getTile();
+			response.x = tmp->getX();
+			response.y = tmp->getY();
+		}
+		response.responses.push_back(WumpusEnums::responses::yourTurn);
+		this->actionPub.publish(response);
+	}
+
+	void WumpusSimulator::handlePerception(ActionResponse& msg, shared_ptr<GroundTile> tile)
+	{
+		if (tile->getGold())
+		{
+			msg.responses.push_back(WumpusEnums::responses::shiny);
+		}
+		if (tile->getBreeze())
+		{
+			msg.responses.push_back(WumpusEnums::responses::drafty);
+		}
+		if (tile->getStench())
+		{
+			msg.responses.push_back(WumpusEnums::responses::stinky);
+		}
+	}
+
+	void WumpusSimulator::handleShootLeft(ActionResponse& msg, shared_ptr<Agent> agent)
+	{
+		bool wumpusDead = false;
+		if (agent->getTile()->getY() == 0)
+		{
+			msg.responses.push_back(WumpusEnums::responses::silence);
+		}
+		else
+		{
+			for (int i = agent->getTile()->getY() - 1; i >= 0; i--)
+			{
+				if (this->getModel()->getPlayGround().at(agent->getTile()->getX()).at(i)->hasWumpus())
+				{
+					wumpusDead = true;
+					auto tmp = dynamic_pointer_cast<Wumpus>(
+							this->getModel()->getPlayGround().at(agent->getTile()->getX()).at(i)->getMovable());
+					killWumpus(tmp);
+				}
+			}
+			if (wumpusDead)
+			{
+				msg.responses.push_back(WumpusEnums::responses::scream);
+			}
+			else
+			{
+				msg.responses.push_back(WumpusEnums::responses::silence);
+			}
+		}
+	}
+
+	void WumpusSimulator::handleShootRight(ActionResponse& msg, shared_ptr<Agent> agent)
+	{
+		bool wumpusDead = false;
+		if (agent->getTile()->getY() == this->model->getPlayGroundSize() - 1)
+		{
+			msg.responses.push_back(WumpusEnums::responses::silence);
+		}
+		else
+		{
+			for (int i = agent->getTile()->getY() + 1; i <= this->model->getPlayGroundSize() - 1; i++)
+			{
+				if (this->getModel()->getPlayGround().at(agent->getTile()->getX()).at(i)->hasWumpus())
+				{
+					wumpusDead = true;
+					auto tmp = dynamic_pointer_cast<Wumpus>(
+							this->getModel()->getPlayGround().at(agent->getTile()->getX()).at(i)->getMovable());
+					killWumpus(tmp);
+				}
+			}
+			if (wumpusDead)
+			{
+				msg.responses.push_back(WumpusEnums::responses::scream);
+			}
+			else
+			{
+				msg.responses.push_back(WumpusEnums::responses::silence);
+			}
+		}
+	}
+
+	void WumpusSimulator::handleShootUp(ActionResponse& msg, shared_ptr<Agent> agent)
+	{
+		bool wumpusDead = false;
+		if (agent->getTile()->getX() == 0)
+		{
+			msg.responses.push_back(WumpusEnums::responses::silence);
+		}
+		else
+		{
+			for (int i = agent->getTile()->getX() - 1; i >= 0; i--)
+			{
+				if (this->getModel()->getPlayGround().at(i).at(agent->getTile()->getY())->hasWumpus())
+				{
+					wumpusDead = true;
+					auto tmp = dynamic_pointer_cast<Wumpus>(
+							this->getModel()->getPlayGround().at(i).at(agent->getTile()->getY())->getMovable());
+					killWumpus(tmp);
+				}
+			}
+			if (wumpusDead)
+			{
+				msg.responses.push_back(WumpusEnums::responses::scream);
+			}
+			else
+			{
+				msg.responses.push_back(WumpusEnums::responses::silence);
+			}
+		}
+	}
+
+	void WumpusSimulator::handleShootDown(ActionResponse& msg, shared_ptr<Agent> agent)
+	{
+		bool wumpusDead = false;
+		if (agent->getTile()->getX() == this->model->getPlayGroundSize() - 1)
+		{
+			msg.responses.push_back(WumpusEnums::responses::silence);
+		}
+		else
+		{
+			for (int i = agent->getTile()->getX() + 1; i <= this->model->getPlayGroundSize() - 1; i++)
+			{
+				if (this->getModel()->getPlayGround().at(i).at(agent->getTile()->getY())->hasWumpus())
+				{
+					wumpusDead = true;
+					auto tmp = dynamic_pointer_cast<Wumpus>(
+							this->getModel()->getPlayGround().at(i).at(agent->getTile()->getY())->getMovable());
+					killWumpus(tmp);
+				}
+			}
+			if (wumpusDead)
+			{
+				msg.responses.push_back(WumpusEnums::responses::scream);
+			}
+			else
+			{
+				msg.responses.push_back(WumpusEnums::responses::silence);
+			}
+		}
+	}
+
+	void WumpusSimulator::killWumpus(shared_ptr<Wumpus> wumpus)
+	{
+		if (wumpus->getId() != 0)
+		{
+			ActionResponse response2;
+			response2.agentId = wumpus->getId();
+			response2.responses.push_back(WumpusEnums::responses::dead);
+			this->actionPub.publish(response2);
+			this->turns.erase(find(this->turns.begin(), this->turns.end(), wumpus->getId()));
+		}
+		this->getModel()->removeWumpus(wumpus);
+		emit modelChanged();
+	}
+
+	void WumpusSimulator::handleTimeOut()
+	{
+		emit timerStop();
+		auto id = this->turns.at(this->turnIndex);
+		cout << "TimeOut of agent or wumpus with ID: " << id << endl;
+		if (id > 0)
+		{
+			auto agent = this->model->getAgentByID(id);
+			this->killAgent(agent);
+		}
+		else
+		{
+			auto wumpus = this->model->getWumpusByID(id);
+			this->killWumpus(wumpus);
+		}
+		handleNextTurn();
+		if (this->turns.size() > 0)
+		{
+			emit timerStart();
+		}
+	}
+
+	void WumpusSimulator::killAgent(shared_ptr<Agent> agent)
+	{
+		this->turns.erase(find(this->turns.begin(), this->turns.end(), agent->getId()));
+		ActionResponse response2;
+		response2.agentId = agent->getId();
+		response2.responses.push_back(WumpusEnums::responses::dead);
+		this->actionPub.publish(response2);
+		this->model->exit(agent);
+		emit modelChanged();
+	}
+
+	void WumpusSimulator::handleStart()
+	{
+		this->timer->start(timeOut);
+	}
+
+	void WumpusSimulator::handleStop()
+	{
+		this->timer->stop();
 	}
 
 	void WumpusSimulator::getNext()
 	{
 		this->turnIndex++;
+		if (this->turnIndex > this->turns.size())
+		{
+			this->turnIndex = this->turns.size();
+		}
 		this->turnIndex = turnIndex % this->turns.size();
 	}
 

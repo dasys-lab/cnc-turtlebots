@@ -1,8 +1,5 @@
-/*
- * Agent.h
- *
- *  Created on: Dec 1, 2016
- *      Author: stefan
+/**
+ * Agent interacting with the simulator
  */
 
 #ifndef INCLUDE_MODEL_AGENT_H_
