@@ -184,11 +184,11 @@ namespace wumpus_simulator
 		this->movables.erase(remove(this->movables.begin(), this->movables.end(), agent), this->movables.end());
 		agent->getTile()->setMovable(nullptr);
 		agent->setTile(nullptr);
-		for(auto tileVec : this->playGround)
+		for (auto tileVec : this->playGround)
 		{
-			for(auto tile : tileVec)
+			for (auto tile : tileVec)
 			{
-				if(tile->getStartAgentID() == agent->getId())
+				if (tile->getStartAgentID() == agent->getId())
 				{
 					tile->setStartAgentID(0);
 					tile->setStartpoint(false);
@@ -202,28 +202,47 @@ namespace wumpus_simulator
 	{
 		if (x == 0)
 		{
-			playGround.at(x + 1).at(y)->setStench(true);
+			if (!playGround.at(x + 1).at(y)->hasWumpus())
+			{
+				playGround.at(x + 1).at(y)->setStench(true);
+			}
 
 		}
 		else if (x == playGroundSize - 1)
 		{
-			playGround.at(x - 1).at(y)->setStench(true);
+			if (!playGround.at(x - 1).at(y)->hasWumpus())
+			{
+				playGround.at(x - 1).at(y)->setStench(true);
+			}
 
 		}
 		else
 		{
-			playGround.at(x - 1).at(y)->setStench(true);
-			playGround.at(x + 1).at(y)->setStench(true);
+			if (!playGround.at(x - 1).at(y)->hasWumpus())
+			{
+				playGround.at(x - 1).at(y)->setStench(true);
+			}
+			if (!playGround.at(x + 1).at(y)->hasWumpus())
+			{
+				playGround.at(x + 1).at(y)->setStench(true);
+			}
+
 		}
 
 		if (y > 0)
 		{
-			playGround.at(x).at(y - 1)->setStench(true);
+			if (!playGround.at(x).at(y - 1)->hasWumpus())
+			{
+				playGround.at(x).at(y - 1)->setStench(true);
+			}
 		}
 
 		if (y < playGroundSize - 1)
 		{
-			playGround.at(x).at(y + 1)->setStench(true);
+			if (!playGround.at(x).at(y + 1)->hasWumpus())
+			{
+				playGround.at(x).at(y + 1)->setStench(true);
+			}
 		}
 	}
 

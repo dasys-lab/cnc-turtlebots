@@ -86,7 +86,7 @@ namespace wumpus_simulator
 
 	void GroundTile::setStench(bool value)
 	{
-		hasStench = value;
+			hasStench = value;
 	}
 
 	bool GroundTile::hasMovable()
@@ -123,7 +123,7 @@ namespace wumpus_simulator
 
 	bool GroundTile::hasWumpus()
 	{
-		if(!this->hasMovable())
+		if (!this->hasMovable())
 		{
 			return false;
 		}
@@ -134,5 +134,4 @@ namespace wumpus_simulator
 	}
 
 } /* namespace wumpus_simulator */
-
 

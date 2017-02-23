@@ -288,6 +288,10 @@ namespace wumpus_simulator
 		{
 			return;
 		}
+		if(turns.size() == 0)
+		{
+			return;
+		}
 		if (msg->agentId != this->turns.at(this->turnIndex))
 		{
 			cout << "WumpusSimulator: agent is not allowed to move! It's agent's " << this->turns.at(this->turnIndex)
@@ -337,6 +341,7 @@ namespace wumpus_simulator
 				mov->setId(wumpusId);
 				turns.push_back(wumpusId);
 				available = true;
+				emit timerStart();
 				break;
 			}
 		}
@@ -650,7 +655,13 @@ namespace wumpus_simulator
 			this->model->removeWumpus(wumpus);
 			wumpus->setTile(this->model->getTile(x, y));
 			wumpus->getTile()->setMovable(wumpus);
-			this->model->setStench(x, y);
+			for(auto mov : this->model->movables)
+			{
+				if(mov->getId() <= 0)
+				{
+					this->model->setStench(mov->getTile()->getX(), mov->getTile()->getY());
+				}
+			}
 
 		}
 		this->actionPub.publish(response);
@@ -880,6 +891,14 @@ namespace wumpus_simulator
 			this->turns.erase(find(this->turns.begin(), this->turns.end(), wumpus->getId()));
 		}
 		this->getModel()->removeWumpus(wumpus);
+		this->model->movables.erase(remove(this->model->movables.begin(), this->model->movables.end(), wumpus), this->model->movables.end());
+		for(auto mov : this->model->movables)
+		{
+			if(mov->getId() <= 0)
+			{
+				this->model->setStench(mov->getTile()->getX(), mov->getTile()->getY());
+			}
+		}
 		emit modelChanged();
 	}
 
