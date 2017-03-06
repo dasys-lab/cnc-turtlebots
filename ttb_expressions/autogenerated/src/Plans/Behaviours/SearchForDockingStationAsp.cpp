@@ -49,12 +49,12 @@ namespace alica
             {   return element.id == 1470042926317;});
             if (it != result.end())
             {
-                if (it->values.size() > 0)
+                if (it->variableQueryValues.size() > 0)
                 {
                     cout << "SearchForDockingStationAsp: ASP result found!" << endl;
                     stringstream ss;
-                    ss << it->values.at(0).at(0);
-                    cout << it->values.at(0).at(0) << endl;
+                    ss << it->variableQueryValues.at(0).at(0);
+                    cout << it->variableQueryValues.at(0).at(0) << endl;
                     shared_ptr < ttb::POI > dockingStation = this->wm->pois.getPOIByName(getPOIName(ss.str()));
 
                     cout << "SearchForDockingStationAsp: Docking station is located at (" << dockingStation->x << " | "

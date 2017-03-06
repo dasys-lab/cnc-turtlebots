@@ -40,18 +40,18 @@ namespace alica
 			{	return element.id == 1477125906086;});
 			if (it != result.end())
 			{
-				if (it->values.size() > 0)
+				if (it->variableQueryValues.size() > 0)
 				{
 					cout << "ASPMinimizePath: ASP result found!" << endl;
 					cout << "\tResult contains the predicates: " << endl;
 					cout << "\t\t";
 					for (int i = 0; i < result.size(); i++)
 					{
-						for (int j = 0; j < result.at(i).values.size(); j++)
+						for (int j = 0; j < result.at(i).variableQueryValues.size(); j++)
 						{
-							for (int k = 0; k < result.at(i).values.at(j).size(); k++)
+							for (int k = 0; k < result.at(i).variableQueryValues.at(j).size(); k++)
 							{
-								cout << result.at(i).values.at(j).at(k) << " ";
+								cout << result.at(i).variableQueryValues.at(j).at(k) << " ";
 							}
 						}
 					}
