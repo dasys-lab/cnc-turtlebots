@@ -23,7 +23,6 @@ namespace alica
         /*PROTECTED REGION ID(dcon1477229760910) ENABLED START*/ //Add additional options here
         /*PROTECTED REGION END*/
     }
-    
     void ASPNavwoExt::run(void* msg)
     {
         /*PROTECTED REGION ID(run1477229760910) ENABLED START*/ //Add additional options here
@@ -62,17 +61,17 @@ namespace alica
                     cout << "ASPNavwoExt: ASP result found!" << endl;
                     cout << "\tResult contains the predicates: " << endl;
                     cout << "\t\t";
-					for (int i = 0; i < result.size(); i++)
-					{
-						for (int j = 0; j < result.at(i).values.size(); j++)
-						{
-							for(int k = 0; k < result.at(i).values.at(j).size(); k++)
-							{
-								cout << result.at(i).values.at(j).at(k) << " ";
-							}
-						}
-					}
-					cout << endl;
+                    for (int i = 0; i < result.size(); i++)
+                    {
+                        for (int j = 0; j < result.at(i).values.size(); j++)
+                        {
+                            for (int k = 0; k < result.at(i).values.at(j).size(); k++)
+                            {
+                                cout << result.at(i).values.at(j).at(k) << " ";
+                            }
+                        }
+                    }
+                    cout << endl;
                     cout << "\tThe model contains the predicates: " << endl;
                     cout << "\t\t";
                     for (int i = 0; i < it->query->getCurrentModels()->at(0).size(); i++)

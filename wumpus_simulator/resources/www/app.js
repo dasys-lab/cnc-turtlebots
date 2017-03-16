@@ -126,7 +126,6 @@ function drawPlayground() {
 
     //Create html grid content
     var grid = '';
-    var gridElement;
 
     for(var i = 0; i < fieldSize; i++) {
 

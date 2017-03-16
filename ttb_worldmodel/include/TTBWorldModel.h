@@ -31,6 +31,9 @@
 #include "ar_track_alvar_msgs/AlvarMarkers.h"
 #include "tf/transform_listener.h"
 #include "ttb_msgs/DriveToPOI.h"
+#include <wumpus_simulator/ActionResponse.h>
+#include <wumpus_simulator/InitialPoseResponse.h>
+#include <wumpus_simulator/WumpusSimulator.h>
 
 #include "SystemConfig.h"
 #include "RawSensorData.h"
@@ -39,6 +42,7 @@
 #include "EventTrigger.h"
 #include "ttb_poi/TTBPointOfInterests.h"
 #include "Doors.h"
+#include "WumpusData.h"
 
 namespace supplementary {
 	class SystemConfig;
@@ -71,6 +75,7 @@ namespace ttb
 		Robots robots;
 		TTBPointOfInterests pois;
 		Doors doors;
+		WumpusData wumpusData;
 
 	private:
 
@@ -105,6 +110,8 @@ namespace ttb
 		string robotOnOffTopic;
 		string mobileBaseSensorStateTopic;
 		string dockInfrRedTopic;
+		string actionResponseTopic;
+		string spawnAgentResponseTopic;
 
 		ros::Subscriber odometrySub;
 		ros::Subscriber alvarSub;
@@ -121,6 +128,8 @@ namespace ttb
 		ros::Subscriber robotOnOffSub;
 		ros::Subscriber mobileBaseSensorStateSub;
 		ros::Subscriber dockInfrRedSub;
+		ros::Subscriber actionResponseSub;
+		ros::Subscriber spawnAgentResponseSub;
 
 		void onAlvarData(ar_track_alvar_msgs::AlvarMarkersPtr alvarData);
 		void onOdometryData(nav_msgs::OdometryPtr odometryData);
@@ -137,6 +146,9 @@ namespace ttb
 		void onMobileBaseSensorStateData(kobuki_msgs::SensorStatePtr mobileBaseSensorStateData);
 		void onDockInfrRedData(kobuki_msgs::DockInfraRedPtr dockInfrRedData);
 		void onDriveToPOICommand(ttb_msgs::DriveToPOIPtr driveToPOICommand);
+		void onSpawnAgentResponse(wumpus_simulator::InitialPoseResponsePtr dockInfrRedData);
+		void onActionResponse(wumpus_simulator::ActionResponsePtr driveToPOICommand);
+
 
 	protected:
 

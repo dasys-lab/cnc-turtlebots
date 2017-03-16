@@ -5,7 +5,11 @@
 
 #include  "Plans/Serve/PKVR16/SearchBoxes1481545038564.h"
 
+#include  "Plans/Wumpus/WumpusMaster1489673406228.h"
+
 #include  "Plans/Serve/PKVR16/CollectBoxes1481544845570.h"
+
+#include  "Plans/Wumpus/InteractWIthPlayground1489673751539.h"
 
 #include  "Plans/Serve/ServeMaster1454332108133.h"
 
@@ -26,6 +30,8 @@
 #include  "Plans/Serve/Serve1454331313621.h"
 
 #include  "Plans/Tests/TurtleGenericTestMaster1454329729827.h"
+
+#include  "Plans/Wumpus/Turn1489674129255.h"
 
 #include  "Plans/Tests/TestPOI1454329810785.h"
 
@@ -57,8 +63,16 @@ namespace alica
                 return make_shared<UtilityFunction1481545038564>();
                 break;
 
+            case 1489673406228:
+                return make_shared<UtilityFunction1489673406228>();
+                break;
+
             case 1481544845570:
                 return make_shared<UtilityFunction1481544845570>();
+                break;
+
+            case 1489673751539:
+                return make_shared<UtilityFunction1489673751539>();
                 break;
 
             case 1454332108133:
@@ -99,6 +113,10 @@ namespace alica
 
             case 1454329729827:
                 return make_shared<UtilityFunction1454329729827>();
+                break;
+
+            case 1489674129255:
+                return make_shared<UtilityFunction1489674129255>();
                 break;
 
             case 1454329810785:

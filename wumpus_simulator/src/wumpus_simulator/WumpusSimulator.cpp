@@ -98,6 +98,7 @@ namespace wumpus_simulator
 
 	void WumpusSimulator::addSimToJS()
 	{
+		//Windowscope => statisches Attribut => kann von überall in app aufgerufen werden
 		this->mainwindow.webView->page()->mainFrame()->addToJavaScriptWindowObject("wumpus_simulator", this);
 	}
 
@@ -142,12 +143,15 @@ namespace wumpus_simulator
 				}
 
 				//Serialize the world as JSON
-				auto worldJson = this->model->toJSON();
+				if (this->model != nullptr)
+				{
+					auto worldJson = this->model->toJSON();
 
-				//Write to file
-				QJsonDocument saveDoc(worldJson);
-				file.write(saveDoc.toJson());
-
+					//Write to file
+					QJsonDocument saveDoc(worldJson);
+					file.write(saveDoc.toJson());
+				}
+				file.close();
 			}
 		}
 	}
@@ -288,7 +292,7 @@ namespace wumpus_simulator
 		{
 			return;
 		}
-		if(turns.size() == 0)
+		if (turns.size() == 0)
 		{
 			return;
 		}
@@ -655,9 +659,9 @@ namespace wumpus_simulator
 			this->model->removeWumpus(wumpus);
 			wumpus->setTile(this->model->getTile(x, y));
 			wumpus->getTile()->setMovable(wumpus);
-			for(auto mov : this->model->movables)
+			for (auto mov : this->model->movables)
 			{
-				if(mov->getId() <= 0)
+				if (mov->getId() <= 0)
 				{
 					this->model->setStench(mov->getTile()->getX(), mov->getTile()->getY());
 				}
@@ -891,10 +895,11 @@ namespace wumpus_simulator
 			this->turns.erase(find(this->turns.begin(), this->turns.end(), wumpus->getId()));
 		}
 		this->getModel()->removeWumpus(wumpus);
-		this->model->movables.erase(remove(this->model->movables.begin(), this->model->movables.end(), wumpus), this->model->movables.end());
-		for(auto mov : this->model->movables)
+		this->model->movables.erase(remove(this->model->movables.begin(), this->model->movables.end(), wumpus),
+									this->model->movables.end());
+		for (auto mov : this->model->movables)
 		{
-			if(mov->getId() <= 0)
+			if (mov->getId() <= 0)
 			{
 				this->model->setStench(mov->getTile()->getX(), mov->getTile()->getY());
 			}

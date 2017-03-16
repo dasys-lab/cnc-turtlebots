@@ -3,7 +3,27 @@ using namespace std;
 #include "BehaviourCreator.h"
 #include "engine/BasicBehaviour.h"
 
+#include  "Plans/Behaviours/Wumpus/WaitForTurn.h"
+
+#include  "Plans/Behaviours/Wumpus/Wumpus.h"
+
+#include  "Plans/Behaviours/Wumpus/Shoot.h"
+
+#include  "Plans/Behaviours/SearchForDockingStationAsp.h"
+
+#include  "Plans/Behaviours/ASPNavigation.h"
+
+#include  "Plans/Behaviours/ChargingDefault.h"
+
+#include  "Plans/Behaviours/Wumpus/Move.h"
+
+#include  "Plans/Behaviours/Carry.h"
+
+#include  "Plans/Behaviours/Wumpus/Leave.h"
+
 #include  "Plans/Behaviours/ASPMinimizePath.h"
+
+#include  "Plans/Behaviours/Wumpus/SpawnAgent.h"
 
 #include  "Plans/Behaviours/Stop.h"
 
@@ -15,15 +35,7 @@ using namespace std;
 
 #include  "Plans/Behaviours/SimpleDrive.h"
 
-#include  "Plans/Behaviours/SearchForDockingStationAsp.h"
-
-#include  "Plans/Behaviours/ASPNavigation.h"
-
 #include  "Plans/Behaviours/Rotate.h"
-
-#include  "Plans/Behaviours/ChargingDefault.h"
-
-#include  "Plans/Behaviours/Carry.h"
 
 #include  "Plans/Behaviours/SearchDockingStation.h"
 
@@ -43,9 +55,61 @@ namespace alica
         switch (behaviourConfId)
         {
 
+            case 1489673907866:
+
+                return make_shared<WaitForTurn>();
+                break;
+
+            case 1489674671969:
+
+                return make_shared<Wumpus>();
+                break;
+
+            case 1489674687663:
+
+                return make_shared<Shoot>();
+                break;
+
+            case 1470041828429:
+
+                return make_shared<SearchForDockingStationAsp>();
+                break;
+
+            case 1475693376771:
+
+            case 1476356448920:
+
+                return make_shared<ASPNavigation>();
+                break;
+
+            case 1447958132701:
+
+                return make_shared<ChargingDefault>();
+                break;
+
+            case 1489674705705:
+
+                return make_shared<Move>();
+                break;
+
+            case 1468494631985:
+
+                return make_shared<Carry>();
+                break;
+
+            case 1489674658684:
+
+                return make_shared<Leave>();
+                break;
+
             case 1477125946392:
 
                 return make_shared<ASPMinimizePath>();
+                break;
+
+            case 1489673543981:
+
+                return make_shared<SpawnAgent>();
                 break;
 
             case 1414681278745:
@@ -81,31 +145,9 @@ namespace alica
                 return make_shared<SimpleDrive>();
                 break;
 
-            case 1470041828429:
-
-                return make_shared<SearchForDockingStationAsp>();
-                break;
-
-            case 1475693376771:
-
-            case 1476356448920:
-
-                return make_shared<ASPNavigation>();
-                break;
-
             case 1447068225787:
 
                 return make_shared<Rotate>();
-                break;
-
-            case 1447958132701:
-
-                return make_shared<ChargingDefault>();
-                break;
-
-            case 1468494631985:
-
-                return make_shared<Carry>();
                 break;
 
             case 1414681446065:

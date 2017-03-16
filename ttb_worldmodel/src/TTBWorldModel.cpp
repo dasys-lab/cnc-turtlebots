@@ -24,7 +24,7 @@ namespace ttb
 	}
 
 	TTBWorldModel::TTBWorldModel() :
-			ringBufferLength(10), rawSensorData(this, 10), robots(this, 10), pois(this), alicaEngine(nullptr), doors(this)
+			ringBufferLength(10), rawSensorData(this, 10), robots(this, 10), pois(this), alicaEngine(nullptr), doors(this), wumpusData(this,ringBufferLength)
 	{
 		ownID = supplementary::SystemConfig::getOwnRobotID();
 
@@ -45,6 +45,8 @@ namespace ttb
 		dockInfrRedTopic = (*sc)["TTBWorldModel"]->get<string>("Sensors.DockInfrRedTopic", NULL);
 		alvarTopic = (*sc)["TTBWorldModel"]->get<string>("Sensors.AlvarTopic", NULL);
 		drivePOITopic = (*sc)["TTBWorldModel"]->get<string>("Commands.DriveToPOITopic", NULL);
+		spawnAgentResponseTopic = (*sc)["TTBWorldModel"]->get<string>("Wumpus.SpawnAgentResponse", NULL);
+		actionResponseTopic = (*sc)["TTBWorldModel"]->get<string>("Wumpus.ActionResponse", NULL);
 
 		// SET ROS STUFF
 		odometrySub = n.subscribe(odometryTopic, 10, &TTBWorldModel::onOdometryData, (TTBWorldModel*)this);
@@ -64,8 +66,11 @@ namespace ttb
 		dockInfrRedSub = n.subscribe(dockInfrRedTopic, 10, &TTBWorldModel::onDockInfrRedData, (TTBWorldModel*)this);
 		alvarSub = n.subscribe(alvarTopic, 10, &TTBWorldModel::onAlvarData, (TTBWorldModel*)this);
 		driveToPOISub = n.subscribe(drivePOITopic, 10, &TTBWorldModel::onDriveToPOICommand, (TTBWorldModel*)this);
+		spawnAgentResponseSub = n.subscribe(spawnAgentResponseTopic, 10, &TTBWorldModel::onSpawnAgentResponse, (TTBWorldModel*)this);
+		actionResponseSub = n.subscribe(actionResponseTopic, 10, &TTBWorldModel::onActionResponse, (TTBWorldModel*)this);
 		wrappedMessageHandler = new WrappedMessageHandler();
 		wrappedMessageHandler->init(ownID);
+
 
 		spinner = new ros::AsyncSpinner(4);
 		spinner->start();
@@ -202,6 +207,14 @@ namespace ttb
 	int TTBWorldModel::getRingBufferLength()
 	{
 		return ringBufferLength;
+	}
+
+	void TTBWorldModel::onSpawnAgentResponse(wumpus_simulator::InitialPoseResponsePtr dockInfrRedData)
+	{
+	}
+
+	void TTBWorldModel::onActionResponse(wumpus_simulator::ActionResponsePtr driveToPOICommand)
+	{
 	}
 
 } /* namespace ttb */
