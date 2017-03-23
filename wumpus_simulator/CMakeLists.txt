@@ -64,6 +64,7 @@ set(wumpuswidget_UIS
 
 set(wumpus_simulator_INCLUDE_DIRECTORIES
     include
+    include/model
     ${Qt5Core_INCLUDE_DIRS}
     ${Qt5Gui_INCLUDE_DIRS}
     ${Qt5Network_INCLUDE_DIRS}

@@ -45,22 +45,6 @@
     <value/>
   </extensions>
   <extensions>
-    <key href="Turn.pml#1489674423161"/>
-    <value xPos="546" yPos="241"/>
-  </extensions>
-  <extensions>
-    <key href="Turn.pml#1489674438642"/>
-    <value/>
-  </extensions>
-  <extensions>
-    <key href="Turn.pml#1489674590758"/>
-    <value xPos="636" yPos="88" width="93" height="32"/>
-  </extensions>
-  <extensions>
-    <key href="Turn.pml#1489674621430"/>
-    <value/>
-  </extensions>
-  <extensions>
     <key href="../Behaviours/Wumpus/Leave.beh#1489674658684"/>
     <value/>
   </extensions>
@@ -74,6 +58,26 @@
   </extensions>
   <extensions>
     <key href="../Behaviours/Wumpus/Move.beh#1489674705705"/>
+    <value/>
+  </extensions>
+  <extensions>
+    <key href="Turn.pml#1489746552131"/>
+    <value xPos="720" yPos="177"/>
+  </extensions>
+  <extensions>
+    <key href="Turn.pml#1489746554764"/>
+    <value/>
+  </extensions>
+  <extensions>
+    <key href="Turn.pml#1489746557017"/>
+    <value/>
+  </extensions>
+  <extensions>
+    <key href="Turn.pml#1489746558972"/>
+    <value/>
+  </extensions>
+  <extensions>
+    <key href="Turn.pml#1489746560731"/>
     <value/>
   </extensions>
 </uiextensionmodel:PmlUiExtensionMap>

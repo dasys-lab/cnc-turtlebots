@@ -21,14 +21,6 @@
     <value xPos="308" yPos="109" width="82" height="67" collapsed="false"/>
   </extensions>
   <extensions>
-    <key href="InteractWIthPlayground.pml#1489673921908"/>
-    <value xPos="527" yPos="144"/>
-  </extensions>
-  <extensions>
-    <key href="InteractWIthPlayground.pml#1489673925540"/>
-    <value xPos="463" yPos="192"/>
-  </extensions>
-  <extensions>
     <key href="InteractWIthPlayground.pml#1489674022732"/>
     <value>
       <bendpoints xPos="365" yPos="207"/>
@@ -39,14 +31,6 @@
     <value>
       <bendpoints xPos="363" yPos="151"/>
     </value>
-  </extensions>
-  <extensions>
-    <key href="InteractWIthPlayground.pml#1489674025985"/>
-    <value/>
-  </extensions>
-  <extensions>
-    <key href="InteractWIthPlayground.pml#1489674028109"/>
-    <value/>
   </extensions>
   <extensions>
     <key href="Turn.pml#1489674129255"/>

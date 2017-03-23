@@ -11,14 +11,15 @@
 namespace ttb
 {
 
-	WumpusData::WumpusData(TTBWorldModel* wm, int ringBufferLength) :
+	WumpusData::WumpusData(TTBWorldModel* wm, int ringBufferLength) : ringBufferLength(ringBufferLength),
 			actionsResponses(ringBufferLength), initialPoseResponses(ringBufferLength)
 	{
 		this->wm = wm;
-		this->ringBufferLength = ringBufferLength;
 		this->fieldSize = -1;
-		this->ownID = 0;
+		this->ownID = wm->sc->getOwnRobotID();
 		maxInformationAge = 1000000000;
+		ownStartPos = nullptr;
+		this->heading = 0;
 	}
 
 	WumpusData::~WumpusData()
@@ -29,11 +30,11 @@ namespace ttb
 	void WumpusData::processActionResponse(wumpus_simulator::ActionResponsePtr actionResponse)
 	{
 		InfoTime time = wm->getTime();
-		shared_ptr<wumpus_simulator::ActionResponse> initialPoseResponsePtr = shared_ptr<wumpus_simulator::ActionResponse>(
+		shared_ptr<wumpus_simulator::ActionResponse> actionResponsePtr = shared_ptr<wumpus_simulator::ActionResponse>(
 				actionResponse.get(), [actionResponse](wumpus_simulator::ActionResponse*) mutable
 				{	actionResponse.reset();});
 		shared_ptr<InformationElement<wumpus_simulator::ActionResponse>> ownactionResponse = make_shared<
-				InformationElement<wumpus_simulator::ActionResponse>>(initialPoseResponsePtr, time);
+				InformationElement<wumpus_simulator::ActionResponse>>(actionResponsePtr, time);
 		actionsResponses.add(ownactionResponse);
 	}
 
@@ -46,6 +47,12 @@ namespace ttb
 		shared_ptr<InformationElement<wumpus_simulator::InitialPoseResponse>> owninitialPoseResponse = make_shared<
 				InformationElement<wumpus_simulator::InitialPoseResponse>>(initialPoseResponsePtr, time);
 		initialPoseResponses.add(owninitialPoseResponse);
+		if(ownStartPos == nullptr && initialPoseResponsePtr->agentId == this->ownID)
+		{
+			this->ownStartPos = make_shared<geometry::CNPoint2D>(initialPoseResponsePtr->x, initialPoseResponsePtr->y );
+			this->fieldSize = initialPoseResponsePtr->fieldSize;
+			this->heading = initialPoseResponsePtr->heading;
+		}
 	}
 
 	shared_ptr<wumpus_simulator::ActionResponse> WumpusData::getActionResponse(int index)
@@ -72,4 +79,11 @@ namespace ttb
 		return x->getInformation();
 	}
 
+	int WumpusData::getOwnId()
+	{
+		return ownID;
+	}
+
 } /* namespace ttb */
+
+

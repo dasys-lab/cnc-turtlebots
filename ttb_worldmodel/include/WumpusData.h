@@ -12,6 +12,7 @@
 #include "InformationElement.h"
 #include <wumpus_simulator/ActionResponse.h>
 #include <wumpus_simulator/InitialPoseResponse.h>
+#include <container/CNPoint2D.h>
 
 #include <map>
 #include <memory>
@@ -34,12 +35,15 @@ namespace ttb
 
 		shared_ptr<wumpus_simulator::ActionResponse> getActionResponse(int index = 0);
 		shared_ptr<wumpus_simulator::InitialPoseResponse> getInitialPoseResponse(int index = 0);
+		int getOwnId();
 
 	private:
 		int ownID;
 		int ringBufferLength;
+		int heading;
 		unsigned long maxInformationAge;
 		TTBWorldModel* wm;
+		shared_ptr<geometry::CNPoint2D> ownStartPos;
 		RingBuffer<InformationElement<wumpus_simulator::ActionResponse>> actionsResponses;
 		RingBuffer<InformationElement<wumpus_simulator::InitialPoseResponse>> initialPoseResponses;
 	};

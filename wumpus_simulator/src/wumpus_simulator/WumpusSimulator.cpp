@@ -515,8 +515,8 @@ namespace wumpus_simulator
 		response.x = agent->getTile()->getX();
 		response.y = agent->getTile()->getY();
 		response.heading = agent->getHeading();
-		cout << "handleExit: " << agent->getTile()->getStartAgentID() << " : " << agent->getId() << " : "
-				<< agent->getHasGold() << endl;
+//		cout << "handleExit: " << agent->getTile()->getStartAgentID() << " : " << agent->getId() << " : "
+//				<< agent->getHasGold() << endl;
 		if (agent->getHasGold() && agent->getTile()->getStartAgentID() == agent->getId())
 		{
 			response.responses.push_back(WumpusEnums::responses::exited);
@@ -910,6 +910,10 @@ namespace wumpus_simulator
 	void WumpusSimulator::handleTimeOut()
 	{
 		emit timerStop();
+		if (this->turns.size() == 0)
+		{
+			return;
+		}
 		auto id = this->turns.at(this->turnIndex);
 		cout << "TimeOut of agent or wumpus with ID: " << id << endl;
 		if (id > 0)

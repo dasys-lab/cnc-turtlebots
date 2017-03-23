@@ -20,6 +20,7 @@ namespace alica
         /*PROTECTED REGION END*/
     private:
         /*PROTECTED REGION ID(prv1489674693144) ENABLED START*/ //Add additional private methods here
+        bool msgSend;
         /*PROTECTED REGION END*/};
 } /* namespace alica */
 

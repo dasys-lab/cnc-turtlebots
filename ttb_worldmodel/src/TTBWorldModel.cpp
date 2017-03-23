@@ -24,7 +24,7 @@ namespace ttb
 	}
 
 	TTBWorldModel::TTBWorldModel() :
-			ringBufferLength(10), rawSensorData(this, 10), robots(this, 10), pois(this), alicaEngine(nullptr), doors(this), wumpusData(this,ringBufferLength)
+			ringBufferLength(10), rawSensorData(this, 10), robots(this, 10), pois(this), alicaEngine(nullptr), doors(this), wumpusData(this,10)
 	{
 		ownID = supplementary::SystemConfig::getOwnRobotID();
 
@@ -209,12 +209,14 @@ namespace ttb
 		return ringBufferLength;
 	}
 
-	void TTBWorldModel::onSpawnAgentResponse(wumpus_simulator::InitialPoseResponsePtr dockInfrRedData)
+	void TTBWorldModel::onSpawnAgentResponse(wumpus_simulator::InitialPoseResponsePtr poseData)
 	{
+		wumpusData.processInitialPoseResponse(poseData);
 	}
 
-	void TTBWorldModel::onActionResponse(wumpus_simulator::ActionResponsePtr driveToPOICommand)
+	void TTBWorldModel::onActionResponse(wumpus_simulator::ActionResponsePtr actionData)
 	{
+		wumpusData.processActionResponse(actionData);
 	}
 
 } /* namespace ttb */

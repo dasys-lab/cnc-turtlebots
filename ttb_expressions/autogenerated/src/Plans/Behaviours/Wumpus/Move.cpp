@@ -2,6 +2,7 @@ using namespace std;
 #include "Plans/Behaviours/Wumpus/Move.h"
 
 /*PROTECTED REGION ID(inccpp1489674693144) ENABLED START*/ //Add additional includes here
+#include <wumpus_simulator/ActionRequest.h>
 /*PROTECTED REGION END*/
 namespace alica
 {
@@ -11,6 +12,7 @@ namespace alica
             DomainBehaviour("Move")
     {
         /*PROTECTED REGION ID(con1489674693144) ENABLED START*/ //Add additional options here
+        msgSend = false;
         /*PROTECTED REGION END*/
     }
     Move::~Move()
@@ -21,11 +23,21 @@ namespace alica
     void Move::run(void* msg)
     {
         /*PROTECTED REGION ID(run1489674693144) ENABLED START*/ //Add additional options here
+        if (!msgSend)
+        {
+            wumpus_simulator::ActionRequest msg;
+            msg.agentId = this->wm->wumpusData.getOwnId();
+            msg.action = this->wm->getTime() % 6;
+            send(msg);
+            msgSend = true;
+            this->setSuccess(true);
+        }
         /*PROTECTED REGION END*/
     }
     void Move::initialiseParameters()
     {
         /*PROTECTED REGION ID(initialiseParameters1489674693144) ENABLED START*/ //Add additional options here
+        msgSend = false;
         /*PROTECTED REGION END*/
     }
 /*PROTECTED REGION ID(methods1489674693144) ENABLED START*/ //Add additional methods here

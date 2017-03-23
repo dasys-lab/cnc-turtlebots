@@ -76,12 +76,12 @@ namespace ttb
 		TTBPointOfInterests pois;
 		Doors doors;
 		WumpusData wumpusData;
+		supplementary::SystemConfig* sc;
 
 	private:
 
 		TTBWorldModel(); /**< Private Singleton Constructor */
 
-		supplementary::SystemConfig* sc;
 		alica::AlicaEngine* alicaEngine;
 		WrappedMessageHandler* wrappedMessageHandler;
 
@@ -146,8 +146,8 @@ namespace ttb
 		void onMobileBaseSensorStateData(kobuki_msgs::SensorStatePtr mobileBaseSensorStateData);
 		void onDockInfrRedData(kobuki_msgs::DockInfraRedPtr dockInfrRedData);
 		void onDriveToPOICommand(ttb_msgs::DriveToPOIPtr driveToPOICommand);
-		void onSpawnAgentResponse(wumpus_simulator::InitialPoseResponsePtr dockInfrRedData);
-		void onActionResponse(wumpus_simulator::ActionResponsePtr driveToPOICommand);
+		void onSpawnAgentResponse(wumpus_simulator::InitialPoseResponsePtr poseData);
+		void onActionResponse(wumpus_simulator::ActionResponsePtr actionData);
 
 
 	protected:
