@@ -1,0 +1,1 @@
+rfidwriter.o: ../rfidwriter.cpp
