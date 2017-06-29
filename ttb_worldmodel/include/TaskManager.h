@@ -8,7 +8,6 @@
 #ifndef SRC_TASKMANAGER_H_
 #define SRC_TASKMANAGER_H_
 
-#include "ttb_msgs/DriveToPOI.h"
 #include "InformationElement.h"
 #include <SystemConfig.h>
 #include <tasks/PointOfInterest.h>
