@@ -8,6 +8,7 @@ using namespace std;
 #include "move_base_msgs/MoveBaseAction.h"
 #include <asp_solver_wrapper/ASPSolverWrapper.h>
 #include <asp_commons/ASPQuery.h>
+#include "ttb_poi/TTBPointOfInterests.h"
 /*PROTECTED REGION END*/
 namespace alica
 {

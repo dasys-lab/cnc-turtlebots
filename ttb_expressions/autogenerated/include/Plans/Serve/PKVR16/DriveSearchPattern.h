@@ -21,19 +21,19 @@ namespace alica
         /*PROTECTED REGION END*/
     private:
         /*PROTECTED REGION ID(prv1481545714198) ENABLED START*/ //Add additional private methods here
-    	double mapHeight;
-    	double mapWidth;
-    	double resolution;
-    	int pointsWidth;
-    	int pointsHeight;
-    	int listPoint = 0;
-    	double mapCorrectX;
-    	double mapCorrectY;
-    	double distanceGoalX;
-    	double distanceGoalY;
-    	double distanceToGoal;
-    	shared_ptr<geometry::CNPosition> ownPosition;
-    	vector<geometry_msgs::Point> list;
+        double mapHeight;
+        double mapWidth;
+        double resolution;
+        int pointsWidth;
+        int pointsHeight;
+        int listPoint = 0;
+        double mapCorrectX;
+        double mapCorrectY;
+        double distanceGoalX;
+        double distanceGoalY;
+        double distanceToGoal;
+        shared_ptr<geometry::CNPosition> ownPosition;
+        vector<geometry_msgs::Point> list;
         /*PROTECTED REGION END*/};
 } /* namespace alica */
 

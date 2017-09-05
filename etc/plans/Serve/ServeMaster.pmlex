@@ -22,7 +22,9 @@
   </extensions>
   <extensions>
     <key href="ServeMaster.pml#1454332141413"/>
-    <value/>
+    <value>
+      <bendpoints xPos="305" yPos="262"/>
+    </value>
   </extensions>
   <extensions>
     <key href="ServeMaster.pml#1454332142505"/>
@@ -58,10 +60,6 @@
   </extensions>
   <extensions>
     <key href="CarryBookMaster.pml#1468493942500"/>
-    <value/>
-  </extensions>
-  <extensions>
-    <key href="PKVR16/CollectBoxes.pml#1481544845570"/>
     <value/>
   </extensions>
 </uiextensionmodel:PmlUiExtensionMap>

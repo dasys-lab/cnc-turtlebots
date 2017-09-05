@@ -7,7 +7,6 @@
 #include <kobuki_dock_drive/dock_drive.hpp>
 #include <engine/constraintmodul/Query.h>
 #include <memory>
-#include "POI.h"
 #include <asp_commons/AnnotatedValVec.h>
 //#define testWithoutTTB
 /*PROTECTED REGION END*/

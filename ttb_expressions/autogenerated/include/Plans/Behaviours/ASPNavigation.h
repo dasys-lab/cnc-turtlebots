@@ -4,7 +4,6 @@
 #include "DomainBehaviour.h"
 /*PROTECTED REGION ID(inc1475693360605) ENABLED START*/ //Add additional includes here
 #include <memory>
-#include "POI.h"
 #include <asp_commons/AnnotatedValVec.h>
 #include <engine/constraintmodul/Query.h>
 /*PROTECTED REGION END*/

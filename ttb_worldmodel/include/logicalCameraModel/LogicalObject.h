@@ -8,7 +8,17 @@
 #ifndef SRC_LOGICALCAMARAMODEL_LOGICALOBJECT_H_
 #define SRC_LOGICALCAMARAMODEL_LOGICALOBJECT_H_
 
-using namespace std;
+#include <geometry_msgs/Pose2D.h>
+#include <InformationElement.h>
+#include <ros/message_forward.h>
+#include <RingBuffer.h>
+#include <ttb_msgs/ObjectSize.h>
+#include <string>
+
+namespace ttb_msgs
+{
+	ROS_DECLARE_MESSAGE(LogicalCamera)
+}
 
 namespace ttb
 {
@@ -17,13 +27,12 @@ namespace ttb
 		class LogicalObject
 		{
 		public:
-			LogicalObject();
+			LogicalObject(ttb_msgs::LogicalCameraPtr logicalCameraData, int ringBufferLength = 10);
 			virtual ~LogicalObject();
-			string name;
-			geometry_msgs::Pose2D pose;
+			void processData(ttb_msgs::LogicalCameraPtr logicalCameraData);
+			std::string name;
+			RingBuffer<InformationElement<geometry_msgs::Pose2D>> poses;
 			ttb_msgs::ObjectSize size;
-			ros::Time timeStamp;
-
 		};
 	}
 }

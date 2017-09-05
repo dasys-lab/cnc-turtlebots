@@ -10,12 +10,14 @@
 
 #include "SystemConfig.h"
 
-using namespace std;
+namespace ttb {
+	class TTBWorldModel;
+}
 
-namespace ttb
+namespace ttb { namespace wm
 {
 
-	class TTBWorldModel;
+
 	class Doors
 	{
 	public:
@@ -34,6 +36,6 @@ namespace ttb
 
 		shared_ptr<map<string, bool>> doors;
 	};
-}
+}}
 
 #endif /* SRC_DOORS_H_ */

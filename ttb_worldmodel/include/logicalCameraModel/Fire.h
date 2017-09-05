@@ -8,6 +8,14 @@
 #ifndef SRC_LOGICALCAMARAMODEL_FIRE_H_
 #define SRC_LOGICALCAMARAMODEL_FIRE_H_
 
+#include <logicalCameraModel/LogicalObject.h>
+#include <ros/ros.h>
+
+namespace ttb_msgs
+{
+	ROS_DECLARE_MESSAGE(LogicalCamera)
+}
+
 namespace ttb
 {
 	namespace wm
@@ -15,7 +23,7 @@ namespace ttb
 		class Fire : public LogicalObject
 		{
 		public:
-			Fire();
+			Fire(ttb_msgs::LogicalCameraPtr logicalCameraData);
 			virtual ~Fire();
 		};
 	}
