@@ -25,7 +25,6 @@ namespace alica
     private:
         /*PROTECTED REGION ID(prv1475693360605) ENABLED START*/ //Add additional private methods here
         shared_ptr<alica::Query> query;
-        bool openDoors;
         int iterationCounter;
         /*PROTECTED REGION END*/};
 } /* namespace alica */

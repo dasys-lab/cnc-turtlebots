@@ -19,7 +19,6 @@ namespace alica
     {
         /*PROTECTED REGION ID(con1475693360605) ENABLED START*/ //Add additional options here
         this->query = make_shared < alica::Query > (this->wm->getEngine());
-        this->openDoors = false;
         this->iterationCounter = 0;
         /*PROTECTED REGION END*/
     }
@@ -93,10 +92,12 @@ namespace alica
             this->wm->doors.openDoor("doorClosed(mainHallB, utility)");
             this->wm->doors.openDoor("doorClosed(r1405B, utility)");
             this->wm->doors.closeDoor("doorClosed(mainHallA, mainHallB)");
+            this->wm->doors.closeDoor("doorClosed(mainHallB, mainHallA)");
         }
         if (this->iterationCounter == 2)
         {
             this->wm->doors.openDoor("doorClosed(mainHallA, mainHallB)");
+            this->wm->doors.openDoor("doorClosed(mainHallB, mainHallA)");
         }
 
 //      this->wm->doors.openDoor("doorClosed(mainHallA, offices)");
@@ -140,13 +141,13 @@ namespace alica
                 else
                 {
                     cout << "ASPNavigation: no result found!" << endl;
-					cout << "\tThe model contains the predicates: " << endl;
-					cout << "\t\t";
-					for (int i = 0; i < it->query->getCurrentModels()->at(0).size(); i++)
-					{
-						cout << it->query->getCurrentModels()->at(0).at(i) << " ";
-					}
-					cout << endl;
+//					cout << "\tThe model contains the predicates: " << endl;
+//					cout << "\t\t";
+//					for (int i = 0; i < it->query->getCurrentModels()->at(0).size(); i++)
+//					{
+//						cout << it->query->getCurrentModels()->at(0).at(i) << " ";
+//					}
+//					cout << endl;
                 }
             }
             else

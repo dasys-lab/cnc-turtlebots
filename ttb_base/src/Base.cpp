@@ -37,7 +37,7 @@ namespace ttb
 		wm = TTBWorldModel::get();
 		wm->setEngine(ae);
 		// "clingo", "-W", "no-atom-undefined",  "--number=0", nullptr
-		std::vector<char const *> args {"clingo", "-W", "no-atom-undefined", nullptr};
+		std::vector<char const *> args {"clingo", nullptr};
 		auto solver = new ::reasoner::ASPSolver(args);
 		auto solverWrapper = new alica::reasoner::ASPSolverWrapper(ae, args);
 		solverWrapper->init(solver);
