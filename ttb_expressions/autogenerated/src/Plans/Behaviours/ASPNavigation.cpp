@@ -130,13 +130,13 @@ namespace alica
 						}
 					}
 					cout << endl;
-					cout << "\tThe model contains the predicates: " << endl;
-					cout << "\t\t";
-					for (int i = 0; i < it->query->getCurrentModels()->at(0).size(); i++)
-					{
-						cout << it->query->getCurrentModels()->at(0).at(i) << " ";
-					}
-					cout << endl;
+//					cout << "\tThe model contains the predicates: " << endl;
+//					cout << "\t\t";
+//					for (int i = 0; i < it->query->getCurrentModels()->at(0).size(); i++)
+//					{
+//						cout << it->query->getCurrentModels()->at(0).at(i) << " ";
+//					}
+//					cout << endl;
                 }
                 else
                 {
