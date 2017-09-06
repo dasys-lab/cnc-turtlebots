@@ -6,6 +6,7 @@
 #include <engine/constraintmodul/Query.h>
 #include <memory>
 #include <asp_commons/AnnotatedValVec.h>
+#include <fstream>
 /*PROTECTED REGION END*/
 namespace alica
 {
@@ -27,6 +28,7 @@ namespace alica
         shared_ptr<alica::Query> query;
         string doorConfig;
         int iterationCounter;
+        fstream resultfile;
         /*PROTECTED REGION END*/};
 } /* namespace alica */
 
