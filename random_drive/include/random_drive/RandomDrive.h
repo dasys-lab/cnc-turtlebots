@@ -22,7 +22,7 @@ namespace random_drive
 		RandomDrive();
 		virtual ~RandomDrive();
 		void run();
-
+		std::string getEnv(const std::string & var);
 
 	private:
 		void chatterCallback(const std_msgs::Bool::ConstPtr& msg);

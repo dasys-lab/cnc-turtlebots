@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="ASCII"?>
+<uiextensionmodel:PmlUiExtensionMap xmlns:uiextensionmodel="http:///de.uni_kassel.vs.cn/planDesigner/pmlextension/uiextensionmodel">
+  <extensions>
+    <key href="SearchBoxes.pml#1481545053783"/>
+    <value xPos="213" yPos="141" width="247" height="86" collapsed="false"/>
+  </extensions>
+  <extensions>
+    <key href="SearchBoxes.pml#1481545038564"/>
+    <value width="535" height="470"/>
+  </extensions>
+  <extensions>
+    <key href="SearchBoxes.pml#1481545053784"/>
+    <value/>
+  </extensions>
+  <extensions>
+    <key href="DriveSearchPattern.beh#1481546413105"/>
+    <value/>
+  </extensions>
+  <extensions>
+    <key href="InvestigateLandmarks.beh#1485780464626"/>
+    <value/>
+  </extensions>
+  <extensions>
+    <key href="PickUp.beh#1486381497239"/>
+    <value/>
+  </extensions>
+  <extensions>
+    <key href="SearchBoxes.pml#1486383878962"/>
+    <value xPos="399" yPos="311"/>
+  </extensions>
+  <extensions>
+    <key href="SearchBoxes.pml#1486383884467"/>
+    <value/>
+  </extensions>
+</uiextensionmodel:PmlUiExtensionMap>

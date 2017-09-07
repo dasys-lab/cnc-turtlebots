@@ -5,10 +5,9 @@
 /*PROTECTED REGION ID(inc1470041810334) ENABLED START*/ //Add additional includes here
 #include <kdl_conversions/kdl_msg.h>
 #include <kobuki_dock_drive/dock_drive.hpp>
-#include <engine/constraintmodul/ConstraintQuery.h>
+#include <engine/constraintmodul/Query.h>
 #include <memory>
-#include "POI.h"
-#include <alica_asp_solver/AnnotatedValVec.h>
+#include <asp_commons/AnnotatedValVec.h>
 //#define testWithoutTTB
 /*PROTECTED REGION END*/
 namespace alica
@@ -20,7 +19,7 @@ namespace alica
         virtual ~SearchForDockingStationAsp();
         virtual void run(void* msg);
         /*PROTECTED REGION ID(pub1470041810334) ENABLED START*/ //Add additional public methods here
-        vector<alica::reasoner::AnnotatedValVec> result;
+        vector<::reasoner::AnnotatedValVec> result;
         /*PROTECTED REGION END*/
     protected:
         virtual void initialiseParameters();
@@ -31,7 +30,7 @@ namespace alica
 #ifdef testWithoutTTB
         kobuki::DockDrive dock;
 #endif
-        shared_ptr<alica::ConstraintQuery> query;
+        shared_ptr<alica::Query> query;
         string getPOIName(string predicate);
         /*PROTECTED REGION END*/};
 } /* namespace alica */

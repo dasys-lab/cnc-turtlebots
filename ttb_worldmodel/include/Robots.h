@@ -12,12 +12,12 @@
 #include "RingBuffer.h"
 #include "InformationElement.h"
 
-using namespace std;
-
-namespace ttb
-{
-
+namespace ttb {
 	class TTBWorldModel;
+}
+
+namespace ttb { namespace wm
+{
 	class Robots
 	{
 	public:
@@ -25,9 +25,9 @@ namespace ttb
 		virtual ~Robots();
 
 	private:
-		TTBWorldModel* wm;
+		ttb::TTBWorldModel* wm;
 	};
 
-} /* namespace alica */
+}} /* namespace ttb */
 
 #endif /* CNC_MSL_MSL_WORLDMODEL_INCLUDE_ROBOTS_H_ */

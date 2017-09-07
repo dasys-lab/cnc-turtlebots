@@ -8,7 +8,7 @@
 #include "Doors.h"
 
 
-namespace ttb
+namespace ttb { namespace wm
 {
 	Doors::Doors(TTBWorldModel* wm)
 	{
@@ -124,6 +124,6 @@ namespace ttb
 	{
 		return this->doors;
 	}
-}
+}}
 
 

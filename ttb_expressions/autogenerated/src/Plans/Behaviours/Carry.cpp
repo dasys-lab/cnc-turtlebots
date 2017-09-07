@@ -13,7 +13,7 @@ namespace alica
             DomainBehaviour("Carry")
     {
         /*PROTECTED REGION ID(con1468494621581) ENABLED START*/ //Add additional options here
-        this->query = make_shared < alica::ConstraintQuery > (this->wm->getEngine());
+        this->query = make_shared < alica::Query > (this->wm->getEngine());
         /*PROTECTED REGION END*/
     }
     Carry::~Carry()
@@ -27,20 +27,25 @@ namespace alica
         query->getSolution(SolverType::ASPSOLVER, runningPlan, result);
         if (result.size() > 0)
         {
-            auto it = find_if(result.begin(), result.end(), [](alica::reasoner::AnnotatedValVec element)
+            auto it = find_if(result.begin(), result.end(), [](::reasoner::AnnotatedValVec element)
             {   return element.id == 1468495216221;});
             if (it != result.end())
             {
-                if (it->values.size() > 0)
+                if (it->variableQueryValues.size() > 0)
                 {
                     cout << "Carry: ASP result found!" << endl;
                     cout << "\tResult contains the predicates: " << endl;
                     cout << "\t\t";
-                    for (int i = 0; i < it->values.size(); i++)
+                    for (int i = 0; i < result.size(); i++)
                     {
-                        cout << it->values.at(i) << " ";
+                        for (int j = 0; j < result.at(i).variableQueryValues.size(); j++)
+                        {
+                            for (int k = 0; k < result.at(i).variableQueryValues.at(j).size(); k++)
+                            {
+                                cout << result.at(i).variableQueryValues.at(j).at(k) << " ";
+                            }
+                        }
                     }
-                    cout << endl;
                 }
                 else
                 {
@@ -72,7 +77,7 @@ namespace alica
     {
         /*PROTECTED REGION ID(initialiseParameters1468494621581) ENABLED START*/ //Add additional options here
         query->clearStaticVariables();
-        query->addVariable(getVariablesByName("CarryVar"));
+        query->addStaticVariable(getVariablesByName("CarryVar"));
         result.clear();
         /*PROTECTED REGION END*/
     }

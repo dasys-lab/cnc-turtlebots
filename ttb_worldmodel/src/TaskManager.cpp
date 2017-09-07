@@ -6,86 +6,67 @@
  */
 
 #include "TaskManager.h"
+#include <tasks/PointOfInterest.h>
+#include <tasks/ServeTask.h>
+#include <ttb_msgs/ServeTask.h>
 
 namespace ttb
 {
+namespace wm
+{
 
-	TaskManager::TaskManager()
-	{
-		auto poiSections = (*this->sc)["POI"]->getSections("POI.Points", NULL);
-		for (auto& poiSectionName : (*poiSections))
-		{
-			POI currentPOI((*this->sc)["POI"]->get<int>("POI.Points", poiSectionName.c_str(), "ID", NULL),
-							poiSectionName,
-							(*this->sc)["POI"]->get<float>("POI.Points", poiSectionName.c_str(), "X", NULL),
-							(*this->sc)["POI"]->get<float>("POI.Points", poiSectionName.c_str(), "Y", NULL));
-			this->poiMap.emplace(currentPOI.id, currentPOI);
-		}
-	}
+TaskManager::TaskManager()
+{
+}
 
-	TaskManager::~TaskManager()
-	{
-		// TODO Auto-generated destructor stub
-	}
+TaskManager::~TaskManager()
+{
+}
 
-	void TaskManager::pushDriveToPOITask(shared_ptr<InformationElement<ttb_msgs::DriveToPOI>> driveToPOITask)
-	{
-		if (this->poiMap.find(driveToPOITask->getInformation()->poiId) != this->poiMap.end())
-			this->unfinishedDriveToPOITasks.push_back(driveToPOITask);
-	}
+void TaskManager::pushTask(shared_ptr<InformationElement<ttb_msgs::ServeTask>> taskMsg)
+{
+	auto serveTask = make_shared<ServeTask>(taskMsg);
+	this->pendingTasks.push_back(make_shared<InformationElement<ServeTask>>(serveTask, taskMsg->timeStamp));
+}
 
-	POI TaskManager::getPOI(int id)
-	{
-		auto iter = this->poiMap.find(id);
-		if (iter != this->poiMap.end())
-		{
-			return iter->second;
-		}
-		else
-		{
-			return POI();
-		}
-	}
+shared_ptr<InformationElement<ServeTask>> TaskManager::popNextTask()
+{
+    if (this->pendingTasks.size() > 0)
+    {
+        auto nextTask = this->pendingTasks[0];
+        this->pendingTasks.erase(this->pendingTasks.begin());
+        return nextTask;
+    }
+    else
+    {
+        return nullptr;
+    }
+}
 
-	POI TaskManager::popNextPOI()
-	{
-		auto driveToPOI = this->popNextDriveToPOI();
-		auto iter = this->poiMap.find(driveToPOI->getInformation()->poiId);
-		if (iter != this->poiMap.end())
-		{
-			return iter->second;
-		}
-		else
-		{
-			return POI();
-		}
-	}
+shared_ptr<InformationElement<ServeTask>> TaskManager::getNextTask()
+{
+    if (this->pendingTasks.size() > 0)
+    {
+        auto nextTask = this->pendingTasks[0];
+        return nextTask;
+    }
+    else
+    {
+        return nullptr;
+    }
+}
 
-	shared_ptr<InformationElement<ttb_msgs::DriveToPOI> > TaskManager::popNextDriveToPOI()
-	{
-		if (this->unfinishedDriveToPOITasks.size() > 0)
-		{
-			auto nextTask = this->unfinishedDriveToPOITasks[0];
-			this->unfinishedDriveToPOITasks.erase(this->unfinishedDriveToPOITasks.begin());
-			return nextTask;
-		}
-		else
-		{
-			return nullptr;
-		}
-	}
+bool TaskManager::isNextTask(TaskType type)
+{
+    if (this->pendingTasks.size() > 0)
+    {
+        return this->pendingTasks[0]->getInformation()->type == type;
+    }
+    else
+    {
+        return false;
+    }
+}
 
-	shared_ptr<InformationElement<ttb_msgs::DriveToPOI> > TaskManager::getNextDriveToPOI()
-	{
-		if (this->unfinishedDriveToPOITasks.size() > 0)
-		{
-			auto nextTask = this->unfinishedDriveToPOITasks[0];
-			return nextTask;
-		}
-		else
-		{
-			return nullptr;
-		}
-	}
-
+}
 } /* namespace ttb */

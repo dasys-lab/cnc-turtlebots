@@ -3,9 +3,10 @@
 
 #include "DomainBehaviour.h"
 /*PROTECTED REGION ID(inc1477229760910) ENABLED START*/ //Add additional includes here
-#include <engine/constraintmodul/ConstraintQuery.h>
+#include <engine/constraintmodul/Query.h>
 #include <memory>
-#include <alica_asp_solver/AnnotatedValVec.h>
+#include <asp_commons/AnnotatedValVec.h>
+#include <fstream>
 /*PROTECTED REGION END*/
 namespace alica
 {
@@ -16,7 +17,7 @@ namespace alica
         virtual ~ASPNavwoExt();
         virtual void run(void* msg);
         /*PROTECTED REGION ID(pub1477229760910) ENABLED START*/ //Add additional public methods here
-        vector<alica::reasoner::AnnotatedValVec> result;
+        vector<::reasoner::AnnotatedValVec> result;
         /*PROTECTED REGION END*/
     protected:
         virtual void initialiseParameters();
@@ -24,9 +25,10 @@ namespace alica
         /*PROTECTED REGION END*/
     private:
         /*PROTECTED REGION ID(prv1477229760910) ENABLED START*/ //Add additional private methods here
-        shared_ptr<alica::ConstraintQuery> query;
+        shared_ptr<alica::Query> query;
         string doorConfig;
         int iterationCounter;
+        fstream resultfile;
         /*PROTECTED REGION END*/};
 } /* namespace alica */
 

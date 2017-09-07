@@ -1,19 +1,55 @@
 \documentclass[a4paper,10pt]{scrreprt}
 
-\usepackage{subfigure}
+% GENERAL LATEX PACKAGES
+\usepackage{subcaption}
 \usepackage{graphicx}
 \usepackage{color}
 \usepackage{url}
 \usepackage{hyperref}
 \usepackage{mathtools}
 \usepackage{wasysym}
+\usepackage{lscape}
 
+% TIKZ FOR NICE LATEX GRAPHICS
+\usepackage{tikz}
+\usetikzlibrary{shadows,arrows}
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{shapes.symbols} 
+\usetikzlibrary{decorations.shapes}
+\usetikzlibrary{shapes.arrows}
+\usepackage{styleimports/definitions} 		%some custom commands and math operators
+\usepackage{styleimports/alica-tikz}		  %colours for ALICA plans etc.
+
+% BIBLIOGRAPHY PACKAGE CONFIGURATION
+\usepackage[
+	backend=biber,
+	citestyle=numeric-comp,
+	bibstyle=numeric-comp,
+	maxbibnames=10,
+	maxcitenames=2,
+	natbib=true,
+	hyperref=true
+]{biblatex}
+\addbibresource{bibtex.bib}
+
+% HYPERREF PACKAGE CONFIGURATION
+\usepackage{hyperref}
+\hypersetup{
+	colorlinks,
+	citecolor=black,
+	filecolor=black,
+	linkcolor=blue!60!black,
+	urlcolor=blue!60!black,
+	pdftitle = {Distributed Cooperative Robot Systems},
+	pdfauthor = {Stephan Opfer},
+	pdfkeywords = {Multi-Agent Systems, Knowledge Representation}
+}
 
 \title{Distributed Cooperative Robot Systems}
-\author{Students of the Lecture}
-
+\author{Lecturers and Students}
 \makeindex
 
+% DOCUMENT BEGINS
 \begin{document}
 
 \maketitle
@@ -21,16 +57,30 @@
 
 \include{Introduction}
 
+\include{Foundations}
+
 \include{ExternalSoftware}
 
 \include{ProcMan}
 
 \include{AlicaClient}
 
+\include{RobotControl}
+
 \include{TurtleBotHardware}
 
 \include{TurtleBotSoftware}
 
 \include{TurtleBotGazeboSimulation}
+
+\include{Exam}
+
+% CONFIGURE BIBLIOGRAPHY PENALTIES
+\setcounter{biburlnumpenalty}{9000}
+\setcounter{biburlucpenalty}{9000}
+\setcounter{biburllcpenalty}{9000}
+
+% BIBLIOGRAPHY
+\printbibliography
 
 \end{document}

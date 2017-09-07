@@ -2,6 +2,7 @@ using namespace std;
 #include "Plans/Behaviours/SearchDockingStation.h"
 
 /*PROTECTED REGION ID(inccpp1414681429307) ENABLED START*/ //Add additional includes here
+#include <nav_msgs/Odometry.h>
 /*PROTECTED REGION END*/
 namespace alica
 {

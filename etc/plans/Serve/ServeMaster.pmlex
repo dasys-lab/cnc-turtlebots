@@ -2,7 +2,7 @@
 <uiextensionmodel:PmlUiExtensionMap xmlns:uiextensionmodel="http:///de.uni_kassel.vs.cn/planDesigner/pmlextension/uiextensionmodel">
   <extensions>
     <key href="ServeMaster.pml#1454332108134"/>
-    <value xPos="100" yPos="82" width="81" height="67" collapsed="false"/>
+    <value xPos="102" yPos="77" width="81" height="67" collapsed="false"/>
   </extensions>
   <extensions>
     <key href="ServeMaster.pml#1454332108133"/>
@@ -22,7 +22,9 @@
   </extensions>
   <extensions>
     <key href="ServeMaster.pml#1454332141413"/>
-    <value/>
+    <value>
+      <bendpoints xPos="305" yPos="262"/>
+    </value>
   </extensions>
   <extensions>
     <key href="ServeMaster.pml#1454332142505"/>
@@ -41,7 +43,7 @@
   <extensions>
     <key href="ServeMaster.pml#1454332146639"/>
     <value>
-      <bendpoints xPos="379" yPos="131"/>
+      <bendpoints xPos="372" yPos="141"/>
     </value>
   </extensions>
   <extensions>
