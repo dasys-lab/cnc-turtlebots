@@ -22,11 +22,13 @@ namespace alica
         /*PROTECTED REGION ID(con1480766583222) ENABLED START*/ //Add additional options here
         this->query = make_shared < alica::Query > (this->wm->getEngine());
         this->iterationCounter = 0;
+        resultfile.open("results_rcctest.txt", fstream::app);
         /*PROTECTED REGION END*/
     }
     ASPRCCTest::~ASPRCCTest()
     {
         /*PROTECTED REGION ID(dcon1480766583222) ENABLED START*/ //Add additional options here
+    	resultfile.close();
         /*PROTECTED REGION END*/
     }
     void ASPRCCTest::run(void* msg)
@@ -36,11 +38,23 @@ namespace alica
         {
             return;
         }
+        if (this->iterationCounter % 2 == 0)
+        {
+            auto s = (alica::reasoner::ASPSolverWrapper*)this->wm->getEngine()->getSolver(SolverType::ASPSOLVER);
+            delete s;
+            auto ae = this->wm->getEngine();
+            std::vector<char const *> args {"clingo", nullptr};
+            auto solver = new ::reasoner::ASPSolver(args);
+            auto solverWrapper = new alica::reasoner::ASPSolverWrapper(ae, args);
+            solverWrapper->init(solver);
+            ae->addSolver(SolverType::ASPSOLVER, solverWrapper);
+        }
         std::chrono::_V2::system_clock::time_point start = std::chrono::high_resolution_clock::now();
         query->getSolution(SolverType::ASPSOLVER, runningPlan, result);
         std::chrono::_V2::system_clock::time_point end = std::chrono::high_resolution_clock::now();
-        cout << /*"ASPNavigation: Measured Solving and Grounding Time: "
-         <<*/std::chrono::duration_cast < chrono::nanoseconds > (end - start).count() / 1000000.0 << /*" ms" <<*/endl;
+        cout << "ASPNavigation: Measured Solving and Grounding Time: "
+         << std::chrono::duration_cast < chrono::nanoseconds > (end - start).count() / 1000000.0 << /*" ms" <<*/endl;
+        resultfile << (end - start).count() / 1000000.0 << " ";
         if (result.size() > 0)
         {
             auto it = find_if(result.begin(), result.end(), [](::reasoner::AnnotatedValVec element)
@@ -49,7 +63,7 @@ namespace alica
             {
                 if (it->variableQueryValues.size() > 0)
                 {
-//					cout << "ASPNavigation: ASP result found!" << endl;
+					cout << "ASPNavigation: ASP result found!" << endl;
 //					cout << "\tResult contains the predicates: " << endl;
 //					cout << "\t\t";
 //					for (int i = 0; i < result.size(); i++)
@@ -90,7 +104,11 @@ namespace alica
         {
 //			cout << "ASPNavigation: no result found!" << endl;
         }
-        if (this->iterationCounter == 2)
+        if (this->iterationCounter % 2 == 1)
+        {
+            resultfile << endl;
+        }
+        if (this->iterationCounter == 20)
         {
             this->setSuccess(true);
         }
