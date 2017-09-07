@@ -9,6 +9,9 @@ using namespace std;
 #include <asp_solver_wrapper/ASPSolverWrapper.h>
 #include <asp_commons/ASPQuery.h>
 #include "ttb_poi/TTBPointOfInterests.h"
+#include "SolverType.h"
+#include <asp_commons/IASPSolver.h>
+#include <asp_solver/ASPSolver.h>
 /*PROTECTED REGION END*/
 namespace alica
 {
@@ -20,19 +23,33 @@ namespace alica
         /*PROTECTED REGION ID(con1475693360605) ENABLED START*/ //Add additional options here
         this->query = make_shared < alica::Query > (this->wm->getEngine());
         this->iterationCounter = 0;
-//        resultfile.open("results.txt", fstream::app);
+        resultfile.open("results_externals.txt", fstream::app);
         /*PROTECTED REGION END*/
     }
     ASPNavigation::~ASPNavigation()
     {
         /*PROTECTED REGION ID(dcon1475693360605) ENABLED START*/ //Add additional options here
-//    	resultfile.close();
+        resultfile.close();
         /*PROTECTED REGION END*/
     }
     void ASPNavigation::run(void* msg)
     {
         /*PROTECTED REGION ID(run1475693360605) ENABLED START*/ //Add additional options here
-		auto solver = (alica::reasoner::ASPSolverWrapper*)this->wm->getEngine()->getSolver(SolverType::ASPSOLVER);
+        if (this->isSuccess())
+        {
+            return;
+        }
+        if (this->iterationCounter % 4 == 0)
+        {
+            auto s = (alica::reasoner::ASPSolverWrapper*)this->wm->getEngine()->getSolver(SolverType::ASPSOLVER);
+            delete s;
+            auto ae = this->wm->getEngine();
+            std::vector<char const *> args {"clingo", nullptr};
+            auto solver = new ::reasoner::ASPSolver(args);
+            auto solverWrapper = new alica::reasoner::ASPSolverWrapper(ae, args);
+            solverWrapper->init(solver);
+            ae->addSolver(SolverType::ASPSOLVER, solverWrapper);
+        }
 //		if (this->iterationCounter == 0)
 //		{
 //			cout << "ASPNavigation: grounding navTest" << endl;
@@ -81,11 +98,7 @@ namespace alica
 //			}
 //		}
 //		cout << endl;
-        if (this->isSuccess())
-        {
-            return;
-        }
-        if (this->iterationCounter % 2 == 0)
+        if (this->iterationCounter % 4 == 0)
         {
             this->wm->doors.openDoor("doorClosed(r1411, studentArea)");
             this->wm->doors.openDoor("doorClosed(r1411C, studentArea)");
@@ -93,13 +106,13 @@ namespace alica
             this->wm->doors.openDoor("doorClosed(studentArea, mainHallA)");
             this->wm->doors.openDoor("doorClosed(mainHallB, utility)");
             this->wm->doors.openDoor("doorClosed(r1405B, utility)");
-            this->wm->doors.closeDoor("doorClosed(mainHallA, mainHallB)");
-            this->wm->doors.closeDoor("doorClosed(mainHallB, mainHallA)");
-        }
-        if (this->iterationCounter %2 == 1)
-        {
             this->wm->doors.openDoor("doorClosed(mainHallA, mainHallB)");
             this->wm->doors.openDoor("doorClosed(mainHallB, mainHallA)");
+        }
+        if (this->iterationCounter % 4 == 2)
+        {
+            this->wm->doors.closeDoor("doorClosed(mainHallA, mainHallB)");
+            this->wm->doors.closeDoor("doorClosed(mainHallB, mainHallA)");
         }
 
 //      this->wm->doors.openDoor("doorClosed(mainHallA, offices)");
@@ -109,8 +122,9 @@ namespace alica
         query->getSolution(SolverType::ASPSOLVER, runningPlan, result);
         std::chrono::_V2::system_clock::time_point end = std::chrono::high_resolution_clock::now();
         cout << "ASPNavigation: Measured Solving and Grounding Time: " << std::chrono::duration_cast
-                < chrono::nanoseconds > (end - start).count() / 1000000.0 << " ms iter: " << this->iterationCounter << endl;
-//        resultfile << (end - start).count() / 1000000.0 << " ";
+                < chrono::nanoseconds
+                > (end - start).count() / 1000000.0 << " ms iter: " << this->iterationCounter << endl;
+        resultfile << (end - start).count() / 1000000.0 << " ";
         if (result.size() > 0)
         {
             auto it = find_if(result.begin(), result.end(), [](::reasoner::AnnotatedValVec element)
@@ -120,19 +134,19 @@ namespace alica
                 if (it->variableQueryValues.size() > 0)
                 {
                     cout << "ASPNavigation: ASP result found!" << endl;
-					cout << "\tResult contains the predicates: " << endl;
-					cout << "\t\t";
-					for (int i = 0; i < result.size(); i++)
-					{
-						for (int j = 0; j < result.at(i).variableQueryValues.size(); j++)
-						{
-							for(int k = 0; k < result.at(i).variableQueryValues.at(j).size(); k++)
-							{
-								cout << result.at(i).variableQueryValues.at(j).at(k) << " ";
-							}
-						}
-					}
-					cout << endl;
+                    cout << "\tResult contains the predicates: " << endl;
+                    cout << "\t\t";
+                    for (int i = 0; i < result.size(); i++)
+                    {
+                        for (int j = 0; j < result.at(i).variableQueryValues.size(); j++)
+                        {
+                            for (int k = 0; k < result.at(i).variableQueryValues.at(j).size(); k++)
+                            {
+                                cout << result.at(i).variableQueryValues.at(j).at(k) << " ";
+                            }
+                        }
+                    }
+                    cout << endl;
 //					cout << "\tThe model contains the predicates: " << endl;
 //					cout << "\t\t";
 //					for (int i = 0; i < it->query->getCurrentModels()->at(0).size(); i++)
@@ -163,12 +177,15 @@ namespace alica
         {
             cout << "ASPNavigation: no result found!!!" << endl;
         }
-//        if (this->iterationCounter == 3)
-//        {
-//            this->setSuccess(true);
-////            resultfile << endl;
-//        }
         this->iterationCounter++;
+        if (this->iterationCounter % 4 == 0 && this->iterationCounter > 1)
+        {
+            resultfile << endl;
+        }
+        if (this->iterationCounter == 400)
+        {
+            this->setSuccess(true);
+        }
 
         /*PROTECTED REGION END*/
     }

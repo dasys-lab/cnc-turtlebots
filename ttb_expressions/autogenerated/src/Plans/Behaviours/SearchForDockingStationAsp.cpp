@@ -26,7 +26,6 @@ namespace alica
         /*PROTECTED REGION ID(dcon1470041810334) ENABLED START*/ //Add additional options here
         /*PROTECTED REGION END*/
     }
-    
     void SearchForDockingStationAsp::run(void* msg)
     {
         /*PROTECTED REGION ID(run1470041810334) ENABLED START*/ //Add additional options here
@@ -56,7 +55,8 @@ namespace alica
                     stringstream ss;
                     ss << it->variableQueryValues.at(0).at(0);
                     cout << it->variableQueryValues.at(0).at(0) << endl;
-                    shared_ptr < ttb::wm::PointOfInterest > dockingStation = this->wm->pois.getPOIByName(getPOIName(ss.str()));
+                    shared_ptr < ttb::wm::PointOfInterest > dockingStation = this->wm->pois.getPOIByName(
+                            getPOIName(ss.str()));
 
                     cout << "SearchForDockingStationAsp: Docking station is located at (" << dockingStation->x << " | "
                             << dockingStation->y << ")" << endl;
@@ -131,7 +131,7 @@ namespace alica
 #ifdef testWithoutTTB
     }
 #endif
-    /*PROTECTED REGION END*/
+        /*PROTECTED REGION END*/
     }
     void SearchForDockingStationAsp::initialiseParameters()
     {
