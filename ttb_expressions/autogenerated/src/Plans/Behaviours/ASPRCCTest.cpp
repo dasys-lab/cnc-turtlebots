@@ -108,9 +108,10 @@ namespace alica
         {
             resultfile << endl;
         }
-        if (this->iterationCounter == 20)
+        if (this->iterationCounter == 19)
         {
             this->setSuccess(true);
+		cout << "DONE" << endl;
         }
         this->iterationCounter++;
 
