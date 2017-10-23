@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 2.8.3)
 project(ttb_msgs)
- 
+
 ## Find catkin macros and libraries
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
@@ -40,6 +40,7 @@ find_package(catkin REQUIRED COMPONENTS
    InitialPoseWrapped.msg
    AMCLPoseWrapped.msg
    LogicalCamera.msg
+   LogicalCamera3D.msg
    ObjectSize.msg
  )
  
