@@ -1,0 +1,13 @@
+Manifest-Version: 1.0
+Export-Package: msl_actuator_msgs;version="0.0.0";uses:="msl_msgs,org.
+ jboss.netty.buffer,org.ros.internal.message,org.ros.message"
+Bundle-Version: 0.0.0
+Tool: Bnd-2.1.0.20130426-122213
+Bundle-Name: msl_actuator_msgs
+Bnd-LastModified: 1508778516000
+Created-By: 1.7.0_60 (Oracle Corporation)
+Bundle-ManifestVersion: 2
+Bundle-SymbolicName: org.ros.rosjava_messages.msl_actuator_msgs
+Import-Package: msl_msgs;version="[0.0,1)",org.jboss.netty.buffer;vers
+ ion="[3.5,4)",org.ros.internal.message,org.ros.message
+

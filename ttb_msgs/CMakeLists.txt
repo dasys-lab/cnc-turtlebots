@@ -41,6 +41,7 @@ find_package(catkin REQUIRED COMPONENTS
    AMCLPoseWrapped.msg
    LogicalCamera.msg
    LogicalCamera3D.msg
+   LogicalCamera3DArray.msg
    ObjectSize.msg
  )
  
