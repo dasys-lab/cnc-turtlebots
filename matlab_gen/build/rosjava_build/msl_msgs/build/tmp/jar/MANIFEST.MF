@@ -4,7 +4,7 @@ Export-Package: msl_msgs;version="0.0.0";uses:="geometry_msgs,org.ros.
 Bundle-Version: 0.0.0
 Tool: Bnd-2.1.0.20130426-122213
 Bundle-Name: msl_msgs
-Bnd-LastModified: 1508778515000
+Bnd-LastModified: 1508870754000
 Created-By: 1.7.0_60 (Oracle Corporation)
 Bundle-ManifestVersion: 2
 Bundle-SymbolicName: org.ros.rosjava_messages.msl_msgs
