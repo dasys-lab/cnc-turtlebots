@@ -20,8 +20,8 @@ namespace alica
         /*PROTECTED REGION END*/
     private:
         /*PROTECTED REGION ID(prv1486381476387) ENABLED START*/ //Add additional private methods here
-		ros::NodeHandle n;
-		ros::Publisher modelPosition_pub;
+        ros::NodeHandle n;
+        ros::Publisher modelPosition_pub;
         /*PROTECTED REGION END*/};
 } /* namespace alica */
 

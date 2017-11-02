@@ -24,6 +24,8 @@
 
 #include  "Plans/Tests/TurtleGenericTestMaster1454329729827.h"
 
+#include  "Plans/Serve/ASPRCCTestMaster1480766525772.h"
+
 #include  "Plans/Tests/TestPOI1454329810785.h"
 
 #include  "Plans/Serve/Charge1454331030770.h"
@@ -269,6 +271,18 @@ namespace alica
             case 1454329748126:
 
                 return make_shared<TransitionCondition1454329748126>();
+
+                break;
+
+            case 1480766551805:
+
+                return make_shared<RunTimeCondition1480766551805>();
+
+                break;
+
+            case 1480766547208:
+
+                return make_shared<TransitionCondition1480766547208>();
 
                 break;
 

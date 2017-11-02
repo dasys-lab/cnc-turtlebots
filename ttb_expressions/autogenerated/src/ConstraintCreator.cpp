@@ -25,6 +25,8 @@
 
 #include  "Plans/Tests/constraints/TurtleGenericTestMaster1454329729827Constraints.h"
 
+#include  "Plans/Serve/constraints/ASPRCCTestMaster1480766525772Constraints.h"
+
 #include  "Plans/Tests/constraints/TestPOI1454329810785Constraints.h"
 
 #include  "Plans/Serve/constraints/Charge1454331030770Constraints.h"
@@ -70,6 +72,10 @@ namespace alica
 
             case 1475692986360:
                 return make_shared<Constraint1475692986360>();
+                break;
+
+            case 1480766551805:
+                return make_shared<Constraint1480766551805>();
                 break;
 
             default:

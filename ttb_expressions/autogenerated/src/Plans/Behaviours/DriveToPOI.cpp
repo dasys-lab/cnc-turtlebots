@@ -1,9 +1,10 @@
- using namespace std;
+using namespace std;
 #include "Plans/Behaviours/DriveToPOI.h"
 
 /*PROTECTED REGION ID(inccpp1454329856163) ENABLED START*/ //Add additional includes here
 #include "actionlib/client/simple_action_client.h"
 #include "move_base_msgs/MoveBaseAction.h"
+#include "ttb_poi/TTBPointOfInterests.h"
 /*PROTECTED REGION END*/
 namespace alica
 {
