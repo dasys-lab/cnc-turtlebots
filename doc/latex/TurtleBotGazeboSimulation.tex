@@ -9,7 +9,7 @@ With this section, you should be able to start one of our TurtleBot Gazebo simul
 \subsection{Setting up your .bashrc file}
 \label{ssec:bashrc}
 
-You should have the the lines form Figure~\ref{fig:template_bashrc} inserted and adapted in your \verb$.bashrc$ file. The \verb$.bashrc$ file is located in your home folder. 
+You should have the the lines from Figure~\ref{fig:template_bashrc} inserted and adapted in your \verb$.bashrc$ file. The \verb$.bashrc$ file is located in your home folder. 
 \begin{landscape}
   \begin{figure}[htbp]
     \begin{verbatim}
@@ -40,10 +40,10 @@ export PS1='\[\033[01;32m\]\u@\h\[\033[01;34m\] \w \[\033[01;31m\]$(__git_ps1 "[
 
 Don't forget to close the terminal after you edited the \verb$.bashrc$ file. It will only be reloaded after you reopen the terminal or you type \verb$. .bashrc$ into each of the currently open consoles.
 
-\subsection{Starting Gazebo simulation}
+\subsection{Starting Gazebo Simulation}
 \label{ssec:StartSimulation}
 
-The following command starts gazebo with the turtlebots in the map of our department and provides a ROS map\_server node.
+The following command starts Gazebo with the Turtlebots in the map of our department and provides a ROS map\_server node.
 
 \verb$roslaunch turtlebot_bringup simulation.launch$
 
@@ -57,17 +57,37 @@ For debugging purposes ROS provides us with the Robot Vizualization program (rvi
 
 \verb$roslaunch rviz_sim.launch$
 
+\section{Simulation Environment}
+\label{sec:SimulationEnvironment}
+
+The different simulation environments of Gazebo are denoted as worlds. The worlds we developed are located in the \emph{world} folder of the \emph{turtlebot\_bringup} ROS package. Currently there exist three worlds: \emph{distributed\_system\_simple.world}, \emph{distributed\_sys\-tems\_com\-plex.world}, \emph{distributed\_systems\_disaster.world}. The simple world only includes the walls of the floor of the Distributed Systems department. In the complex version of it, furniture and several items are added for a more realistic simulation environment. The disaster world is an evaluation environment for the \href{http://www.uni-kassel.de/eecs/fachgebiete/vs/research/nicer.html}{NICER project} and not of further interest for this lecture. 
+
+The world files are formatted in a custom XML format, denoted as SPF. The format is relatively well documented on its \href{http://sdformat.org}{project homepage}. Please note the different available versions of the format. In the world file the world's properties are specified. These properties include physic properties, lighting, atmosphere, wind, etc. Furthermore different models can be inserted into the world. Therefore, other files can be referenced in the world file. The following lines, e.g., place a model instance of a small table at the given position. The instance can later we referenced by its given name.
+
+\begin{Verbatim}[fontsize=\small]
+<model name='r1411_small_table'>
+  <pose frame=''>0.77 4.46 0 0 0 0</pose>
+  <include>
+    <uri>model://small_table</uri>
+  </include>
+</model>
+\end{Verbatim}
+
+The line \verb$<uri>model://small_table</uri>$ is a where the magic happens. The protocol of this URI (\verb$model://$) states that the model needs to be found in a collection of locations given by the \verb$GAZEBO_MODEL_PATH$ environment variable (see Section~\ref{ssec:bashrc}). Taking a look at the \emph{models} folder in the \emph{turtlebot\_bringup} ROS package, you will find one folder per model. Each folder includes a \emph{.config} file and maybe several version of \emph{.spf} files for the model. The \emph{.config} file includes meta data about the model and references the different existing \emph{.spf} version files. In the \emph{.spf} files the model itself is specified, according to the \href{http://sdformat.org/spec?ver=1.6&elem=model}{SPF Model Specification}.
+
+There exist several neat features in the SPF format. Especially, it is possible to include Ruby code, in order to automatically generate parts of models or worlds. Nevertheless a robot itself is seldom specified directly in the SPF format. Instead it is spawned at run-time into the simulation environment by an extra spawning process denoted as \emph{spawn\_model} that is part of the \emph{gazebo\_ros} package. The arguments for the spawning process is a description of the robot model given in the Unified Robot Description format (URDF). Documentation for this format are given by the corresponding \href{http://wiki.ros.org/urdf/Tutorials}{URDF package pages}. URDF is actually deprecated an should be replaced by SDF, but for legacy reasons it still exists (see \href{http://answers.gazebosim.org/question/62/sdf-vs-urdf-what-should-one-use/}{ROS Answer Post}). If it should happen to you, that you are in the need of changing something at a robot model that is specified in URDF, the \href{http://gazebosim.org/tutorials/?tut=ros_urdf}{Gazebo Tutorial about URDF} could become handy, too.
+
 \section{TurtleBot Topics}
 \label{sec:TurtleBotTopics}
 
-At this point it is expected that you have profound understanding of ROS topics and the corresponding commandline tools. The purpose of this section is to help investigating or debugging typical topic errors related with our TurtleBot simulation environment. Furthermore the most intresting topics are listed and explained.
+At this point it is expected that you have profound understanding of ROS topics and the corresponding commandline tools. The purpose of this section is to help investigating or debugging typical topic errors related with our TurtleBot simulation environment. Furthermore, the most interesting topics are listed and explained.
 
 \subsection{Investigating Topics}
 \label{ssec:Investigating Topics}
 
 The first approach is always to see which topics are available in your running system. Therefore, type \verb$rostopic list$ into your terminal. The output looks like this:
 
-\begin{verbatim}
+\begin{Verbatim}[fontsize=\scriptsize]
   /clock
   /gazebo/link_states
   /gazebo/model_states
@@ -86,11 +106,12 @@ The first approach is always to see which topics are available in your running s
   /leonardo/camera/rgb/camera_info
   /leonardo/camera/rgb/image_raw
   ...
-\end{verbatim}
+\end{Verbatim}
 
 Much more information can be gained with the verbosity option of the same command: \verb$rostopic list -v$. Now the output is distinguished in published topics and subscribed topics, including the corresponding numbers of publishers and subscribers currently registered at the rosmaster process. As you should already know, the rosmaster process is the central ROS communication registry. It is spawned by the roscore process which in turn is spawned by any roslaunch process in case roscore is not running already. Here is an example for the verbatim output:
 
-\begin{verbatim}
+
+\begin{Verbatim}[fontsize=\scriptsize]
   Published topics:
   * /map_metadata [nav_msgs/MapMetaData] 1 publisher
   * /leonardo/move_base/local_costmap/obstacle_layer/parameter_updates [dynamic_reconfigure/Config] 1 publisher
@@ -105,7 +126,7 @@ Much more information can be gained with the verbosity option of the same comman
   * /leonardo/move_base/global_costmap/footprint [geometry_msgs/PolygonStamped] 1 subscriber
   * /leonardo/scan_hokuyo [sensor_msgs/LaserScan] 2 subscribers
   ...
-\end{verbatim}
+\end{Verbatim}
 
 As you may have noticed, the message type of each topic is given in square braces. Gaining this information that way, is sometimes much faster than surfing to the corresponding ROS documentation website.
 
@@ -116,7 +137,7 @@ One typical error, during programming your own ROS node, is that the topics of y
 
 Interacting with the move\_base node is a little bit complex, as it uses an \href{http://wiki.ros.org/actionlib/Tutorials}{ROS Action Server}. For simply posting a path planning goal to move\_base you can use the topic \verb$/leonardo/move_base_simple/goal$. The move\_base node will drive to that goal without giving you feedback about it. 
 
-AMCL is not able to localize itself globally on the map. Therefore, the AMCL node on each robot needs to receive its initial position from extern. The topic for this is \verb$/leonardo/initialpose$. Note that is much easier to send this information via RVIZ and its \emph{initial pose estimate} command.
+AMCL is not able to localize itself globally on the map. Therefore, the AMCL node on each robot needs to receive its initial position from extern. The topic for this is \verb$/leonardo/initialpose$. Note that it is easy to send this information via RVIZ and its \emph{initial pose estimate} command.
 
 \section{Turtlebot Sensor Plugin}
 
