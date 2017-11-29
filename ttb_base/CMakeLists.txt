@@ -23,7 +23,9 @@ find_package(catkin REQUIRED COMPONENTS
   ttb_worldmodel
   robot_control 
   tf 
-  alica_asp_solver
+  asp_commons
+  asp_solver_wrapper
+  asp_solver
 )
 
 ###################################
@@ -38,7 +40,7 @@ find_package(catkin REQUIRED COMPONENTS
 catkin_package(
   INCLUDE_DIRS include
   LIBRARIES 
-  CATKIN_DEPENDS alica_engine alica_ros_proxy ttb_expressions ttb_worldmodel
+  CATKIN_DEPENDS alica_engine alica_ros_proxy ttb_expressions ttb_worldmodel asp_commons asp_solver_wrapper asp_solver
 #  DEPENDS tinyxml
 )
 

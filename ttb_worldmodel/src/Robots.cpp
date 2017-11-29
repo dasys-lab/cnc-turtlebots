@@ -8,7 +8,7 @@
 #include <Robots.h>
 #include "TTBWorldModel.h"
 
-namespace ttb
+namespace ttb { namespace wm
 {
 
 	Robots::Robots(TTBWorldModel* wm, int ringBufferLength)
@@ -22,4 +22,4 @@ namespace ttb
 		// TODO Auto-generated destructor stub
 	}
 
-} /* namespace alica */
+}} /* namespace ttb::wm */

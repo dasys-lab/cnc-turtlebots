@@ -4,6 +4,7 @@ using namespace std;
 /*PROTECTED REGION ID(inccpp1454329856163) ENABLED START*/ //Add additional includes here
 #include "actionlib/client/simple_action_client.h"
 #include "move_base_msgs/MoveBaseAction.h"
+#include "ttb_poi/TTBPointOfInterests.h"
 /*PROTECTED REGION END*/
 namespace alica
 {
@@ -25,15 +26,16 @@ namespace alica
     void DriveToPOI::run(void* msg)
     {
         /*PROTECTED REGION ID(run1454329856163) ENABLED START*/ //Add additional options here
-        ttb::POI currentPOI;
-        if (this->id == 0)
-        {
-            currentPOI = this->wm->taskManager.popNextPOI();
-        }
-        else
-        {
-            currentPOI = this->wm->taskManager.getPOI(id);
-        }
+        ttb::wm::PointOfInterest currentPOI;
+        // TODO
+//        if (this->id == 0)
+//        {
+//            currentPOI = this->wm->taskManager.popNextTask();
+//        }
+//        else
+//        {
+//            currentPOI = this->wm->taskManager.getPOI(id);
+//        }
 
         MoveBaseClient mbc("move_base", true);
 

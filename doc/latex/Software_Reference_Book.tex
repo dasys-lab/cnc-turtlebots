@@ -1,13 +1,15 @@
 \documentclass[a4paper,10pt]{scrreprt}
 
 % GENERAL LATEX PACKAGES
-\usepackage{subfigure}
+\usepackage{subcaption}
 \usepackage{graphicx}
 \usepackage{color}
 \usepackage{url}
 \usepackage{hyperref}
 \usepackage{mathtools}
 \usepackage{wasysym}
+\usepackage{lscape}
+\usepackage{fancyvrb}
 
 % TIKZ FOR NICE LATEX GRAPHICS
 \usepackage{tikz}
@@ -17,7 +19,7 @@
 \usetikzlibrary{decorations.shapes}
 \usetikzlibrary{shapes.arrows}
 \usepackage{styleimports/definitions} 		%some custom commands and math operators
-\usepackage{styleimports/alica-tikz}		%colours for ALICA plans etc.
+\usepackage{styleimports/alica-tikz}		  %colours for ALICA plans etc.
 
 % BIBLIOGRAPHY PACKAGE CONFIGURATION
 \usepackage[
@@ -37,15 +39,15 @@
 	colorlinks,
 	citecolor=black,
 	filecolor=black,
-	linkcolor=black,
-	urlcolor=black,
+	linkcolor=blue!60!black,
+	urlcolor=blue!60!black,
 	pdftitle = {Distributed Cooperative Robot Systems},
 	pdfauthor = {Stephan Opfer},
 	pdfkeywords = {Multi-Agent Systems, Knowledge Representation}
 }
 
 \title{Distributed Cooperative Robot Systems}
-\author{Stephan Opfer}
+\author{Lecturers and Students}
 \makeindex
 
 % DOCUMENT BEGINS
@@ -71,6 +73,8 @@
 \include{TurtleBotSoftware}
 
 \include{TurtleBotGazeboSimulation}
+
+\include{Exam}
 
 % CONFIGURE BIBLIOGRAPHY PENALTIES
 \setcounter{biburlnumpenalty}{9000}

@@ -6,7 +6,7 @@
 //#include <clingo/clingocontrol.hh>
 #include <engine/constraintmodul/Query.h>
 #include <memory>
-#include <alica_asp_solver/AnnotatedValVec.h>
+#include <asp_commons/AnnotatedValVec.h>
 /*PROTECTED REGION END*/
 namespace alica
 {
@@ -17,7 +17,7 @@ namespace alica
         virtual ~ASPMinimizePath();
         virtual void run(void* msg);
         /*PROTECTED REGION ID(pub1477125924367) ENABLED START*/ //Add additional public methods here
-        vector<alica::reasoner::AnnotatedValVec> result;
+        vector<::reasoner::AnnotatedValVec> result;
         /*PROTECTED REGION END*/
     protected:
         virtual void initialiseParameters();

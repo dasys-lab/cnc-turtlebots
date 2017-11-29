@@ -6,7 +6,12 @@ using namespace std;
 #include "SolverType.h"
 #include "actionlib/client/simple_action_client.h"
 #include "move_base_msgs/MoveBaseAction.h"
-#include <alica_asp_solver/ASPSolver.h>
+#include <asp_solver_wrapper/ASPSolverWrapper.h>
+#include <asp_commons/ASPQuery.h>
+#include "ttb_poi/TTBPointOfInterests.h"
+#include "SolverType.h"
+#include <asp_commons/IASPSolver.h>
+#include <asp_solver/ASPSolver.h>
 /*PROTECTED REGION END*/
 namespace alica
 {
@@ -17,19 +22,34 @@ namespace alica
     {
         /*PROTECTED REGION ID(con1475693360605) ENABLED START*/ //Add additional options here
         this->query = make_shared < alica::Query > (this->wm->getEngine());
-        this->openDoors = false;
         this->iterationCounter = 0;
+        resultfile.open("results_externals.txt", fstream::app);
         /*PROTECTED REGION END*/
     }
     ASPNavigation::~ASPNavigation()
     {
         /*PROTECTED REGION ID(dcon1475693360605) ENABLED START*/ //Add additional options here
+        resultfile.close();
         /*PROTECTED REGION END*/
     }
     void ASPNavigation::run(void* msg)
     {
         /*PROTECTED REGION ID(run1475693360605) ENABLED START*/ //Add additional options here
-//		auto solver = (alica::reasoner::ASPSolver*)this->wm->getEngine()->getSolver(SolverType::ASPSOLVER);
+        if (this->isSuccess())
+        {
+            return;
+        }
+        if (this->iterationCounter % 4 == 0)
+        {
+            auto s = (alica::reasoner::ASPSolverWrapper*)this->wm->getEngine()->getSolver(SolverType::ASPSOLVER);
+            delete s;
+            auto ae = this->wm->getEngine();
+            std::vector<char const *> args {"clingo", nullptr};
+            auto solver = new ::reasoner::ASPSolver(args);
+            auto solverWrapper = new alica::reasoner::ASPSolverWrapper(ae, args);
+            solverWrapper->init(solver);
+            ae->addSolver(SolverType::ASPSOLVER, solverWrapper);
+        }
 //		if (this->iterationCounter == 0)
 //		{
 //			cout << "ASPNavigation: grounding navTest" << endl;
@@ -107,22 +127,22 @@ namespace alica
                 < chrono::nanoseconds > (end - start).count() / 1000000.0 << " ms" << endl;
         if (result.size() > 0)
         {
-            auto it = find_if(result.begin(), result.end(), [](alica::reasoner::AnnotatedValVec element)
+            auto it = find_if(result.begin(), result.end(), [](::reasoner::AnnotatedValVec element)
             {   return element.id == 1475692986360;});
             if (it != result.end())
             {
-                if (it->values.size() > 0)
+                if (it->variableQueryValues.size() > 0)
                 {
                     cout << "ASPNavigation: ASP result found!" << endl;
                     cout << "\tResult contains the predicates: " << endl;
                     cout << "\t\t";
                     for (int i = 0; i < result.size(); i++)
                     {
-                        for (int j = 0; j < result.at(i).values.size(); j++)
+                        for (int j = 0; j < result.at(i).variableQueryValues.size(); j++)
                         {
-                            for (int k = 0; k < result.at(i).values.at(j).size(); k++)
+                            for (int k = 0; k < result.at(i).variableQueryValues.at(j).size(); k++)
                             {
-                                cout << result.at(i).values.at(j).at(k) << " ";
+                                cout << result.at(i).variableQueryValues.at(j).at(k) << " ";
                             }
                         }
                     }

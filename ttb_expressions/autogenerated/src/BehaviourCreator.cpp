@@ -3,6 +3,8 @@ using namespace std;
 #include "BehaviourCreator.h"
 #include "engine/BasicBehaviour.h"
 
+#include  "Plans/Serve/PKVR16/PickUp.h"
+
 #include  "Plans/Behaviours/Wumpus/WaitForTurn.h"
 
 #include  "Plans/Behaviours/Wumpus/Wumpus.h"
@@ -39,6 +41,8 @@ using namespace std;
 
 #include  "Plans/Behaviours/SearchDockingStation.h"
 
+#include  "Plans/Behaviours/ASPRCCTest.h"
+
 namespace alica
 {
 
@@ -54,6 +58,11 @@ namespace alica
     {
         switch (behaviourConfId)
         {
+
+            case 1486381497239:
+
+                return make_shared<PickUp>();
+                break;
 
             case 1489673907866:
 
@@ -153,6 +162,11 @@ namespace alica
             case 1414681446065:
 
                 return make_shared<SearchDockingStation>();
+                break;
+
+            case 1480766599215:
+
+                return make_shared<ASPRCCTest>();
                 break;
 
             default:

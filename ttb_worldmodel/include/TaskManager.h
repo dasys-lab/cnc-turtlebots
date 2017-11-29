@@ -8,15 +8,18 @@
 #ifndef SRC_TASKMANAGER_H_
 #define SRC_TASKMANAGER_H_
 
-#include "ttb_msgs/DriveToPOI.h"
 #include "InformationElement.h"
-#include "POI.h"
 #include <SystemConfig.h>
+#include <tasks/PointOfInterest.h>
+#include <ttb_msgs/ServeTask.h>
 
-using namespace std;
-
-namespace ttb
+namespace ttb { namespace wm
 {
+	class ServeTask;
+
+	enum TaskType {
+		SERVE, DRIVE_TO, SEARCH, PICK_UP, PUT_DOWN
+	};
 
 	class TaskManager
 	{
@@ -24,21 +27,18 @@ namespace ttb
 		TaskManager();
 		virtual ~TaskManager();
 
-		void pushDriveToPOITask(shared_ptr<InformationElement<ttb_msgs::DriveToPOI>> driveToPOITask);
+		void pushTask(shared_ptr<InformationElement<ttb_msgs::ServeTask>> task);
 
-		shared_ptr<InformationElement<ttb_msgs::DriveToPOI>> popNextDriveToPOI();
-		shared_ptr<InformationElement<ttb_msgs::DriveToPOI>> getNextDriveToPOI();
+		shared_ptr<InformationElement<ServeTask>> popNextTask();
+		shared_ptr<InformationElement<ServeTask>> getNextTask();
 
-		POI getPOI(int id);
-		POI popNextPOI();
+		bool isNextTask(TaskType type);
 
 
 	private:
-		shared_ptr<supplementary::SystemConfig> sc;
-		map<int, POI> poiMap;
-		vector<shared_ptr<InformationElement<ttb_msgs::DriveToPOI>>> unfinishedDriveToPOITasks;
+		vector<shared_ptr<InformationElement<ServeTask>>> pendingTasks;
 	};
 
-} /* namespace ttb */
+}} /* namespace ttb */
 
 #endif /* SRC_TASKMANAGER_H_ */

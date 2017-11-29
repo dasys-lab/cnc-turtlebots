@@ -50,6 +50,7 @@ namespace alica
 		string soundRequesTopic;
 		string velocityTopic;
 		string moveBaseGoalTopic;
+		string moveBaseActionClientNamespace;
 		string moveBaseActionGoalTopic;
 		string wumpusActionRequestTopic;
 		string wumpusPoseRequestTopic;

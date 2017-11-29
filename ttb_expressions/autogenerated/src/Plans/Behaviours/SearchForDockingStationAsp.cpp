@@ -6,6 +6,8 @@ using namespace std;
 #include "SolverType.h"
 #include "actionlib/client/simple_action_client.h"
 #include "move_base_msgs/MoveBaseAction.h"
+#include <asp_commons/ASPQuery.h>
+#include "ttb_poi/TTBPointOfInterests.h"
 /*PROTECTED REGION END*/
 namespace alica
 {
@@ -40,20 +42,21 @@ namespace alica
         std::chrono::_V2::system_clock::time_point end = std::chrono::high_resolution_clock::now();
         cout << "SearchForDockingStationAsp: Measured Solving and Grounding Time: " << std::chrono::duration_cast
                 < chrono::nanoseconds > (end - start).count() / 1000000.0 << " ms" << endl;
-        shared_ptr < ttb::POI > dockingStation = nullptr;
+        shared_ptr < ttb::wm::PointOfInterest > dockingStation = nullptr;
         if (result.size() > 0)
         {
-            auto it = find_if(result.begin(), result.end(), [](alica::reasoner::AnnotatedValVec element)
+            auto it = find_if(result.begin(), result.end(), [](::reasoner::AnnotatedValVec element)
             {   return element.id == 1470042926317;});
             if (it != result.end())
             {
-                if (it->values.size() > 0)
+                if (it->variableQueryValues.size() > 0)
                 {
                     cout << "SearchForDockingStationAsp: ASP result found!" << endl;
                     stringstream ss;
-                    ss << it->values.at(0).at(0);
-                    cout << it->values.at(0).at(0) << endl;
-                    shared_ptr < ttb::POI > dockingStation = this->wm->pois.getPOIByName(getPOIName(ss.str()));
+                    ss << it->variableQueryValues.at(0).at(0);
+                    cout << it->variableQueryValues.at(0).at(0) << endl;
+                    shared_ptr < ttb::wm::PointOfInterest > dockingStation = this->wm->pois.getPOIByName(
+                            getPOIName(ss.str()));
 
                     cout << "SearchForDockingStationAsp: Docking station is located at (" << dockingStation->x << " | "
                             << dockingStation->y << ")" << endl;

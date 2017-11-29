@@ -6,8 +6,6 @@
 
 #include  "Plans/Wumpus/WumpusMaster1489673406228.h"
 
-#include  "Plans/Serve/PKVR16/CollectBoxes1481544845570.h"
-
 #include  "Plans/Wumpus/InteractWIthPlayground1489673751539.h"
 
 #include  "Plans/Serve/ServeMaster1454332108133.h"
@@ -29,6 +27,8 @@
 #include  "Plans/Serve/Serve1454331313621.h"
 
 #include  "Plans/Tests/TurtleGenericTestMaster1454329729827.h"
+
+#include  "Plans/Serve/ASPRCCTestMaster1480766525772.h"
 
 #include  "Plans/Wumpus/Turn1489674129255.h"
 
@@ -67,6 +67,12 @@ namespace alica
             case 1470042249132:
 
                 return make_shared<TransitionCondition1470042249132>();
+
+                break;
+
+            case 1486383886372:
+
+                return make_shared<TransitionCondition1486383886372>();
 
                 break;
 
@@ -274,6 +280,24 @@ namespace alica
 
                 break;
 
+            case 1486383768270:
+
+                return make_shared<TransitionCondition1486383768270>();
+
+                break;
+
+            case 1486383787970:
+
+                return make_shared<TransitionCondition1486383787970>();
+
+                break;
+
+            case 1486383790747:
+
+                return make_shared<TransitionCondition1486383790747>();
+
+                break;
+
             case 1454329746996:
 
                 return make_shared<TransitionCondition1454329746996>();
@@ -283,6 +307,18 @@ namespace alica
             case 1454329748126:
 
                 return make_shared<TransitionCondition1454329748126>();
+
+                break;
+
+            case 1480766551805:
+
+                return make_shared<RunTimeCondition1480766551805>();
+
+                break;
+
+            case 1480766547208:
+
+                return make_shared<TransitionCondition1480766547208>();
 
                 break;
 

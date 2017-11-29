@@ -3,6 +3,7 @@ using namespace std;
 
 /*PROTECTED REGION ID(inccpp1477125924367) ENABLED START*/ //Add additional includes here
 #include "SolverType.h"
+#include <asp_commons/ASPQuery.h>
 /*PROTECTED REGION END*/
 namespace alica
 {
@@ -34,22 +35,22 @@ namespace alica
                 < chrono::milliseconds > (end - start).count() << " ms" << endl;
         if (result.size() > 0)
         {
-            auto it = find_if(result.begin(), result.end(), [](alica::reasoner::AnnotatedValVec element)
+            auto it = find_if(result.begin(), result.end(), [](::reasoner::AnnotatedValVec element)
             {   return element.id == 1477125906086;});
             if (it != result.end())
             {
-                if (it->values.size() > 0)
+                if (it->variableQueryValues.size() > 0)
                 {
                     cout << "ASPMinimizePath: ASP result found!" << endl;
                     cout << "\tResult contains the predicates: " << endl;
                     cout << "\t\t";
                     for (int i = 0; i < result.size(); i++)
                     {
-                        for (int j = 0; j < result.at(i).values.size(); j++)
+                        for (int j = 0; j < result.at(i).variableQueryValues.size(); j++)
                         {
-                            for (int k = 0; k < result.at(i).values.at(j).size(); k++)
+                            for (int k = 0; k < result.at(i).variableQueryValues.at(j).size(); k++)
                             {
-                                cout << result.at(i).values.at(j).at(k) << " ";
+                                cout << result.at(i).variableQueryValues.at(j).at(k) << " ";
                             }
                         }
                     }
