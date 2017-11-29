@@ -98,7 +98,11 @@ namespace alica
 //			}
 //		}
 //		cout << endl;
-        if (this->iterationCounter % 4 == 0)
+        if (this->isSuccess())
+        {
+            return;
+        }
+        if (this->iterationCounter == 0)
         {
             this->wm->doors.openDoor("doorClosed(r1411, studentArea)");
             this->wm->doors.openDoor("doorClosed(r1411C, studentArea)");
@@ -106,13 +110,11 @@ namespace alica
             this->wm->doors.openDoor("doorClosed(studentArea, mainHallA)");
             this->wm->doors.openDoor("doorClosed(mainHallB, utility)");
             this->wm->doors.openDoor("doorClosed(r1405B, utility)");
-            this->wm->doors.openDoor("doorClosed(mainHallA, mainHallB)");
-            this->wm->doors.openDoor("doorClosed(mainHallB, mainHallA)");
-        }
-        if (this->iterationCounter % 4 == 2)
-        {
             this->wm->doors.closeDoor("doorClosed(mainHallA, mainHallB)");
-            this->wm->doors.closeDoor("doorClosed(mainHallB, mainHallA)");
+        }
+        if (this->iterationCounter == 2)
+        {
+            this->wm->doors.openDoor("doorClosed(mainHallA, mainHallB)");
         }
 
 //      this->wm->doors.openDoor("doorClosed(mainHallA, offices)");
@@ -122,9 +124,7 @@ namespace alica
         query->getSolution(SolverType::ASPSOLVER, runningPlan, result);
         std::chrono::_V2::system_clock::time_point end = std::chrono::high_resolution_clock::now();
         cout << "ASPNavigation: Measured Solving and Grounding Time: " << std::chrono::duration_cast
-                < chrono::nanoseconds
-                > (end - start).count() / 1000000.0 << " ms iter: " << this->iterationCounter << endl;
-        resultfile << (end - start).count() / 1000000.0 << " ";
+                < chrono::nanoseconds > (end - start).count() / 1000000.0 << " ms" << endl;
         if (result.size() > 0)
         {
             auto it = find_if(result.begin(), result.end(), [](::reasoner::AnnotatedValVec element)
@@ -157,7 +157,7 @@ namespace alica
                 }
                 else
                 {
-                    cout << "ASPNavigation: no result found!" << endl;
+//                    cout << "ASPNavigation: no result found!" << endl;
 //					cout << "\tThe model contains the predicates: " << endl;
 //					cout << "\t\t";
 //					for (int i = 0; i < it->query->getCurrentModels()->at(0).size(); i++)
@@ -177,15 +177,11 @@ namespace alica
         {
             cout << "ASPNavigation: no result found!!!" << endl;
         }
-        this->iterationCounter++;
-        if (this->iterationCounter % 4 == 0 && this->iterationCounter > 1)
-        {
-            resultfile << endl;
-        }
-        if (this->iterationCounter == 400)
+        if (this->iterationCounter == 3)
         {
             this->setSuccess(true);
         }
+        this->iterationCounter++;
 
         /*PROTECTED REGION END*/
     }

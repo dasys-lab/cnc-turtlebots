@@ -7,7 +7,7 @@ set(CMAKE_CXX_FLAGS "-std=c++11 ${CMAKE_CXX_FLAGS}")
 ## Enable exception handling for segfaults using SigFault.h
 set(CMAKE_CXX_FLAGS "-rdynamic -fnon-call-exceptions -ggdb ${CMAKE_CXX_FLAGS}")
 
-find_package(catkin REQUIRED COMPONENTS cnc_geometry system_config event_handling alica_engine kobuki_msgs robot_control tf ttb_msgs)
+find_package(catkin REQUIRED COMPONENTS cnc_geometry system_config event_handling alica_engine kobuki_msgs robot_control tf ttb_msgs wumpus_simulator)
 
 ###################################
 ## catkin specific configuration ##
@@ -21,7 +21,7 @@ find_package(catkin REQUIRED COMPONENTS cnc_geometry system_config event_handlin
 catkin_package(
   INCLUDE_DIRS include
   LIBRARIES ttb_worldmodel
-  CATKIN_DEPENDS cnc_geometry system_config event_handling robot_control ttb_msgs
+  CATKIN_DEPENDS cnc_geometry system_config event_handling robot_control ttb_msgs wumpus_simulator
 #  DEPENDS system_lib
 )
  
@@ -47,9 +47,10 @@ add_library(ttb_worldmodel
   src/logicalCameraModel/Victim.cpp
   src/logicalCameraModel/Landmark.cpp
   src/tasks/ServeTask.cpp
+  src/WumpusData.cpp
 )
 
-add_dependencies(ttb_worldmodel kobuki_msgs_generate_messages_cpp geometry_msgs_generate_messages_cpp robot_control_generate_messages_cpp)
+add_dependencies(ttb_worldmodel kobuki_msgs_generate_messages_cpp geometry_msgs_generate_messages_cpp robot_control_generate_messages_cpp wumpus_simulator_generate_messages_cpp)
 
 target_link_libraries(ttb_worldmodel
   ${catkin_LIBRARIES} 

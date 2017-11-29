@@ -30,6 +30,7 @@ TTBWorldModel::TTBWorldModel()
     , pois(this)
     , alicaEngine(nullptr)
     , doors(this)
+    , wumpusData(this, 10)
 {
     ownID = supplementary::SystemConfig::getOwnRobotID();
 
@@ -270,3 +271,4 @@ void TTBWorldModel::onLogicalCameraData(ttb_msgs::LogicalCameraPtr logicalCamera
 }
 
 } /* namespace ttb */
+

@@ -20,6 +20,8 @@
 #include "gazebo_msgs/ModelStates.h"
 #include "geometry_msgs/Twist.h"
 #include "kobuki_msgs/BumperEvent.h"
+#include "geometry_msgs/Twist.h"
+#include "sensor_msgs/JointState.h"
 #include "kobuki_msgs/CliffEvent.h"
 #include "kobuki_msgs/DockInfraRed.h"
 #include "kobuki_msgs/SensorState.h"
@@ -33,6 +35,7 @@
 #include "ttb_msgs/ServeTask.h"
 #include "ttb_msgs/LogicalCamera.h"
 
+#include "WumpusData.h"
 #include "Doors.h"
 #include "EventTrigger.h"
 #include "LogicalCameraData.h"
@@ -40,7 +43,9 @@
 #include "Robots.h"
 #include "SystemConfig.h"
 #include "TaskManager.h"
+#include "EventTrigger.h"
 #include "ttb_poi/TTBPointOfInterests.h"
+#include "Doors.h"
 
 namespace supplementary
 {
@@ -74,11 +79,12 @@ class TTBWorldModel
     wm::Robots robots;
     wm::TTBPointOfInterests pois;
     wm::Doors doors;
+    WumpusData wumpusData; 
+    supplementary::SystemConfig *sc;
 
   private:
     TTBWorldModel(); /**< Private Singleton Constructor */
 
-    supplementary::SystemConfig *sc;
     alica::AlicaEngine *alicaEngine;
     WrappedMessageHandler *wrappedMessageHandler;
 

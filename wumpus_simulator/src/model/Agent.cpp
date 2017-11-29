@@ -10,15 +10,49 @@
 namespace wumpus_simulator
 {
 
-	Agent::Agent()
+	Agent::Agent(shared_ptr<GroundTile> tile)
 	{
-		// TODO Auto-generated constructor stub
-
+		this->tile = tile;
+		type = "agent";
+		arrow = false;
+		hasGold = false;
+		this->heading = WumpusEnums::heading::up;
 	}
 
 	Agent::~Agent()
 	{
-		// TODO Auto-generated destructor stub
 	}
 
+	bool Agent::hasArrow()
+	{
+		return arrow;
+	}
+
+	void Agent::setArrow(bool value)
+	{
+		this->arrow = value;
+	}
+
+	WumpusEnums::heading Agent::getHeading()
+	{
+		return heading;
+	}
+
+	void Agent::setHeading(WumpusEnums::heading heading)
+	{
+		this->heading = heading;
+	}
+
+	void wumpus_simulator::Agent::setHasGold(bool value)
+	{
+		this->hasGold = value;
+	}
+
+	bool wumpus_simulator::Agent::getHasGold()
+	{
+		return hasGold;
+	}
+
+
 } /* namespace wumpus_simulator */
+

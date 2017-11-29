@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="ASCII"?>
+<uiextensionmodel:PmlUiExtensionMap xmlns:uiextensionmodel="http:///de.uni_kassel.vs.cn/planDesigner/pmlextension/uiextensionmodel">
+  <extensions>
+    <key href="WumpusMaster.pml#1489673406229"/>
+    <value xPos="92" yPos="91" width="82" height="67" collapsed="false"/>
+  </extensions>
+  <extensions>
+    <key href="WumpusMaster.pml#1489673406228"/>
+    <value width="800" height="351"/>
+  </extensions>
+  <extensions>
+    <key href="WumpusMaster.pml#1489673406230"/>
+    <value/>
+  </extensions>
+  <extensions>
+    <key href="../Behaviours/Wumpus/SpawnAgent.beh#1489673543981"/>
+    <value/>
+  </extensions>
+  <extensions>
+    <key href="WumpusMaster.pml#1489673551929"/>
+    <value xPos="364" yPos="93" width="82" height="67" collapsed="false"/>
+  </extensions>
+  <extensions>
+    <key href="WumpusMaster.pml#1489673563202"/>
+    <value/>
+  </extensions>
+  <extensions>
+    <key href="WumpusMaster.pml#1489673616222"/>
+    <value xPos="503" yPos="139"/>
+  </extensions>
+  <extensions>
+    <key href="WumpusMaster.pml#1489673632039"/>
+    <value/>
+  </extensions>
+  <extensions>
+    <key href="WumpusMaster.pml#1489673668786"/>
+    <value xPos="598" yPos="194"/>
+  </extensions>
+  <extensions>
+    <key href="WumpusMaster.pml#1489673685018"/>
+    <value/>
+  </extensions>
+  <extensions>
+    <key href="InteractWIthPlayground.pml#1489673751539"/>
+    <value/>
+  </extensions>
+</uiextensionmodel:PmlUiExtensionMap>

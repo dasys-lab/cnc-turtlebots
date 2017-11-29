@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 2.8.3)
 project(wumpus_simulator)
 
-find_package(catkin REQUIRED COMPONENTS rqt_gui rqt_gui_cpp roscpp message_generation ttb_msgs system_config)
+find_package(catkin REQUIRED COMPONENTS rqt_gui rqt_gui_cpp roscpp message_generation ttb_msgs system_config qt_gui)
 
 find_package(Qt5Core REQUIRED)
 get_target_property(Qt5Core_location Qt5::Core LOCATION)
@@ -11,6 +11,8 @@ find_package(Qt5Network REQUIRED)
 get_target_property(Qt5Network_location Qt5::Network LOCATION)
 find_package(Qt5Widgets REQUIRED)
 get_target_property(Qt5Widgets_location Qt5::Widgets LOCATION)
+find_package(Qt5WebKitWidgets REQUIRED)
+get_target_property(Qt5WebKitWidgets_location Qt5::WebKitWidgets LOCATION)
 SET( QT_USE_QTXML TRUE )
 SET( QT_WRAP_CPP TRUE )
 
@@ -22,74 +24,72 @@ if (${CMAKE_EXTRA_GENERATOR} MATCHES "Eclipse CDT4")
 	add_definitions (-DCMAKE_ECLIPSE_GENERATE_SOURCE_PROJECT=TRUE)
 endif (${CMAKE_EXTRA_GENERATOR} MATCHES "Eclipse CDT4")
 
-#add_message_files(
-#  FILES
-#  RobotCommand.msg
-#)
+add_message_files(
+  FILES
+  InitialPoseRequest.msg
+  ActionRequest.msg
+  ActionResponse.msg
+  InitialPoseResponse.msg
+)
 
 catkin_python_setup()
 
-#generate_messages(
-#  DEPENDENCIES
-#  std_msgs
-#)
+generate_messages(
+  DEPENDENCIES
+  std_msgs
+)
 
 set(wumpuswidget_SRCS
   src/wumpus_simulator/WumpusSimulator.cpp
-  src/wumpus_simulator/NewWorldDialog.cpp
-  src/wumpus_simulator/SettingsDialog.cpp
   src/model/Agent.cpp
   src/model/GroundTile.cpp
-  src/model/Simulator.cpp
+  src/model/Model.cpp
   src/model/Wumpus.cpp
   src/model/Movable.cpp
 )
 
 set(wumpuswidget_HDRS
-  include/wumpus_simulator/WumpusSimulator.h  
-  include/wumpus_simulator/NewWorldDialog.h
-  include/wumpus_simulator/SettingsDialog.h
+  include/wumpus_simulator/WumpusSimulator.h 
   include/model/Agent.h
   include/model/GroundTile.h
-  include/model/Simulator.h
+  include/model/Model.h
   include/model/Wumpus.h
   include/model/Movable.h
+  include/model/WumpusEnums.h
 )
 
 set(wumpuswidget_UIS
-  ui/mainwindow.ui
-  ui/newworlddialog.ui
-  ui/settingsdialog.ui
+  ui/mainwindow_webview.ui
 )
 
 set(wumpus_simulator_INCLUDE_DIRECTORIES
     include
+    include/model
     ${Qt5Core_INCLUDE_DIRS}
     ${Qt5Gui_INCLUDE_DIRS}
     ${Qt5Network_INCLUDE_DIRS}
     ${Qt5Widgets_INCLUDE_DIRS}
+    ${Qt5WebKitWidgets_INCLUDE_DIRS}
     ${CMAKE_CURRENT_BINARY_DIR}
 )
 include_directories(${wumpus_simulator_INCLUDE_DIRECTORIES} ${catkin_INCLUDE_DIRS})
 
-#set(wumpus_simulator_RCS
-#    resources/resources.qrc
-#)
+file(GLOB QT_RESOURCES RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} resources/*.qrc)
 
 catkin_package(
   INCLUDE_DIRS ${wumpus_simulator_INCLUDE_DIRECTORIES}
   LIBRARIES ${PROJECT_NAME}
-  CATKIN_DEPENDS rqt_gui rqt_gui_cpp system_config
+  CATKIN_DEPENDS qt_gui rqt_gui rqt_gui_cpp system_config message_runtime
 )
 
+QT5_ADD_RESOURCES(QT_RESOURCES_CPP ${QT_RESOURCES})
 QT5_WRAP_CPP(wumpus_MOCS ${wumpuswidget_HDRS})
 QT5_WRAP_UI(wumpus_UIS_H ${wumpuswidget_UIS})
 
+add_library(${PROJECT_NAME} ${wumpuswidget_SRCS} ${wumpus_MOCS} ${wumpus_UIS_H} ${QT_RESOURCES_CPP})
+target_link_libraries(${PROJECT_NAME} ${catkin_LIBRARIES} ${Qt5Widgets_location} ${Qt5Core_location} ${Qt5Gui_location} ${Qt5Network_location} ${Qt5WebKitWidgets_location})
 
-add_library(${PROJECT_NAME} ${wumpuswidget_SRCS} ${wumpus_MOCS} ${wumpus_UIS_H})
-target_link_libraries(${PROJECT_NAME} ${catkin_LIBRARIES} ${Qt5Core_location} ${Qt5Gui_location} ${Qt5Network_location})
-
-#add_dependencies(${PROJECT_NAME} robot_control_generate_messages_cpp)
+add_dependencies(${PROJECT_NAME} wumpus_simulator_generate_messages_cpp)
 
 find_package(class_loader)
 class_loader_hide_library_symbols(${PROJECT_NAME})

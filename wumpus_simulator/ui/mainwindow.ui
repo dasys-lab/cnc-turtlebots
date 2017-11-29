@@ -22,7 +22,7 @@
         <enum>Qt::Vertical</enum>
        </property>
        <widget class="QWidget" name="gridLayoutWidget">
-        <layout class="QGridLayout" name="gridLayout"/>
+        <layout class="QGridLayout" name="gameBoard"/>
        </widget>
        <widget class="QSplitter" name="splitter">
         <property name="orientation">

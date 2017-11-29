@@ -6,14 +6,14 @@
  */
 
 #include <model/Wumpus.h>
+#include <model/GroundTile.h>
 
 namespace wumpus_simulator
 {
 
-	Wumpus::Wumpus()
-	{
-		// TODO Auto-generated constructor stub
-
+	Wumpus::Wumpus(shared_ptr<GroundTile> tile) {
+		this->tile = tile;
+		type = "wumpus";
 	}
 
 	Wumpus::~Wumpus()

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="ASCII"?>
+<uiextensionmodel:PmlUiExtensionMap xmlns:uiextensionmodel="http:///de.uni_kassel.vs.cn/planDesigner/pmlextension/uiextensionmodel">
+  <extensions>
+    <key href="InteractWIthPlayground.pml#1489673770246"/>
+    <value xPos="98" yPos="112" width="198" height="86" collapsed="false"/>
+  </extensions>
+  <extensions>
+    <key href="InteractWIthPlayground.pml#1489673751539"/>
+    <value width="822" height="351"/>
+  </extensions>
+  <extensions>
+    <key href="InteractWIthPlayground.pml#1489673770247"/>
+    <value/>
+  </extensions>
+  <extensions>
+    <key href="../Behaviours/Wumpus/WaitForTurn.beh#1489673907866"/>
+    <value/>
+  </extensions>
+  <extensions>
+    <key href="InteractWIthPlayground.pml#1489673919099"/>
+    <value xPos="308" yPos="109" width="82" height="67" collapsed="false"/>
+  </extensions>
+  <extensions>
+    <key href="InteractWIthPlayground.pml#1489674022732"/>
+    <value>
+      <bendpoints xPos="365" yPos="207"/>
+    </value>
+  </extensions>
+  <extensions>
+    <key href="InteractWIthPlayground.pml#1489674024781"/>
+    <value>
+      <bendpoints xPos="363" yPos="151"/>
+    </value>
+  </extensions>
+  <extensions>
+    <key href="Turn.pml#1489674129255"/>
+    <value/>
+  </extensions>
+</uiextensionmodel:PmlUiExtensionMap>

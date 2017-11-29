@@ -18,6 +18,8 @@ namespace alica
 		ros::NodeHandle n;
 		velocityTopic = robotName + (*sc)["Drive"]->get<string>("Topics.VelocityTopic", NULL);
 		soundRequesTopic = robotName + (*sc)["TTBWorldModel"]->get<string>("Sensors.SoundRequestTopic", NULL);
+		wumpusActionRequestTopic = (*sc)["TTBWorldModel"]->get<string>("Wumpus.ActionRequest", NULL);
+		wumpusPoseRequestTopic = (*sc)["TTBWorldModel"]->get<string>("Wumpus.SpawnAgentRequest", NULL);
 
 		moveBaseActionGoalTopic = robotName + (*sc)["Drive"]->get<string>("Topics.MoveBaseActionGoalTopic", NULL);
 		moveBaseGoalTopic = robotName + (*sc)["Drive"]->get<string>("Topics.MoveBaseGoalTopic", NULL);
@@ -29,6 +31,9 @@ namespace alica
 		move_base_simpleGoalPub = n.advertise<geometry_msgs::PoseStamped>(moveBaseGoalTopic, 10);
 
 		ac = new actionlib::SimpleActionClient<move_base_msgs::MoveBaseAction>(moveBaseActionClientNamespace, true);
+
+		wumpusActionPublisher = n.advertise<wumpus_simulator::ActionRequest>(wumpusActionRequestTopic, 10);
+		wumpusPosePublisher = n.advertise<wumpus_simulator::InitialPoseRequest>(wumpusPoseRequestTopic, 10);
 
 		goalActive = false;
 	}
@@ -58,6 +63,16 @@ namespace alica
 		goalActive = true;
 	}
 
+	void DomainBehaviour::send(wumpus_simulator::InitialPoseRequest& msg)
+	{
+		wumpusPosePublisher.publish(msg);
+	}
+
+	void DomainBehaviour::send(wumpus_simulator::ActionRequest& msg)
+	{
+		wumpusActionPublisher.publish(msg);
+	}
+
 	actionlib::SimpleClientGoalState alica::DomainBehaviour::getMoveState()
 	{
 		if (goalActive)
@@ -78,3 +93,4 @@ namespace alica
 	}
 
 } /* namespace alica */
+
