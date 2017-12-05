@@ -1,17 +1,8 @@
-/*
- * LogicalObject.h
- *
- *  Created on: Jan 9, 2017
- *      Author: lab-user
- */
-
-#ifndef SRC_LOGICALCAMARAMODEL_LOGICALOBJECT_H_
-#define SRC_LOGICALCAMARAMODEL_LOGICALOBJECT_H_
+#pragma once
 
 #include <geometry_msgs/Pose2D.h>
-#include <InformationElement.h>
 #include <ros/message_forward.h>
-#include <RingBuffer.h>
+#include <supplementary/InfoBuffer.h>
 #include <ttb_msgs/ObjectSize.h>
 #include <string>
 
@@ -29,12 +20,12 @@ namespace ttb
 		public:
 			LogicalObject(ttb_msgs::LogicalCameraPtr logicalCameraData, int ringBufferLength = 10);
 			virtual ~LogicalObject();
+
 			void processData(ttb_msgs::LogicalCameraPtr logicalCameraData);
+
 			std::string name;
-			RingBuffer<InformationElement<geometry_msgs::Pose2D>> poses;
+			supplementary::InfoBuffer<geometry_msgs::Pose2D> poses;
 			ttb_msgs::ObjectSize size;
 		};
 	}
 }
-
-#endif /* SRC_LOGICALCAMARAMODEL_LOGICALOBJECT_H_ */

@@ -1,10 +1,3 @@
-/*
- * TTBWorldModel.cpp
- *
- *  Created on: May 27, 2015
- *      Author: Stephan Opfer
- */
-
 #include "TTBWorldModel.h"
 
 #include "engine/AlicaEngine.h"
@@ -24,88 +17,16 @@ TTBWorldModel *TTBWorldModel::get()
 }
 
 TTBWorldModel::TTBWorldModel()
-    : ringBufferLength(10)
-    , rawSensorData(this, 10)
+    : rawSensorData(this)
     , robots(this, 10)
     , pois(this)
-    , alicaEngine(nullptr)
     , doors(this)
-    , wumpusData(this, 10)
+//, wumpusData(this, 10)
 {
-    ownID = supplementary::SystemConfig::getOwnRobotID();
-
-    // READ PARAMS
-    sc = supplementary::SystemConfig::getInstance();
-    odometryTopic = (*sc)["TTBWorldModel"]->get<string>("Sensors.OdometryTopic", NULL);
-    laserScanTopic = (*sc)["TTBWorldModel"]->get<string>("Sensors.LaserScanerTopic", NULL);
-    bumperEventTopic = (*sc)["TTBWorldModel"]->get<string>("Sensors.BumperEventsTopic", NULL);
-    bumperSensorTopic = (*sc)["TTBWorldModel"]->get<string>("Sensors.BumperSensorsTopic", NULL);
-    imuDataTopic = (*sc)["TTBWorldModel"]->get<string>("Sensors.ImuDataTopic", NULL);
-    cameraPclTopic = (*sc)["TTBWorldModel"]->get<string>("Sensors.CameraPclTopic", NULL);
-    commandVelTopic = (*sc)["TTBWorldModel"]->get<string>("Sensors.CommandVelocity", NULL);
-    jointStateTopic = (*sc)["TTBWorldModel"]->get<string>("Sensors.JointState", NULL);
-    cliffEventsTopic = (*sc)["TTBWorldModel"]->get<string>("Sensors.CliffEvents", NULL);
-    cameraImageRawTopic = (*sc)["TTBWorldModel"]->get<string>("Sensors.CameraImageRaw", NULL);
-    robotOnOffTopic = (*sc)["TTBWorldModel"]->get<string>("Sensors.RobotOnOff", NULL);
-    mobileBaseSensorStateTopic = (*sc)["TTBWorldModel"]->get<string>("Sensors.SensorStateTopic", NULL);
-    dockInfrRedTopic = (*sc)["TTBWorldModel"]->get<string>("Sensors.DockInfrRedTopic", NULL);
-    alvarTopic = (*sc)["TTBWorldModel"]->get<string>("Sensors.AlvarTopic", NULL);
-    logicalCameraSensorTopic = (*sc)["TTBWorldModel"]->get<string>("Sensors.LogicalCameraSensorTopic", NULL);
-    // TODO remove this line when base is integrated into launch file
-    logicalCameraSensorTopic = "/leonardo" + logicalCameraSensorTopic;
-
-    serveTaskTopic = (*sc)["TTBWorldModel"]->get<string>("Commands.ServeTaskTopic", NULL);
-
-    // SET ROS STUFF
-    odometrySub = n.subscribe(odometryTopic, 10, &TTBWorldModel::onOdometryData, (TTBWorldModel *)this);
-    laserScanSub = n.subscribe(laserScanTopic, 10, &TTBWorldModel::onLaserScanData, (TTBWorldModel *)this);
-    bumperEventSub = n.subscribe(bumperEventTopic, 10, &TTBWorldModel::onBumperEventData, (TTBWorldModel *)this);
-    bumperSensorSub = n.subscribe(bumperSensorTopic, 10, &TTBWorldModel::onBumperSensorData, (TTBWorldModel *)this);
-    imuDataSub = n.subscribe(imuDataTopic, 10, &TTBWorldModel::onImuData, (TTBWorldModel *)this);
-    cameraPclSub = n.subscribe(cameraPclTopic, 10, &TTBWorldModel::onCameraPclData, (TTBWorldModel *)this);
-    commandVelocitySub = n.subscribe(commandVelTopic, 10, &TTBWorldModel::onCommandVelData, (TTBWorldModel *)this);
-    jointStateSub = n.subscribe(jointStateTopic, 10, &TTBWorldModel::onJointStateData, (TTBWorldModel *)this);
-    cliffEventsSub = n.subscribe(cliffEventsTopic, 10, &TTBWorldModel::onCliffEventsData, (TTBWorldModel *)this);
-    cameraImageRawSub = n.subscribe(cameraImageRawTopic, 10, &TTBWorldModel::onCameraImageRawData, (TTBWorldModel *)this);
-    robotOnOffSub = n.subscribe(robotOnOffTopic, 10, &TTBWorldModel::onRobotOnOff, (TTBWorldModel *)this);
-    mobileBaseSensorStateSub = n.subscribe(mobileBaseSensorStateTopic, 10, &TTBWorldModel::onMobileBaseSensorStateData, (TTBWorldModel *)this);
-    dockInfrRedSub = n.subscribe(dockInfrRedTopic, 10, &TTBWorldModel::onDockInfrRedData, (TTBWorldModel *)this);
-    alvarSub = n.subscribe(alvarTopic, 10, &TTBWorldModel::onAlvarData, (TTBWorldModel *)this);
-    logicalCameraSensorSub = n.subscribe(logicalCameraSensorTopic, 10, &TTBWorldModel::onLogicalCameraData, (TTBWorldModel *)this);
-
-    serveTaskSub = n.subscribe(serveTaskTopic, 10, &TTBWorldModel::onServeTask, (TTBWorldModel *)this);
-    wrappedMessageHandler = new WrappedMessageHandler();
-    wrappedMessageHandler->init(ownID);
-
-    gazeboWorldModelSub = n.subscribe("/gazebo/model_states", 10, &TTBWorldModel::onGazeboModelState, (TTBWorldModel *)this);
-
-    spinner = new ros::AsyncSpinner(4);
-    spinner->start();
-    timeLastSimMsgReceived = 0;
 }
 
 TTBWorldModel::~TTBWorldModel()
 {
-    spinner->stop();
-    delete spinner;
-}
-
-bool TTBWorldModel::setEngine(alica::AlicaEngine *ae)
-{
-    if (this->alicaEngine == nullptr)
-    {
-        this->alicaEngine = ae;
-        return true;
-    }
-    else
-    {
-        return false;
-    }
-}
-
-alica::AlicaEngine *TTBWorldModel::getEngine()
-{
-    return this->alicaEngine;
 }
 
 InfoTime TTBWorldModel::getTime()
@@ -118,11 +39,6 @@ InfoTime TTBWorldModel::getTime()
     {
         return 0;
     }
-}
-void TTBWorldModel::onAlvarData(ar_track_alvar_msgs::AlvarMarkersPtr alvarData)
-{
-    lock_guard<mutex> lock(wmMutex);
-    rawSensorData.processAlvarData(alvarData);
 }
 void TTBWorldModel::onMobileBaseSensorStateData(kobuki_msgs::SensorStatePtr mobileBaseSensorStateData)
 {
@@ -245,7 +161,8 @@ void TTBWorldModel::onGazeboModelState(gazebo_msgs::ModelStatesPtr msg)
             //				wmsim->odometry.locType.type = msl_sensor_msgs::LocalizationType::ErrorMin;
             //				wmsim->odometry.position.certainty = 1.0;
             //
-            //				tf::Quaternion q(msg->pose[i].orientation.x, msg->pose[i].orientation.y, msg->pose[i].orientation.z,
+            //				tf::Quaternion q(msg->pose[i].orientation.x, msg->pose[i].orientation.y,
+            // msg->pose[i].orientation.z,
             //									msg->pose[i].orientation.w);
             //				tf::Matrix3x3 m(q);
             //				double roll, pitch, yaw;
@@ -254,10 +171,13 @@ void TTBWorldModel::onGazeboModelState(gazebo_msgs::ModelStatesPtr msg)
             //				wmsim->odometry.position.angle = yaw + M_PI;
             //				wmsim->odometry.position.x = msg->pose[i].position.x * 1000.0;
             //				wmsim->odometry.position.y = msg->pose[i].position.y * 1000.0;
-            //				wmsim->odometry.motion.angle = atan2(msg->twist[i].linear.y, msg->twist[i].linear.x);
+            //				wmsim->odometry.motion.angle = atan2(msg->twist[i].linear.y,
+            // msg->twist[i].linear.x);
             //				wmsim->odometry.motion.translation = sqrt(
             //						msg->twist[i].linear.x * msg->twist[i].linear.x
-            //								+ msg->twist[i].linear.y * msg->twist[i].linear.y) * 1000.0;
+            //								+ msg->twist[i].linear.y * msg->twist[i].linear.y)
+            //*
+            // 1000.0;
             //				wmsim->odometry.motion.rotation = msg->twist[i].angular.z;
         }
     }
@@ -271,4 +191,3 @@ void TTBWorldModel::onLogicalCameraData(ttb_msgs::LogicalCameraPtr logicalCamera
 }
 
 } /* namespace ttb */
-

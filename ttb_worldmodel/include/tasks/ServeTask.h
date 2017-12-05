@@ -1,13 +1,8 @@
-/*
- * ServeTask.h
- *
- *  Created on: Feb 6, 2017
- *      Author: lab-user
- */
+#pragma once
 
-#ifndef SRC_TASKS_SERVETASK_H_
-#define SRC_TASKS_SERVETASK_H_
 #include <TaskManager.h>
+
+#include <supplementary/InformationElement.h>
 
 namespace ttb
 {
@@ -17,7 +12,7 @@ namespace wm
 class ServeTask
 {
   public:
-    ServeTask(shared_ptr<InformationElement<ttb_msgs::ServeTask>> taskMsg);
+    ServeTask(shared_ptr<supplementary::InformationElement<ttb_msgs::ServeTask>> taskMsg);
     virtual ~ServeTask();
 
     TaskType type;
@@ -26,5 +21,3 @@ class ServeTask
 
 } /* namespace wm */
 } /* namespace ttb */
-
-#endif /* SRC_TASKS_SERVETASK_H_ */

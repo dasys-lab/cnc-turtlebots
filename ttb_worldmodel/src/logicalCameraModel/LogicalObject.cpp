@@ -1,11 +1,5 @@
-/*
- * LogicalObject.cpp
- *
- *  Created on: Jan 9, 2017
- *      Author: lab-user
- */
+#include "logicalCameraModel/LogicalObject.h"
 
-#include <logicalCameraModel/LogicalObject.h>
 #include <ttb_msgs/LogicalCamera.h>
 #include <memory>
 
@@ -24,13 +18,12 @@ LogicalObject::~LogicalObject()
 
 void LogicalObject::processData(ttb_msgs::LogicalCameraPtr logicalCameraData)
 {
-	InfoTime time = logicalCameraData->timeStamp.sec * 1000000000UL + logicalCameraData->timeStamp.nsec;
-	auto poseDataPtr = make_shared<geometry_msgs::Pose2D>();
-	poseDataPtr->x = logicalCameraData->pose.x;
-	poseDataPtr->y = logicalCameraData->pose.y;
-	poseDataPtr->theta = logicalCameraData->pose.theta;
-	shared_ptr<InformationElement<geometry_msgs::Pose2D>> poseInfo = make_shared<
-			InformationElement<geometry_msgs::Pose2D>>(poseDataPtr, time);
+	supplementary::InfoTime time = logicalCameraData->timeStamp.sec * 1000000000UL + logicalCameraData->timeStamp.nsec;
+	geometry_msgs::Pose2D pose;
+	pose.x = logicalCameraData->pose.x;
+	pose.y = logicalCameraData->pose.y;
+	pose.theta = logicalCameraData->pose.theta;
+	auto poseInfo = std::make_shared<supplementary::InformationElement<geometry_msgs::Pose2D>>(pose, time);
 	poses.add(poseInfo);
 }
 

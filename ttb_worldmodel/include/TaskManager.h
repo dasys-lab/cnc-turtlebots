@@ -1,21 +1,15 @@
-/*
- * TaskManager.h
- *
- *  Created on: Feb 1, 2016
- *      Author: lab-user
- */
+#pragma once
 
-#ifndef SRC_TASKMANAGER_H_
-#define SRC_TASKMANAGER_H_
-
-#include "InformationElement.h"
 #include <SystemConfig.h>
 #include <tasks/PointOfInterest.h>
+#include <supplementary/InformationElement.h>
+
 #include <ttb_msgs/ServeTask.h>
+
+#include <memory>
 
 namespace ttb { namespace wm
 {
-	class ServeTask;
 
 	enum TaskType {
 		SERVE, DRIVE_TO, SEARCH, PICK_UP, PUT_DOWN
@@ -27,18 +21,16 @@ namespace ttb { namespace wm
 		TaskManager();
 		virtual ~TaskManager();
 
-		void pushTask(shared_ptr<InformationElement<ttb_msgs::ServeTask>> task);
+		void pushTask(std::shared_ptr<supplementary::InformationElement<ttb_msgs::ServeTask>> task);
 
-		shared_ptr<InformationElement<ServeTask>> popNextTask();
-		shared_ptr<InformationElement<ServeTask>> getNextTask();
+		std::shared_ptr<supplementary::InformationElement<ttb_msgs::ServeTask>> popNextTask();
+		std::shared_ptr<supplementary::InformationElement<ttb_msgs::ServeTask>> getNextTask();
 
 		bool isNextTask(TaskType type);
 
 
 	private:
-		vector<shared_ptr<InformationElement<ServeTask>>> pendingTasks;
+		std::vector<std::shared_ptr<supplementary::InformationElement<ttb_msgs::ServeTask>>> pendingTasks;
 	};
 
 }} /* namespace ttb */
-
-#endif /* SRC_TASKMANAGER_H_ */

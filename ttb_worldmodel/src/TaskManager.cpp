@@ -1,14 +1,10 @@
-/*
- * TaskManager.cpp
- *
- *  Created on: Feb 1, 2016
- *      Author: lab-user
- */
-
 #include "TaskManager.h"
+
 #include <tasks/PointOfInterest.h>
 #include <tasks/ServeTask.h>
 #include <ttb_msgs/ServeTask.h>
+
+using supplementary::InformationElement;
 
 namespace ttb
 {
@@ -25,11 +21,10 @@ TaskManager::~TaskManager()
 
 void TaskManager::pushTask(shared_ptr<InformationElement<ttb_msgs::ServeTask>> taskMsg)
 {
-	auto serveTask = make_shared<ServeTask>(taskMsg);
-	this->pendingTasks.push_back(make_shared<InformationElement<ServeTask>>(serveTask, taskMsg->timeStamp));
+	this->pendingTasks.push_back(taskMsg);
 }
 
-shared_ptr<InformationElement<ServeTask>> TaskManager::popNextTask()
+shared_ptr<InformationElement<ttb_msgs::ServeTask>> TaskManager::popNextTask()
 {
     if (this->pendingTasks.size() > 0)
     {
@@ -43,7 +38,7 @@ shared_ptr<InformationElement<ServeTask>> TaskManager::popNextTask()
     }
 }
 
-shared_ptr<InformationElement<ServeTask>> TaskManager::getNextTask()
+shared_ptr<InformationElement<ttb_msgs::ServeTask>> TaskManager::getNextTask()
 {
     if (this->pendingTasks.size() > 0)
     {
@@ -60,7 +55,7 @@ bool TaskManager::isNextTask(TaskType type)
 {
     if (this->pendingTasks.size() > 0)
     {
-        return this->pendingTasks[0]->getInformation()->type == type;
+        return this->pendingTasks[0]->getInformation().type == type;
     }
     else
     {
