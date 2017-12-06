@@ -1,27 +1,18 @@
-/*
- * Fire.cpp
- *
- *  Created on: Jan 9, 2017
- *      Author: lab-user
- */
-
 #include <logicalCameraModel/Fire.h>
+
+#include <SystemConfig.h>
 
 namespace ttb
 {
-	namespace wm
-	{
-		Fire::Fire(ttb_msgs::LogicalCameraPtr logicalCameraData) : LogicalObject(logicalCameraData)
-		{
-			// TODO Auto-generated constructor stub
-
-		}
-
-		Fire::~Fire()
-		{
-			// TODO Auto-generated destructor stub
-		}
-
-	}
+namespace wm
+{
+Fire::Fire(ttb_msgs::LogicalCameraPtr logicalCameraData, supplementary::InfoTime maxValidityDuration)
+    : LogicalObject(logicalCameraData, "Fire")
+{
 }
 
+Fire::~Fire()
+{
+}
+}
+}

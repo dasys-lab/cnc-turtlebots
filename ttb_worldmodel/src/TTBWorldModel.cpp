@@ -18,10 +18,9 @@ TTBWorldModel *TTBWorldModel::get()
 
 TTBWorldModel::TTBWorldModel()
     : rawSensorData(this)
-    , robots(this, 10)
     , pois(this)
     , doors(this)
-//, wumpusData(this, 10)
+	, logicalCameraData(this)
 {
 }
 

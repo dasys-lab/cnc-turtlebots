@@ -1,26 +1,19 @@
-/*
- * Box.cpp
- *
- *  Created on: Jan 9, 2017
- *      Author: lab-user
- */
+#include "logicalCameraModel/Box.h"
 
-#include <logicalCameraModel/Box.h>
+#include <SystemConfig.h>
 
 namespace ttb
 {
-	namespace wm
-	{
-		Box::Box(ttb_msgs::LogicalCameraPtr logicalCameraData) : LogicalObject(logicalCameraData)
-		{
-			// TODO Auto-generated constructor stub
+namespace wm
+{
+Box::Box(ttb_msgs::LogicalCameraPtr logicalCameraData)
+    : LogicalObject(logicalCameraData, "Box")
+{
 
-		}
+}
 
-		Box::~Box()
-		{
-			// TODO Auto-generated destructor stub
-		}
-
-	}
+Box::~Box()
+{
+}
+}
 }

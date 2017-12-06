@@ -1,12 +1,4 @@
-/*
- * Fire.h
- *
- *  Created on: Jan 9, 2017
- *      Author: lab-user
- */
-
-#ifndef SRC_LOGICALCAMARAMODEL_FIRE_H_
-#define SRC_LOGICALCAMARAMODEL_FIRE_H_
+#pragma once
 
 #include <logicalCameraModel/LogicalObject.h>
 #include <ros/ros.h>
@@ -23,10 +15,8 @@ namespace ttb
 		class Fire : public LogicalObject
 		{
 		public:
-			Fire(ttb_msgs::LogicalCameraPtr logicalCameraData);
+			Fire(ttb_msgs::LogicalCameraPtr logicalCameraData, supplementary::InfoTime maxValidityDuration);
 			virtual ~Fire();
 		};
 	}
 }
-
-#endif /* SRC_LOGICALCAMARAMODEL_FIRE_H_ */

@@ -11,6 +11,7 @@
 #include "ttb_poi/TTBPointOfInterests.h"
 
 #include <supplementary/WorldModel.h>
+#include <supplementary/InfoBuffer.h>
 
 #include <iostream>
 #include <list>
@@ -38,7 +39,7 @@ class TTBWorldModel : public supplementary::WorldModel
     virtual ~TTBWorldModel();
     static TTBWorldModel *get(); /**< Singleton Getter */
 
-    InfoTime getTime();
+    supplementary::InfoTime getTime();
 
     // Public Data Access Classes
     wm::RawSensorData rawSensorData;

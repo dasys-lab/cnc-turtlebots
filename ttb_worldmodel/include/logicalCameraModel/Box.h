@@ -1,14 +1,7 @@
-/*
- * Box.h
- *
- *  Created on: Jan 9, 2017
- *      Author: lab-user
- */
+#pragma once
 
-#ifndef SRC_LOGICALCAMARAMODEL_BOX_H_
-#define SRC_LOGICALCAMARAMODEL_BOX_H_
+#include "logicalCameraModel/LogicalObject.h"
 
-#include <logicalCameraModel/LogicalObject.h>
 #include <ros/ros.h>
 
 namespace ttb_msgs
@@ -25,8 +18,9 @@ namespace ttb
 		public:
 			Box(ttb_msgs::LogicalCameraPtr logicalCameraData);
 			virtual ~Box();
+
+		private:
+
 		};
 	}
 }
-
-#endif /* SRC_LOGICALCAMARAMODEL_BOX_H_ */

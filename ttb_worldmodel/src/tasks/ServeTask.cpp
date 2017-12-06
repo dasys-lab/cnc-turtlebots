@@ -1,21 +1,16 @@
-/*
- * ServeTask.cpp
- *
- *  Created on: Feb 6, 2017
- *      Author: lab-user
- */
-
 #include "tasks/ServeTask.h"
 #include "ttb_msgs/ServeTask.h"
+
+using supplementary::InformationElement;
 
 namespace ttb
 {
 namespace wm
 {
 
-ServeTask::ServeTask(shared_ptr<InformationElement<ttb_msgs::ServeTask>> taskMsg) : entity(taskMsg->getInformation()->entity)
+ServeTask::ServeTask(shared_ptr<InformationElement<ttb_msgs::ServeTask>> taskMsg) : entity(taskMsg->getInformation().entity)
 {
-	switch(taskMsg->getInformation()->type)
+	switch(taskMsg->getInformation().type)
 	{
 		case ttb_msgs::ServeTask::PICK_UP:
 			this->type = TaskType::PICK_UP;
@@ -37,7 +32,6 @@ ServeTask::ServeTask(shared_ptr<InformationElement<ttb_msgs::ServeTask>> taskMsg
 
 ServeTask::~ServeTask()
 {
-    // TODO Auto-generated destructor stub
 }
 
 } /* namespace wm */
