@@ -32,8 +32,6 @@ namespace alica
 		void send(sound_play::SoundRequest& sr);
 		void send(geometry_msgs::PoseStamped& mbg);
 		void send(move_base_msgs::MoveBaseGoal& mbag);
-		void send(wumpus_simulator::InitialPoseRequest& msg);
-		void send(wumpus_simulator::ActionRequest& msg);
 		actionlib::SimpleClientGoalState getMoveState();
 		void cancelGoal();
 		ttb::TTBWorldModel* wm;
@@ -50,15 +48,11 @@ namespace alica
 		string moveBaseGoalTopic;
 		string moveBaseActionClientNamespace;
 		string moveBaseActionGoalTopic;
-		string wumpusActionRequestTopic;
-		string wumpusPoseRequestTopic;
 
 		ros::Publisher mobile_baseCommandVelocityPub;
 		ros::Publisher soundRequestPub;
 		ros::Publisher move_base_simpleGoalPub;
 		ros::Publisher move_base_ActionGoalPub;
-		ros::Publisher wumpusActionPublisher;
-		ros::Publisher wumpusPosePublisher;
 
 		actionlib::SimpleActionClient<move_base_msgs::MoveBaseAction>* ac;
 		bool goalActive;
