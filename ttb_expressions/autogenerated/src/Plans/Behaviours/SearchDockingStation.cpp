@@ -3,6 +3,8 @@ using namespace std;
 
 /*PROTECTED REGION ID(inccpp1414681429307) ENABLED START*/ //Add additional includes here
 #include <nav_msgs/Odometry.h>
+#include <kobuki_msgs/SensorState.h>
+#include <kobuki_msgs/DockInfraRed.h>
 /*PROTECTED REGION END*/
 namespace alica
 {
@@ -22,11 +24,11 @@ namespace alica
     void SearchDockingStation::run(void* msg)
     {
         /*PROTECTED REGION ID(run1414681429307) ENABLED START*/ //Add additional options here
-        auto odom = wm->rawSensorData.getOwnOdom();
-        auto core = wm->rawSensorData.getOwnMobileBaseSensorState();
-        auto infrRedDock = wm->rawSensorData.getOwnDockInfrRed();
+        auto odom = wm->rawSensorData.getOdometryBuffer().getLastValidContent();
+        auto core = wm->rawSensorData.getMobileBaseSensorStateBuffer().getLastValidContent();
+        auto infrRedDock = wm->rawSensorData.getDockInfrRedBuffer().getLastValidContent();
 
-        if ((int)core->charger == 0)
+        if (core->charger == kobuki_msgs::SensorState::DISCHARGING)
         {
 
             KDL::Rotation rot;

@@ -1,52 +1,55 @@
 using namespace std;
 #include "Plans/Behaviours/SearchForDockingStationAsp.h"
 
-/*PROTECTED REGION ID(inccpp1470041810334) ENABLED START*/ //Add additional includes here
+/*PROTECTED REGION ID(inccpp1470041810334) ENABLED START*/ // Add additional includes here
+#include <SolverType.h>
+#include <nav_msgs/Odometry.h>
+#include <kobuki_msgs/SensorState.h>
+#include <kobuki_msgs/DockInfraRed.h>
+#include <actionlib/client/simple_action_client.h>
+#include <move_base_msgs/MoveBaseAction.h>
+#include <ttb_poi/TTBPointOfInterests.h>
 #include <TTBWorldModel.h>
-#include "SolverType.h"
-#include "actionlib/client/simple_action_client.h"
-#include "move_base_msgs/MoveBaseAction.h"
 #include <asp_commons/ASPQuery.h>
-#include "ttb_poi/TTBPointOfInterests.h"
 /*PROTECTED REGION END*/
 namespace alica
 {
-    /*PROTECTED REGION ID(staticVars1470041810334) ENABLED START*/ //initialise static variables here
-    typedef actionlib::SimpleActionClient<move_base_msgs::MoveBaseAction> MoveBaseClient;
+/*PROTECTED REGION ID(staticVars1470041810334) ENABLED START*/ // initialise static variables here
+typedef actionlib::SimpleActionClient<move_base_msgs::MoveBaseAction> MoveBaseClient;
+/*PROTECTED REGION END*/
+SearchForDockingStationAsp::SearchForDockingStationAsp()
+    : DomainBehaviour("SearchForDockingStationAsp")
+{
+    /*PROTECTED REGION ID(con1470041810334) ENABLED START*/ // Add additional options here
+    this->query = make_shared<alica::Query>(this->wm->getEngine());
     /*PROTECTED REGION END*/
-    SearchForDockingStationAsp::SearchForDockingStationAsp() :
-            DomainBehaviour("SearchForDockingStationAsp")
-    {
-        /*PROTECTED REGION ID(con1470041810334) ENABLED START*/ //Add additional options here
-        this->query = make_shared < alica::Query > (this->wm->getEngine());
-        /*PROTECTED REGION END*/
-    }
-    SearchForDockingStationAsp::~SearchForDockingStationAsp()
-    {
-        /*PROTECTED REGION ID(dcon1470041810334) ENABLED START*/ //Add additional options here
-        /*PROTECTED REGION END*/
-    }
-    void SearchForDockingStationAsp::run(void* msg)
-    {
-        /*PROTECTED REGION ID(run1470041810334) ENABLED START*/ //Add additional options here
-        auto odom = wm->rawSensorData.getOwnOdom();
-        auto core = wm->rawSensorData.getOwnMobileBaseSensorState();
-        auto infrRedDock = wm->rawSensorData.getOwnDockInfrRed();
+}
+SearchForDockingStationAsp::~SearchForDockingStationAsp()
+{
+    /*PROTECTED REGION ID(dcon1470041810334) ENABLED START*/ // Add additional options here
+    /*PROTECTED REGION END*/
+}
+void SearchForDockingStationAsp::run(void *msg)
+{
+    /*PROTECTED REGION ID(run1470041810334) ENABLED START*/ // Add additional options here
+    auto odom = wm->rawSensorData.getOdometryBuffer().getLastValidContent();
+    auto core = wm->rawSensorData.getMobileBaseSensorStateBuffer().getLastValidContent();
+    auto infrRedDock = wm->rawSensorData.getDockInfrRedBuffer().getLastValidContent();
 
 #ifdef testWithoutTTB
-        if ((int)core->charger == 0)
-        {
+    if (core->charger == kobuki_msgs::SensorState::DISCHARGING)
+    {
 #endif
         std::chrono::_V2::system_clock::time_point start = std::chrono::high_resolution_clock::now();
         query->getSolution(SolverType::ASPSOLVER, runningPlan, result);
         std::chrono::_V2::system_clock::time_point end = std::chrono::high_resolution_clock::now();
-        cout << "SearchForDockingStationAsp: Measured Solving and Grounding Time: " << std::chrono::duration_cast
-                < chrono::nanoseconds > (end - start).count() / 1000000.0 << " ms" << endl;
-        shared_ptr < ttb::wm::PointOfInterest > dockingStation = nullptr;
+        cout << "SearchForDockingStationAsp: Measured Solving and Grounding Time: "
+             << std::chrono::duration_cast<chrono::nanoseconds>(end - start).count() / 1000000.0 << " ms" << endl;
+        shared_ptr<ttb::wm::PointOfInterest> dockingStation = nullptr;
         if (result.size() > 0)
         {
-            auto it = find_if(result.begin(), result.end(), [](::reasoner::AnnotatedValVec element)
-            {   return element.id == 1470042926317;});
+            auto it = find_if(result.begin(), result.end(),
+                              [](::reasoner::AnnotatedValVec element) { return element.id == 1470042926317; });
             if (it != result.end())
             {
                 if (it->variableQueryValues.size() > 0)
@@ -55,11 +58,11 @@ namespace alica
                     stringstream ss;
                     ss << it->variableQueryValues.at(0).at(0);
                     cout << it->variableQueryValues.at(0).at(0) << endl;
-                    shared_ptr < ttb::wm::PointOfInterest > dockingStation = this->wm->pois.getPOIByName(
-                            getPOIName(ss.str()));
+                    shared_ptr<ttb::wm::PointOfInterest> dockingStation =
+                        this->wm->pois.getPOIByName(getPOIName(ss.str()));
 
                     cout << "SearchForDockingStationAsp: Docking station is located at (" << dockingStation->x << " | "
-                            << dockingStation->y << ")" << endl;
+                         << dockingStation->y << ")" << endl;
                 }
                 else
                 {
@@ -77,7 +80,6 @@ namespace alica
             {
                 cout << "SearchForDockingStationAsp: no result vector found!" << endl;
             }
-
         }
         else
         {
@@ -131,23 +133,23 @@ namespace alica
 #ifdef testWithoutTTB
     }
 #endif
-        /*PROTECTED REGION END*/
-    }
-    void SearchForDockingStationAsp::initialiseParameters()
-    {
-        /*PROTECTED REGION ID(initialiseParameters1470041810334) ENABLED START*/ //Add additional options here
-        query->clearStaticVariables();
-        query->addStaticVariable(getVariablesByName("SearchVar"));
-        result.clear();
-        /*PROTECTED REGION END*/
-    }
-    /*PROTECTED REGION ID(methods1470041810334) ENABLED START*/ //Add additional methods here
-    string alica::SearchForDockingStationAsp::getPOIName(string predicate)
-    {
-        size_t start = predicate.find("(");
-        size_t end = predicate.find(",", start);
-        string p = predicate.substr(start + 1, end - start - 1);
-        return p;
-    }
+    /*PROTECTED REGION END*/
+}
+void SearchForDockingStationAsp::initialiseParameters()
+{
+    /*PROTECTED REGION ID(initialiseParameters1470041810334) ENABLED START*/ // Add additional options here
+    query->clearStaticVariables();
+    query->addStaticVariable(getVariablesByName("SearchVar"));
+    result.clear();
+    /*PROTECTED REGION END*/
+}
+/*PROTECTED REGION ID(methods1470041810334) ENABLED START*/ // Add additional methods here
+string alica::SearchForDockingStationAsp::getPOIName(string predicate)
+{
+    size_t start = predicate.find("(");
+    size_t end = predicate.find(",", start);
+    string p = predicate.substr(start + 1, end - start - 1);
+    return p;
+}
 /*PROTECTED REGION END*/
 } /* namespace alica */
