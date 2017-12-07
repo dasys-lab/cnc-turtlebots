@@ -22,9 +22,9 @@ namespace alica
     void ChargingDefault::run(void* msg)
     {
         /*PROTECTED REGION ID(run1447958115909) ENABLED START*/ // Add additional options here
-        auto core = wm->rawSensorData.getMobileBaseSensorStateBuffer().getLastValidContent();
-        if ((int)core->charger == kobuki_msgs::SensorState::DOCKING_CHARGED
-                || (int)core->charger == kobuki_msgs::SensorState::ADAPTER_CHARGED)
+        auto core = wm->rawSensorData.getMobileBaseSensorStateBuffer()->getLastValidContent();
+        if ((*core)->charger == kobuki_msgs::SensorState::DOCKING_CHARGED
+                || (*core)->charger == kobuki_msgs::SensorState::ADAPTER_CHARGED)
         {
             this->setSuccess(true);
         }

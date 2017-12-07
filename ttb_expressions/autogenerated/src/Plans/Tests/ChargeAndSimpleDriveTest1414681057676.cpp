@@ -79,7 +79,7 @@ bool TransitionCondition1447068027882::evaluate(shared_ptr<RunningPlan> rp)
 bool TransitionCondition1447919930987::evaluate(shared_ptr<RunningPlan> rp)
 {
     /*PROTECTED REGION ID(1447919928532) ENABLED START*/
-    auto robotCommand = wm->rawSensorData.getRobotCommandBuffer().getLastValidContent();
+    auto robotCommand = wm->rawSensorData.getRobotCommandBuffer()->getLastValidContent();
     if (robotCommand && robotCommand->cmd == robot_control::RobotCommand::START)
     {
         return true;
@@ -113,7 +113,7 @@ bool TransitionCondition1447919930987::evaluate(shared_ptr<RunningPlan> rp)
 bool TransitionCondition1414681505635::evaluate(shared_ptr<RunningPlan> rp)
 {
     /*PROTECTED REGION ID(1414681503803) ENABLED START*/
-    auto robotCommand = wm->rawSensorData.getRobotCommandBuffer().getLastValidContent();
+    auto robotCommand = wm->rawSensorData.getRobotCommandBuffer()->getLastValidContent();
     if (robotCommand && robotCommand->cmd == robot_control::RobotCommand::STOP)
     {
         return true;
@@ -201,7 +201,7 @@ bool TransitionCondition1447068022583::evaluate(shared_ptr<RunningPlan> rp)
 bool TransitionCondition1447068025867::evaluate(shared_ptr<RunningPlan> rp)
 {
     /*PROTECTED REGION ID(1447068022712) ENABLED START*/
-    auto robotCommand = wm->rawSensorData.getRobotCommandBuffer().getLastValidContent();
+    auto robotCommand = wm->rawSensorData.getRobotCommandBuffer()->getLastValidContent();
     if (robotCommand && robotCommand->cmd == robot_control::RobotCommand::STOP)
     {
         return true;
@@ -262,7 +262,7 @@ bool TransitionCondition1447958162066::evaluate(shared_ptr<RunningPlan> rp)
 bool TransitionCondition1447958174005::evaluate(shared_ptr<RunningPlan> rp)
 {
     /*PROTECTED REGION ID(1447958171762) ENABLED START*/
-    auto robotCommand = wm->rawSensorData.getRobotCommandBuffer().getLastValidContent();
+    auto robotCommand = wm->rawSensorData.getRobotCommandBuffer()->getLastValidContent();
     if (robotCommand && robotCommand->cmd == robot_control::RobotCommand::STOP)
     {
         return true;
@@ -296,7 +296,7 @@ bool TransitionCondition1447958174005::evaluate(shared_ptr<RunningPlan> rp)
 bool TransitionCondition1447958165046::evaluate(shared_ptr<RunningPlan> rp)
 {
     /*PROTECTED REGION ID(1447958162755) ENABLED START*/
-	auto robotCommand = wm->rawSensorData.getRobotCommandBuffer().getLastValidContent();
+	auto robotCommand = wm->rawSensorData.getRobotCommandBuffer()->getLastValidContent();
 	if (rp->anyChildrenStatus(PlanStatus::Success) || (robotCommand && robotCommand->cmd == robot_control::RobotCommand::STOP))
 	{
 		return true;

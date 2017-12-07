@@ -25,7 +25,7 @@ namespace alica
     void DriveSearchPattern::run(void* msg)
     {
         /*PROTECTED REGION ID(run1481545714198) ENABLED START*/ // Add additional options here
-        auto ownPos = wm->rawSensorData.getOdomPositionBuffer().getLastValidContent();
+        auto ownPos = wm->rawSensorData.getOdomPositionBuffer()->getLastValidContent();
         cout << "DriveSearchPattern: seen objects:" << wm->logicalCameraData.getLogicalObjects("box").size() << endl;
 
         if (wm->logicalCameraData.getLogicalObjects("box").size() == 4)

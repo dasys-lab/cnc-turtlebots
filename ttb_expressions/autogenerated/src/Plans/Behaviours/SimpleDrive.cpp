@@ -26,7 +26,7 @@ namespace alica
 
         move.linear.x = 0.3;
 
-        auto bumperEvent = wm->rawSensorData.getBumperEventBuffer().getLastValidContent();
+        auto bumperEvent = wm->rawSensorData.getBumperEventBuffer()->getLastValidContent();
         if (bumperEvent && bumperEvent->state == kobuki_msgs::BumperEvent::PRESSED)
         {
             this->setSuccess(true);

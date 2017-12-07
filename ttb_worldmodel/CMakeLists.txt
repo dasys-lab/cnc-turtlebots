@@ -17,20 +17,20 @@ catkin_package(
 include_directories(include ${catkin_INCLUDE_DIRS})
 
 add_library(ttb_worldmodel
-  src/TTBWorldModel.cpp
-  src/TaskManager.cpp
-  src/sharedworldmodel/TTBSharedWorldModel.cpp
-  src/RawSensorData.cpp
-  src/ttb_poi/TTBPointOfInterests.cpp
+  src/Communication.cpp
   src/Doors.cpp
   src/LogicalCameraData.cpp
+  src/RawSensorData.cpp
+  src/TaskManager.cpp
+  src/TTBWorldModel.cpp 
   src/logicalCameraModel/LogicalObject.cpp
   src/logicalCameraModel/Box.cpp
   src/logicalCameraModel/Fire.cpp
   src/logicalCameraModel/Victim.cpp
   src/logicalCameraModel/Landmark.cpp
+  src/sharedworldmodel/TTBSharedWorldModel.cpp
   src/tasks/ServeTask.cpp
-  src/Communication.cpp
+  src/ttb_poi/TTBPointOfInterests.cpp
 )
 
 add_dependencies(ttb_worldmodel kobuki_msgs_generate_messages_cpp geometry_msgs_generate_messages_cpp robot_control_generate_messages_cpp) 

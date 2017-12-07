@@ -24,28 +24,28 @@ namespace alica
     void SearchDockingStation::run(void* msg)
     {
         /*PROTECTED REGION ID(run1414681429307) ENABLED START*/ //Add additional options here
-        auto odom = wm->rawSensorData.getOdometryBuffer().getLastValidContent();
-        auto core = wm->rawSensorData.getMobileBaseSensorStateBuffer().getLastValidContent();
-        auto infrRedDock = wm->rawSensorData.getDockInfrRedBuffer().getLastValidContent();
+        auto odom = wm->rawSensorData.getOdometryBuffer()->getLastValidContent();
+        auto core = wm->rawSensorData.getMobileBaseSensorStateBuffer()->getLastValidContent();
+        auto infrRedDock = wm->rawSensorData.getDockInfrRedBuffer()->getLastValidContent();
 
-        if (core->charger == kobuki_msgs::SensorState::DISCHARGING)
+        if ((*core)->charger == kobuki_msgs::SensorState::DISCHARGING)
         {
 
             KDL::Rotation rot;
-            tf::quaternionMsgToKDL(odom->pose.pose.orientation, rot);
+            tf::quaternionMsgToKDL((*odom)->pose.pose.orientation, rot);
 
             double r, p, y;
             rot.GetRPY(r, p, y);
 
             ecl::LegacyPose2D<double> pose;
-            pose.x(odom->pose.pose.position.x);
-            pose.y(odom->pose.pose.position.y);
+            pose.x((*odom)->pose.pose.position.x);
+            pose.y((*odom)->pose.pose.position.y);
             pose.heading(y);
 
             dock.setMinAbsV(0.08); // 0.07 works ok
             dock.setMinAbsW(0.5);
 
-            dock.update(infrRedDock->data, core->bumper, core->charger, pose);
+            dock.update(infrRedDock->data, (*core)->bumper, (*core)->charger, pose);
 
             geometry_msgs::Twist cmd_vel;
             cmd_vel.linear.x = dock.getVX();

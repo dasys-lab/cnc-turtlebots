@@ -1,7 +1,7 @@
 #include "DomainCondition.h"
 
-#include <robot_control/RobotCommand.h>
 #include <kobuki_msgs/SensorState.h>
+#include <robot_control/RobotCommand.h>
 #include <supplementary/InfoBuffer.h>
 
 namespace alica
@@ -14,7 +14,7 @@ DomainCondition::DomainCondition()
 
 bool DomainCondition::checkLastCommand(robot_control::RobotCommand::_cmd_type cmd)
 {
-    auto lastCmd = wm->rawSensorData.getRobotCommandBuffer().getLastValidContent();
+    auto lastCmd = wm->rawSensorData.getRobotCommandBuffer()->getLastValidContent();
     if (lastCmd && lastCmd->cmd == cmd)
     {
         return true;
@@ -24,9 +24,9 @@ bool DomainCondition::checkLastCommand(robot_control::RobotCommand::_cmd_type cm
 
 bool DomainCondition::fullyCharged()
 {
-    auto core = wm->rawSensorData.getMobileBaseSensorStateBuffer().getLastValidContent();
-    if (core->charger == kobuki_msgs::SensorState::DOCKING_CHARGED ||
-        core->charger == kobuki_msgs::SensorState::ADAPTER_CHARGED)
+    auto core = wm->rawSensorData.getMobileBaseSensorStateBuffer()->getLastValidContent();
+    if ((*core)->charger == kobuki_msgs::SensorState::DOCKING_CHARGED ||
+        (*core)->charger == kobuki_msgs::SensorState::ADAPTER_CHARGED)
     {
         return true;
     }
@@ -35,9 +35,9 @@ bool DomainCondition::fullyCharged()
 
 bool DomainCondition::isCharging()
 {
-    auto core = wm->rawSensorData.getMobileBaseSensorStateBuffer().getLastValidContent();
-    if (core->charger == kobuki_msgs::SensorState::DOCKING_CHARGING ||
-        core->charger == kobuki_msgs::SensorState::ADAPTER_CHARGING)
+    auto core = wm->rawSensorData.getMobileBaseSensorStateBuffer()->getLastValidContent();
+    if ((*core)->charger == kobuki_msgs::SensorState::DOCKING_CHARGING ||
+        (*core)->charger == kobuki_msgs::SensorState::ADAPTER_CHARGING)
     {
         return true;
     }

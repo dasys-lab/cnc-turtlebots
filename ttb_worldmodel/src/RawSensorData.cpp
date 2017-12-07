@@ -288,5 +288,99 @@ void RawSensorData::processLogicalCamera(ttb_msgs::LogicalCameraPtr logicalCamer
         logicalCameraPtr, wm->getTime(), logicalCameraValidityDuration, 1.0);
     logicalCameraBuffer->add(ownLogicalCameraInfo);
 }
+const supplementary::InfoBuffer<std::shared_ptr<nav_msgs::Odometry>> *RawSensorData::getOdometryBuffer()
+{
+	return this->odometryBuffer;
+}
+
+const supplementary::InfoBuffer<geometry::CNPositionAllo> *RawSensorData::getOdomPositionBuffer()
+{
+	return this->odomPositionBuffer;
+}
+
+const supplementary::InfoBuffer<geometry::CNPositionAllo> *RawSensorData::getGazeboPositionBuffer()
+{
+	return this->gazeboPositionBuffer;
+}
+
+const supplementary::InfoBuffer<geometry::CNVecAllo> *RawSensorData::getOdomVelocityBuffer()
+{
+	return this->odomVelocityBuffer;
+}
+
+const supplementary::InfoBuffer<std::shared_ptr<sensor_msgs::LaserScan>> *RawSensorData::getLaserScanBuffer()
+{
+	return this->laserScanBuffer;
+}
+
+const supplementary::InfoBuffer<kobuki_msgs::BumperEvent> *RawSensorData::getBumperEventBuffer()
+{
+	return this->bumperEventBuffer;
+}
+
+const supplementary::InfoBuffer<std::shared_ptr<sensor_msgs::PointCloud2>> *RawSensorData::getBumperCloudBuffer()
+{
+	return this->bumperCloudBuffer;
+}
+
+const supplementary::InfoBuffer<std::shared_ptr<sensor_msgs::PointCloud2>> *RawSensorData::getDepthCameraCloudBuffer()
+{
+	return this->depthCameraCloudBuffer;
+}
+
+const supplementary::InfoBuffer<sensor_msgs::Imu> *RawSensorData::getImuDataBuffer()
+{
+	return this->imuDataBuffer;
+}
+
+const supplementary::InfoBuffer<kobuki_msgs::CliffEvent> *RawSensorData::getCliffEventBuffer()
+{
+	return this->cliffEventBuffer;
+}
+
+const supplementary::InfoBuffer<std::shared_ptr<sensor_msgs::Image>> *RawSensorData::getRawCameraImageBuffer()
+{
+	return this->rawCameraImageBuffer;
+}
+
+const supplementary::InfoBuffer<robot_control::RobotCommand> *RawSensorData::getRobotCommandBuffer()
+{
+	return this->robotCommandBuffer;
+}
+
+const supplementary::InfoBuffer<std::shared_ptr<kobuki_msgs::SensorState>> *RawSensorData::getMobileBaseSensorStateBuffer()
+{
+	return this->mobileBaseSensorStateBuffer;
+}
+
+const supplementary::InfoBuffer<kobuki_msgs::DockInfraRed> *RawSensorData::getDockInfrRedBuffer()
+{
+	return this->dockInfrRedBuffer;
+}
+
+const supplementary::InfoBuffer<ttb_msgs::ServeTask> *RawSensorData::getServeTaskBuffer()
+{
+	return this->serveTaskBuffer;
+}
+
+const supplementary::InfoBuffer<geometry_msgs::PoseStamped> *RawSensorData::getAlvarMarkerBuffer(unsigned int id)
+{
+	auto mapEntry = this->alvarMarkerMap.find(id);
+	if (mapEntry != this->alvarMarkerMap.end())
+	{
+		return (mapEntry->second.get());
+	}
+	else
+	{
+		return nullptr;
+	}
+}
+
+const supplementary::InfoBuffer<std::shared_ptr<ttb_msgs::LogicalCamera>> *RawSensorData::getLogicalCameraBuffer()
+{
+	return this->logicalCameraBuffer;
+}
+
 }
 } /* namespace ttb */
+
