@@ -15,7 +15,6 @@
   <build_depend>alica_engine</build_depend>
   <build_depend>system_config</build_depend>
   <build_depend>roscpp</build_depend>
-  <build_depend>roscpp</build_depend>
   <build_depend>ttb_worldmodel</build_depend>
   <build_depend>message_generation</build_depend>
   <build_depend>system_util</build_depend>
@@ -29,9 +28,7 @@
   <build_depend>ttb_msgs</build_depend>
   <build_depend>asp_solver_wrapper</build_depend>
   <build_depend>asp_solver</build_depend>
-  <build_depend>wumpus_simulator</build_depend>
 	
-  <run_depend>wumpus_simulator</run_depend>
   <run_depend>asp_solver</run_depend>
   <run_depend>asp_solver_wrapper</run_depend>
   <run_depend>asp_commons</run_depend>
