@@ -61,7 +61,7 @@ Communication::Communication(ttb::TTBWorldModel *wm)
     serveTaskSub = n.subscribe(topic, 10, &Communication::onServeTask, (Communication *)this);
 
     wrappedMessageHandler = new WrappedMessageHandler();
-    wrappedMessageHandler->init(this->wm->getOwnID());
+    wrappedMessageHandler->init(this->wm->getOwnId());
 
     gazeboWorldModelSub =
         n.subscribe("/gazebo/model_states", 10, &Communication::onGazeboModelState, (Communication *)this);
@@ -140,8 +140,8 @@ void Communication::onDockInfrRed(kobuki_msgs::DockInfraRed dockInfrRed)
 
 void Communication::onServeTask(ttb_msgs::ServeTask serveTask)
 {
-    auto ownID = this->wm->getOwnID();
-    if (serveTask->senderId != ownID && (serveTask->receiverId == ownID || serveTask->receiverId == 0))
+    auto ownID = this->wm->getOwnId();
+    if (serveTask.senderId != ownID && (serveTask.receiverId == ownID || serveTask.receiverId == 0))
     {
         this->wm->rawSensorData.processServeTask(serveTask);
     }

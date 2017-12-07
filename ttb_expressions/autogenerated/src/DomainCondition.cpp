@@ -15,7 +15,7 @@ DomainCondition::DomainCondition()
 bool DomainCondition::checkLastCommand(robot_control::RobotCommand::_cmd_type cmd)
 {
     auto lastCmd = wm->rawSensorData.getRobotCommandBuffer().getLastValidContent();
-    if (lastCmd && lastCmd == cmd)
+    if (lastCmd && lastCmd->cmd == cmd)
     {
         return true;
     }
