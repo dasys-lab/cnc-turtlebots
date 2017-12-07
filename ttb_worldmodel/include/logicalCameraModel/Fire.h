@@ -15,7 +15,7 @@ namespace ttb
 		class Fire : public LogicalObject
 		{
 		public:
-			Fire(ttb_msgs::LogicalCameraPtr logicalCameraData, supplementary::InfoTime maxValidityDuration);
+			Fire(ttb_msgs::LogicalCameraPtr logicalCameraData);
 			virtual ~Fire();
 		};
 	}

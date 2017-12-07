@@ -66,18 +66,18 @@ class RawSensorData
 
     // methods for processing ROS messages
     void processAlvarMarkers(ar_track_alvar_msgs::AlvarMarkersPtr alvar);
-    void processOdometryData(nav_msgs::OdometryPtr odometry);
+    void processOdometry(nav_msgs::OdometryPtr odometry);
     void processLaserScan(sensor_msgs::LaserScanPtr laserScan);
     void processBumperEvent(kobuki_msgs::BumperEvent bumperEvent);
     void processBumperCloud(sensor_msgs::PointCloud2Ptr bumperCloud);
     void processImu(sensor_msgs::Imu imu);
     void processDepthCameraCloud(sensor_msgs::PointCloud2Ptr depthImageCloud);
     void processCliffEvent(kobuki_msgs::CliffEvent cliffEvent);
-    void processCameraImageRaw(sensor_msgs::ImagePtr cameraImageRaw);
-    void processRobotOnOff(robot_control::RobotCommandPtr robotCommand);
+    void processRawCameraImage(sensor_msgs::ImagePtr cameraImageRaw);
+    void processRobotCommand(robot_control::RobotCommand robotCommand);
     void processMobileBaseSensorState(kobuki_msgs::SensorStatePtr mobileBaseSensorState);
-    void processDockInfrRed(kobuki_msgs::DockInfraRedPtr dockInfrRed);
-    void processServeTask(ttb_msgs::ServeTaskPtr serveTask);
+    void processDockInfrRed(kobuki_msgs::DockInfraRed dockInfrRed);
+    void processServeTask(ttb_msgs::ServeTask serveTask);
     void processLogicalCamera(ttb_msgs::LogicalCameraPtr logicalCamera);
     void processGazeboMsg(geometry_msgs::Pose gazeboMsg);
 
@@ -139,7 +139,10 @@ class RawSensorData
     tf::TransformListener listener;
 
     // common stuff
+    supplementary::InfoTime robotCommandValidityDuration;
     supplementary::InfoBuffer<robot_control::RobotCommand>* robotCommandBuffer;
+
+    supplementary::InfoTime serveTaskValidityDuration;
     supplementary::InfoBuffer<ttb_msgs::ServeTask>* serveTaskBuffer;
 
     // real robots only stuff
@@ -161,7 +164,7 @@ class RawSensorData
     supplementary::InfoBuffer<geometry::CNVecAllo>* odomVelocityBuffer;
 
     supplementary::InfoTime laserScanValidityDuration;
-    supplementary::InfoBuffer<sensor_msgs::LaserScan>* laserScanBuffer;
+    supplementary::InfoBuffer<std::shared_ptr<sensor_msgs::LaserScan>>* laserScanBuffer;
 
     supplementary::InfoTime bumperEventValidityDuration;
     supplementary::InfoBuffer<kobuki_msgs::BumperEvent>* bumperEventBuffer;
@@ -170,7 +173,7 @@ class RawSensorData
     supplementary::InfoBuffer<std::shared_ptr<sensor_msgs::PointCloud2>>* bumperCloudBuffer;
 
     supplementary::InfoTime depthCameraCloudValidityDuration;
-    supplementary::InfoBuffer<sensor_msgs::PointCloud2>* depthCameraCloudBuffer;
+    supplementary::InfoBuffer<std::shared_ptr<sensor_msgs::PointCloud2>>* depthCameraCloudBuffer;
 
     supplementary::InfoTime imuDataValidityDuration;
     supplementary::InfoBuffer<sensor_msgs::Imu>* imuDataBuffer;
@@ -179,7 +182,7 @@ class RawSensorData
     supplementary::InfoBuffer<std::shared_ptr<sensor_msgs::Image>>* rawCameraImageBuffer;
 
     supplementary::InfoTime mobileBaseSensorStateValidityDuration;
-    supplementary::InfoBuffer<kobuki_msgs::SensorState>* mobileBaseSensorStateBuffer;
+    supplementary::InfoBuffer<std::shared_ptr<kobuki_msgs::SensorState>>* mobileBaseSensorStateBuffer;
 
     supplementary::InfoTime dockInfrRedValidityDuration;
     supplementary::InfoBuffer<kobuki_msgs::DockInfraRed>* dockInfrRedBuffer;
@@ -189,7 +192,7 @@ class RawSensorData
     supplementary::InfoBuffer<geometry::CNPositionAllo>* gazeboPositionBuffer;
 
     supplementary::InfoTime logicalCameraValidityDuration;
-    supplementary::InfoBuffer<ttb_msgs::LogicalCamera>* logicalCameraBuffer;
+    supplementary::InfoBuffer<std::shared_ptr<ttb_msgs::LogicalCamera>>* logicalCameraBuffer;
 };
 } /* namespace wm */
 } /* namespace ttb */

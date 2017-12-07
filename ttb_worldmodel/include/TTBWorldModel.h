@@ -39,8 +39,6 @@ class TTBWorldModel : public supplementary::WorldModel
     virtual ~TTBWorldModel();
     static TTBWorldModel *get(); /**< Singleton Getter */
 
-    supplementary::InfoTime getTime();
-
     // Public Data Access Classes
     wm::RawSensorData rawSensorData;
     wm::LogicalCameraData logicalCameraData;
@@ -51,7 +49,6 @@ class TTBWorldModel : public supplementary::WorldModel
 
   private:
     TTBWorldModel(); /**< Private Singleton Constructor */
-    mutex wmMutex;
 };
 
 } /* namespace ttb */

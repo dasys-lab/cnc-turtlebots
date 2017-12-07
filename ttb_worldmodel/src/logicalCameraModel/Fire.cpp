@@ -6,7 +6,7 @@ namespace ttb
 {
 namespace wm
 {
-Fire::Fire(ttb_msgs::LogicalCameraPtr logicalCameraData, supplementary::InfoTime maxValidityDuration)
+Fire::Fire(ttb_msgs::LogicalCameraPtr logicalCameraData)
     : LogicalObject(logicalCameraData, "Fire")
 {
 }

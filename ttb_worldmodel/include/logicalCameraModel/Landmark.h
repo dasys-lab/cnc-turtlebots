@@ -15,7 +15,7 @@ namespace ttb
 	class Landmark : public LogicalObject
 	{
 	public:
-		Landmark(ttb_msgs::LogicalCameraPtr logicalCameraData, supplementary::InfoTime maxValidityDuration);
+		Landmark(ttb_msgs::LogicalCameraPtr logicalCameraData);
 		virtual ~Landmark();
 	};
 	}

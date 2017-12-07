@@ -39,23 +39,21 @@ class Communication
     virtual ~Communication();
 
   private:
-    void onAlvarMarkers(ar_track_alvar_msgs::AlvarMarkersPtr alvarData);
-    void onOdometryData(nav_msgs::OdometryPtr odometryData);
-    void onLaserScanData(sensor_msgs::LaserScanPtr laserScanData);
-    void onBumperSensorData(sensor_msgs::PointCloud2Ptr bumperSensorData);
-    void onBumperEventData(kobuki_msgs::BumperEventPtr bumperEventData);
-    void onImuData(sensor_msgs::ImuPtr imuData);
-    void onCameraPclData(sensor_msgs::PointCloud2Ptr pclData);
-    void onCommandVelData(geometry_msgs::TwistPtr commandVelData);
-    void onJointStateData(sensor_msgs::JointStatePtr jointStateData);
-    void onCliffEventsData(kobuki_msgs::CliffEventPtr clifEventData);
-    void onCameraImageRawData(sensor_msgs::ImagePtr cameraImageRawData);
-    void onRobotOnOff(robot_control::RobotCommandPtr robotOnOffData);
-    void onMobileBaseSensorStateData(kobuki_msgs::SensorStatePtr mobileBaseSensorStateData);
-    void onDockInfrRedData(kobuki_msgs::DockInfraRedPtr dockInfrRedData);
-    void onServeTask(ttb_msgs::ServeTaskPtr serveTask);
+    void onAlvarMarkers(ar_track_alvar_msgs::AlvarMarkersPtr alvar);
+    void onOdometry(nav_msgs::OdometryPtr odometry);
+    void onLaserScan(sensor_msgs::LaserScanPtr laserScan);
+    void onBumperCloud(sensor_msgs::PointCloud2Ptr bumperSensor);
+    void onBumperEvent(kobuki_msgs::BumperEvent bumperEvent);
+    void onImu(sensor_msgs::Imu imu);
+    void onDepthCameraCloud(sensor_msgs::PointCloud2Ptr depthCameraCloud);
+    void onCliffEvent(kobuki_msgs::CliffEvent cliffEvent);
+    void onRawCameraImage(sensor_msgs::ImagePtr rawCameraImage);
+    void onRobotCommand(robot_control::RobotCommand robotCommand);
+    void onMobileBaseSensorState(kobuki_msgs::SensorStatePtr mobileBaseSensorState);
+    void onDockInfrRed(kobuki_msgs::DockInfraRed dockInfrRed);
+    void onServeTask(ttb_msgs::ServeTask serveTask);
     void onGazeboModelState(gazebo_msgs::ModelStatesPtr msg);
-    void onLogicalCameraData(ttb_msgs::LogicalCameraPtr logicalCameraData);
+    void onLogicalCamera(ttb_msgs::LogicalCameraPtr logicalCamera);
 
     ttb::TTBWorldModel *wm;
 

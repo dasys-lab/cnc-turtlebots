@@ -5,7 +5,7 @@ namespace ttb
 namespace wm
 {
 
-Victim::Victim(ttb_msgs::LogicalCameraPtr logicalCameraData, supplementary::InfoTime maxValidityDuration)
+Victim::Victim(ttb_msgs::LogicalCameraPtr logicalCameraData)
     : LogicalObject(logicalCameraData, "Victim")
 {
 }

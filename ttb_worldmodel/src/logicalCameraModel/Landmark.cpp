@@ -4,7 +4,7 @@ namespace ttb
 {
 namespace wm
 {
-Landmark::Landmark(ttb_msgs::LogicalCameraPtr logicalCameraData, supplementary::InfoTime maxValidityDuration)
+Landmark::Landmark(ttb_msgs::LogicalCameraPtr logicalCameraData)
     : LogicalObject(logicalCameraData, "Landmark")
 {
 }

@@ -15,7 +15,7 @@ namespace ttb
 		class Victim : public LogicalObject
 		{
 		public:
-			Victim(ttb_msgs::LogicalCameraPtr logicalCameraData, supplementary::InfoTime maxValidityDuration);
+			Victim(ttb_msgs::LogicalCameraPtr logicalCameraData);
 			virtual ~Victim();
 		};
 	}
