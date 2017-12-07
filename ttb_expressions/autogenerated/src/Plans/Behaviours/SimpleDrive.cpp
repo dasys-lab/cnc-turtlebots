@@ -2,6 +2,7 @@ using namespace std;
 #include "Plans/Behaviours/SimpleDrive.h"
 
 /*PROTECTED REGION ID(inccpp1432735451661) ENABLED START*/ //Add additional includes here
+#include <kobuki_msgs/BumperEvent.h>
 /*PROTECTED REGION END*/
 namespace alica
 {
@@ -25,8 +26,8 @@ namespace alica
 
         move.linear.x = 0.3;
 
-        if ((wm->rawSensorData.getOwnBumperEvents() != nullptr)
-                && wm->rawSensorData.getOwnBumperEvents()->state == kobuki_msgs::BumperEvent::PRESSED)
+        auto bumperEvent = wm->rawSensorData.getBumperEventBuffer().getLastValidContent();
+        if (bumperEvent && bumperEvent->state == kobuki_msgs::BumperEvent::PRESSED)
         {
             this->setSuccess(true);
         }

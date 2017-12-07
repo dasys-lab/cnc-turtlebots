@@ -26,7 +26,7 @@ namespace alica
         gazebo_msgs::ModelState ms;
         //ms.model_name = this->wm->taskManager.getNextTask().entity;
         ms.model_name = "box_1";
-        shared_ptr < geometry::CNPosition > ownPos = this->wm->rawSensorData.getOwnPosition();
+        auto ownPos = this->wm->rawSensorData.getOdomPositionBuffer().getLastValidContent();
         ms.pose.position.x = ownPos->x - 0.12;
         ms.pose.position.y = ownPos->y;
         ms.pose.position.z = 0.5;
