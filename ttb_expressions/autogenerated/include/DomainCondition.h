@@ -1,8 +1,8 @@
-#ifndef DomainBehaviour_H_
-#define DomainBehaviour_H_
+#pragma once
 
 #include "engine/BasicCondition.h"
-#include "TTBWorldModel.h"
+#include <TTBWorldModel.h>
+#include <robot_control/RobotCommand.h>
 
 namespace alica
 {
@@ -19,6 +19,3 @@ namespace alica
         ttb::TTBWorldModel* wm;
     };
 } /* namespace alica */
-
-#endif /* DomainBehaviour_H_ */
-

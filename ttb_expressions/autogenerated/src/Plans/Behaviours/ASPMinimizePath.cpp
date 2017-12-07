@@ -28,9 +28,9 @@ namespace alica
         {
             return;
         }
-        std::chrono::_V2::system_clock::time_point start = std::chrono::high_resolution_clock::now();
+        auto start = std::chrono::high_resolution_clock::now();
         query->getSolution(SolverType::ASPSOLVER, runningPlan, result);
-        std::chrono::_V2::system_clock::time_point end = std::chrono::high_resolution_clock::now();
+        auto end = std::chrono::high_resolution_clock::now();
         cout << "ASPMinimizePath: Measured Solving and Grounding Time: " << std::chrono::duration_cast
                 < chrono::milliseconds > (end - start).count() << " ms" << endl;
         if (result.size() > 0)
