@@ -32,7 +32,7 @@ namespace alica
         double distanceGoalX;
         double distanceGoalY;
         double distanceToGoal;
-        shared_ptr<geometry::CNPosition> ownPosition;
+
         vector<geometry_msgs::Point> list;
         /*PROTECTED REGION END*/};
 } /* namespace alica */
