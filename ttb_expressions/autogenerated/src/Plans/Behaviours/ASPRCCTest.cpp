@@ -28,7 +28,7 @@ namespace alica
     ASPRCCTest::~ASPRCCTest()
     {
         /*PROTECTED REGION ID(dcon1480766583222) ENABLED START*/ //Add additional options here
-    	resultfile.close();
+        resultfile.close();
         /*PROTECTED REGION END*/
     }
     void ASPRCCTest::run(void* msg)
@@ -52,8 +52,8 @@ namespace alica
         std::chrono::_V2::system_clock::time_point start = std::chrono::high_resolution_clock::now();
         query->getSolution(SolverType::ASPSOLVER, runningPlan, result);
         std::chrono::_V2::system_clock::time_point end = std::chrono::high_resolution_clock::now();
-        cout << "ASPNavigation: Measured Solving and Grounding Time: "
-         << std::chrono::duration_cast < chrono::nanoseconds > (end - start).count() / 1000000.0 << /*" ms" <<*/endl;
+        cout << "ASPNavigation: Measured Solving and Grounding Time: " << std::chrono::duration_cast
+                < chrono::nanoseconds > (end - start).count() / 1000000.0 << /*" ms" <<*/endl;
         resultfile << (end - start).count() / 1000000.0 << " ";
         if (result.size() > 0)
         {
@@ -63,7 +63,7 @@ namespace alica
             {
                 if (it->variableQueryValues.size() > 0)
                 {
-					cout << "ASPNavigation: ASP result found!" << endl;
+                    cout << "ASPNavigation: ASP result found!" << endl;
 //					cout << "\tResult contains the predicates: " << endl;
 //					cout << "\t\t";
 //					for (int i = 0; i < result.size(); i++)
@@ -111,7 +111,7 @@ namespace alica
         if (this->iterationCounter == 19)
         {
             this->setSuccess(true);
-		cout << "DONE" << endl;
+            cout << "DONE" << endl;
         }
         this->iterationCounter++;
 
