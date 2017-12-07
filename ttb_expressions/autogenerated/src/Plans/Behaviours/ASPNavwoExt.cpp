@@ -27,7 +27,6 @@ namespace alica
         resultfile.close();
         /*PROTECTED REGION END*/
     }
-    
     void ASPNavwoExt::run(void* msg)
     {
         /*PROTECTED REGION ID(run1477229760910) ENABLED START*/ //Add additional options here
@@ -35,7 +34,7 @@ namespace alica
         {
             return;
         }
-        
+
         std::chrono::_V2::system_clock::time_point start = std::chrono::high_resolution_clock::now();
         query->getSolution(SolverType::ASPSOLVER, runningPlan, result);
         std::chrono::_V2::system_clock::time_point end = std::chrono::high_resolution_clock::now();

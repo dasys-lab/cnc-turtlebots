@@ -5,10 +5,6 @@
 
 #include  "Plans/Serve/PKVR16/constraints/SearchBoxes1481545038564Constraints.h"
 
-#include  "Plans/Wumpus/constraints/WumpusMaster1489673406228Constraints.h"
-
-#include  "Plans/Wumpus/constraints/InteractWIthPlayground1489673751539Constraints.h"
-
 #include  "Plans/Serve/constraints/ServeMaster1454332108133Constraints.h"
 
 #include  "Plans/Serve/constraints/ASPNavwoExternals1477229620130Constraints.h"
@@ -30,8 +26,6 @@
 #include  "Plans/Tests/constraints/TurtleGenericTestMaster1454329729827Constraints.h"
 
 #include  "Plans/Serve/constraints/ASPRCCTestMaster1480766525772Constraints.h"
-
-#include  "Plans/Wumpus/constraints/Turn1489674129255Constraints.h"
 
 #include  "Plans/Tests/constraints/TestPOI1454329810785Constraints.h"
 

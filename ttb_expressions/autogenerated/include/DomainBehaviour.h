@@ -10,8 +10,6 @@
 #include "move_base_msgs/MoveBaseActionGoal.h"
 #include "move_base_msgs/MoveBaseAction.h"
 #include "move_base_msgs/MoveBaseActionResult.h"
-#include <wumpus_simulator/ActionRequest.h>
-#include <wumpus_simulator/InitialPoseRequest.h>
 #include <actionlib/client/simple_action_client.h>
 #include <actionlib/client/terminal_state.h>
 
