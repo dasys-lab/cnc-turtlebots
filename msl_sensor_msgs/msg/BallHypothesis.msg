@@ -1,6 +1,0 @@
-msl_msgs/Point3dInfo egoPosition
-msl_msgs/Point2dInfo cameraCoordinates
-int32 radius
-int32 errors
-int32 detectedNearbyCircles
-float64 confidence
