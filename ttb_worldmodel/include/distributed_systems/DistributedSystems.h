@@ -7,6 +7,8 @@
 #include <memory>
 #include <unordered_set>
 
+//#define DSDEBUG
+
 namespace supplementary
 {
 class SystemConfig;
@@ -17,6 +19,7 @@ namespace ttb
 namespace wm
 {
 
+class TopologicalPathPlanner;
 class DistributedSystems
 {
   public:
@@ -32,6 +35,7 @@ class DistributedSystems
     std::unordered_set<std::shared_ptr<Room>, RoomHash ,RoomComperator> rooms;
     std::unordered_set<std::shared_ptr<Door>, DoorHash ,DoorComperator> doors;
     supplementary::SystemConfig *sc;
+    TopologicalPathPlanner* tpPathPlanner;
     void readTopologyFromConfig();
 };
 

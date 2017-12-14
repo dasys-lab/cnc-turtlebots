@@ -1,6 +1,7 @@
 #include "distributed_systems/DistributedSystems.h"
 
 #include "distributed_systems/AreaDoor.h"
+#include "distributed_systems/TopologicalPathPlanner.h"
 
 #include <Configuration.h>
 #include <SystemConfig.h>
@@ -15,11 +16,16 @@ DistributedSystems::DistributedSystems()
 {
     this->sc = supplementary::SystemConfig::getInstance();
     this->readTopologyFromConfig();
+    this->tpPathPlanner = new TopologicalPathPlanner(this);
+#ifdef DSDEBUG
     this->print();
+#endif
+
 }
 
 DistributedSystems::~DistributedSystems()
 {
+	delete this->tpPathPlanner;
 }
 
 const std::unordered_set<std::shared_ptr<Area>, AreaHash, AreaComperator> &DistributedSystems::getAreas()
@@ -102,6 +108,12 @@ void DistributedSystems::print()
 	{
 		ss << room->toString();
 	}
+	ss << "Doors:: " << std::endl;
+	for(auto door: this->doors)
+	{
+		ss << "\t" << door->toString();
+	}
+	std::cout << ss.str() << std::endl;
 	std::cout << ss.str() << std::endl;
 
 }

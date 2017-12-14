@@ -28,11 +28,11 @@ std::size_t Room::hash() const
 std::string Room::toString()
 {
 	std::stringstream ss;
-	ss << "\t\tRoom: " << this->name << " belongs to Area: " << this->area->name << std::endl;
-	ss << "\t\t\tDoors: " << std::endl;
+	ss << "\tRoom: " << this->name << " belongs to Area: " << this->area->name << std::endl;
+	ss << "\t\tDoors: " << std::endl;
 	for(auto door : this->doors)
 	{
-		ss << "\t\t\t\t" << door->toString();
+		ss << "\t\t\t" << door->toString();
 	}
 	ss << std::endl;
 	return ss.str();
