@@ -48,6 +48,11 @@ add_library(ttb_worldmodel
   src/logicalCameraModel/Landmark.cpp
   src/tasks/ServeTask.cpp
   src/WumpusData.cpp
+  src/distributed_systems/Area.cpp
+  src/distributed_systems/AreaDoor.cpp
+  src/distributed_systems/DistributedSystems.cpp
+  src/distributed_systems/Door.cpp
+  src/distributed_systems/Room.cpp
 )
 
 add_dependencies(ttb_worldmodel kobuki_msgs_generate_messages_cpp geometry_msgs_generate_messages_cpp robot_control_generate_messages_cpp wumpus_simulator_generate_messages_cpp)
