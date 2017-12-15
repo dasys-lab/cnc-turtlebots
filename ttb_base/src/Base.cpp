@@ -1,10 +1,3 @@
-/*
- * Base.cpp
- *
- *  Created on: 22.10.2014
- *      Author: endy
- */
-
 #include <iostream>
 
 #include <thread>
@@ -18,6 +11,7 @@
 #include <asp_commons/IASPSolver.h>
 #include <asp_solver_wrapper/ASPSolverWrapper.h>
 #include <asp_solver/ASPSolver.h>
+#include <supplementary/AgentIDManager.h>
 
 using namespace std;
 
@@ -26,7 +20,7 @@ namespace ttb
 
 	Base::Base(string roleSetName, string masterPlanName, string roleSetDir)
 	{
-		ae = new alica::AlicaEngine();
+		ae = new alica::AlicaEngine(new supplementary::AgentIDManager(new supplementary::AgentIDFactory()), roleSetName, masterPlanName, roleSetDir, false);
 		bc = new alica::BehaviourCreator();
 		cc = new alica::ConditionCreator();
 		uc = new alica::UtilityFunctionCreator();
@@ -42,7 +36,7 @@ namespace ttb
 		auto solverWrapper = new alica::reasoner::ASPSolverWrapper(ae, args);
 		solverWrapper->init(solver);
 		ae->addSolver(SolverType::ASPSOLVER, solverWrapper);
-		ae->init(bc, cc, uc, crc, roleSetName, masterPlanName, roleSetDir, false);
+		ae->init(bc, cc, uc, crc);
 	}
 
 	void Base::start()

@@ -1,12 +1,4 @@
-/*
- * Base.h
- *
- *  Created on: 22.10.2014
- *      Author: endy
- */
-
-#ifndef CNC_TURTLEBOT_TTB_BASE_H_
-#define CNC_TURTLEBOT_TTB_BASE_H_
+#pragma once
 
 #include <iostream>
 
@@ -42,5 +34,3 @@ namespace ttb
 	};
 
 } /* namespace ttb */
-
-#endif /* CNC_TURTLEBOT_TTB_BASE_H_ */
