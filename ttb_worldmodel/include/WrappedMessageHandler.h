@@ -1,11 +1,4 @@
-//
-// Created by marci on 17.04.16.
-//
-
-#ifndef SUPPLEMENTARY_WRAPPEDMESSAGEHANDLER_H
-#define SUPPLEMENTARY_WRAPPEDMESSAGEHANDLER_H
-
-#include <ros/ros.h>
+#pragma once
 
 #include "TTBWorldModel.h"
 #include "geometry_msgs/PoseStamped.h"
@@ -14,6 +7,8 @@
 #include "ttb_msgs/AMCLPoseWrapped.h"
 #include "ttb_msgs/GoalWrapped.h"
 #include "ttb_msgs/InitialPoseWrapped.h"
+
+#include <ros/ros.h>
 
 namespace ttb
 {
@@ -111,5 +106,3 @@ class WrappedMessageHandler
     }
 };
 }
-
-#endif // SUPPLEMENTARY_WRAPPEDMESSAGEHANDLER_H
