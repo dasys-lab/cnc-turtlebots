@@ -10,8 +10,8 @@ namespace ttb
 namespace wm
 {
 
-AreaDoor::AreaDoor(std::shared_ptr<Room> from, std::shared_ptr<Room> to)
-    : Door(from, to)
+AreaDoor::AreaDoor(std::shared_ptr<Room> from, std::shared_ptr<Room> to, std::string name)
+    : Door(from, to, name)
 	, fromArea(from->area)
 	, toArea(to->area)
 {

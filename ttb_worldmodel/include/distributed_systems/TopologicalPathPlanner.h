@@ -35,9 +35,6 @@ class TopologicalPathPlanner
 
   private:
     DistributedSystems* ds;
-#ifdef TP_DEBUG
-    int tmp = 0;
-#endif
     bool areaBreadthSearch(std::vector<std::shared_ptr<Area>> &fringe, std::map<std::shared_ptr<Area>, std::shared_ptr<Area>> &visited, std::shared_ptr<Area> goal);
     std::shared_ptr<Room>  roomBreadthSearch(std::vector<std::shared_ptr<Room>> &fringe, std::map<std::shared_ptr<Room>, std::shared_ptr<Room>> &visited, std::shared_ptr<Area> goal);
 };

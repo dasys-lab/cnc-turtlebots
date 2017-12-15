@@ -68,7 +68,7 @@ bool TopologicalPathPlanner::areaBreadthSearch(std::vector<std::shared_ptr<Area>
         {
             auto nextArea = areaDoor->toArea != currentArea ? areaDoor->toArea : areaDoor->fromArea;
 
-            if (visited.find(nextArea) != visited.end())
+            if (nextArea->blocked || visited.find(nextArea) != visited.end())
             {
                 continue;
             }
@@ -123,55 +123,30 @@ std::vector<std::shared_ptr<Door>> TopologicalPathPlanner::planInsideArea(std::s
 std::shared_ptr<Room> TopologicalPathPlanner::roomBreadthSearch(std::vector<std::shared_ptr<Room>> &fringe, std::map<std::shared_ptr<Room>, std::shared_ptr<Room>> &visited,
                                                std::shared_ptr<Area> goal)
 {
-#ifdef TP_DEBUG
-    std::cout << "Level: " << tmp << std::endl;
-    tmp++;
-#endif
     if (fringe.size() == 0)
     {
-#ifdef TP_DEBUG
-        std::cout << "Fringe empty returning false" << std::endl;
-#endif
         return nullptr;
     }
     std::vector<std::shared_ptr<Room>> newFringe;
     if (visited.size() == 0)
     {
-#ifdef TP_DEBUG
-        std::cout << "First iteration adding start area: " << fringe.at(0)->name << std::endl;
-#endif
         visited.emplace(fringe.at(0), nullptr);
     }
     for (auto currentRoom : fringe)
     {
-#ifdef TP_DEBUG
-        std::cout << "Inside fringe: adding doors for area: " << currentRoom->name << std::endl;
-#endif
         for (auto door : currentRoom->doors)
         {
             auto nextRoom = door->to != currentRoom ? door->to : door->from;
 
-            if (visited.find(nextRoom) != visited.end())
+            if (!door->open || visited.find(nextRoom) != visited.end())
             {
-#ifdef TP_DEBUG
-                std::cout << "Inside expand: already visited area: " << nextRoom->name << std::endl;
-#endif
                 continue;
             }
 
             newFringe.push_back(nextRoom);
-#ifdef TP_DEBUG
-            std::cout << "Inside expand: adding area: " << nextRoom->name << " to new fringe" << std::endl;
-#endif
             visited.emplace(nextRoom, currentRoom);
-#ifdef TP_DEBUG
-            std::cout << "Inside expand: adding pair: " << nextRoom->name << " " << currentRoom->name << " to visited" << std::endl;
-#endif
             if (nextRoom->area->name == goal->name)
             {
-#ifdef TP_DEBUG
-                std::cout << "Goal found returning true" << std::endl;
-#endif
                 return nextRoom;
             }
         }

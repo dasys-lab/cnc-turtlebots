@@ -11,7 +11,7 @@ class Area;
 class AreaDoor : public Door
 {
   public:
-    AreaDoor(std::shared_ptr<Room> from, std::shared_ptr<Room> to);
+    AreaDoor(std::shared_ptr<Room> from, std::shared_ptr<Room> to, std::string name);
     virtual ~AreaDoor();
     std::string toString();
     const std::shared_ptr<Area> fromArea;

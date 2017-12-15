@@ -19,15 +19,27 @@ DistributedSystems::DistributedSystems()
     this->tpPathPlanner = new TopologicalPathPlanner(this);
 #ifdef DSDEBUG
     this->print();
-#endif
 
-    this->tpPathPlanner->plan(*this->rooms.find(std::make_shared<Room>("r1411")), *this->rooms.find(std::make_shared<Room>("r1403")));
+    //Test Areas
+    auto testArea = *this->areas.find(std::make_shared<Area>("utility"));
+    testArea->blocked = true;
+    this->tpPathPlanner->plan(*this->rooms.find(std::make_shared<Room>("r1406C")), *this->rooms.find(std::make_shared<Room>("r1403")));
+    testArea->blocked = false;
+    testArea = *this->areas.find(std::make_shared<Area>("mainHall"));
+    testArea->blocked = true;
+    this->tpPathPlanner->plan(*this->rooms.find(std::make_shared<Room>("r1406C")), *this->rooms.find(std::make_shared<Room>("r1403")));
+    //Test Doors
     this->tpPathPlanner->planInsideArea(*this->rooms.find(std::make_shared<Room>("r1411")), *this->areas.find(std::make_shared<Area>("mainHall")));
+    auto testDoor = *this->doors.find(std::make_shared<Door>(*this->rooms.find(std::make_shared<Room>("r1411C")),
+    		*this->rooms.find(std::make_shared<Room>("r1411")), "door1"));
+    testDoor->open = false;
+    this->tpPathPlanner->planInsideArea(*this->rooms.find(std::make_shared<Room>("r1411")), *this->areas.find(std::make_shared<Area>("mainHall")));
+#endif
 }
 
 DistributedSystems::~DistributedSystems()
 {
-	delete this->tpPathPlanner;
+    delete this->tpPathPlanner;
 }
 
 const std::unordered_set<std::shared_ptr<Area>, AreaHash, AreaComperator> &DistributedSystems::getAreas()
@@ -70,7 +82,7 @@ void DistributedSystems::readTopologyFromConfig()
         {
             std::shared_ptr<Room> to = *(this->rooms.find(std::make_shared<Room>(
                 (*sc)["DistributedSystems"]->get<std::string>("DistributedSystems", "Doors", section.c_str(), name.c_str(), NULL), nullptr)));
-            std::shared_ptr<Door> door = std::make_shared<Door>(from, to);
+            std::shared_ptr<Door> door = std::make_shared<Door>(from, to, name);
             from->doors.insert(door);
             to->doors.insert(door);
             this->doors.insert(door);
@@ -87,7 +99,7 @@ void DistributedSystems::readTopologyFromConfig()
         {
             std::shared_ptr<Room> to = *(this->rooms.find(std::make_shared<Room>(
                 (*sc)["DistributedSystems"]->get<std::string>("DistributedSystems", "AreaDoors", section.c_str(), name.c_str(), NULL), nullptr)));
-            std::shared_ptr<AreaDoor> door = std::make_shared<AreaDoor>(from, to);
+            std::shared_ptr<AreaDoor> door = std::make_shared<AreaDoor>(from, to, name);
             from->doors.insert(door);
             to->doors.insert(door);
             this->doors.insert(door);
@@ -99,25 +111,24 @@ void DistributedSystems::readTopologyFromConfig()
 
 void DistributedSystems::print()
 {
-	std::stringstream ss;
-	ss << "Areas: " << std::endl;
-	for(auto area: this->areas)
-	{
-		ss << area->toString();
-	}
-	ss << "Rooms: " << std::endl;
-	for(auto room: this->rooms)
-	{
-		ss << room->toString();
-	}
-	ss << "Doors:: " << std::endl;
-	for(auto door: this->doors)
-	{
-		ss << "\t" << door->toString();
-	}
-	std::cout << ss.str() << std::endl;
-	std::cout << ss.str() << std::endl;
-
+    std::stringstream ss;
+    ss << "Areas: " << std::endl;
+    for (auto area : this->areas)
+    {
+        ss << area->toString();
+    }
+    ss << "Rooms: " << std::endl;
+    for (auto room : this->rooms)
+    {
+        ss << room->toString();
+    }
+    ss << "Doors:: " << std::endl;
+    for (auto door : this->doors)
+    {
+        ss << "\t" << door->toString();
+    }
+    std::cout << ss.str() << std::endl;
+    std::cout << ss.str() << std::endl;
 }
 } /* namespace wm */
 } /* namespace ttb */

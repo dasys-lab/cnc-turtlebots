@@ -13,20 +13,21 @@ class Door
 {
 
   public:
-    Door(std::shared_ptr<Room> from, std::shared_ptr<Room> to);
+    Door(std::shared_ptr<Room> from, std::shared_ptr<Room> to, std::string name);
     virtual ~Door();
     std::size_t hash() const;
     std::string toString();
     bool open;
     const std::shared_ptr<Room> from;
     const std::shared_ptr<Room> to;
+    const std::string name;
 };
 
 struct DoorComperator
 {
     bool operator()(const std::shared_ptr<Door> a, std::shared_ptr<Door> b) const
     {
-       return a->to->name == b->to->name && a->from->name == b->from->name;
+       return a->hash() == b->hash();
     }
 };
 
