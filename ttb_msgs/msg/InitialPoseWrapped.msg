@@ -1,3 +1,3 @@
 # id of receiving robot
-int32 receiverId
+agent_id/AgentID receiverId
 geometry_msgs/PoseWithCovarianceStamped msg

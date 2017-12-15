@@ -2,7 +2,10 @@ cmake_minimum_required(VERSION 2.8.3)
 project(ttb_msgs)
 
 find_package(catkin REQUIRED COMPONENTS
-  message_generation  std_msgs geometry_msgs
+  message_generation  
+  std_msgs 
+  geometry_msgs
+  agent_id
 )
 
 
@@ -18,12 +21,12 @@ find_package(catkin REQUIRED COMPONENTS
    ObjectSize.msg
  )
  
- generate_messages(DEPENDENCIES std_msgs geometry_msgs)
+generate_messages(DEPENDENCIES std_msgs geometry_msgs agent_id)
 
 catkin_package(
 #  INCLUDE_DIRS include
 #  LIBRARIES ttb_msgs
-  CATKIN_DEPENDS std_msgs geometry_msgs message_runtime
+  CATKIN_DEPENDS std_msgs geometry_msgs message_runtime agent_id
 #  DEPENDS system_lib
 )
 
