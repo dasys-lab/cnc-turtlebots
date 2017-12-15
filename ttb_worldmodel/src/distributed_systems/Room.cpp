@@ -16,6 +16,12 @@ Room::Room(std::string name, std::shared_ptr<Area> area)
 {
 }
 
+Room::Room(std::string name)
+	: name(name)
+{
+}
+
+
 Room::~Room()
 {
 }
@@ -28,7 +34,7 @@ std::size_t Room::hash() const
 std::string Room::toString()
 {
 	std::stringstream ss;
-	ss << "\tRoom: " << this->name << " belongs to Area: " << this->area->name << std::endl;
+	ss << "\tRoom: " << this->name << " belongs to Area: " << this->area->name << " Hash: " << this->hash() << std::endl;
 	ss << "\t\tDoors: " << std::endl;
 	for(auto door : this->doors)
 	{
@@ -41,4 +47,3 @@ std::string Room::toString()
 
 } /* namespace wm */
 } /* namespace ttb */
-

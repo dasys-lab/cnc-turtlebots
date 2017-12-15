@@ -19,6 +19,7 @@ class Area
     const std::string name;
     std::unordered_set<std::shared_ptr<AreaDoor>> doors;
     std::string toString();
+    bool blocked;
 };
 
 struct AreaComperator

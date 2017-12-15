@@ -14,6 +14,7 @@ class Room
 {
 
   public:
+	Room(std::string name);
     Room(std::string name, std::shared_ptr<Area> area) ;
     virtual ~Room();
     std::size_t hash() const;

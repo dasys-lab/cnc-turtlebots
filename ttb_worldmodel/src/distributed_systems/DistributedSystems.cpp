@@ -21,6 +21,8 @@ DistributedSystems::DistributedSystems()
     this->print();
 #endif
 
+    this->tpPathPlanner->plan(*this->rooms.find(std::make_shared<Room>("r1411")), *this->rooms.find(std::make_shared<Room>("r1403")));
+    this->tpPathPlanner->planInsideArea(*this->rooms.find(std::make_shared<Room>("r1411")), *this->areas.find(std::make_shared<Area>("mainHall")));
 }
 
 DistributedSystems::~DistributedSystems()

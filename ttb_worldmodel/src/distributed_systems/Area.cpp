@@ -12,6 +12,7 @@ namespace wm
 Area::Area(std::string name)
 	: name(name)
 {
+	this->blocked = false;
 }
 
 Area::~Area()
@@ -26,7 +27,7 @@ std::size_t Area::hash() const
 std::string Area::toString()
 {
 	std::stringstream ss;
-	ss << "\tArea: " << this->name << std::endl;
+	ss << "\tArea: " << this->name << " Hash: " << this->hash() << std::endl;
 	ss << "\t\tDoors: " << std::endl;
 	for(auto door : this->doors)
 	{
