@@ -1,10 +1,3 @@
-/*
- * TTBWorldModel.cpp
- *
- *  Created on: May 27, 2015
- *      Author: Stephan Opfer
- */
-
 #include "TTBWorldModel.h"
 
 #include "engine/AlicaEngine.h"
@@ -31,6 +24,7 @@ TTBWorldModel::TTBWorldModel()
     , alicaEngine(nullptr)
     , doors(this)
     , wumpusData(this, 10)
+	, distributedSystems()
 {
     ownID = supplementary::SystemConfig::getOwnRobotID();
 

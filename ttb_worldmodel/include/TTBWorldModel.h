@@ -1,12 +1,4 @@
-/*
- * TTBWorldModel.h
- *
- *  Created on: May 27, 2015
- *      Author: Stephan Opfer
- */
-
-#ifndef TTBWORLDMODEL_H_
-#define TTBWORLDMODEL_H_
+#pragma once
 
 #include <iostream>
 #include <list>
@@ -43,6 +35,7 @@
 #include "Robots.h"
 #include "SystemConfig.h"
 #include "TaskManager.h"
+#include "distributed_systems/DistributedSystems.h"
 #include "EventTrigger.h"
 #include "ttb_poi/TTBPointOfInterests.h"
 #include "Doors.h"
@@ -79,6 +72,7 @@ class TTBWorldModel
     wm::Robots robots;
     wm::TTBPointOfInterests pois;
     wm::Doors doors;
+    wm::DistributedSystems distributedSystems;
     WumpusData wumpusData; 
     supplementary::SystemConfig *sc;
 
@@ -156,5 +150,3 @@ class TTBWorldModel
 };
 
 } /* namespace ttb */
-
-#endif /* TTBWORLDMODEL_H_ */
