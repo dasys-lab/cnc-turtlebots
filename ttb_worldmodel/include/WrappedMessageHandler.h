@@ -7,6 +7,8 @@
 #include "ttb_msgs/AMCLPoseWrapped.h"
 #include "ttb_msgs/GoalWrapped.h"
 #include "ttb_msgs/InitialPoseWrapped.h"
+#include <supplementary/AgentID.h>
+#include <engine/AlicaEngine.h>
 
 #include <ros/ros.h>
 
@@ -16,7 +18,8 @@ namespace ttb
 class WrappedMessageHandler
 {
   private:
-    int robotID;
+    const supplementary::AgentID *robotID;
+    alica::AlicaEngine* engine;
     ros::NodeHandle n;
     // get incoming wrapped messages and publish them (unwrapped) on the local ros core
 
@@ -38,14 +41,15 @@ class WrappedMessageHandler
     onRosPoseWithCovarianceStamped2852345798(const ros::MessageEvent<geometry_msgs::PoseWithCovarianceStamped> &event)
     {
         ttb_msgs::AMCLPoseWrapped message;
-        message.receiverId = robotID;
+        message.receiver.id = robotID->toByteVector();
         message.msg = *event.getMessage();
         pubAMCLPoseWrapped_amcl_pose.publish(message);
     }
     void onRosAMCLPoseWrapped2852345798(const ros::MessageEvent<ttb_msgs::AMCLPoseWrapped> &event)
     {
         const ttb_msgs::AMCLPoseWrapped::ConstPtr &message = event.getMessage();
-        if (message->receiverId == robotID && event.getPublisherName().compare(ros::this_node::getName()) != 0)
+        auto receiverId = this->engine->getIDFromBytes(message->receiver.id);
+        if (*receiverId == *robotID && event.getPublisherName().compare(ros::this_node::getName()) != 0)
         {
             pubPoseWithCovarianceStamped_amcl_pose.publish(message->msg);
         }
@@ -53,14 +57,15 @@ class WrappedMessageHandler
     void onRosPoseStamped3037331423(const ros::MessageEvent<geometry_msgs::PoseStamped> &event)
     {
         ttb_msgs::GoalWrapped message;
-        message.receiverId = robotID;
+        message.receiver.id = robotID->toByteVector();
         message.msg = *event.getMessage();
         pubGoalWrapped_move_base_simple_goal.publish(message);
     }
     void onRosGoalWrapped3037331423(const ros::MessageEvent<ttb_msgs::GoalWrapped> &event)
     {
         const ttb_msgs::GoalWrapped::ConstPtr &message = event.getMessage();
-        if (message->receiverId == robotID && event.getPublisherName().compare(ros::this_node::getName()) != 0)
+        auto receiverId = this->engine->getIDFromBytes(message->receiver.id);
+        if (*receiverId == *robotID && event.getPublisherName().compare(ros::this_node::getName()) != 0)
         {
             pubPoseStamped_move_base_simple_goal.publish(message->msg);
         }
@@ -69,19 +74,20 @@ class WrappedMessageHandler
     onRosPoseWithCovarianceStamped2637701444(const ros::MessageEvent<geometry_msgs::PoseWithCovarianceStamped> &event)
     {
         ttb_msgs::InitialPoseWrapped message;
-        message.receiverId = robotID;
+        message.receiver.id = robotID->toByteVector();
         message.msg = *event.getMessage();
         pubInitialPoseWrapped_initialpose.publish(message);
     }
     void onRosInitialPoseWrapped2637701444(const ros::MessageEvent<ttb_msgs::InitialPoseWrapped> &event)
     {
         const ttb_msgs::InitialPoseWrapped::ConstPtr &message = event.getMessage();
-        if (message->receiverId == robotID && event.getPublisherName().compare(ros::this_node::getName()) != 0)
+        auto receiverId = this->engine->getIDFromBytes(message->receiver.id);
+        if (*receiverId == *robotID && event.getPublisherName().compare(ros::this_node::getName()) != 0)
         {
             pubPoseWithCovarianceStamped_initialpose.publish(message->msg);
         }
     }
-    void init(int id)
+    void init(const supplementary::AgentID *id, alica::AlicaEngine* engine)
     {
         this->robotID = id;
 

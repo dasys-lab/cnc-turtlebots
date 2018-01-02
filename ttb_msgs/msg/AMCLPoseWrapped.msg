@@ -1,2 +1,2 @@
-agent_id/AgentID receiverId
+agent_id/AgentID receiver
 geometry_msgs/PoseWithCovarianceStamped msg

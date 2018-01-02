@@ -2,6 +2,8 @@
 
 #include "TTBWorldModel.h"
 #include "WrappedMessageHandler.h"
+#include <supplementary/AgentID.h>
+#include <supplementary/BroadcastID.h>
 
 using std::string;
 
@@ -61,7 +63,7 @@ Communication::Communication(ttb::TTBWorldModel *wm)
     serveTaskSub = n.subscribe(topic, 10, &Communication::onServeTask, (Communication *)this);
 
     wrappedMessageHandler = new WrappedMessageHandler();
-    wrappedMessageHandler->init(this->wm->getOwnId());
+    wrappedMessageHandler->init(this->wm->getOwnId(), this->wm->getEngine());
 
     gazeboWorldModelSub =
         n.subscribe("/gazebo/model_states", 10, &Communication::onGazeboModelState, (Communication *)this);
@@ -141,7 +143,9 @@ void Communication::onDockInfrRed(kobuki_msgs::DockInfraRed dockInfrRed)
 void Communication::onServeTask(ttb_msgs::ServeTask serveTask)
 {
     auto ownID = this->wm->getOwnId();
-    if (serveTask.senderId != ownID && (serveTask.receiverId == ownID || serveTask.receiverId == 0))
+    auto senderId = this->wm->getEngine()->getIDFromBytes(serveTask.sender.id);
+    auto receiverId = this->wm->getEngine()->getIDFromBytes(serveTask.receiver.id);
+    if (*senderId != *ownID && (*receiverId == *ownID || serveTask.receiver.type == supplementary::BroadcastID::BC_TYPE))
     {
         this->wm->rawSensorData.processServeTask(serveTask);
     }
@@ -172,3 +176,4 @@ void Communication::onLogicalCamera(ttb_msgs::LogicalCameraPtr logicalCamera)
 
 } /* namespace wm */
 } /* namespace ttb */
+
