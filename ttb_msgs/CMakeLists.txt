@@ -8,16 +8,19 @@ find_package(catkin REQUIRED COMPONENTS
   agent_id
 )
 
-
  add_message_files(
    FILES
    ServeTask.msg
+   DoorCmd.msg
    GoalWrapped.msg
+   GrabDropObject.msg
    InitialPoseWrapped.msg
    AMCLPoseWrapped.msg
    LogicalCamera.msg
    LogicalCamera3D.msg
    LogicalCamera3DArray.msg
+   LogicalCameraImage.msg
+   Model.msg
    ObjectSize.msg
  )
  
