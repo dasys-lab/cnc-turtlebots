@@ -21,7 +21,7 @@
 #include <arpa/inet.h>
 
 
-#include "alica_ros_proxy/PlanTreeInfo.h"
+#include "alica_msgs/PlanTreeInfo.h"
 #include "process_manager/ProcessCommand.h"
 #include "process_manager/ProcessStats.h"
 #include "ttb_msgs/AMCLPoseWrapped.h"
@@ -67,10 +67,10 @@ void listenForPacket();
 
 
 
-void onRosPlanTreeInfo3767756765(const ros::MessageEvent<alica_ros_proxy::PlanTreeInfo>& event) {
+void onRosPlanTreeInfo3767756765(const ros::MessageEvent<alica_msgs::PlanTreeInfo>& event) {
 	if(0 == event.getPublisherName().compare(ownRosName)) return;
 uint8_t* buffer = NULL;
-	const alica_ros_proxy::PlanTreeInfo::ConstPtr& message = event.getMessage();
+	const alica_msgs::PlanTreeInfo::ConstPtr& message = event.getMessage();
 	try{
 		uint32_t serial_size = ros::serialization::serializationLength(*message);
 		buffer = new uint8_t[serial_size+sizeof(uint32_t)];
@@ -554,9 +554,9 @@ void handleUdpPacket(const boost::system::error_code& error,   std::size_t bytes
 			ros::serialization::IStream stream(((uint8_t*)inBuffer.data())+sizeof(__uint32_t),bytes_transferred-sizeof(__uint32_t));
 			switch(id) {
 case 3767756765ul: {
-alica_ros_proxy::PlanTreeInfo m3767756765;
-ros::serialization::Serializer<alica_ros_proxy::PlanTreeInfo>::read(stream, m3767756765);
-pub3767756765.publish<alica_ros_proxy::PlanTreeInfo>(m3767756765);
+alica_msgs::PlanTreeInfo m3767756765;
+ros::serialization::Serializer<alica_msgs::PlanTreeInfo>::read(stream, m3767756765);
+pub3767756765.publish<alica_msgs::PlanTreeInfo>(m3767756765);
 break; }
 case 3108117629ul: {
 process_manager::ProcessCommand m3108117629;
@@ -773,7 +773,7 @@ ros::Subscriber sub23 = n.subscribe("/donatello/initialpose",5, onRosPoseWithCov
 ros::Subscriber sub24 = n.subscribe("/donatello/mobile_base/sensors/core",5, onRosSensorState1954641914,ros::TransportHints().unreliable().tcpNoDelay().reliable());
 ros::Subscriber sub25 = n.subscribe("/donatello/move_base/NavfnROS/plan",5, onRosPath1699739415,ros::TransportHints().unreliable().tcpNoDelay().reliable());
 	
-pub3767756765 = n.advertise<alica_ros_proxy::PlanTreeInfo>("/AlicaEngine/PlanTreeInfo",5,false);
+pub3767756765 = n.advertise<alica_msgs::PlanTreeInfo>("/AlicaEngine/PlanTreeInfo",5,false);
 pub3108117629 = n.advertise<process_manager::ProcessCommand>("/process_manager/ProcessCommand",5,false);
 pub2783514677 = n.advertise<process_manager::ProcessStats>("/process_manager/ProcessStats",5,false);
 pub2611391888 = n.advertise<ttb_msgs::AMCLPoseWrapped>("/wrapped/amcl_pose",5,false);

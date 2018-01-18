@@ -11,23 +11,23 @@ namespace alica
 
 		// usefull stuff for general ttb behaviour programming
 		wm = ttb::TTBWorldModel::get();
-		string robotName = wm->getEngine()->getRobotName() + "/";
+		string robotName = wm->getEngine()->getRobotName();
 
 		// ros communication for ttb behaviours
 		ros::NodeHandle n;
+
 		velocityTopic = robotName + (*sc)["Drive"]->get<string>("Topics.VelocityTopic", NULL);
 		soundRequesTopic = robotName + (*sc)["TTBWorldModel"]->get<string>("Data.SoundRequest.Topic", NULL);
 
 		moveBaseActionGoalTopic = robotName + (*sc)["Drive"]->get<string>("Topics.MoveBaseActionGoalTopic", NULL);
 		moveBaseGoalTopic = robotName + (*sc)["Drive"]->get<string>("Topics.MoveBaseGoalTopic", NULL);
 		moveBaseActionClientNamespace = robotName + (*sc)["Drive"]->get<string>("Topics.MoveBaseActionClientNamespace", NULL);
-
 		mobile_baseCommandVelocityPub = n.advertise<geometry_msgs::Twist>(velocityTopic, 10);
 		soundRequestPub = n.advertise<sound_play::SoundRequest>(soundRequesTopic, 10);
-
 		move_base_simpleGoalPub = n.advertise<geometry_msgs::PoseStamped>(moveBaseGoalTopic, 10);
 
 		ac = new actionlib::SimpleActionClient<move_base_msgs::MoveBaseAction>(moveBaseActionClientNamespace, true);
+		ac = nullptr;
 
 		goalActive = false;
 	}
