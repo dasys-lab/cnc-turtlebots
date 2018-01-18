@@ -2,22 +2,23 @@
 
 #include <iostream>
 
-#include "engine/AlicaEngine.h"
-#include "BehaviourCreator.h"
-#include "ConditionCreator.h"
-#include "UtilityFunctionCreator.h"
-#include "ConstraintCreator.h"
-#include "TTBWorldModel.h"
-
-using namespace std;
+namespace alica
+{
+	class AlicaEngine;
+	class BehaviourCreator;
+	class ConditionCreator;
+	class UtilityFunctionCreator;
+	class ConstraintCreator;
+}
 
 namespace ttb
 {
+	class TTBWorldModel;
 
 	class Base
 	{
 	public:
-		Base(string roleSetName, string masterPlanName, string roleSetDir);
+		Base(std::string roleSetName, std::string masterPlanName, std::string roleSetDir, bool sim);
 		virtual ~Base();
 
 		void start();
@@ -28,9 +29,6 @@ namespace ttb
 		alica::UtilityFunctionCreator* uc;
 		alica::ConstraintCreator* crc;
 		TTBWorldModel* wm;
-
-	protected:
-		//blabla...
 	};
 
 } /* namespace ttb */

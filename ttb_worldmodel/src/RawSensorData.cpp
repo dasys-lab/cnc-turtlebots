@@ -64,7 +64,7 @@ RawSensorData::RawSensorData(TTBWorldModel *wm)
     this->depthCameraCloudBuffer = new InfoBuffer<std::shared_ptr<sensor_msgs::PointCloud2>>(
         (*sc)["TTBWorldModel"]->get<int>("Data.DepthCameraCloud.BufferLength", NULL));
 
-    this->dockInfrRedValidityDuration = (*sc)["TTBWorldModel"]->get<int>("Data.DockInfraRed.ValidityDuration", NULL);
+    this->dockInfrRedValidityDuration = (*sc)["TTBWorldModel"]->get<int>("Data.DockInfrRed.ValidityDuration", NULL);
     this->dockInfrRedBuffer = new InfoBuffer<kobuki_msgs::DockInfraRed>(
         (*sc)["TTBWorldModel"]->get<int>("Data.DockInfrRed.BufferLength", NULL));
 

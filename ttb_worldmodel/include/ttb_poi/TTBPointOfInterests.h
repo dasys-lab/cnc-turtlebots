@@ -1,15 +1,7 @@
-/*
- * TTBPointOfInterestntOfInterests.h
- *
- *  Created on: Apr 30, 2016
- *      Author: Stefan Jakob
- */
-
-#ifndef CNC_TURTLEBOTS_TTB_WORLDMODEL_INCLUDE_TTB_PointOfInterest_TTBPointOfInterestNTOFINTERESTS_H_
-#define CNC_TURTLEBOTS_TTB_WORLDMODEL_INCLUDE_TTB_PointOfInterest_TTBPointOfInterestNTOFINTERESTS_H_
+#pragma once
 
 #include "SystemConfig.h"
-#include "tasks/PointOfInterest.h"
+#include "ttb_poi/PointOfInterest.h"
 
 namespace ttb {
 class TTBWorldModel;
@@ -34,4 +26,3 @@ private:
 };
 }
 }
-#endif /* CNC_TURTLEBOTS_TTB_WORLDMODEL_INCLUDE_TTB_PointOfInterest_TTBPointOfInterestNTOFINTERESTS_H_ */

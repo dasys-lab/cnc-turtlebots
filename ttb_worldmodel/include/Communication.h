@@ -37,6 +37,7 @@ class Communication
   public:
     Communication(ttb::TTBWorldModel *wm);
     virtual ~Communication();
+    supplementary::InfoTime getTimeLastSimMsgReceived();
 
   private:
     void onAlvarMarkers(ar_track_alvar_msgs::AlvarMarkersPtr alvar);

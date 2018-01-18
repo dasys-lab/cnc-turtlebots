@@ -28,8 +28,6 @@ add_library(ttb_worldmodel
   src/logicalCameraModel/Fire.cpp
   src/logicalCameraModel/Victim.cpp
   src/logicalCameraModel/Landmark.cpp
-  src/sharedworldmodel/TTBSharedWorldModel.cpp
-  src/tasks/ServeTask.cpp
   src/ttb_poi/TTBPointOfInterests.cpp
 )
 

@@ -1,7 +1,7 @@
 #pragma once
 
 #include <SystemConfig.h>
-#include <tasks/PointOfInterest.h>
+#include <ttb_poi/PointOfInterest.h>
 #include <supplementary/InformationElement.h>
 
 #include <ttb_msgs/ServeTask.h>
@@ -10,11 +10,6 @@
 
 namespace ttb { namespace wm
 {
-
-	enum TaskType {
-		SERVE, DRIVE_TO, SEARCH, PICK_UP, PUT_DOWN
-	};
-
 	class TaskManager
 	{
 	public:
@@ -26,7 +21,7 @@ namespace ttb { namespace wm
 		std::shared_ptr<supplementary::InformationElement<ttb_msgs::ServeTask>> popNextTask();
 		std::shared_ptr<supplementary::InformationElement<ttb_msgs::ServeTask>> getNextTask();
 
-		bool isNextTask(TaskType type);
+		bool isNextTask(ttb_msgs::ServeTask::_type_type type);
 
 
 	private:

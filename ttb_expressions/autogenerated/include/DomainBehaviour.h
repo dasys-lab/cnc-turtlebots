@@ -40,8 +40,6 @@ namespace alica
 		supplementary::SystemConfig* sc;
 
 	private:
-		int ownID;
-
 		// ros communication stuff for ttb behaviours
 		string soundRequesTopic;
 		string velocityTopic;

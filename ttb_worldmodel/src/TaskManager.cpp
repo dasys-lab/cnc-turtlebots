@@ -1,7 +1,6 @@
 #include "TaskManager.h"
 
-#include <tasks/PointOfInterest.h>
-#include <tasks/ServeTask.h>
+#include <ttb_poi/PointOfInterest.h>
 #include <ttb_msgs/ServeTask.h>
 
 using supplementary::InformationElement;
@@ -51,7 +50,7 @@ shared_ptr<InformationElement<ttb_msgs::ServeTask>> TaskManager::getNextTask()
     }
 }
 
-bool TaskManager::isNextTask(TaskType type)
+bool TaskManager::isNextTask(ttb_msgs::ServeTask::_type_type type)
 {
     if (this->pendingTasks.size() > 0)
     {

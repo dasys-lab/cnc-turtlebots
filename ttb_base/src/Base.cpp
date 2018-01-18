@@ -1,128 +1,146 @@
-#include <iostream>
-
-#include <thread>
-#include <chrono>
-#include "ros/ros.h"
 #include "Base.h"
-#include "clock/AlicaROSClock.h"
-#include "communication/AlicaRosCommunication.h"
-#include "SigFault.h"
-#include "SolverType.h"
+
+#include <engine/AlicaEngine.h>
+#include <BehaviourCreator.h>
+#include <ConditionCreator.h>
+#include <UtilityFunctionCreator.h>
+#include <ConstraintCreator.h>
+#include <TTBWorldModel.h>
+#include <clock/AlicaROSClock.h>
+#include <communication/AlicaRosCommunication.h>
+
+#include <SolverType.h>
 #include <asp_commons/IASPSolver.h>
-#include <asp_solver_wrapper/ASPSolverWrapper.h>
 #include <asp_solver/ASPSolver.h>
+#include <asp_solver_wrapper/ASPSolverWrapper.h>
 #include <supplementary/AgentIDManager.h>
 
-using namespace std;
+#include "SigFault.h"
+#include <ros/ros.h>
+
+#include <chrono>
+#include <iostream>
+#include <thread>
 
 namespace ttb
 {
 
-	Base::Base(string roleSetName, string masterPlanName, string roleSetDir)
-	{
-		ae = new alica::AlicaEngine(new supplementary::AgentIDManager(new supplementary::AgentIDFactory()), roleSetName, masterPlanName, roleSetDir, false);
-		bc = new alica::BehaviourCreator();
-		cc = new alica::ConditionCreator();
-		uc = new alica::UtilityFunctionCreator();
-		crc = new alica::ConstraintCreator();
-		ae->setIAlicaClock(new alicaRosProxy::AlicaROSClock());
-		ae->setCommunicator(new alicaRosProxy::AlicaRosCommunication(ae));
+Base::Base(string roleSetName, string masterPlanName, string roleSetDir, bool sim)
+{
+    ae = new alica::AlicaEngine(new supplementary::AgentIDManager(new supplementary::AgentIDFactory()), roleSetName,
+                                masterPlanName, roleSetDir, false);
+    bc = new alica::BehaviourCreator();
+    cc = new alica::ConditionCreator();
+    uc = new alica::UtilityFunctionCreator();
+    crc = new alica::ConstraintCreator();
+    ae->setIAlicaClock(new alicaRosProxy::AlicaROSClock());
+    ae->setCommunicator(new alicaRosProxy::AlicaRosCommunication(ae));
 
-		wm = TTBWorldModel::get();
-		wm->setEngine(ae);
-		// "clingo", "-W", "no-atom-undefined",  "--number=0", nullptr
-		std::vector<char const *> args {"clingo", nullptr};
-		auto solver = new ::reasoner::ASPSolver(args);
-		auto solverWrapper = new alica::reasoner::ASPSolverWrapper(ae, args);
-		solverWrapper->init(solver);
-		ae->addSolver(SolverType::ASPSOLVER, solverWrapper);
-		ae->init(bc, cc, uc, crc);
-	}
-
-	void Base::start()
+    wm = TTBWorldModel::get();
+    wm->setEngine(ae);
+    if (sim)
 	{
-		ae->start();
+		wm->enableUsingSimulator();
 	}
+    // "clingo", "-W", "no-atom-undefined",  "--number=0", nullptr
+    std::vector<char const *> args{"clingo", nullptr};
+    auto solver = new ::reasoner::ASPSolver(args);
+    auto solverWrapper = new alica::reasoner::ASPSolverWrapper(ae, args);
+    solverWrapper->init(solver);
+    ae->addSolver(SolverType::ASPSOLVER, solverWrapper);
+    ae->init(bc, cc, uc, crc);
+}
 
-	Base::~Base()
-	{
-		ae->shutdown();
-		delete ae->getIAlicaClock();
-		delete ae->getCommunicator();
-		delete ae;
-		delete cc;
-		delete bc;
-		delete uc;
-		delete crc;
-	}
+void Base::start()
+{
+    ae->start();
+}
+
+Base::~Base()
+{
+    ae->shutdown();
+    delete ae->getIAlicaClock();
+    delete ae->getCommunicator();
+    delete ae;
+    delete cc;
+    delete bc;
+    delete uc;
+    delete crc;
+}
 
 } /* namespace ttb */
 
 void printUsage()
 {
-	cout << "Usage: ./msl_base -m \"Masterplan\" [-rd \"RoleSetDirectory\"] [-rset \"RoleSet\"]" << endl;
+    cout << "Usage: ./msl_base -m \"Masterplan\" [-rd \"RoleSetDirectory\"] [-rset \"RoleSet\"] [-sim]" << endl;
 }
 
-int main(int argc, char** argv)
+int main(int argc, char **argv)
 {
-	if (argc < 2)
-	{
-		printUsage();
-		return 0;
-	}
+    if (argc < 2)
+    {
+        printUsage();
+        return 0;
+    }
 
-	cout << "Initialising ROS" << endl;
+    cout << "Initialising ROS" << endl;
 
-	ros::init(argc, argv, supplementary::SystemConfig::getInstance()->getHostname()+"_Base");
+    ros::init(argc, argv, supplementary::SystemConfig::getInstance()->getHostname() + "_Base");
 
-	//This makes segfaults to exceptions
-	segfaultdebug::init_segfault_exceptions();
+    // This makes segfaults to exceptions
+    segfaultdebug::init_segfault_exceptions();
 
-	cout << "Parsing command line parameters:" << endl;
+    cout << "Parsing command line parameters:" << endl;
 
-	string masterplan = "";
-	string rolesetdir = ".";
-	string roleset = "";
+    string masterplan = "";
+    string rolesetdir = ".";
+    string roleset = "";
+    bool sim = false;
 
-	for (int i = 1; i < argc; i++)
-	{
-		if (string(argv[i]) == "-m" || string(argv[i]) == "-masterplan")
-		{
-			masterplan = argv[i + 1];
-			i++;
-		}
+    for (int i = 1; i < argc; i++)
+    {
+        if (string(argv[i]) == "-m" || string(argv[i]) == "-masterplan")
+        {
+            masterplan = argv[i + 1];
+            i++;
+        }
 
-		if (string(argv[i]) == "-rd" || string(argv[i]) == "-rolesetdir")
-		{
-			rolesetdir = argv[i + 1];
-			i++;
-		}
-		if (string(argv[i]) == "-r" || string(argv[i]) == "-roleset")
-		{
-			roleset = argv[i + 1];
-			i++;
-		}
-	}
-	if (masterplan.size() == 0 || rolesetdir.size() == 0)
-	{
-		printUsage();
-		return 0;
-	}
-	cout << "\tMasterplan is:       \"" << masterplan << "\"" << endl;
-	cout << "\tRolset Directory is: \"" << rolesetdir << "\"" << endl;
-	cout << "\tRolset is:           \"" << (roleset.empty() ? "Default" : roleset) << "\"" << endl;
+        if (string(argv[i]) == "-rd" || string(argv[i]) == "-rolesetdir")
+        {
+            rolesetdir = argv[i + 1];
+            i++;
+        }
+        if (string(argv[i]) == "-r" || string(argv[i]) == "-roleset")
+        {
+            roleset = argv[i + 1];
+            i++;
+        }
+        if (string(argv[i]) == "-sim")
+        {
+            sim = true;
+        }
+    }
+    if (masterplan.size() == 0 || rolesetdir.size() == 0)
+    {
+        printUsage();
+        return 0;
+    }
+    cout << "\tMasterplan is:       \"" << masterplan << "\"" << endl;
+    cout << "\tRolset Directory is: \"" << rolesetdir << "\"" << endl;
+    cout << "\tRolset is:           \"" << (roleset.empty() ? "Default" : roleset) << "\"" << endl;
+    cout << "\tUsing Simulator:     \"" << (sim ? "TRUE" : "FALSE") <<"\"" << endl;
 
-	cout << "\nConstructing Base ..." << endl;
-	ttb::Base* base = new ttb::Base(roleset, masterplan, rolesetdir);
+    cout << "\nConstructing Base ..." << endl;
+    ttb::Base *base = new ttb::Base(roleset, masterplan, rolesetdir, sim);
 
-	cout << "\nStarting Base ..." << endl;
-	base->start();
+    cout << "\nStarting Base ..." << endl;
+    base->start();
 
-	while (ros::ok())
-	{
-		std::chrono::milliseconds dura(500);
-		std::this_thread::sleep_for(dura);
-	}
+    while (ros::ok())
+    {
+        std::chrono::milliseconds dura(500);
+        std::this_thread::sleep_for(dura);
+    }
 
-	return 0;
+    return 0;
 }

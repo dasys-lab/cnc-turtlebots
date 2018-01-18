@@ -10,14 +10,13 @@ namespace alica
 		sc = supplementary::SystemConfig::getInstance();
 
 		// usefull stuff for general ttb behaviour programming
-		ownID = sc->getOwnRobotID();
 		wm = ttb::TTBWorldModel::get();
 		string robotName = wm->getEngine()->getRobotName() + "/";
 
 		// ros communication for ttb behaviours
 		ros::NodeHandle n;
 		velocityTopic = robotName + (*sc)["Drive"]->get<string>("Topics.VelocityTopic", NULL);
-		soundRequesTopic = robotName + (*sc)["TTBWorldModel"]->get<string>("Sensors.SoundRequestTopic", NULL);
+		soundRequesTopic = robotName + (*sc)["TTBWorldModel"]->get<string>("Data.SoundRequest.Topic", NULL);
 
 		moveBaseActionGoalTopic = robotName + (*sc)["Drive"]->get<string>("Topics.MoveBaseActionGoalTopic", NULL);
 		moveBaseGoalTopic = robotName + (*sc)["Drive"]->get<string>("Topics.MoveBaseGoalTopic", NULL);
