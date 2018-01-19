@@ -38,6 +38,9 @@ bool TTBWorldModel::isUsingSimulator()
 
 void TTBWorldModel::enableUsingSimulator()
 {
+#ifdef TTB_WORLDMODEL_DEBUG
+	std::cout << "TTB-WM: SIMULATION MODE ENABLED!" << std::endl;
+#endif
 	this->usingSimulator = true;
 }
 

@@ -22,51 +22,56 @@ Communication::Communication(ttb::TTBWorldModel *wm)
     string topic;
     if (wm->isUsingSimulator())
     {
-    	// for simulated robot
-        topic = (*sc)["TTBWorldModel"]->get<string>("Data.GazeboModelState.Topic", NULL);
+#ifdef COMM_DEBUG
+    	std::cout << "Comm: In SIMULATION mode." << std::endl;
+#endif
+    	// for simulated robot only
+        topic = (*sc)["TTBWorldModel"]->get<string>("Data.GazeboPosition.Topic", NULL);
         gazeboWorldModelSub = n.subscribe(topic, 10, &Communication::onGazeboModelState, (Communication *)this);
 
         topic = (*sc)["TTBWorldModel"]->get<string>("Data.LogicalCamera.Topic", NULL);
-        topic = "/leonardo" + topic; /*<< TODO remove this line when base is integrated into launch file*/
         logicalCameraSensorSub = n.subscribe(topic, 10, &Communication::onLogicalCamera, (Communication *)this);
     }
     else
     {
-    	// for real robot
-        topic = (*sc)["TTBWorldModel"]->get<string>("Data.Odometry.Topic", NULL);
-        odometrySub = n.subscribe(topic, 10, &Communication::onOdometry, (Communication *)this);
-
-        topic = (*sc)["TTBWorldModel"]->get<string>("Data.LaserScan.Topic", NULL);
-        laserScanSub = n.subscribe(topic, 10, &Communication::onLaserScan, (Communication *)this);
-
-        topic = (*sc)["TTBWorldModel"]->get<string>("Data.BumperEvent.Topic", NULL);
-        bumperEventSub = n.subscribe(topic, 10, &Communication::onBumperEvent, (Communication *)this);
-
-        topic = (*sc)["TTBWorldModel"]->get<string>("Data.BumperSensor.Topic", NULL);
-        bumperSensorSub = n.subscribe(topic, 10, &Communication::onBumperCloud, (Communication *)this);
-
-        topic = (*sc)["TTBWorldModel"]->get<string>("Data.IMUData.Topic", NULL);
-        imuDataSub = n.subscribe(topic, 10, &Communication::onImu, (Communication *)this);
-
-        topic = (*sc)["TTBWorldModel"]->get<string>("Data.DepthCameraCloud.Topic", NULL);
-        cameraPclSub = n.subscribe(topic, 10, &Communication::onDepthCameraCloud, (Communication *)this);
-
-        topic = (*sc)["TTBWorldModel"]->get<string>("Data.CliffEvent.Topic", NULL);
-        cliffEventsSub = n.subscribe(topic, 10, &Communication::onCliffEvent, (Communication *)this);
-
-        topic = (*sc)["TTBWorldModel"]->get<string>("Data.RawCameraImage.Topic", NULL);
-        cameraImageRawSub = n.subscribe(topic, 10, &Communication::onRawCameraImage, (Communication *)this);
+#ifdef COMM_DEBUG
+    	std::cout << "Comm: In REAL ROBOT mode." << std::endl;
+#endif
+    	// for real robot only
+        topic = (*sc)["TTBWorldModel"]->get<string>("Data.DockInfrRed.Topic", NULL);
+        dockInfrRedSub = n.subscribe(topic, 10, &Communication::onDockInfrRed, (Communication *)this);
 
         topic = (*sc)["TTBWorldModel"]->get<string>("Data.MobileBaseSensorState.Topic", NULL);
         mobileBaseSensorStateSub =
             n.subscribe(topic, 10, &Communication::onMobileBaseSensorState, (Communication *)this);
 
-        topic = (*sc)["TTBWorldModel"]->get<string>("Data.DockInfrRed.Topic", NULL);
-        dockInfrRedSub = n.subscribe(topic, 10, &Communication::onDockInfrRed, (Communication *)this);
-
         topic = (*sc)["TTBWorldModel"]->get<string>("Data.AlvarMarker.Topic", NULL);
         alvarSub = n.subscribe(topic, 10, &Communication::onAlvarMarkers, (Communication *)this);
     }
+
+    topic = (*sc)["TTBWorldModel"]->get<string>("Data.RawCameraImage.Topic", NULL);
+    cameraImageRawSub = n.subscribe(topic, 10, &Communication::onRawCameraImage, (Communication *)this);
+
+    topic = (*sc)["TTBWorldModel"]->get<string>("Data.Odometry.Topic", NULL);
+    odometrySub = n.subscribe(topic, 10, &Communication::onOdometry, (Communication *)this);
+
+    topic = (*sc)["TTBWorldModel"]->get<string>("Data.LaserScan.Topic", NULL);
+    laserScanSub = n.subscribe(topic, 10, &Communication::onLaserScan, (Communication *)this);
+
+    topic = (*sc)["TTBWorldModel"]->get<string>("Data.DepthCameraCloud.Topic", NULL);
+    cameraPclSub = n.subscribe(topic, 10, &Communication::onDepthCameraCloud, (Communication *)this);
+
+    topic = (*sc)["TTBWorldModel"]->get<string>("Data.CliffEvent.Topic", NULL);
+    cliffEventsSub = n.subscribe(topic, 10, &Communication::onCliffEvent, (Communication *)this);
+
+    topic = (*sc)["TTBWorldModel"]->get<string>("Data.BumperSensor.Topic", NULL);
+    bumperSensorSub = n.subscribe(topic, 10, &Communication::onBumperCloud, (Communication *)this);
+
+    topic = (*sc)["TTBWorldModel"]->get<string>("Data.BumperEvent.Topic", NULL);
+    bumperEventSub = n.subscribe(topic, 10, &Communication::onBumperEvent, (Communication *)this);
+
+    topic = (*sc)["TTBWorldModel"]->get<string>("Data.IMUData.Topic", NULL);
+    imuDataSub = n.subscribe(topic, 10, &Communication::onImu, (Communication *)this);
 
     topic = (*sc)["TTBWorldModel"]->get<string>("Data.RobotCommand.Topic", NULL);
     robotOnOffSub = n.subscribe(topic, 10, &Communication::onRobotCommand, (Communication *)this);
@@ -74,8 +79,10 @@ Communication::Communication(ttb::TTBWorldModel *wm)
     topic = (*sc)["TTBWorldModel"]->get<string>("Data.ServeTask.Topic", NULL);
     serveTaskSub = n.subscribe(topic, 10, &Communication::onServeTask, (Communication *)this);
 
-    wrappedMessageHandler = new WrappedMessageHandler();
-    wrappedMessageHandler->init(this->wm->getOwnId(), this->wm->getEngine());
+
+
+//    wrappedMessageHandler = new WrappedMessageHandler();
+//    wrappedMessageHandler->init(this->wm->getOwnId(), this->wm->getEngine());
 
     spinner = new ros::AsyncSpinner(4);
     spinner->start();

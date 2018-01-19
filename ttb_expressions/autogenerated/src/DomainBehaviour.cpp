@@ -16,19 +16,20 @@ namespace alica
 		// ros communication for ttb behaviours
 		ros::NodeHandle n;
 
-		velocityTopic = robotName + (*sc)["Drive"]->get<string>("Topics.VelocityTopic", NULL);
-		soundRequesTopic = robotName + (*sc)["TTBWorldModel"]->get<string>("Data.SoundRequest.Topic", NULL);
-
-		moveBaseActionGoalTopic = robotName + (*sc)["Drive"]->get<string>("Topics.MoveBaseActionGoalTopic", NULL);
-		moveBaseGoalTopic = robotName + (*sc)["Drive"]->get<string>("Topics.MoveBaseGoalTopic", NULL);
-		moveBaseActionClientNamespace = robotName + (*sc)["Drive"]->get<string>("Topics.MoveBaseActionClientNamespace", NULL);
+		velocityTopic = (*sc)["Drive"]->get<string>("Topics.VelocityTopic", NULL);
 		mobile_baseCommandVelocityPub = n.advertise<geometry_msgs::Twist>(velocityTopic, 10);
+
+		soundRequesTopic = (*sc)["TTBWorldModel"]->get<string>("Data.SoundRequest.Topic", NULL);
 		soundRequestPub = n.advertise<sound_play::SoundRequest>(soundRequesTopic, 10);
+
+		moveBaseGoalTopic = (*sc)["Drive"]->get<string>("Topics.MoveBaseGoalTopic", NULL);
 		move_base_simpleGoalPub = n.advertise<geometry_msgs::PoseStamped>(moveBaseGoalTopic, 10);
 
+		moveBaseActionClientNamespace = (*sc)["Drive"]->get<string>("Topics.MoveBaseActionClientNamespace", NULL);
 		ac = new actionlib::SimpleActionClient<move_base_msgs::MoveBaseAction>(moveBaseActionClientNamespace, true);
-		ac = nullptr;
 
+		// TODO: why this topic (currently not used) and how does the simple action client work?
+		moveBaseActionGoalTopic = (*sc)["Drive"]->get<string>("Topics.MoveBaseActionGoalTopic", NULL);
 		goalActive = false;
 	}
 

@@ -28,14 +28,14 @@ namespace alica
         /*PROTECTED REGION ID(run1454329856163) ENABLED START*/ //Add additional options here
         ttb::wm::PointOfInterest currentPOI;
         // TODO
-//        if (this->id == 0)
-//        {
-//            currentPOI = this->wm->taskManager.popNextTask();
-//        }
-//        else
-//        {
-//            currentPOI = this->wm->taskManager.getPOI(id);
-//        }
+        if (this->id == 0)
+        {
+            //currentPOI = this->wm->taskManager.popNextTask();
+        }
+        else
+        {
+            //currentPOI = this->wm->taskManager.getPOI(id);
+        }
 
         MoveBaseClient mbc("move_base", true);
 

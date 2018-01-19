@@ -1,6 +1,5 @@
 #pragma once
 
-//#include "WumpusData.h"
 #include "Doors.h"
 #include "EventTrigger.h"
 #include "LogicalCameraData.h"
@@ -19,6 +18,8 @@
 #include <mutex>
 #include <string>
 #include <tuple>
+
+#define TTB_WORLDMODEL_DEBUG
 
 namespace supplementary
 {

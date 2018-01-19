@@ -24,6 +24,8 @@
 #include <ttb_msgs/LogicalCamera.h>
 #include <nav_msgs/Odometry.h>
 
+#define COMM_DEBUG
+
 namespace ttb
 {
 class TTBWorldModel;

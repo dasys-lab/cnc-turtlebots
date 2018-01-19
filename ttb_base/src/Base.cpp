@@ -37,11 +37,12 @@ Base::Base(string roleSetName, string masterPlanName, string roleSetDir, bool si
     ae->setCommunicator(new alicaRosProxy::AlicaRosCommunication(ae));
 
     wm = TTBWorldModel::get();
-    wm->setEngine(ae);
     if (sim)
 	{
 		wm->enableUsingSimulator();
 	}
+    wm->setEngine(ae);
+
     // "clingo", "-W", "no-atom-undefined",  "--number=0", nullptr
     std::vector<char const *> args{"clingo", nullptr};
     auto solver = new ::reasoner::ASPSolver(args);
