@@ -35,7 +35,7 @@ Communication::Communication(ttb::TTBWorldModel *wm)
     else
     {
 #ifdef COMM_DEBUG
-    	std::cout << "Comm: In REAL ROBOT mode." << std::endl;
+    	std::cout << "Comm: In REAL ROBOT mode." << std::en
 #endif
     	// for real robot only
         topic = (*sc)["TTBWorldModel"]->get<string>("Data.DockInfrRed.Topic", NULL);
@@ -79,8 +79,7 @@ Communication::Communication(ttb::TTBWorldModel *wm)
     topic = (*sc)["TTBWorldModel"]->get<string>("Data.ServeTask.Topic", NULL);
     serveTaskSub = n.subscribe(topic, 10, &Communication::onServeTask, (Communication *)this);
 
-
-
+    wrappedMessageHandler = nullptr;
 //    wrappedMessageHandler = new WrappedMessageHandler();
 //    wrappedMessageHandler->init(this->wm->getOwnId(), this->wm->getEngine());
 
