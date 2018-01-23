@@ -35,7 +35,7 @@ Communication::Communication(ttb::TTBWorldModel *wm)
     else
     {
 #ifdef COMM_DEBUG
-    	std::cout << "Comm: In REAL ROBOT mode." << std::en
+    	std::cout << "Comm: In REAL ROBOT mode." << std::endl;
 #endif
     	// for real robot only
         topic = (*sc)["TTBWorldModel"]->get<string>("Data.DockInfrRed.Topic", NULL);
