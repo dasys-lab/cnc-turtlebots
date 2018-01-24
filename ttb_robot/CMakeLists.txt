@@ -20,5 +20,6 @@ include_directories(
 add_library(${PROJECT_NAME}
  src/Robot.cpp
  src/SimulatedArm.cpp
+ src/Movement.cpp
 )
 
