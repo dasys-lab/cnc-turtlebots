@@ -11,6 +11,8 @@ Robot *Robot::get()
 
 Robot::Robot()
 {
+	this->movement = new robot::Movement();
+	this->simulatedArm = new robot::SimulatedArm();
 }
 
 Robot::~Robot()

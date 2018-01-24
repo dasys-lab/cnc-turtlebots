@@ -5,7 +5,8 @@
 #include "geometry_msgs/Twist.h"
 #include "sound_play/SoundRequest.h"
 #include "sound_play/sound_play.h"
-#include "TTBWorldModel.h"
+#include <TTBWorldModel.h>
+#include <Robot.h>
 #include "geometry_msgs/PoseStamped.h"
 #include "move_base_msgs/MoveBaseActionGoal.h"
 #include "move_base_msgs/MoveBaseAction.h"
@@ -35,6 +36,7 @@ namespace alica
 		actionlib::SimpleClientGoalState getMoveState();
 		void cancelGoal();
 		ttb::TTBWorldModel* wm;
+		ttb::Robot* robot;
 
 	protected:
 		supplementary::SystemConfig* sc;

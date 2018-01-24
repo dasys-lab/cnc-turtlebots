@@ -13,6 +13,8 @@ namespace alica
 		wm = ttb::TTBWorldModel::get();
 		string robotName = wm->getEngine()->getRobotName();
 
+		robot = ttb::Robot::get();
+
 		// ros communication for ttb behaviours
 		ros::NodeHandle n;
 
