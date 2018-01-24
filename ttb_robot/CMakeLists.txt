@@ -22,6 +22,7 @@ add_library(${PROJECT_NAME}
  src/Robot.cpp
  src/SimulatedArm.cpp
  src/Movement.cpp
+ src/Speech.cpp
 )
 
 add_dependencies(ttb_robot system_config ttb_msgs_generate_messages_cpp) 
