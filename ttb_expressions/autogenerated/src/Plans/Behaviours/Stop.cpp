@@ -2,6 +2,8 @@ using namespace std;
 #include "Plans/Behaviours/Stop.h"
 
 /*PROTECTED REGION ID(inccpp1414681269156) ENABLED START*/ //Add additional includes here
+#include <Robot.h>
+#include <geometry_msgs/Twist.h>
 /*PROTECTED REGION END*/
 namespace alica
 {
@@ -29,7 +31,7 @@ namespace alica
         tw.angular.x = 0.0;
         tw.angular.y = 0.0;
         tw.angular.z = 0.0;
-        send(tw);
+        robot->movement->send(tw);
         /*PROTECTED REGION END*/
     }
     void Stop::initialiseParameters()

@@ -3,12 +3,12 @@ project(ttb_robot)
 
 add_compile_options(-std=c++11)
 
-find_package(catkin REQUIRED)
+find_package(catkin REQUIRED roscpp system_config)
 
 catkin_package(
   INCLUDE_DIRS include
   LIBRARIES ttb_robot
-#  CATKIN_DEPENDS other_catkin_pkg
+  CATKIN_DEPENDS roscpp system_config
 #  DEPENDS system_lib
 )
 
@@ -21,5 +21,6 @@ add_library(${PROJECT_NAME}
  src/Robot.cpp
  src/SimulatedArm.cpp
  src/Movement.cpp
+ src/Speech.cpp
 )
 

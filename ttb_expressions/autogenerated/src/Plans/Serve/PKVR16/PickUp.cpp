@@ -2,7 +2,8 @@ using namespace std;
 #include "Plans/Serve/PKVR16/PickUp.h"
 
 /*PROTECTED REGION ID(inccpp1486381476387) ENABLED START*/ // Add additional includes here
-#include "gazebo_msgs/ModelState.h"
+#include <gazebo_msgs/ModelState.h>
+#include <TTBWorldModel.h>
 /*PROTECTED REGION END*/
 namespace alica
 {

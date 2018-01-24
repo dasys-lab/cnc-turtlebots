@@ -3,6 +3,9 @@ using namespace std;
 
 /*PROTECTED REGION ID(inccpp1432735451661) ENABLED START*/ //Add additional includes here
 #include <kobuki_msgs/BumperEvent.h>
+#include <geometry_msgs/Twist.h>
+#include <Robot.h>
+#include <TTBWorldModel.h>
 /*PROTECTED REGION END*/
 namespace alica
 {
@@ -33,7 +36,7 @@ namespace alica
         }
         else
         {
-            send(move);
+            robot->movement->send(move);
         }
 
         /*PROTECTED REGION END*/

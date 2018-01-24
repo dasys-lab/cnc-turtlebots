@@ -2,6 +2,7 @@
 
 #include "robot/SimulatedArm.h"
 #include "robot/Movement.h"
+#include "robot/Speech.h"
 
 namespace ttb
 {
@@ -14,6 +15,7 @@ class Robot
 
 	robot::SimulatedArm* simulatedArm;
 	robot::Movement* movement;
+	robot::Speech* speech;
 
   private:
 	Robot();

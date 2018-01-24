@@ -3,6 +3,9 @@ using namespace std;
 
 /*PROTECTED REGION ID(inccpp1447958115909) ENABLED START*/ // Add additional includes here
 #include <kobuki_msgs/SensorState.h>
+#include <TTBWorldModel.h>
+#include <Robot.h>
+#include <geometry_msgs/Twist.h>
 /*PROTECTED REGION END*/
 namespace alica
 {
@@ -33,21 +36,14 @@ namespace alica
             geometry_msgs::Twist cmd_vel;
             cmd_vel.linear.x = 0;
             cmd_vel.angular.z = 0;
-            send(cmd_vel);
+            robot->movement->send(cmd_vel);
         }
         /*PROTECTED REGION END*/
     }
     void ChargingDefault::initialiseParameters()
     {
         /*PROTECTED REGION ID(initialiseParameters1447958115909) ENABLED START*/ // Add additional options here
-        sound_play::SoundClient sound_client;
-        sound_client.say((*sc)["SpeechAct"]->get < string > ("Charging.ChargingText", NULL));
-        //		sound_play::SoundRequest msg;
-        //		msg.arg = (*sc)["SpeechAct"]->get<string>("Charging.ChargingText", NULL);
-        //		msg.command = sound_play::SoundRequest::PLAY_ONCE;
-        //		msg.sound = sound_play::SoundRequest::SAY;
-        //		send(msg);
-
+        robot->speech->say((*sc)["SpeechAct"]->get < string > ("Charging.ChargingText", NULL));
         /*PROTECTED REGION END*/
     }
 /*PROTECTED REGION ID(methods1447958115909) ENABLED START*/ // Add additional methods here

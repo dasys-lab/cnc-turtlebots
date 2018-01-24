@@ -13,6 +13,7 @@ Robot::Robot()
 {
 	this->movement = new robot::Movement();
 	this->simulatedArm = new robot::SimulatedArm();
+	this->speech = new robot::Speech();
 }
 
 Robot::~Robot()

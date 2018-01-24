@@ -4,6 +4,7 @@ using namespace std;
 /*PROTECTED REGION ID(inccpp1477125924367) ENABLED START*/ //Add additional includes here
 #include "SolverType.h"
 #include <asp_commons/ASPQuery.h>
+#include <TTBWorldModel.h>
 /*PROTECTED REGION END*/
 namespace alica
 {
@@ -13,7 +14,7 @@ namespace alica
             DomainBehaviour("ASPMinimizePath")
     {
         /*PROTECTED REGION ID(con1477125924367) ENABLED START*/ //Add additional options here
-        this->query = make_shared < alica::Query > (this->wm->getEngine());
+        this->query = std::make_shared<alica::Query> (this->wm->getEngine());
         /*PROTECTED REGION END*/
     }
     ASPMinimizePath::~ASPMinimizePath()
