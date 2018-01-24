@@ -18,6 +18,9 @@ Robot::Robot()
 
 Robot::~Robot()
 {
+	delete movement;
+	delete simulatedArm;
+	delete speech;
 }
 
 } /* namespace ttb */
