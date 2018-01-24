@@ -2,8 +2,10 @@ using namespace std;
 #include "Plans/Serve/PKVR16/DriveSearchPattern.h"
 
 /*PROTECTED REGION ID(inccpp1481545714198) ENABLED START*/ // Add additional includes here
-#include "geometry_msgs/Point.h"
-#include "nav_msgs/GetMap.h"
+#include <TTBWorldModel.h>
+#include <Robot.h>
+#include <geometry_msgs/Point.h>
+#include <nav_msgs/GetMap.h>
 /*PROTECTED REGION END*/
 namespace alica
 {
@@ -15,6 +17,17 @@ namespace alica
         /*PROTECTED REGION ID(con1481545714198) ENABLED START*/ // Add additional options here
         scanRange = (*sc)["LogicalCamera"]->get<double>("LogicalCamera.Landmark.range", NULL);
         this->listPoint = -1;
+
+        distanceGoalY = 0;
+        distanceGoalX = 0;
+        distanceToGoal = 0;
+        mapCorrectX = 0;
+        mapCorrectY = 0;
+        pointsHeight = 0;
+        pointsWidth = 0;
+        resolution = 0;
+        mapWidth = 0;
+        mapHeight = 0;
         /*PROTECTED REGION END*/
     }
     DriveSearchPattern::~DriveSearchPattern()
@@ -35,7 +48,7 @@ namespace alica
             return;
         }
 
-        auto state = getMoveState();
+        auto state = robot->movement->getMoveState();
         move_base_msgs::MoveBaseGoal goal;
         switch (state.state_)
         {
@@ -47,7 +60,7 @@ namespace alica
                 distanceToGoal = sqrt(distanceGoalX * distanceGoalX + distanceGoalY * distanceGoalY);
                 if (distanceToGoal < scanRange / 4)
                 {
-                    cancelGoal();
+                	robot->movement->cancelGoal();
                     cout << "Goal reached in scanRange/4. Distance:" << distanceToGoal << " " << state.state_ << endl;
                 }
                 break;
@@ -71,7 +84,7 @@ namespace alica
                 goal.target_pose.header.seq = 0;
                 cout << "DriveSearchPattern: Sending next Goal: (" << list[listPoint].x << "," << list[listPoint].y
                         << ")" << endl;
-                send(goal);
+                robot->movement->send(goal);
 
                 break;
             default:

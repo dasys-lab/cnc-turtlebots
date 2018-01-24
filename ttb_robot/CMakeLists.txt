@@ -4,12 +4,12 @@ project(ttb_robot)
 ## Use c++ 11x std
 set(CMAKE_CXX_FLAGS "-std=c++11 ${CMAKE_CXX_FLAGS}")
 
-find_package(catkin REQUIRED system_config ttb_msgs)
+find_package(catkin REQUIRED roscpp system_config ttb_msgs)
 
 catkin_package(
   INCLUDE_DIRS include
   LIBRARIES ttb_robot
-  CATKIN_DEPENDS system_config ttb_msgs
+  CATKIN_DEPENDS roscpp system_config
 #  DEPENDS system_lib
 )
 
@@ -23,6 +23,7 @@ add_library(${PROJECT_NAME}
  src/SimulatedArm.cpp
  src/Movement.cpp
 )
+
 add_dependencies(ttb_robot system_config ttb_msgs_generate_messages_cpp) 
 
 target_link_libraries(ttb_robot

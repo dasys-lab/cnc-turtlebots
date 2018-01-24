@@ -2,10 +2,11 @@ using namespace std;
 #include "Plans/Behaviours/ASPNavwoExt.h"
 
 /*PROTECTED REGION ID(inccpp1477229760910) ENABLED START*/ //Add additional includes here
-#include "SolverType.h"
 #include <asp_commons/IASPSolver.h>
 #include <asp_solver_wrapper/ASPSolverWrapper.h>
 #include <asp_commons/ASPQuery.h>
+#include <SolverType.h>
+#include <TTBWorldModel.h>
 /*PROTECTED REGION END*/
 namespace alica
 {
@@ -15,7 +16,7 @@ namespace alica
             DomainBehaviour("ASPNavwoExt")
     {
         /*PROTECTED REGION ID(con1477229760910) ENABLED START*/ //Add additional options here
-        this->query = make_shared < alica::Query > (this->wm->getEngine());
+        this->query = std::make_shared < alica::Query > (this->wm->getEngine());
         this->doorConfig = "";
         this->iterationCounter = 0;
         resultfile.open("results_woExternals.txt", fstream::app);

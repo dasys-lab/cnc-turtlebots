@@ -5,6 +5,8 @@ using namespace std;
 #include <nav_msgs/Odometry.h>
 #include <kobuki_msgs/SensorState.h>
 #include <kobuki_msgs/DockInfraRed.h>
+#include <TTBWorldModel.h>
+#include <Robot.h>
 /*PROTECTED REGION END*/
 namespace alica
 {
@@ -51,7 +53,7 @@ namespace alica
             cmd_vel.linear.x = dock.getVX();
             cmd_vel.angular.z = dock.getWZ();
 
-            send(cmd_vel);
+            robot->movement->send(cmd_vel);
         }
         else
         {
@@ -63,8 +65,7 @@ namespace alica
     void SearchDockingStation::initialiseParameters()
     {
         /*PROTECTED REGION ID(initialiseParameters1414681429307) ENABLED START*/ //Add additional options here
-        sound_play::SoundClient sound_client;
-        sound_client.say((*sc)["SpeechAct"]->get < string > ("Charging.SearchDockingText", NULL));
+        robot->speech->say((*sc)["SpeechAct"]->get < string > ("Charging.SearchDockingText", NULL));
         /*PROTECTED REGION END*/
     }
 /*PROTECTED REGION ID(methods1414681429307) ENABLED START*/ //Add additional methods here

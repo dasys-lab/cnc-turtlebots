@@ -2,6 +2,8 @@ using namespace std;
 #include "Plans/Behaviours/Rotate.h"
 
 /*PROTECTED REGION ID(inccpp1447068205139) ENABLED START*/ //Add additional includes here
+#include <Robot.h>
+#include <geometry_msgs/Twist.h>
 /*PROTECTED REGION END*/
 namespace alica
 {
@@ -11,6 +13,7 @@ namespace alica
             DomainBehaviour("Rotate")
     {
         /*PROTECTED REGION ID(con1447068205139) ENABLED START*/ //Add additional options here
+    	counter = 0;
         /*PROTECTED REGION END*/
     }
     Rotate::~Rotate()
@@ -27,7 +30,7 @@ namespace alica
 
         if (counter <= 30)
         {
-            send(rotate);
+            robot->movement->send(rotate);
             counter++;
         }
         else
