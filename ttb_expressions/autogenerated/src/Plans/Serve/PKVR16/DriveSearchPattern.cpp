@@ -38,66 +38,66 @@ namespace alica
     void DriveSearchPattern::run(void* msg)
     {
         /*PROTECTED REGION ID(run1481545714198) ENABLED START*/ // Add additional options here
-        auto ownPos = wm->rawSensorData.getOdomPositionBuffer()->getLastValidContent();
-        cout << "DriveSearchPattern: seen objects:" << wm->logicalCameraData.getLogicalObjects("box").size() << endl;
-
-        if (wm->logicalCameraData.getLogicalObjects("box").size() == 4)
-        {
-            this->setSuccess(true);
-            cout << "DriveSearchPattern:: found all 4 objects" << endl;
-            return;
-        }
-
-        auto state = robot->movement->getMoveState();
-        move_base_msgs::MoveBaseGoal goal;
-        switch (state.state_)
-        {
-            case actionlib::SimpleClientGoalState::ACTIVE:
-                cout << "DriveSearchPattern: Goal is active!" << endl;
-                cout << "current goal:" << list[listPoint].x << "," << list[listPoint].y << endl;
-                distanceGoalX = fabs(list[listPoint].x - ownPos->x);
-                distanceGoalY = fabs(list[listPoint].y - ownPos->y);
-                distanceToGoal = sqrt(distanceGoalX * distanceGoalX + distanceGoalY * distanceGoalY);
-                if (distanceToGoal < scanRange / 4)
-                {
-                	robot->movement->cancelGoal();
-                    cout << "Goal reached in scanRange/4. Distance:" << distanceToGoal << " " << state.state_ << endl;
-                }
-                break;
-            case actionlib::SimpleClientGoalState::PENDING:
-            case actionlib::SimpleClientGoalState::RECALLED:
-            case actionlib::SimpleClientGoalState::REJECTED:
-            case actionlib::SimpleClientGoalState::PREEMPTED:
-            case actionlib::SimpleClientGoalState::ABORTED:
-            case actionlib::SimpleClientGoalState::SUCCEEDED:
-            case actionlib::SimpleClientGoalState::LOST:
-                //                if (listPoint < list.size())
-                //                {
-                listPoint++;
-                //                }
-
-                goal.target_pose.pose.orientation.w = 1;
-                goal.target_pose.pose.position = list[listPoint];
-
-                goal.target_pose.header.frame_id = "map";
-                goal.target_pose.header.stamp = ros::Time::now();
-                goal.target_pose.header.seq = 0;
-                cout << "DriveSearchPattern: Sending next Goal: (" << list[listPoint].x << "," << list[listPoint].y
-                        << ")" << endl;
-                robot->movement->send(goal);
-
-                break;
-            default:
-                break;
-        }
-
-        //		printf("X-Coordinate: %d", list[1].x);
-        //		printf("MapHeight: %f ", mapHeight);
-        //		printf("MapWidth: %f ", mapWidth);
-        //		printf("Reslution: %f\n", resolution);
-
-        // 2. Punkte der reihe nach abfahren
-        // 3. Wenn eine Box gefunden wird, Nachricht an WM schicken (neue Nachricht notwendig)
+//        auto ownPos = wm->rawSensorData.getOdomPositionBuffer()->getLastValidContent();
+//        cout << "DriveSearchPattern: seen objects:" << wm->logicalCameraData.getLogicalObjects("box").size() << endl;
+//
+//        if (wm->logicalCameraData.getLogicalObjects("box").size() == 4)
+//        {
+//            this->setSuccess(true);
+//            cout << "DriveSearchPattern:: found all 4 objects" << endl;
+//            return;
+//        }
+//
+//        auto state = robot->movement->getMoveState();
+//        move_base_msgs::MoveBaseGoal goal;
+//        switch (state.state_)
+//        {
+//            case actionlib::SimpleClientGoalState::ACTIVE:
+//                cout << "DriveSearchPattern: Goal is active!" << endl;
+//                cout << "current goal:" << list[listPoint].x << "," << list[listPoint].y << endl;
+//                distanceGoalX = fabs(list[listPoint].x - ownPos->x);
+//                distanceGoalY = fabs(list[listPoint].y - ownPos->y);
+//                distanceToGoal = sqrt(distanceGoalX * distanceGoalX + distanceGoalY * distanceGoalY);
+//                if (distanceToGoal < scanRange / 4)
+//                {
+//                	robot->movement->cancelGoal();
+//                    cout << "Goal reached in scanRange/4. Distance:" << distanceToGoal << " " << state.state_ << endl;
+//                }
+//                break;
+//            case actionlib::SimpleClientGoalState::PENDING:
+//            case actionlib::SimpleClientGoalState::RECALLED:
+//            case actionlib::SimpleClientGoalState::REJECTED:
+//            case actionlib::SimpleClientGoalState::PREEMPTED:
+//            case actionlib::SimpleClientGoalState::ABORTED:
+//            case actionlib::SimpleClientGoalState::SUCCEEDED:
+//            case actionlib::SimpleClientGoalState::LOST:
+//                //                if (listPoint < list.size())
+//                //                {
+//                listPoint++;
+//                //                }
+//
+//                goal.target_pose.pose.orientation.w = 1;
+//                goal.target_pose.pose.position = list[listPoint];
+//
+//                goal.target_pose.header.frame_id = "map";
+//                goal.target_pose.header.stamp = ros::Time::now();
+//                goal.target_pose.header.seq = 0;
+//                cout << "DriveSearchPattern: Sending next Goal: (" << list[listPoint].x << "," << list[listPoint].y
+//                        << ")" << endl;
+//                robot->movement->send(goal);
+//
+//                break;
+//            default:
+//                break;
+//        }
+//
+//        //		printf("X-Coordinate: %d", list[1].x);
+//        //		printf("MapHeight: %f ", mapHeight);
+//        //		printf("MapWidth: %f ", mapWidth);
+//        //		printf("Reslution: %f\n", resolution);
+//
+//        // 2. Punkte der reihe nach abfahren
+//        // 3. Wenn eine Box gefunden wird, Nachricht an WM schicken (neue Nachricht notwendig)
 
         /*PROTECTED REGION END*/
     }
