@@ -24,8 +24,9 @@ DriveToPOI::~DriveToPOI()
 void DriveToPOI::run(void *msg)
 {
     /*PROTECTED REGION ID(run1454329856163) ENABLED START*/ // Add additional options here
-    if (this->goalHandle.isExpired())
+    if (this->goalHandle.isExpired() && this->poiID == 0)
     {
+    	std::cout << "DriveToPOI: getting new task " << std::endl;
         auto task = this->wm->taskManager.getNextTask();
         if (task->getInformation().type == ttb_msgs::ServeTask::DRIVE_TO)
         {
@@ -45,13 +46,13 @@ void DriveToPOI::run(void *msg)
         }
 
         move_base_msgs::MoveBaseGoal mbg;
+        mbg.target_pose.pose.orientation.w = 1;
         mbg.target_pose.pose.position.x = poi->x;
         mbg.target_pose.pose.position.y = poi->y;
         mbg.target_pose.header.frame_id = "/map";
         this->goalHandle = this->robot->movement->send(mbg);
     }
-
-    if (this->goalHandle.getCommState() == actionlib::CommState::DONE)
+    else if (this->goalHandle.getCommState() == actionlib::CommState::DONE)
     {
     	if (this->goalHandle.getTerminalState().state_ == actionlib::TerminalState::SUCCEEDED)
     	{
@@ -63,6 +64,7 @@ void DriveToPOI::run(void *msg)
 void DriveToPOI::initialiseParameters()
 {
     /*PROTECTED REGION ID(initialiseParameters1454329856163) ENABLED START*/ // Add additional options here
+	this->goalHandle.reset();
     try
     {
         string tmp;
