@@ -28,6 +28,16 @@ add_library(ttb_worldmodel
   src/logicalCameraModel/Fire.cpp
   src/logicalCameraModel/Victim.cpp
   src/logicalCameraModel/Landmark.cpp
+  src/logicalCameraModel/BlueBook.cpp
+  src/logicalCameraModel/CokeCan.cpp
+  src/logicalCameraModel/ContaminatedArea.cpp
+  src/logicalCameraModel/Cup.cpp
+  src/logicalCameraModel/Drill.cpp
+  src/logicalCameraModel/GreenBook.cpp
+  src/logicalCameraModel/Hammer.cpp
+  src/logicalCameraModel/MonkeyWrench.cpp
+  src/logicalCameraModel/RedBook.cpp
+  src/logicalCameraModel/TrashCan.cpp
   src/ttb_poi/TTBPointOfInterests.cpp
 )
 
