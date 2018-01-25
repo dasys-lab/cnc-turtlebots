@@ -7,7 +7,7 @@
 
 namespace supplementary
 {
-	class SystemConfig;
+class SystemConfig;
 }
 
 namespace ttb
@@ -18,25 +18,25 @@ namespace robot
 class SimulatedArm
 {
   public:
+    enum ObjectInteraction { noInteractionAllowed, waiting, interactionAllowed };
     SimulatedArm();
     virtual ~SimulatedArm();
     const std::string &getCarriedObjectName() const;
     bool grabObject(std::string objectName);
     bool drobObject(std::string objectName);
-    int mayInteractWithObject();
+    SimulatedArm::ObjectInteraction mayInteractWithObject();
     void onOwnArmCmd(ttb_msgs::GrabDropObjectPtr msg);
 
   private:
     std::string carriedObjectName;
+    std::string requestedObject;
     ros::Publisher armCmdPub;
     ros::Subscriber armCmdSub;
-    /**
-     * -1: interaction is not allowed
-     *  0: waiting for response
-     *  1: interaction is allowed
-     */
-    int interactWithObject;
-    supplementary::SystemConfig* sc;
+    //TODO: implement arm range as soon as logical camera sensor is available
+    double armRange;
+
+    ObjectInteraction interactWithObject;
+    supplementary::SystemConfig *sc;
     std::string robotName;
     ros::AsyncSpinner *spinner;
 };
