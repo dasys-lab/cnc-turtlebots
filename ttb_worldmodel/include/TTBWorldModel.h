@@ -6,20 +6,10 @@
 #include "RawSensorData.h"
 #include "SystemConfig.h"
 #include "TaskManager.h"
-#include "EventTrigger.h"
 #include "Communication.h"
 #include "ttb_poi/TTBPointOfInterests.h"
-
 #include <supplementary/WorldModel.h>
-#include <supplementary/InfoBuffer.h>
-
-#include <iostream>
-#include <list>
-#include <mutex>
-#include <string>
-#include <tuple>
-
-#define TTB_WORLDMODEL_DEBUG
+#include <supplementary/InformationElement.h>
 
 namespace supplementary
 {
@@ -38,12 +28,11 @@ class WrappedMessageHandler;
 class TTBWorldModel : public supplementary::WorldModel
 {
   public:
-    virtual ~TTBWorldModel();
     static TTBWorldModel *get(); /**< Singleton Getter */
 
+    virtual ~TTBWorldModel();
     bool isUsingSimulator();
     void enableUsingSimulator();
-    void setEngine(alica::AlicaEngine* ae);
 
     // Public Data Access Classes
     wm::RawSensorData rawSensorData;
@@ -60,3 +49,4 @@ class TTBWorldModel : public supplementary::WorldModel
 };
 
 } /* namespace ttb */
+

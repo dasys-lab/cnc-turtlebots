@@ -3,9 +3,12 @@ project(ttb_worldmodel)
   
 ## Use c++ 11x std
 set(CMAKE_CXX_FLAGS "-std=c++11 ${CMAKE_CXX_FLAGS}")
+ 
+## Enable exception handling for segfaults using SigFault.h
+set(CMAKE_CXX_FLAGS "-rdynamic -fnon-call-exceptions -ggdb ${CMAKE_CXX_FLAGS}")
 
 find_package(catkin REQUIRED COMPONENTS cnc_geometry system_config event_handling alica_engine kobuki_msgs robot_control tf ttb_msgs world_model)
-#wumpus_simulator
+
 
 catkin_package(
   INCLUDE_DIRS include
@@ -16,13 +19,15 @@ catkin_package(
  
 include_directories(include ${catkin_INCLUDE_DIRS})
 
+
 add_library(ttb_worldmodel
-  src/Communication.cpp
-  src/Doors.cpp
-  src/LogicalCameraData.cpp
-  src/RawSensorData.cpp
+  src/TTBWorldModel.cpp
   src/TaskManager.cpp
-  src/TTBWorldModel.cpp 
+  src/RawSensorData.cpp
+  src/ttb_poi/TTBPointOfInterests.cpp
+  src/Doors.cpp
+  src/Communication.cpp
+  src/LogicalCameraData.cpp
   src/logicalCameraModel/LogicalObject.cpp
   src/logicalCameraModel/Box.cpp
   src/logicalCameraModel/Fire.cpp
@@ -42,7 +47,12 @@ add_library(ttb_worldmodel
   src/logicalCameraModel/SmallTable.cpp
   src/logicalCameraModel/MediumTable.cpp
   src/logicalCameraModel/LargeTable.cpp
-  src/ttb_poi/TTBPointOfInterests.cpp
+  src/distributed_systems/Area.cpp
+  src/distributed_systems/AreaDoor.cpp
+  src/distributed_systems/DistributedSystems.cpp
+  src/distributed_systems/Door.cpp
+  src/distributed_systems/Room.cpp
+  src/distributed_systems/TopologicalPathPlanner.cpp
 )
 
 add_dependencies(ttb_worldmodel kobuki_msgs_generate_messages_cpp geometry_msgs_generate_messages_cpp robot_control_generate_messages_cpp) 

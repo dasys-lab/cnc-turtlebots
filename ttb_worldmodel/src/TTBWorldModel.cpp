@@ -16,8 +16,9 @@ TTBWorldModel *TTBWorldModel::get()
     return &instance;
 }
 
-TTBWorldModel::TTBWorldModel()
-    : rawSensorData(this)
+TTBWorldModel::TTBWorldModel() :
+		WorldModel()
+    , rawSensorData(this)
     , pois(this)
     , doors(this)
     , logicalCameraData(this)
@@ -44,12 +45,5 @@ void TTBWorldModel::enableUsingSimulator()
 	this->usingSimulator = true;
 }
 
-void TTBWorldModel::setEngine(alica::AlicaEngine* ae)
-{
-	this->WorldModel::setEngine(ae);
-	this->communication = new ttb::wm::Communication(this);
-}
-
 } /* namespace ttb */
-
 
