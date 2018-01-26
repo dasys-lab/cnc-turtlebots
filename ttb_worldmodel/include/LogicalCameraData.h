@@ -30,22 +30,19 @@ class LogicalCameraData
         for (auto &pair : camData.dict)
         {
             os << pair.first << ":" << std::endl;
-
-            for (auto &item : pair.second)
-            {
-                auto tmpPos = item->getPoseBuffer()->getLast()->getInformation();
-                os << "\t" << item->getName() << ": Pos (" << tmpPos.x << ", " << tmpPos.y << ")" << std::endl;
-            }
+            auto tmpPos = pair.second->getPoseBuffer()->getLast()->getInformation();
+            os << ": Pos (" << tmpPos.x << ", " << tmpPos.y << ")" << std::endl;
         }
 
         return os;
     }
 
     std::list<std::shared_ptr<LogicalObject>> getLogicalObjects(std::string type);
+    std::shared_ptr<LogicalObject> getLogicalObject(std::string name);
 
   private:
     ttb::TTBWorldModel *wm;
-    std::map<std::string, std::list<std::shared_ptr<LogicalObject>>> dict;
+    std::map<std::string, std::shared_ptr<LogicalObject>> dict;
     std::shared_ptr<LogicalObject> createLogicalObject(ttb_msgs::LogicalCameraPtr logicalCameraData);
 };
 }

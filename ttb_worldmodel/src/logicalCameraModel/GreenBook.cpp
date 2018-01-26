@@ -6,7 +6,7 @@ namespace wm
 {
 
 GreenBook::GreenBook(ttb_msgs::LogicalCameraPtr logicalCameraData)
-    : : LogicalObject(logicalCameraData, "Green_Book")
+    : LogicalObject(logicalCameraData, "Green_Book")
 {
     // TODO Auto-generated constructor stub
 }

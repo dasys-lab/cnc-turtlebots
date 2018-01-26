@@ -6,7 +6,7 @@ namespace wm
 {
 
 MonkeyWrench::MonkeyWrench(ttb_msgs::LogicalCameraPtr logicalCameraData)
-    : : LogicalObject(logicalCameraData, "Monkey_Wrench")
+    : LogicalObject(logicalCameraData, "Monkey_Wrench")
 {
     // TODO Auto-generated constructor stub
 }

@@ -26,8 +26,9 @@ class LogicalObject
 
     void processData(ttb_msgs::LogicalCameraPtr logicalCameraData);
 
-    const supplementary::InfoBuffer<geometry_msgs::Pose2D>* getPoseBuffer();
+    supplementary::InfoBuffer<geometry_msgs::Pose2D>* getPoseBuffer();
     std::string getName();
+    supplementary::InfoTime getMaxValidityDuration() const;
 
   protected:
     std::string name;

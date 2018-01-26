@@ -6,7 +6,7 @@ namespace wm
 {
 
 Drill::Drill(ttb_msgs::LogicalCameraPtr logicalCameraData)
-    : LogicalObject(logicalCameraData, "Fire")
+    : LogicalObject(logicalCameraData, "Drill")
 {
     // TODO Auto-generated constructor stub
 }

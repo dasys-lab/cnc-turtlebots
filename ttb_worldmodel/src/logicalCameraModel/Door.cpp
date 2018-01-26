@@ -1,17 +1,17 @@
-#include <logicalCameraModel/Cup.h>
+#include <logicalCameraModel/Door.h>
 
 namespace ttb
 {
 namespace wm
 {
 
-Cup::Cup(ttb_msgs::LogicalCameraPtr logicalCameraData)
-    : LogicalObject(logicalCameraData, "Cup")
+Door::Door(ttb_msgs::LogicalCameraPtr logicalCameraData)
+    : LogicalObject(logicalCameraData, "door")
 {
     // TODO Auto-generated constructor stub
 }
 
-Cup::~Cup()
+Door::~Door()
 {
     // TODO Auto-generated destructor stub
 }

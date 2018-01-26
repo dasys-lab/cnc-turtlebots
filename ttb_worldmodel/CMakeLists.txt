@@ -38,6 +38,10 @@ add_library(ttb_worldmodel
   src/logicalCameraModel/MonkeyWrench.cpp
   src/logicalCameraModel/RedBook.cpp
   src/logicalCameraModel/TrashCan.cpp
+  src/logicalCameraModel/Door.cpp
+  src/logicalCameraModel/SmallTable.cpp
+  src/logicalCameraModel/MediumTable.cpp
+  src/logicalCameraModel/LargeTable.cpp
   src/ttb_poi/TTBPointOfInterests.cpp
 )
 
