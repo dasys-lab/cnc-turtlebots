@@ -44,7 +44,7 @@ void LogicalObject::processData(ttb_msgs::LogicalCameraPtr logicalCameraData)
     poses->add(poseInfo);
 }
 
-const supplementary::InfoBuffer<geometry_msgs::Pose2D> *LogicalObject::getPoseBuffer()
+supplementary::InfoBuffer<geometry_msgs::Pose2D> *LogicalObject::getPoseBuffer()
 {
 	return this->poses;
 }
@@ -53,5 +53,13 @@ std::string LogicalObject::getName()
 {
 	return this->name;
 }
+
+supplementary::InfoTime LogicalObject::getMaxValidityDuration() const
+{
+    return maxValidityDuration;
+}
+
 }
 }
+
+

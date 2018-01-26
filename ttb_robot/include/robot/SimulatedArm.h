@@ -12,6 +12,7 @@ class SystemConfig;
 
 namespace ttb
 {
+	class TTBWorldModel;
 namespace robot
 {
 
@@ -39,6 +40,7 @@ class SimulatedArm
     supplementary::SystemConfig *sc;
     std::string robotName;
     ros::AsyncSpinner *spinner;
+    ttb::TTBWorldModel* wm;
 };
 
 } /* namespace robot */

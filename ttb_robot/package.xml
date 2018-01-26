@@ -13,6 +13,7 @@
   <depend>roscpp</depend>
   <depend>system_config</depend>
   <depend>ttb_msgs</depend>
+  <depend>ttb_worldmodel</depend>
   <buildtool_depend>catkin</buildtool_depend>
 
 

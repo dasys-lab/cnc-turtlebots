@@ -1,5 +1,8 @@
 #include "robot/SimulatedArm.h"
 
+#include <LogicalCameraData.h>
+#include <TTBWorldModel.h>
+
 #include <SystemConfig.h>
 
 namespace ttb
@@ -9,10 +12,11 @@ namespace robot
 
 SimulatedArm::SimulatedArm()
 {
+	this->wm = ttb::TTBWorldModel::get();
     this->sc = supplementary::SystemConfig::getInstance();
     this->carriedObjectName = "";
     this->requestedObject = "";
-    this->armRange = 1.0;
+    this->armRange = (*this->sc)["SimulatedArm"]->get<double>("SimulatedArm.Range", NULL);
     ros::NodeHandle n;
     this->armCmdPub = n.advertise<ttb_msgs::GrabDropObject>("/ArmCmd", 5, false);
     this->robotName = this->sc->getHostname();
@@ -45,6 +49,7 @@ bool SimulatedArm::grabObject(std::string objectName)
     {
         return false;
     }
+    auto objectToCarry = wm->logicalCameraData.getLogicalObject(objectName);
     ttb_msgs::GrabDropObject msg;
     msg.senderName = this->robotName;
     msg.objectName = objectName;
