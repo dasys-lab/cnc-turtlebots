@@ -14,7 +14,6 @@ catkin_package(
   INCLUDE_DIRS include
   LIBRARIES ttb_worldmodel
   CATKIN_DEPENDS cnc_geometry system_config event_handling robot_control ttb_msgs world_model
-  #wumpus_simulator
 )
  
 include_directories(include ${catkin_INCLUDE_DIRS})
@@ -24,39 +23,19 @@ add_library(ttb_worldmodel
   src/TTBWorldModel.cpp
   src/TaskManager.cpp
   src/RawSensorData.cpp
-  src/ttb_poi/TTBPointOfInterests.cpp
   src/Doors.cpp
   src/Communication.cpp
   src/LogicalCameraData.cpp
-  src/logicalCameraModel/LogicalObject.cpp
-  src/logicalCameraModel/Box.cpp
-  src/logicalCameraModel/Fire.cpp
-  src/logicalCameraModel/Victim.cpp
-  src/logicalCameraModel/Landmark.cpp
-  src/logicalCameraModel/BlueBook.cpp
-  src/logicalCameraModel/CokeCan.cpp
-  src/logicalCameraModel/ContaminatedArea.cpp
-  src/logicalCameraModel/Cup.cpp
-  src/logicalCameraModel/Drill.cpp
-  src/logicalCameraModel/GreenBook.cpp
-  src/logicalCameraModel/Hammer.cpp
-  src/logicalCameraModel/MonkeyWrench.cpp
-  src/logicalCameraModel/RedBook.cpp
-  src/logicalCameraModel/TrashCan.cpp
-  src/logicalCameraModel/Door.cpp
-  src/logicalCameraModel/SmallTable.cpp
-  src/logicalCameraModel/MediumTable.cpp
-  src/logicalCameraModel/LargeTable.cpp
-  src/distributed_systems/Area.cpp
-  src/distributed_systems/AreaDoor.cpp
-  src/distributed_systems/DistributedSystems.cpp
-  src/distributed_systems/Door.cpp
-  src/distributed_systems/Room.cpp
-  src/distributed_systems/TopologicalPathPlanner.cpp
+  src/LogicalObject.cpp
+  src/TopologicalModel.cpp
+  src/topology/Area.cpp
+  src/topology/Room.cpp
+  src/topology/TopologicalDoor.cpp
+  src/topology/Door.cpp
 )
 
 add_dependencies(ttb_worldmodel kobuki_msgs_generate_messages_cpp geometry_msgs_generate_messages_cpp robot_control_generate_messages_cpp) 
-#wumpus_simulator_generate_messages_cpp
+
 target_link_libraries(ttb_worldmodel
   ${catkin_LIBRARIES} 
 )

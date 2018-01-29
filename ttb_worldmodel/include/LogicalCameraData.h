@@ -1,6 +1,7 @@
 #pragma once
 
-#include <logicalCameraModel/LogicalObject.h>
+#include "LogicalObject.h"
+
 #include <ttb_msgs/LogicalCamera.h>
 
 #include <list>
@@ -37,13 +38,12 @@ class LogicalCameraData
         return os;
     }
 
-    std::list<std::shared_ptr<LogicalObject>> getLogicalObjects(std::string type);
-    std::shared_ptr<LogicalObject> getLogicalObject(std::string name);
+    std::list<std::shared_ptr<LogicalObject>> getObjectOfType(std::string type);
+    std::shared_ptr<LogicalObject> getObject(std::string name);
 
   private:
     ttb::TTBWorldModel *wm;
     std::map<std::string, std::shared_ptr<LogicalObject>> dict;
-    std::shared_ptr<LogicalObject> createLogicalObject(ttb_msgs::LogicalCameraPtr logicalCameraData);
 };
 }
 }

@@ -23,6 +23,7 @@ add_library(ttb_robot
  src/SimulatedArm.cpp
  src/Movement.cpp
  src/Speech.cpp
+ src/ToplogicalPathPlanner.cpp
 )
 
 add_dependencies(ttb_robot ttb_msgs_generate_messages_cpp) 
