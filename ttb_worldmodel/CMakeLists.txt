@@ -23,7 +23,6 @@ add_library(ttb_worldmodel
   src/TTBWorldModel.cpp
   src/TaskManager.cpp
   src/RawSensorData.cpp
-  src/Doors.cpp
   src/Communication.cpp
   src/LogicalCameraData.cpp
   src/LogicalObject.cpp

@@ -1,7 +1,6 @@
 #pragma once
 
 #include <SystemConfig.h>
-#include <ttb_poi/PointOfInterest.h>
 #include <supplementary/InformationElement.h>
 
 #include <ttb_msgs/ServeTask.h>

@@ -1,13 +1,11 @@
 #pragma once
 
-#include "Doors.h"
 #include "EventTrigger.h"
 #include "LogicalCameraData.h"
 #include "RawSensorData.h"
 #include "SystemConfig.h"
 #include "TaskManager.h"
 #include "Communication.h"
-#include "ttb_poi/TTBPointOfInterests.h"
 #include <supplementary/WorldModel.h>
 #include <supplementary/InformationElement.h>
 

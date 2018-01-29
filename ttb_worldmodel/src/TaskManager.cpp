@@ -1,6 +1,5 @@
 #include "TaskManager.h"
 
-#include <ttb_poi/PointOfInterest.h>
 #include <ttb_msgs/ServeTask.h>
 
 using supplementary::InformationElement;
