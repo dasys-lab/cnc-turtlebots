@@ -3,6 +3,7 @@ using namespace std;
 
 /*PROTECTED REGION ID(inccpp1454329856163) ENABLED START*/ // Add additional includes here
 #include <Robot.h>
+#include <TopologicalModel.h>
 #include <TTBWorldModel.h>
 /*PROTECTED REGION END*/
 namespace alica
@@ -38,7 +39,7 @@ void DriveToPOI::run(void *msg)
             return;
         }
 
-        auto poi = this->wm->pois.getPOIByName(task->getInformation().entity);
+        auto poi = this->wm->topologicalModel.getPOI(stoi(task->getInformation().entity));
         if (!poi)
         {
             std::cerr << "DriveToPOI: POI " << task->getInformation().entity << " does not exist!" << std::endl;

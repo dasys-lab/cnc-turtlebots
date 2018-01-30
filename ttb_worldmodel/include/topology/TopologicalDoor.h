@@ -1,7 +1,6 @@
 #pragma once
 
-#include "Room.h"
-
+#include <vector>
 #include <memory>
 
 namespace ttb
@@ -9,6 +8,9 @@ namespace ttb
 namespace wm
 {
 
+class Room;
+class Area;
+class POI;
 class TopologicalDoor
 {
 
@@ -20,6 +22,7 @@ class TopologicalDoor
     std::shared_ptr<Room> toRoom;
     std::shared_ptr<Area> fromArea;
     std::shared_ptr<Area> toArea;
+    std::vector<std::shared_ptr<POI>> pois;
 };
 
 } /* namespace wm */

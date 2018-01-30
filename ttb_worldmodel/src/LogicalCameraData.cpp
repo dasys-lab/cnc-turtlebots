@@ -1,6 +1,7 @@
 #include "LogicalCameraData.h"
 
 #include "TTBWorldModel.h"
+#include "LogicalObject.h"
 
 #include <supplementary/InfoBuffer.h>
 #include <supplementary/InformationElement.h>
@@ -35,7 +36,7 @@ void LogicalCameraData::processLogicalCamera(ttb_msgs::LogicalCameraPtr logicalC
     }
     else
     {
-        this->dict[name] = std::make_shared<LogicalObject>(logicalCameraData);
+        this->dict[name] = std::make_shared<LogicalObject>(logicalCameraData, logicalCameraData->type);
     }
 }
 

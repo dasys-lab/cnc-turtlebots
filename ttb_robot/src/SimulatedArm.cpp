@@ -49,7 +49,7 @@ bool SimulatedArm::grabObject(std::string objectName)
     {
         return false;
     }
-    auto objectToCarry = wm->logicalCameraData.getLogicalObject(objectName);
+    auto objectToCarry = wm->logicalCameraData.getObject(objectName);
     ttb_msgs::GrabDropObject msg;
     msg.senderName = this->robotName;
     msg.objectName = objectName;

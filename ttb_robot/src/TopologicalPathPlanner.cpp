@@ -1,4 +1,4 @@
-#include "topology/TopologicalPathPlanner.h"
+#include "TopologicalPathPlanner.h"
 
 #include <TopologicalModel.h>
 #include <topology/Area.h>
@@ -14,8 +14,8 @@ namespace wm
 {
 namespace pathPlanning
 {
-TopologicalPathPlanner::TopologicalPathPlanner(DistributedSystems *ds)
-    : ds(ds)
+TopologicalPathPlanner::TopologicalPathPlanner(TopologicalModel *ds)
+    : topologicalModel(ds)
 {
 }
 
@@ -23,13 +23,13 @@ TopologicalPathPlanner::~TopologicalPathPlanner()
 {
 }
 
-std::vector<std::shared_ptr<Area>> TopologicalPathPlanner::plan(std::shared_ptr<Room> start, std::shared_ptr<Room> goal)
+std::vector<std::shared_ptr<::ttb::wm::Area>> TopologicalPathPlanner::plan(std::shared_ptr<ttb::wm::Room> start, std::shared_ptr<ttb::wm::Room> goal)
 {
-    std::vector<std::shared_ptr<Area>> fringe;
+    std::vector<std::shared_ptr<ttb::wm::Area>> fringe;
     fringe.push_back(start->area);
-    std::map<std::shared_ptr<Area>, std::shared_ptr<Area>> visited;
+    std::map<std::shared_ptr<ttb::wm::Area>, std::shared_ptr<ttb::wm::Area>> visited;
     bool pathFound = areaBreadthSearch(fringe, visited, goal->area);
-    std::vector<std::shared_ptr<Area>> ret;
+    std::vector<std::shared_ptr<ttb::wm::Area>> ret;
     if (pathFound)
     {
         auto area = goal->area;
@@ -50,14 +50,15 @@ std::vector<std::shared_ptr<Area>> TopologicalPathPlanner::plan(std::shared_ptr<
     return ret;
 }
 
-bool TopologicalPathPlanner::areaBreadthSearch(std::vector<std::shared_ptr<Area>> &fringe, std::map<std::shared_ptr<Area>, std::shared_ptr<Area>> &visited,
-                                               std::shared_ptr<Area> goal)
+bool TopologicalPathPlanner::areaBreadthSearch(std::vector<std::shared_ptr<ttb::wm::Area>> &fringe,
+                                               std::map<std::shared_ptr<ttb::wm::Area>, std::shared_ptr<ttb::wm::Area>> &visited,
+                                               std::shared_ptr<ttb::wm::Area> goal)
 {
     if (fringe.size() == 0)
     {
         return false;
     }
-    std::vector<std::shared_ptr<Area>> newFringe;
+    std::vector<std::shared_ptr<ttb::wm::Area>> newFringe;
     if (visited.size() == 0)
     {
         visited.emplace(fringe.at(0), nullptr);
@@ -84,29 +85,29 @@ bool TopologicalPathPlanner::areaBreadthSearch(std::vector<std::shared_ptr<Area>
     return areaBreadthSearch(newFringe, visited, goal);
 }
 
-std::vector<std::shared_ptr<Door>> TopologicalPathPlanner::planInsideArea(std::shared_ptr<Room> start, std::shared_ptr<Area> goal)
+std::vector<std::shared_ptr<ttb::wm::Door>> TopologicalPathPlanner::planInsideArea(std::shared_ptr<ttb::wm::Room> start, std::shared_ptr<ttb::wm::Area> goal)
 {
-    std::vector<std::shared_ptr<Room>> fringe;
+    std::vector<std::shared_ptr<ttb::wm::Room>> fringe;
     fringe.push_back(start);
-    std::map<std::shared_ptr<Room>, std::shared_ptr<Room>> visited;
+    std::map<std::shared_ptr<ttb::wm::Room>, std::shared_ptr<ttb::wm::Room>> visited;
     auto goalRoom = roomBreadthSearch(fringe, visited, goal);
-    std::vector<std::shared_ptr<Door>> ret;
+    std::vector<std::shared_ptr<ttb::wm::Door>> ret;
     if (goalRoom)
     {
         auto room = goalRoom;
         while (visited.at(room) != nullptr)
         {
-        	for (auto nextDoor : room->doors)
-        	{
-        		auto nextRoom = nextDoor->to != room ? nextDoor->to : nextDoor->from;
+            for (auto nextDoor : room->doors)
+            {
+                auto nextRoom = nextDoor->topologicalDoor->toRoom != room ? nextDoor->topologicalDoor->toRoom : nextDoor->topologicalDoor->fromRoom;
 
-        		if (nextRoom == visited.at(room))
-        		{
-        			ret.insert(ret.begin(),nextDoor);
-        			room = nextRoom;
-        			break;
-        		}
-        	}
+                if (nextRoom == visited.at(room))
+                {
+                    ret.insert(ret.begin(), nextDoor);
+                    room = nextRoom;
+                    break;
+                }
+            }
         }
     }
 
@@ -114,20 +115,21 @@ std::vector<std::shared_ptr<Door>> TopologicalPathPlanner::planInsideArea(std::s
     std::cout << "Path: " << std::endl;
     for (auto door : ret)
     {
-        std::cout << " " << door->toString() << std::endl;
+        std::cout << " " << door->topologicalDoor->toString() << std::endl;
     }
 #endif
     return ret;
 }
 
-std::shared_ptr<Room> TopologicalPathPlanner::roomBreadthSearch(std::vector<std::shared_ptr<Room>> &fringe, std::map<std::shared_ptr<Room>, std::shared_ptr<Room>> &visited,
-                                               std::shared_ptr<Area> goal)
+std::shared_ptr<ttb::wm::Room> TopologicalPathPlanner::roomBreadthSearch(std::vector<std::shared_ptr<ttb::wm::Room>> &fringe,
+                                                                         std::map<std::shared_ptr<ttb::wm::Room>, std::shared_ptr<ttb::wm::Room>> &visited,
+                                                                         std::shared_ptr<ttb::wm::Area> goal)
 {
     if (fringe.size() == 0)
     {
         return nullptr;
     }
-    std::vector<std::shared_ptr<Room>> newFringe;
+    std::vector<std::shared_ptr<ttb::wm::Room>> newFringe;
     if (visited.size() == 0)
     {
         visited.emplace(fringe.at(0), nullptr);
@@ -136,7 +138,7 @@ std::shared_ptr<Room> TopologicalPathPlanner::roomBreadthSearch(std::vector<std:
     {
         for (auto door : currentRoom->doors)
         {
-            auto nextRoom = door->to != currentRoom ? door->to : door->from;
+            auto nextRoom = door->topologicalDoor->toRoom != currentRoom ? door->topologicalDoor->toRoom : door->topologicalDoor->fromRoom;
 
             if (!door->open || visited.find(nextRoom) != visited.end())
             {

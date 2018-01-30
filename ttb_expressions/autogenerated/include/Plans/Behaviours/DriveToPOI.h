@@ -3,7 +3,6 @@
 
 #include "DomainBehaviour.h"
 /*PROTECTED REGION ID(inc1454329856163) ENABLED START*/ //Add additional includes here
-#include <ttb_poi/PointOfInterest.h>
 #include <actionlib/client/action_client.h>
 #include <move_base_msgs/MoveBaseAction.h>
 /*PROTECTED REGION END*/

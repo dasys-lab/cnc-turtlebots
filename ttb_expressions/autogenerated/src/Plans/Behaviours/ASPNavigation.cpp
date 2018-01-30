@@ -8,7 +8,6 @@ using namespace std;
 #include "move_base_msgs/MoveBaseAction.h"
 #include <asp_solver_wrapper/ASPSolverWrapper.h>
 #include <asp_commons/ASPQuery.h>
-#include "ttb_poi/TTBPointOfInterests.h"
 #include "SolverType.h"
 #include <asp_commons/IASPSolver.h>
 #include <asp_solver/ASPSolver.h>
@@ -102,20 +101,21 @@ namespace alica
         {
             return;
         }
-        if (this->iterationCounter == 0)
-        {
-            this->wm->doors.openDoor("doorClosed(r1411, studentArea)");
-            this->wm->doors.openDoor("doorClosed(r1411C, studentArea)");
-            this->wm->doors.openDoor("doorClosed(r1411, r1411C)");
-            this->wm->doors.openDoor("doorClosed(studentArea, mainHallA)");
-            this->wm->doors.openDoor("doorClosed(mainHallB, utility)");
-            this->wm->doors.openDoor("doorClosed(r1405B, utility)");
-            this->wm->doors.closeDoor("doorClosed(mainHallA, mainHallB)");
-        }
-        if (this->iterationCounter == 2)
-        {
-            this->wm->doors.openDoor("doorClosed(mainHallA, mainHallB)");
-        }
+        //TODO fix after adding aps to doors in topological model
+//        if (this->iterationCounter == 0)
+//        {
+//            this->wm->doors.openDoor("doorClosed(r1411, studentArea)");
+//            this->wm->doors.openDoor("doorClosed(r1411C, studentArea)");
+//            this->wm->doors.openDoor("doorClosed(r1411, r1411C)");
+//            this->wm->doors.openDoor("doorClosed(studentArea, mainHallA)");
+//            this->wm->doors.openDoor("doorClosed(mainHallB, utility)");
+//            this->wm->doors.openDoor("doorClosed(r1405B, utility)");
+//            this->wm->doors.closeDoor("doorClosed(mainHallA, mainHallB)");
+//        }
+//        if (this->iterationCounter == 2)
+//        {
+//            this->wm->doors.openDoor("doorClosed(mainHallA, mainHallB)");
+//        }
 
 //      this->wm->doors.openDoor("doorClosed(mainHallA, offices)");
 //      this->wm->doors.openDoor("doorClosed(offices, utility)");

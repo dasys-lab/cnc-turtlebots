@@ -94,6 +94,11 @@ void TopologicalModel::readTopologyFromConfig()
                 door->topologicalDoor->fromArea = door->topologicalDoor->fromRoom->area;
                 door->topologicalDoor->toArea = door->topologicalDoor->toRoom->area;
             }
+            auto pois = (*sc)["TopologicalModel"]->getList<int>("DistributedSystems.Doors", doorName, "POIs", NULL);
+            for(auto poi : pois)
+            {
+            	door->topologicalDoor->pois.push_back(getPOI(poi));
+            }
         }
     }
 }

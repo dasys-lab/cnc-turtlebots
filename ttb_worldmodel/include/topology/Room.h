@@ -10,6 +10,7 @@ namespace wm
 
 class Area;
 class TopologicalDoor;
+class Door;
 class POI;
 class Room
 {
@@ -21,7 +22,7 @@ class Room
     std::string toString();
     std::shared_ptr<Area> area;
     const std::string name;
-    std::unordered_set<std::shared_ptr<TopologicalDoor>> doors;
+    std::unordered_set<std::shared_ptr<Door>> doors;
     std::unordered_set<std::shared_ptr<POI>> pois;
 };
 

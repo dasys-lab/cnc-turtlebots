@@ -6,6 +6,7 @@
 #include "SystemConfig.h"
 #include "TaskManager.h"
 #include "Communication.h"
+#include "TopologicalModel.h"
 #include <supplementary/WorldModel.h>
 #include <supplementary/InformationElement.h>
 
@@ -35,6 +36,7 @@ class TTBWorldModel : public supplementary::WorldModel
     // Public Data Access Classes
     wm::RawSensorData rawSensorData;
     wm::LogicalCameraData logicalCameraData;
+    wm::TopologicalModel topologicalModel;
     wm::TaskManager taskManager;
     wm::Communication* communication;
 

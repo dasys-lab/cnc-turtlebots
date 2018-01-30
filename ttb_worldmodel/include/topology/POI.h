@@ -12,7 +12,7 @@ namespace wm
 	{
 	public:
 		POI(int id);
-		POI();
+//		POI();
 
 		int id;
 		double x;
