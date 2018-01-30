@@ -32,9 +32,7 @@ class TopologicalModel
     std::shared_ptr<Door> getDoor(std::string name);
     std::shared_ptr<Area> getArea(std::string name);
     std::shared_ptr<Room> getRoom(std::string name);
-    std::shared_ptr<POI> getPOIByName(std::string name);
     std::shared_ptr<POI> getPOIByID(int id);
-    std::shared_ptr<POI> getPOIByUnaryASPPredicate(std::string aspPredicate);
 
     void print();
 
@@ -45,7 +43,6 @@ class TopologicalModel
     std::unordered_set<std::shared_ptr<POI>> pois;
 
     supplementary::SystemConfig *sc;
-    void readPOIsFromConfig();
     void readTopologyFromConfig();
 };
 

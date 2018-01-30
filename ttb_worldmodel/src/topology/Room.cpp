@@ -10,11 +10,6 @@ namespace ttb
 {
 namespace wm
 {
-Room::Room(std::string name, std::shared_ptr<Area> area)
-	: name(name)
-	, area(area)
-{
-}
 
 Room::Room(std::string name)
 	: name(name)

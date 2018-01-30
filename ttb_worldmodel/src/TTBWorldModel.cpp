@@ -19,8 +19,6 @@ TTBWorldModel *TTBWorldModel::get()
 TTBWorldModel::TTBWorldModel() :
 		WorldModel()
     , rawSensorData(this)
-    , pois(this)
-    , doors(this)
     , logicalCameraData(this)
 	, usingSimulator(false)
 	, communication(nullptr)

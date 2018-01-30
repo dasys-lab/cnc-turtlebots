@@ -16,11 +16,10 @@ class Room
 
   public:
 	Room(std::string name);
-    Room(std::string name, std::shared_ptr<Area> area) ;
     virtual ~Room();
     std::size_t hash() const;
     std::string toString();
-    const std::shared_ptr<Area> area;
+    std::shared_ptr<Area> area;
     const std::string name;
     std::unordered_set<std::shared_ptr<TopologicalDoor>> doors;
     std::unordered_set<std::shared_ptr<POI>> pois;

@@ -36,8 +36,6 @@ class TTBWorldModel : public supplementary::WorldModel
     wm::RawSensorData rawSensorData;
     wm::LogicalCameraData logicalCameraData;
     wm::TaskManager taskManager;
-    wm::TTBPointOfInterests pois;
-    wm::Doors doors;
     wm::Communication* communication;
 
   private:
