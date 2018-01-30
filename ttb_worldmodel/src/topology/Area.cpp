@@ -1,5 +1,7 @@
 #include "topology/Area.h"
 
+#include "topology/TopologicalDoor.h"
+
 #include <sstream>
 
 namespace ttb

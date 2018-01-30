@@ -20,20 +20,25 @@ TopologicalModel::TopologicalModel()
 #ifdef DS_TEST
     this->print();
 
-    //Test Areas
+    // Test Areas
     auto testArea = *this->areas.find(std::make_shared<Area>("utility"));
     testArea->blocked = true;
-    this->tpPathPlanner->plan(*this->rooms.find(std::make_shared<Room>("r1406C")), *this->rooms.find(std::make_shared<Room>("r1403")));
+    this->tpPathPlanner->plan(*this->rooms.find(std::make_shared<Room>("r1406C")),
+                              *this->rooms.find(std::make_shared<Room>("r1403")));
     testArea->blocked = false;
     testArea = *this->areas.find(std::make_shared<Area>("mainHall"));
     testArea->blocked = true;
-    this->tpPathPlanner->plan(*this->rooms.find(std::make_shared<Room>("r1406C")), *this->rooms.find(std::make_shared<Room>("r1403")));
-    //Test Doors
-    this->tpPathPlanner->planInsideArea(*this->rooms.find(std::make_shared<Room>("r1411")), *this->areas.find(std::make_shared<Area>("mainHall")));
-    auto testDoor = *this->doors.find(std::make_shared<Door>(*this->rooms.find(std::make_shared<Room>("r1411C")),
-    		*this->rooms.find(std::make_shared<Room>("r1411")), "door1"));
+    this->tpPathPlanner->plan(*this->rooms.find(std::make_shared<Room>("r1406C")),
+                              *this->rooms.find(std::make_shared<Room>("r1403")));
+    // Test Doors
+    this->tpPathPlanner->planInsideArea(*this->rooms.find(std::make_shared<Room>("r1411")),
+                                        *this->areas.find(std::make_shared<Area>("mainHall")));
+    auto testDoor =
+        *this->doors.find(std::make_shared<Door>(*this->rooms.find(std::make_shared<Room>("r1411C")),
+                                                 *this->rooms.find(std::make_shared<Room>("r1411")), "door1"));
     testDoor->open = false;
-    this->tpPathPlanner->planInsideArea(*this->rooms.find(std::make_shared<Room>("r1411")), *this->areas.find(std::make_shared<Area>("mainHall")));
+    this->tpPathPlanner->planInsideArea(*this->rooms.find(std::make_shared<Room>("r1411")),
+                                        *this->areas.find(std::make_shared<Area>("mainHall")));
 #endif
 }
 
@@ -41,70 +46,92 @@ TopologicalModel::~TopologicalModel()
 {
 }
 
-
 void TopologicalModel::readPOIsFromConfig()
 {
-	auto poiSections = (*this->sc)["POI"]->getSections("POI.Points", NULL);
-	for (auto &poiSectionName : (*poiSections))
-	{
-		shared_ptr<POI> currentPOI = make_shared<POI>(
-			(*this->sc)["POI"]->get<int>("POI.Points", poiSectionName.c_str(), "ID", NULL), poiSectionName,
-			(*this->sc)["POI"]->get<float>("POI.Points", poiSectionName.c_str(), "X", NULL),
-			(*this->sc)["POI"]->get<float>("POI.Points", poiSectionName.c_str(), "Y", NULL));
-		this->pois.insert(currentPOI);
-	}
+    auto poiSections = (*this->sc)["POI"]->getSections("POI.Points", NULL);
+    for (auto &poiSectionName : (*poiSections))
+    {
+        shared_ptr<POI> currentPOI = make_shared<POI>(
+            (*this->sc)["POI"]->get<int>("POI.Points", poiSectionName.c_str(), "ID", NULL), poiSectionName,
+            (*this->sc)["POI"]->get<float>("POI.Points", poiSectionName.c_str(), "X", NULL),
+            (*this->sc)["POI"]->get<float>("POI.Points", poiSectionName.c_str(), "Y", NULL));
+        this->pois.insert(currentPOI);
+    }
 }
 
 void TopologicalModel::readTopologyFromConfig()
 {
-    std::shared_ptr<std::vector<std::string>> areaNames = (*sc)["TopologicalModel"]->getNames("TopologicalModel", "Areas", NULL);
-    // Create Areas
-    for (auto config : *(areaNames))
+    auto &roomNames = (*sc)["TopologicalModel"]->getSections("DistributedSystems.Rooms", NULL);
+    for (auto &roomName : *roomNames)
     {
-        this->areas.insert(std::make_shared<Area>((*sc)["TopologicalModel"]->get<std::string>("TopologicalModel", "Areas", config.c_str(), NULL)));
-    }
-    // Create Rooms
-    std::shared_ptr<std::vector<std::string>> roomNames = (*sc)["TopologicalModel"]->getNames("TopologicalModel", "Rooms", NULL);
-    for (auto config : *(roomNames))
-    {
-        this->rooms.insert(std::make_shared<Room>(config, *this->areas.find(std::make_shared<Area>((*sc)["TopologicalModel"]->get<std::string>(
-                                                              "TopologicalModel", "Rooms", config.c_str(), NULL)))));
-    }
-    // Create Doors connecting rooms within an area
-    std::shared_ptr<std::vector<std::string>> doorSections = (*sc)["TopologicalModel"]->getSections("TopologicalModel", "Doors", NULL);
-    for (auto section : *(doorSections))
-    {
-        std::shared_ptr<Room> from = *(this->rooms.find(std::make_shared<Room>(section, nullptr)));
-        std::shared_ptr<std::vector<std::string>> doorNames = (*sc)["TopologicalModel"]->getNames("TopologicalModel", "Doors", section.c_str(), NULL);
-        for (auto name : *(doorNames))
+        auto room = this->getRoom(roomName);
+        if (!room->area)
         {
-            std::shared_ptr<Room> to = *(this->rooms.find(std::make_shared<Room>(
-                (*sc)["TopologicalModel"]->get<std::string>("TopologicalModel", "Doors", section.c_str(), name.c_str(), NULL), nullptr)));
-            std::shared_ptr<Door> door = std::make_shared<Door>(from, to, name);
-            from->doors.insert(door);
-            to->doors.insert(door);
-            this->doors.insert(door);
+            room->area = getArea((*sc)["TopologicalModel"]->get<std::string>("DistributedSystems.Rooms",
+                                                                             roomName.c_str(), "area", NULL));
+        }
+        if (room->pois.size() == 0)
+        {
+            auto &poisIDStrings =
+                (*sc)["TopologicalModel"]->tryGetSections("DistributedSystems.Rooms", roomName.c_str(), "POIs", NULL);
+            if (!poisIDStrings)
+            {
+            	continue;
+            }
+            for (auto &poiIDString : *poisIDStrings)
+            {
+                auto poi = getPOI(std::stoi(poiIDString));
+                poi->x = (*sc)["TopologicalModel"]->get<int>("DistributedSystems.Rooms", roomName.c_str(), "POIs", poiIDString.c_str(), "X", NULL);
+                poi->y = (*sc)["TopologicalModel"]->get<int>("DistributedSystems.Rooms", roomName.c_str(), "POIs", poiIDString.c_str(), "Y", NULL);
+                poi->room = room;
+                room->pois.insert(poi);
+            }
         }
     }
-    // Create Doors connecting rooms from different areas
-    std::shared_ptr<std::vector<std::string>> areaDoorSections = (*sc)["TopologicalModel"]->getSections("TopologicalModel", "AreaDoors", NULL);
-    for (auto section : *(areaDoorSections))
+
+    auto &doorNames = (*sc)["TopologicalModel"]->getSections("DistributedSystems.Doors", NULL);
+    for (auto &doorName : *doorNames)
     {
-        std::shared_ptr<Room> from = *(this->rooms.find(std::make_shared<Room>(section, nullptr)));
-        std::shared_ptr<std::vector<std::string>> areaDoorNames =
-            (*sc)["TopologicalModel"]->getNames("TopologicalModel", "AreaDoors", section.c_str(), NULL);
-        for (auto name : *(areaDoorNames))
+        auto door = this->getDoor(doorName);
+        if (!door->topologicalDoor)
         {
-            std::shared_ptr<Room> to = *(this->rooms.find(std::make_shared<Room>(
-                (*sc)["TopologicalModel"]->get<std::string>("TopologicalModel", "AreaDoors", section.c_str(), name.c_str(), NULL), nullptr)));
-            std::shared_ptr<TopologicalDoor> door = std::make_shared<TopologicalDoor>(from, to, name);
-            from->doors.insert(door);
-            to->doors.insert(door);
-            this->doors.insert(door);
-            door->fromArea->doors.insert(door);
-            door->toArea->doors.insert(door);
+            auto fromRoomName =
+                (*sc)["TopologicalModel"]->get<std::string>("DistributedSystems.Doors", doorName, "from", NULL);
+            auto toRoomName =
+                (*sc)["TopologicalModel"]->get<std::string>("DistributedSystems.Doors", doorName, "to", NULL);
+            door->topologicalDoor =
+                std::make_shared<TopologicalDoor>(this->getRoom(fromRoomName), this->getRoom(toRoomName));
+            if ((*sc)["TopologicalModel"]->tryGet<bool>(false, "DistributedSystems.Doors", doorName, "areaDoor", NULL))
+            {
+                door->topologicalDoor->fromArea = door->topologicalDoor->fromRoom->area;
+                door->topologicalDoor->toArea = door->topologicalDoor->toRoom->area;
+            }
         }
     }
+}
+
+std::shared_ptr<POI> TopologicalModel::getPOI(int id)
+{
+    auto entry = this->pois.insert(std::make_shared<POI>(id));
+    return *(entry.first);
+}
+
+std::shared_ptr<Door> TopologicalModel::getDoor(std::string name)
+{
+    auto entry = this->doors.insert(std::make_shared<Door>(name));
+    return *(entry.first);
+}
+
+std::shared_ptr<Area> TopologicalModel::getArea(std::string name)
+{
+    auto entry = this->areas.insert(std::make_shared<Area>(name));
+    return *(entry.first);
+}
+
+std::shared_ptr<Room> TopologicalModel::getRoom(std::string name)
+{
+    auto entry = this->rooms.insert(std::make_shared<Room>(name));
+    return *(entry.first);
 }
 
 std::shared_ptr<POI> TopologicalModel::getPOIByName(string name)
@@ -144,7 +171,6 @@ std::shared_ptr<POI> TopologicalModel::getPOIByUnaryASPPredicate(string aspPredi
     return this->getPOIByName(name);
 }
 
-
 const std::unordered_set<std::shared_ptr<Area>, AreaHash, AreaComperator> &TopologicalModel::getAreas()
 {
     return this->areas;
@@ -155,7 +181,8 @@ const std::unordered_set<std::shared_ptr<Room>, RoomHash, RoomComperator> &Topol
     return this->rooms;
 }
 
-const std::unordered_set<std::shared_ptr<Door>, TopologicalDoorHash, TopologicalDoorComperator> &TopologicalModel::getDoors()
+const std::unordered_set<std::shared_ptr<Door>, TopologicalDoorHash, TopologicalDoorComperator> &
+TopologicalModel::getDoors()
 {
     return this->doors;
 }

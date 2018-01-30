@@ -19,18 +19,10 @@ TopologicalDoor::~TopologicalDoor()
 {
 }
 
-std::size_t TopologicalDoor::hash() const
-{
-    std::stringstream ss;
-    // TODO: make door unique, although two doors per connection exist
-    ss << this->fromRoom->name << this->toRoom->name << std::endl;
-    return std::hash<std::string>()(ss.str());
-}
-
 std::string TopologicalDoor::toString()
 {
     std::stringstream ss;
-    ss << "TopologicalDoor is opening from Room: " << this->fromRoom->name << " to Room: " << this->toRoom->name << " Hash: " << this->hash() << std::endl;
+    ss << "TopologicalDoor is opening from Room: " << this->fromRoom->name << " to Room: " << this->toRoom->name << std::endl;
     return ss.str();
 }
 } /* namespace wm */

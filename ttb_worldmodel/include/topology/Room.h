@@ -9,7 +9,8 @@ namespace wm
 {
 
 class Area;
-class Door;
+class TopologicalDoor;
+class POI;
 class Room
 {
 
@@ -22,6 +23,7 @@ class Room
     const std::shared_ptr<Area> area;
     const std::string name;
     std::unordered_set<std::shared_ptr<TopologicalDoor>> doors;
+    std::unordered_set<std::shared_ptr<POI>> pois;
 };
 
 struct RoomComperator

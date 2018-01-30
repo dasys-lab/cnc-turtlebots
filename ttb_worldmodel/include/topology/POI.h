@@ -1,21 +1,23 @@
 #pragma once
 
 #include <string>
+#include <memory>
 
 namespace ttb
 {
 namespace wm
 {
+	class Room;
 	class POI
 	{
 	public:
-		POI(int id, std::string name, float x, float y);
+		POI(int id);
 		POI();
 
 		int id;
-		std::string name;
-		float x;
-		float y;
+		double x;
+		double y;
+		std::shared_ptr<Room> room;
 	};
 }
 }/* namespace ttb */

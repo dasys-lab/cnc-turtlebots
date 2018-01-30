@@ -1,7 +1,8 @@
 #include "topology/Room.h"
 
 #include "topology/Area.h"
-#include "topology/Door.h"
+#include "topology/TopologicalDoor.h"
+#include "topology/POI.h"
 
 #include <sstream>
 

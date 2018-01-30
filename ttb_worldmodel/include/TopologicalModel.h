@@ -19,8 +19,6 @@ namespace ttb
 namespace wm
 {
 
-
-class TopologicalPathPlanner;
 class TopologicalModel
 {
   public:
@@ -28,7 +26,12 @@ class TopologicalModel
     virtual ~TopologicalModel();
     const std::unordered_set<std::shared_ptr<Area>, AreaHash, AreaComperator> &getAreas();
     const std::unordered_set<std::shared_ptr<Room>, RoomHash, RoomComperator> &getRooms();
-    const std::unordered_set<std::shared_ptr<Door>, TopologicalDoorHash, TopologicalDoorComperator> &getDoors();
+    const std::unordered_set<std::shared_ptr<Door>, DoorHash, DoorComperator> &getDoors();
+
+    std::shared_ptr<POI> getPOI(int id);
+    std::shared_ptr<Door> getDoor(std::string name);
+    std::shared_ptr<Area> getArea(std::string name);
+    std::shared_ptr<Room> getRoom(std::string name);
     std::shared_ptr<POI> getPOIByName(std::string name);
     std::shared_ptr<POI> getPOIByID(int id);
     std::shared_ptr<POI> getPOIByUnaryASPPredicate(std::string aspPredicate);
@@ -38,7 +41,7 @@ class TopologicalModel
   private:
     std::unordered_set<std::shared_ptr<Area>, AreaHash, AreaComperator> areas;
     std::unordered_set<std::shared_ptr<Room>, RoomHash, RoomComperator> rooms;
-    std::unordered_set<std::shared_ptr<TopologicalDoor>, TopologicalDoorHash, TopologicalDoorComperator> doors;
+    std::unordered_set<std::shared_ptr<Door>, DoorHash, DoorComperator> doors;
     std::unordered_set<std::shared_ptr<POI>> pois;
 
     supplementary::SystemConfig *sc;
