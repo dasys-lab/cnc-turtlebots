@@ -64,7 +64,7 @@ void DriveToPOI::run(void *msg)
             return;
         }
 
-        this->robot->movement->plan();
+        //this->robot->movement->plan();
 
         move_base_msgs::MoveBaseGoal mbg;
         mbg.target_pose.pose.orientation.w = 1;
