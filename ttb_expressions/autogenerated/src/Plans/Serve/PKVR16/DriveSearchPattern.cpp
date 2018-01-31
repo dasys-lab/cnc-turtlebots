@@ -15,7 +15,7 @@ namespace alica
             DomainBehaviour("DriveSearchPattern")
     {
         /*PROTECTED REGION ID(con1481545714198) ENABLED START*/ // Add additional options here
-        scanRange = (*sc)["LogicalCamera"]->get<double>("LogicalCamera.Landmark.range", NULL);
+        scanRange = (*sc)["LogicalCamera"]->get<double>("LogicalCamera.landmark.range", NULL);
         this->listPoint = -1;
 
         distanceGoalY = 0;
