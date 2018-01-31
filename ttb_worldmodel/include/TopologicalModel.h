@@ -40,7 +40,7 @@ class TopologicalModel
     std::unordered_set<std::shared_ptr<Area>, AreaHash, AreaComperator> areas;
     std::unordered_set<std::shared_ptr<Room>, RoomHash, RoomComperator> rooms;
     std::unordered_set<std::shared_ptr<Door>, DoorHash, DoorComperator> doors;
-    std::unordered_set<std::shared_ptr<POI>> pois;
+    std::unordered_set<std::shared_ptr<POI>, POIHash, POIComperator> pois;
 
     supplementary::SystemConfig *sc;
     void readTopologyFromConfig();
