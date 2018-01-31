@@ -129,21 +129,6 @@ std::shared_ptr<Room> TopologicalModel::getRoom(std::string name)
     return *(entry.first);
 }
 
-const std::unordered_set<std::shared_ptr<Area>, AreaHash, AreaComperator> &TopologicalModel::getAreas()
-{
-    return this->areas;
-}
-
-const std::unordered_set<std::shared_ptr<Room>, RoomHash, RoomComperator> &TopologicalModel::getRooms()
-{
-    return this->rooms;
-}
-
-const std::unordered_set<std::shared_ptr<Door>, DoorHash, DoorComperator> &TopologicalModel::getDoors()
-{
-    return this->doors;
-}
-
 std::string TopologicalModel::toString()
 {
     std::stringstream ss;

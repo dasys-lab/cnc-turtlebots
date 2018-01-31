@@ -24,9 +24,6 @@ class TopologicalModel
   public:
     TopologicalModel();
     virtual ~TopologicalModel();
-    const std::unordered_set<std::shared_ptr<Area>, AreaHash, AreaComperator> &getAreas();
-    const std::unordered_set<std::shared_ptr<Room>, RoomHash, RoomComperator> &getRooms();
-    const std::unordered_set<std::shared_ptr<Door>, DoorHash, DoorComperator> &getDoors();
 
     std::shared_ptr<POI> getPOI(int id);
     std::shared_ptr<Door> getDoor(std::string name);
