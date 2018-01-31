@@ -25,11 +25,29 @@ DriveToPOI::~DriveToPOI()
 void DriveToPOI::run(void *msg)
 {
     /*PROTECTED REGION ID(run1454329856163) ENABLED START*/ // Add additional options here
+#ifdef DS_TEST
+    this->print();
+
+    // Test Areas
+    auto testArea = *this->areas.find(std::make_shared<Area>("utility"));
+    testArea->blocked = true;
+    this->tpPathPlanner->plan(*this->rooms.find(std::make_shared<Room>("r1406C")), *this->rooms.find(std::make_shared<Room>("r1403")));
+    testArea->blocked = false;
+    testArea = *this->areas.find(std::make_shared<Area>("mainHall"));
+    testArea->blocked = true;
+    this->tpPathPlanner->plan(*this->rooms.find(std::make_shared<Room>("r1406C")), *this->rooms.find(std::make_shared<Room>("r1403")));
+    // Test Doors
+    this->tpPathPlanner->planInsideArea(*this->rooms.find(std::make_shared<Room>("r1411")), *this->areas.find(std::make_shared<Area>("mainHall")));
+    auto testDoor = *this->doors.find(
+        std::make_shared<Door>(*this->rooms.find(std::make_shared<Room>("r1411C")), *this->rooms.find(std::make_shared<Room>("r1411")), "door1"));
+    testDoor->open = false;
+    this->tpPathPlanner->planInsideArea(*this->rooms.find(std::make_shared<Room>("r1411")), *this->areas.find(std::make_shared<Area>("mainHall")));
+#endif
     if (this->goalHandle.isExpired() && this->poiID == 0)
     {
     	std::cout << "DriveToPOI: getting new task " << std::endl;
         auto task = this->wm->taskManager.getNextTask();
-        if (task->getInformation().type == ttb_msgs::ServeTask::DRIVE_TO)
+        if (task && task->getInformation().type == ttb_msgs::ServeTask::DRIVE_TO)
         {
             this->wm->taskManager.popNextTask();
         }
@@ -46,11 +64,14 @@ void DriveToPOI::run(void *msg)
             return;
         }
 
+        this->robot->movement->plan();
+
         move_base_msgs::MoveBaseGoal mbg;
         mbg.target_pose.pose.orientation.w = 1;
         mbg.target_pose.pose.position.x = poi->x;
         mbg.target_pose.pose.position.y = poi->y;
         mbg.target_pose.header.frame_id = "/map";
+
         this->goalHandle = this->robot->movement->send(mbg);
     }
     else if (this->goalHandle.getCommState() == actionlib::CommState::DONE)
@@ -59,7 +80,12 @@ void DriveToPOI::run(void *msg)
     	{
     		this->setSuccess(true);
     	}
+    	else if (this->goalHandle.getTerminalState().state_ == actionlib::TerminalState::ABORTED)
+    	{
+    		this->setFailure(true);
+    	}
     }
+    std::cout << "DriveToPOI: CommState: " << this->goalHandle.getCommState().toString() << " TerminalState: " << this->goalHandle.getTerminalState().toString() << std::endl;
     /*PROTECTED REGION END*/
 }
 void DriveToPOI::initialiseParameters()

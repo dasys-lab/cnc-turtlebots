@@ -139,7 +139,7 @@ bool TransitionCondition1486383787970::evaluate(shared_ptr<RunningPlan> rp)
 bool TransitionCondition1454331503425::evaluate(shared_ptr<RunningPlan> rp)
 {
     /*PROTECTED REGION ID(1454331501621) ENABLED START*/
-    return rp->anyChildrenStatus(PlanStatus::Success);
+    return rp->anyChildrenStatus(PlanStatus::Success) || rp->anyChildrenStatus(PlanStatus::Failed);
     /*PROTECTED REGION END*/
 }
 

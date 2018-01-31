@@ -74,7 +74,7 @@ Communication::Communication(ttb::TTBWorldModel *wm)
     imuDataSub = n.subscribe(topic, 10, &Communication::onImu, (Communication *)this);
 
     topic = (*sc)["TTBWorldModel"]->get<string>("Data.RobotCommand.Topic", NULL);
-    robotOnOffSub = n.subscribe(topic, 10, &Communication::onRobotCommand, (Communication *)this);
+    robotCommandSub = n.subscribe(topic, 10, &Communication::onRobotCommand, (Communication *)this);
 
     topic = (*sc)["TTBWorldModel"]->get<string>("Data.ServeTask.Topic", NULL);
     serveTaskSub = n.subscribe(topic, 10, &Communication::onServeTask, (Communication *)this);

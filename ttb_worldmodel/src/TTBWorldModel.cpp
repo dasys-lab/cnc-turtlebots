@@ -1,11 +1,12 @@
 #include "TTBWorldModel.h"
 
-#include "engine/AlicaEngine.h"
-#include "engine/IAlicaClock.h"
-#include <nav_msgs/Odometry.h>
-
+#include "Communication.h"
 #include "RawSensorData.h"
 #include "WrappedMessageHandler.h"
+
+#include <engine/AlicaEngine.h>
+#include <engine/IAlicaClock.h>
+#include <nav_msgs/Odometry.h>
 
 namespace ttb
 {
@@ -28,6 +29,11 @@ TTBWorldModel::TTBWorldModel() :
 TTBWorldModel::~TTBWorldModel()
 {
 	delete this->communication;
+}
+
+void TTBWorldModel::init()
+{
+	this->communication = new wm::Communication(this);
 }
 
 bool TTBWorldModel::isUsingSimulator()

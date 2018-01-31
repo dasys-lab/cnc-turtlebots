@@ -11,14 +11,14 @@ class Robot
 {
   public:
 	virtual ~Robot();
-	static Robot *get(); /**< Singleton Getter */
+	static Robot *get(ttb::TTBWorldModel *wm); /**< Singleton Getter */
 
 	robot::SimulatedArm* simulatedArm;
 	robot::Movement* movement;
 	robot::Speech* speech;
 
   private:
-	Robot();
+	Robot(ttb::TTBWorldModel *wm);
 };
 
 } /* namespace ttb */

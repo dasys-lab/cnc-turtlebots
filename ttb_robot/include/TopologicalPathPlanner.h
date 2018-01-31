@@ -13,13 +13,18 @@ namespace wm
 class Door;
 class Room;
 class Area;
+class TopologicalModel;
+}
+namespace robot
+{
+
 namespace pathPlanning
 {
-class TopologicalModel;
+
 class TopologicalPathPlanner
 {
   public:
-    TopologicalPathPlanner(TopologicalModel *ds);
+    TopologicalPathPlanner(wm::TopologicalModel *ds);
     virtual ~TopologicalPathPlanner();
     /*
      * Returns a vector of Areas
@@ -35,12 +40,12 @@ class TopologicalPathPlanner
     std::vector<std::shared_ptr<ttb::wm::Door>> planInsideArea(std::shared_ptr<ttb::wm::Room> start, std::shared_ptr<ttb::wm::Area> goal);
 
   private:
-    TopologicalModel *topologicalModel;
+    wm::TopologicalModel *topologicalModel;
     bool areaBreadthSearch(std::vector<std::shared_ptr<ttb::wm::Area>> &fringe,
                            std::map<std::shared_ptr<ttb::wm::Area>, std::shared_ptr<ttb::wm::Area>> &visited, std::shared_ptr<ttb::wm::Area> goal);
     std::shared_ptr<ttb::wm::Room> roomBreadthSearch(std::vector<std::shared_ptr<ttb::wm::Room>> &fringe,
                                                      std::map<std::shared_ptr<ttb::wm::Room>, std::shared_ptr<ttb::wm::Room>> &visited,
-                                                     std::shared_ptr<Area> goal);
+                                                     std::shared_ptr<ttb::wm::Area> goal);
 };
 }
 } /* namespace wm */

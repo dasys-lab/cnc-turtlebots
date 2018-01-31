@@ -17,15 +17,20 @@ namespace supplementary {
 
 namespace ttb
 {
+class TTBWorldModel;
 namespace robot
 {
+namespace pathPlanning {
+class TopologicalPathPlanner;
+}
 
 class Movement
 {
   public:
-    Movement();
+    Movement(ttb::TTBWorldModel* wm);
     virtual ~Movement();
 
+    std::vector<std::shared_ptr<::ttb::wm::Area>> plan(std::shared_ptr<ttb::wm::Room> start, std::shared_ptr<ttb::wm::Room> goal);
     void send(geometry_msgs::Twist& twist);
     actionlib::ClientGoalHandle<move_base_msgs::MoveBaseAction> send(move_base_msgs::MoveBaseGoal& mbg);
 	void cancelAllGoals();
@@ -33,6 +38,7 @@ class Movement
 
   private:
 	supplementary::SystemConfig* sc;
+	ttb::robot::pathPlanning::TopologicalPathPlanner* topoPlanner;
 	std::string directVelocityCmd;
 	std::string moveBaseActionClientNamespace;
 

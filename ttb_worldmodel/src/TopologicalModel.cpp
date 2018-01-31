@@ -16,24 +16,6 @@ TopologicalModel::TopologicalModel()
 {
     this->sc = supplementary::SystemConfig::getInstance();
     this->readTopologyFromConfig();
-#ifdef DS_TEST
-    this->print();
-
-    // Test Areas
-    auto testArea = *this->areas.find(std::make_shared<Area>("utility"));
-    testArea->blocked = true;
-    this->tpPathPlanner->plan(*this->rooms.find(std::make_shared<Room>("r1406C")), *this->rooms.find(std::make_shared<Room>("r1403")));
-    testArea->blocked = false;
-    testArea = *this->areas.find(std::make_shared<Area>("mainHall"));
-    testArea->blocked = true;
-    this->tpPathPlanner->plan(*this->rooms.find(std::make_shared<Room>("r1406C")), *this->rooms.find(std::make_shared<Room>("r1403")));
-    // Test Doors
-    this->tpPathPlanner->planInsideArea(*this->rooms.find(std::make_shared<Room>("r1411")), *this->areas.find(std::make_shared<Area>("mainHall")));
-    auto testDoor = *this->doors.find(
-        std::make_shared<Door>(*this->rooms.find(std::make_shared<Room>("r1411C")), *this->rooms.find(std::make_shared<Room>("r1411")), "door1"));
-    testDoor->open = false;
-    this->tpPathPlanner->planInsideArea(*this->rooms.find(std::make_shared<Room>("r1411")), *this->areas.find(std::make_shared<Area>("mainHall")));
-#endif
 }
 
 TopologicalModel::~TopologicalModel()
@@ -53,12 +35,16 @@ void TopologicalModel::readTopologyFromConfig()
         }
         if (room->pois.size() == 0)
         {
-            auto poisIDStrings = (*sc)["TopologicalModel"]->tryGetSections("DistributedSystems.Rooms", roomName.c_str(), "POIs", NULL);
-            if (!poisIDStrings)
+            shared_ptr<vector<string>> poisIDStrings;
+            try
+            {
+                poisIDStrings = (*sc)["TopologicalModel"]->getSections("DistributedSystems.Rooms", roomName.c_str(), "POIs", NULL);
+            }
+            catch (exception &e)
             {
                 continue;
             }
-            for (auto &poiIDString : *poisIDStrings)
+            for (auto poiIDString : *poisIDStrings)
             {
                 auto poi = getPOI(std::stoi(poiIDString));
                 poi->x = (*sc)["TopologicalModel"]->get<int>("DistributedSystems.Rooms", roomName.c_str(), "POIs", poiIDString.c_str(), "X", NULL);
@@ -76,19 +62,16 @@ void TopologicalModel::readTopologyFromConfig()
         auto door = this->getDoor(doorName);
         if (!door->topologicalDoor)
         {
-            auto fromRoomName =
-                (*sc)["TopologicalModel"]->get<std::string>("DistributedSystems.Doors", doorName, "from", NULL);
-            auto toRoomName =
-                (*sc)["TopologicalModel"]->get<std::string>("DistributedSystems.Doors", doorName, "to", NULL);
-            door->topologicalDoor =
-                std::make_shared<TopologicalDoor>(this->getRoom(fromRoomName), this->getRoom(toRoomName));
-            if ((*sc)["TopologicalModel"]->tryGet<bool>(false, "DistributedSystems.Doors", doorName, "areaDoor", NULL))
+            auto fromRoomName = (*sc)["TopologicalModel"]->get<std::string>("DistributedSystems.Doors", doorName.c_str(), "from", NULL);
+            auto toRoomName = (*sc)["TopologicalModel"]->get<std::string>("DistributedSystems.Doors", doorName.c_str(), "to", NULL);
+            door->topologicalDoor = std::make_shared<TopologicalDoor>(this->getRoom(fromRoomName), this->getRoom(toRoomName));
+            if ((*sc)["TopologicalModel"]->tryGet<bool>(false, "DistributedSystems.Doors", doorName.c_str(), "areaDoor", NULL))
             {
                 door->topologicalDoor->fromArea = door->topologicalDoor->fromRoom->area;
                 door->topologicalDoor->toArea = door->topologicalDoor->toRoom->area;
             }
-            door->topologicalDoor->fromPOI = getPOI((*sc)["TopologicalModel"]->get<int>("DistributedSystems.Doors", doorName, "fromPOI", NULL));
-            door->topologicalDoor->toPOI = getPOI((*sc)["TopologicalModel"]->get<int>("DistributedSystems.Doors", doorName, "toPOI", NULL));
+            door->topologicalDoor->fromPOI = getPOI((*sc)["TopologicalModel"]->get<int>("DistributedSystems.Doors", doorName.c_str(), "fromPOI", NULL));
+            door->topologicalDoor->toPOI = getPOI((*sc)["TopologicalModel"]->get<int>("DistributedSystems.Doors", doorName.c_str(), "toPOI", NULL));
         }
     }
 }

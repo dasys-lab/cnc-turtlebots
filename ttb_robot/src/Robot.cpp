@@ -3,15 +3,15 @@
 namespace ttb
 {
 
-Robot *Robot::get()
+Robot *Robot::get(ttb::TTBWorldModel* wm)
 {
-    static Robot instance;
+    static Robot instance(wm);
     return &instance;
 }
 
-Robot::Robot()
+Robot::Robot(ttb::TTBWorldModel* wm)
 {
-	this->movement = new robot::Movement();
+	this->movement = new robot::Movement(wm);
 	this->simulatedArm = new robot::SimulatedArm();
 	this->speech = new robot::Speech();
 }

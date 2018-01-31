@@ -1,5 +1,7 @@
 #include "robot/Movement.h"
 
+#include "TopologicalPathPlanner.h"
+#include <TTBWorldModel.h>
 #include <SystemConfig.h>
 
 namespace ttb
@@ -7,8 +9,9 @@ namespace ttb
 namespace robot
 {
 
-Movement::Movement()
+Movement::Movement(ttb::TTBWorldModel* wm)
 {
+	this->topoPlanner = new ttb::robot::pathPlanning::TopologicalPathPlanner(&(wm->topologicalModel));
 	this->sc = supplementary::SystemConfig::getInstance();
 	this->directVelocityCmd = (*sc)["Drive"]->get<std::string>("Topics.DirectVelocityCmd", NULL);
 	this->directVelocityCmdPub = n.advertise<geometry_msgs::Twist>(directVelocityCmd, 10);
@@ -19,6 +22,13 @@ Movement::Movement()
 
 Movement::~Movement()
 {
+}
+
+// PATH PLANNER
+
+std::vector<std::shared_ptr<::ttb::wm::Area>> Movement::plan(std::shared_ptr<ttb::wm::Room> start, std::shared_ptr<ttb::wm::Room> goal)
+{
+	return this->topoPlanner->plan(start, goal);
 }
 
 // MOVE BASE STUFF

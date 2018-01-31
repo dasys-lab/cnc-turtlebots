@@ -18,10 +18,10 @@ LogicalObject::LogicalObject(ttb_msgs::LogicalCameraPtr logicalCameraData, std::
     , poses(nullptr)
 {
     supplementary::SystemConfig *sc = supplementary::SystemConfig::getInstance();
-    this->maxValidityDuration = (*sc)["LogicalCamera"]->get<supplementary::InfoTime>("LogicalCamera", configSectionName,
+    this->maxValidityDuration = (*sc)["LogicalCamera"]->get<supplementary::InfoTime>("LogicalCamera", configSectionName.c_str(),
                                                                                      "ValidityDuration", NULL);
     this->poses = new supplementary::InfoBuffer<geometry_msgs::Pose2D>(
-        (*sc)["LogicalCamera"]->get<supplementary::InfoTime>("LogicalCamera", configSectionName, "BufferLength", NULL));
+        (*sc)["LogicalCamera"]->get<supplementary::InfoTime>("LogicalCamera", configSectionName.c_str(), "BufferLength", NULL));
 
     this->processData(logicalCameraData);
 }

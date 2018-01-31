@@ -10,11 +10,11 @@
 
 namespace ttb
 {
-namespace wm
+namespace robot
 {
 namespace pathPlanning
 {
-TopologicalPathPlanner::TopologicalPathPlanner(TopologicalModel *ds)
+TopologicalPathPlanner::TopologicalPathPlanner(wm::TopologicalModel *ds)
     : topologicalModel(ds)
 {
 }

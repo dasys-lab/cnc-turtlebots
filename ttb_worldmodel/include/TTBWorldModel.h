@@ -30,6 +30,7 @@ class TTBWorldModel : public supplementary::WorldModel
     static TTBWorldModel *get(); /**< Singleton Getter */
 
     virtual ~TTBWorldModel();
+    void init();
     bool isUsingSimulator();
     void enableUsingSimulator();
 

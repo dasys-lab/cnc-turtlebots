@@ -78,7 +78,7 @@ class Communication
     ros::Subscriber jointStateSub;
     ros::Subscriber cliffEventsSub;
     ros::Subscriber cameraImageRawSub;
-    ros::Subscriber robotOnOffSub;
+    ros::Subscriber robotCommandSub;
     ros::Subscriber mobileBaseSensorStateSub;
     ros::Subscriber dockInfrRedSub;
     ros::Subscriber amclPoseSub;
