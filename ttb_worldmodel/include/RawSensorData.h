@@ -25,6 +25,11 @@ ROS_DECLARE_MESSAGE(LaserScan)
 ROS_DECLARE_MESSAGE(Image)
 }
 
+namespace geometry_msgs
+{
+ROS_DECLARE_MESSAGE(PoseWithCovarianceStamped)
+}
+
 namespace kobuki_msgs
 {
 ROS_DECLARE_MESSAGE(SensorState)
@@ -79,12 +84,12 @@ class RawSensorData
     void processDockInfrRed(kobuki_msgs::DockInfraRed dockInfrRed);
     void processServeTask(ttb_msgs::ServeTask serveTask);
     void processLogicalCamera(ttb_msgs::LogicalCameraPtr logicalCamera);
-    void processGazeboMsg(geometry_msgs::Pose gazeboMsg);
+    void processAMCLPose(geometry_msgs::PoseWithCovarianceStamped msg);
 
     // data access through public buffers
     const supplementary::InfoBuffer<std::shared_ptr<nav_msgs::Odometry>>* getOdometryBuffer();
     const supplementary::InfoBuffer<geometry::CNPositionAllo>* getOdomPositionBuffer();
-    const supplementary::InfoBuffer<geometry::CNPositionAllo>* getGazeboPositionBuffer(); // TODO: fuse this with normal Buffer above
+    const supplementary::InfoBuffer<geometry::CNPositionAllo> *getAMCLPositionBuffer();
     const supplementary::InfoBuffer<geometry::CNVecAllo>* getOdomVelocityBuffer(); // TODO: Check whether vector is allo or ego
     const supplementary::InfoBuffer<std::shared_ptr<sensor_msgs::LaserScan>>* getLaserScanBuffer();
     const supplementary::InfoBuffer<kobuki_msgs::BumperEvent>* getBumperEventBuffer();
@@ -155,8 +160,8 @@ class RawSensorData
     supplementary::InfoBuffer<kobuki_msgs::DockInfraRed>* dockInfrRedBuffer;
 
     // simulation only stuff
-    supplementary::InfoTime gazeboPositionValidityDuration;
-    supplementary::InfoBuffer<geometry::CNPositionAllo>* gazeboPositionBuffer;
+    supplementary::InfoTime amclPositionValidityDuration;
+    supplementary::InfoBuffer<geometry::CNPositionAllo>* amclPositionBuffer;
 
     supplementary::InfoTime logicalCameraValidityDuration;
     supplementary::InfoBuffer<std::shared_ptr<ttb_msgs::LogicalCamera>>* logicalCameraBuffer;

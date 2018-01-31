@@ -7,6 +7,7 @@
 #include <SystemConfig.h>
 #include <ar_track_alvar_msgs/AlvarMarker.h>
 #include <ar_track_alvar_msgs/AlvarMarkers.h>
+#include <geometry_msgs/PoseWithCovarianceStamped.h>
 #include <kobuki_msgs/BumperEvent.h>
 #include <kobuki_msgs/DockInfraRed.h>
 #include <robot_control/RobotCommand.h>
@@ -98,12 +99,12 @@ RawSensorData::RawSensorData(TTBWorldModel *wm)
     this->rawCameraImageBuffer = new InfoBuffer<std::shared_ptr<sensor_msgs::Image>>(
         (*sc)["TTBWorldModel"]->get<int>("Data.RawCameraImage.BufferLength", NULL));
 
-    // simulation data buffers
-    this->gazeboPositionValidityDuration =
-        (*sc)["TTBWorldModel"]->get<int>("Data.GazeboPosition.ValidityDuration", NULL);
-    this->gazeboPositionBuffer = new InfoBuffer<geometry::CNPositionAllo>(
-        (*sc)["TTBWorldModel"]->get<int>("Data.GazeboPosition.BufferLength", NULL));
+    this->amclPositionValidityDuration =
+            (*sc)["TTBWorldModel"]->get<int>("Data.AMCLPose.ValidityDuration", NULL);
+    this->amclPositionBuffer = new InfoBuffer<geometry::CNPositionAllo>(
+            (*sc)["TTBWorldModel"]->get<int>("Data.AMCLPose.BufferLength", NULL));
 
+    // simulation data buffers
     this->logicalCameraValidityDuration = (*sc)["TTBWorldModel"]->get<int>("Data.LogicalCamera.ValidityDuration", NULL);
     this->logicalCameraBuffer = new InfoBuffer<std::shared_ptr<ttb_msgs::LogicalCamera>>(
         (*sc)["TTBWorldModel"]->get<int>("Data.LogicalCamera.BufferLength", NULL));
@@ -229,14 +230,15 @@ void RawSensorData::processOdometry(nav_msgs::OdometryPtr odometry)
     odometryBuffer->add(ownOdomScanInfo);
 }
 
-void RawSensorData::processGazeboMsg(geometry_msgs::Pose gazeboMsg)
+void RawSensorData::processAMCLPose(geometry_msgs::PoseWithCovarianceStamped msg)
 {
-    // Position
-    auto position = geometry::CNPositionAllo(gazeboMsg.position.x, gazeboMsg.position.y,
-                                             gazeboMsg.orientation.z / gazeboMsg.orientation.w);
-    auto positionInfo = make_shared<InformationElement<geometry::CNPositionAllo>>(position, wm->getTime(),
-                                                                                  gazeboPositionValidityDuration, 1.0);
-    gazeboPositionBuffer->add(positionInfo);
+    auto postion = geometry::CNPositionAllo(msg.pose.pose.position.x, msg.pose.pose.position.y,
+                                            msg.pose.pose.orientation.z / msg.pose.pose.orientation.w);
+
+    auto positionInfo = make_shared<InformationElement<geometry::CNPositionAllo>>(postion, wm->getTime(),
+                                                                                  amclPositionValidityDuration, 1.0);
+
+    amclPositionBuffer->add(positionInfo);
 }
 
 void RawSensorData::processRawCameraImage(sensor_msgs::ImagePtr rawCameraImage)
@@ -290,97 +292,96 @@ void RawSensorData::processLogicalCamera(ttb_msgs::LogicalCameraPtr logicalCamer
 }
 const supplementary::InfoBuffer<std::shared_ptr<nav_msgs::Odometry>> *RawSensorData::getOdometryBuffer()
 {
-	return this->odometryBuffer;
+    return this->odometryBuffer;
 }
 
 const supplementary::InfoBuffer<geometry::CNPositionAllo> *RawSensorData::getOdomPositionBuffer()
 {
-	return this->odomPositionBuffer;
+    return this->odomPositionBuffer;
 }
 
-const supplementary::InfoBuffer<geometry::CNPositionAllo> *RawSensorData::getGazeboPositionBuffer()
+const supplementary::InfoBuffer<geometry::CNPositionAllo> *RawSensorData::getAMCLPositionBuffer()
 {
-	return this->gazeboPositionBuffer;
+    return this->amclPositionBuffer;
 }
 
 const supplementary::InfoBuffer<geometry::CNVecAllo> *RawSensorData::getOdomVelocityBuffer()
 {
-	return this->odomVelocityBuffer;
+    return this->odomVelocityBuffer;
 }
 
 const supplementary::InfoBuffer<std::shared_ptr<sensor_msgs::LaserScan>> *RawSensorData::getLaserScanBuffer()
 {
-	return this->laserScanBuffer;
+    return this->laserScanBuffer;
 }
 
 const supplementary::InfoBuffer<kobuki_msgs::BumperEvent> *RawSensorData::getBumperEventBuffer()
 {
-	return this->bumperEventBuffer;
+    return this->bumperEventBuffer;
 }
 
 const supplementary::InfoBuffer<std::shared_ptr<sensor_msgs::PointCloud2>> *RawSensorData::getBumperCloudBuffer()
 {
-	return this->bumperCloudBuffer;
+    return this->bumperCloudBuffer;
 }
 
 const supplementary::InfoBuffer<std::shared_ptr<sensor_msgs::PointCloud2>> *RawSensorData::getDepthCameraCloudBuffer()
 {
-	return this->depthCameraCloudBuffer;
+    return this->depthCameraCloudBuffer;
 }
 
 const supplementary::InfoBuffer<sensor_msgs::Imu> *RawSensorData::getImuDataBuffer()
 {
-	return this->imuDataBuffer;
+    return this->imuDataBuffer;
 }
 
 const supplementary::InfoBuffer<kobuki_msgs::CliffEvent> *RawSensorData::getCliffEventBuffer()
 {
-	return this->cliffEventBuffer;
+    return this->cliffEventBuffer;
 }
 
 const supplementary::InfoBuffer<std::shared_ptr<sensor_msgs::Image>> *RawSensorData::getRawCameraImageBuffer()
 {
-	return this->rawCameraImageBuffer;
+    return this->rawCameraImageBuffer;
 }
 
 const supplementary::InfoBuffer<robot_control::RobotCommand> *RawSensorData::getRobotCommandBuffer()
 {
-	return this->robotCommandBuffer;
+    return this->robotCommandBuffer;
 }
 
-const supplementary::InfoBuffer<std::shared_ptr<kobuki_msgs::SensorState>> *RawSensorData::getMobileBaseSensorStateBuffer()
+const supplementary::InfoBuffer<std::shared_ptr<kobuki_msgs::SensorState>> *
+RawSensorData::getMobileBaseSensorStateBuffer()
 {
-	return this->mobileBaseSensorStateBuffer;
+    return this->mobileBaseSensorStateBuffer;
 }
 
 const supplementary::InfoBuffer<kobuki_msgs::DockInfraRed> *RawSensorData::getDockInfrRedBuffer()
 {
-	return this->dockInfrRedBuffer;
+    return this->dockInfrRedBuffer;
 }
 
 const supplementary::InfoBuffer<ttb_msgs::ServeTask> *RawSensorData::getServeTaskBuffer()
 {
-	return this->serveTaskBuffer;
+    return this->serveTaskBuffer;
 }
 
 const supplementary::InfoBuffer<geometry_msgs::PoseStamped> *RawSensorData::getAlvarMarkerBuffer(unsigned int id)
 {
-	auto mapEntry = this->alvarMarkerMap.find(id);
-	if (mapEntry != this->alvarMarkerMap.end())
-	{
-		return (mapEntry->second.get());
-	}
-	else
-	{
-		return nullptr;
-	}
+    auto mapEntry = this->alvarMarkerMap.find(id);
+    if (mapEntry != this->alvarMarkerMap.end())
+    {
+        return (mapEntry->second.get());
+    }
+    else
+    {
+        return nullptr;
+    }
 }
 
 const supplementary::InfoBuffer<std::shared_ptr<ttb_msgs::LogicalCamera>> *RawSensorData::getLogicalCameraBuffer()
 {
-	return this->logicalCameraBuffer;
+    return this->logicalCameraBuffer;
 }
-
 }
 } /* namespace ttb */
-
