@@ -47,6 +47,7 @@ TopologicalModel::~TopologicalModel()
 
 void TopologicalModel::readTopologyFromConfig()
 {
+	// Read rooms with its connected areas and pois from config
     auto roomNames = (*sc)["TopologicalModel"]->getSections("DistributedSystems.Rooms", NULL);
     for (auto &roomName : *roomNames)
     {
@@ -77,6 +78,7 @@ void TopologicalModel::readTopologyFromConfig()
         }
     }
 
+    // Read doors with its connected rooms and pois from config
     auto doorNames = (*sc)["TopologicalModel"]->getSections("DistributedSystems.Doors", NULL);
     for (auto &doorName : *doorNames)
     {
@@ -127,20 +129,6 @@ std::shared_ptr<Room> TopologicalModel::getRoom(std::string name)
     return *(entry.first);
 }
 
-std::shared_ptr<POI> TopologicalModel::getPOIByID(int id)
-{
-    shared_ptr<POI> ret = nullptr;
-    for (auto poi : this->pois)
-    {
-        if (poi->id == id)
-        {
-            ret = poi;
-            break;
-        }
-    }
-    return ret;
-}
-
 const std::unordered_set<std::shared_ptr<Area>, AreaHash, AreaComperator> &TopologicalModel::getAreas()
 {
     return this->areas;
@@ -156,7 +144,7 @@ const std::unordered_set<std::shared_ptr<Door>, DoorHash, DoorComperator> &Topol
     return this->doors;
 }
 
-void TopologicalModel::print()
+std::string TopologicalModel::toString()
 {
     std::stringstream ss;
     ss << "Areas: " << std::endl;
@@ -169,13 +157,12 @@ void TopologicalModel::print()
     {
         ss << room->toString();
     }
-    ss << "Doors:: " << std::endl;
+    ss << "Doors: " << std::endl;
     for (auto door : this->doors)
     {
         ss << "\t" << door->topologicalDoor->toString();
     }
-    std::cout << ss.str() << std::endl;
-    std::cout << ss.str() << std::endl;
+    return ss.str();
 }
 } /* namespace wm */
 } /* namespace ttb */

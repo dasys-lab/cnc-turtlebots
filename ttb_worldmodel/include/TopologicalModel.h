@@ -32,9 +32,8 @@ class TopologicalModel
     std::shared_ptr<Door> getDoor(std::string name);
     std::shared_ptr<Area> getArea(std::string name);
     std::shared_ptr<Room> getRoom(std::string name);
-    std::shared_ptr<POI> getPOIByID(int id);
 
-    void print();
+    std::string toString();
 
   private:
     std::unordered_set<std::shared_ptr<Area>, AreaHash, AreaComperator> areas;
