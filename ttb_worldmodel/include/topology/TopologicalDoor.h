@@ -22,7 +22,8 @@ class TopologicalDoor
     std::shared_ptr<Room> toRoom;
     std::shared_ptr<Area> fromArea;
     std::shared_ptr<Area> toArea;
-    std::vector<std::shared_ptr<POI>> pois;
+    std::shared_ptr<POI> fromPOI;
+    std::shared_ptr<POI> toPOI;
 };
 
 } /* namespace wm */
