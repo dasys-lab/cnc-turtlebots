@@ -1,6 +1,7 @@
 #pragma once
 
 #include <ttb_msgs/GrabDropObject.h>
+#include <ttb_msgs/DoorCmd.h>
 
 #include <ros/ros.h>
 #include <string>
@@ -27,12 +28,14 @@ class SimulatedArm
     bool drobObject(std::string objectName);
     SimulatedArm::ObjectInteraction mayInteractWithObject();
     void onOwnArmCmd(ttb_msgs::GrabDropObjectPtr msg);
+    void moveDoor(std::string doorName, bool open);
 
   private:
     std::string carriedObjectName;
     std::string requestedObject;
     ros::Publisher armCmdPub;
     ros::Subscriber armCmdSub;
+    ros::Publisher doorCmdPub;
     //TODO: implement arm range as soon as logical camera sensor is available
     double armRange;
 

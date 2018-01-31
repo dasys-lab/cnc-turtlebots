@@ -12,16 +12,18 @@ namespace robot
 
 SimulatedArm::SimulatedArm()
 {
-	this->wm = ttb::TTBWorldModel::get();
+    this->wm = ttb::TTBWorldModel::get();
     this->sc = supplementary::SystemConfig::getInstance();
     this->carriedObjectName = "";
     this->requestedObject = "";
     this->armRange = (*this->sc)["SimulatedArm"]->get<double>("SimulatedArm.Range", NULL);
     ros::NodeHandle n;
+    this->doorCmdPub = n.advertise<ttb_msgs::DoorCmd>("/DoorCmd", 5, false);
     this->armCmdPub = n.advertise<ttb_msgs::GrabDropObject>("/ArmCmd", 5, false);
     this->robotName = this->sc->getHostname();
     std::string ownTopic = "/" + this->robotName + "/ArmCmd";
     this->armCmdSub = n.subscribe(ownTopic.c_str(), 10, &SimulatedArm::onOwnArmCmd, (SimulatedArm *)this);
+
     this->interactWithObject = ObjectInteraction::waiting;
     spinner = new ros::AsyncSpinner(4);
     spinner->start();
@@ -31,6 +33,21 @@ SimulatedArm::~SimulatedArm()
 {
     spinner->stop();
     delete spinner;
+}
+
+void SimulatedArm::moveDoor(std::string doorName, bool open)
+{
+    ttb_msgs::DoorCmd msg;
+    msg.name = doorName;
+    if (open)
+    {
+        msg.state = ttb_msgs::DoorCmd::OPEN;
+    }
+    else
+    {
+        msg.state = ttb_msgs::DoorCmd::CLOSE;
+    }
+    this->doorCmdPub.publish(msg);
 }
 
 const std::string &SimulatedArm::getCarriedObjectName() const
