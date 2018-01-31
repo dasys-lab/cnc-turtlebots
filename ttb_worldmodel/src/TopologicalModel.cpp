@@ -86,7 +86,6 @@ void TopologicalModel::readTopologyFromConfig()
     auto doorNames = (*sc)["TopologicalModel"]->getSections("DistributedSystems.Doors", NULL);
     for (auto &doorName : *doorNames)
     {
-    	std::cout << "Door: " << doorName << std::endl;
         auto door = this->getDoor(doorName);
         if (!door->topologicalDoor)
         {
