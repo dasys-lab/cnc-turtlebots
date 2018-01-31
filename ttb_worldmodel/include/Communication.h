@@ -5,10 +5,10 @@
 #include <ros/ros.h>
 // TODO: forward declare the message with the ros macro (see MSL WorldModel)
 #include <ar_track_alvar_msgs/AlvarMarkers.h>
-#include <gazebo_msgs/ModelStates.h>
 #include <geometry_msgs/Twist.h>
 #include <kobuki_msgs/BumperEvent.h>
 #include <geometry_msgs/Twist.h>
+#include <geometry_msgs/PoseWithCovarianceStamped.h>
 #include <sensor_msgs/JointState.h>
 #include <kobuki_msgs/CliffEvent.h>
 #include <kobuki_msgs/DockInfraRed.h>
@@ -55,7 +55,7 @@ class Communication
     void onMobileBaseSensorState(kobuki_msgs::SensorStatePtr mobileBaseSensorState);
     void onDockInfrRed(kobuki_msgs::DockInfraRed dockInfrRed);
     void onServeTask(ttb_msgs::ServeTask serveTask);
-    void onGazeboModelState(gazebo_msgs::ModelStatesPtr msg);
+    void onAMCLPose(geometry_msgs::PoseWithCovarianceStamped msg);
     void onLogicalCamera(ttb_msgs::LogicalCameraPtr logicalCamera);
 
     ttb::TTBWorldModel *wm;
@@ -81,7 +81,7 @@ class Communication
     ros::Subscriber robotOnOffSub;
     ros::Subscriber mobileBaseSensorStateSub;
     ros::Subscriber dockInfrRedSub;
-    ros::Subscriber gazeboWorldModelSub;
+    ros::Subscriber amclPoseSub;
     ros::Subscriber logicalCameraSensorSub;
 
     WrappedMessageHandler *wrappedMessageHandler;

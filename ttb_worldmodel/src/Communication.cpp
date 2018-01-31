@@ -26,9 +26,6 @@ Communication::Communication(ttb::TTBWorldModel *wm)
     	std::cout << "Comm: In SIMULATION mode." << std::endl;
 #endif
     	// for simulated robot only
-        topic = (*sc)["TTBWorldModel"]->get<string>("Data.GazeboPosition.Topic", NULL);
-        gazeboWorldModelSub = n.subscribe(topic, 10, &Communication::onGazeboModelState, (Communication *)this);
-
         topic = (*sc)["TTBWorldModel"]->get<string>("Data.LogicalCamera.Topic", NULL);
         logicalCameraSensorSub = n.subscribe(topic, 10, &Communication::onLogicalCamera, (Communication *)this);
     }
@@ -48,6 +45,9 @@ Communication::Communication(ttb::TTBWorldModel *wm)
         topic = (*sc)["TTBWorldModel"]->get<string>("Data.AlvarMarker.Topic", NULL);
         alvarSub = n.subscribe(topic, 10, &Communication::onAlvarMarkers, (Communication *)this);
     }
+
+    topic = (*sc)["TTBWorldModel"]->get<string>("Data.AMCLPose.Topic", NULL);
+    amclPoseSub = n.subscribe(topic, 10, &Communication::onAMCLPose, (Communication *)this);
 
     topic = (*sc)["TTBWorldModel"]->get<string>("Data.RawCameraImage.Topic", NULL);
     cameraImageRawSub = n.subscribe(topic, 10, &Communication::onRawCameraImage, (Communication *)this);
@@ -171,22 +171,14 @@ void Communication::onServeTask(ttb_msgs::ServeTask serveTask)
     }
 }
 
-void Communication::onGazeboModelState(gazebo_msgs::ModelStatesPtr msg)
+void Communication::onAMCLPose(geometry_msgs::PoseWithCovarianceStamped msg)
 {
-    if (!this->wm->isUsingSimulator())
-        cout << "TTBWorldModel: Did you forget to start the base with '-sim'?" << endl;
+	if (this->wm->isUsingSimulator())
+	{	// this data is send by the "fake_localization" node in case of a simulator scenario
+	    this->timeLastSimMsgReceived = this->wm->getTime();
+	}
 
-    this->timeLastSimMsgReceived = this->wm->getTime();
-
-    // find model, including position of local robot
-    int modelCnt = msg->name.size();
-    for (int i = 0; i < modelCnt; i++)
-    {
-        if (msg->name[i].compare(supplementary::SystemConfig::getHostname()) == 0)
-        {
-            this->wm->rawSensorData.processGazeboMsg(msg->pose[i]);
-        }
-    }
+	this->wm->rawSensorData.processAMCLPose(msg);
 }
 
 void Communication::onLogicalCamera(ttb_msgs::LogicalCameraPtr logicalCamera)

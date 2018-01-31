@@ -76,9 +76,12 @@ void TopologicalModel::readTopologyFromConfig()
         auto door = this->getDoor(doorName);
         if (!door->topologicalDoor)
         {
-            auto fromRoomName = (*sc)["TopologicalModel"]->get<std::string>("DistributedSystems.Doors", doorName, "from", NULL);
-            auto toRoomName = (*sc)["TopologicalModel"]->get<std::string>("DistributedSystems.Doors", doorName, "to", NULL);
-            door->topologicalDoor = std::make_shared<TopologicalDoor>(this->getRoom(fromRoomName), this->getRoom(toRoomName));
+            auto fromRoomName =
+                (*sc)["TopologicalModel"]->get<std::string>("DistributedSystems.Doors", doorName, "from", NULL);
+            auto toRoomName =
+                (*sc)["TopologicalModel"]->get<std::string>("DistributedSystems.Doors", doorName, "to", NULL);
+            door->topologicalDoor =
+                std::make_shared<TopologicalDoor>(this->getRoom(fromRoomName), this->getRoom(toRoomName));
             if ((*sc)["TopologicalModel"]->tryGet<bool>(false, "DistributedSystems.Doors", doorName, "areaDoor", NULL))
             {
                 door->topologicalDoor->fromArea = door->topologicalDoor->fromRoom->area;
