@@ -12,7 +12,6 @@ Door::Door(std::string name) : open(true), gazeboModel(nullptr)
 
 Door::~Door()
 {
-
 }
 
 std::size_t Door::hash() const

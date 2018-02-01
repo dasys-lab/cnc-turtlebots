@@ -25,6 +25,15 @@ LogicalCameraData::~LogicalCameraData()
 {
 }
 
+void LogicalCameraData::addLogicalObject(std::string name, std::shared_ptr<LogicalObject> model)
+{
+	auto logicalObjectEntry = this->dict.find(name);
+	if (logicalObjectEntry == this->dict.end())
+	{
+		this->dict[name] = model;
+	}
+}
+
 void LogicalCameraData::processLogicalCamera(ttb_msgs::LogicalCameraPtr logicalCameraData)
 {
     std::string name = logicalCameraData->modelName;

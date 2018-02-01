@@ -21,6 +21,7 @@ namespace wm
 class LogicalObject
 {
   public:
+	LogicalObject(std::string modelName, std::string configSectionName);
     LogicalObject(ttb_msgs::LogicalCameraPtr logicalCameraData, std::string configSectionName);
     virtual ~LogicalObject();
 

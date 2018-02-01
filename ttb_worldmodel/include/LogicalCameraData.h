@@ -23,6 +23,7 @@ class LogicalCameraData
     LogicalCameraData(ttb::TTBWorldModel *wm);
     virtual ~LogicalCameraData();
 
+    void addLogicalObject(std::string name, std::shared_ptr<LogicalObject> model);
     void processLogicalCamera(ttb_msgs::LogicalCameraPtr logicalCameraData);
     friend std::ostream &operator<<(std::ostream &os, const LogicalCameraData &camData)
     {

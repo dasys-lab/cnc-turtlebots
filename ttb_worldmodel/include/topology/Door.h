@@ -19,7 +19,7 @@ class Door
     std::string name;
     bool open;
     std::string aspExternal;
-    LogicalObject* gazeboModel;
+    std::shared_ptr<LogicalObject> gazeboModel;
     std::shared_ptr<TopologicalDoor> topologicalDoor;
 
 };
