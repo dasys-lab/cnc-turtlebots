@@ -23,6 +23,8 @@ namespace wm
 {
 	class Area;
 	class Room;
+	class Door;
+	class POI;
 }
 namespace robot
 {
@@ -36,6 +38,8 @@ class Movement
   public:
     Movement(ttb::TTBWorldModel *wm);
     virtual ~Movement();
+
+    std::shared_ptr<ttb::wm::POI> getNextPOI(std::shared_ptr<ttb::wm::Room> currentPosition, std::shared_ptr<ttb::wm::POI> goal);
 
     std::vector<std::shared_ptr<wm::Area>> plan(std::shared_ptr<wm::Room> start, std::shared_ptr<wm::Room> goal);
     void send(geometry_msgs::Twist &twist);
@@ -53,6 +57,9 @@ class Movement
     ros::Publisher directVelocityCmdPub;
 
     actionlib::ActionClient<move_base_msgs::MoveBaseAction> *ac;
+    std::vector<std::shared_ptr<ttb::wm::Area>> currentPath;
+    std::shared_ptr<ttb::wm::POI> currentGoal;
+    std::vector<std::shared_ptr<ttb::wm::Door>> currentPathInArea;
 };
 
 } /* namespace robot */

@@ -18,10 +18,19 @@ Movement::Movement(ttb::TTBWorldModel* wm)
 
     this->moveBaseActionClientNamespace = (*sc)["Drive"]->get<string>("Topics.MoveBaseActionClientNamespace", NULL);
     this->ac = new actionlib::ActionClient<move_base_msgs::MoveBaseAction>(moveBaseActionClientNamespace);
+    this->currentGoal = nullptr;
 }
 
 Movement::~Movement()
 {
+}
+
+std::shared_ptr<ttb::wm::POI> Movement::getNextPOI(std::shared_ptr<ttb::wm::Room> currentPosition, std::shared_ptr<ttb::wm::POI> goal)
+{
+	if(!currentGoal || this->currentGoal->id != goal->id)
+	{
+
+	}
 }
 
 // PATH PLANNER
