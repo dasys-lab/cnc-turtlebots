@@ -7,6 +7,7 @@ namespace ttb
 {
 namespace wm
 {
+	class LogicalObject;
 	class Room;
 	class POI
 	{
