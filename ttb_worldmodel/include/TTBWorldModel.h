@@ -1,12 +1,13 @@
 #pragma once
 
-#include "EventTrigger.h"
 #include "LogicalCameraData.h"
 #include "RawSensorData.h"
 #include "SystemConfig.h"
 #include "TaskManager.h"
 #include "Communication.h"
 #include "TopologicalModel.h"
+
+#include <supplementary/EventTrigger.h>
 #include <supplementary/WorldModel.h>
 #include <supplementary/InformationElement.h>
 
