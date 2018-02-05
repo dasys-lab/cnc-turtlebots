@@ -77,8 +77,12 @@ void TopologicalModel::readTopologyFromConfig()
             if ((*sc)["TopologicalModel"]->tryGet<bool>(false, "DistributedSystems.Doors", doorName.c_str(), "areaDoor",
                                                         NULL))
             {
-                door->topologicalDoor->fromArea = door->topologicalDoor->fromRoom->area;
-                door->topologicalDoor->toArea = door->topologicalDoor->toRoom->area;
+            	auto fromArea = door->topologicalDoor->fromRoom->area;
+            	auto toArea = door->topologicalDoor->toRoom->area;
+                door->topologicalDoor->fromArea = fromArea;
+                door->topologicalDoor->toArea = toArea;
+                fromArea->doors.insert(door);
+                toArea->doors.insert(door);
             }
             door->topologicalDoor->fromPOI = getPOI(
                 (*sc)["TopologicalModel"]->get<int>("DistributedSystems.Doors", doorName.c_str(), "fromPOI", NULL));

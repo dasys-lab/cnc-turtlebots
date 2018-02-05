@@ -17,6 +17,8 @@ find_package(catkin REQUIRED COMPONENTS
    InitialPoseWrapped.msg
    AMCLPoseWrapped.msg
    LogicalCamera.msg
+   LogicalCameraImage.msg
+   Model.msg
    ObjectSize.msg
  )
  
