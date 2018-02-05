@@ -14,33 +14,31 @@ namespace wm
 
 Communication::Communication(ttb::TTBWorldModel *wm)
     : wm(wm)
-	, timeLastSimMsgReceived (0)
+    , timeLastSimMsgReceived(0)
 {
     auto sc = wm->getSystemConfig();
-
     // SET ROS STUFF
     string topic;
     if (wm->isUsingSimulator())
     {
 #ifdef COMM_DEBUG
-    	std::cout << "Comm: In SIMULATION mode." << std::endl;
+        std::cout << "Comm: In SIMULATION mode." << std::endl;
 #endif
-    	// for simulated robot only
+        // for simulated robot only
         topic = (*sc)["TTBWorldModel"]->get<string>("Data.LogicalCamera.Topic", NULL);
         logicalCameraSensorSub = n.subscribe(topic, 10, &Communication::onLogicalCamera, (Communication *)this);
     }
     else
     {
 #ifdef COMM_DEBUG
-    	std::cout << "Comm: In REAL ROBOT mode." << std::endl;
+        std::cout << "Comm: In REAL ROBOT mode." << std::endl;
 #endif
-    	// for real robot only
+        // for real robot only
         topic = (*sc)["TTBWorldModel"]->get<string>("Data.DockInfrRed.Topic", NULL);
         dockInfrRedSub = n.subscribe(topic, 10, &Communication::onDockInfrRed, (Communication *)this);
 
         topic = (*sc)["TTBWorldModel"]->get<string>("Data.MobileBaseSensorState.Topic", NULL);
-        mobileBaseSensorStateSub =
-            n.subscribe(topic, 10, &Communication::onMobileBaseSensorState, (Communication *)this);
+        mobileBaseSensorStateSub = n.subscribe(topic, 10, &Communication::onMobileBaseSensorState, (Communication *)this);
 
         topic = (*sc)["TTBWorldModel"]->get<string>("Data.AlvarMarker.Topic", NULL);
         alvarSub = n.subscribe(topic, 10, &Communication::onAlvarMarkers, (Communication *)this);
@@ -80,11 +78,12 @@ Communication::Communication(ttb::TTBWorldModel *wm)
     serveTaskSub = n.subscribe(topic, 10, &Communication::onServeTask, (Communication *)this);
 
     wrappedMessageHandler = nullptr;
-//    wrappedMessageHandler = new WrappedMessageHandler();
-//    wrappedMessageHandler->init(this->wm->getOwnId(), this->wm->getEngine());
+    //    wrappedMessageHandler = new WrappedMessageHandler();
+    //    wrappedMessageHandler->init(this->wm->getOwnId(), this->wm->getEngine());
 
     spinner = new ros::AsyncSpinner(4);
     spinner->start();
+    std::cout << "Communication constructor finished!" << std::endl;
 }
 
 Communication::~Communication()
@@ -164,8 +163,7 @@ void Communication::onServeTask(ttb_msgs::ServeTask serveTask)
     auto ownID = this->wm->getOwnId();
     auto senderId = this->wm->getEngine()->getIDFromBytes(serveTask.sender.id);
     auto receiverId = this->wm->getEngine()->getIDFromBytes(serveTask.receiver.id);
-    if (*senderId != *ownID &&
-        (*receiverId == *ownID || serveTask.receiver.type == supplementary::BroadcastID::BC_TYPE))
+    if (*senderId != *ownID && (*receiverId == *ownID || serveTask.receiver.type == supplementary::BroadcastID::BC_TYPE))
     {
         this->wm->rawSensorData.processServeTask(serveTask);
     }
@@ -173,12 +171,12 @@ void Communication::onServeTask(ttb_msgs::ServeTask serveTask)
 
 void Communication::onAMCLPose(geometry_msgs::PoseWithCovarianceStamped msg)
 {
-	if (this->wm->isUsingSimulator())
-	{	// this data is send by the "fake_localization" node in case of a simulator scenario
-	    this->timeLastSimMsgReceived = this->wm->getTime();
-	}
+    if (this->wm->isUsingSimulator())
+    { // this data is send by the "fake_localization" node in case of a simulator scenario
+        this->timeLastSimMsgReceived = this->wm->getTime();
+    }
 
-	this->wm->rawSensorData.processAMCLPose(msg);
+    this->wm->rawSensorData.processAMCLPose(msg);
 }
 
 void Communication::onLogicalCamera(ttb_msgs::LogicalCameraPtr logicalCamera)

@@ -14,6 +14,8 @@
 
 #include  "Plans/Serve/ASPMinimizePathMaster1477125857343.h"
 
+#include  "Plans/Tests/TestDriveToPoi1517819007614.h"
+
 #include  "Plans/Tests/ChargeAndSimpleDriveTest1414681057676.h"
 
 #include  "Plans/Serve/CarryBookMaster1468493942500.h"

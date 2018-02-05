@@ -13,7 +13,7 @@ namespace alica
             DomainBehaviour("Rotate")
     {
         /*PROTECTED REGION ID(con1447068205139) ENABLED START*/ //Add additional options here
-    	counter = 0;
+        counter = 0;
         /*PROTECTED REGION END*/
     }
     Rotate::~Rotate()

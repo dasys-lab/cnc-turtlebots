@@ -16,13 +16,14 @@ class SystemConfig;
 }
 namespace ttb
 {
+	class TTBWorldModel;
 namespace wm
 {
 
 class TopologicalModel
 {
   public:
-    TopologicalModel();
+    TopologicalModel(TTBWorldModel* wm);
     virtual ~TopologicalModel();
 
     std::shared_ptr<POI> getPOI(int id);
@@ -40,6 +41,7 @@ class TopologicalModel
 
     supplementary::SystemConfig *sc;
     void readTopologyFromConfig();
+    TTBWorldModel* wm;
 };
 
 } /* namespace wm */

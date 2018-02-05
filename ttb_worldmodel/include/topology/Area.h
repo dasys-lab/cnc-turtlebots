@@ -7,7 +7,7 @@ namespace ttb
 {
 namespace wm
 {
-class TopologicalDoor;
+class Door;
 class Area
 {
 
@@ -16,7 +16,7 @@ class Area
     virtual ~Area();
     std::size_t hash() const;
     const std::string name;
-    std::unordered_set<std::shared_ptr<TopologicalDoor>> doors;
+    std::unordered_set<std::shared_ptr<Door>> doors;
     std::string toString();
     bool blocked;
 };

@@ -15,6 +15,8 @@
 
 #include  "Plans/Serve/constraints/ASPMinimizePathMaster1477125857343Constraints.h"
 
+#include  "Plans/Tests/constraints/TestDriveToPoi1517819007614Constraints.h"
+
 #include  "Plans/Tests/constraints/ChargeAndSimpleDriveTest1414681057676Constraints.h"
 
 #include  "Plans/Serve/constraints/CarryBookMaster1468493942500Constraints.h"

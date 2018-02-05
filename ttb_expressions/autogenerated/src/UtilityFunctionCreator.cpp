@@ -15,6 +15,8 @@
 
 #include  "Plans/Serve/ASPMinimizePathMaster1477125857343.h"
 
+#include  "Plans/Tests/TestDriveToPoi1517819007614.h"
+
 #include  "Plans/Tests/ChargeAndSimpleDriveTest1414681057676.h"
 
 #include  "Plans/Serve/CarryBookMaster1468493942500.h"
@@ -75,6 +77,10 @@ namespace alica
 
             case 1477125857343:
                 return make_shared<UtilityFunction1477125857343>();
+                break;
+
+            case 1517819007614:
+                return make_shared<UtilityFunction1517819007614>();
                 break;
 
             case 1414681057676:

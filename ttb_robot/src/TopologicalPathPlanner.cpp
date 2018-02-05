@@ -39,6 +39,10 @@ std::vector<std::shared_ptr<::ttb::wm::Area>> TopologicalPathPlanner::plan(std::
             area = visited.at(area);
         }
     }
+    else
+    {
+    	std::cout << "TopologicalPathPlanner: no path found!" << std::endl;
+    }
 
 #ifdef TP_DEBUG
     std::cout << "Path: " << std::endl;
@@ -54,14 +58,17 @@ bool TopologicalPathPlanner::areaBreadthSearch(std::vector<std::shared_ptr<ttb::
                                                std::map<std::shared_ptr<ttb::wm::Area>, std::shared_ptr<ttb::wm::Area>> &visited,
                                                std::shared_ptr<ttb::wm::Area> goal)
 {
+	std::cout << "fringe size: " << fringe.size() << std::endl;
     if (fringe.size() == 0)
     {
+    	std::cout << "areaBreadthSearch returning false" << std::endl;
         return false;
     }
     std::vector<std::shared_ptr<ttb::wm::Area>> newFringe;
     if (visited.size() == 0)
     {
         visited.emplace(fringe.at(0), nullptr);
+        std::cout << "visited size: " << visited.size() << std::endl;
     }
     for (auto currentArea : fringe)
     {

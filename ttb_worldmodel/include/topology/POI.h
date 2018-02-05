@@ -19,6 +19,7 @@ namespace wm
 		double y;
 		std::shared_ptr<Room> room;
 		std::shared_ptr<LogicalObject> gazeboModel;
+		std::string toString();
 	};
 
 	struct POIComperator

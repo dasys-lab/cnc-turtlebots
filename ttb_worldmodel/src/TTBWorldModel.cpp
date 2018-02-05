@@ -21,9 +21,11 @@ TTBWorldModel::TTBWorldModel() :
 		WorldModel()
     , rawSensorData(this)
     , logicalCameraData(this)
+	, topologicalModel(this)
 	, usingSimulator(false)
 	, communication(nullptr)
 {
+	std::cout << "TTBWorldModel constructor" << std::endl;
 }
 
 TTBWorldModel::~TTBWorldModel()

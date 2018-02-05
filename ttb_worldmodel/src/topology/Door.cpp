@@ -5,9 +5,11 @@ namespace ttb
 namespace wm
 {
 
-Door::Door(std::string name) : open(true), gazeboModel(nullptr)
+Door::Door(std::string name)
+    : open(true)
+    , gazeboModel(nullptr)
+    , name(name)
 {
-
 }
 
 Door::~Door()

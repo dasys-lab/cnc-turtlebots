@@ -35,7 +35,6 @@ Base::Base(string roleSetName, string masterPlanName, string roleSetDir, bool si
     crc = new alica::ConstraintCreator();
     ae->setIAlicaClock(new alicaRosProxy::AlicaROSClock());
     ae->setCommunicator(new alicaRosProxy::AlicaRosCommunication(ae));
-
     wm = TTBWorldModel::get();
     if (sim)
 	{
@@ -43,7 +42,6 @@ Base::Base(string roleSetName, string masterPlanName, string roleSetDir, bool si
 	}
     wm->setEngine(ae);
     wm->init();
-
     // "clingo", "-W", "no-atom-undefined",  "--number=0", nullptr
     std::vector<char const *> args{"clingo", nullptr};
     auto solver = new ::reasoner::ASPSolver(args);

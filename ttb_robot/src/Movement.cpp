@@ -32,8 +32,11 @@ std::shared_ptr<ttb::wm::POI> Movement::getNextPOI(std::shared_ptr<ttb::wm::Room
 {
     if (!currentGoal || this->currentGoal->id != goal->id)
     {
+    	std::cout << "Movement: starting area planning!" << std::endl;
         this->currentPath = this->topoPlanner->plan(currentPosition, goal->room);
+        std::cout << "Movement: finished area planning. Path size: " << this->currentPath.size() << std::endl;
     }
+    std::cout << "Movement: finished planning area path "  << this->currentPath.size() << std::endl;
     if (this->currentPath.size() > 0)
     {
         if (this->currentPathInArea.size() == 0)

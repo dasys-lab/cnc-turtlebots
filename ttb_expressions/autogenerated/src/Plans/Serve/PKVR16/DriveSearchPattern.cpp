@@ -98,7 +98,6 @@ namespace alica
 //
 //        // 2. Punkte der reihe nach abfahren
 //        // 3. Wenn eine Box gefunden wird, Nachricht an WM schicken (neue Nachricht notwendig)
-
         /*PROTECTED REGION END*/
     }
     void DriveSearchPattern::initialiseParameters()
