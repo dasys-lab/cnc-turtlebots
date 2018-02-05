@@ -5,6 +5,7 @@
 #include "SystemConfig.h"
 #include "TaskManager.h"
 #include "Communication.h"
+#include "TopologicalLocalization.h"
 #include "TopologicalModel.h"
 
 #include <supplementary/EventTrigger.h>
@@ -39,6 +40,7 @@ class TTBWorldModel : public supplementary::WorldModel
     wm::RawSensorData rawSensorData;
     wm::LogicalCameraData logicalCameraData;
     wm::TopologicalModel topologicalModel;
+    wm::TopologicalLocalization topologicalLocalization;
     wm::TaskManager taskManager;
     wm::Communication* communication;
 

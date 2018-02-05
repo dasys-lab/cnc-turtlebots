@@ -1,21 +1,24 @@
 #pragma once
 
+#include <supplementary/Worker.h>
+
 namespace ttb
 {
+class TTBWorldModel;
 namespace wm
 {
 class LogicalCameraData;
-class TopologicalLocalization
+class TopologicalLocalization : public supplementary::Worker
 {
   public:
-    TopologicalLocalization(LogicalCameraData* logicalCameraData);
+    TopologicalLocalization(ttb::TTBWorldModel* wm);
     virtual ~TopologicalLocalization();
 
-    void tick();
+    virtual void run();
+    // TODO: getRoom() method is missing
 
   private:
-    LogicalCameraData* logicalCameraData;
-
+    ttb::TTBWorldModel* wm;
 
 };
 

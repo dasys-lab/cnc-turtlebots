@@ -21,6 +21,7 @@ TTBWorldModel::TTBWorldModel() :
 		WorldModel()
     , rawSensorData(this)
     , logicalCameraData(this)
+	, topologicalLocalization(this)
 	, topologicalModel(this)
 	, usingSimulator(false)
 	, communication(nullptr)
