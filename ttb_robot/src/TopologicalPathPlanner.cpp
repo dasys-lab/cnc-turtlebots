@@ -2,6 +2,7 @@
 
 #include <TopologicalModel.h>
 #include <topology/Area.h>
+#include <topology/TopologicalDoor.h>
 #include <topology/Door.h>
 #include <topology/Room.h>
 
@@ -72,9 +73,10 @@ bool TopologicalPathPlanner::areaBreadthSearch(std::vector<std::shared_ptr<ttb::
     }
     for (auto currentArea : fringe)
     {
+    	std::cout << "TPplanner: current areaa doors: " << currentArea->doors.size() << std::endl;
         for (auto areaDoor : currentArea->doors)
         {
-            auto nextArea = areaDoor->toArea != currentArea ? areaDoor->toArea : areaDoor->fromArea;
+            auto nextArea = areaDoor->topologicalDoor->toArea != currentArea ? areaDoor->topologicalDoor->toArea : areaDoor->topologicalDoor->fromArea;
 
             if (nextArea->blocked || visited.find(nextArea) != visited.end())
             {
