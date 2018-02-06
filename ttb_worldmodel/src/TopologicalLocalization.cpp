@@ -14,6 +14,7 @@ namespace wm
 TopologicalLocalization::TopologicalLocalization(ttb::TTBWorldModel* wm)
     : wm(wm)
 {
+	//TODO: make the worldmodel run the timer of the localization
 }
 
 TopologicalLocalization::~TopologicalLocalization()
@@ -34,7 +35,9 @@ void TopologicalLocalization::run()
 		}
 	}
 
-	// make some debug output here and implement further stuff
+	//TODO: make some debug output here and implement further stuff
+
+
 }
 
 } /* namespace wm */
