@@ -8,6 +8,7 @@
 
 #include <QMenu>
 #include <sstream>
+#include <iostream>
 
 namespace ttb_control
 {
@@ -61,6 +62,10 @@ void TTBControl::initPlugin(qt_gui_cpp::PluginContext &context)
         this->checkAndInit(robot.second->agentID);
     }
 
+    // Initialise the ROS Communication
+    topologicalInfoSub =
+        rosNode->subscribe("/TopologicalInfo", 10, &TTBControl::receiveTopologicalInfo, (TTBControl *)this);
+
     // Initialise the GUI refresh timer
     this->guiUpdateTimer = new QTimer();
     QObject::connect(guiUpdateTimer, SIGNAL(timeout()), this, SLOT(run()));
@@ -78,8 +83,8 @@ void TTBControl::showContextMenu(const QPoint &pos)
     QMenu myMenu;
     for (auto robot : this->pmRegistry->getRobots())
     {
-    	stringstream ss;
-    	ss << *robot.first;
+        stringstream ss;
+        ss << *robot.first;
         myMenu.addAction(std::string(robot.second->name + " (" + ss.str() + ")").c_str());
     }
 
@@ -90,7 +95,7 @@ void TTBControl::showContextMenu(const QPoint &pos)
         std::string name = selectedItem->iconText().toStdString().substr();
         name = name.substr(0, name.find('(') - 1);
 
-        cout << "RC: '" << name << "'" << endl;
+        std::cout << "RC: '" << name << "'" << std::endl;
         auto robotId = this->pmRegistry->getRobotId(name);
         if (robotId)
         {
@@ -99,12 +104,12 @@ void TTBControl::showContextMenu(const QPoint &pos)
         }
         else
         {
-            cerr << "RC: Chosen robot is not known in the robot registry!" << endl;
+            std::cerr << "RC: Chosen robot is not known in the robot registry!" << std::endl;
         }
     }
     else
     {
-        cout << "RC: Nothing chosen!" << endl;
+        std::cout << "RC: Nothing chosen!" << std::endl;
     }
 }
 
@@ -123,11 +128,17 @@ void TTBControl::run()
  */
 void TTBControl::updateGUI()
 {
-    chrono::system_clock::time_point now = chrono::system_clock::now();
+	std::chrono::system_clock::time_point now = std::chrono::system_clock::now();
     for (auto controlledRobotEntry : this->controlledRobotsMap)
     {
         controlledRobotEntry.second->updateGUI(now);
     }
+}
+
+void TTBControl::receiveTopologicalInfo(ttb_msgs::TopologicalInfoPtr topoInfo)
+{
+    std::lock_guard<std::mutex> lck(topologicalInfoMsgQueueMutex);
+    this->topologicalInfoMsgQueue.emplace(std::chrono::system_clock::now(), topoInfo);
 }
 
 /**
@@ -135,14 +146,26 @@ void TTBControl::updateGUI()
  */
 void TTBControl::processMessages()
 {
-    
+    {
+        std::lock_guard<mutex> lck(topologicalInfoMsgQueueMutex);
+        while (!this->topologicalInfoMsgQueue.empty())
+        {
+            // unqueue the ROS kicker stat info message
+            auto timeTopoInfoPair = topologicalInfoMsgQueue.front();
+            topologicalInfoMsgQueue.pop();
+
+            auto agentID = this->pmRegistry->getRobotId(timeTopoInfoPair.second->sender.id);
+            this->checkAndInit(agentID);
+            this->controlledRobotsMap[agentID]->handleTopologicalInfo(timeTopoInfoPair);
+        }
+    }
 }
 
 /**
  * If the given robot ID is already known, nothing is done.
  * Otherwise a new entry in the controlled robot map is created.
  */
-void TTBControl::checkAndInit(const supplementary::AgentID* robotId)
+void TTBControl::checkAndInit(const supplementary::AgentID *robotId)
 {
     auto pmEntry = this->controlledRobotsMap.find(robotId);
     if (pmEntry == this->controlledRobotsMap.end())

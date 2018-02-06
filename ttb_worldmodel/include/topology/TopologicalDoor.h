@@ -13,7 +13,6 @@ class Area;
 class POI;
 class TopologicalDoor
 {
-
   public:
 	TopologicalDoor(std::shared_ptr<Room> from, std::shared_ptr<Room> to);
     virtual ~TopologicalDoor();

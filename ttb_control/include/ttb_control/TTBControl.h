@@ -2,13 +2,11 @@
 
 #include <rqt_gui_cpp/plugin.h>
 
-#include <supplementary/AgentID.h>
 #include "ros/ros.h"
-#include <ttb_control/Robot.h>
 #include <ros/macros.h>
-
-//#include <msl_actuator_msgs/KickerStatInfo.h>
-//#include <msl_sensor_msgs/SharedWorldInfo.h>
+#include <supplementary/AgentID.h>
+#include <ttb_control/Robot.h>
+#include <ttb_msgs/TopologicalInfo.h>
 
 #include <QDialog>
 #include <QWidget>
@@ -54,12 +52,16 @@ class TTBControl : public rqt_gui_cpp::Plugin
     ros::NodeHandle *rosNode;
 
   private:
-
     supplementary::SystemConfig *sc;
+    ros::Subscriber topologicalInfoSub;
 
-    std::map<const supplementary::AgentID*, Robot *> controlledRobotsMap;
+    std::map<const supplementary::AgentID *, Robot *> controlledRobotsMap;
+    std::mutex topologicalInfoMsgQueueMutex;
+    std::queue<std::pair<std::chrono::system_clock::time_point, ttb_msgs::TopologicalInfoPtr>> topologicalInfoMsgQueue;
+
+    void receiveTopologicalInfo(ttb_msgs::TopologicalInfoPtr topoInfo);
     void processMessages();
-    void checkAndInit(const supplementary::AgentID* robotId);
+    void checkAndInit(const supplementary::AgentID *robotId);
 
     QTimer *guiUpdateTimer;
 

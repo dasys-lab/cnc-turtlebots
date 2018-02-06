@@ -20,6 +20,7 @@ find_package(catkin REQUIRED COMPONENTS
    LogicalCameraImage.msg
    Model.msg
    ObjectSize.msg
+   TopologicalInfo.msg
  )
  
 generate_messages(DEPENDENCIES std_msgs geometry_msgs agent_id)

@@ -13,7 +13,8 @@ namespace ttb
 {
 namespace wm
 {
-TopologicalModel::TopologicalModel(TTBWorldModel* wm) : wm(wm)
+TopologicalModel::TopologicalModel(TTBWorldModel *wm)
+    : wm(wm)
 {
     this->sc = supplementary::SystemConfig::getInstance();
     this->readTopologyFromConfig();
@@ -72,13 +73,12 @@ void TopologicalModel::readTopologyFromConfig()
                 (*sc)["TopologicalModel"]->get<std::string>("DistributedSystems.Doors", doorName.c_str(), "to", NULL);
             auto fromRoom = this->getRoom(fromRoomName);
             auto toRoom = this->getRoom(toRoomName);
-            door->topologicalDoor =
-                std::make_shared<TopologicalDoor>(fromRoom, toRoom);
+            door->topologicalDoor = std::make_shared<TopologicalDoor>(fromRoom, toRoom);
             if ((*sc)["TopologicalModel"]->tryGet<bool>(false, "DistributedSystems.Doors", doorName.c_str(), "areaDoor",
                                                         NULL))
             {
-            	auto fromArea = door->topologicalDoor->fromRoom->area;
-            	auto toArea = door->topologicalDoor->toRoom->area;
+                auto fromArea = door->topologicalDoor->fromRoom->area;
+                auto toArea = door->topologicalDoor->toRoom->area;
                 door->topologicalDoor->fromArea = fromArea;
                 door->topologicalDoor->toArea = toArea;
                 fromArea->doors.insert(door);
@@ -110,7 +110,7 @@ std::shared_ptr<Door> TopologicalModel::getDoor(std::string name)
     auto entry = this->doors.insert(std::make_shared<Door>(name));
     if (entry.second)
     {
-    	(*(entry.first))->gazeboModel = std::make_shared<LogicalObject>(name, "door");
+        (*(entry.first))->gazeboModel = std::make_shared<LogicalObject>(name, "door");
         wm->logicalCameraData.addLogicalObject(name, (*(entry.first))->gazeboModel);
     }
     return *(entry.first);
@@ -126,6 +126,11 @@ std::shared_ptr<Room> TopologicalModel::getRoom(std::string name)
 {
     auto entry = this->rooms.insert(std::make_shared<Room>(name));
     return *(entry.first);
+}
+
+const std::unordered_set<std::shared_ptr<POI>, POIHash, POIComperator> TopologicalModel::getPOIs()
+{
+	return this->pois;
 }
 
 std::string TopologicalModel::toString()

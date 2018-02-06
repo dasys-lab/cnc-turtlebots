@@ -49,7 +49,7 @@ void LogicalCameraData::processLogicalCamera(ttb_msgs::LogicalCameraPtr logicalC
     }
 }
 
-std::list<std::shared_ptr<LogicalObject>> LogicalCameraData::getObjectOfType(std::string type)
+std::list<std::shared_ptr<LogicalObject>> LogicalCameraData::getObjectsOfType(std::string type)
 {
     std::list<std::shared_ptr<LogicalObject>> ret;
     for (auto pair : this->dict)
