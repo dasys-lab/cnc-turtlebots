@@ -12,7 +12,9 @@ namespace wm
 {
 
 TopologicalLocalization::TopologicalLocalization(ttb::TTBWorldModel* wm)
-    : wm(wm)
+    : supplementary::Worker("TopologicalLocalizationWorker")
+	, wm(wm)
+
 {
 	//TODO: make the worldmodel run the timer of the localization
 }
@@ -28,11 +30,11 @@ void TopologicalLocalization::run()
 	supplementary::InfoTime maxDiff = 10000000000;
 	for (auto poi : pois)
 	{
-		auto pose = poi->poses->getTemporalCloseTo(wm->getTime(), maxDiff);
-		if (pose)
-		{
-			currentPOIs.push_back(poi);
-		}
+//		auto pose = poi->getPoseBuffer()->getTemporalCloseTo(wm->getTime(), maxDiff);
+//		if (pose)
+//		{
+//			currentPOIs.push_back(poi);
+//		}
 	}
 
 	//TODO: make some debug output here and implement further stuff

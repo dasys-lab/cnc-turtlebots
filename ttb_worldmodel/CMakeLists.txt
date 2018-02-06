@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 2.8.3)
 project(ttb_worldmodel)
-   
+    
 ## Use c++ 11x std
 set(CMAKE_CXX_FLAGS "-std=c++11 ${CMAKE_CXX_FLAGS}")
  
@@ -24,6 +24,7 @@ add_library(ttb_worldmodel
   src/TaskManager.cpp
   src/RawSensorData.cpp
   src/Communication.cpp
+  src/TopologicalLocalization.cpp
   src/LogicalCameraData.cpp
   src/LogicalObject.cpp
   src/TopologicalModel.cpp
