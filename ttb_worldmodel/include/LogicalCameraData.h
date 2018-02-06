@@ -31,15 +31,18 @@ class LogicalCameraData
         // write obj to stream
         for (auto &pair : camData.dict)
         {
-            os << pair.first << ":" << std::endl;
-            auto tmpPos = pair.second->getPoseBuffer()->getLast()->getInformation();
-            os << ": Pos (" << tmpPos.x << ", " << tmpPos.y << ")" << std::endl;
+            os << pair.first << ": ";
+            auto tmpPos = pair.second->getPoseBuffer()->getLastValidContent();
+            if (tmpPos)
+            {
+            	os << "Pos (" << tmpPos->x << ", " << tmpPos->y << ")" << std::endl;
+            }
         }
 
         return os;
     }
 
-    std::list<std::shared_ptr<LogicalObject>> getObjectOfType(std::string type);
+    std::list<std::shared_ptr<LogicalObject>> getObjectsOfType(std::string type);
     std::shared_ptr<LogicalObject> getObject(std::string name);
 
   private:
