@@ -45,7 +45,15 @@ void Robot::updateGUI(std::chrono::system_clock::time_point now)
 {
 	if ((now - this->timeLastMsgReceived) > std::chrono::milliseconds(1000))
 	{
+		this->uiTTBRobot->RoomValue->setText(QString(""));
 	}
+}
+
+void Robot::handleTopologicalInfo(
+    std::pair<std::chrono::system_clock::time_point, ttb_msgs::TopologicalInfoPtr> timeTopologicalInfoPair)
+{
+	this->timeLastMsgReceived = timeTopologicalInfoPair.first;
+	this->uiTTBRobot->RoomValue->setText(QString(timeTopologicalInfoPair.second->ownRoom.c_str()));
 }
 
 void Robot::toggle()

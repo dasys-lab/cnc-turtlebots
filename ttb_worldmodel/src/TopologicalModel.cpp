@@ -12,7 +12,8 @@ namespace ttb
 {
 namespace wm
 {
-TopologicalModel::TopologicalModel(TTBWorldModel* wm) : wm(wm)
+TopologicalModel::TopologicalModel(TTBWorldModel *wm)
+    : wm(wm)
 {
     this->sc = supplementary::SystemConfig::getInstance();
     this->readTopologyFromConfig();
@@ -126,6 +127,11 @@ std::shared_ptr<Room> TopologicalModel::getRoom(std::string name)
 {
     auto entry = this->rooms.insert(std::make_shared<Room>(name));
     return *(entry.first);
+}
+
+const std::unordered_set<std::shared_ptr<POI>, POIHash, POIComperator> TopologicalModel::getPOIs()
+{
+	return this->pois;
 }
 
 std::string TopologicalModel::toString()

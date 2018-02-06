@@ -71,6 +71,7 @@ QT5_WRAP_UI(ttb_control_UIS_H ${ttb_control_UIS})
 
 add_library(${PROJECT_NAME} ${ttb_control_SRCS} ${ttb_control_MOCS} ${ttb_control_UIS_H} ${ttb_control_RESOURCES})
 target_link_libraries(${PROJECT_NAME} ${catkin_LIBRARIES} ${Qt5Core_location} ${Qt5Gui_location} ${Qt5Network_location})
+add_dependencies(${PROJECT_NAME} ttb_msgs_generate_messages_cpp)
 
 find_package(class_loader)
 class_loader_hide_library_symbols(${PROJECT_NAME})

@@ -1,21 +1,32 @@
 #include "TopologicalLocalization.h"
 
-#include "TTBWorldModel.h"
 #include "LogicalCameraData.h"
+#include "TTBWorldModel.h"
+
+#include <cnc_geometry/Calculator.h>
+#include <supplementary/AgentID.h>
+#include <ttb_msgs/TopologicalInfo.h>
 
 #include <memory>
-
 
 namespace ttb
 {
 namespace wm
 {
 
-TopologicalLocalization::TopologicalLocalization(ttb::TTBWorldModel* wm)
+TopologicalLocalization::TopologicalLocalization(ttb::TTBWorldModel *wm)
     : supplementary::Worker("TopologicalLocalization")
-	, wm(wm)
+    , wm(wm)
 {
-	//TODO: make the worldmodel run the timer of the localization
+    supplementary::SystemConfig *sc = supplementary::SystemConfig::getInstance();
+    this->roomBuffer = new supplementary::InfoBuffer<std::shared_ptr<Room>>(
+        (*sc)["TopologicalLocalization"]->get<int>("Data.Room.BufferLength", NULL));
+    this->roomValidityDuration = (*sc)["TopologicalLocalization"]->get<int>("Data.Room.ValidityDuration", NULL);
+
+    this->ownPoseValidityDuration = (*sc)["TTBWorldModel"]->get<int>("Data.AMCLPose.ValidityDuration", NULL);
+
+    ros::NodeHandle n;
+    this->topoInfoPub = n.advertise<ttb_msgs::TopologicalInfo>("/TopologicalInfo", 10);
 }
 
 TopologicalLocalization::~TopologicalLocalization()
@@ -24,22 +35,68 @@ TopologicalLocalization::~TopologicalLocalization()
 
 void TopologicalLocalization::run()
 {
-	auto pois = this->wm->logicalCameraData.getObjectOfType("poi");
-	std::vector<std::shared_ptr<LogicalObject>> currentPOIs;
-	supplementary::InfoTime maxDiff = 10000000000;
-	for (auto poi : pois)
-	{
-		auto pose = poi->getPoseBuffer()->getTemporalCloseTo(wm->getTime(), maxDiff);
-		if (pose)
-		{
-			currentPOIs.push_back(poi);
-		}
-	}
+    auto ownPos = this->wm->rawSensorData.getAMCLPositionBuffer()->getLastValid();
+    if (!ownPos)
+    {
+#ifdef TOPOLOGICAL_LOCALIZATION_DEBUG
+        std::cout << "TopologicalLocalization: No AMCL Position available!" << std::endl;
+#endif
+        return;
+    }
 
-	//TODO: make some debug output here and implement further stuff
+    auto pois = this->wm->topologicalModel.getPOIs();
+    std::vector<std::shared_ptr<POI>> currentPOIs;
+    for (auto poi : pois)
+    {
+#ifdef TOPOLOGICAL_LOCALIZATION_DEBUG
+        std::cout << "TopologicalLocalization: " << poi->toString()
+                  << " Size: " << poi->gazeboModel->getPoseBuffer()->getSize() << std::endl;
+#endif
+        auto pose =
+            poi->gazeboModel->getPoseBuffer()->getTemporalCloseTo(ownPos->getCreationTime(), ownPoseValidityDuration);
+        if (pose)
+        {
+            currentPOIs.push_back(poi);
+        }
+    }
 
+    double minDist = std::numeric_limits<double>::max();
+    std::shared_ptr<POI> closestPOI;
+    if (currentPOIs.empty())
+    {
+#ifdef TOPOLOGICAL_LOCALIZATION_DEBUG
+// std::cout << "TopologicalLocalization: No valid POI found!" << std::endl;
+#endif
+        return;
+    }
+    for (auto tmpPOI : currentPOIs)
+    {
+        double tmpDist =
+            geometry::distance(tmpPOI->x, tmpPOI->y, ownPos->getInformation().x, ownPos->getInformation().y);
+        if (tmpDist < minDist)
+        {
+            minDist = tmpDist;
+            closestPOI = tmpPOI;
+        }
+    }
+    auto infoElement = std::make_shared<const supplementary::InformationElement<std::shared_ptr<Room>>>(
+        closestPOI->room, wm->getTime(), this->roomValidityDuration, 1.0);
+    this->roomBuffer->add(infoElement);
 
+    this->sendUpdate(closestPOI->room);
 }
 
+void TopologicalLocalization::sendUpdate(std::shared_ptr<Room> room)
+{
+    ttb_msgs::TopologicalInfo info;
+    info.sender.id = this->wm->getOwnId()->toByteVector();
+    info.ownRoom = room->name;
+    this->topoInfoPub.publish(info);
+}
+
+const supplementary::InfoBuffer<std::shared_ptr<Room>> *TopologicalLocalization::getRoomBuffer()
+{
+    return this->roomBuffer;
+}
 } /* namespace wm */
 } /* namespace ttb */
