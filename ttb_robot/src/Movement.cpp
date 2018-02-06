@@ -1,7 +1,6 @@
 #include "robot/Movement.h"
 
 #include "TopologicalPathPlanner.h"
-#include "topology/TopologicalDoor.h"
 #include <SystemConfig.h>
 #include <TTBWorldModel.h>
 
@@ -30,33 +29,42 @@ Movement::~Movement()
 
 std::shared_ptr<ttb::wm::POI> Movement::getNextPOI(std::shared_ptr<ttb::wm::Room> currentPosition, std::shared_ptr<ttb::wm::POI> goal)
 {
+	if(goal->room == currentPosition)
+	{
+		return goal;
+	}
     if (!currentGoal || this->currentGoal->id != goal->id)
     {
-    	std::cout << "Movement: starting area planning!" << std::endl;
         this->currentPath = this->topoPlanner->plan(currentPosition, goal->room);
-        std::cout << "Movement: finished area planning. Path size: " << this->currentPath.size() << std::endl;
     }
-    std::cout << "Movement: finished planning area path "  << this->currentPath.size() << std::endl;
     if (this->currentPath.size() > 0)
     {
         if (this->currentPathInArea.size() == 0)
         {
-            this->currentPathInArea = this->topoPlanner->planInsideArea(currentPosition, this->currentPath.at(0));
+            this->currentPathInArea = this->topoPlanner->planToNextArea(currentPosition, this->currentPath.at(0));
         }
-        auto currentDoor = this->currentPathInArea.at(0);
-        this->currentPathInArea.erase(this->currentPathInArea.begin());
-    	if(this->currentPathInArea.size() == 0)
-    	{
-    		this->currentPath.erase(this->currentPath.begin());
-    	}
-        if (currentPosition == currentDoor->topologicalDoor->fromRoom)
+    }
+    else
+    {
+        if (this->currentPathInArea.size() == 0)
         {
-            return currentDoor->topologicalDoor->fromPOI;
+            this->currentPathInArea = this->topoPlanner->planBetweenRooms(currentPosition, goal->room);
         }
-        else
-        {
-            return currentDoor->topologicalDoor->toPOI;
-        }
+    }
+    auto currentDoor = this->currentPathInArea.at(0);
+    std::cout << currentDoor->toString() << std::endl;
+    this->currentPathInArea.erase(this->currentPathInArea.begin());
+    if (this->currentPathInArea.size() == 0 && this->currentPath.size() != 0)
+    {
+        this->currentPath.erase(this->currentPath.begin());
+    }
+    if (currentPosition == currentDoor->fromRoom)
+    {
+        return currentDoor->fromPOI;
+    }
+    else
+    {
+        return currentDoor->toPOI;
     }
     return nullptr;
 }

@@ -9,7 +9,6 @@ namespace wm
 {
 
 class Area;
-class TopologicalDoor;
 class Door;
 class POI;
 class Room

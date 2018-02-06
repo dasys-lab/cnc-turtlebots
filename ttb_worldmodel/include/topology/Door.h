@@ -1,14 +1,15 @@
 #pragma once
 
 #include "LogicalObject.h"
-#include "topology/TopologicalDoor.h"
 
 namespace ttb
 {
 namespace wm
 {
 class LogicalObject;
-
+class Room;
+class Area;
+class POI;
 class Door
 {
   public:
@@ -20,15 +21,21 @@ class Door
     bool open;
     std::string aspExternal;
     std::shared_ptr<LogicalObject> gazeboModel;
-    std::shared_ptr<TopologicalDoor> topologicalDoor;
-
+    std::string toString();
+    std::shared_ptr<Room> fromRoom;
+    std::shared_ptr<Room> toRoom;
+    std::shared_ptr<Area> fromArea;
+    std::shared_ptr<Area> toArea;
+    std::shared_ptr<POI> fromPOI;
+    std::shared_ptr<POI> toPOI;
+    bool initialized;
 };
 
 struct DoorComperator
 {
     bool operator()(const std::shared_ptr<Door> a, std::shared_ptr<Door> b) const
     {
-       return a->hash() == b->hash();
+        return a->hash() == b->hash();
     }
 };
 
@@ -36,10 +43,9 @@ struct DoorHash
 {
     std::size_t operator()(const std::shared_ptr<Door> obj) const
     {
-    	return obj->hash();
+        return obj->hash();
     }
 };
 
 } /* namespace wm */
 } /* namespace ttb */
-

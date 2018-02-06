@@ -1,6 +1,5 @@
 #include "topology/Area.h"
 
-#include "topology/TopologicalDoor.h"
 #include "topology/Door.h"
 
 #include <sstream>
@@ -31,7 +30,7 @@ std::string Area::toString()
 	ss << "\t\tDoors: " << std::endl;
 	for(auto door : this->doors)
 	{
-		ss << "\t\t\t" << door->topologicalDoor->toString();
+		ss << "\t\t\t" << door->toString();
 	}
 	ss << std::endl;
 	return ss.str();

@@ -23,9 +23,9 @@ DummyDriveToPoibeh::~DummyDriveToPoibeh()
 void DummyDriveToPoibeh::run(void *msg)
 {
     /*PROTECTED REGION ID(run1517819089097) ENABLED START*/ // Add additional options here
-    auto currentPosition = wm->topologicalModel.getRoom("r1401_room");
+    auto currentPosition = wm->topologicalModel.getRoom("r1407_room");
     std::cout << "DummyDriveToPoibeh: Current Position: " << currentPosition->toString() << std::endl;
-    auto goalPOI = wm->topologicalModel.getPOI(3);
+    auto goalPOI = wm->topologicalModel.getPOI(36);
     std::cout << "DummyDriveToPoibeh: Goal POI: " << goalPOI->toString() << std::endl;
     auto nextPOI = this->robot->movement->getNextPOI(currentPosition, goalPOI);
     if (nextPOI)

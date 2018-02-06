@@ -3,7 +3,6 @@
 #include "TTBWorldModel.h"
 #include "topology/Area.h"
 #include "topology/Room.h"
-#include "topology/TopologicalDoor.h"
 
 #include <SystemConfig.h>
 
@@ -64,7 +63,7 @@ void TopologicalModel::readTopologyFromConfig()
     for (auto &doorName : *doorNames)
     {
         auto door = this->getDoor(doorName);
-        if (!door->topologicalDoor)
+        if (!door->initialized)
         {
             auto fromRoomName =
                 (*sc)["TopologicalModel"]->get<std::string>("DistributedSystems.Doors", doorName.c_str(), "from", NULL);
@@ -72,24 +71,25 @@ void TopologicalModel::readTopologyFromConfig()
                 (*sc)["TopologicalModel"]->get<std::string>("DistributedSystems.Doors", doorName.c_str(), "to", NULL);
             auto fromRoom = this->getRoom(fromRoomName);
             auto toRoom = this->getRoom(toRoomName);
-            door->topologicalDoor =
-                std::make_shared<TopologicalDoor>(fromRoom, toRoom);
+            door->fromRoom = fromRoom;
+            door->toRoom = toRoom;
+            fromRoom->doors.insert(door);
+            toRoom->doors.insert(door);
             if ((*sc)["TopologicalModel"]->tryGet<bool>(false, "DistributedSystems.Doors", doorName.c_str(), "areaDoor",
                                                         NULL))
             {
-            	auto fromArea = door->topologicalDoor->fromRoom->area;
-            	auto toArea = door->topologicalDoor->toRoom->area;
-                door->topologicalDoor->fromArea = fromArea;
-                door->topologicalDoor->toArea = toArea;
+            	auto fromArea = door->fromRoom->area;
+            	auto toArea = door->toRoom->area;
+                door->fromArea = fromArea;
+                door->toArea = toArea;
                 fromArea->doors.insert(door);
                 toArea->doors.insert(door);
             }
-            door->topologicalDoor->fromPOI = getPOI(
+            door->fromPOI = getPOI(
                 (*sc)["TopologicalModel"]->get<int>("DistributedSystems.Doors", doorName.c_str(), "fromPOI", NULL));
-            door->topologicalDoor->toPOI = getPOI(
+            door->toPOI = getPOI(
                 (*sc)["TopologicalModel"]->get<int>("DistributedSystems.Doors", doorName.c_str(), "toPOI", NULL));
-            fromRoom->doors.insert(door);
-            toRoom->doors.insert(door);
+            door->initialized = true;
         }
     }
 }
@@ -144,7 +144,7 @@ std::string TopologicalModel::toString()
     ss << "Doors: " << std::endl;
     for (auto door : this->doors)
     {
-        ss << "\t" << door->topologicalDoor->toString();
+        ss << "\t" << door->toString();
     }
     return ss.str();
 }

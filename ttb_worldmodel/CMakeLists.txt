@@ -30,7 +30,6 @@ add_library(ttb_worldmodel
   src/TopologicalModel.cpp
   src/topology/Area.cpp
   src/topology/Room.cpp
-  src/topology/TopologicalDoor.cpp
   src/topology/Door.cpp
   src/topology/POI.cpp
 )

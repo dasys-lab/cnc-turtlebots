@@ -37,7 +37,13 @@ class TopologicalPathPlanner
      * First Door is start of path
      * Last Door is connected to the goal Area
      */
-    std::vector<std::shared_ptr<ttb::wm::Door>> planInsideArea(std::shared_ptr<ttb::wm::Room> start, std::shared_ptr<ttb::wm::Area> goal);
+    std::vector<std::shared_ptr<ttb::wm::Door>> planBetweenRooms(std::shared_ptr<ttb::wm::Room> start, std::shared_ptr<ttb::wm::Room> goal);
+    /*
+     * Returns a vector of Doors
+     * First Door is start of path
+     * Last Door is connected to the goal room
+     */
+    std::vector<std::shared_ptr<ttb::wm::Door>> planToNextArea(std::shared_ptr<ttb::wm::Room> start, std::shared_ptr<ttb::wm::Area> goal);
 
   private:
     wm::TopologicalModel *topologicalModel;
@@ -45,7 +51,7 @@ class TopologicalPathPlanner
                            std::map<std::shared_ptr<ttb::wm::Area>, std::shared_ptr<ttb::wm::Area>> &visited, std::shared_ptr<ttb::wm::Area> goal);
     std::shared_ptr<ttb::wm::Room> roomBreadthSearch(std::vector<std::shared_ptr<ttb::wm::Room>> &fringe,
                                                      std::map<std::shared_ptr<ttb::wm::Room>, std::shared_ptr<ttb::wm::Room>> &visited,
-                                                     std::shared_ptr<ttb::wm::Area> goal);
+                                                     std::shared_ptr<ttb::wm::Room> goal);
 };
 }
 } /* namespace wm */
