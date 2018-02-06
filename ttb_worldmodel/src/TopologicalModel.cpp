@@ -32,16 +32,14 @@ void TopologicalModel::readTopologyFromConfig()
         auto room = this->getRoom(roomName);
         if (!room->area)
         {
-            room->area = getArea((*sc)["TopologicalModel"]->get<std::string>("DistributedSystems.Rooms",
-                                                                             roomName.c_str(), "area", NULL));
+            room->area = getArea((*sc)["TopologicalModel"]->get<std::string>("DistributedSystems.Rooms", roomName.c_str(), "area", NULL));
         }
         if (room->pois.size() == 0)
         {
             shared_ptr<vector<string>> poisIDStrings = make_shared<vector<string>>();
             try
             {
-                poisIDStrings =
-                    (*sc)["TopologicalModel"]->getSections("DistributedSystems.Rooms", roomName.c_str(), "POIs", NULL);
+                poisIDStrings = (*sc)["TopologicalModel"]->getSections("DistributedSystems.Rooms", roomName.c_str(), "POIs", NULL);
             }
             catch (exception &e)
             {
@@ -50,10 +48,8 @@ void TopologicalModel::readTopologyFromConfig()
             for (auto poiIDString : *poisIDStrings)
             {
                 auto poi = getPOI(std::stoi(poiIDString));
-                poi->x = (*sc)["TopologicalModel"]->get<double>("DistributedSystems.Rooms", roomName.c_str(), "POIs",
-                                                                poiIDString.c_str(), "X", NULL);
-                poi->y = (*sc)["TopologicalModel"]->get<double>("DistributedSystems.Rooms", roomName.c_str(), "POIs",
-                                                                poiIDString.c_str(), "Y", NULL);
+                poi->x = (*sc)["TopologicalModel"]->get<double>("DistributedSystems.Rooms", roomName.c_str(), "POIs", poiIDString.c_str(), "X", NULL);
+                poi->y = (*sc)["TopologicalModel"]->get<double>("DistributedSystems.Rooms", roomName.c_str(), "POIs", poiIDString.c_str(), "Y", NULL);
                 poi->room = room;
                 room->pois.insert(poi);
             }
@@ -66,30 +62,25 @@ void TopologicalModel::readTopologyFromConfig()
         auto door = this->getDoor(doorName);
         if (!door->initialized)
         {
-            auto fromRoomName =
-                (*sc)["TopologicalModel"]->get<std::string>("DistributedSystems.Doors", doorName.c_str(), "from", NULL);
-            auto toRoomName =
-                (*sc)["TopologicalModel"]->get<std::string>("DistributedSystems.Doors", doorName.c_str(), "to", NULL);
+            auto fromRoomName = (*sc)["TopologicalModel"]->get<std::string>("DistributedSystems.Doors", doorName.c_str(), "from", NULL);
+            auto toRoomName = (*sc)["TopologicalModel"]->get<std::string>("DistributedSystems.Doors", doorName.c_str(), "to", NULL);
             auto fromRoom = this->getRoom(fromRoomName);
             auto toRoom = this->getRoom(toRoomName);
             door->fromRoom = fromRoom;
             door->toRoom = toRoom;
             fromRoom->doors.insert(door);
             toRoom->doors.insert(door);
-            if ((*sc)["TopologicalModel"]->tryGet<bool>(false, "DistributedSystems.Doors", doorName.c_str(), "areaDoor",
-                                                        NULL))
+            if ((*sc)["TopologicalModel"]->tryGet<bool>(false, "DistributedSystems.Doors", doorName.c_str(), "areaDoor", NULL))
             {
-            	auto fromArea = door->fromRoom->area;
-            	auto toArea = door->toRoom->area;
+                auto fromArea = door->fromRoom->area;
+                auto toArea = door->toRoom->area;
                 door->fromArea = fromArea;
                 door->toArea = toArea;
                 fromArea->doors.insert(door);
                 toArea->doors.insert(door);
             }
-            door->fromPOI = getPOI(
-                (*sc)["TopologicalModel"]->get<int>("DistributedSystems.Doors", doorName.c_str(), "fromPOI", NULL));
-            door->toPOI = getPOI(
-                (*sc)["TopologicalModel"]->get<int>("DistributedSystems.Doors", doorName.c_str(), "toPOI", NULL));
+            door->fromPOI = getPOI((*sc)["TopologicalModel"]->get<int>("DistributedSystems.Doors", doorName.c_str(), "fromPOI", NULL));
+            door->toPOI = getPOI((*sc)["TopologicalModel"]->get<int>("DistributedSystems.Doors", doorName.c_str(), "toPOI", NULL));
             door->initialized = true;
         }
     }
@@ -106,12 +97,24 @@ std::shared_ptr<POI> TopologicalModel::getPOI(int id)
     return *(entry.first);
 }
 
+std::shared_ptr<POI> TopologicalModel::getPOIByName(std::string name)
+{
+	for(auto poi : this->pois)
+	{
+		if(name.compare("poi_" + poi->id) == 0)
+		{
+			return poi;
+		}
+	}
+	return nullptr;
+}
+
 std::shared_ptr<Door> TopologicalModel::getDoor(std::string name)
 {
     auto entry = this->doors.insert(std::make_shared<Door>(name));
     if (entry.second)
     {
-    	(*(entry.first))->gazeboModel = std::make_shared<LogicalObject>(name, "door");
+        (*(entry.first))->gazeboModel = std::make_shared<LogicalObject>(name, "door");
         wm->logicalCameraData.addLogicalObject(name, (*(entry.first))->gazeboModel);
     }
     return *(entry.first);
@@ -131,7 +134,7 @@ std::shared_ptr<Room> TopologicalModel::getRoom(std::string name)
 
 const std::unordered_set<std::shared_ptr<POI>, POIHash, POIComperator> TopologicalModel::getPOIs()
 {
-	return this->pois;
+    return this->pois;
 }
 
 std::string TopologicalModel::toString()

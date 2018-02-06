@@ -37,14 +37,16 @@ void LogicalCameraData::addLogicalObject(std::string name, std::shared_ptr<Logic
 void LogicalCameraData::processLogicalCamera(ttb_msgs::LogicalCameraPtr logicalCameraData)
 {
     std::string name = logicalCameraData->modelName;
-
+    std::cout << "processing object: " << name << std::endl;
     auto logicalObjectEntry = this->dict.find(name);
     if (logicalObjectEntry != this->dict.end())
     {
+    	std::cout << "LogicalCameraData: found existing object with name: " << name << std::endl;
         logicalObjectEntry->second->processData(logicalCameraData);
     }
     else
     {
+    	std::cout << "LogicalCameraData: did not find an existing object with name: " << name << std::endl;
         this->dict[name] = std::make_shared<LogicalObject>(logicalCameraData, logicalCameraData->type);
     }
 }

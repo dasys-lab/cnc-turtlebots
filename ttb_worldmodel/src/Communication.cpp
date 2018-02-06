@@ -17,23 +17,25 @@ Communication::Communication(ttb::TTBWorldModel *wm)
     , timeLastSimMsgReceived(0)
 {
     auto sc = wm->getSystemConfig();
+    std::string robotPrefix = "/" + this->wm->getRobotName() + "/";
     // SET ROS STUFF
     string topic;
     if (wm->isUsingSimulator())
     {
 #ifdef COMM_DEBUG
-        std::cout << "Comm: In SIMULATION mode." << std::endl;
+        std::cout << "Communication: In SIMULATION mode." << std::endl;
 #endif
         // for simulated robot only
-        topic = (*sc)["TTBWorldModel"]->get<string>("Data.LogicalCamera.Topic", NULL);
+        topic = robotPrefix + (*sc)["TTBWorldModel"]->get<string>("Data.LogicalCamera.Topic", NULL);
         logicalCameraSensorSub = n.subscribe(topic, 10, &Communication::onLogicalCamera, (Communication *)this);
     }
     else
     {
 #ifdef COMM_DEBUG
-        std::cout << "Comm: In REAL ROBOT mode." << std::endl;
+        std::cout << "Communication: In REAL ROBOT mode." << std::endl;
 #endif
         // for real robot only
+
         topic = (*sc)["TTBWorldModel"]->get<string>("Data.DockInfrRed.Topic", NULL);
         dockInfrRedSub = n.subscribe(topic, 10, &Communication::onDockInfrRed, (Communication *)this);
 
@@ -44,36 +46,38 @@ Communication::Communication(ttb::TTBWorldModel *wm)
         alvarSub = n.subscribe(topic, 10, &Communication::onAlvarMarkers, (Communication *)this);
     }
 
-    topic = (*sc)["TTBWorldModel"]->get<string>("Data.AMCLPose.Topic", NULL);
+    topic = robotPrefix + (*sc)["TTBWorldModel"]->get<string>("Data.AMCLPose.Topic", NULL);
     amclPoseSub = n.subscribe(topic, 10, &Communication::onAMCLPose, (Communication *)this);
 
-    topic = (*sc)["TTBWorldModel"]->get<string>("Data.RawCameraImage.Topic", NULL);
+    topic = robotPrefix + (*sc)["TTBWorldModel"]->get<string>("Data.RawCameraImage.Topic", NULL);
     cameraImageRawSub = n.subscribe(topic, 10, &Communication::onRawCameraImage, (Communication *)this);
 
-    topic = (*sc)["TTBWorldModel"]->get<string>("Data.Odometry.Topic", NULL);
+    topic = robotPrefix + (*sc)["TTBWorldModel"]->get<string>("Data.Odometry.Topic", NULL);
     odometrySub = n.subscribe(topic, 10, &Communication::onOdometry, (Communication *)this);
 
-    topic = (*sc)["TTBWorldModel"]->get<string>("Data.LaserScan.Topic", NULL);
+    topic = robotPrefix + (*sc)["TTBWorldModel"]->get<string>("Data.LaserScan.Topic", NULL);
     laserScanSub = n.subscribe(topic, 10, &Communication::onLaserScan, (Communication *)this);
 
-    topic = (*sc)["TTBWorldModel"]->get<string>("Data.DepthCameraCloud.Topic", NULL);
+    topic = robotPrefix + (*sc)["TTBWorldModel"]->get<string>("Data.DepthCameraCloud.Topic", NULL);
     cameraPclSub = n.subscribe(topic, 10, &Communication::onDepthCameraCloud, (Communication *)this);
 
-    topic = (*sc)["TTBWorldModel"]->get<string>("Data.CliffEvent.Topic", NULL);
+    topic = robotPrefix + (*sc)["TTBWorldModel"]->get<string>("Data.CliffEvent.Topic", NULL);
     cliffEventsSub = n.subscribe(topic, 10, &Communication::onCliffEvent, (Communication *)this);
 
-    topic = (*sc)["TTBWorldModel"]->get<string>("Data.BumperSensor.Topic", NULL);
+    topic = robotPrefix + (*sc)["TTBWorldModel"]->get<string>("Data.BumperSensor.Topic", NULL);
     bumperSensorSub = n.subscribe(topic, 10, &Communication::onBumperCloud, (Communication *)this);
 
-    topic = (*sc)["TTBWorldModel"]->get<string>("Data.BumperEvent.Topic", NULL);
+    topic = robotPrefix + (*sc)["TTBWorldModel"]->get<string>("Data.BumperEvent.Topic", NULL);
     bumperEventSub = n.subscribe(topic, 10, &Communication::onBumperEvent, (Communication *)this);
 
-    topic = (*sc)["TTBWorldModel"]->get<string>("Data.IMUData.Topic", NULL);
+    topic = robotPrefix + (*sc)["TTBWorldModel"]->get<string>("Data.IMUData.Topic", NULL);
     imuDataSub = n.subscribe(topic, 10, &Communication::onImu, (Communication *)this);
 
+    //TODO is not published?
     topic = (*sc)["TTBWorldModel"]->get<string>("Data.RobotCommand.Topic", NULL);
     robotCommandSub = n.subscribe(topic, 10, &Communication::onRobotCommand, (Communication *)this);
 
+    //TODO is not published?
     topic = (*sc)["TTBWorldModel"]->get<string>("Data.ServeTask.Topic", NULL);
     serveTaskSub = n.subscribe(topic, 10, &Communication::onServeTask, (Communication *)this);
 

@@ -27,6 +27,7 @@ class TopologicalModel
     virtual ~TopologicalModel();
 
     std::shared_ptr<POI> getPOI(int id);
+    std::shared_ptr<POI> getPOIByName(std::string name);
     std::shared_ptr<Door> getDoor(std::string name);
     std::shared_ptr<Area> getArea(std::string name);
     std::shared_ptr<Room> getRoom(std::string name);

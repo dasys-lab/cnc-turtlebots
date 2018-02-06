@@ -5,7 +5,7 @@
 #include "topology/Room.h"
 #include "supplementary/InfoBuffer.h"
 
-#define TOPOLOGICAL_LOCALIZATION_DEBUG
+//#define TOPOLOGICAL_LOCALIZATION_DEBUG
 
 namespace ttb
 {

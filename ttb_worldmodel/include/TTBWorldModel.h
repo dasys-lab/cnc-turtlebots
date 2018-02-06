@@ -35,6 +35,7 @@ class TTBWorldModel : public supplementary::WorldModel
     void init();
     bool isUsingSimulator();
     void enableUsingSimulator();
+    std::string getRobotName();
 
     // Public Data Access Classes
     wm::RawSensorData rawSensorData;
@@ -48,6 +49,7 @@ class TTBWorldModel : public supplementary::WorldModel
     TTBWorldModel(); /**< Private Singleton Constructor */
 
     bool usingSimulator;
+    std::string robotName;
 };
 
 } /* namespace ttb */

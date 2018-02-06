@@ -26,13 +26,18 @@ TTBWorldModel::TTBWorldModel() :
 	, usingSimulator(false)
 	, communication(nullptr)
 {
-	std::cout << "TTBWorldModel constructor" << std::endl;
+	this->robotName = sc->getHostname();
 }
 
 TTBWorldModel::~TTBWorldModel()
 {
 	delete this->communication;
 	this->topologicalLocalization.stop();
+}
+
+std::string TTBWorldModel::getRobotName()
+{
+	return this->robotName;
 }
 
 void TTBWorldModel::init()
