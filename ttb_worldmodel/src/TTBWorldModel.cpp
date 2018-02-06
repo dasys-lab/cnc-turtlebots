@@ -32,11 +32,13 @@ TTBWorldModel::TTBWorldModel() :
 TTBWorldModel::~TTBWorldModel()
 {
 	delete this->communication;
+	this->topologicalLocalization.stop();
 }
 
 void TTBWorldModel::init()
 {
 	this->communication = new wm::Communication(this);
+	this->topologicalLocalization.start();
 }
 
 bool TTBWorldModel::isUsingSimulator()
