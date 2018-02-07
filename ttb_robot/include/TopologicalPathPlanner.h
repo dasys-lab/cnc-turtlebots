@@ -4,7 +4,7 @@
 #include <memory>
 #include <vector>
 
-#define TP_DEBUG
+//#define TP_DEBUG
 
 namespace ttb
 {

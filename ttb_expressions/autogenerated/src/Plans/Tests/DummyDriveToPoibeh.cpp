@@ -30,11 +30,11 @@ void DummyDriveToPoibeh::run(void *msg)
     auto nextPOI = this->robot->movement->getNextPOI(currentPosition, goalPOI);
     if (nextPOI)
     {
-        std::cout << "DummyDriveToPoibeh: Next POI to drive to: " << nextPOI->toString() << std::endl;
+        //std::cout << "DummyDriveToPoibeh: Next POI to drive to: " << nextPOI->toString() << std::endl;
     }
     else
     {
-    	std::cout << "DummyDriveToPoibeh: Next POI is null" << std::endl;
+    	//std::cout << "DummyDriveToPoibeh: Next POI is null" << std::endl;
     }
     /*PROTECTED REGION END*/
 }

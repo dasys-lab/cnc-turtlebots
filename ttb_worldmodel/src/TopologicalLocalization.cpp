@@ -19,8 +19,7 @@ TopologicalLocalization::TopologicalLocalization(ttb::TTBWorldModel *wm)
     , wm(wm)
 {
     supplementary::SystemConfig *sc = supplementary::SystemConfig::getInstance();
-    this->roomBuffer = new supplementary::InfoBuffer<std::shared_ptr<Room>>(
-        (*sc)["TopologicalLocalization"]->get<int>("Data.Room.BufferLength", NULL));
+    this->roomBuffer = new supplementary::InfoBuffer<std::shared_ptr<Room>>((*sc)["TopologicalLocalization"]->get<int>("Data.Room.BufferLength", NULL));
     this->roomValidityDuration = (*sc)["TopologicalLocalization"]->get<int>("Data.Room.ValidityDuration", NULL);
 
     this->ownPoseValidityDuration = (*sc)["TTBWorldModel"]->get<int>("Data.AMCLPose.ValidityDuration", NULL);
@@ -38,9 +37,6 @@ void TopologicalLocalization::run()
     auto ownPos = this->wm->rawSensorData.getAMCLPositionBuffer()->getLastValid();
     if (!ownPos)
     {
-#ifdef TOPOLOGICAL_LOCALIZATION_DEBUG
-        std::cout << "TopologicalLocalization: No AMCL Position available!" << std::endl;
-#endif
         return;
     }
 
@@ -48,12 +44,7 @@ void TopologicalLocalization::run()
     std::vector<std::shared_ptr<POI>> currentPOIs;
     for (auto poi : pois)
     {
-#ifdef TOPOLOGICAL_LOCALIZATION_DEBUG
-        std::cout << "TopologicalLocalization: " << poi->toString()
-                  << " Size: " << poi->gazeboModel->getPoseBuffer()->getSize() << std::endl;
-#endif
-        auto pose =
-            poi->gazeboModel->getPoseBuffer()->getTemporalCloseTo(ownPos->getCreationTime(), ownPoseValidityDuration);
+        auto pose = poi->gazeboModel->getPoseBuffer()->getTemporalCloseTo(ownPos->getCreationTime(), ownPoseValidityDuration);
         if (pose)
         {
             currentPOIs.push_back(poi);
@@ -64,23 +55,19 @@ void TopologicalLocalization::run()
     std::shared_ptr<POI> closestPOI;
     if (currentPOIs.empty())
     {
-#ifdef TOPOLOGICAL_LOCALIZATION_DEBUG
-// std::cout << "TopologicalLocalization: No valid POI found!" << std::endl;
-#endif
         return;
     }
     for (auto tmpPOI : currentPOIs)
     {
-        double tmpDist =
-            geometry::distance(tmpPOI->x, tmpPOI->y, ownPos->getInformation().x, ownPos->getInformation().y);
+        double tmpDist = geometry::distance(tmpPOI->x, tmpPOI->y, ownPos->getInformation().x, ownPos->getInformation().y);
         if (tmpDist < minDist)
         {
             minDist = tmpDist;
             closestPOI = tmpPOI;
         }
     }
-    auto infoElement = std::make_shared<const supplementary::InformationElement<std::shared_ptr<Room>>>(
-        closestPOI->room, wm->getTime(), this->roomValidityDuration, 1.0);
+    auto infoElement =
+        std::make_shared<const supplementary::InformationElement<std::shared_ptr<Room>>>(closestPOI->room, wm->getTime(), this->roomValidityDuration, 1.0);
     this->roomBuffer->add(infoElement);
 
     this->sendUpdate(closestPOI->room);

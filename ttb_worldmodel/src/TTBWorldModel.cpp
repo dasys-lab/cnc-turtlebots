@@ -7,6 +7,7 @@
 #include <engine/AlicaEngine.h>
 #include <engine/IAlicaClock.h>
 #include <nav_msgs/Odometry.h>
+#include <chrono>
 
 namespace ttb
 {
@@ -43,6 +44,7 @@ std::string TTBWorldModel::getRobotName()
 void TTBWorldModel::init()
 {
 	this->communication = new wm::Communication(this);
+	this->topologicalLocalization.setIntervalMS(std::chrono::milliseconds(33));
 	this->topologicalLocalization.start();
 }
 
