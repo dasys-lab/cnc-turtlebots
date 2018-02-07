@@ -25,6 +25,7 @@ add_library(ttb_worldmodel
   src/RawSensorData.cpp
   src/Communication.cpp
   src/TopologicalLocalization.cpp
+  src/DoorStateRecognition.cpp
   src/LogicalCameraData.cpp
   src/LogicalObject.cpp
   src/TopologicalModel.cpp

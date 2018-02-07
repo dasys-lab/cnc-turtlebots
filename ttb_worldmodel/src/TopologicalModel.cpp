@@ -131,6 +131,12 @@ const std::unordered_set<std::shared_ptr<POI>, POIHash, POIComperator> Topologic
     return this->pois;
 }
 
+
+const std::unordered_set<std::shared_ptr<Door>, DoorHash, DoorComperator> TopologicalModel::getDoors()
+{
+	return this->doors;
+}
+
 std::string TopologicalModel::toString()
 {
     std::stringstream ss;

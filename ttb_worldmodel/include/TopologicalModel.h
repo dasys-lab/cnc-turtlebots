@@ -33,6 +33,7 @@ class TopologicalModel
     std::shared_ptr<Room> getRoom(std::string name);
 
     const std::unordered_set<std::shared_ptr<POI>, POIHash, POIComperator> getPOIs();
+    const std::unordered_set<std::shared_ptr<Door>, DoorHash, DoorComperator> getDoors();
 
     std::string toString();
 

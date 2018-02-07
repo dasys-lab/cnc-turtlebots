@@ -7,6 +7,7 @@
 #include "Communication.h"
 #include "TopologicalLocalization.h"
 #include "TopologicalModel.h"
+#include "DoorStateRecognition.h"
 
 #include <supplementary/EventTrigger.h>
 #include <supplementary/WorldModel.h>
@@ -42,6 +43,7 @@ class TTBWorldModel : public supplementary::WorldModel
     wm::LogicalCameraData logicalCameraData;
     wm::TopologicalModel topologicalModel;
     wm::TopologicalLocalization topologicalLocalization;
+    wm::DoorStateRecognition doorStateRecognition;
     wm::TaskManager taskManager;
     wm::Communication* communication;
 

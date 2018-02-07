@@ -24,6 +24,7 @@ TTBWorldModel::TTBWorldModel() :
     , logicalCameraData(this)
 	, topologicalLocalization(this)
 	, topologicalModel(this)
+	, doorStateRecognition(this)
 	, usingSimulator(false)
 	, communication(nullptr)
 {
@@ -46,6 +47,8 @@ void TTBWorldModel::init()
 	this->communication = new wm::Communication(this);
 	this->topologicalLocalization.setIntervalMS(std::chrono::milliseconds(33));
 	this->topologicalLocalization.start();
+	this->doorStateRecognition.setIntervalMS(std::chrono::milliseconds(100));
+	this->doorStateRecognition.start();
 }
 
 bool TTBWorldModel::isUsingSimulator()
