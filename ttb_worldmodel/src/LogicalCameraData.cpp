@@ -53,7 +53,7 @@ std::list<std::shared_ptr<LogicalObject>> LogicalCameraData::getObjectsOfType(st
     std::list<std::shared_ptr<LogicalObject>> ret;
     for (auto pair : this->dict)
     {
-        if (pair.first.find(type) != std::string::npos)
+        if (pair.first.find("_"+type) != std::string::npos)
         {
             ret.push_back(pair.second);
         }

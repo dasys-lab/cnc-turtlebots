@@ -59,6 +59,11 @@ namespace nav_msgs
 ROS_DECLARE_MESSAGE(Odometry)
 }
 
+namespace gazebo_msgs
+{
+ROS_DECLARE_MESSAGE(ModelStates)
+}
+
 namespace ttb
 {
 namespace wm
@@ -85,25 +90,27 @@ class RawSensorData
     void processServeTask(ttb_msgs::ServeTask serveTask);
     void processLogicalCamera(ttb_msgs::LogicalCameraPtr logicalCamera);
     void processAMCLPose(geometry_msgs::PoseWithCovarianceStamped msg);
+    void processGazeboModelState(gazebo_msgs::ModelStatesPtr modelStates);
 
     // data access through public buffers
-    const supplementary::InfoBuffer<std::shared_ptr<nav_msgs::Odometry>>* getOdometryBuffer();
-    const supplementary::InfoBuffer<geometry::CNPositionAllo>* getOdomPositionBuffer();
+    const supplementary::InfoBuffer<std::shared_ptr<nav_msgs::Odometry>> *getOdometryBuffer();
+    const supplementary::InfoBuffer<geometry::CNPositionAllo> *getOdomPositionBuffer();
     const supplementary::InfoBuffer<geometry::CNPositionAllo> *getAMCLPositionBuffer();
-    const supplementary::InfoBuffer<geometry::CNVecAllo>* getOdomVelocityBuffer(); // TODO: Check whether vector is allo or ego
-    const supplementary::InfoBuffer<std::shared_ptr<sensor_msgs::LaserScan>>* getLaserScanBuffer();
-    const supplementary::InfoBuffer<kobuki_msgs::BumperEvent>* getBumperEventBuffer();
-    const supplementary::InfoBuffer<std::shared_ptr<sensor_msgs::PointCloud2>>* getBumperCloudBuffer();
-    const supplementary::InfoBuffer<std::shared_ptr<sensor_msgs::PointCloud2>>* getDepthCameraCloudBuffer();
-    const supplementary::InfoBuffer<sensor_msgs::Imu>* getImuDataBuffer();
-    const supplementary::InfoBuffer<kobuki_msgs::CliffEvent>* getCliffEventBuffer();
-    const supplementary::InfoBuffer<std::shared_ptr<sensor_msgs::Image>>* getRawCameraImageBuffer();
-    const supplementary::InfoBuffer<robot_control::RobotCommand>* getRobotCommandBuffer();
-    const supplementary::InfoBuffer<std::shared_ptr<kobuki_msgs::SensorState>>* getMobileBaseSensorStateBuffer();
-    const supplementary::InfoBuffer<kobuki_msgs::DockInfraRed>* getDockInfrRedBuffer();
-    const supplementary::InfoBuffer<ttb_msgs::ServeTask>* getServeTaskBuffer();
-    const supplementary::InfoBuffer<geometry_msgs::PoseStamped>* getAlvarMarkerBuffer(unsigned int id);
+    const supplementary::InfoBuffer<geometry::CNVecAllo> *getOdomVelocityBuffer(); // TODO: Check whether vector is allo or ego
+    const supplementary::InfoBuffer<std::shared_ptr<sensor_msgs::LaserScan>> *getLaserScanBuffer();
+    const supplementary::InfoBuffer<kobuki_msgs::BumperEvent> *getBumperEventBuffer();
+    const supplementary::InfoBuffer<std::shared_ptr<sensor_msgs::PointCloud2>> *getBumperCloudBuffer();
+    const supplementary::InfoBuffer<std::shared_ptr<sensor_msgs::PointCloud2>> *getDepthCameraCloudBuffer();
+    const supplementary::InfoBuffer<sensor_msgs::Imu> *getImuDataBuffer();
+    const supplementary::InfoBuffer<kobuki_msgs::CliffEvent> *getCliffEventBuffer();
+    const supplementary::InfoBuffer<std::shared_ptr<sensor_msgs::Image>> *getRawCameraImageBuffer();
+    const supplementary::InfoBuffer<robot_control::RobotCommand> *getRobotCommandBuffer();
+    const supplementary::InfoBuffer<std::shared_ptr<kobuki_msgs::SensorState>> *getMobileBaseSensorStateBuffer();
+    const supplementary::InfoBuffer<kobuki_msgs::DockInfraRed> *getDockInfrRedBuffer();
+    const supplementary::InfoBuffer<ttb_msgs::ServeTask> *getServeTaskBuffer();
+    const supplementary::InfoBuffer<geometry_msgs::PoseStamped> *getAlvarMarkerBuffer(unsigned int id);
     const supplementary::InfoBuffer<std::shared_ptr<ttb_msgs::LogicalCamera>> *getLogicalCameraBuffer();
+    const supplementary::InfoBuffer<std::shared_ptr<gazebo_msgs::ModelStates>> *getGazeboModelStatesBuffer();
 
   private:
     TTBWorldModel *wm;
@@ -112,10 +119,10 @@ class RawSensorData
 
     // common stuff
     supplementary::InfoTime robotCommandValidityDuration;
-    supplementary::InfoBuffer<robot_control::RobotCommand>* robotCommandBuffer;
+    supplementary::InfoBuffer<robot_control::RobotCommand> *robotCommandBuffer;
 
     supplementary::InfoTime serveTaskValidityDuration;
-    supplementary::InfoBuffer<ttb_msgs::ServeTask>* serveTaskBuffer;
+    supplementary::InfoBuffer<ttb_msgs::ServeTask> *serveTaskBuffer;
 
     // real robots only stuff
     // maps marker id to buffer for this marker
@@ -124,47 +131,50 @@ class RawSensorData
     std::map<unsigned int, std::shared_ptr<supplementary::InfoBuffer<geometry_msgs::PoseStamped>>> alvarMarkerMap;
 
     supplementary::InfoTime cliffEventValidityDuration;
-    supplementary::InfoBuffer<kobuki_msgs::CliffEvent>* cliffEventBuffer;
+    supplementary::InfoBuffer<kobuki_msgs::CliffEvent> *cliffEventBuffer;
 
     supplementary::InfoTime odometryValidityDuration;
-    supplementary::InfoBuffer<std::shared_ptr<nav_msgs::Odometry>>* odometryBuffer; /* <- contains the next two */
+    supplementary::InfoBuffer<std::shared_ptr<nav_msgs::Odometry>> *odometryBuffer; /* <- contains the next two */
 
     supplementary::InfoTime odomPositionValidityDuration;
-    supplementary::InfoBuffer<geometry::CNPositionAllo>* odomPositionBuffer;
+    supplementary::InfoBuffer<geometry::CNPositionAllo> *odomPositionBuffer;
 
     supplementary::InfoTime odomVelocityValidityDuration;
-    supplementary::InfoBuffer<geometry::CNVecAllo>* odomVelocityBuffer;
+    supplementary::InfoBuffer<geometry::CNVecAllo> *odomVelocityBuffer;
 
     supplementary::InfoTime laserScanValidityDuration;
-    supplementary::InfoBuffer<std::shared_ptr<sensor_msgs::LaserScan>>* laserScanBuffer;
+    supplementary::InfoBuffer<std::shared_ptr<sensor_msgs::LaserScan>> *laserScanBuffer;
 
     supplementary::InfoTime bumperEventValidityDuration;
-    supplementary::InfoBuffer<kobuki_msgs::BumperEvent>* bumperEventBuffer;
+    supplementary::InfoBuffer<kobuki_msgs::BumperEvent> *bumperEventBuffer;
 
     supplementary::InfoTime bumperCloudValidityDuration;
-    supplementary::InfoBuffer<std::shared_ptr<sensor_msgs::PointCloud2>>* bumperCloudBuffer;
+    supplementary::InfoBuffer<std::shared_ptr<sensor_msgs::PointCloud2>> *bumperCloudBuffer;
 
     supplementary::InfoTime depthCameraCloudValidityDuration;
-    supplementary::InfoBuffer<std::shared_ptr<sensor_msgs::PointCloud2>>* depthCameraCloudBuffer;
+    supplementary::InfoBuffer<std::shared_ptr<sensor_msgs::PointCloud2>> *depthCameraCloudBuffer;
 
     supplementary::InfoTime imuDataValidityDuration;
-    supplementary::InfoBuffer<sensor_msgs::Imu>* imuDataBuffer;
+    supplementary::InfoBuffer<sensor_msgs::Imu> *imuDataBuffer;
 
     supplementary::InfoTime rawCameraImageValidityDuration;
-    supplementary::InfoBuffer<std::shared_ptr<sensor_msgs::Image>>* rawCameraImageBuffer;
+    supplementary::InfoBuffer<std::shared_ptr<sensor_msgs::Image>> *rawCameraImageBuffer;
 
     supplementary::InfoTime mobileBaseSensorStateValidityDuration;
-    supplementary::InfoBuffer<std::shared_ptr<kobuki_msgs::SensorState>>* mobileBaseSensorStateBuffer;
+    supplementary::InfoBuffer<std::shared_ptr<kobuki_msgs::SensorState>> *mobileBaseSensorStateBuffer;
 
     supplementary::InfoTime dockInfrRedValidityDuration;
-    supplementary::InfoBuffer<kobuki_msgs::DockInfraRed>* dockInfrRedBuffer;
+    supplementary::InfoBuffer<kobuki_msgs::DockInfraRed> *dockInfrRedBuffer;
 
     // simulation only stuff
     supplementary::InfoTime amclPositionValidityDuration;
-    supplementary::InfoBuffer<geometry::CNPositionAllo>* amclPositionBuffer;
+    supplementary::InfoBuffer<geometry::CNPositionAllo> *amclPositionBuffer;
 
     supplementary::InfoTime logicalCameraValidityDuration;
-    supplementary::InfoBuffer<std::shared_ptr<ttb_msgs::LogicalCamera>>* logicalCameraBuffer;
+    supplementary::InfoBuffer<std::shared_ptr<ttb_msgs::LogicalCamera>> *logicalCameraBuffer;
+
+    supplementary::InfoTime modelStatesValidityDuration;
+    supplementary::InfoBuffer<std::shared_ptr<gazebo_msgs::ModelStates>> *modelStatesBuffer;
 };
 } /* namespace wm */
 } /* namespace ttb */

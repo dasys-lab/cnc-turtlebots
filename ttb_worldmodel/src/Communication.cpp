@@ -27,6 +27,9 @@ Communication::Communication(ttb::TTBWorldModel *wm)
         // for simulated robot only
         topic = (*sc)["TTBWorldModel"]->get<string>("Data.LogicalCamera.Topic", NULL);
         logicalCameraSensorSub = n.subscribe(topic, 10, &Communication::onLogicalCamera, (Communication *)this);
+
+        topic = (*sc)["TTBWorldModel"]->get<string>("Data.GazeboModelStates.Topic", NULL);
+        gazeboModelStatesSub = n.subscribe(topic, 10, &Communication::onGazeboModelStates, (Communication *)this);
     }
     else
     {
@@ -84,7 +87,6 @@ Communication::Communication(ttb::TTBWorldModel *wm)
 
     spinner = new ros::AsyncSpinner(4);
     spinner->start();
-    std::cout << "Communication constructor finished!" << std::endl;
 }
 
 Communication::~Communication()
@@ -184,6 +186,11 @@ void Communication::onLogicalCamera(ttb_msgs::LogicalCameraPtr logicalCamera)
 {
     this->wm->rawSensorData.processLogicalCamera(logicalCamera);
     this->wm->logicalCameraData.processLogicalCamera(logicalCamera);
+}
+
+void Communication::onGazeboModelStates(gazebo_msgs::ModelStatesPtr modelStates)
+{
+	this->wm->rawSensorData.processGazeboModelState(modelStates);
 }
 
 } /* namespace wm */

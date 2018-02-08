@@ -1,6 +1,7 @@
 #include "DoorStateRecognition.h"
 
 #include "TTBWorldModel.h"
+#include <cmath>
 #include <cnc_geometry/Calculator.h>
 
 namespace ttb
@@ -14,6 +15,7 @@ DoorStateRecognition::DoorStateRecognition(ttb::TTBWorldModel *wm)
 {
     supplementary::SystemConfig *sc = supplementary::SystemConfig::getInstance();
     this->ownPoseValidityDuration = (*sc)["TTBWorldModel"]->get<int>("Data.AMCLPose.ValidityDuration", NULL);
+    this->epsilon = (*sc)["TTBWorldModel"]->get<double>("Processing.DoorStateRecognition.Epsilon", NULL);
 }
 
 DoorStateRecognition::~DoorStateRecognition()
@@ -36,16 +38,24 @@ void DoorStateRecognition::run()
         {
             continue;
         }
-        double scanDist = this->getScanDistance(ownPos, doorPose->getInformation());
-        if (scanDist > geometry::distance(ownPos->getInformation().x, ownPos->getInformation().y, doorPose->getInformation().x, doorPose->getInformation().y))
+
+        if (this->wm->isUsingSimulator())
         {
-            door->open = true;
+        	std::cout << "DoorStateRecognition: Door: " << door->name << " Angle: " <<doorPose->getInformation().theta << std::endl;
+        	door->open = this->isOpen(door, doorPose->getInformation().theta);
         }
         else
         {
-            door->open = false;
+            double scanDist = this->getScanDistance(ownPos, doorPose->getInformation());
+            door->open = scanDist >
+                         geometry::distance(ownPos->getInformation().x, ownPos->getInformation().y, doorPose->getInformation().x, doorPose->getInformation().y);
         }
     }
+}
+
+bool DoorStateRecognition::isOpen(std::shared_ptr<ttb::wm::Door> door, double z)
+{
+    return std::abs(door->openAngle - z) < epsilon;
 }
 
 double DoorStateRecognition::getScanDistance(std::shared_ptr<const supplementary::InformationElement<geometry::CNPositionAllo>> alloOwnPos,
@@ -55,11 +65,12 @@ double DoorStateRecognition::getScanDistance(std::shared_ptr<const supplementary
 
     int idx = 0;
 
-    //alloOwnPos->getInformation().theta
+    // TODO: Needed to be implemented with the math from LogicalCameraSensor and you need to know where the closed door should be (x,y).
+    // alloOwnPos->getInformation().theta
 
-    //objectPose.theta
+    // objectPose.theta
 
-
+    throw new std::runtime_error("DoorStateRecognition::getScanDistance() not implemented,yet!");
 
     return scan->getInformation()->ranges[idx];
 }

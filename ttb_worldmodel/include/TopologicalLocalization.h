@@ -1,7 +1,6 @@
 #pragma once
 
 #include <supplementary/Worker.h>
-#include <ros/ros.h>
 #include "topology/Room.h"
 #include "supplementary/InfoBuffer.h"
 
@@ -20,13 +19,10 @@ class TopologicalLocalization : public supplementary::Worker
     virtual ~TopologicalLocalization();
 
     virtual void run();
-    void sendUpdate(std::shared_ptr<Room> room);
     const supplementary::InfoBuffer<std::shared_ptr<Room>> *getRoomBuffer();
 
   private:
     ttb::TTBWorldModel* wm;
-
-    ros::Publisher topoInfoPub;
 
     supplementary::InfoTime ownPoseValidityDuration;
     supplementary::InfoTime roomValidityDuration;

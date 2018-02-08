@@ -27,6 +27,7 @@ TTBWorldModel::TTBWorldModel() :
 	, doorStateRecognition(this)
 	, usingSimulator(false)
 	, communication(nullptr)
+	, topoInfoPublisher(this)
 {
 	this->robotName = sc->getHostname();
 }
@@ -35,6 +36,8 @@ TTBWorldModel::~TTBWorldModel()
 {
 	delete this->communication;
 	this->topologicalLocalization.stop();
+	this->doorStateRecognition.stop();
+	this->topoInfoPublisher.stop();
 }
 
 std::string TTBWorldModel::getRobotName()
@@ -49,6 +52,8 @@ void TTBWorldModel::init()
 	this->topologicalLocalization.start();
 	this->doorStateRecognition.setIntervalMS(std::chrono::milliseconds(100));
 	this->doorStateRecognition.start();
+	this->topoInfoPublisher.setIntervalMS(std::chrono::milliseconds(300));
+	this->topoInfoPublisher.start();
 }
 
 bool TTBWorldModel::isUsingSimulator()

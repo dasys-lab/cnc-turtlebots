@@ -23,9 +23,6 @@ TopologicalLocalization::TopologicalLocalization(ttb::TTBWorldModel *wm)
     this->roomValidityDuration = (*sc)["TopologicalLocalization"]->get<int>("Data.Room.ValidityDuration", NULL);
 
     this->ownPoseValidityDuration = (*sc)["TTBWorldModel"]->get<int>("Data.AMCLPose.ValidityDuration", NULL);
-
-    ros::NodeHandle n;
-    this->topoInfoPub = n.advertise<ttb_msgs::TopologicalInfo>("/TopologicalInfo", 10);
 }
 
 TopologicalLocalization::~TopologicalLocalization()
@@ -69,16 +66,6 @@ void TopologicalLocalization::run()
     auto infoElement =
         std::make_shared<const supplementary::InformationElement<std::shared_ptr<Room>>>(closestPOI->room, wm->getTime(), this->roomValidityDuration, 1.0);
     this->roomBuffer->add(infoElement);
-
-    this->sendUpdate(closestPOI->room);
-}
-
-void TopologicalLocalization::sendUpdate(std::shared_ptr<Room> room)
-{
-    ttb_msgs::TopologicalInfo info;
-    info.sender.id = this->wm->getOwnId()->toByteVector();
-    info.ownRoom = room->name;
-    this->topoInfoPub.publish(info);
 }
 
 const supplementary::InfoBuffer<std::shared_ptr<Room>> *TopologicalLocalization::getRoomBuffer()

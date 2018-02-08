@@ -19,6 +19,7 @@ class Door
 
     std::string name;
     bool open;
+    double openAngle;
     std::string aspExternal;
     std::shared_ptr<LogicalObject> gazeboModel;
     std::string toString();

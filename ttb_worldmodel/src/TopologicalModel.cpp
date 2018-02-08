@@ -5,6 +5,7 @@
 #include "topology/Room.h"
 
 #include <SystemConfig.h>
+#include <cmath>
 
 #include <sstream>
 
@@ -60,8 +61,8 @@ void TopologicalModel::readTopologyFromConfig()
     for (auto &doorName : *doorNames)
     {
         auto door = this->getDoor(doorName);
-        if (!door->initialized)
-        {
+//        if (!door->initialized)
+//        {
             door->fromRoom = this->getRoom((*sc)["TopologicalModel"]->get<std::string>("DistributedSystems.Doors", doorName.c_str(), "from", NULL));;
             door->toRoom = this->getRoom((*sc)["TopologicalModel"]->get<std::string>("DistributedSystems.Doors", doorName.c_str(), "to", NULL));
             door->fromRoom->doors.insert(door);
@@ -75,8 +76,13 @@ void TopologicalModel::readTopologyFromConfig()
             }
             door->fromPOI = getPOI((*sc)["TopologicalModel"]->get<int>("DistributedSystems.Doors", doorName.c_str(), "fromPOI", NULL));
             door->toPOI = getPOI((*sc)["TopologicalModel"]->get<int>("DistributedSystems.Doors", doorName.c_str(), "toPOI", NULL));
-            door->initialized = true;
-        }
+            door->openAngle = (*sc)["TopologicalModel"]->tryGet<double>(NAN, "DistributedSystems.Doors", doorName.c_str(), "openAngle", NULL);
+            if (isnan(door->openAngle))
+            {
+            	door->open = true;
+            }
+//            door->initialized = true;
+//        }
     }
 }
 

@@ -10,10 +10,11 @@ namespace wm
 {
 
 Door::Door(std::string name)
-    : open(true)
+    : open(false)
     , gazeboModel(nullptr)
     , name(name)
 	, initialized(false)
+	, openAngle(0.0)
 {
 }
 

@@ -23,6 +23,7 @@
 #include <ttb_msgs/ServeTask.h>
 #include <ttb_msgs/LogicalCamera.h>
 #include <nav_msgs/Odometry.h>
+#include <gazebo_msgs/ModelStates.h>
 
 #define COMM_DEBUG
 
@@ -57,6 +58,7 @@ class Communication
     void onServeTask(ttb_msgs::ServeTask serveTask);
     void onAMCLPose(geometry_msgs::PoseWithCovarianceStamped msg);
     void onLogicalCamera(ttb_msgs::LogicalCameraPtr logicalCamera);
+    void onGazeboModelStates(gazebo_msgs::ModelStatesPtr modelStates);
 
     ttb::TTBWorldModel *wm;
 
@@ -66,6 +68,7 @@ class Communication
 
     supplementary::InfoTime timeLastSimMsgReceived;
 
+    ros::Subscriber gazeboModelStatesSub;
     ros::Subscriber odometrySub;
     ros::Subscriber alvarSub;
     ros::Subscriber serveTaskSub;
