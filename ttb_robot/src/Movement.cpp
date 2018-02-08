@@ -52,7 +52,6 @@ std::shared_ptr<ttb::wm::POI> Movement::getNextPOI(std::shared_ptr<ttb::wm::Room
         }
     }
     auto currentDoor = this->currentPathInArea.at(0);
-    std::cout << currentDoor->toString() << std::endl;
     this->currentPathInArea.erase(this->currentPathInArea.begin());
     if (this->currentPathInArea.size() == 0 && this->currentPath.size() != 0)
     {

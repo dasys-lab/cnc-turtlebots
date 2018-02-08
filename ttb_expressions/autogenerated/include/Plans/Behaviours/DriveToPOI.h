@@ -5,6 +5,7 @@
 /*PROTECTED REGION ID(inc1454329856163) ENABLED START*/ //Add additional includes here
 #include <actionlib/client/action_client.h>
 #include <move_base_msgs/MoveBaseAction.h>
+#include <topology/POI.h>
 /*PROTECTED REGION END*/
 namespace alica
 {
@@ -24,6 +25,7 @@ namespace alica
     private:
         /*PROTECTED REGION ID(prv1454329856163) ENABLED START*/ //Add additional private methods here
         actionlib::ClientGoalHandle<move_base_msgs::MoveBaseAction> goalHandle;
+        std::shared_ptr<ttb::wm::POI> nextPOI;
         /*PROTECTED REGION END*/};
 } /* namespace alica */
 
