@@ -1,7 +1,11 @@
 #include "robot/SimulatedArm.h"
 
+#include <RawSensorData.h>
 #include <LogicalCameraData.h>
 #include <TTBWorldModel.h>
+
+#include <cnc_geometry/CNPointAllo.h>
+#include <cnc_geometry/CNPositionAllo.h>
 
 #include <SystemConfig.h>
 
@@ -35,8 +39,29 @@ SimulatedArm::~SimulatedArm()
     delete spinner;
 }
 
-void SimulatedArm::moveDoor(std::string doorName, bool open)
+bool SimulatedArm::openDoor(std::string doorName, bool open)
 {
+	auto lastValidDoorPose = this->wm->topologicalModel.getDoor(doorName)->gazeboModel->getPoseBuffer()->getLastValid();
+	if(!lastValidDoorPose)
+	{
+		//Do not open a door which the robot has not seen for some time
+		// or has not seen at all
+		return false;
+	}
+
+	auto ownPos = this->wm->rawSensorData.getOdomPositionBuffer()->getLastValid();
+	if(!ownPos)
+	{
+		//Do not open a door if the robot does not know its own position
+		return false;
+	}
+	geometry::CNPointAllo dooPoint = geometry::CNPointAllo(lastValidDoorPose->getInformation().x, lastValidDoorPose->getInformation().y);
+	auto doorDistance = ownPos->getInformation().distanceTo(dooPoint);
+	if(doorDistance > this->armRange)
+	{
+		//Not possible to open a door which is out of range
+		return false;
+	}
     ttb_msgs::DoorCmd msg;
     msg.name = doorName;
     if (open)
@@ -48,6 +73,7 @@ void SimulatedArm::moveDoor(std::string doorName, bool open)
         msg.state = ttb_msgs::DoorCmd::CLOSE;
     }
     this->doorCmdPub.publish(msg);
+    return true;
 }
 
 const std::string &SimulatedArm::getCarriedObjectName() const

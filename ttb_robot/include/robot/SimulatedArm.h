@@ -28,7 +28,7 @@ class SimulatedArm
     bool drobObject(std::string objectName);
     SimulatedArm::ObjectInteraction mayInteractWithObject();
     void onOwnArmCmd(ttb_msgs::GrabDropObjectPtr msg);
-    void moveDoor(std::string doorName, bool open);
+    bool openDoor(std::string doorName, bool open = true);
 
   private:
     std::string carriedObjectName;
