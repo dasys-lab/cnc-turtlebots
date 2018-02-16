@@ -36,12 +36,16 @@ void DoorStateRecognition::run()
         auto doorPose = door->gazeboModel->getPoseBuffer()->getTemporalCloseTo(ownPos->getCreationTime(), ownPoseValidityDuration);
         if (!doorPose)
         {
+        	if(door->name.find("r1411C_r1401") != std::string::npos)
+        	{
+        		std::cout << "DoorStaterecognition: No position for door r1411C_r1401 found!" << std::endl;
+        	}
             continue;
         }
 
         if (this->wm->isUsingSimulator())
         {
-        	std::cout << "DoorStateRecognition: Door: " << door->name << " Angle: " <<doorPose->getInformation().theta << std::endl;
+        	std::cout << "DoorStateRecognition: Door: " << door->name << " Angle: " << doorPose->getInformation().theta << std::endl;
         	door->open = this->isOpen(door, doorPose->getInformation().theta);
         }
         else
