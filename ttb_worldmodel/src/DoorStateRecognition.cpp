@@ -38,7 +38,7 @@ void DoorStateRecognition::run()
         {
         	if(door->name.find("r1411C_r1401") != std::string::npos)
         	{
-        		std::cout << "DoorStaterecognition: No position for door r1411C_r1401 found!" << std::endl;
+        		std::cout << "DoorStateRecognition: No position for door r1411C_r1401 found!" << std::endl;
         	}
             continue;
         }
