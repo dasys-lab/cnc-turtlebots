@@ -35,7 +35,10 @@ void TopologicalInfoPublisher::run()
 
     for (auto door : this->wm->topologicalModel.getDoors())
     {
-    	info.openDoors.push_back(door->name);
+    	if (door->open)
+    	{
+    		info.openDoors.push_back(door->name);
+    	}
     }
     this->topoInfoPub.publish(info);
 }

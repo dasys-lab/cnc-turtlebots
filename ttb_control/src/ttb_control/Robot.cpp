@@ -54,6 +54,11 @@ void Robot::handleTopologicalInfo(
 {
 	this->timeLastMsgReceived = timeTopologicalInfoPair.first;
 	this->uiTTBRobot->RoomValue->setText(QString(timeTopologicalInfoPair.second->ownRoom.c_str()));
+	this->uiTTBRobot->DoorValues->clear();
+	for (auto door : timeTopologicalInfoPair.second->openDoors)
+	{
+		this->uiTTBRobot->DoorValues->appendPlainText(QString((door + " ").c_str()));
+	}
 }
 
 void Robot::toggle()

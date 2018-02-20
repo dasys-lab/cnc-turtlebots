@@ -34,7 +34,7 @@
   <property name="frameShape">
    <enum>QFrame::Box</enum>
   </property>
-  <layout class="QVBoxLayout" name="controlledRobotVerticalLayout" stretch="0,0">
+  <layout class="QVBoxLayout" name="controlledRobotVerticalLayout" stretch="0,0,0">
    <property name="spacing">
     <number>0</number>
    </property>
@@ -67,7 +67,7 @@
     </widget>
    </item>
    <item>
-    <layout class="QHBoxLayout" name="horizontalLayout">
+    <layout class="QHBoxLayout" name="roomHL">
      <item>
       <widget class="QLabel" name="RoomLbl">
        <property name="maximumSize">
@@ -86,17 +86,41 @@
        <property name="minimumSize">
         <size>
          <width>100</width>
-         <height>0</height>
+         <height>15</height>
         </size>
        </property>
        <property name="maximumSize">
         <size>
          <width>16777215</width>
-         <height>14</height>
+         <height>15</height>
         </size>
        </property>
        <property name="text">
         <string/>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="doorHL">
+     <item>
+      <widget class="QLabel" name="DoorLbl">
+       <property name="text">
+        <string>OpenDoors:</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPlainTextEdit" name="DoorValues">
+       <property name="minimumSize">
+        <size>
+         <width>0</width>
+         <height>80</height>
+        </size>
+       </property>
+       <property name="readOnly">
+        <bool>true</bool>
        </property>
       </widget>
      </item>
