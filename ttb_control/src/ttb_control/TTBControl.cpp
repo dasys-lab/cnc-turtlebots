@@ -81,11 +81,20 @@ void TTBControl::showContextMenu(const QPoint &pos)
     QPoint globalPos = this->widget_->mapToGlobal(pos);
 
     QMenu myMenu;
-    for (auto robot : this->pmRegistry->getRobots())
+    for (auto &robot : this->pmRegistry->getRobots())
     {
         stringstream ss;
-        ss << *robot.first;
-        myMenu.addAction(std::string(robot.second->name + " (" + ss.str() + ")").c_str());
+        ss << *(robot.second->agentID);
+        QIcon icon;
+        if (this->controlledRobotsMap[robot.first]->isHidden())
+        {
+            icon = QIcon::fromTheme("user-offline", QIcon("user-offline"));
+        }
+        else
+        {
+            icon = QIcon::fromTheme("user-available", QIcon("user-available"));
+        }
+        auto tmpAction = myMenu.addAction(icon, std::string(robot.second->name + " (" + ss.str() + ")").c_str());
     }
 
     QAction *selectedItem = myMenu.exec(globalPos);
@@ -95,21 +104,21 @@ void TTBControl::showContextMenu(const QPoint &pos)
         std::string name = selectedItem->iconText().toStdString().substr();
         name = name.substr(0, name.find('(') - 1);
 
-        std::cout << "RC: '" << name << "'" << std::endl;
-        auto robotId = this->pmRegistry->getRobotId(name);
-        if (robotId)
+        cout << "RC: '" << name << "'" << endl;
+
+        const supplementary::AgentID *robotId = this->pmRegistry->getRobotId(name);
+        if (robotId != nullptr)
         {
-            // this->checkAndInit(robotId);
             this->controlledRobotsMap[robotId]->toggle();
         }
         else
         {
-            std::cerr << "RC: Chosen robot is not known in the robot registry!" << std::endl;
+            cerr << "RC: Chosen robot is not known in the robot registry!" << endl;
         }
     }
     else
     {
-        std::cout << "RC: Nothing chosen!" << std::endl;
+        cout << "RC: Nothing chosen!" << endl;
     }
 }
 
