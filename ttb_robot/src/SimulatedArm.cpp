@@ -41,11 +41,18 @@ SimulatedArm::~SimulatedArm()
 
 bool SimulatedArm::openDoor(std::string doorName, bool open)
 {
-	auto lastValidDoorPose = this->wm->topologicalModel.getDoor(doorName)->gazeboModel->getPoseBuffer()->getLastValid();
+	auto door = this->wm->topologicalModel.getDoor(doorName);
+	if(!door)
+	{
+		std::cout << "SimulatedArm::openDoor: door " << doorName << " not found in topological model!" << std::endl;
+		return false;
+	}
+	auto lastValidDoorPose = door->gazeboModel->getPoseBuffer()->getLastValid();
 	if(!lastValidDoorPose)
 	{
 		//Do not open a door which the robot has not seen for some time
 		// or has not seen at all
+		std::cout << "SimulatedArm::openDoor: door " << doorName << " has no valid position!" << std::endl;
 		return false;
 	}
 
@@ -53,12 +60,14 @@ bool SimulatedArm::openDoor(std::string doorName, bool open)
 	if(!ownPos)
 	{
 		//Do not open a door if the robot does not know its own position
+		std::cout << "SimulatedArm::openDoor: own pos not valid" << std::endl;
 		return false;
 	}
 	geometry::CNPointAllo dooPoint = geometry::CNPointAllo(lastValidDoorPose->getInformation().x, lastValidDoorPose->getInformation().y);
 	auto doorDistance = ownPos->getInformation().distanceTo(dooPoint);
 	if(doorDistance > this->armRange)
 	{
+		std::cout << "SimulatedArm::openDoor: door " << doorName << " is out of range!" << std::endl;
 		//Not possible to open a door which is out of range
 		return false;
 	}

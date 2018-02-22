@@ -41,7 +41,7 @@ std::vector<std::shared_ptr<::ttb::wm::Area>> TopologicalPathPlanner::plan(std::
     }
     else
     {
-        std::cout << "TopologicalPathPlanner: no between areas found or room are in the same area!" << std::endl;
+        std::cout << "TopologicalPathPlanner: no path between areas found or room are in the same area!" << std::endl;
     }
 
 #ifdef TP_DEBUG

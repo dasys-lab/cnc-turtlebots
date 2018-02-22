@@ -19,6 +19,7 @@ class SystemConfig;
 namespace ttb
 {
 class TTBWorldModel;
+class Robot;
 namespace wm
 {
 	class Area;
@@ -36,7 +37,7 @@ class TopologicalPathPlanner;
 class Movement
 {
   public:
-    Movement(ttb::TTBWorldModel *wm);
+    Movement(ttb::TTBWorldModel *wm, ttb::Robot* robot);
     virtual ~Movement();
 
     std::shared_ptr<ttb::wm::POI> getNextPOI(std::shared_ptr<ttb::wm::Room> currentPosition, std::shared_ptr<ttb::wm::POI> goal);
@@ -49,6 +50,10 @@ class Movement
 
   private:
     supplementary::SystemConfig *sc;
+
+    ttb::TTBWorldModel* wm;
+    ttb::Robot* robot;
+
     ttb::robot::pathPlanning::TopologicalPathPlanner *topoPlanner;
     std::string directVelocityCmd;
     std::string moveBaseActionClientNamespace;
@@ -58,8 +63,9 @@ class Movement
 
     actionlib::ActionClient<move_base_msgs::MoveBaseAction> *ac;
     std::vector<std::shared_ptr<ttb::wm::Area>> currentPath;
-    std::shared_ptr<ttb::wm::POI> currentGoal;
     std::vector<std::shared_ptr<ttb::wm::Door>> currentPathInArea;
+    std::shared_ptr<ttb::wm::POI> currentGoal;
+    std::shared_ptr<ttb::wm::Door> doorToOpen;
 };
 
 } /* namespace robot */

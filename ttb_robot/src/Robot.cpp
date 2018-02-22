@@ -11,7 +11,7 @@ Robot *Robot::get(ttb::TTBWorldModel* wm)
 
 Robot::Robot(ttb::TTBWorldModel* wm)
 {
-	this->movement = new robot::Movement(wm);
+	this->movement = new robot::Movement(wm, this);
 	this->simulatedArm = new robot::SimulatedArm();
 	this->speech = new robot::Speech();
 }
