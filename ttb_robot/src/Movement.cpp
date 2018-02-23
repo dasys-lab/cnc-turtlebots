@@ -69,22 +69,29 @@ std::shared_ptr<ttb::wm::POI> Movement::getNextPOI(std::shared_ptr<ttb::wm::Room
     }
     if (this->currentPath.size() > 0)
     {
+    	std::cout << "Movement::getNextPOI: area path length: " << this->currentPath.size() << std::endl;
         if (this->currentPathInArea.size() == 0)
         {
+        	std::cout << "Movement::getNextPOI: no path in area!" << std::endl;
             this->currentPathInArea = this->topoPlanner->planToNextArea(currentPosition, this->currentPath.at(0));
+            std::cout << "Movement::getNextPOI: new Path in area length is: " << this->currentPathInArea.size() << std::endl;
         }
     }
     else
     {
+    	std::cout << "Movement::getNextPOI: are path length is 0 plan between rooms of an area!" << std::endl;
         if (this->currentPathInArea.size() == 0)
         {
             this->currentPathInArea = this->topoPlanner->planBetweenRooms(currentPosition, goal->room);
         }
     }
+    std::cout << "Movement::getNextPOI: getting next door!" << std::endl;
     this->doorToOpen = this->currentPathInArea.at(0);
+    std::cout << "Movement::getNextPOI: next door is: " << this->doorToOpen->name << std::endl;
     this->currentPathInArea.erase(this->currentPathInArea.begin());
     if (this->currentPathInArea.size() == 0 && this->currentPath.size() != 0)
     {
+    	std::cout << "Movement::getNextPOI: path finished in this area move to next area." << std::endl;
         this->currentPath.erase(this->currentPath.begin());
     }
     if (currentPosition == this->doorToOpen->fromRoom)
