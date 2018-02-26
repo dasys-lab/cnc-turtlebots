@@ -1,13 +1,19 @@
 #pragma once
 
-#include <actionlib/client/action_client.h>
-#include <actionlib/client/terminal_state.h>
+#include <supplementary/Worker.h>
+
+#include <robot/TTBEnums.h>
+
 #include <geometry_msgs/PoseStamped.h>
 #include <geometry_msgs/Twist.h>
 #include <move_base_msgs/MoveBaseAction.h>
+//#include <actionlib/client/terminal_state.h>
+#include <actionlib/client/action_client.h>
 
 #include <ros/ros.h>
 
+#include <memory>
+#include <mutex>
 #include <string>
 #include <vector>
 
@@ -22,10 +28,10 @@ class TTBWorldModel;
 class Robot;
 namespace wm
 {
-	class Area;
-	class Room;
-	class Door;
-	class POI;
+class Area;
+class Room;
+class Door;
+class POI;
 }
 namespace robot
 {
@@ -34,38 +40,54 @@ namespace pathPlanning
 class TopologicalPathPlanner;
 }
 
-class Movement
+class Movement : public supplementary::Worker
 {
   public:
-    Movement(ttb::TTBWorldModel *wm, ttb::Robot* robot);
+    Movement(ttb::TTBWorldModel *wm, ttb::Robot *robot);
     virtual ~Movement();
 
-    std::shared_ptr<ttb::wm::POI> getNextPOI(std::shared_ptr<ttb::wm::Room> currentPosition, std::shared_ptr<ttb::wm::POI> goal);
-
-    std::vector<std::shared_ptr<wm::Area>> plan(std::shared_ptr<wm::Room> start, std::shared_ptr<wm::Room> goal);
+    // direct moves
     void send(geometry_msgs::Twist &twist);
+
+    // move base
     actionlib::ClientGoalHandle<move_base_msgs::MoveBaseAction> send(move_base_msgs::MoveBaseGoal &mbg);
     void cancelAllGoals();
     void cancelGoalsAtAndBeforeTime(const ros::Time &time);
 
+    // complex planning
+    ttb::robot::MovementReturnState getState(std::shared_ptr<ttb::wm::POI> goal);
+    void setGoalPOI(std::shared_ptr<ttb::wm::POI> goal);
+    bool determineGoalRoom(std::shared_ptr<::ttb::wm::Room> start, std::shared_ptr<::ttb::wm::Area> goal,
+                           std::shared_ptr<ttb::wm::Room> goalRoom, std::shared_ptr<ttb::wm::Door> doorToNextArea);
+    virtual void run();
+
+    void driveToPOI(std::shared_ptr<ttb::wm::Room> currentPosition, std::shared_ptr<ttb::wm::POI> goal);
+    std::vector<std::shared_ptr<wm::Area>> plan(std::shared_ptr<wm::Room> start, std::shared_ptr<wm::Room> goal);
+
   private:
     supplementary::SystemConfig *sc;
-
-    ttb::TTBWorldModel* wm;
-    ttb::Robot* robot;
-
-    ttb::robot::pathPlanning::TopologicalPathPlanner *topoPlanner;
-    std::string directVelocityCmd;
-    std::string moveBaseActionClientNamespace;
-
+    ttb::TTBWorldModel *wm;
+    ttb::Robot *robot;
     ros::NodeHandle n;
+
+    // direct moves
+    std::string directVelocityCmd;
     ros::Publisher directVelocityCmdPub;
 
+    // move base
+    std::string moveBaseActionClientNamespace;
     actionlib::ActionClient<move_base_msgs::MoveBaseAction> *ac;
+
+    // complex planning
+    void reset();
+    ttb::robot::pathPlanning::TopologicalPathPlanner *topoPlanner;
     std::vector<std::shared_ptr<ttb::wm::Area>> currentPath;
     std::vector<std::shared_ptr<ttb::wm::Door>> currentPathInArea;
-    std::shared_ptr<ttb::wm::POI> currentGoal;
+    std::shared_ptr<ttb::wm::POI> goalPOI;
+    bool goalPOIDirty;
     std::shared_ptr<ttb::wm::Door> doorToOpen;
+    std::mutex goalMutex;
+    bool goalReached, goalFailed;
 };
 
 } /* namespace robot */

@@ -90,7 +90,7 @@ bool TopologicalPathPlanner::areaBreadthSearch(std::vector<std::shared_ptr<ttb::
     return areaBreadthSearch(newFringe, visited, goal);
 }
 
-std::vector<std::shared_ptr<ttb::wm::Door>> TopologicalPathPlanner::planBetweenRooms(std::shared_ptr<ttb::wm::Room> start, std::shared_ptr<ttb::wm::Room> goal)
+std::vector<std::shared_ptr<ttb::wm::Door>> TopologicalPathPlanner::planDoorPath(std::shared_ptr<ttb::wm::Room> start, std::shared_ptr<ttb::wm::Room> goal)
 {
     std::vector<std::shared_ptr<ttb::wm::Room>> fringe;
     fringe.push_back(start);

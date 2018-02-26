@@ -22,13 +22,11 @@ namespace alica
     protected:
         virtual void initialiseParameters();
         /*PROTECTED REGION ID(pro1454329856163) ENABLED START*/ //Add additional protected methods here
-        int poiID;
         /*PROTECTED REGION END*/
     private:
         /*PROTECTED REGION ID(prv1454329856163) ENABLED START*/ //Add additional private methods here
-        actionlib::ClientGoalHandle<move_base_msgs::MoveBaseAction> goalHandle;
-        std::shared_ptr<ttb::wm::POI> nextPOI;
-        std::shared_ptr<supplementary::InformationElement<ttb_msgs::ServeTask>> currentTask;
+        bool trySetGoalPOI();
+        std::shared_ptr<ttb::wm::POI> currentGoalPOI;
         /*PROTECTED REGION END*/};
 } /* namespace alica */
 

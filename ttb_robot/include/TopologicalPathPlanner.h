@@ -37,7 +37,7 @@ class TopologicalPathPlanner
      * First Door is start of path
      * Last Door is connected to the goal Area
      */
-    std::vector<std::shared_ptr<ttb::wm::Door>> planBetweenRooms(std::shared_ptr<ttb::wm::Room> start, std::shared_ptr<ttb::wm::Room> goal);
+    std::vector<std::shared_ptr<ttb::wm::Door>> planDoorPath(std::shared_ptr<ttb::wm::Room> start, std::shared_ptr<ttb::wm::Room> goal);
     /*
      * Returns a vector of Doors
      * First Door is start of path
