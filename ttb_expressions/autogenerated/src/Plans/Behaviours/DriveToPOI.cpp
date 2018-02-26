@@ -33,7 +33,7 @@ void DriveToPOI::run(void *msg)
     auto ownPos = this->wm->rawSensorData.getAMCLPositionBuffer()->getLastValidContent();
     if (!ownPos)
     {
-        std::cerr << "DriveToPOI: Not localised!" << std::endl;
+        std::cerr << "DriveToPOI: Not localized!" << std::endl;
         return;
     }
 
@@ -48,7 +48,7 @@ void DriveToPOI::run(void *msg)
     {
     case ttb::robot::MovementReturnState::OtherGoalAssigned:
     case ttb::robot::MovementReturnState::NoGoalAssigned:
-        this->robot->movement->driveToPOI(ownRoom.value(), this->currentGoalPOI);
+        this->robot->movement->setGoalPOI(this->currentGoalPOI);
         break;
     case ttb::robot::MovementReturnState::GoalReached:
         this->setSuccess(true);

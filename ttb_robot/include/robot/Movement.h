@@ -61,8 +61,8 @@ class Movement : public supplementary::Worker
                            std::shared_ptr<ttb::wm::Room> goalRoom, std::shared_ptr<ttb::wm::Door> doorToNextArea);
     virtual void run();
 
-    void driveToPOI(std::shared_ptr<ttb::wm::Room> currentPosition, std::shared_ptr<ttb::wm::POI> goal);
-    std::vector<std::shared_ptr<wm::Area>> plan(std::shared_ptr<wm::Room> start, std::shared_ptr<wm::Room> goal);
+//    void driveToPOI(std::shared_ptr<ttb::wm::Room> startRoom, std::shared_ptr<ttb::wm::POI> goal);
+//    std::vector<std::shared_ptr<wm::Area>> plan(std::shared_ptr<wm::Room> start, std::shared_ptr<wm::Room> goal);
 
   private:
     supplementary::SystemConfig *sc;
@@ -77,6 +77,7 @@ class Movement : public supplementary::Worker
     // move base
     std::string moveBaseActionClientNamespace;
     actionlib::ActionClient<move_base_msgs::MoveBaseAction> *ac;
+    actionlib::ClientGoalHandle<move_base_msgs::MoveBaseAction> goalHandle;
 
     // complex planning
     void reset();

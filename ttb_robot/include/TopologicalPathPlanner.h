@@ -31,19 +31,20 @@ class TopologicalPathPlanner
      * First Area contains start room
      * Last Area contains goal room
      */
-    std::vector<std::shared_ptr<ttb::wm::Area>> plan(std::shared_ptr<ttb::wm::Room> start, std::shared_ptr<ttb::wm::Room> goal);
+    bool planAreaPath(std::shared_ptr<ttb::wm::Room> start, std::shared_ptr<ttb::wm::Room> goal, std::vector<std::shared_ptr<::ttb::wm::Area>> &areaList);
     /*
      * Returns a vector of Doors
      * First Door is start of path
      * Last Door is connected to the goal Area
      */
-    std::vector<std::shared_ptr<ttb::wm::Door>> planDoorPath(std::shared_ptr<ttb::wm::Room> start, std::shared_ptr<ttb::wm::Room> goal);
+    bool planDoorPath(std::shared_ptr<ttb::wm::Room> start, std::shared_ptr<ttb::wm::Room> goal,
+                                                             std::vector<std::shared_ptr<::ttb::wm::Door>> &doorList);
     /*
      * Returns a vector of Doors
      * First Door is start of path
      * Last Door is connected to the goal room
      */
-    std::vector<std::shared_ptr<ttb::wm::Door>> planToNextArea(std::shared_ptr<ttb::wm::Room> start, std::shared_ptr<ttb::wm::Area> goal);
+    //    std::vector<std::shared_ptr<ttb::wm::Door>> planToNextArea(std::shared_ptr<ttb::wm::Room> start, std::shared_ptr<ttb::wm::Area> goal);
 
   private:
     wm::TopologicalModel *topologicalModel;
