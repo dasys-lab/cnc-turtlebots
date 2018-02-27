@@ -3,11 +3,11 @@
 #include <supplementary/Worker.h>
 
 #include <robot/TTBEnums.h>
+#include <cnc_geometry/CNPositionAllo.h>
 
 #include <geometry_msgs/PoseStamped.h>
 #include <geometry_msgs/Twist.h>
 #include <move_base_msgs/MoveBaseAction.h>
-//#include <actionlib/client/terminal_state.h>
 #include <actionlib/client/action_client.h>
 
 #include <ros/ros.h>
@@ -58,11 +58,9 @@ class Movement : public supplementary::Worker
     ttb::robot::MovementReturnState getState(std::shared_ptr<ttb::wm::POI> goal);
     void setGoalPOI(std::shared_ptr<ttb::wm::POI> goal);
     bool determineGoalRoom(std::shared_ptr<::ttb::wm::Room> start, std::shared_ptr<::ttb::wm::Area> goal,
-                           std::shared_ptr<ttb::wm::Room> goalRoom, std::shared_ptr<ttb::wm::Door> doorToNextArea);
+                           std::shared_ptr<ttb::wm::Room>& goalRoom, std::shared_ptr<ttb::wm::Door>& doorToNextArea);
+    bool closeToPOI(geometry::CNPositionAllo ownPos, std::shared_ptr<ttb::wm::POI> currentPOI);
     virtual void run();
-
-//    void driveToPOI(std::shared_ptr<ttb::wm::Room> startRoom, std::shared_ptr<ttb::wm::POI> goal);
-//    std::vector<std::shared_ptr<wm::Area>> plan(std::shared_ptr<wm::Room> start, std::shared_ptr<wm::Room> goal);
 
   private:
     supplementary::SystemConfig *sc;
@@ -89,6 +87,8 @@ class Movement : public supplementary::Worker
     std::shared_ptr<ttb::wm::Door> doorToOpen;
     std::mutex goalMutex;
     bool goalReached, goalFailed;
+    double sqrCatchRadius;
+    uint32_t sequenceCounter;
 };
 
 } /* namespace robot */

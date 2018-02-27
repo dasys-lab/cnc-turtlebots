@@ -20,7 +20,7 @@ SimulatedArm::SimulatedArm()
     this->sc = supplementary::SystemConfig::getInstance();
     this->carriedObjectName = "";
     this->requestedObject = "";
-    this->armRange = (*this->sc)["SimulatedArm"]->get<double>("SimulatedArm.Range", NULL);
+    this->armRange = (*this->sc)["TTBRobot"]->get<double>("SimulatedArm.Range", NULL);
     ros::NodeHandle n;
     this->doorCmdPub = n.advertise<ttb_msgs::DoorCmd>("/DoorCmd", 5, false);
     this->armCmdPub = n.advertise<ttb_msgs::GrabDropObject>("/ArmCmd", 5, false);

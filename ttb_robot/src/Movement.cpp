@@ -25,12 +25,17 @@ Movement::Movement(ttb::TTBWorldModel *wm, ttb::Robot *robot)
     this->directVelocityCmd = (*this->sc)["Drive"]->get<std::string>("Topics.DirectVelocityCmd", NULL);
     this->directVelocityCmdPub = n.advertise<geometry_msgs::Twist>(this->directVelocityCmd, 10);
 
-    this->moveBaseActionClientNamespace = (*this->sc)["Drive"]->get<string>("Topics.MoveBaseActionClientNamespace", NULL);
+    this->moveBaseActionClientNamespace =
+        (*this->sc)["Drive"]->get<string>("Topics.MoveBaseActionClientNamespace", NULL);
     this->ac = new actionlib::ActionClient<move_base_msgs::MoveBaseAction>(moveBaseActionClientNamespace);
     this->goalHandle.reset();
 
     this->goalPOI = nullptr;
     this->doorToOpen = nullptr;
+    this->sqrCatchRadius = (*this->sc)["TTBRobot"]->get<double>("Movement.catchRadius", NULL);
+    this->sqrCatchRadius *= this->sqrCatchRadius;
+
+    this->sequenceCounter = 0;
 }
 
 Movement::~Movement()
@@ -82,35 +87,52 @@ void Movement::setGoalPOI(std::shared_ptr<ttb::wm::POI> goalPOI)
 void Movement::run()
 {
     lock_guard<std::mutex> guard(this->goalMutex);
+
+    // clean up, if necessary
     if (this->goalPOIDirty)
     {
         // cancel current progress
         this->reset();
-        this->goalPOIDirty = false;
     }
 
-    auto startRoom = this->wm->topologicalLocalization.getRoomBuffer()->getLastValid();
+    if (!goalHandle.isExpired())
+    {
+        std::cout << "Movement: GoalHandle-CommState: " << this->goalHandle.getCommState().toString() << std::endl;
+        std::cout << "Movement: GoalHandle-TerminalState: " << this->goalHandle.getTerminalState().toString()
+                  << std::endl;
+    }
+
+    if (!this->goalHandle.isExpired() && this->goalHandle.getCommState() == actionlib::CommState::DONE &&
+        (this->goalHandle.getTerminalState() == actionlib::TerminalState::SUCCEEDED ||
+         this->goalHandle.getTerminalState() == actionlib::TerminalState::ABORTED))
+    {
+        this->goalHandle.reset();
+    }
+
+    // get own room
+    auto startRoom = this->wm->topologicalLocalization.getRoomBuffer()->getLastValidContent();
     if (!startRoom)
     {
         std::cerr << "Movement: No own room known!" << std::endl;
         return;
     }
 
+    // plan area path
     std::vector<std::shared_ptr<::ttb::wm::Area>> areaList;
-    if (!this->topoPlanner->planAreaPath(startRoom->getInformation(), this->goalPOI->room, areaList))
+    if (!this->topoPlanner->planAreaPath(startRoom.value(), this->goalPOI->room, areaList))
     {
-        // failed
+        std::cerr << "Movement: Planning area path didn't work out!" << std::endl;
         return;
     }
 
-    // todo length of area list
-    std::shared_ptr<ttb::wm::Room> goalRoom = nullptr;
-    std::shared_ptr<ttb::wm::Door> doorToNextArea = nullptr;
+    // determine next goal room
+    std::shared_ptr<ttb::wm::Room> goalRoom = std::shared_ptr<ttb::wm::Room>();
+    std::shared_ptr<ttb::wm::Door> doorToNextArea = std::shared_ptr<ttb::wm::Door>();
     if (areaList.size() > 0)
     {
-        if (!determineGoalRoom(startRoom->getInformation(), areaList[0], goalRoom, doorToNextArea))
+        if (!determineGoalRoom(startRoom.value(), areaList[0], goalRoom, doorToNextArea))
         {
-            // failed
+            std::cerr << "Movement: Determining goal room didn't work out!" << std::endl;
             return;
         }
     }
@@ -119,39 +141,96 @@ void Movement::run()
         goalRoom = this->goalPOI->room;
     }
 
+    // plan door path
     std::vector<std::shared_ptr<::ttb::wm::Door>> doorList;
-    if (!this->topoPlanner->planDoorPath(startRoom->getInformation(), goalRoom, doorList))
+    if (!this->topoPlanner->planDoorPath(startRoom.value(), goalRoom, doorList))
     {
-        // failed
+        std::cerr << "Movement: Planning Door Path didn't work out!" << std::endl;
         return;
     }
-    if(doorToNextArea)
+    if (doorToNextArea)
     {
-    	doorList.push_back(doorToNextArea);
+        std::cout << "Movement: Setting door to next area to '" << doorToNextArea->name << "'" << std::endl;
+        doorList.push_back(doorToNextArea);
     }
+
+    // determine next POI
+    std::shared_ptr<ttb::wm::POI> currentPOI = nullptr;
     std::shared_ptr<ttb::wm::POI> nextPOI = nullptr;
     if (doorList.size() > 0)
     {
-        if (startRoom->getInformation()->name.compare(doorList.at(0)->fromRoom->name) == 0)
+        if ((*startRoom)->name.compare(doorList.at(0)->fromRoom->name) == 0)
         {
-        	nextPOI = doorList.at(0)->fromPOI;
+            currentPOI = doorList.at(0)->fromPOI;
+            nextPOI = doorList.at(0)->toPOI;
         }
         else
         {
-        	nextPOI = doorList.at(0)->toPOI;
+            currentPOI = doorList.at(0)->toPOI;
+            nextPOI = doorList.at(0)->fromPOI;
         }
     }
     else
     {
-        // door list is empty => poi is in same room
-        nextPOI = this->goalPOI;
+        // door list is empty => POI is in same room
+        currentPOI = this->goalPOI;
     }
 
-    // drive to next poi
+    // Get own pos
+    auto ownPos = this->wm->rawSensorData.getAMCLPositionBuffer()->getLastValidContent();
+    if (!ownPos)
+    {
+        std::cerr << "Movement: Not localized!" << std::endl;
+        return;
+    }
+
+    // 1. Check distance to currentPOI -> Drive to currentPOI (MoveBase)
+    cout << "Movement: currentPOI: " << currentPOI->id << std::endl;
+    if (!closeToPOI(ownPos.value(), currentPOI) && this->goalHandle.isExpired())
+    {
+        // MoveBase to currentPOI
+        std::cout << "Movement: Drive to current POI: " << currentPOI->id << std::endl;
+        move_base_msgs::MoveBaseGoal mbg;
+        mbg.target_pose.pose.position.x = currentPOI->x;
+        mbg.target_pose.pose.position.y = currentPOI->y;
+        mbg.target_pose.header.frame_id = "/map";
+        mbg.target_pose.header.seq = this->sequenceCounter++;
+        auto time = this->wm->getTime();
+        mbg.target_pose.header.stamp = ros::Time((uint32_t)(time / 1000000000UL), (uint32_t)(time % 1000000000UL));
+        mbg.target_pose.pose.orientation.w = 1;
+        this->goalHandle = this->send(mbg);
+        return;
+    }
+
+    // 2. Check door state of doorList.at(0) -> Open door (Arm)
+    if (!doorList.at(0)->open && !this->robot->simulatedArm->openDoor(doorList.at(0)->name, true))
+    {
+        std::cerr << "Movement: Closed door '" << doorList.at(0)->name << "' unable to open!" << std::endl;
+        return;
+    }
+
+    // 3. Drive to nextPOI (MoveBase)
+    cout << "Movement: nextPOI: " << nextPOI->id << std::endl;
+    if (!closeToPOI(ownPos.value(), nextPOI) && this->goalHandle.isExpired())
+    {
+        // MoveBase to nextPOI
+        std::cout << "Movement: Drive to next POI: " << nextPOI->id << std::endl;
+        move_base_msgs::MoveBaseGoal mbg;
+        mbg.target_pose.pose.position.x = nextPOI->x;
+        mbg.target_pose.pose.position.y = nextPOI->y;
+        mbg.target_pose.header.frame_id = "/map";
+        mbg.target_pose.header.seq = this->sequenceCounter++;
+        auto time = this->wm->getTime();
+        mbg.target_pose.header.stamp = ros::Time((uint32_t)(time / 1000000000UL), (uint32_t)(time % 1000000000UL));
+        mbg.target_pose.pose.orientation.w = 1;
+        this->goalHandle = this->send(mbg);
+        return;
+    }
 }
 
-bool Movement::determineGoalRoom(std::shared_ptr<::ttb::wm::Room> start, std::shared_ptr<::ttb::wm::Area> goal, std::shared_ptr<ttb::wm::Room> goalRoom,
-                                 std::shared_ptr<ttb::wm::Door> doorToNextArea)
+bool Movement::determineGoalRoom(std::shared_ptr<::ttb::wm::Room> start, std::shared_ptr<::ttb::wm::Area> goal,
+                                 std::shared_ptr<ttb::wm::Room> &goalRoom,
+                                 std::shared_ptr<ttb::wm::Door> &doorToNextArea)
 {
     for (auto door : goal->doors)
     {
@@ -171,6 +250,13 @@ bool Movement::determineGoalRoom(std::shared_ptr<::ttb::wm::Room> start, std::sh
     return false;
 }
 
+bool Movement::closeToPOI(geometry::CNPositionAllo ownPos, std::shared_ptr<ttb::wm::POI> currentPOI)
+{
+    double sqrDistance = (currentPOI->x - ownPos.x) * (currentPOI->x - ownPos.x) +
+                         (currentPOI->y - ownPos.y) * (currentPOI->y - ownPos.y);
+    return sqrDistance < this->sqrCatchRadius;
+}
+
 void Movement::reset()
 {
     // to be implemented
@@ -178,83 +264,8 @@ void Movement::reset()
     this->currentPathInArea.clear();
     // reset goal handle
     this->goalHandle.reset();
+    this->goalPOIDirty = false;
 }
-
-// void Movement::driveToPOI(std::shared_ptr<ttb::wm::Room> startRoom, std::shared_ptr<ttb::wm::POI> goalPOI)
-//{
-//    if (goalPOI->room == startRoom)
-//    {
-//        std::cout << "Movement::driveToPOI: room!" << std::endl;
-//    }
-//    if (this->doorToOpen)
-//    {
-//        if (!this->doorToOpen->open)
-//        {
-//            std::cout << "Movement::getNextPOI: door " << this->doorToOpen->name << " is not open!" << std::endl;
-//            if (this->robot->simulatedArm->openDoor(this->doorToOpen->name, true))
-//            {
-//                std::cout << "Movement::getNextPOI: arm can open door: " << this->doorToOpen->name << std::endl;
-//                this->doorToOpen = nullptr;
-//            }
-//            else
-//            {
-//                std::cout << "Movement::getNextPOI: arm can not open door: " << this->doorToOpen->name << std::endl;
-//            }
-//        }
-//        else
-//        {
-//            std::cout << "Movement::getNextPOI: door " << this->doorToOpen->name << " is already open!" << std::endl;
-//            this->doorToOpen = nullptr;
-//        }
-//    }
-//    if (!this->goalPOI || this->goalPOI->id != goalPOI->id)
-//    {
-//        std::cout << "Movement::getNextPOI: current goal null or different goal => area planning" << std::endl;
-//        this->goalPOI = goalPOI;
-//        this->currentPath = this->topoPlanner->plan(startRoom, goalPOI->room);
-//    }
-//    if (this->currentPath.size() > 0)
-//    {
-//        std::cout << "Movement::getNextPOI: area path length: " << this->currentPath.size() << std::endl;
-//        if (this->currentPathInArea.size() == 0)
-//        {
-//            std::cout << "Movement::getNextPOI: no path in area!" << std::endl;
-//            this->currentPathInArea = this->topoPlanner->planToNextArea(startRoom, this->currentPath.at(0));
-//            std::cout << "Movement::getNextPOI: new Path in area length is: " << this->currentPathInArea.size()
-//                      << std::endl;
-//        }
-//    }
-//    else
-//    {
-//        std::cout << "Movement::getNextPOI: are path length is 0 plan between rooms of an area!" << std::endl;
-//        if (this->currentPathInArea.size() == 0)
-//        {
-//            this->currentPathInArea = this->topoPlanner->planBetweenRooms(startRoom, goalPOI->room);
-//        }
-//    }
-//    std::cout << "Movement::getNextPOI: getting next door!" << std::endl;
-//    if (this->currentPathInArea.size() > 0)
-//    {
-//        this->doorToOpen = this->currentPathInArea.at(0);
-//        std::cout << "Movement::getNextPOI: next door is: " << this->doorToOpen->name << std::endl;
-//    }
-//    else
-//    {
-//        this->doorToOpen = nullptr;
-//    }
-//    this->currentPathInArea.erase(this->currentPathInArea.begin());
-//    if (this->currentPathInArea.size() == 0 && this->currentPath.size() != 0)
-//    {
-//        std::cout << "Movement::getNextPOI: path finished in this area move to next area." << std::endl;
-//        this->currentPath.erase(this->currentPath.begin());
-//    }
-//}
-
-// std::vector<std::shared_ptr<::ttb::wm::Area>> Movement::plan(std::shared_ptr<ttb::wm::Room> start,
-//                                                             std::shared_ptr<ttb::wm::Room> goal)
-//{
-//    return this->topoPlanner->plan(start, goal);
-//}
 
 // MOVE BASE STUFF
 

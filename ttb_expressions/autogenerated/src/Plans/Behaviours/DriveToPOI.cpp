@@ -27,16 +27,6 @@ DriveToPOI::~DriveToPOI()
 void DriveToPOI::run(void *msg)
 {
     /*PROTECTED REGION ID(run1454329856163) ENABLED START*/ // Add additional options here
-
-
-
-    auto ownPos = this->wm->rawSensorData.getAMCLPositionBuffer()->getLastValidContent();
-    if (!ownPos)
-    {
-        std::cerr << "DriveToPOI: Not localized!" << std::endl;
-        return;
-    }
-
     if (!this->trySetGoalPOI())
     {
         // unable to set goal poi
