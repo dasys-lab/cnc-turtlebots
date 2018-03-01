@@ -12,10 +12,6 @@ namespace robot
 {
 
 Movement::Movement(ttb::TTBWorldModel *wm, ttb::Robot *robot)
-    : supplementary::Worker("Movement")
-    , goalReached(false)
-    , goalFailed(false)
-    , goalPOIDirty(false)
 {
     this->wm = wm;
     this->robot = robot;
@@ -28,14 +24,9 @@ Movement::Movement(ttb::TTBWorldModel *wm, ttb::Robot *robot)
     this->moveBaseActionClientNamespace =
         (*this->sc)["Drive"]->get<string>("Topics.MoveBaseActionClientNamespace", NULL);
     this->ac = new actionlib::ActionClient<move_base_msgs::MoveBaseAction>(moveBaseActionClientNamespace);
-    this->goalHandle.reset();
 
-    this->goalPOI = nullptr;
-    this->doorToOpen = nullptr;
     this->sqrCatchRadius = (*this->sc)["TTBRobot"]->get<double>("Movement.catchRadius", NULL);
     this->sqrCatchRadius *= this->sqrCatchRadius;
-
-    this->sequenceCounter = 0;
 }
 
 Movement::~Movement()
@@ -45,84 +36,32 @@ Movement::~Movement()
 
 // PATH PLANNER
 
-ttb::robot::MovementReturnState Movement::getState(std::shared_ptr<ttb::wm::POI> goalPOI)
+std::shared_ptr<ttb::wm::Door> Movement::getNextDoor(std::shared_ptr<ttb::wm::POI> goalPOI)
 {
-    if (!this->goalPOI)
-    {
-        return ttb::robot::MovementReturnState::NoGoalAssigned;
-    }
-
-    if (this->goalPOI->id != goalPOI->id)
-    {
-        return ttb::robot::MovementReturnState::OtherGoalAssigned;
-    }
-    else
-    {
-        if (this->goalReached)
-        {
-            return ttb::robot::MovementReturnState::GoalReached;
-        }
-        else if (this->goalFailed)
-        {
-            return ttb::robot::MovementReturnState::GoalFailed;
-        }
-        else
-        {
-            return ttb::robot::MovementReturnState::GoalInProgress;
-        }
-    }
+	std::cerr << "Movement::getNextDoor is not implemented, yet!" << std::endl;
+	return nullptr;
 }
 
-void Movement::setGoalPOI(std::shared_ptr<ttb::wm::POI> goalPOI)
+std::shared_ptr<ttb::wm::POI> Movement::getNextPOI(std::shared_ptr<ttb::wm::POI> goalPOI)
 {
-    lock_guard<std::mutex> guard(this->goalMutex);
-    if (!this->goalPOI || this->goalPOI->id != goalPOI->id)
-    {
-        this->goalPOI = goalPOI;
-        this->goalPOIDirty = true;
-        this->start();
-    }
-}
-
-void Movement::run()
-{
-    lock_guard<std::mutex> guard(this->goalMutex);
-
-    // clean up, if necessary
-    if (this->goalPOIDirty)
-    {
-        // cancel current progress
-        this->reset();
-    }
-
-    if (!goalHandle.isExpired())
-    {
-        std::cout << "Movement: GoalHandle-CommState: " << this->goalHandle.getCommState().toString() << std::endl;
-        std::cout << "Movement: GoalHandle-TerminalState: " << this->goalHandle.getTerminalState().toString()
-                  << std::endl;
-    }
-
-    if (!this->goalHandle.isExpired() && this->goalHandle.getCommState() == actionlib::CommState::DONE &&
-        (this->goalHandle.getTerminalState() == actionlib::TerminalState::SUCCEEDED ||
-         this->goalHandle.getTerminalState() == actionlib::TerminalState::ABORTED))
-    {
-        this->goalHandle.reset();
-    }
+	// only one query at a time
+    lock_guard<std::mutex> guard(this->queryMutex);
+    this->reset();
 
     // get own room
     auto startRoom = this->wm->topologicalLocalization.getRoomBuffer()->getLastValidContent();
     if (!startRoom)
     {
         std::cerr << "Movement: No own room known!" << std::endl;
-        return;
+        return nullptr;
     }
 
     // plan area path
     std::vector<std::shared_ptr<::ttb::wm::Area>> areaList;
-    if (!this->topoPlanner->planAreaPath(startRoom.value(), this->goalPOI->room, areaList))
+    if (!this->topoPlanner->planAreaPath(startRoom.value(), goalPOI->room, areaList))
     {
         std::cerr << "Movement: Planning area path didn't work out!" << std::endl;
-        return;
+        return nullptr;
     }
 
     // determine next goal room
@@ -133,12 +72,12 @@ void Movement::run()
         if (!determineGoalRoom(startRoom.value(), areaList[0], goalRoom, doorToNextArea))
         {
             std::cerr << "Movement: Determining goal room didn't work out!" << std::endl;
-            return;
+            return nullptr;
         }
     }
     else
     {
-        goalRoom = this->goalPOI->room;
+        goalRoom = goalPOI->room;
     }
 
     // plan door path
@@ -146,7 +85,7 @@ void Movement::run()
     if (!this->topoPlanner->planDoorPath(startRoom.value(), goalRoom, doorList))
     {
         std::cerr << "Movement: Planning Door Path didn't work out!" << std::endl;
-        return;
+        return nullptr;
     }
     if (doorToNextArea)
     {
@@ -173,7 +112,7 @@ void Movement::run()
     else
     {
         // door list is empty => POI is in same room
-        currentPOI = this->goalPOI;
+        currentPOI = goalPOI;
     }
 
     // Get own pos
@@ -181,50 +120,19 @@ void Movement::run()
     if (!ownPos)
     {
         std::cerr << "Movement: Not localized!" << std::endl;
-        return;
+        return nullptr;
     }
 
     // 1. Check distance to currentPOI -> Drive to currentPOI (MoveBase)
     cout << "Movement: currentPOI: " << currentPOI->id << std::endl;
-    if (!closeToPOI(ownPos.value(), currentPOI) && this->goalHandle.isExpired())
+    if (!closeToPOI(ownPos.value(), currentPOI))
     {
         // MoveBase to currentPOI
-        std::cout << "Movement: Drive to current POI: " << currentPOI->id << std::endl;
-        move_base_msgs::MoveBaseGoal mbg;
-        mbg.target_pose.pose.position.x = currentPOI->x;
-        mbg.target_pose.pose.position.y = currentPOI->y;
-        mbg.target_pose.header.frame_id = "/map";
-        mbg.target_pose.header.seq = this->sequenceCounter++;
-        auto time = this->wm->getTime();
-        mbg.target_pose.header.stamp = ros::Time((uint32_t)(time / 1000000000UL), (uint32_t)(time % 1000000000UL));
-        mbg.target_pose.pose.orientation.w = 1;
-        this->goalHandle = this->send(mbg);
-        return;
+        return currentPOI;
     }
-
-    // 2. Check door state of doorList.at(0) -> Open door (Arm)
-    if (!doorList.at(0)->open && !this->robot->simulatedArm->openDoor(doorList.at(0)->name, true))
+    else
     {
-        std::cerr << "Movement: Closed door '" << doorList.at(0)->name << "' unable to open!" << std::endl;
-        return;
-    }
-
-    // 3. Drive to nextPOI (MoveBase)
-    cout << "Movement: nextPOI: " << nextPOI->id << std::endl;
-    if (!closeToPOI(ownPos.value(), nextPOI) && this->goalHandle.isExpired())
-    {
-        // MoveBase to nextPOI
-        std::cout << "Movement: Drive to next POI: " << nextPOI->id << std::endl;
-        move_base_msgs::MoveBaseGoal mbg;
-        mbg.target_pose.pose.position.x = nextPOI->x;
-        mbg.target_pose.pose.position.y = nextPOI->y;
-        mbg.target_pose.header.frame_id = "/map";
-        mbg.target_pose.header.seq = this->sequenceCounter++;
-        auto time = this->wm->getTime();
-        mbg.target_pose.header.stamp = ros::Time((uint32_t)(time / 1000000000UL), (uint32_t)(time % 1000000000UL));
-        mbg.target_pose.pose.orientation.w = 1;
-        this->goalHandle = this->send(mbg);
-        return;
+        return nextPOI;
     }
 }
 
@@ -259,12 +167,8 @@ bool Movement::closeToPOI(geometry::CNPositionAllo ownPos, std::shared_ptr<ttb::
 
 void Movement::reset()
 {
-    // to be implemented
     this->currentPath.clear();
     this->currentPathInArea.clear();
-    // reset goal handle
-    this->goalHandle.reset();
-    this->goalPOIDirty = false;
 }
 
 // MOVE BASE STUFF

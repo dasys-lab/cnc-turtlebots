@@ -5,6 +5,8 @@
 
 #include  "Plans/Serve/PKVR16/constraints/SearchBoxes1481545038564Constraints.h"
 
+#include  "Plans/Serve/constraints/DriveToPOI1519913821580Constraints.h"
+
 #include  "Plans/Serve/constraints/ServeMaster1454332108133Constraints.h"
 
 #include  "Plans/Serve/constraints/ASPNavwoExternals1477229620130Constraints.h"
@@ -54,6 +56,10 @@ namespace alica
 
             case 1470042926317:
                 return make_shared<Constraint1470042926317>();
+                break;
+
+            case 1519914269940:
+                return make_shared<Constraint1519914269940>();
                 break;
 
             case 1477229706852:

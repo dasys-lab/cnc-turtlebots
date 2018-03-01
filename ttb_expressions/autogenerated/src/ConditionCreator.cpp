@@ -4,6 +4,8 @@
 
 #include  "Plans/Serve/PKVR16/SearchBoxes1481545038564.h"
 
+#include  "Plans/Serve/DriveToPOI1519913821580.h"
+
 #include  "Plans/Serve/ServeMaster1454332108133.h"
 
 #include  "Plans/Serve/ASPNavwoExternals1477229620130.h"
@@ -69,6 +71,42 @@ namespace alica
             case 1486383886372:
 
                 return make_shared<TransitionCondition1486383886372>();
+
+                break;
+
+            case 1519914269940:
+
+                return make_shared<RunTimeCondition1519914269940>();
+
+                break;
+
+            case 1519913901102:
+
+                return make_shared<TransitionCondition1519913901102>();
+
+                break;
+
+            case 1519913902356:
+
+                return make_shared<TransitionCondition1519913902356>();
+
+                break;
+
+            case 1519914093807:
+
+                return make_shared<TransitionCondition1519914093807>();
+
+                break;
+
+            case 1519914331734:
+
+                return make_shared<TransitionCondition1519914331734>();
+
+                break;
+
+            case 1519914333760:
+
+                return make_shared<TransitionCondition1519914333760>();
 
                 break;
 

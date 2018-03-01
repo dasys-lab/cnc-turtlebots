@@ -9,9 +9,13 @@ using namespace std;
 
 #include  "Plans/Behaviours/ASPNavigation.h"
 
+#include  "Plans/Behaviours/OpenDoor.h"
+
 #include  "Plans/Behaviours/ChargingDefault.h"
 
 #include  "Plans/Behaviours/Carry.h"
+
+#include  "Plans/Tests/DummyDriveToPoibeh.h"
 
 #include  "Plans/Behaviours/ASPMinimizePath.h"
 
@@ -64,6 +68,11 @@ namespace alica
                 return make_shared<ASPNavigation>();
                 break;
 
+            case 1519913968184:
+
+                return make_shared<OpenDoor>();
+                break;
+
             case 1447958132701:
 
                 return make_shared<ChargingDefault>();
@@ -72,6 +81,11 @@ namespace alica
             case 1468494631985:
 
                 return make_shared<Carry>();
+                break;
+
+            case 1517819108899:
+
+                return make_shared<DummyDriveToPoibeh>();
                 break;
 
             case 1477125946392:
@@ -103,6 +117,8 @@ namespace alica
             case 1454329918634:
 
             case 1454330438527:
+
+            case 1519913781149:
 
                 return make_shared<DriveToPOI>();
                 break;

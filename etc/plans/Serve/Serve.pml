@@ -10,7 +10,7 @@
     <outTransitions>#1486383786264</outTransitions>
   </states>
   <states id="1454331334336" name="DriveTo" comment="">
-    <plans xsi:type="alica:BehaviourConfiguration">../Behaviours/DriveToPOI.beh#1454330438527</plans>
+    <plans xsi:type="alica:Plan">DriveToPOI.pml#1519913821580</plans>
     <inTransitions>#1454331382859</inTransitions>
     <outTransitions>#1454331501621</outTransitions>
   </states>

@@ -8,6 +8,7 @@
 #include <topology/POI.h>
 #include <supplementary/InformationElement.h>
 #include <ttb_msgs/ServeTask.h>
+#include <engine/constraintmodul/Query.h>
 /*PROTECTED REGION END*/
 namespace alica
 {
@@ -27,6 +28,8 @@ namespace alica
         /*PROTECTED REGION ID(prv1454329856163) ENABLED START*/ //Add additional private methods here
         bool trySetGoalPOI();
         std::shared_ptr<ttb::wm::POI> currentGoalPOI;
+        std::shared_ptr<alica::Query> query;
+        std::vector<std::string> result;
         /*PROTECTED REGION END*/};
 } /* namespace alica */
 

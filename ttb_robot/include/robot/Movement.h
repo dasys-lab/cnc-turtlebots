@@ -40,7 +40,7 @@ namespace pathPlanning
 class TopologicalPathPlanner;
 }
 
-class Movement : public supplementary::Worker
+class Movement
 {
   public:
     Movement(ttb::TTBWorldModel *wm, ttb::Robot *robot);
@@ -55,12 +55,11 @@ class Movement : public supplementary::Worker
     void cancelGoalsAtAndBeforeTime(const ros::Time &time);
 
     // complex planning
-    ttb::robot::MovementReturnState getState(std::shared_ptr<ttb::wm::POI> goal);
-    void setGoalPOI(std::shared_ptr<ttb::wm::POI> goal);
     bool determineGoalRoom(std::shared_ptr<::ttb::wm::Room> start, std::shared_ptr<::ttb::wm::Area> goal,
                            std::shared_ptr<ttb::wm::Room>& goalRoom, std::shared_ptr<ttb::wm::Door>& doorToNextArea);
     bool closeToPOI(geometry::CNPositionAllo ownPos, std::shared_ptr<ttb::wm::POI> currentPOI);
-    virtual void run();
+    std::shared_ptr<ttb::wm::POI> getNextPOI(std::shared_ptr<ttb::wm::POI> goalPOI);
+    std::shared_ptr<ttb::wm::Door> getNextDoor(std::shared_ptr<ttb::wm::POI> goalPOI);
 
   private:
     supplementary::SystemConfig *sc;
@@ -75,20 +74,14 @@ class Movement : public supplementary::Worker
     // move base
     std::string moveBaseActionClientNamespace;
     actionlib::ActionClient<move_base_msgs::MoveBaseAction> *ac;
-    actionlib::ClientGoalHandle<move_base_msgs::MoveBaseAction> goalHandle;
 
     // complex planning
     void reset();
     ttb::robot::pathPlanning::TopologicalPathPlanner *topoPlanner;
     std::vector<std::shared_ptr<ttb::wm::Area>> currentPath;
     std::vector<std::shared_ptr<ttb::wm::Door>> currentPathInArea;
-    std::shared_ptr<ttb::wm::POI> goalPOI;
-    bool goalPOIDirty;
-    std::shared_ptr<ttb::wm::Door> doorToOpen;
-    std::mutex goalMutex;
-    bool goalReached, goalFailed;
+    std::mutex queryMutex;
     double sqrCatchRadius;
-    uint32_t sequenceCounter;
 };
 
 } /* namespace robot */

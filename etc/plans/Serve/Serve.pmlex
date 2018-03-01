@@ -72,4 +72,12 @@
     <key href="PKVR16/PickUp.beh#1486381497239"/>
     <value/>
   </extensions>
+  <extensions>
+    <key href="../Behaviours/DriveToPOI.beh#1519913781149"/>
+    <value/>
+  </extensions>
+  <extensions>
+    <key href="DriveToPOI.pml#1519913821580"/>
+    <value/>
+  </extensions>
 </uiextensionmodel:PmlUiExtensionMap>
