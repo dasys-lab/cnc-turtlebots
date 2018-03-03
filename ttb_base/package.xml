@@ -26,7 +26,9 @@
   <build_depend>asp_solver_wrapper</build_depend>
   <build_depend>asp_solver</build_depend>
   <build_depend>agent_id</build_depend>
+  <build_depend>dummy_solver</build_depend>
   
+  <run_depend>dummy_solver</run_depend>
   <run_depend>asp_solver</run_depend>
   <run_depend>asp_commons</run_depend>
   <run_depend>asp_solver_wrapper</run_depend>

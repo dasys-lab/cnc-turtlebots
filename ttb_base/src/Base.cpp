@@ -13,6 +13,7 @@
 #include <asp_commons/IASPSolver.h>
 #include <asp_solver/ASPSolver.h>
 #include <asp_solver_wrapper/ASPSolverWrapper.h>
+#include <alica/reasoner/DummySolver.h>
 #include <supplementary/AgentIDManager.h>
 
 #include "SigFault.h"
@@ -44,10 +45,13 @@ Base::Base(string roleSetName, string masterPlanName, string roleSetDir, bool si
     wm->init();
     // "clingo", "-W", "no-atom-undefined",  "--number=0", nullptr
     std::vector<char const *> args{"clingo", nullptr};
-    auto solver = new ::reasoner::ASPSolver(args);
+    auto aspSolver = new ::reasoner::ASPSolver(args);
     auto solverWrapper = new alica::reasoner::ASPSolverWrapper(ae, args);
-    solverWrapper->init(solver);
+    solverWrapper->init(aspSolver);
     ae->addSolver(SolverType::ASPSOLVER, solverWrapper);
+
+    auto dummySolver = new alica::reasoner::DummySolver(ae);
+    ae->addSolver(SolverType::DUMMYSOLVER, dummySolver);
     ae->init(bc, cc, uc, crc);
 }
 

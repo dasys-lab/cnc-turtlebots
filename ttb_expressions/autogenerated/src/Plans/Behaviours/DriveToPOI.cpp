@@ -32,14 +32,13 @@ void DriveToPOI::run(void *msg)
     if (!query->getSolution(SolverType::DUMMYSOLVER, runningPlan, result))
     {
         std::cout << "DriveToPOI: Unable to get solution for variable: "
-                  << this->query->getRelevantStaticVariables()[0]->getName() << std::endl;
+                  << this->query->getUniqueVariableStore()->getAllRep()[0]->getName() << std::endl;
     }
     else
     {
-    	std::cout << "DriveToPOI: Solution for variable: "
-    	                  << this->query->getRelevantStaticVariables()[0]->getName()
-						  << " is: "
-						  << result[0] << std::endl;
+        std::cout << "DriveToPOI: Solution for variable: "
+                  << this->query->getUniqueVariableStore()->getAllRep()[0]->getName() << " is: " << result[0]
+                  << std::endl;
     }
     // TODO for debug
     return;

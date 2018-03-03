@@ -36,4 +36,8 @@
     <key href="../Behaviours/ChargingDefault.beh#1447958132701"/>
     <value/>
   </extensions>
+  <extensions>
+    <key href="../Test.pty#1519998523828"/>
+    <value/>
+  </extensions>
 </uiextensionmodel:PmlUiExtensionMap>

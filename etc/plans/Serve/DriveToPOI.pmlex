@@ -6,7 +6,7 @@
   </extensions>
   <extensions>
     <key href="DriveToPOI.pml#1519913821580"/>
-    <value xPos="42" yPos="97" width="616" height="355"/>
+    <value xPos="42" yPos="97" width="616" height="430"/>
   </extensions>
   <extensions>
     <key href="DriveToPOI.pml#1519913874346"/>
@@ -58,6 +58,10 @@
   </extensions>
   <extensions>
     <key href="DriveToPOI.pml#1519914331850"/>
+    <value/>
+  </extensions>
+  <extensions>
+    <key href="../Test.pty#1519998523828"/>
     <value/>
   </extensions>
 </uiextensionmodel:PmlUiExtensionMap>
