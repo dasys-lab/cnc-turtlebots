@@ -11,7 +11,7 @@ namespace supplementary {
 
 namespace ttb {
 	class TTBWorldModel;
-	class Robot;
+	class TurtleBot;
 }
 
 namespace alica
@@ -25,7 +25,7 @@ namespace alica
 	protected:
 		supplementary::SystemConfig* sc;
 		ttb::TTBWorldModel* wm;
-		ttb::Robot* robot;
+		ttb::TurtleBot* turtleBot;
 	};
 } /* namespace alica */
 

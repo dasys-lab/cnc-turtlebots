@@ -19,7 +19,7 @@ include_directories(
 )
 
 add_library(ttb_robot
- src/Robot.cpp
+ src/TurtleBot.cpp
  src/SimulatedArm.cpp
  src/Movement.cpp
  src/Speech.cpp

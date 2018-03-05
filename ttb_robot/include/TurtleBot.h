@@ -7,18 +7,18 @@
 namespace ttb
 {
 
-class Robot
+class TurtleBot
 {
   public:
-	virtual ~Robot();
-	static Robot *get(ttb::TTBWorldModel *wm); /**< Singleton Getter */
+	virtual ~TurtleBot();
+	static TurtleBot *get(ttb::TTBWorldModel *wm); /**< Singleton Getter */
 
 	robot::SimulatedArm* simulatedArm;
 	robot::Movement* movement;
 	robot::Speech* speech;
 
   private:
-	Robot(ttb::TTBWorldModel *wm);
+	TurtleBot(ttb::TTBWorldModel *wm);
 };
 
 } /* namespace ttb */

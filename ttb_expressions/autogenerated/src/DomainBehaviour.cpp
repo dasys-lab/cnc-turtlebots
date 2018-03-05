@@ -2,7 +2,7 @@
 
 #include <engine/AlicaEngine.h>
 #include <TTBWorldModel.h>
-#include <Robot.h>
+#include <TurtleBot.h>
 #include <SystemConfig.h>
 
 namespace alica
@@ -12,7 +12,7 @@ namespace alica
 	{
 		sc = supplementary::SystemConfig::getInstance();
 		wm = ttb::TTBWorldModel::get();
-		robot = ttb::Robot::get(wm);
+		turtleBot = ttb::Turtlebot::get(wm);
 	}
 
 	DomainBehaviour::~DomainBehaviour()

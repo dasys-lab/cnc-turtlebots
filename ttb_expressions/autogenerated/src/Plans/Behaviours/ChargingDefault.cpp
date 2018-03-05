@@ -4,7 +4,7 @@ using namespace std;
 /*PROTECTED REGION ID(inccpp1447958115909) ENABLED START*/ // Add additional includes here
 #include <kobuki_msgs/SensorState.h>
 #include <TTBWorldModel.h>
-#include <Robot.h>
+#include <TurtleBot.h>
 #include <geometry_msgs/Twist.h>
 /*PROTECTED REGION END*/
 namespace alica
@@ -36,14 +36,14 @@ namespace alica
             geometry_msgs::Twist cmd_vel;
             cmd_vel.linear.x = 0;
             cmd_vel.angular.z = 0;
-            robot->movement->send(cmd_vel);
+            this->turtleBot->movement->send(cmd_vel);
         }
         /*PROTECTED REGION END*/
     }
     void ChargingDefault::initialiseParameters()
     {
         /*PROTECTED REGION ID(initialiseParameters1447958115909) ENABLED START*/ // Add additional options here
-        robot->speech->say((*sc)["SpeechAct"]->get < string > ("Charging.ChargingText", NULL));
+    	turtleBot->speech->say((*sc)["SpeechAct"]->get < string > ("Charging.ChargingText", NULL));
         /*PROTECTED REGION END*/
     }
 /*PROTECTED REGION ID(methods1447958115909) ENABLED START*/ // Add additional methods here

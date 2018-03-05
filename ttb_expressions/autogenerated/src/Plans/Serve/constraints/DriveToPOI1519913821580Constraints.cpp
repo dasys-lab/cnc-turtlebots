@@ -45,7 +45,7 @@ void Constraint1519914269940::getConstraint(shared_ptr<ProblemDescriptor> c, sha
     auto currentTask = wm->taskManager.getNextTask();
     if (!currentTask || currentTask->getInformation().type != ttb_msgs::ServeTask::DRIVE_TO)
     {
-        // current task is not for driving to an POI, so dont specify any problem descriptor
+        // current task is not for driving to an POI, so don't specify any problem descriptor
         return;
     }
 
@@ -75,6 +75,9 @@ void Constraint1519914269940::getConstraint(shared_ptr<ProblemDescriptor> c, sha
     {
     	std::cerr << "Constraint1519914269940: Variable type didn't fit!" << std::endl;
     }
+
+    // TODO: getNextDoor()
+
     /*PROTECTED REGION END*/
 }
 

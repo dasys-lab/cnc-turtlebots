@@ -25,7 +25,7 @@ class SystemConfig;
 namespace ttb
 {
 class TTBWorldModel;
-class Robot;
+class TurtleBot;
 namespace wm
 {
 class Area;
@@ -43,7 +43,7 @@ class TopologicalPathPlanner;
 class Movement
 {
   public:
-    Movement(ttb::TTBWorldModel *wm, ttb::Robot *robot);
+    Movement(ttb::TTBWorldModel *wm, ttb::TurtleBot *turtleBot);
     virtual ~Movement();
 
     // direct moves
@@ -64,7 +64,7 @@ class Movement
   private:
     supplementary::SystemConfig *sc;
     ttb::TTBWorldModel *wm;
-    ttb::Robot *robot;
+    ttb::TurtleBot *turtleBot;
     ros::NodeHandle n;
 
     // direct moves
@@ -74,6 +74,7 @@ class Movement
     // move base
     std::string moveBaseActionClientNamespace;
     actionlib::ActionClient<move_base_msgs::MoveBaseAction> *ac;
+    int seqCounter;
 
     // complex planning
     void reset();
@@ -81,7 +82,7 @@ class Movement
     std::vector<std::shared_ptr<ttb::wm::Area>> currentPath;
     std::vector<std::shared_ptr<ttb::wm::Door>> currentPathInArea;
     std::mutex queryMutex;
-    double sqrCatchRadius;
+    double catchRadius;
 };
 
 } /* namespace robot */

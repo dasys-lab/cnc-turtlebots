@@ -2,7 +2,7 @@ using namespace std;
 #include "Plans/Behaviours/Rotate.h"
 
 /*PROTECTED REGION ID(inccpp1447068205139) ENABLED START*/ //Add additional includes here
-#include <Robot.h>
+#include <TurtleBot.h>
 #include <geometry_msgs/Twist.h>
 /*PROTECTED REGION END*/
 namespace alica
@@ -30,7 +30,7 @@ namespace alica
 
         if (counter <= 30)
         {
-            robot->movement->send(rotate);
+        	this->turtleBot->movement->send(rotate);
             counter++;
         }
         else

@@ -6,7 +6,7 @@ using namespace std;
 #include <kobuki_msgs/SensorState.h>
 #include <kobuki_msgs/DockInfraRed.h>
 #include <TTBWorldModel.h>
-#include <Robot.h>
+#include <TurtleBot.h>
 /*PROTECTED REGION END*/
 namespace alica
 {
@@ -53,7 +53,7 @@ namespace alica
             cmd_vel.linear.x = dock.getVX();
             cmd_vel.angular.z = dock.getWZ();
 
-            robot->movement->send(cmd_vel);
+            this->turtleBot->movement->send(cmd_vel);
         }
         else
         {
@@ -65,7 +65,7 @@ namespace alica
     void SearchDockingStation::initialiseParameters()
     {
         /*PROTECTED REGION ID(initialiseParameters1414681429307) ENABLED START*/ //Add additional options here
-        robot->speech->say((*sc)["SpeechAct"]->get < string > ("Charging.SearchDockingText", NULL));
+    	this->turtleBot->speech->say((*sc)["SpeechAct"]->get < string > ("Charging.SearchDockingText", NULL));
         /*PROTECTED REGION END*/
     }
 /*PROTECTED REGION ID(methods1414681429307) ENABLED START*/ //Add additional methods here

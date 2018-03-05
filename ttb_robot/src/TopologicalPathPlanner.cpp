@@ -28,7 +28,7 @@ bool TopologicalPathPlanner::planAreaPath(std::shared_ptr<ttb::wm::Room> start, 
 {
     if (start->area->name.compare(goal->area->name) == 0)
     {
-        std::cout << "TopologicalPathPlanner: start and goal room are in the same area!" << std::endl;
+        //std::cout << "TopologicalPathPlanner: start and goal room are in the same area!" << std::endl;
         return true;
     }
     std::vector<std::shared_ptr<ttb::wm::Area>> fringe;
@@ -46,7 +46,7 @@ bool TopologicalPathPlanner::planAreaPath(std::shared_ptr<ttb::wm::Room> start, 
     }
     else
     {
-        std::cout << "TopologicalPathPlanner: no path between areas found!" << std::endl;
+        //std::cout << "TopologicalPathPlanner: no path between areas found!" << std::endl;
         return false;
     }
 
@@ -101,7 +101,7 @@ bool TopologicalPathPlanner::planDoorPath(std::shared_ptr<ttb::wm::Room> start, 
 {
 	if(start->name.compare(goal->name) == 0)
 	{
-        std::cout << "TopologicalPathPlanner: start and goal room are identical!" << std::endl;
+        //std::cout << "TopologicalPathPlanner: start and goal room are identical!" << std::endl;
         return true;
 	}
     std::vector<std::shared_ptr<ttb::wm::Room>> fringe;

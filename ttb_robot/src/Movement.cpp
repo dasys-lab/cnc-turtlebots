@@ -1,7 +1,7 @@
 #include "robot/Movement.h"
 
 #include "TopologicalPathPlanner.h"
-#include <Robot.h>
+#include <TurtleBot.h>
 #include <SystemConfig.h>
 #include <TTBWorldModel.h>
 #include <TopologicalLocalization.h>
@@ -11,10 +11,10 @@ namespace ttb
 namespace robot
 {
 
-Movement::Movement(ttb::TTBWorldModel *wm, ttb::Robot *robot)
+Movement::Movement(ttb::TTBWorldModel *wm, ttb::TurtleBot *turtleBot)
 {
     this->wm = wm;
-    this->robot = robot;
+    this->turtleBot = turtleBot;
     this->topoPlanner = new ttb::robot::pathPlanning::TopologicalPathPlanner(&(this->wm->topologicalModel));
     this->sc = supplementary::SystemConfig::getInstance();
 
@@ -25,8 +25,8 @@ Movement::Movement(ttb::TTBWorldModel *wm, ttb::Robot *robot)
         (*this->sc)["Drive"]->get<string>("Topics.MoveBaseActionClientNamespace", NULL);
     this->ac = new actionlib::ActionClient<move_base_msgs::MoveBaseAction>(moveBaseActionClientNamespace);
 
-    this->sqrCatchRadius = (*this->sc)["TTBRobot"]->get<double>("Movement.catchRadius", NULL);
-    this->sqrCatchRadius *= this->sqrCatchRadius;
+    this->catchRadius = (*this->sc)["TTBRobot"]->get<double>("Movement.catchRadius", NULL);
+    this->seqCounter = 0;
 }
 
 Movement::~Movement()
@@ -89,7 +89,7 @@ std::shared_ptr<ttb::wm::POI> Movement::getNextPOI(std::shared_ptr<ttb::wm::POI>
     }
     if (doorToNextArea)
     {
-        std::cout << "Movement: Setting door to next area to '" << doorToNextArea->name << "'" << std::endl;
+        //std::cout << "Movement: Setting door to next area to '" << doorToNextArea->name << "'" << std::endl;
         doorList.push_back(doorToNextArea);
     }
 
@@ -124,7 +124,7 @@ std::shared_ptr<ttb::wm::POI> Movement::getNextPOI(std::shared_ptr<ttb::wm::POI>
     }
 
     // 1. Check distance to currentPOI -> Drive to currentPOI (MoveBase)
-    cout << "Movement: currentPOI: " << currentPOI->id << std::endl;
+    //cout << "Movement: currentPOI: " << currentPOI->id << std::endl;
     if (!closeToPOI(ownPos.value(), currentPOI))
     {
         // MoveBase to currentPOI
@@ -162,7 +162,7 @@ bool Movement::closeToPOI(geometry::CNPositionAllo ownPos, std::shared_ptr<ttb::
 {
     double sqrDistance = (currentPOI->x - ownPos.x) * (currentPOI->x - ownPos.x) +
                          (currentPOI->y - ownPos.y) * (currentPOI->y - ownPos.y);
-    return sqrDistance < this->sqrCatchRadius;
+    return sqrt(sqrDistance) < this->catchRadius;
 }
 
 void Movement::reset()
@@ -175,6 +175,7 @@ void Movement::reset()
 
 actionlib::ClientGoalHandle<move_base_msgs::MoveBaseAction> Movement::send(move_base_msgs::MoveBaseGoal &mbag)
 {
+	mbag.target_pose.header.seq = seqCounter++;
     return this->ac->sendGoal(mbag);
 }
 
