@@ -3,6 +3,12 @@
 
 #include "DomainBehaviour.h"
 /*PROTECTED REGION ID(inc1519913953735) ENABLED START*/ //Add additional includes here
+#include <engine/constraintmodul/Query.h>
+#include <topology/Door.h>
+
+#include <string>
+#include <vector>
+#include <memory>
 /*PROTECTED REGION END*/
 namespace alica
 {
@@ -20,6 +26,9 @@ namespace alica
         /*PROTECTED REGION END*/
     private:
         /*PROTECTED REGION ID(prv1519913953735) ENABLED START*/ //Add additional private methods here
+        std::shared_ptr<ttb::wm::Door> currentDoor;
+        std::vector<std::string> result;
+        std::shared_ptr<alica::Query> query;
         /*PROTECTED REGION END*/};
 } /* namespace alica */
 

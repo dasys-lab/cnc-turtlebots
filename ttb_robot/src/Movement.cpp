@@ -3,6 +3,7 @@
 #include "TopologicalPathPlanner.h"
 #include <TurtleBot.h>
 #include <SystemConfig.h>
+#include <Robot.h>
 #include <TTBWorldModel.h>
 #include <TopologicalLocalization.h>
 
@@ -25,7 +26,6 @@ Movement::Movement(ttb::TTBWorldModel *wm, ttb::TurtleBot *turtleBot)
         (*this->sc)["Drive"]->get<string>("Topics.MoveBaseActionClientNamespace", NULL);
     this->ac = new actionlib::ActionClient<move_base_msgs::MoveBaseAction>(moveBaseActionClientNamespace);
 
-    this->catchRadius = (*this->sc)["TTBRobot"]->get<double>("Movement.catchRadius", NULL);
     this->seqCounter = 0;
 }
 
@@ -39,6 +39,14 @@ Movement::~Movement()
 std::shared_ptr<ttb::wm::Door> Movement::getNextDoor(std::shared_ptr<ttb::wm::POI> goalPOI)
 {
 	std::cerr << "Movement::getNextDoor is not implemented, yet!" << std::endl;
+	auto doors = this->wm->topologicalModel.getDoors();
+	for(auto door : doors)
+	{
+		if(door->fromPOI->id == goalPOI->id || door->toPOI->id == goalPOI->id)
+		{
+			return door;
+		}
+	}
 	return nullptr;
 }
 
@@ -125,7 +133,7 @@ std::shared_ptr<ttb::wm::POI> Movement::getNextPOI(std::shared_ptr<ttb::wm::POI>
 
     // 1. Check distance to currentPOI -> Drive to currentPOI (MoveBase)
     //cout << "Movement: currentPOI: " << currentPOI->id << std::endl;
-    if (!closeToPOI(ownPos.value(), currentPOI))
+    if (!this->wm->robot.isCloseTo(currentPOI))
     {
         // MoveBase to currentPOI
         return currentPOI;
@@ -158,12 +166,12 @@ bool Movement::determineGoalRoom(std::shared_ptr<::ttb::wm::Room> start, std::sh
     return false;
 }
 
-bool Movement::closeToPOI(geometry::CNPositionAllo ownPos, std::shared_ptr<ttb::wm::POI> currentPOI)
-{
-    double sqrDistance = (currentPOI->x - ownPos.x) * (currentPOI->x - ownPos.x) +
-                         (currentPOI->y - ownPos.y) * (currentPOI->y - ownPos.y);
-    return sqrt(sqrDistance) < this->catchRadius;
-}
+//bool Movement::closeToPOI(geometry::CNPositionAllo ownPos, std::shared_ptr<ttb::wm::POI> currentPOI)
+//{
+//    double sqrDistance = (currentPOI->x - ownPos.x) * (currentPOI->x - ownPos.x) +
+//                         (currentPOI->y - ownPos.y) * (currentPOI->y - ownPos.y);
+//    return sqrt(sqrDistance) < this->catchRadius;
+//}
 
 void Movement::reset()
 {

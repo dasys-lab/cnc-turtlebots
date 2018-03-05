@@ -1,5 +1,4 @@
-#ifndef DomainBehaviour_H_
-#define DomainBehaviour_H_
+#pragma once
 
 #include <engine/BasicBehaviour.h>
 #include <ros/ros.h>
@@ -29,5 +28,4 @@ namespace alica
 	};
 } /* namespace alica */
 
-#endif /* DomainBehaviour_H_ */
 

@@ -2,7 +2,7 @@
 using namespace std;
 using namespace alica;
 /*PROTECTED REGION ID(ch1519913821580) ENABLED START*/
-#include <Robot.h>
+#include <TurtleBot.h>
 #include <TTBWorldModel.h>
 #include <alica/reasoner/DummyTerm.h>
 #include <alica/reasoner/DummyVariable.h>
@@ -56,7 +56,7 @@ void Constraint1519914269940::getConstraint(shared_ptr<ProblemDescriptor> c, sha
         return;
     }
 
-    auto robot = ttb::Robot::get(wm);
+    auto robot = ttb::TurtleBot::get(wm);
     auto nextPOI = robot->movement->getNextPOI(currentGoalPOI);
     if (!nextPOI)
     {
@@ -64,12 +64,11 @@ void Constraint1519914269940::getConstraint(shared_ptr<ProblemDescriptor> c, sha
     	return;
     }
 
-    auto dummyVar = std::dynamic_pointer_cast<alica::reasoner::DummyVariable>(c->getStaticVars()->at(1));
-    if (dummyVar)
+   	auto constraint = std::make_shared<alica::reasoner::DummyTerm>();
+    auto dummyPOIVar = std::dynamic_pointer_cast<alica::reasoner::DummyVariable>(c->getStaticVars()->at(1));
+    if (dummyPOIVar)
     {
-    	auto constraint = std::make_shared<alica::reasoner::DummyTerm>();
-    	constraint->setVariable(dummyVar, to_string(nextPOI->id));
-    	c->setConstraint(dynamic_pointer_cast<alica::SolverTerm>(constraint));
+    	constraint->setVariable(dummyPOIVar, to_string(nextPOI->id));
     }
     else
     {
@@ -77,7 +76,21 @@ void Constraint1519914269940::getConstraint(shared_ptr<ProblemDescriptor> c, sha
     }
 
     // TODO: getNextDoor()
-
+    auto nextDoor = robot->movement->getNextDoor(currentGoalPOI);
+    if(!nextDoor)
+    {
+    	return;
+    }
+    auto dummyDoorVar = std::dynamic_pointer_cast<alica::reasoner::DummyVariable>(c->getStaticVars()->at(0));
+    if (dummyDoorVar)
+    {
+    	constraint->setVariable(dummyDoorVar, nextDoor->name);
+    }
+    else
+    {
+    	std::cerr << "Constraint1519914269940: Variable type didn't fit!" << std::endl;
+    }
+    c->setConstraint(dynamic_pointer_cast<alica::SolverTerm>(constraint));
     /*PROTECTED REGION END*/
 }
 

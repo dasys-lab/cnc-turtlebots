@@ -31,12 +31,13 @@ DriveToPOI::~DriveToPOI()
 void DriveToPOI::run(void *msg)
 {
     /*PROTECTED REGION ID(run1454329856163) ENABLED START*/ // Add additional options here
-    if (arrivedAtGoal())
+    if (this->wm->robot.isCloseTo(this->goalPOI))
     {
         // this->setSuccess(true); // commented for debugging
         std::cout << "DriveToPOI: Arrived at goalPOI " << this->goalPOI->id << std::endl;
-        this->goalHandle.cancel();
+//        this->goalHandle.cancel();
         this->goalHandle.reset();
+        this->setSuccess(true);
         return;
     }
 
@@ -108,22 +109,6 @@ bool DriveToPOI::isMoveBaseDone()
     }
 
     return false;
-}
-
-bool DriveToPOI::arrivedAtGoal()
-{
-    auto ownPos = this->wm->rawSensorData.getAMCLPositionBuffer()->getLastValidContent();
-    if (!ownPos)
-        return false;
-
-    if (!this->goalPOI)
-        return false;
-
-    double sqrDistance = (this->goalPOI->x - ownPos->x) * (this->goalPOI->x - ownPos->x) +
-                         (this->goalPOI->y - ownPos->y) * (this->goalPOI->y - ownPos->y);
-
-    std::cout << "DriveToPOI: SqrDistance is " << sqrt(sqrDistance) << std::endl;
-    return sqrt(sqrDistance) < this->catchRadius;
 }
 /*PROTECTED REGION END*/
 } /* namespace alica */

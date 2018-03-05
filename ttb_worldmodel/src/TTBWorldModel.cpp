@@ -28,6 +28,7 @@ TTBWorldModel::TTBWorldModel() :
 	, usingSimulator(false)
 	, communication(nullptr)
 	, topoInfoPublisher(this)
+	, robot(this)
 {
 	this->robotName = sc->getHostname();
 }

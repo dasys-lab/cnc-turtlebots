@@ -30,6 +30,7 @@ class Door
     std::shared_ptr<POI> fromPOI;
     std::shared_ptr<POI> toPOI;
     bool initialized;
+    bool locked;
 };
 
 struct DoorComperator

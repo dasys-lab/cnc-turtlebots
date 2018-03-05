@@ -29,6 +29,7 @@ add_library(ttb_worldmodel
   src/TopologicalInfoPublisher.cpp
   src/LogicalCameraData.cpp
   src/LogicalObject.cpp
+  src/Robot.cpp
   src/TopologicalModel.cpp
   src/topology/Area.cpp
   src/topology/Room.cpp

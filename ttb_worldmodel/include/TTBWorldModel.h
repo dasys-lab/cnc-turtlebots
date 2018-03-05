@@ -9,6 +9,7 @@
 #include "TopologicalModel.h"
 #include "DoorStateRecognition.h"
 #include "TopologicalInfoPublisher.h"
+#include "Robot.h"
 
 #include <supplementary/EventTrigger.h>
 #include <supplementary/WorldModel.h>
@@ -48,6 +49,7 @@ class TTBWorldModel : public supplementary::WorldModel
     wm::TaskManager taskManager;
     wm::Communication* communication;
     wm::TopologicalInfoPublisher topoInfoPublisher;
+    wm::Robot robot;
 
   private:
     TTBWorldModel(); /**< Private Singleton Constructor */

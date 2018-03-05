@@ -30,7 +30,6 @@ class DriveToPOI : public DomainBehaviour
   private:
     /*PROTECTED REGION ID(prv1454329856163) ENABLED START*/ // Add additional private methods here
     bool isMoveBaseDone();
-    bool arrivedAtGoal();
     std::shared_ptr<ttb::wm::POI> currentGoalPOI;
     std::shared_ptr<alica::Query> query;
     std::vector<std::string> result;

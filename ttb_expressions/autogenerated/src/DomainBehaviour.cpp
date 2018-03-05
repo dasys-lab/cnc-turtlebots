@@ -12,7 +12,7 @@ namespace alica
 	{
 		sc = supplementary::SystemConfig::getInstance();
 		wm = ttb::TTBWorldModel::get();
-		turtleBot = ttb::Turtlebot::get(wm);
+		turtleBot = ttb::TurtleBot::get(wm);
 	}
 
 	DomainBehaviour::~DomainBehaviour()

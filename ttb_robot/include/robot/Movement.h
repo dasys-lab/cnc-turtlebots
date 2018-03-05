@@ -57,7 +57,7 @@ class Movement
     // complex planning
     bool determineGoalRoom(std::shared_ptr<::ttb::wm::Room> start, std::shared_ptr<::ttb::wm::Area> goal,
                            std::shared_ptr<ttb::wm::Room>& goalRoom, std::shared_ptr<ttb::wm::Door>& doorToNextArea);
-    bool closeToPOI(geometry::CNPositionAllo ownPos, std::shared_ptr<ttb::wm::POI> currentPOI);
+//    bool closeToPOI(geometry::CNPositionAllo ownPos, std::shared_ptr<ttb::wm::POI> currentPOI);
     std::shared_ptr<ttb::wm::POI> getNextPOI(std::shared_ptr<ttb::wm::POI> goalPOI);
     std::shared_ptr<ttb::wm::Door> getNextDoor(std::shared_ptr<ttb::wm::POI> goalPOI);
 
@@ -82,7 +82,6 @@ class Movement
     std::vector<std::shared_ptr<ttb::wm::Area>> currentPath;
     std::vector<std::shared_ptr<ttb::wm::Door>> currentPathInArea;
     std::mutex queryMutex;
-    double catchRadius;
 };
 
 } /* namespace robot */
