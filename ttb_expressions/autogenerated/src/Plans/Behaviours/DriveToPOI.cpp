@@ -18,7 +18,7 @@ DriveToPOI::DriveToPOI()
 {
     /*PROTECTED REGION ID(con1454329856163) ENABLED START*/ // Add additional options here
     this->query = std::make_shared<alica::Query>(this->wm->getEngine());
-    this->currentGoalPOI = nullptr;
+    this->goalPOI = nullptr;
     this->goalHandle.reset();
     /*PROTECTED REGION END*/
 }
@@ -31,7 +31,7 @@ void DriveToPOI::run(void *msg)
 {
     /*PROTECTED REGION ID(run1454329856163) ENABLED START*/ // Add additional options here
     result.clear();
-    if (!query->getSolution(SolverType::DUMMYSOLVER, runningPlan, result))
+    if (!this->query->getSolution(SolverType::DUMMYSOLVER, runningPlan, result))
     {
         std::cout << "DriveToPOI: Unable to get solution for variable: "
                   << this->query->getUniqueVariableStore()->getAllRep()[0]->getName() << std::endl;
@@ -40,6 +40,15 @@ void DriveToPOI::run(void *msg)
 
 //    std::cout << "DriveToPOI: Solution for variable: "
 //              << this->query->getUniqueVariableStore()->getAllRep()[0]->getName() << " is: " << result[0] << std::endl;
+
+
+    if (this->goalPOI && this->wm->robot.isCloseTo(this->goalPOI))
+    {
+        this->goalHandle.reset();
+        this->turtleBot->movement->cancelAllGoals();
+        this->setSuccess(true);
+        return;
+    }
 
     auto newGoalPOI = this->wm->topologicalModel.getPOI(stoi(result[0]));
     if (this->goalPOI == nullptr || (this->goalPOI != newGoalPOI && this->wm->robot.isCloseTo(this->goalPOI)))
@@ -62,24 +71,16 @@ void DriveToPOI::run(void *msg)
         this->goalHandle = this->turtleBot->movement->send(mbg);
     }
 
-    if (this->wm->robot.isCloseTo(this->goalPOI))
-    {
-        this->goalHandle.reset();
-        this->turtleBot->movement->cancelAllGoals();
-        this->setSuccess(true);
-        return;
-    }
-
     /*PROTECTED REGION END*/
 }
 
 void DriveToPOI::initialiseParameters()
 {
     /*PROTECTED REGION ID(initialiseParameters1454329856163) ENABLED START*/ // Add additional options here
-    this->currentGoalPOI = nullptr;
-    query->clearStaticVariables();
-    result.clear();
-    query->addStaticVariable(getVariablesByName("poi"));
+    this->goalPOI = nullptr;
+    this->query->clearStaticVariables();
+    this->result.clear();
+    this->query->addStaticVariable(getVariablesByName("poi"));
     this->goalHandle.reset();
     /*PROTECTED REGION END*/
 }
