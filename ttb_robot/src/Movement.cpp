@@ -1,11 +1,11 @@
 #include "robot/Movement.h"
 
 #include "TopologicalPathPlanner.h"
-#include <TurtleBot.h>
-#include <SystemConfig.h>
 #include <Robot.h>
+#include <SystemConfig.h>
 #include <TTBWorldModel.h>
 #include <TopologicalLocalization.h>
+#include <TurtleBot.h>
 
 namespace ttb
 {
@@ -36,23 +36,23 @@ Movement::~Movement()
 
 // PATH PLANNER
 
-std::shared_ptr<ttb::wm::Door> Movement::getNextDoor(std::shared_ptr<ttb::wm::POI> goalPOI)
+std::shared_ptr<ttb::wm::Door> Movement::getNextDoor(std::shared_ptr<ttb::wm::POI> doorPOI)
 {
-	std::cerr << "Movement::getNextDoor is not implemented, yet!" << std::endl;
-	auto doors = this->wm->topologicalModel.getDoors();
-	for(auto door : doors)
-	{
-		if(door->fromPOI->id == goalPOI->id || door->toPOI->id == goalPOI->id)
-		{
-			return door;
-		}
-	}
-	return nullptr;
+	std::cout << "Movement::getNextDoor: for POI " << doorPOI->id << std::endl;
+    auto doors = this->wm->topologicalModel.getDoors();
+    for (auto door : doors)
+    {
+        if (door->fromPOI->id == doorPOI->id || door->toPOI->id == doorPOI->id)
+        {
+            return door;
+        }
+    }
+    return nullptr;
 }
 
 std::shared_ptr<ttb::wm::POI> Movement::getNextPOI(std::shared_ptr<ttb::wm::POI> goalPOI)
 {
-	// only one query at a time
+    // only one query at a time
     lock_guard<std::mutex> guard(this->queryMutex);
     this->reset();
 
@@ -92,12 +92,13 @@ std::shared_ptr<ttb::wm::POI> Movement::getNextPOI(std::shared_ptr<ttb::wm::POI>
     std::vector<std::shared_ptr<::ttb::wm::Door>> doorList;
     if (!this->topoPlanner->planDoorPath(startRoom.value(), goalRoom, doorList))
     {
-        std::cerr << "Movement: Planning Door Path didn't work out!" << std::endl;
+        std::cerr << "Movement: Planning Door Path didn't work out! Start: " << startRoom.value()->name
+                  << " Goal: " << goalRoom->name << std::endl;
         return nullptr;
     }
     if (doorToNextArea)
     {
-        //std::cout << "Movement: Setting door to next area to '" << doorToNextArea->name << "'" << std::endl;
+        // std::cout << "Movement: Setting door to next area to '" << doorToNextArea->name << "'" << std::endl;
         doorList.push_back(doorToNextArea);
     }
 
@@ -121,6 +122,7 @@ std::shared_ptr<ttb::wm::POI> Movement::getNextPOI(std::shared_ptr<ttb::wm::POI>
     {
         // door list is empty => POI is in same room
         currentPOI = goalPOI;
+        nextPOI = goalPOI;
     }
 
     // Get own pos
@@ -132,7 +134,7 @@ std::shared_ptr<ttb::wm::POI> Movement::getNextPOI(std::shared_ptr<ttb::wm::POI>
     }
 
     // 1. Check distance to currentPOI -> Drive to currentPOI (MoveBase)
-    //cout << "Movement: currentPOI: " << currentPOI->id << std::endl;
+    // cout << "Movement: currentPOI: " << currentPOI->id << std::endl;
     if (!this->wm->robot.isCloseTo(currentPOI))
     {
         // MoveBase to currentPOI
@@ -166,13 +168,6 @@ bool Movement::determineGoalRoom(std::shared_ptr<::ttb::wm::Room> start, std::sh
     return false;
 }
 
-//bool Movement::closeToPOI(geometry::CNPositionAllo ownPos, std::shared_ptr<ttb::wm::POI> currentPOI)
-//{
-//    double sqrDistance = (currentPOI->x - ownPos.x) * (currentPOI->x - ownPos.x) +
-//                         (currentPOI->y - ownPos.y) * (currentPOI->y - ownPos.y);
-//    return sqrt(sqrDistance) < this->catchRadius;
-//}
-
 void Movement::reset()
 {
     this->currentPath.clear();
@@ -183,7 +178,7 @@ void Movement::reset()
 
 actionlib::ClientGoalHandle<move_base_msgs::MoveBaseAction> Movement::send(move_base_msgs::MoveBaseGoal &mbag)
 {
-	mbag.target_pose.header.seq = seqCounter++;
+    mbag.target_pose.header.seq = seqCounter++;
     return this->ac->sendGoal(mbag);
 }
 

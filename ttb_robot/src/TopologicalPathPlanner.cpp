@@ -28,7 +28,7 @@ bool TopologicalPathPlanner::planAreaPath(std::shared_ptr<ttb::wm::Room> start, 
 {
     if (start->area->name.compare(goal->area->name) == 0)
     {
-        //std::cout << "TopologicalPathPlanner: start and goal room are in the same area!" << std::endl;
+        // std::cout << "TopologicalPathPlanner: start and goal room are in the same area!" << std::endl;
         return true;
     }
     std::vector<std::shared_ptr<ttb::wm::Area>> fringe;
@@ -46,7 +46,7 @@ bool TopologicalPathPlanner::planAreaPath(std::shared_ptr<ttb::wm::Room> start, 
     }
     else
     {
-        //std::cout << "TopologicalPathPlanner: no path between areas found!" << std::endl;
+        // std::cout << "TopologicalPathPlanner: no path between areas found!" << std::endl;
         return false;
     }
 
@@ -61,9 +61,10 @@ bool TopologicalPathPlanner::planAreaPath(std::shared_ptr<ttb::wm::Room> start, 
     return true;
 }
 
-bool TopologicalPathPlanner::areaBreadthSearch(std::vector<std::shared_ptr<ttb::wm::Area>> &fringe,
-                                               std::map<std::shared_ptr<ttb::wm::Area>, std::shared_ptr<ttb::wm::Area>> &visited,
-                                               std::shared_ptr<ttb::wm::Area> goal)
+bool TopologicalPathPlanner::areaBreadthSearch(
+    std::vector<std::shared_ptr<ttb::wm::Area>> &fringe,
+    std::map<std::shared_ptr<ttb::wm::Area>, std::shared_ptr<ttb::wm::Area>> &visited,
+    std::shared_ptr<ttb::wm::Area> goal)
 {
     if (fringe.size() == 0)
     {
@@ -97,38 +98,38 @@ bool TopologicalPathPlanner::areaBreadthSearch(std::vector<std::shared_ptr<ttb::
 }
 
 bool TopologicalPathPlanner::planDoorPath(std::shared_ptr<ttb::wm::Room> start, std::shared_ptr<ttb::wm::Room> goal,
-                                                                                 std::vector<std::shared_ptr<::ttb::wm::Door>> &doorList)
+                                          std::vector<std::shared_ptr<::ttb::wm::Door>> &doorList)
 {
-	if(start->name.compare(goal->name) == 0)
-	{
-        //std::cout << "TopologicalPathPlanner: start and goal room are identical!" << std::endl;
+    if (start->name.compare(goal->name) == 0)
+    {
+        // std::cout << "TopologicalPathPlanner: start and goal room are identical!" << std::endl;
         return true;
-	}
+    }
     std::vector<std::shared_ptr<ttb::wm::Room>> fringe;
     fringe.push_back(start);
     std::map<std::shared_ptr<ttb::wm::Room>, std::shared_ptr<ttb::wm::Room>> visited;
-    auto goalRoom = roomBreadthSearch(fringe, visited, goal);
-    if (goalRoom)
+    visited.emplace(start, nullptr);
+    auto pathFound = roomBreadthSearch(fringe, visited, goal);
+    if (!pathFound)
     {
-        auto room = goalRoom;
-        while (visited.at(room) != nullptr)
-        {
-            for (auto nextDoor : room->doors)
-            {
-                auto nextRoom = nextDoor->toRoom != room ? nextDoor->toRoom : nextDoor->fromRoom;
+        return pathFound;
+    }
 
-                if (nextRoom == visited.at(room))
-                {
-                	doorList.insert(doorList.begin(), nextDoor);
-                    room = nextRoom;
-                    break;
-                }
+    // create door list (TODO: should be done in roomBreadthSearch)
+    auto room = goal;
+    while (visited.at(room) != nullptr)
+    {
+        for (auto nextDoor : room->doors)
+        {
+            auto nextRoom = nextDoor->toRoom != room ? nextDoor->toRoom : nextDoor->fromRoom;
+
+            if (nextRoom == visited.at(room))
+            {
+                doorList.insert(doorList.begin(), nextDoor);
+                room = nextRoom;
+                break;
             }
         }
-    }
-    else
-    {
-    	return false;
     }
 
 #ifdef TP_DEBUG
@@ -138,67 +139,40 @@ bool TopologicalPathPlanner::planDoorPath(std::shared_ptr<ttb::wm::Room> start, 
         std::cout << " " << door->toString() << std::endl;
     }
 #endif
-    return true;
+    return pathFound;
 }
 
-std::shared_ptr<ttb::wm::Room> TopologicalPathPlanner::roomBreadthSearch(std::vector<std::shared_ptr<ttb::wm::Room>> &fringe,
-                                                                         std::map<std::shared_ptr<ttb::wm::Room>, std::shared_ptr<ttb::wm::Room>> &visited,
-                                                                         std::shared_ptr<ttb::wm::Room> goal)
+bool TopologicalPathPlanner::roomBreadthSearch(
+    std::vector<std::shared_ptr<ttb::wm::Room>> &fringe,
+    std::map<std::shared_ptr<ttb::wm::Room>, std::shared_ptr<ttb::wm::Room>> &visited,
+    std::shared_ptr<ttb::wm::Room> goal)
 {
     if (fringe.size() == 0)
     {
-        return nullptr;
+        return false;
     }
     std::vector<std::shared_ptr<ttb::wm::Room>> newFringe;
-    if (visited.size() == 0)
-    {
-        visited.emplace(fringe.at(0), nullptr);
-    }
     for (auto currentRoom : fringe)
     {
         for (auto door : currentRoom->doors)
         {
             auto nextRoom = door->toRoom != currentRoom ? door->toRoom : door->fromRoom;
 
-            if (!door->open || visited.find(nextRoom) != visited.end() || nextRoom->area->blocked)
+            if (visited.find(nextRoom) != visited.end() || nextRoom->area->blocked)
             {
                 continue;
             }
 
             newFringe.push_back(nextRoom);
             visited.emplace(nextRoom, currentRoom);
-            if (nextRoom->name == goal->name)
+            if (nextRoom == goal)
             {
-                return nextRoom;
+                return true;
             }
         }
     }
     return roomBreadthSearch(newFringe, visited, goal);
 }
-
-// std::vector<std::shared_ptr<ttb::wm::Door>> TopologicalPathPlanner::planToNextArea(std::shared_ptr<ttb::wm::Room> start, std::shared_ptr<ttb::wm::Area> goal)
-//{
-//	std::shared_ptr<ttb::wm::Door> doorToNextArea = nullptr;
-//	std::shared_ptr<ttb::wm::Room> goalRoom = nullptr;
-//    for (auto door : goal->doors)
-//    {
-//        if (start->area == door->fromArea)
-//        {
-//        	goalRoom = door->fromRoom;
-//        	doorToNextArea = door;
-//        	break;
-//        }
-//        else if (start->area == door->toArea)
-//        {
-//        	goalRoom = door->toRoom;
-//        	doorToNextArea = door;
-//        	break;
-//        }
-//    }
-//    std::vector<std::shared_ptr<ttb::wm::Door>> result = planBetweenRooms(start, goalRoom);
-//    result.push_back(doorToNextArea);
-//    return result;
-//}
 }
 } /* namespace wm */
 } /* namespace ttb */

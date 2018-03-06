@@ -26,11 +26,11 @@ class TopologicalModel
     TopologicalModel(TTBWorldModel* wm);
     virtual ~TopologicalModel();
 
-    std::shared_ptr<POI> getPOI(int id);
     std::shared_ptr<POI> getPOIByName(std::string name);
-    std::shared_ptr<Door> getDoor(std::string name);
-    std::shared_ptr<Area> getArea(std::string name);
-    std::shared_ptr<Room> getRoom(std::string name);
+    std::shared_ptr<POI> getPOI(int id, bool insert = false);
+    std::shared_ptr<Door> getDoor(std::string name, bool insert = false);
+    std::shared_ptr<Area> getArea(std::string name, bool insert = false);
+    std::shared_ptr<Room> getRoom(std::string name, bool insert = false);
 
     const std::unordered_set<std::shared_ptr<POI>, POIHash, POIComperator> getPOIs();
     const std::unordered_set<std::shared_ptr<Door>, DoorHash, DoorComperator> getDoors();
@@ -38,6 +38,10 @@ class TopologicalModel
     std::string toString();
 
   private:
+    std::shared_ptr<Room> getRoomInternal(std::string name);
+    std::shared_ptr<Area> getAreaInternal(std::string name);
+    std::shared_ptr<Door> getDoorInternal(std::string name);
+    std::shared_ptr<POI> getPOIInternal(int id);
     std::unordered_set<std::shared_ptr<Area>, AreaHash, AreaComperator> areas;
     std::unordered_set<std::shared_ptr<Room>, RoomHash, RoomComperator> rooms;
     std::unordered_set<std::shared_ptr<Door>, DoorHash, DoorComperator> doors;

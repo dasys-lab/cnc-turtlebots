@@ -14,6 +14,7 @@ class Robot
     Robot(TTBWorldModel *wm);
     virtual ~Robot();
     bool isCloseTo(std::shared_ptr<POI> goalPOI);
+    bool inSameRoom(std::shared_ptr<POI> goalPOI);
 
   private:
     TTBWorldModel *wm;

@@ -50,7 +50,7 @@ class TopologicalPathPlanner
     wm::TopologicalModel *topologicalModel;
     bool areaBreadthSearch(std::vector<std::shared_ptr<ttb::wm::Area>> &fringe,
                            std::map<std::shared_ptr<ttb::wm::Area>, std::shared_ptr<ttb::wm::Area>> &visited, std::shared_ptr<ttb::wm::Area> goal);
-    std::shared_ptr<ttb::wm::Room> roomBreadthSearch(std::vector<std::shared_ptr<ttb::wm::Room>> &fringe,
+    bool roomBreadthSearch(std::vector<std::shared_ptr<ttb::wm::Room>> &fringe,
                                                      std::map<std::shared_ptr<ttb::wm::Room>, std::shared_ptr<ttb::wm::Room>> &visited,
                                                      std::shared_ptr<ttb::wm::Room> goal);
 };

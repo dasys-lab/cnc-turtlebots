@@ -1,8 +1,9 @@
 #pragma once
 
-#include <ttb_msgs/GrabDropObject.h>
 #include <ttb_msgs/DoorCmd.h>
+#include <ttb_msgs/GrabDropObject.h>
 
+#include <memory>
 #include <ros/ros.h>
 #include <string>
 
@@ -13,14 +14,23 @@ class SystemConfig;
 
 namespace ttb
 {
-	class TTBWorldModel;
+class TTBWorldModel;
+namespace wm
+{
+class Door;
+}
 namespace robot
 {
 
 class SimulatedArm
 {
   public:
-    enum ObjectInteraction { noInteractionAllowed, waiting, interactionAllowed };
+    enum ObjectInteraction
+    {
+        noInteractionAllowed,
+        waiting,
+        interactionAllowed
+    };
     SimulatedArm();
     virtual ~SimulatedArm();
     const std::string &getCarriedObjectName() const;
@@ -29,6 +39,7 @@ class SimulatedArm
     SimulatedArm::ObjectInteraction mayInteractWithObject();
     void onOwnArmCmd(ttb_msgs::GrabDropObjectPtr msg);
     bool openDoor(std::string doorName, bool open = true);
+    bool openDoor(std::shared_ptr<ttb::wm::Door> door, bool open = true);
 
   private:
     std::string carriedObjectName;
@@ -36,14 +47,14 @@ class SimulatedArm
     ros::Publisher armCmdPub;
     ros::Subscriber armCmdSub;
     ros::Publisher doorCmdPub;
-    //TODO: implement arm range as soon as logical camera sensor is available
+    // TODO: implement arm range as soon as logical camera sensor is available
     double armRange;
 
     ObjectInteraction interactWithObject;
     supplementary::SystemConfig *sc;
     std::string robotName;
     ros::AsyncSpinner *spinner;
-    ttb::TTBWorldModel* wm;
+    ttb::TTBWorldModel *wm;
 };
 
 } /* namespace robot */

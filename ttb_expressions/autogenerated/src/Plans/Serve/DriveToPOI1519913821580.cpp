@@ -60,7 +60,21 @@ shared_ptr<UtilityFunction> UtilityFunction1519913821580::getUtilityFunction(Pla
 bool TransitionCondition1519913901102::evaluate(shared_ptr<RunningPlan> rp)
 {
     /*PROTECTED REGION ID(1519913899492) ENABLED START*/
-    return rp->anyChildrenStatus(PlanStatus::Success);
+    auto currentTask = this->wm->taskManager.getNextTask();
+    if (!currentTask || currentTask->getInformation().type != ttb_msgs::ServeTask::DRIVE_TO)
+    {
+        // current task is not for driving to an POI, so don't specify any problem descriptor
+        return false;
+    }
+
+    auto currentGoalPOI = wm->topologicalModel.getPOI(stoi(currentTask->getInformation().entity));
+    if (!currentGoalPOI)
+    {
+        // unable to get the goalPOI
+        return false;
+    }
+
+    return rp->anyChildrenStatus(PlanStatus::Success) && !wm->robot.inSameRoom(currentGoalPOI);
     /*PROTECTED REGION END*/
 }
 
@@ -100,12 +114,16 @@ bool TransitionCondition1519914093807::evaluate(shared_ptr<RunningPlan> rp)
         return false;
     }
 
-    if(!this->wm->robot.isCloseTo(currentGoalPOI))
+    if (!this->wm->robot.isCloseTo(currentGoalPOI) || !this->wm->robot.inSameRoom(currentGoalPOI))
     {
-    	return false;
+        return false;
     }
-
-    return true;
+    else
+    {
+        std::cout << "DriveToPOI-Plan: Arrived at goalPOI " << currentGoalPOI->id << std::endl;
+        this->wm->taskManager.popNextTask();
+        return true;
+    }
     /*PROTECTED REGION END*/
 }
 

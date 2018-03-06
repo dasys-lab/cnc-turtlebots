@@ -3,6 +3,7 @@
 #include <LogicalCameraData.h>
 #include <RawSensorData.h>
 #include <TTBWorldModel.h>
+#include <topology/Door.h>
 
 #include <cnc_geometry/CNPointAllo.h>
 #include <cnc_geometry/CNPositionAllo.h>
@@ -44,36 +45,42 @@ bool SimulatedArm::openDoor(std::string doorName, bool open)
     auto door = this->wm->topologicalModel.getDoor(doorName);
     if (!door)
     {
-        std::cout << "SimulatedArm::openDoor: door " << doorName << " not found in topological model!" << std::endl;
+        std::cout << "SimulatedArm::openDoor: Door " << doorName << " not found in topological model!" << std::endl;
         return false;
     }
-    auto lastValidDoorPose = door->gazeboModel->getPoseBuffer()->getLastValid();
+    return this->openDoor(door, open);
+}
+
+bool SimulatedArm::openDoor(std::shared_ptr<ttb::wm::Door> door, bool open)
+{
+    auto lastValidDoorPose = door->gazeboModel->getPoseBuffer()->getLastValidContent();
     if (!lastValidDoorPose)
     {
         // Do not open a door which the robot has not seen for some time
         // or has not seen at all
-        std::cout << "SimulatedArm::openDoor: door " << doorName << " has no valid position!" << std::endl;
+        std::cout << "SimulatedArm::openDoor: Door " << door->name << " has no valid position!" << std::endl;
         return false;
     }
 
-    auto ownPos = this->wm->rawSensorData.getAMCLPositionBuffer()->getLastValid();
+    auto ownPos = this->wm->rawSensorData.getAMCLPositionBuffer()->getLastValidContent();
     if (!ownPos)
     {
         // Do not open a door if the robot does not know its own position
-        std::cout << "SimulatedArm::openDoor: own pos not valid" << std::endl;
+        std::cout << "SimulatedArm::openDoor: Own position not valid!" << std::endl;
         return false;
     }
-    geometry::CNPointAllo doorPoint = geometry::CNPointAllo(lastValidDoorPose->getInformation().x, lastValidDoorPose->getInformation().y);
-    auto doorDistance = ownPos->getInformation().distanceTo(doorPoint);
+    geometry::CNPointAllo doorPoint = geometry::CNPointAllo(lastValidDoorPose->x, lastValidDoorPose->y);
+    auto doorDistance = ownPos->distanceTo(doorPoint);
     if (doorDistance > this->armRange)
     {
-        std::cout << "SimulatedArm::openDoor: door " << doorName << " is out of range! Range is: " << this->armRange << " distance is: " << doorDistance
-                  << " ownPos: " << ownPos->getInformation().toString() << " door point: " << doorPoint.toString() <<std::endl;
+        std::cout << "SimulatedArm::openDoor: Door " << door->name << " is out of range! Range is: " << this->armRange
+                  << " distance is: " << doorDistance << " ownPos: " << ownPos->toString()
+                  << " door point: " << doorPoint.toString() << std::endl;
         // Not possible to open a door which is out of range
         return false;
     }
     ttb_msgs::DoorCmd msg;
-    msg.name = doorName;
+    msg.name = door->name;
     if (open)
     {
         msg.state = ttb_msgs::DoorCmd::OPEN;

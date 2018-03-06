@@ -1,7 +1,7 @@
 #include "Robot.h"
 
-#include "topology/POI.h"
 #include "TTBWorldModel.h"
+#include "topology/POI.h"
 
 #include <SystemConfig.h>
 
@@ -13,7 +13,8 @@ namespace wm
 Robot::Robot(TTBWorldModel *wm)
     : wm(wm)
 {
-	this->catchRadius = (*this->wm->getSystemConfig())["TTBRobot"]->get<double>("Movement.catchRadius", NULL);
+    this->catchRadius =
+        (*this->wm->getSystemConfig())["TTBWorldModel"]->get<double>("Processing.Positioning.catchRadius", NULL);
 }
 
 Robot::~Robot()
@@ -31,11 +32,25 @@ bool Robot::isCloseTo(std::shared_ptr<POI> goalPOI)
     {
         return false;
     }
-    double sqrDistance = (goalPOI->x - ownPos->x) * (goalPOI->x - ownPos->x) +
-                         (goalPOI->y - ownPos->y) * (goalPOI->y - ownPos->y);
+    double dist =
+        sqrt((goalPOI->x - ownPos->x) * (goalPOI->x - ownPos->x) + (goalPOI->y - ownPos->y) * (goalPOI->y - ownPos->y));
 
-    std::cout << "Robot: isCloseTo: SqrDistance is " << sqrt(sqrDistance) << std::endl;
-    return sqrt(sqrDistance) < this->catchRadius;
+    return dist < this->catchRadius;
+}
+
+bool Robot::inSameRoom(std::shared_ptr<POI> goalPOI)
+{
+    auto ownRoom = this->wm->topologicalLocalization.getRoomBuffer()->getLastValidContent();
+    if (!ownRoom)
+    {
+        return false;
+    }
+    if (!goalPOI)
+    {
+        return false;
+    }
+
+    return goalPOI->room == ownRoom;
 }
 
 } /* namespace wm */

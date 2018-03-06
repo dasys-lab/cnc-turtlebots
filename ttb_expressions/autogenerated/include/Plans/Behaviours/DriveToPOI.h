@@ -35,7 +35,6 @@ class DriveToPOI : public DomainBehaviour
     std::vector<std::string> result;
     actionlib::ClientGoalHandle<move_base_msgs::MoveBaseAction> goalHandle;
     std::shared_ptr<ttb::wm::POI> goalPOI;
-    double catchRadius;
         /*PROTECTED REGION END*/};
         } /* namespace alica */
 

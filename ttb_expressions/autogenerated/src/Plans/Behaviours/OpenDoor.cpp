@@ -4,9 +4,9 @@ using namespace std;
 /*PROTECTED REGION ID(inccpp1519913953735) ENABLED START*/ // Add additional includes here
 #include <SolverType.h>
 
-#include <robot/SimulatedArm.h>
-#include <TurtleBot.h>
 #include <TTBWorldModel.h>
+#include <TurtleBot.h>
+#include <robot/SimulatedArm.h>
 /*PROTECTED REGION END*/
 namespace alica
 {
@@ -27,29 +27,40 @@ OpenDoor::~OpenDoor()
 }
 void OpenDoor::run(void *msg)
 {
-    /*PROTECTED REGION ID(run1519913953735) ENABLED START*/ // Add additional options here
-    std::cout << "OpenDoor: run called" << std::endl;
+    /*PROTECTED REGION ID(run1519913953735) ENABLED START*/                          // Add additional options here
+    if ((this->wm->getTime() - this->runningPlan->getStateStartTime()) > 5000000000) // 5sec
+    {
+        this->setFailure(true);
+    }
+
     result.clear();
     if (!query->getSolution(SolverType::DUMMYSOLVER, runningPlan, result))
     {
-        std::cout << "OpenDoor: Unable to get solution for variable: " << this->query->getUniqueVariableStore()->getAllRep()[1]->getName() << std::endl;
+        std::cout << "OpenDoor: Unable to get solution for variable: "
+                  << this->query->getUniqueVariableStore()->getAllRep()[0]->getName() << std::endl;
         return;
     }
 
-    std::cout << "OpenDoor: Solution for variable: " << this->query->getUniqueVariableStore()->getAllRep()[1]->getName() << " is: " << result[1] << std::endl;
-    this->currentDoor = this->wm->topologicalModel.getDoor(result[1]);
-    if(!this->currentDoor)
+    std::cout << "OpenDoor: Solution for variable: " << this->query->getUniqueVariableStore()->getAllRep()[0]->getName()
+              << " is: " << result[0] << std::endl;
+
+    auto door = this->wm->topologicalModel.getDoor(result[0]);
+    if (!door)
     {
-    	std::cout << "OpenDoor: Door" << result[1] << " not found in topological model!" << std::endl;
-    	return;
+        std::cout << "OpenDoor: Door " << result[0] << " not found in topological model!" << std::endl;
+        return;
     }
-    if(this->turtleBot->simulatedArm->openDoor(this->currentDoor->name))
+
+    if (door->open)
     {
-    	this->setSuccess(true);
+        this->setSuccess(true);
+        this->setFailure(false);
+        return;
     }
-    else
+
+    if (!this->turtleBot->simulatedArm->openDoor(door))
     {
-    	this->setFailure(true);
+        return;
     }
     /*PROTECTED REGION END*/
 }
