@@ -38,9 +38,9 @@ void DriveToPOI::run(void *msg)
         return;
     }
 
-//    std::cout << "DriveToPOI: Solution for variable: "
-//              << this->query->getUniqueVariableStore()->getAllRep()[0]->getName() << " is: " << result[0] << std::endl;
-
+    //    std::cout << "DriveToPOI: Solution for variable: "
+    //              << this->query->getUniqueVariableStore()->getAllRep()[0]->getName() << " is: " << result[0] <<
+    //              std::endl;
 
     if (this->goalPOI && this->wm->robot.isCloseTo(this->goalPOI))
     {
@@ -57,7 +57,7 @@ void DriveToPOI::run(void *msg)
         this->goalHandle.reset();
         this->goalPOI = newGoalPOI;
     }
-    else if(isMoveBaseDone())
+    else if (isMoveBaseDone())
     {
         // MoveBase to nextPOI
         std::cout << "DriveToPOI: Drive to next POI: " << this->goalPOI->id << std::endl;
