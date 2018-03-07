@@ -9,18 +9,18 @@
     <outTransitions>#1454331384188</outTransitions>
     <outTransitions>#1486383786264</outTransitions>
   </states>
-  <states id="1454331334336" name="DriveTo" comment="">
+  <states id="1454331334336" name="DriveToPOI" comment="">
     <plans xsi:type="alica:Plan">DriveToPOI.pml#1519913821580</plans>
     <inTransitions>#1454331382859</inTransitions>
     <outTransitions>#1454331501621</outTransitions>
   </states>
   <states id="1454331358257" name="SearchFor" comment="">
-    <plans xsi:type="alica:Plan">PKVR16/SearchBoxes.pml#1481545038564</plans>
+    <plans xsi:type="alica:Plan">Search.pml#1520437018620</plans>
     <inTransitions>#1454331384188</inTransitions>
     <outTransitions>#1486383766847</outTransitions>
   </states>
   <states id="1486383776159" name="PickUp" comment="">
-    <plans xsi:type="alica:BehaviourConfiguration">PKVR16/PickUp.beh#1486381497239</plans>
+    <plans xsi:type="alica:Plan">PickUp.pml#1520438299583</plans>
     <inTransitions>#1486383786264</inTransitions>
     <outTransitions>#1486383788195</outTransitions>
   </states>

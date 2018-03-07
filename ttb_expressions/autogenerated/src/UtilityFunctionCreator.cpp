@@ -3,8 +3,6 @@
 
 #include  "Plans/Serve/ASPFindFreeDockingStationMaster1470041057806.h"
 
-#include  "Plans/Serve/PKVR16/SearchBoxes1481545038564.h"
-
 #include  "Plans/Serve/DriveToPOI1519913821580.h"
 
 #include  "Plans/Serve/ServeMaster1454332108133.h"
@@ -13,13 +11,13 @@
 
 #include  "Plans/Serve/CarryBook1468494583802.h"
 
+#include  "Plans/Serve/PickUp1520438299583.h"
+
 #include  "Plans/Serve/ASPNavwoExternalsInner1477229638868.h"
 
 #include  "Plans/Serve/ASPMinimizePathMaster1477125857343.h"
 
-#include  "Plans/Tests/TestDriveToPoi1517819007614.h"
-
-#include  "Plans/Tests/ChargeAndSimpleDriveTest1414681057676.h"
+#include  "Plans/Serve/Search1520437018620.h"
 
 #include  "Plans/Serve/CarryBookMaster1468493942500.h"
 
@@ -27,11 +25,7 @@
 
 #include  "Plans/Serve/Serve1454331313621.h"
 
-#include  "Plans/Tests/TurtleGenericTestMaster1454329729827.h"
-
 #include  "Plans/Serve/ASPRCCTestMaster1480766525772.h"
-
-#include  "Plans/Tests/TestPOI1454329810785.h"
 
 #include  "Plans/Serve/Charge1454331030770.h"
 
@@ -57,10 +51,6 @@ namespace alica
                 return make_shared<UtilityFunction1470041057806>();
                 break;
 
-            case 1481545038564:
-                return make_shared<UtilityFunction1481545038564>();
-                break;
-
             case 1519913821580:
                 return make_shared<UtilityFunction1519913821580>();
                 break;
@@ -77,6 +67,10 @@ namespace alica
                 return make_shared<UtilityFunction1468494583802>();
                 break;
 
+            case 1520438299583:
+                return make_shared<UtilityFunction1520438299583>();
+                break;
+
             case 1477229638868:
                 return make_shared<UtilityFunction1477229638868>();
                 break;
@@ -85,12 +79,8 @@ namespace alica
                 return make_shared<UtilityFunction1477125857343>();
                 break;
 
-            case 1517819007614:
-                return make_shared<UtilityFunction1517819007614>();
-                break;
-
-            case 1414681057676:
-                return make_shared<UtilityFunction1414681057676>();
+            case 1520437018620:
+                return make_shared<UtilityFunction1520437018620>();
                 break;
 
             case 1468493942500:
@@ -105,16 +95,8 @@ namespace alica
                 return make_shared<UtilityFunction1454331313621>();
                 break;
 
-            case 1454329729827:
-                return make_shared<UtilityFunction1454329729827>();
-                break;
-
             case 1480766525772:
                 return make_shared<UtilityFunction1480766525772>();
-                break;
-
-            case 1454329810785:
-                return make_shared<UtilityFunction1454329810785>();
                 break;
 
             case 1454331030770:

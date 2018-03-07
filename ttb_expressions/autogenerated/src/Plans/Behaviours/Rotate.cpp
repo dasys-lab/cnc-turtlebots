@@ -30,7 +30,7 @@ namespace alica
 
         if (counter <= 30)
         {
-        	this->turtleBot->movement->send(rotate);
+            this->turtleBot->movement->send(rotate);
             counter++;
         }
         else

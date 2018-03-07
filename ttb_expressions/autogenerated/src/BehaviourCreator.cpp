@@ -3,7 +3,7 @@ using namespace std;
 #include "BehaviourCreator.h"
 #include "engine/BasicBehaviour.h"
 
-#include  "Plans/Serve/PKVR16/PickUp.h"
+#include  "Plans/Behaviours/Sweep.h"
 
 #include  "Plans/Behaviours/SearchForDockingStationAsp.h"
 
@@ -15,13 +15,11 @@ using namespace std;
 
 #include  "Plans/Behaviours/Carry.h"
 
-#include  "Plans/Tests/DummyDriveToPoibeh.h"
+#include  "Plans/Behaviours/PickUp.h"
 
 #include  "Plans/Behaviours/ASPMinimizePath.h"
 
 #include  "Plans/Behaviours/Stop.h"
-
-#include  "Plans/Serve/PKVR16/DriveSearchPattern.h"
 
 #include  "Plans/Behaviours/ASPNavwoExt.h"
 
@@ -51,9 +49,9 @@ namespace alica
         switch (behaviourConfId)
         {
 
-            case 1486381497239:
+            case 1520437614544:
 
-                return make_shared<PickUp>();
+                return make_shared<Sweep>();
                 break;
 
             case 1470041828429:
@@ -83,9 +81,9 @@ namespace alica
                 return make_shared<Carry>();
                 break;
 
-            case 1517819108899:
+            case 1520438478153:
 
-                return make_shared<DummyDriveToPoibeh>();
+                return make_shared<PickUp>();
                 break;
 
             case 1477125946392:
@@ -98,25 +96,12 @@ namespace alica
                 return make_shared<Stop>();
                 break;
 
-            case 1481546413105:
-
-                return make_shared<DriveSearchPattern>();
-                break;
-
             case 1477229777461:
 
             case 1477229800616:
 
                 return make_shared<ASPNavwoExt>();
                 break;
-
-            case 1454329864420:
-
-            case 1454329905072:
-
-            case 1454329918634:
-
-            case 1454330438527:
 
             case 1519913781149:
 

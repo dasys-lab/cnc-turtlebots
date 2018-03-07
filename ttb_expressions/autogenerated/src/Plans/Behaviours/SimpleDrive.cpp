@@ -36,7 +36,7 @@ namespace alica
         }
         else
         {
-        	this->turtleBot->movement->send(move);
+            this->turtleBot->movement->send(move);
         }
 
         /*PROTECTED REGION END*/

@@ -23,7 +23,7 @@ namespace alica
     void Stop::run(void* msg)
     {
         /*PROTECTED REGION ID(run1414681269156) ENABLED START*/ //Add additional options here
-    	// send direct stop driving command
+        // send direct stop driving command
         geometry_msgs::Twist tw;
         tw.linear.x = 0.0;
         tw.linear.y = 0.0;

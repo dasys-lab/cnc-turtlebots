@@ -31,19 +31,11 @@
     <value/>
   </extensions>
   <extensions>
-    <key href="../Behaviours/DriveToPOI.beh#1454330438527"/>
-    <value/>
-  </extensions>
-  <extensions>
     <key href="../Behaviours/Stop.beh#1414681278745"/>
     <value/>
   </extensions>
   <extensions>
     <key href="Serve.pml#1454331501621"/>
-    <value/>
-  </extensions>
-  <extensions>
-    <key href="PKVR16/SearchBoxes.pml#1481545038564"/>
     <value/>
   </extensions>
   <extensions>
@@ -69,15 +61,19 @@
     </value>
   </extensions>
   <extensions>
-    <key href="PKVR16/PickUp.beh#1486381497239"/>
-    <value/>
-  </extensions>
-  <extensions>
     <key href="../Behaviours/DriveToPOI.beh#1519913781149"/>
     <value/>
   </extensions>
   <extensions>
     <key href="DriveToPOI.pml#1519913821580"/>
+    <value/>
+  </extensions>
+  <extensions>
+    <key href="Search.pml#1520437018620"/>
+    <value/>
+  </extensions>
+  <extensions>
+    <key href="PickUp.pml#1520438299583"/>
     <value/>
   </extensions>
 </uiextensionmodel:PmlUiExtensionMap>

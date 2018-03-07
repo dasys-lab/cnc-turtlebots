@@ -43,7 +43,7 @@ namespace alica
     void ChargingDefault::initialiseParameters()
     {
         /*PROTECTED REGION ID(initialiseParameters1447958115909) ENABLED START*/ // Add additional options here
-    	turtleBot->speech->say((*sc)["SpeechAct"]->get < string > ("Charging.ChargingText", NULL));
+        turtleBot->speech->say((*sc)["SpeechAct"]->get < string > ("Charging.ChargingText", NULL));
         /*PROTECTED REGION END*/
     }
 /*PROTECTED REGION ID(methods1447958115909) ENABLED START*/ // Add additional methods here
