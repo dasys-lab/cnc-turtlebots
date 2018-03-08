@@ -5,13 +5,8 @@
   </conditions>
   <vars id="1520438389375" name="entity" comment="" Type=""/>
   <states id="1520438315109" name="DriveToPickUpPos" comment="" entryPoint="1520438315110">
-    <parametrisation id="1520438789175" name="MISSING_NAME" comment="">
-      <subplan xsi:type="alica:BehaviourConfiguration">../Behaviours/DriveToPOI.beh#1519913781149</subplan>
-      <subvar>../Behaviours/DriveToPOI.beh#1519914156317</subvar>
-      <var>#1520438389375</var>
-    </parametrisation>
-    <plans xsi:type="alica:BehaviourConfiguration">../Behaviours/DriveToPOI.beh#1519913781149</plans>
-    <inTransitions>#1520438353049</inTransitions>
+    <plans xsi:type="alica:BehaviourConfiguration">../Behaviours/DriveCloseToObject.beh#1520521878834</plans>
+    <inTransitions>#1520518910440</inTransitions>
     <outTransitions>#1520438351648</outTransitions>
   </states>
   <states id="1520438338624" name="Grap" comment="">
@@ -22,26 +17,35 @@
     </parametrisation>
     <plans xsi:type="alica:BehaviourConfiguration">../Behaviours/PickUp.beh#1520438478153</plans>
     <inTransitions>#1520438351648</inTransitions>
-    <outTransitions>#1520438353049</outTransitions>
     <outTransitions>#1520438354450</outTransitions>
+    <outTransitions>#1520516953565</outTransitions>
+    <outTransitions>#1520518910440</outTransitions>
   </states>
   <states xsi:type="alica:SuccessState" id="1520438345249" name="PickedUp" comment="">
     <inTransitions>#1520438354450</inTransitions>
   </states>
-  <transitions id="1520438351648" name="MISSING_NAME" comment="" msg="">
+  <states xsi:type="alica:FailureState" id="1520516913557" name="Fail" comment="">
+    <inTransitions>#1520516953565</inTransitions>
+  </states>
+  <transitions id="1520438351648" name="MISSING_NAME" comment="arrived at poi" msg="">
     <preCondition id="1520438352890" name="MISSING_NAME" comment="" conditionString="" pluginName="DefaultPlugin" enabled="true"/>
     <inState>#1520438315109</inState>
     <outState>#1520438338624</outState>
-  </transitions>
-  <transitions id="1520438353049" name="MISSING_NAME" comment="" msg="">
-    <preCondition id="1520438354263" name="MISSING_NAME" comment="" conditionString="" pluginName="DefaultPlugin" enabled="true"/>
-    <inState>#1520438338624</inState>
-    <outState>#1520438315109</outState>
   </transitions>
   <transitions id="1520438354450" name="MISSING_NAME" comment="" msg="">
     <preCondition id="1520438355739" name="MISSING_NAME" comment="" conditionString="" pluginName="DefaultPlugin" enabled="true"/>
     <inState>#1520438338624</inState>
     <outState>#1520438345249</outState>
+  </transitions>
+  <transitions id="1520516953565" name="MISSING_NAME" comment="Failed to pick up object" msg="">
+    <preCondition id="1520516954761" name="MISSING_NAME" comment="" conditionString="" pluginName="DefaultPlugin" enabled="true"/>
+    <inState>#1520438338624</inState>
+    <outState>#1520516913557</outState>
+  </transitions>
+  <transitions id="1520518910440" name="MISSING_NAME" comment="pos not reached" msg="">
+    <preCondition id="1520518912633" name="MISSING_NAME" comment="" conditionString="" pluginName="DefaultPlugin" enabled="true"/>
+    <inState>#1520438338624</inState>
+    <outState>#1520438315109</outState>
   </transitions>
   <entryPoints id="1520438315110" name="FetchEP" comment="" successRequired="true" minCardinality="0" maxCardinality="2147483647">
     <task>../../Misc/taskrepository.tsk#1520438413494</task>

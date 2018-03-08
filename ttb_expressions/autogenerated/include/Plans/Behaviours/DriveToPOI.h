@@ -11,10 +11,12 @@
 #include <ttb_msgs/ServeTask.h>
 
 #include <memory>
-namespace ttb {
-namespace wm {
-	class POI;
-}
+namespace ttb
+{
+    namespace wm
+    {
+        class POI;
+    }
 }
 /*PROTECTED REGION END*/
 namespace alica

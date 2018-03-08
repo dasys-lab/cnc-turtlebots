@@ -3,6 +3,8 @@ using namespace std;
 #include "BehaviourCreator.h"
 #include "engine/BasicBehaviour.h"
 
+#include  "Plans/Behaviours/DriveCloseToObject.h"
+
 #include  "Plans/Behaviours/Sweep.h"
 
 #include  "Plans/Behaviours/SearchForDockingStationAsp.h"
@@ -48,6 +50,11 @@ namespace alica
     {
         switch (behaviourConfId)
         {
+
+            case 1520521878834:
+
+                return make_shared<DriveCloseToObject>();
+                break;
 
             case 1520437614544:
 

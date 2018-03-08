@@ -3,6 +3,9 @@
 
 #include "DomainBehaviour.h"
 /*PROTECTED REGION ID(inc1520438451345) ENABLED START*/ //Add additional includes here
+#include <engine/constraintmodul/Query.h>
+#include <string>
+#include <memory>
 /*PROTECTED REGION END*/
 namespace alica
 {
@@ -20,6 +23,10 @@ namespace alica
         /*PROTECTED REGION END*/
     private:
         /*PROTECTED REGION ID(prv1520438451345) ENABLED START*/ //Add additional private methods here
+        std::shared_ptr<alica::Query> query;
+        std::vector<std::string> result;
+        std::string object;
+        bool isGrabbing;
         /*PROTECTED REGION END*/};
 } /* namespace alica */
 

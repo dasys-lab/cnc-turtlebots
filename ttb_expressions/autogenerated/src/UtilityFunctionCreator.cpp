@@ -11,6 +11,8 @@
 
 #include  "Plans/Serve/CarryBook1468494583802.h"
 
+#include  "Plans/Serve/PutDown1520511951867.h"
+
 #include  "Plans/Serve/PickUp1520438299583.h"
 
 #include  "Plans/Serve/ASPNavwoExternalsInner1477229638868.h"
@@ -65,6 +67,10 @@ namespace alica
 
             case 1468494583802:
                 return make_shared<UtilityFunction1468494583802>();
+                break;
+
+            case 1520511951867:
+                return make_shared<UtilityFunction1520511951867>();
                 break;
 
             case 1520438299583:

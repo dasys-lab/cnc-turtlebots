@@ -10,6 +10,8 @@
 
 #include  "Plans/Serve/CarryBook1468494583802.h"
 
+#include  "Plans/Serve/PutDown1520511951867.h"
+
 #include  "Plans/Serve/PickUp1520438299583.h"
 
 #include  "Plans/Serve/ASPNavwoExternalsInner1477229638868.h"
@@ -176,15 +178,21 @@ namespace alica
 
                 break;
 
-            case 1520438354263:
-
-                return make_shared<TransitionCondition1520438354263>();
-
-                break;
-
             case 1520438355739:
 
                 return make_shared<TransitionCondition1520438355739>();
+
+                break;
+
+            case 1520516954761:
+
+                return make_shared<TransitionCondition1520516954761>();
+
+                break;
+
+            case 1520518912633:
+
+                return make_shared<TransitionCondition1520518912633>();
 
                 break;
 
@@ -269,6 +277,18 @@ namespace alica
             case 1486383790747:
 
                 return make_shared<TransitionCondition1486383790747>();
+
+                break;
+
+            case 1520511978036:
+
+                return make_shared<TransitionCondition1520511978036>();
+
+                break;
+
+            case 1520511979544:
+
+                return make_shared<TransitionCondition1520511979544>();
 
                 break;
 

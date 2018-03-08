@@ -25,21 +25,24 @@ namespace robot
 class SimulatedArm
 {
   public:
-    enum ObjectInteraction
+
+    enum ArmState
     {
-        noInteractionAllowed,
+        pickUpFailed,
         waiting,
-        interactionAllowed
+        pickUpSuccessful
     };
+
     SimulatedArm();
     virtual ~SimulatedArm();
     const std::string &getCarriedObjectName() const;
     bool grabObject(std::string objectName);
     bool drobObject(std::string objectName);
-    SimulatedArm::ObjectInteraction mayInteractWithObject();
+    SimulatedArm::ArmState getArmState();
     void onOwnArmCmd(ttb_msgs::GrabDropObjectPtr msg);
     bool openDoor(std::string doorName, bool open = true);
     bool openDoor(std::shared_ptr<ttb::wm::Door> door, bool open = true);
+    double getArmRange();
 
   private:
     std::string carriedObjectName;
@@ -47,10 +50,9 @@ class SimulatedArm
     ros::Publisher armCmdPub;
     ros::Subscriber armCmdSub;
     ros::Publisher doorCmdPub;
-    // TODO: implement arm range as soon as logical camera sensor is available
     double armRange;
 
-    ObjectInteraction interactWithObject;
+    SimulatedArm::ArmState armState;
     supplementary::SystemConfig *sc;
     std::string robotName;
     ros::AsyncSpinner *spinner;

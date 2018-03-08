@@ -23,13 +23,7 @@
   <extensions>
     <key href="PickUp.pml#1520438351648"/>
     <value>
-      <bendpoints xPos="387" yPos="195"/>
-    </value>
-  </extensions>
-  <extensions>
-    <key href="PickUp.pml#1520438353049"/>
-    <value>
-      <bendpoints xPos="384" yPos="280"/>
+      <bendpoints xPos="348" yPos="206"/>
     </value>
   </extensions>
   <extensions>
@@ -46,6 +40,24 @@
   </extensions>
   <extensions>
     <key href="../Behaviours/DriveToPOI.beh#1519913781149"/>
+    <value/>
+  </extensions>
+  <extensions>
+    <key href="PickUp.pml#1520516913557"/>
+    <value xPos="524" yPos="263"/>
+  </extensions>
+  <extensions>
+    <key href="PickUp.pml#1520516953565"/>
+    <value/>
+  </extensions>
+  <extensions>
+    <key href="PickUp.pml#1520518910440"/>
+    <value>
+      <bendpoints xPos="346" yPos="261"/>
+    </value>
+  </extensions>
+  <extensions>
+    <key href="../Behaviours/DriveCloseToObject.beh#1520521878834"/>
     <value/>
   </extensions>
 </uiextensionmodel:PmlUiExtensionMap>

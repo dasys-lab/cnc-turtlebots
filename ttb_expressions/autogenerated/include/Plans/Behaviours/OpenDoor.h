@@ -8,10 +8,12 @@
 #include <string>
 #include <vector>
 #include <memory>
-namespace ttb {
-namespace wm {
-	class Door;
-}
+namespace ttb
+{
+    namespace wm
+    {
+        class Door;
+    }
 }
 /*PROTECTED REGION END*/
 namespace alica

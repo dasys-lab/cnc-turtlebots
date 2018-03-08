@@ -29,7 +29,7 @@ SimulatedArm::SimulatedArm()
     std::string ownTopic = "/" + this->robotName + "/ArmCmd";
     this->armCmdSub = n.subscribe(ownTopic.c_str(), 10, &SimulatedArm::onOwnArmCmd, (SimulatedArm *)this);
 
-    this->interactWithObject = ObjectInteraction::waiting;
+    this->armState = ArmState::waiting;
     spinner = new ros::AsyncSpinner(4);
     spinner->start();
 }
@@ -98,9 +98,9 @@ const std::string &SimulatedArm::getCarriedObjectName() const
     return carriedObjectName;
 }
 
-SimulatedArm::ObjectInteraction SimulatedArm::mayInteractWithObject()
+SimulatedArm::ArmState SimulatedArm::getArmState()
 {
-    return this->interactWithObject;
+    return this->armState;
 }
 
 bool SimulatedArm::grabObject(std::string objectName)
@@ -115,7 +115,7 @@ bool SimulatedArm::grabObject(std::string objectName)
     msg.objectName = objectName;
     msg.action = ttb_msgs::GrabDropObject::GRAB;
     this->armCmdPub.publish(msg);
-    this->interactWithObject = ObjectInteraction::waiting;
+    this->armState = ArmState::waiting;
     this->requestedObject = objectName;
     return true;
 }
@@ -131,7 +131,7 @@ bool SimulatedArm::drobObject(std::string objectName)
     msg.objectName = objectName;
     msg.action = ttb_msgs::GrabDropObject::DROP;
     this->armCmdPub.publish(msg);
-    this->interactWithObject = ObjectInteraction::waiting;
+    this->armState = ArmState::waiting;
     this->requestedObject = objectName;
     return true;
 }
@@ -141,7 +141,7 @@ void SimulatedArm::onOwnArmCmd(ttb_msgs::GrabDropObjectPtr msg)
     if (msg->objectName.empty())
     {
         this->requestedObject = "";
-        this->interactWithObject = ObjectInteraction::noInteractionAllowed;
+        this->armState = ArmState::pickUpFailed;
         return;
     }
     if (msg->action == ttb_msgs::GrabDropObject::GRAB)
@@ -150,7 +150,7 @@ void SimulatedArm::onOwnArmCmd(ttb_msgs::GrabDropObjectPtr msg)
         {
             this->carriedObjectName = msg->objectName;
             this->requestedObject = "";
-            this->interactWithObject = ObjectInteraction::interactionAllowed;
+            this->armState = ArmState::pickUpSuccessful;
         }
     }
     else
@@ -159,10 +159,16 @@ void SimulatedArm::onOwnArmCmd(ttb_msgs::GrabDropObjectPtr msg)
         {
             this->carriedObjectName = "";
             this->requestedObject = "";
-            this->interactWithObject = ObjectInteraction::interactionAllowed;
+            this->armState = ArmState::pickUpSuccessful;
         }
     }
 }
 
+double SimulatedArm::getArmRange()
+{
+    return this->armRange;
+}
+
 } /* namespace robot */
 } /* namespace ttb */
+
