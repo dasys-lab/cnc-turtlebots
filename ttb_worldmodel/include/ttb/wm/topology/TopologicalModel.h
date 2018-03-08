@@ -1,9 +1,9 @@
 #pragma once
 
-#include "topology/Area.h"
-#include "topology/Door.h"
-#include "topology/Room.h"
-#include "topology/POI.h"
+#include "ttb/wm/topology/Area.h"
+#include "ttb/wm/topology/Door.h"
+#include "ttb/wm/topology/Room.h"
+#include "ttb/wm/topology/POI.h"
 
 #include <memory>
 #include <unordered_set>

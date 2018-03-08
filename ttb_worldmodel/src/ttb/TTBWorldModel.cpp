@@ -1,8 +1,8 @@
-#include "TTBWorldModel.h"
+#include "ttb/TTBWorldModel.h"
 
-#include "Communication.h"
-#include "RawSensorData.h"
-#include "WrappedMessageHandler.h"
+//#include "ttb/WrappedMessageHandler.h"
+//#include "ttb/wm/Communication.h"
+//#include "ttb/wm/RawSensorData.h"
 
 #include <engine/AlicaEngine.h>
 #include <engine/IAlicaClock.h>

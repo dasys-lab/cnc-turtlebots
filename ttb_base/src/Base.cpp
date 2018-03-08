@@ -5,7 +5,7 @@
 #include <ConditionCreator.h>
 #include <UtilityFunctionCreator.h>
 #include <ConstraintCreator.h>
-#include <TTBWorldModel.h>
+#include <ttb/TTBWorldModel.h>
 #include <clock/AlicaROSClock.h>
 #include <communication/AlicaRosCommunication.h>
 

@@ -1,8 +1,6 @@
-#include "topology/Room.h"
+#include "ttb/wm/topology/Area.h"
 
-#include "topology/Area.h"
-#include "topology/Door.h"
-#include "topology/POI.h"
+#include "ttb/wm/topology/Door.h"
 
 #include <sstream>
 
@@ -10,26 +8,25 @@ namespace ttb
 {
 namespace wm
 {
-
-Room::Room(std::string name)
+Area::Area(std::string name)
 	: name(name)
 {
+	this->blocked = false;
 }
 
-
-Room::~Room()
+Area::~Area()
 {
 }
 
-std::size_t Room::hash() const
+std::size_t Area::hash() const
 {
 	return std::hash<std::string>()(this->name);
 }
 
-std::string Room::toString()
+std::string Area::toString()
 {
 	std::stringstream ss;
-	ss << "\tRoom: " << this->name << " belongs to Area: " << this->area->name << " Hash: " << this->hash() << std::endl;
+	ss << "\tArea: " << this->name << " Hash: " << this->hash() << std::endl;
 	ss << "\t\tDoors: " << std::endl;
 	for(auto door : this->doors)
 	{
@@ -38,6 +35,5 @@ std::string Room::toString()
 	ss << std::endl;
 	return ss.str();
 }
-
 } /* namespace wm */
 } /* namespace ttb */

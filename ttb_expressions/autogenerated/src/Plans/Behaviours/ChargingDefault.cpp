@@ -3,7 +3,7 @@ using namespace std;
 
 /*PROTECTED REGION ID(inccpp1447958115909) ENABLED START*/ // Add additional includes here
 #include <kobuki_msgs/SensorState.h>
-#include <TTBWorldModel.h>
+#include <ttb/TTBWorldModel.h>
 #include <TurtleBot.h>
 #include <geometry_msgs/Twist.h>
 /*PROTECTED REGION END*/

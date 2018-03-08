@@ -1,6 +1,6 @@
 #pragma once
 
-#include "LogicalObject.h"
+#include "ttb/wm/sim/LogicalObject.h"
 
 namespace ttb
 {

@@ -1,8 +1,10 @@
-#include "TopologicalInfoPublisher.h"
+#include "ttb/wm/topology/TopologicalInfoPublisher.h"
+
+#include "ttb/wm/topology/Door.h"
+#include "ttb/TTBWorldModel.h"
+
 #include <ttb_msgs/TopologicalInfo.h>
-#include <TTBWorldModel.h>
 #include <supplementary/AgentID.h>
-#include <topology/Door.h>
 #include <SystemConfig.h>
 
 namespace ttb

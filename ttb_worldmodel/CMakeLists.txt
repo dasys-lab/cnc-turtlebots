@@ -9,7 +9,6 @@ set(CMAKE_CXX_FLAGS "-rdynamic -fnon-call-exceptions -ggdb ${CMAKE_CXX_FLAGS}")
 
 find_package(catkin REQUIRED COMPONENTS cnc_geometry system_config event_handling alica_engine kobuki_msgs robot_control tf ttb_msgs world_model)
 
-
 catkin_package(
   INCLUDE_DIRS include
   LIBRARIES ttb_worldmodel
@@ -18,23 +17,23 @@ catkin_package(
  
 include_directories(include ${catkin_INCLUDE_DIRS})
 
-
 add_library(ttb_worldmodel
-  src/TTBWorldModel.cpp
-  src/TaskManager.cpp
-  src/RawSensorData.cpp
-  src/Communication.cpp
-  src/TopologicalLocalization.cpp
-  src/DoorStateRecognition.cpp
-  src/TopologicalInfoPublisher.cpp
-  src/LogicalCameraData.cpp
-  src/LogicalObject.cpp
-  src/Robot.cpp
-  src/TopologicalModel.cpp
-  src/topology/Area.cpp
-  src/topology/Room.cpp
-  src/topology/Door.cpp
-  src/topology/POI.cpp
+  src/ttb/TTBWorldModel.cpp
+  src/ttb/wm/TaskManager.cpp
+  src/ttb/wm/RawSensorData.cpp
+  src/ttb/wm/Communication.cpp
+  src/ttb/wm/DoorStateRecognition.cpp
+  src/ttb/wm/Robot.cpp
+  src/ttb/wm/sim/LogicalCameraData.cpp
+  src/ttb/wm/sim/LogicalObject.cpp
+  src/ttb/wm/topology/AnnotatedGrid.cpp
+  src/ttb/wm/topology/Area.cpp
+  src/ttb/wm/topology/TopologicalLocalization.cpp
+  src/ttb/wm/topology/TopologicalInfoPublisher.cpp
+  src/ttb/wm/topology/TopologicalModel.cpp
+  src/ttb/wm/topology/Room.cpp
+  src/ttb/wm/topology/Door.cpp
+  src/ttb/wm/topology/POI.cpp
 )
 
 add_dependencies(ttb_worldmodel kobuki_msgs_generate_messages_cpp geometry_msgs_generate_messages_cpp robot_control_generate_messages_cpp) 

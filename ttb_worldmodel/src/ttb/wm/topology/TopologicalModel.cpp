@@ -1,8 +1,8 @@
-#include "TopologicalModel.h"
+#include "ttb/wm/topology/TopologicalModel.h"
 
-#include "TTBWorldModel.h"
-#include "topology/Area.h"
-#include "topology/Room.h"
+#include "ttb/wm/topology/Area.h"
+#include "ttb/wm/topology/Room.h"
+#include "ttb/TTBWorldModel.h"
 
 #include <SystemConfig.h>
 #include <cmath>

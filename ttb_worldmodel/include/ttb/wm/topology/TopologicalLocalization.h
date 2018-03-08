@@ -1,8 +1,9 @@
 #pragma once
 
+#include "ttb/wm/topology/Room.h"
+
+#include <supplementary/InfoBuffer.h>
 #include <supplementary/Worker.h>
-#include "topology/Room.h"
-#include "supplementary/InfoBuffer.h"
 
 #define TOPOLOGICAL_LOCALIZATION_DEBUG
 

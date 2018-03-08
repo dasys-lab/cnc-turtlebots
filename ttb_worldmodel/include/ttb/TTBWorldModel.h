@@ -1,16 +1,16 @@
 #pragma once
 
-#include "LogicalCameraData.h"
-#include "RawSensorData.h"
-#include "SystemConfig.h"
-#include "TaskManager.h"
-#include "Communication.h"
-#include "TopologicalLocalization.h"
-#include "TopologicalModel.h"
-#include "DoorStateRecognition.h"
-#include "TopologicalInfoPublisher.h"
-#include "Robot.h"
+#include "ttb/wm/sim/LogicalCameraData.h"
+#include "ttb/wm/RawSensorData.h"
+#include "ttb/wm/TaskManager.h"
+#include "ttb/wm/Communication.h"
+#include "ttb/wm/Robot.h"
+#include "ttb/wm/DoorStateRecognition.h"
+#include "ttb/wm/topology/TopologicalLocalization.h"
+#include "ttb/wm/topology/TopologicalModel.h"
+#include "ttb/wm/topology/TopologicalInfoPublisher.h"
 
+#include <SystemConfig.h>
 #include <supplementary/EventTrigger.h>
 #include <supplementary/WorldModel.h>
 #include <supplementary/InformationElement.h>

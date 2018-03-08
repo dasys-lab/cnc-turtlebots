@@ -1,11 +1,13 @@
 #include "robot/Movement.h"
 
 #include "TopologicalPathPlanner.h"
-#include <Robot.h>
+#include "TurtleBot.h"
+
+#include <ttb/wm/Robot.h>
+#include <ttb/TTBWorldModel.h>
+#include <ttb/wm/topology/TopologicalLocalization.h>
+
 #include <SystemConfig.h>
-#include <TTBWorldModel.h>
-#include <TopologicalLocalization.h>
-#include <TurtleBot.h>
 
 namespace ttb
 {

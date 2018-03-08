@@ -3,8 +3,8 @@ using namespace std;
 
 /*PROTECTED REGION ID(inccpp1454329856163) ENABLED START*/ // Add additional includes here
 #include <SolverType.h>
-#include <TTBWorldModel.h>
-#include <TopologicalModel.h>
+#include <ttb/TTBWorldModel.h>
+#include <ttb/wm/topology/TopologicalModel.h>
 #include <TurtleBot.h>
 #include <robot/Movement.h>
 #include <robot/TTBEnums.h>

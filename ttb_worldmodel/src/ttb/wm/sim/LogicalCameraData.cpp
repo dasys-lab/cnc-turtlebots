@@ -1,7 +1,7 @@
-#include "LogicalCameraData.h"
+#include "ttb/wm/sim/LogicalCameraData.h"
 
-#include "TTBWorldModel.h"
-#include "LogicalObject.h"
+#include "ttb/TTBWorldModel.h"
+#include "ttb/wm/sim/LogicalObject.h"
 
 #include <supplementary/InfoBuffer.h>
 #include <supplementary/InformationElement.h>

@@ -1,7 +1,7 @@
-#include "TopologicalLocalization.h"
+#include "ttb/wm/topology/TopologicalLocalization.h"
 
-#include "LogicalCameraData.h"
-#include "TTBWorldModel.h"
+#include "ttb/wm/sim/LogicalCameraData.h"
+#include "ttb/TTBWorldModel.h"
 
 #include <cnc_geometry/Calculator.h>
 #include <supplementary/AgentID.h>

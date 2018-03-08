@@ -1,9 +1,9 @@
 #include "TopologicalPathPlanner.h"
 
-#include <TopologicalModel.h>
-#include <topology/Area.h>
-#include <topology/Door.h>
-#include <topology/Room.h>
+#include <ttb/wm/topology/TopologicalModel.h>
+#include <ttb/wm/topology/Area.h>
+#include <ttb/wm/topology/Door.h>
+#include <ttb/wm/topology/Room.h>
 
 #include <algorithm>
 #include <iostream>

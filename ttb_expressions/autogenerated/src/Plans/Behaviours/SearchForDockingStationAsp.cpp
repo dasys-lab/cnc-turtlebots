@@ -3,14 +3,15 @@ using namespace std;
 
 /*PROTECTED REGION ID(inccpp1470041810334) ENABLED START*/ // Add additional includes here
 #include <SolverType.h>
+#include <ttb/wm/topology/POI.h>
+#include <ttb/TTBWorldModel.h>
+#include <asp_commons/ASPQuery.h>
+
 #include <nav_msgs/Odometry.h>
 #include <kobuki_msgs/SensorState.h>
 #include <kobuki_msgs/DockInfraRed.h>
 #include <actionlib/client/simple_action_client.h>
 #include <move_base_msgs/MoveBaseAction.h>
-#include <topology/POI.h>
-#include <TTBWorldModel.h>
-#include <asp_commons/ASPQuery.h>
 /*PROTECTED REGION END*/
 namespace alica
 {

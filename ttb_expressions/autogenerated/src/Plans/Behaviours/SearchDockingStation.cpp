@@ -5,7 +5,7 @@ using namespace std;
 #include <nav_msgs/Odometry.h>
 #include <kobuki_msgs/SensorState.h>
 #include <kobuki_msgs/DockInfraRed.h>
-#include <TTBWorldModel.h>
+#include <ttb/TTBWorldModel.h>
 #include <TurtleBot.h>
 /*PROTECTED REGION END*/
 namespace alica

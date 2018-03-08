@@ -1,7 +1,7 @@
 #include "DomainBehaviour.h"
 
 #include <engine/AlicaEngine.h>
-#include <TTBWorldModel.h>
+#include <ttb/TTBWorldModel.h>
 #include <TurtleBot.h>
 #include <SystemConfig.h>
 

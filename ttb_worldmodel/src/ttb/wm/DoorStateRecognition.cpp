@@ -1,8 +1,10 @@
-#include "DoorStateRecognition.h"
+#include "ttb/wm/DoorStateRecognition.h"
 
-#include "TTBWorldModel.h"
-#include <cmath>
+#include "ttb/TTBWorldModel.h"
+
 #include <cnc_geometry/Calculator.h>
+
+#include <cmath>
 
 namespace ttb
 {

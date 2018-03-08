@@ -5,13 +5,17 @@
 /*PROTECTED REGION ID(inc1454329856163) ENABLED START*/ // Add additional includes here
 #include <engine/constraintmodul/Query.h>
 #include <supplementary/InformationElement.h>
-#include <topology/POI.h>
 
 #include <actionlib/client/action_client.h>
 #include <move_base_msgs/MoveBaseAction.h>
 #include <ttb_msgs/ServeTask.h>
 
 #include <memory>
+namespace ttb {
+namespace wm {
+	class POI;
+}
+}
 /*PROTECTED REGION END*/
 namespace alica
 {

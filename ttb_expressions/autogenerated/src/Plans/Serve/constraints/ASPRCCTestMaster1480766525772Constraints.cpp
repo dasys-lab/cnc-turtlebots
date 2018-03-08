@@ -2,17 +2,20 @@
 using namespace std;
 using namespace alica;
 /*PROTECTED REGION ID(ch1480766525772) ENABLED START*/
+#include <ttb/TTBWorldModel.h>
+
+#include <SolverType.h>
+#include <engine/constraintmodul/SolverTerm.h>
 #include <engine/AlicaEngine.h>
-#include "engine/constraintmodul/SolverTerm.h"
-#include <memory>
+#include <engine/AlicaEngine.h>
+#include <engine/constraintmodul/ProblemDescriptor.h>
+
 #include <asp_solver_wrapper/ASPTerm.h>
 #include <asp_commons/IASPSolver.h>
 #include <asp_commons/ASPQueryType.h>
 #include <asp_solver_wrapper/ASPSolverWrapper.h>
-#include <SolverType.h>
-#include <engine/AlicaEngine.h>
-#include <engine/constraintmodul/ProblemDescriptor.h>
-#include "TTBWorldModel.h"
+
+#include <memory>
 //Add additional using directives here
 /*PROTECTED REGION END*/
 

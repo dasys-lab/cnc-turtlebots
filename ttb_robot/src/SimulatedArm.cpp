@@ -1,9 +1,9 @@
 #include "robot/SimulatedArm.h"
 
-#include <LogicalCameraData.h>
-#include <RawSensorData.h>
-#include <TTBWorldModel.h>
-#include <topology/Door.h>
+#include <ttb/wm/sim/LogicalCameraData.h>
+#include <ttb/wm/RawSensorData.h>
+#include <ttb/TTBWorldModel.h>
+#include <ttb/wm/topology/Door.h>
 
 #include <cnc_geometry/CNPointAllo.h>
 #include <cnc_geometry/CNPositionAllo.h>

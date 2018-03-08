@@ -5,7 +5,7 @@ using namespace std;
 #include <kobuki_msgs/BumperEvent.h>
 #include <geometry_msgs/Twist.h>
 #include <TurtleBot.h>
-#include <TTBWorldModel.h>
+#include <ttb/TTBWorldModel.h>
 /*PROTECTED REGION END*/
 namespace alica
 {

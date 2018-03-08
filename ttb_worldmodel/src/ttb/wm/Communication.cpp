@@ -1,7 +1,8 @@
-#include "Communication.h"
+#include "ttb/wm/Communication.h"
 
-#include "TTBWorldModel.h"
-#include "WrappedMessageHandler.h"
+#include "ttb/TTBWorldModel.h"
+#include "ttb/WrappedMessageHandler.h"
+
 #include <supplementary/AgentID.h>
 #include <supplementary/BroadcastID.h>
 

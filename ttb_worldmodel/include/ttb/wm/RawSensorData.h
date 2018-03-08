@@ -11,11 +11,6 @@
 
 #define RAW_SENSOR_DEBUG
 
-namespace ttb
-{
-class TTBWorldModel;
-}
-
 namespace sensor_msgs
 {
 ROS_DECLARE_MESSAGE(PointCloud2)
@@ -66,6 +61,9 @@ ROS_DECLARE_MESSAGE(ModelStates)
 
 namespace ttb
 {
+
+class TTBWorldModel;
+
 namespace wm
 {
 class RawSensorData

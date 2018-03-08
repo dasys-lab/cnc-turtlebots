@@ -3,6 +3,7 @@
 #include <kobuki_msgs/SensorState.h>
 #include <robot_control/RobotCommand.h>
 #include <supplementary/InfoBuffer.h>
+#include <ttb/TTBWorldModel.h>
 
 namespace alica
 {

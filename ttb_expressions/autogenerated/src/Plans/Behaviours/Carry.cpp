@@ -2,7 +2,7 @@ using namespace std;
 #include "Plans/Behaviours/Carry.h"
 
 /*PROTECTED REGION ID(inccpp1468494621581) ENABLED START*/ //Add additional includes here
-#include <TTBWorldModel.h>
+#include <ttb/TTBWorldModel.h>
 #include "SolverType.h"
 /*PROTECTED REGION END*/
 namespace alica

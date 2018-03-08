@@ -2,14 +2,16 @@ using namespace std;
 #include "Plans/Behaviours/ASPRCCTest.h"
 
 /*PROTECTED REGION ID(inccpp1480766583222) ENABLED START*/ //Add additional includes here
-#include <TTBWorldModel.h>
-#include "actionlib/client/simple_action_client.h"
-#include "move_base_msgs/MoveBaseAction.h"
+#include <SolverType.h>
+#include <ttb/TTBWorldModel.h>
+
 #include <asp_solver_wrapper/ASPSolverWrapper.h>
 #include <asp_commons/ASPQuery.h>
-#include "SolverType.h"
 #include <asp_commons/IASPSolver.h>
 #include <asp_solver/ASPSolver.h>
+
+#include <actionlib/client/simple_action_client.h>
+#include <move_base_msgs/MoveBaseAction.h>
 /*PROTECTED REGION END*/
 namespace alica
 {

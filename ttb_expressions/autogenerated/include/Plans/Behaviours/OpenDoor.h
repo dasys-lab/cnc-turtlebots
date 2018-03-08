@@ -4,11 +4,15 @@
 #include "DomainBehaviour.h"
 /*PROTECTED REGION ID(inc1519913953735) ENABLED START*/ //Add additional includes here
 #include <engine/constraintmodul/Query.h>
-#include <topology/Door.h>
 
 #include <string>
 #include <vector>
 #include <memory>
+namespace ttb {
+namespace wm {
+	class Door;
+}
+}
 /*PROTECTED REGION END*/
 namespace alica
 {

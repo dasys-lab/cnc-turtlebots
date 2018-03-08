@@ -2,9 +2,9 @@ using namespace std;
 #include "Plans/Behaviours/ASPMinimizePath.h"
 
 /*PROTECTED REGION ID(inccpp1477125924367) ENABLED START*/ //Add additional includes here
-#include "SolverType.h"
+#include <ttb/TTBWorldModel.h>
+#include <SolverType.h>
 #include <asp_commons/ASPQuery.h>
-#include <TTBWorldModel.h>
 /*PROTECTED REGION END*/
 namespace alica
 {

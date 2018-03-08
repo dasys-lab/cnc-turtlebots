@@ -4,7 +4,7 @@ using namespace std;
 /*PROTECTED REGION ID(inccpp1519913953735) ENABLED START*/ // Add additional includes here
 #include <SolverType.h>
 
-#include <TTBWorldModel.h>
+#include <ttb/TTBWorldModel.h>
 #include <TurtleBot.h>
 #include <robot/SimulatedArm.h>
 /*PROTECTED REGION END*/

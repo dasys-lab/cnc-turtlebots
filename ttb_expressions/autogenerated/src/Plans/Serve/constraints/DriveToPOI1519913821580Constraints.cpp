@@ -2,7 +2,7 @@
 using namespace std;
 using namespace alica;
 /*PROTECTED REGION ID(ch1519913821580) ENABLED START*/
-#include <TTBWorldModel.h>
+#include <ttb/TTBWorldModel.h>
 #include <TurtleBot.h>
 #include <alica/reasoner/DummyTerm.h>
 #include <alica/reasoner/DummyVariable.h>

@@ -1,7 +1,7 @@
-#include "Robot.h"
+#include "ttb/wm/Robot.h"
 
-#include "TTBWorldModel.h"
-#include "topology/POI.h"
+#include "ttb/TTBWorldModel.h"
+#include "ttb/wm/topology/POI.h"
 
 #include <SystemConfig.h>
 

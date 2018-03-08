@@ -1,4 +1,4 @@
-#include "LogicalObject.h"
+#include "ttb/wm/sim/LogicalObject.h"
 
 #include <SystemConfig.h>
 #include <supplementary/InformationElement.h>
