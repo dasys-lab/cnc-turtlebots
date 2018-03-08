@@ -56,30 +56,30 @@ void AnnotatedGrid::receiveAnnotatedGridPoints(ttb_msgs::AnnotatedGridPtr annota
     this->gridMap.clear();
     for (int i = 0; i < annotatedGrid->points.size(); i++)
     {
-        auto room = this->wm->topologicalModel.getRoom(annotatedGrid->annotatedRooms[i]);
+        auto poi = this->wm->topologicalModel.getPOIByName(annotatedGrid->annotatedPOIs[i]);
 
-        if (!room)
+        if (!poi)
         {
-            std::cerr << "AnnotatedGrid: Received room " << annotatedGrid->annotatedRooms[i] << " is unknown!" << std::endl;
+            std::cerr << "AnnotatedGrid: Received poi " << annotatedGrid->annotatedPOIs[i] << " is unknown!" << std::endl;
             continue;
         }
 
-        auto mapEntry = this->gridMap.find(annotatedGrid->annotatedRooms[i]);
+        auto mapEntry = this->gridMap.find(poi->room);
         if (mapEntry != this->gridMap.end())
         {
-            mapEntry->second.push_back(AnnotatedGridPoint(room, annotatedGrid->points[i]));
+            mapEntry->second.push_back(AnnotatedGridPoint(poi->room, annotatedGrid->points[i]));
         }
         else
         {
-            this->gridMap.emplace(room->name, vector<ttb::wm::AnnotatedGridPoint>());
-            mapEntry->second.push_back(AnnotatedGridPoint(room, annotatedGrid->points[i]));
+            this->gridMap.emplace(poi->room, vector<ttb::wm::AnnotatedGridPoint>());
+            mapEntry->second.push_back(AnnotatedGridPoint(poi->room, annotatedGrid->points[i]));
         }
     }
 }
 
 std::vector<ttb::wm::AnnotatedGridPoint> AnnotatedGrid::getGridOfRoom(std::shared_ptr<ttb::wm::Room> room)
 {
-    auto mapEntry = this->gridMap.find(room->name);
+    auto mapEntry = this->gridMap.find(room);
     if (mapEntry != this->gridMap.end())
     {
         return mapEntry->second;

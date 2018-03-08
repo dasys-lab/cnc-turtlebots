@@ -35,7 +35,7 @@ class AnnotatedGrid
     std::vector<ttb::wm::AnnotatedGridPoint> getGridOfRoom(std::shared_ptr<ttb::wm::Room> room);
     ros::Subscriber annotatedGridSubscriber;
     ros::Publisher gridPublisher;
-    std::map<std::string, std::vector<AnnotatedGridPoint>> gridMap;
+    std::map<std::shared_ptr<ttb::wm::Room>, std::vector<AnnotatedGridPoint>> gridMap;
     ttb::TTBWorldModel* wm;
 };
 

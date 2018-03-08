@@ -1,2 +1,2 @@
 geometry_msgs/Point[] points
-string[] annotatedRooms
+string[] annotatedPOIs
