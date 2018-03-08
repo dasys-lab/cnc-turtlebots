@@ -27,6 +27,7 @@ add_library(ttb_worldmodel
   src/ttb/wm/sim/LogicalCameraData.cpp
   src/ttb/wm/sim/LogicalObject.cpp
   src/ttb/wm/topology/AnnotatedGrid.cpp
+  src/ttb/wm/topology/AnnotatedGridPoint.cpp
   src/ttb/wm/topology/Area.cpp
   src/ttb/wm/topology/TopologicalLocalization.cpp
   src/ttb/wm/topology/TopologicalInfoPublisher.cpp

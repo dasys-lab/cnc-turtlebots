@@ -21,6 +21,8 @@ find_package(catkin REQUIRED COMPONENTS
    Model.msg
    ObjectSize.msg
    TopologicalInfo.msg
+   Grid.msg
+   AnnotatedGrid.msg
  )
  
 generate_messages(DEPENDENCIES std_msgs geometry_msgs agent_id)
