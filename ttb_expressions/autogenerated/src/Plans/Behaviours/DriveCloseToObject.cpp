@@ -35,9 +35,9 @@ namespace alica
             return;
         }
 
-        std::cout << "DriveCloseToObject: Solution for variable: "
-                << this->query->getUniqueVariableStore()->getAllRep()[0]->getName() << " is: " << result[0]
-                << std::endl;
+//        std::cout << "DriveCloseToObject: Solution for variable: "
+//                << this->query->getUniqueVariableStore()->getAllRep()[0]->getName() << " is: " << result[0]
+//                << std::endl;
 
         auto object = this->wm->logicalCameraData.getObject(result[0]);
         if (!object)
