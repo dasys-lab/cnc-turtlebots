@@ -53,5 +53,23 @@ bool Robot::inSameRoom(std::shared_ptr<POI> goalPOI)
     return goalPOI->room == ownRoom;
 }
 
+bool Robot::isCloseTo(nonstd::optional<geometry_msgs::Pose2D> position)
+{
+    auto ownPos = this->wm->rawSensorData.getAMCLPositionBuffer()->getLastValidContent();
+    if (!ownPos)
+    {
+        return false;
+    }
+    if (!position)
+    {
+        return false;
+    }
+    double dist =
+        sqrt((position->x - ownPos->x) * (position->x - ownPos->x) + (position->y - ownPos->y) * (position->y - ownPos->y));
+
+    return dist < this->catchRadius;
+}
+
 } /* namespace wm */
 } /* namespace ttb */
+
