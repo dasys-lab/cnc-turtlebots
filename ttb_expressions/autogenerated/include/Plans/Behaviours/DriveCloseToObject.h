@@ -29,7 +29,6 @@ namespace alica
         /*PROTECTED REGION ID(prv1520521852939) ENABLED START*/ //Add additional private methods here
         std::shared_ptr<alica::Query> query;
         std::vector<std::string> result;
-        std::string object;
         actionlib::ClientGoalHandle<move_base_msgs::MoveBaseAction> goalHandle;
         bool isMoveBaseDone();
         /*PROTECTED REGION END*/};

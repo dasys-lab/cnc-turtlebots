@@ -2,7 +2,7 @@
 <uiextensionmodel:PmlUiExtensionMap xmlns:uiextensionmodel="http:///de.uni_kassel.vs.cn/planDesigner/pmlextension/uiextensionmodel">
   <extensions>
     <key href="PickUp.pml#1520438315109"/>
-    <value xPos="66" yPos="148" width="140" height="67" collapsed="false"/>
+    <value xPos="165" yPos="247" width="248" height="86" collapsed="false"/>
   </extensions>
   <extensions>
     <key href="PickUp.pml#1520438299583"/>
@@ -14,16 +14,16 @@
   </extensions>
   <extensions>
     <key href="PickUp.pml#1520438338624"/>
-    <value xPos="348" yPos="145" width="65" height="67" collapsed="false"/>
+    <value xPos="213" yPos="139" width="159" height="86" collapsed="false"/>
   </extensions>
   <extensions>
     <key href="PickUp.pml#1520438345249"/>
-    <value xPos="432" yPos="279"/>
+    <value xPos="453" yPos="295" width="79" height="32"/>
   </extensions>
   <extensions>
     <key href="PickUp.pml#1520438351648"/>
     <value>
-      <bendpoints xPos="348" yPos="206"/>
+      <bendpoints xPos="354" yPos="273"/>
     </value>
   </extensions>
   <extensions>
@@ -53,11 +53,19 @@
   <extensions>
     <key href="PickUp.pml#1520518910440"/>
     <value>
-      <bendpoints xPos="346" yPos="261"/>
+      <bendpoints xPos="308" yPos="273"/>
     </value>
   </extensions>
   <extensions>
     <key href="../Behaviours/DriveCloseToObject.beh#1520521878834"/>
+    <value/>
+  </extensions>
+  <extensions>
+    <key href="PickUp.pml#1520589542298"/>
+    <value/>
+  </extensions>
+  <extensions>
+    <key href="PickUp.pml#1520589504282"/>
     <value/>
   </extensions>
 </uiextensionmodel:PmlUiExtensionMap>

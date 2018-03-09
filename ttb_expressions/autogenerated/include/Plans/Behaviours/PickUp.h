@@ -25,7 +25,6 @@ namespace alica
         /*PROTECTED REGION ID(prv1520438451345) ENABLED START*/ //Add additional private methods here
         std::shared_ptr<alica::Query> query;
         std::vector<std::string> result;
-        std::string object;
         bool isGrabbing;
         /*PROTECTED REGION END*/};
 } /* namespace alica */
