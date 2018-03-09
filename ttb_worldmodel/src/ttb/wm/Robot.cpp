@@ -13,8 +13,7 @@ namespace wm
 Robot::Robot(TTBWorldModel *wm)
     : wm(wm)
 {
-    this->catchRadius =
-        (*this->wm->getSystemConfig())["TTBWorldModel"]->get<double>("Processing.Positioning.catchRadius", NULL);
+    this->catchRadius = (*this->wm->getSystemConfig())["TTBWorldModel"]->get<double>("Processing.Positioning.catchRadius", NULL);
 }
 
 Robot::~Robot()
@@ -32,8 +31,7 @@ bool Robot::isCloseTo(std::shared_ptr<POI> goalPOI)
     {
         return false;
     }
-    double dist =
-        sqrt((goalPOI->x - ownPos->x) * (goalPOI->x - ownPos->x) + (goalPOI->y - ownPos->y) * (goalPOI->y - ownPos->y));
+    double dist = sqrt((goalPOI->x - ownPos->x) * (goalPOI->x - ownPos->x) + (goalPOI->y - ownPos->y) * (goalPOI->y - ownPos->y));
 
     return dist < this->catchRadius;
 }
@@ -53,7 +51,7 @@ bool Robot::inSameRoom(std::shared_ptr<POI> goalPOI)
     return goalPOI->room == ownRoom;
 }
 
-bool Robot::isCloseTo(nonstd::optional<geometry_msgs::Pose2D> position)
+bool Robot::isCloseTo(nonstd::optional<geometry_msgs::Pose2D> position, double range)
 {
     auto ownPos = this->wm->rawSensorData.getAMCLPositionBuffer()->getLastValidContent();
     if (!ownPos)
@@ -64,12 +62,17 @@ bool Robot::isCloseTo(nonstd::optional<geometry_msgs::Pose2D> position)
     {
         return false;
     }
-    double dist =
-        sqrt((position->x - ownPos->x) * (position->x - ownPos->x) + (position->y - ownPos->y) * (position->y - ownPos->y));
+    double dist = sqrt((position->x - ownPos->x) * (position->x - ownPos->x) + (position->y - ownPos->y) * (position->y - ownPos->y));
 
-    return dist < this->catchRadius;
+    if (range < 0)
+    {
+        return dist < this->catchRadius;
+    }
+    else
+    {
+    	return dist < range;
+    }
 }
 
 } /* namespace wm */
 } /* namespace ttb */
-
