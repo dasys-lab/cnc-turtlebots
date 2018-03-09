@@ -40,7 +40,7 @@ namespace alica
                 << std::endl;
 
         auto object = this->wm->logicalCameraData.getObject(result[0]);
-        if(!object)
+        if (!object)
         {
             this->setFailure(true);
             return;

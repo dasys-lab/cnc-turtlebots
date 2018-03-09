@@ -107,7 +107,6 @@ namespace alica
         {
             return true;
         }
-
         return false;
     }
 /*PROTECTED REGION END*/

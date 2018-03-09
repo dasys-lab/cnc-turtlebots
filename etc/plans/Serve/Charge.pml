@@ -6,7 +6,6 @@
   </states>
   <states id="1454331108755" name="ChargeAccu" comment="">
     <plans xsi:type="alica:BehaviourConfiguration">../Behaviours/ChargingDefault.beh#1447958132701</plans>
-    <plans xsi:type="alica:PlanType">../Test.pty#1519998523828</plans>
     <inTransitions>#1454331126208</inTransitions>
     <outTransitions>#1454331143741</outTransitions>
   </states>
