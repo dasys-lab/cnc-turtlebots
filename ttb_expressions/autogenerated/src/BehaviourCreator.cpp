@@ -17,6 +17,8 @@ using namespace std;
 
 #include  "Plans/Behaviours/Carry.h"
 
+#include  "Plans/Behaviours/PutDown.h"
+
 #include  "Plans/Behaviours/PickUp.h"
 
 #include  "Plans/Behaviours/ASPMinimizePath.h"
@@ -30,6 +32,8 @@ using namespace std;
 #include  "Plans/Behaviours/SimpleDrive.h"
 
 #include  "Plans/Behaviours/Rotate.h"
+
+#include  "Plans/Behaviours/DriveToPoint.h"
 
 #include  "Plans/Behaviours/SearchDockingStation.h"
 
@@ -88,6 +92,11 @@ namespace alica
                 return make_shared<Carry>();
                 break;
 
+            case 1520850807590:
+
+                return make_shared<PutDown>();
+                break;
+
             case 1520438478153:
 
                 return make_shared<PickUp>();
@@ -123,6 +132,11 @@ namespace alica
             case 1447068225787:
 
                 return make_shared<Rotate>();
+                break;
+
+            case 1520850827610:
+
+                return make_shared<DriveToPoint>();
                 break;
 
             case 1414681446065:

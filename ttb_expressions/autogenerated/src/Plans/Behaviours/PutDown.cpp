@@ -1,32 +1,33 @@
 using namespace std;
-#include "Plans/Behaviours/PickUp.h"
+#include "Plans/Behaviours/PutDown.h"
 
-/*PROTECTED REGION ID(inccpp1520438451345) ENABLED START*/ // Add additional includes here
+/*PROTECTED REGION ID(inccpp1520850797525) ENABLED START*/ //Add additional includes here
 #include <SolverType.h>
 #include <TurtleBot.h>
 #include <robot/SimulatedArm.h>
 #include <ttb/TTBWorldModel.h>
+#include <geometry_msgs/Point.h>
 /*PROTECTED REGION END*/
 namespace alica
 {
-    /*PROTECTED REGION ID(staticVars1520438451345) ENABLED START*/ // initialise static variables here
+    /*PROTECTED REGION ID(staticVars1520850797525) ENABLED START*/ //initialise static variables here
     /*PROTECTED REGION END*/
-    PickUp::PickUp() :
-            DomainBehaviour("PickUp")
+    PutDown::PutDown() :
+            DomainBehaviour("PutDown")
     {
-        /*PROTECTED REGION ID(con1520438451345) ENABLED START*/ // Add additional options her
+        /*PROTECTED REGION ID(con1520850797525) ENABLED START*/ //Add additional options here
         this->query = std::make_shared < alica::Query > (this->wm->getEngine());
-        this->isGrabbing = false;
+        this->isPuttingDown = false;
         /*PROTECTED REGION END*/
     }
-    PickUp::~PickUp()
+    PutDown::~PutDown()
     {
-        /*PROTECTED REGION ID(dcon1520438451345) ENABLED START*/ // Add additional options here
+        /*PROTECTED REGION ID(dcon1520850797525) ENABLED START*/ //Add additional options here
         /*PROTECTED REGION END*/
     }
-    void PickUp::run(void* msg)
+    void PutDown::run(void* msg)
     {
-        /*PROTECTED REGION ID(run1520438451345) ENABLED START*/ // Add additional options here
+        /*PROTECTED REGION ID(run1520850797525) ENABLED START*/ //Add additional options here
         result.clear();
         if (!this->query->getSolution(SolverType::DUMMYSOLVER, runningPlan, result))
         {
@@ -39,17 +40,21 @@ namespace alica
 //                << this->query->getUniqueVariableStore()->getAllRep()[0]->getName() << " is: " << result[0]
 //                << std::endl;
 
-        auto object = this->wm->logicalCameraData.getObject(result[0]);
+        auto object = this->wm->logicalCameraData.getObject(result[2]);
         if (!object)
         {
             this->setFailure(true);
             return;
         }
-        if (!this->isGrabbing)
+        if (!this->isPuttingDown)
         {
-            this->isGrabbing = this->turtleBot->simulatedArm->grabObject(result[0]);
+        	geometry_msgs::Point point;
+        	point.x = stod(result[0]);
+        	point.y = stod(result[1]);
+        	point.z = stod(result[3]);
+            this->isPuttingDown = this->turtleBot->simulatedArm->dropObject(result[2], point);
         }
-        if (!this->isGrabbing)
+        if (!this->isPuttingDown)
         {
             this->setFailure(true);
             return;
@@ -69,15 +74,18 @@ namespace alica
         }
         /*PROTECTED REGION END*/
     }
-    void PickUp::initialiseParameters()
+    void PutDown::initialiseParameters()
     {
-        /*PROTECTED REGION ID(initialiseParameters1520438451345) ENABLED START*/ // Add additional options here
-        this->isGrabbing = false;
+        /*PROTECTED REGION ID(initialiseParameters1520850797525) ENABLED START*/ //Add additional options here
+        this->isPuttingDown = false;
         this->query->clearStaticVariables();
         this->result.clear();
+        this->query->addStaticVariable(getVariablesByName("x"));
+        this->query->addStaticVariable(getVariablesByName("y"));
         this->query->addStaticVariable(getVariablesByName("entity"));
+        this->query->addStaticVariable(getVariablesByName("z"));
         /*PROTECTED REGION END*/
     }
-/*PROTECTED REGION ID(methods1520438451345) ENABLED START*/ // Add additional methods here
+/*PROTECTED REGION ID(methods1520850797525) ENABLED START*/ //Add additional methods here
 /*PROTECTED REGION END*/
 } /* namespace alica */

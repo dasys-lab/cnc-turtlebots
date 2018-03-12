@@ -120,7 +120,7 @@ bool SimulatedArm::grabObject(std::string objectName)
     return true;
 }
 
-bool SimulatedArm::drobObject(std::string objectName)
+bool SimulatedArm::dropObject(std::string objectName, geometry_msgs::Point entityPoint)
 {
     if (objectName.empty() || this->carriedObjectName.compare(objectName) != 0)
     {
@@ -129,6 +129,7 @@ bool SimulatedArm::drobObject(std::string objectName)
     ttb_msgs::GrabDropObject msg;
     msg.senderName = this->robotName;
     msg.objectName = objectName;
+    msg.dropPoint = entityPoint;
     msg.action = ttb_msgs::GrabDropObject::DROP;
     this->armCmdPub.publish(msg);
     this->armState = ArmState::waiting;
@@ -141,7 +142,7 @@ void SimulatedArm::onOwnArmCmd(ttb_msgs::GrabDropObjectPtr msg)
     if (msg->objectName.empty())
     {
         this->requestedObject = "";
-        this->armState = ArmState::pickUpFailed;
+        this->armState = ArmState::failed;
         return;
     }
     if (msg->action == ttb_msgs::GrabDropObject::GRAB)
@@ -150,7 +151,7 @@ void SimulatedArm::onOwnArmCmd(ttb_msgs::GrabDropObjectPtr msg)
         {
             this->carriedObjectName = msg->objectName;
             this->requestedObject = "";
-            this->armState = ArmState::pickUpSuccessful;
+            this->armState = ArmState::successful;
         }
     }
     else
@@ -159,7 +160,7 @@ void SimulatedArm::onOwnArmCmd(ttb_msgs::GrabDropObjectPtr msg)
         {
             this->carriedObjectName = "";
             this->requestedObject = "";
-            this->armState = ArmState::pickUpSuccessful;
+            this->armState = ArmState::successful;
         }
     }
 }

@@ -4,3 +4,5 @@ uint8 GRAB = 1
 string senderName
 string objectName
 uint8 action
+
+geometry_msgs/Point dropPoint

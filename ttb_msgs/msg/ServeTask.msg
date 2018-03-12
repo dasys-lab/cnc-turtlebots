@@ -9,6 +9,8 @@ uint8 type
 # Denotes the item to pickup, to putdown, to search for, or the poi id to drive to  
 string entity
 
+# Denotes the place to put down the object in "entity"
+geometry_msgs/Point entityPoint
 
 # constants for type
 uint8 PICK_UP = 0

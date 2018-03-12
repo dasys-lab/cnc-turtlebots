@@ -3,6 +3,8 @@
 #include <ttb_msgs/DoorCmd.h>
 #include <ttb_msgs/GrabDropObject.h>
 
+#include <geometry_msgs/Point.h>
+
 #include <memory>
 #include <ros/ros.h>
 #include <string>
@@ -28,16 +30,16 @@ class SimulatedArm
 
     enum ArmState
     {
-        pickUpFailed,
+        failed,
         waiting,
-        pickUpSuccessful
+        successful
     };
 
     SimulatedArm();
     virtual ~SimulatedArm();
     const std::string &getCarriedObjectName() const;
     bool grabObject(std::string objectName);
-    bool drobObject(std::string objectName);
+    bool dropObject(std::string objectName, geometry_msgs::Point entityPoint);
     SimulatedArm::ArmState getArmState();
     void onOwnArmCmd(ttb_msgs::GrabDropObjectPtr msg);
     bool openDoor(std::string doorName, bool open = true);

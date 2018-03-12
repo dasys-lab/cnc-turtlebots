@@ -53,16 +53,17 @@ bool Robot::inSameRoom(std::shared_ptr<POI> goalPOI)
 
 bool Robot::isCloseTo(nonstd::optional<geometry_msgs::Pose2D> position, double range)
 {
+	return this->isCloseTo(position->x, position->y, range);
+}
+
+bool Robot::isCloseTo(double x, double y, double range)
+{
     auto ownPos = this->wm->rawSensorData.getAMCLPositionBuffer()->getLastValidContent();
     if (!ownPos)
     {
         return false;
     }
-    if (!position)
-    {
-        return false;
-    }
-    double dist = sqrt((position->x - ownPos->x) * (position->x - ownPos->x) + (position->y - ownPos->y) * (position->y - ownPos->y));
+    double dist = sqrt((x - ownPos->x) * (x - ownPos->x) + (y - ownPos->y) * (y - ownPos->y));
 
     if (range < 0)
     {
