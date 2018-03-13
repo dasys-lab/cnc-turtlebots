@@ -51,6 +51,7 @@ namespace alica
         }
         if (!this->isGrabbing)
         {
+            std::cout << "Pickup: grabbing failed" << std::endl;
             this->setFailure(true);
             return;
         }

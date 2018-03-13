@@ -1,8 +1,8 @@
 #include "robot/SimulatedArm.h"
 
-#include <ttb/wm/sim/LogicalCameraData.h>
-#include <ttb/wm/RawSensorData.h>
 #include <ttb/TTBWorldModel.h>
+#include <ttb/wm/RawSensorData.h>
+#include <ttb/wm/sim/LogicalCameraData.h>
 #include <ttb/wm/topology/Door.h>
 
 #include <cnc_geometry/CNPointAllo.h>
@@ -26,8 +26,7 @@ SimulatedArm::SimulatedArm()
     this->doorCmdPub = n.advertise<ttb_msgs::DoorCmd>("/DoorCmd", 5, false);
     this->armCmdPub = n.advertise<ttb_msgs::GrabDropObject>("/ArmCmd", 5, false);
     this->robotName = this->sc->getHostname();
-    std::string ownTopic = "/" + this->robotName + "/ArmCmd";
-    this->armCmdSub = n.subscribe(ownTopic.c_str(), 10, &SimulatedArm::onOwnArmCmd, (SimulatedArm *)this);
+    this->armCmdSub = n.subscribe("/ArmCmdResponse", 10, &SimulatedArm::onOwnArmCmd, (SimulatedArm *)this);
 
     this->armState = ArmState::waiting;
     spinner = new ros::AsyncSpinner(4);
@@ -73,9 +72,8 @@ bool SimulatedArm::openDoor(std::shared_ptr<ttb::wm::Door> door, bool open)
     auto doorDistance = ownPos->distanceTo(doorPoint);
     if (doorDistance > this->armRange)
     {
-        std::cout << "SimulatedArm::openDoor: Door " << door->name << " is out of range! Range is: " << this->armRange
-                  << " distance is: " << doorDistance << " ownPos: " << ownPos->toString()
-                  << " door point: " << doorPoint.toString() << std::endl;
+        std::cout << "SimulatedArm::openDoor: Door " << door->name << " is out of range! Range is: " << this->armRange << " distance is: " << doorDistance
+                  << " ownPos: " << ownPos->toString() << " door point: " << doorPoint.toString() << std::endl;
         // Not possible to open a door which is out of range
         return false;
     }
@@ -122,6 +120,7 @@ bool SimulatedArm::grabObject(std::string objectName)
 
 bool SimulatedArm::dropObject(std::string objectName, geometry_msgs::Point entityPoint)
 {
+	std::cout << "SimulatedArm: objectname: " << objectName << "carried object: " << this->carriedObjectName << std::endl;
     if (objectName.empty() || this->carriedObjectName.compare(objectName) != 0)
     {
         return false;
@@ -139,29 +138,31 @@ bool SimulatedArm::dropObject(std::string objectName, geometry_msgs::Point entit
 
 void SimulatedArm::onOwnArmCmd(ttb_msgs::GrabDropObjectPtr msg)
 {
+    if (msg->senderName.compare(this->robotName) != 0)
+    {
+        return;
+    }
     if (msg->objectName.empty())
     {
         this->requestedObject = "";
         this->armState = ArmState::failed;
         return;
     }
+    if (msg->objectName.compare(this->requestedObject) != 0)
+    {
+        return;
+    }
     if (msg->action == ttb_msgs::GrabDropObject::GRAB)
     {
-        if (msg->senderName.compare(this->robotName) == 0 && msg->objectName.compare(this->requestedObject) == 0)
-        {
-            this->carriedObjectName = msg->objectName;
-            this->requestedObject = "";
-            this->armState = ArmState::successful;
-        }
+        this->carriedObjectName = msg->objectName;
+        this->requestedObject = "";
+        this->armState = ArmState::successful;
     }
     else
     {
-        if (msg->senderName.compare(this->robotName) == 0 && msg->objectName.compare(this->requestedObject) == 0)
-        {
-            this->carriedObjectName = "";
-            this->requestedObject = "";
-            this->armState = ArmState::successful;
-        }
+        this->carriedObjectName = "";
+        this->requestedObject = "";
+        this->armState = ArmState::successful;
     }
 }
 
@@ -172,4 +173,3 @@ double SimulatedArm::getArmRange()
 
 } /* namespace robot */
 } /* namespace ttb */
-
