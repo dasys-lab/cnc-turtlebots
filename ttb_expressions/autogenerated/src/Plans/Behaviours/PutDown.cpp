@@ -16,7 +16,7 @@ PutDown::PutDown()
     : DomainBehaviour("PutDown")
 {
     /*PROTECTED REGION ID(con1520850797525) ENABLED START*/ // Add additional options here
-    this->query = std::make_shared<alica::Query>(this->wm->getEngine());
+    this->query = std::make_shared<alica::Query>();
     this->isPuttingDown = false;
     /*PROTECTED REGION END*/
 }
@@ -31,16 +31,22 @@ void PutDown::run(void *msg)
     result.clear();
     if (!this->query->getSolution(SolverType::DUMMYSOLVER, runningPlan, result))
     {
-        std::cout << "PutDown: Unable to get solution for variables: " << this->query->getUniqueVariableStore()->getAllRep()[0]->getName() << " "
-                  << this->query->getUniqueVariableStore()->getAllRep()[1]->getName() << " " << this->query->getUniqueVariableStore()->getAllRep()[2]->getName()
-                  << " " << this->query->getUniqueVariableStore()->getAllRep()[3]->getName() << std::endl;
+        std::cout << "PutDown: Unable to get solution for variables: "
+                  << this->query->getUniqueVariableStore()->getAllRep()[0]->getName() << " "
+                  << this->query->getUniqueVariableStore()->getAllRep()[1]->getName() << " "
+                  << this->query->getUniqueVariableStore()->getAllRep()[2]->getName() << " "
+                  << this->query->getUniqueVariableStore()->getAllRep()[3]->getName() << std::endl;
         return;
     }
 
-//    std::cout << "PutDown: Solution for variable: " << this->query->getUniqueVariableStore()->getAllRep()[0]->getName() << " is: " << result[0]
-//              << " for variable " << this->query->getUniqueVariableStore()->getAllRep()[1]->getName() << " is: " << result[1] << " for variable "
-//              << this->query->getUniqueVariableStore()->getAllRep()[2]->getName() << " is: " << result[2] << " for variable "
-//              << this->query->getUniqueVariableStore()->getAllRep()[3]->getName() << " is: " << result[3] << std::endl;
+    //    std::cout << "PutDown: Solution for variable: " <<
+    //    this->query->getUniqueVariableStore()->getAllRep()[0]->getName() << " is: " << result[0]
+    //              << " for variable " << this->query->getUniqueVariableStore()->getAllRep()[1]->getName() << " is: "
+    //              << result[1] << " for variable "
+    //              << this->query->getUniqueVariableStore()->getAllRep()[2]->getName() << " is: " << result[2] << " for
+    //              variable "
+    //              << this->query->getUniqueVariableStore()->getAllRep()[3]->getName() << " is: " << result[3] <<
+    //              std::endl;
 
     auto object = this->wm->logicalCameraData.getObject(result[3]);
     if (!object)

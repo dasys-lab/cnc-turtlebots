@@ -15,7 +15,7 @@ DriveToPoint::DriveToPoint()
     : DomainBehaviour("DriveToPoint")
 {
     /*PROTECTED REGION ID(con1520850811997) ENABLED START*/ // Add additional options here
-    this->query = std::make_shared<alica::Query>(this->wm->getEngine());
+    this->query = std::make_shared<alica::Query>();
     this->goalHandle.reset();
     /*PROTECTED REGION END*/
 }
@@ -30,13 +30,16 @@ void DriveToPoint::run(void *msg)
     result.clear();
     if (!this->query->getSolution(SolverType::DUMMYSOLVER, runningPlan, result))
     {
-        std::cout << "DriveToPoint: Unable to get solution for variables: " << this->query->getUniqueVariableStore()->getAllRep()[0]->getName()
+        std::cout << "DriveToPoint: Unable to get solution for variables: "
+                  << this->query->getUniqueVariableStore()->getAllRep()[0]->getName()
                   << this->query->getUniqueVariableStore()->getAllRep()[1]->getName() << std::endl;
         return;
     }
 
-//    std::cout << "DriveToPoint: Solution for variable: " << this->query->getUniqueVariableStore()->getAllRep()[0]->getName() << " is: " << result[0]
-//              << "for variable " << this->query->getUniqueVariableStore()->getAllRep()[1]->getName() << " is: " << result[1] << "for variable " << std::endl;
+    //    std::cout << "DriveToPoint: Solution for variable: " <<
+    //    this->query->getUniqueVariableStore()->getAllRep()[0]->getName() << " is: " << result[0]
+    //              << "for variable " << this->query->getUniqueVariableStore()->getAllRep()[1]->getName() << " is: " <<
+    //              result[1] << "for variable " << std::endl;
 
     if (this->wm->robot.isCloseTo(stod(result[0]), stod(result[1]), this->turtleBot->simulatedArm->getArmRange() / 2.0))
     {

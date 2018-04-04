@@ -1,199 +1,205 @@
 using namespace std;
 #include "Plans/Behaviours/ASPNavigation.h"
 
-/*PROTECTED REGION ID(inccpp1475693360605) ENABLED START*/ //Add additional includes here
-#include <ttb/TTBWorldModel.h>
+/*PROTECTED REGION ID(inccpp1475693360605) ENABLED START*/ // Add additional includes here
 #include <SolverType.h>
+#include <ttb/TTBWorldModel.h>
 
-#include <asp_solver_wrapper/ASPSolverWrapper.h>
 #include <asp_commons/ASPQuery.h>
 #include <asp_commons/IASPSolver.h>
 #include <asp_solver/ASPSolver.h>
+#include <asp_solver_wrapper/ASPSolverWrapper.h>
 
 #include <actionlib/client/simple_action_client.h>
 #include <move_base_msgs/MoveBaseAction.h>
 /*PROTECTED REGION END*/
 namespace alica
 {
-    /*PROTECTED REGION ID(staticVars1475693360605) ENABLED START*/ //initialise static variables here
+/*PROTECTED REGION ID(staticVars1475693360605) ENABLED START*/ // initialise static variables here
+/*PROTECTED REGION END*/
+ASPNavigation::ASPNavigation()
+    : DomainBehaviour("ASPNavigation")
+{
+    /*PROTECTED REGION ID(con1475693360605) ENABLED START*/ // Add additional options here
+    this->query = make_shared<alica::Query>();
+    this->iterationCounter = 0;
+    resultfile.open("results_externals.txt", fstream::app);
     /*PROTECTED REGION END*/
-    ASPNavigation::ASPNavigation() :
-            DomainBehaviour("ASPNavigation")
+}
+ASPNavigation::~ASPNavigation()
+{
+    /*PROTECTED REGION ID(dcon1475693360605) ENABLED START*/ // Add additional options here
+    resultfile.close();
+    /*PROTECTED REGION END*/
+}
+void ASPNavigation::run(void *msg)
+{
+    /*PROTECTED REGION ID(run1475693360605) ENABLED START*/ // Add additional options here
+    if (this->isSuccess())
     {
-        /*PROTECTED REGION ID(con1475693360605) ENABLED START*/ //Add additional options here
-        this->query = make_shared < alica::Query > (this->wm->getEngine());
-        this->iterationCounter = 0;
-        resultfile.open("results_externals.txt", fstream::app);
-        /*PROTECTED REGION END*/
+        return;
     }
-    ASPNavigation::~ASPNavigation()
+    if (this->iterationCounter % 4 == 0)
     {
-        /*PROTECTED REGION ID(dcon1475693360605) ENABLED START*/ //Add additional options here
-        resultfile.close();
-        /*PROTECTED REGION END*/
+        auto s = (alica::reasoner::ASPSolverWrapper *)this->wm->getEngine()->getSolver(SolverType::ASPSOLVER);
+        delete s;
+        auto ae = this->wm->getEngine();
+        std::vector<char const *> args{"clingo", nullptr};
+        auto solver = new ::reasoner::ASPSolver(args);
+        auto solverWrapper = new alica::reasoner::ASPSolverWrapper(ae, args);
+        solverWrapper->init(solver);
+        ae->addSolver(SolverType::ASPSOLVER, solverWrapper);
     }
-    void ASPNavigation::run(void* msg)
+    //		if (this->iterationCounter == 0)
+    //		{
+    //			cout << "ASPNavigation: grounding navTest" << endl;
+    //			solver->loadFileFromConfig("navTest");
+    //			solver->ground( { {"navTest", {}}}, nullptr);
+    //			auto ext = make_shared<Gringo::Value>(solver->getGringoModule()->parseValue("reachable(r1405B,
+    //r1411)"));
+    //			solver->getClingo()->assignExternal(*(ext), Gringo::TruthValue::True);
+    //			solver->solve();
+    //		}
+    //		else if (this->iterationCounter == 1)
+    //		{
+    //			cout << "ASPNavigation: grounding navTest2" << endl;
+    //			solver->ground( { {"navTest2", {}}}, nullptr);
+    //			auto ext = make_shared<Gringo::Value>(solver->getGringoModule()->parseValue("reachable(r1405B,
+    //r1411)"));
+    //			solver->getClingo()->assignExternal(*(ext), Gringo::TruthValue::False);
+    //			solver->solve();
+    //		}
+    //		else if (this->iterationCounter == 2)
+    //		{
+    //			cout << "ASPNavigation: grounding navTest3" << endl;
+    //			solver->ground( { {"navTest3", {}}}, nullptr);
+    //			auto ext = make_shared<Gringo::Value>(solver->getGringoModule()->parseValue("reachable(r1405B,
+    //r1411)"));
+    //			solver->getClingo()->assignExternal(*(ext), Gringo::TruthValue::True);
+    //			solver->solve();
+    //		}
+    //		else
+    //		{
+    //			this->setSuccess(true);
+    //		}
+    //		auto solver = (alica::reasoner::ASPSolver*)this->wm->getEngine()->getSolver(SolverType::ASPSOLVER);
+    //		solver->loadFileFromConfig("bookExample");
+    //		solver->getClingo()->ground( { {"bookExample", {}}}, nullptr);
+    //		solver->solve();
+    //		auto model = solver->getCurrentModels();
+    //		auto val1 = Gringo::Value(solver->getGringoModule()->parseValue("test(5)"));
+    //		for (int i = 0; i < model.at(0).size(); i++)
+    //		{
+    //			if (solver->checkMatchValues(&val1, &(model.at(0).at(i))))
+    //			{
+    //				cout << "match found: " << val1 << " " << model.at(0).at(i) << endl;
+    //				break;
+    //			}
+    //			else
+    //			{
+    //				cout << model.at(0).at(i);
+    //			}
+    //		}
+    //		cout << endl;
+    if (this->isSuccess())
     {
-        /*PROTECTED REGION ID(run1475693360605) ENABLED START*/ //Add additional options here
-        if (this->isSuccess())
-        {
-            return;
-        }
-        if (this->iterationCounter % 4 == 0)
-        {
-            auto s = (alica::reasoner::ASPSolverWrapper*)this->wm->getEngine()->getSolver(SolverType::ASPSOLVER);
-            delete s;
-            auto ae = this->wm->getEngine();
-            std::vector<char const *> args {"clingo", nullptr};
-            auto solver = new ::reasoner::ASPSolver(args);
-            auto solverWrapper = new alica::reasoner::ASPSolverWrapper(ae, args);
-            solverWrapper->init(solver);
-            ae->addSolver(SolverType::ASPSOLVER, solverWrapper);
-        }
-//		if (this->iterationCounter == 0)
-//		{
-//			cout << "ASPNavigation: grounding navTest" << endl;
-//			solver->loadFileFromConfig("navTest");
-//			solver->ground( { {"navTest", {}}}, nullptr);
-//			auto ext = make_shared<Gringo::Value>(solver->getGringoModule()->parseValue("reachable(r1405B, r1411)"));
-//			solver->getClingo()->assignExternal(*(ext), Gringo::TruthValue::True);
-//			solver->solve();
-//		}
-//		else if (this->iterationCounter == 1)
-//		{
-//			cout << "ASPNavigation: grounding navTest2" << endl;
-//			solver->ground( { {"navTest2", {}}}, nullptr);
-//			auto ext = make_shared<Gringo::Value>(solver->getGringoModule()->parseValue("reachable(r1405B, r1411)"));
-//			solver->getClingo()->assignExternal(*(ext), Gringo::TruthValue::False);
-//			solver->solve();
-//		}
-//		else if (this->iterationCounter == 2)
-//		{
-//			cout << "ASPNavigation: grounding navTest3" << endl;
-//			solver->ground( { {"navTest3", {}}}, nullptr);
-//			auto ext = make_shared<Gringo::Value>(solver->getGringoModule()->parseValue("reachable(r1405B, r1411)"));
-//			solver->getClingo()->assignExternal(*(ext), Gringo::TruthValue::True);
-//			solver->solve();
-//		}
-//		else
-//		{
-//			this->setSuccess(true);
-//		}
-//		auto solver = (alica::reasoner::ASPSolver*)this->wm->getEngine()->getSolver(SolverType::ASPSOLVER);
-//		solver->loadFileFromConfig("bookExample");
-//		solver->getClingo()->ground( { {"bookExample", {}}}, nullptr);
-//		solver->solve();
-//		auto model = solver->getCurrentModels();
-//		auto val1 = Gringo::Value(solver->getGringoModule()->parseValue("test(5)"));
-//		for (int i = 0; i < model.at(0).size(); i++)
-//		{
-//			if (solver->checkMatchValues(&val1, &(model.at(0).at(i))))
-//			{
-//				cout << "match found: " << val1 << " " << model.at(0).at(i) << endl;
-//				break;
-//			}
-//			else
-//			{
-//				cout << model.at(0).at(i);
-//			}
-//		}
-//		cout << endl;
-        if (this->isSuccess())
-        {
-            return;
-        }
-        //TODO fix after adding aps to doors in topological model
-//        if (this->iterationCounter == 0)
-//        {
-//            this->wm->doors.openDoor("doorClosed(r1411, studentArea)");
-//            this->wm->doors.openDoor("doorClosed(r1411C, studentArea)");
-//            this->wm->doors.openDoor("doorClosed(r1411, r1411C)");
-//            this->wm->doors.openDoor("doorClosed(studentArea, mainHallA)");
-//            this->wm->doors.openDoor("doorClosed(mainHallB, utility)");
-//            this->wm->doors.openDoor("doorClosed(r1405B, utility)");
-//            this->wm->doors.closeDoor("doorClosed(mainHallA, mainHallB)");
-//        }
-//        if (this->iterationCounter == 2)
-//        {
-//            this->wm->doors.openDoor("doorClosed(mainHallA, mainHallB)");
-//        }
+        return;
+    }
+    // TODO fix after adding aps to doors in topological model
+    //        if (this->iterationCounter == 0)
+    //        {
+    //            this->wm->doors.openDoor("doorClosed(r1411, studentArea)");
+    //            this->wm->doors.openDoor("doorClosed(r1411C, studentArea)");
+    //            this->wm->doors.openDoor("doorClosed(r1411, r1411C)");
+    //            this->wm->doors.openDoor("doorClosed(studentArea, mainHallA)");
+    //            this->wm->doors.openDoor("doorClosed(mainHallB, utility)");
+    //            this->wm->doors.openDoor("doorClosed(r1405B, utility)");
+    //            this->wm->doors.closeDoor("doorClosed(mainHallA, mainHallB)");
+    //        }
+    //        if (this->iterationCounter == 2)
+    //        {
+    //            this->wm->doors.openDoor("doorClosed(mainHallA, mainHallB)");
+    //        }
 
-//      this->wm->doors.openDoor("doorClosed(mainHallA, offices)");
-//      this->wm->doors.openDoor("doorClosed(offices, utility)");
+    //      this->wm->doors.openDoor("doorClosed(mainHallA, offices)");
+    //      this->wm->doors.openDoor("doorClosed(offices, utility)");
 
-        std::chrono::_V2::system_clock::time_point start = std::chrono::high_resolution_clock::now();
-        query->getSolution(SolverType::ASPSOLVER, runningPlan, result);
-        std::chrono::_V2::system_clock::time_point end = std::chrono::high_resolution_clock::now();
-        cout << "ASPNavigation: Measured Solving and Grounding Time: " << std::chrono::duration_cast
-                < chrono::nanoseconds > (end - start).count() / 1000000.0 << " ms" << endl;
-        if (result.size() > 0)
+    std::chrono::_V2::system_clock::time_point start = std::chrono::high_resolution_clock::now();
+    query->getSolution(SolverType::ASPSOLVER, runningPlan, result);
+    std::chrono::_V2::system_clock::time_point end = std::chrono::high_resolution_clock::now();
+    cout << "ASPNavigation: Measured Solving and Grounding Time: "
+         << std::chrono::duration_cast<chrono::nanoseconds>(end - start).count() / 1000000.0 << " ms" << endl;
+    if (result.size() > 0)
+    {
+        auto it = find_if(result.begin(), result.end(),
+                          [](::reasoner::AnnotatedValVec element) { return element.id == 1475692986360; });
+        if (it != result.end())
         {
-            auto it = find_if(result.begin(), result.end(), [](::reasoner::AnnotatedValVec element)
-            {   return element.id == 1475692986360;});
-            if (it != result.end())
+            if (it->variableQueryValues.size() > 0)
             {
-                if (it->variableQueryValues.size() > 0)
+                cout << "ASPNavigation: ASP result found!" << endl;
+                cout << "\tResult contains the predicates: " << endl;
+                cout << "\t\t";
+                for (int i = 0; i < result.size(); i++)
                 {
-                    cout << "ASPNavigation: ASP result found!" << endl;
-                    cout << "\tResult contains the predicates: " << endl;
-                    cout << "\t\t";
-                    for (int i = 0; i < result.size(); i++)
+                    for (int j = 0; j < result.at(i).variableQueryValues.size(); j++)
                     {
-                        for (int j = 0; j < result.at(i).variableQueryValues.size(); j++)
+                        for (int k = 0; k < result.at(i).variableQueryValues.at(j).size(); k++)
                         {
-                            for (int k = 0; k < result.at(i).variableQueryValues.at(j).size(); k++)
-                            {
-                                cout << result.at(i).variableQueryValues.at(j).at(k) << " ";
-                            }
+                            cout << result.at(i).variableQueryValues.at(j).at(k) << " ";
                         }
                     }
-                    cout << endl;
-//					cout << "\tThe model contains the predicates: " << endl;
-//					cout << "\t\t";
-//					for (int i = 0; i < it->query->getCurrentModels()->at(0).size(); i++)
-//					{
-//						cout << it->query->getCurrentModels()->at(0).at(i) << " ";
-//					}
-//					cout << endl;
                 }
-                else
-                {
-//                    cout << "ASPNavigation: no result found!" << endl;
-//					cout << "\tThe model contains the predicates: " << endl;
-//					cout << "\t\t";
-//					for (int i = 0; i < it->query->getCurrentModels()->at(0).size(); i++)
-//					{
-//						cout << it->query->getCurrentModels()->at(0).at(i) << " ";
-//					}
-//					cout << endl;
-                }
+                cout << endl;
+                //					cout << "\tThe model contains the predicates: " << endl;
+                //					cout << "\t\t";
+                //					for (int i = 0; i < it->query->getCurrentModels()->at(0).size();
+                //i++)
+                //					{
+                //						cout << it->query->getCurrentModels()->at(0).at(i) << "
+                //";
+                //					}
+                //					cout << endl;
             }
             else
             {
-                cout << "ASPNavigation: no result found!!" << endl;
+                //                    cout << "ASPNavigation: no result found!" << endl;
+                //					cout << "\tThe model contains the predicates: " << endl;
+                //					cout << "\t\t";
+                //					for (int i = 0; i < it->query->getCurrentModels()->at(0).size();
+                //i++)
+                //					{
+                //						cout << it->query->getCurrentModels()->at(0).at(i) << "
+                //";
+                //					}
+                //					cout << endl;
             }
-
         }
         else
         {
-            cout << "ASPNavigation: no result found!!!" << endl;
+            cout << "ASPNavigation: no result found!!" << endl;
         }
-        if (this->iterationCounter == 3)
-        {
-            this->setSuccess(true);
-        }
-        this->iterationCounter++;
-
-        /*PROTECTED REGION END*/
     }
-    void ASPNavigation::initialiseParameters()
+    else
     {
-        /*PROTECTED REGION ID(initialiseParameters1475693360605) ENABLED START*/ //Add additional options here
-        query->clearStaticVariables();
-        query->addStaticVariable(getVariablesByName("NavVar"));
-        //result.clear(); // <-- this is done in each query->getSolution call
-        /*PROTECTED REGION END*/
+        cout << "ASPNavigation: no result found!!!" << endl;
     }
-/*PROTECTED REGION ID(methods1475693360605) ENABLED START*/ //Add additional methods here
+    if (this->iterationCounter == 3)
+    {
+        this->setSuccess(true);
+    }
+    this->iterationCounter++;
+
+    /*PROTECTED REGION END*/
+}
+void ASPNavigation::initialiseParameters()
+{
+    /*PROTECTED REGION ID(initialiseParameters1475693360605) ENABLED START*/ // Add additional options here
+    query->clearStaticVariables();
+    query->addStaticVariable(getVariablesByName("NavVar"));
+    // result.clear(); // <-- this is done in each query->getSolution call
+    /*PROTECTED REGION END*/
+}
+/*PROTECTED REGION ID(methods1475693360605) ENABLED START*/ // Add additional methods here
 /*PROTECTED REGION END*/
 } /* namespace alica */
