@@ -79,7 +79,7 @@ void DriveToPOI::initialiseParameters()
     this->goalPOI = nullptr;
     this->query->clearStaticVariables();
     this->result.clear();
-    this->query->addStaticVariable(getVariablesByName("poi"));
+    this->query->addStaticVariable(getVariableByName("poi"));
     this->goalHandle.reset();
     /*PROTECTED REGION END*/
 }

@@ -196,7 +196,7 @@ void ASPNavigation::initialiseParameters()
 {
     /*PROTECTED REGION ID(initialiseParameters1475693360605) ENABLED START*/ // Add additional options here
     query->clearStaticVariables();
-    query->addStaticVariable(getVariablesByName("NavVar"));
+    query->addStaticVariable(getVariableByName("NavVar"));
     // result.clear(); // <-- this is done in each query->getSolution call
     /*PROTECTED REGION END*/
 }

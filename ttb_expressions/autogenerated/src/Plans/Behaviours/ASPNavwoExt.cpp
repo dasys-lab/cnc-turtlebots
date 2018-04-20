@@ -145,11 +145,11 @@ void ASPNavwoExt::initialiseParameters()
     }
     if (this->doorConfig.compare("config1") == 0)
     {
-        query->addStaticVariable(getVariablesByName("NavVar1"));
+        query->addStaticVariable(getVariableByName("NavVar1"));
     }
     else
     {
-        query->addStaticVariable(getVariablesByName("NavVar2"));
+        query->addStaticVariable(getVariableByName("NavVar2"));
     }
     /*PROTECTED REGION END*/
 }

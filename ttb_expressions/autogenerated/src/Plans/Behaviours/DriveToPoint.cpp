@@ -68,8 +68,8 @@ void DriveToPoint::initialiseParameters()
     /*PROTECTED REGION ID(initialiseParameters1520850811997) ENABLED START*/ // Add additional options here
     this->query->clearStaticVariables();
     this->result.clear();
-    this->query->addStaticVariable(getVariablesByName("x"));
-    this->query->addStaticVariable(getVariablesByName("y"));
+    this->query->addStaticVariable(getVariableByName("x"));
+    this->query->addStaticVariable(getVariableByName("y"));
     this->goalHandle.reset();
     /*PROTECTED REGION END*/
 }

@@ -91,7 +91,7 @@ void ASPMinimizePath::initialiseParameters()
 {
     /*PROTECTED REGION ID(initialiseParameters1477125924367) ENABLED START*/ // Add additional options here
     query->clearStaticVariables();
-    query->addStaticVariable(getVariablesByName("MinVar"));
+    query->addStaticVariable(getVariableByName("MinVar"));
     result.clear();
     /*PROTECTED REGION END*/
 }

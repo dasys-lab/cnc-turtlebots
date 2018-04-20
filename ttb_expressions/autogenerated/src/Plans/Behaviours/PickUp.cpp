@@ -76,7 +76,7 @@ void PickUp::initialiseParameters()
     this->isGrabbing = false;
     this->query->clearStaticVariables();
     this->result.clear();
-    this->query->addStaticVariable(getVariablesByName("entity"));
+    this->query->addStaticVariable(getVariableByName("entity"));
     /*PROTECTED REGION END*/
 }
 /*PROTECTED REGION ID(methods1520438451345) ENABLED START*/ // Add additional methods here

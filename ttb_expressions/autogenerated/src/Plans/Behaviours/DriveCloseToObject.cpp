@@ -80,7 +80,7 @@ void DriveCloseToObject::initialiseParameters()
     /*PROTECTED REGION ID(initialiseParameters1520521852939) ENABLED START*/ // Add additional options here
     this->query->clearStaticVariables();
     this->result.clear();
-    this->query->addStaticVariable(getVariablesByName("entity"));
+    this->query->addStaticVariable(getVariableByName("entity"));
     this->goalHandle.reset();
     /*PROTECTED REGION END*/
 }

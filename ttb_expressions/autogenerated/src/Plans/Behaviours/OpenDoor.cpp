@@ -70,7 +70,7 @@ void OpenDoor::initialiseParameters()
     this->currentDoor = nullptr;
     query->clearStaticVariables();
     result.clear();
-    query->addStaticVariable(getVariablesByName("door"));
+    query->addStaticVariable(getVariableByName("door"));
     /*PROTECTED REGION END*/
 }
 /*PROTECTED REGION ID(methods1519913953735) ENABLED START*/ // Add additional methods here

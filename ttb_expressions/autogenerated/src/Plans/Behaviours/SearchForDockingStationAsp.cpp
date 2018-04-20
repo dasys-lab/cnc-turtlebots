@@ -142,7 +142,7 @@ void SearchForDockingStationAsp::initialiseParameters()
 {
     /*PROTECTED REGION ID(initialiseParameters1470041810334) ENABLED START*/ // Add additional options here
     query->clearStaticVariables();
-    query->addStaticVariable(getVariablesByName("SearchVar"));
+    query->addStaticVariable(getVariableByName("SearchVar"));
     result.clear();
     /*PROTECTED REGION END*/
 }

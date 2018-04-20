@@ -88,10 +88,10 @@ void PutDown::initialiseParameters()
     this->isPuttingDown = false;
     this->query->clearStaticVariables();
     this->result.clear();
-    this->query->addStaticVariable(getVariablesByName("x"));
-    this->query->addStaticVariable(getVariablesByName("y"));
-    this->query->addStaticVariable(getVariablesByName("z"));
-    this->query->addStaticVariable(getVariablesByName("entity"));
+    this->query->addStaticVariable(getVariableByName("x"));
+    this->query->addStaticVariable(getVariableByName("y"));
+    this->query->addStaticVariable(getVariableByName("z"));
+    this->query->addStaticVariable(getVariableByName("entity"));
     /*PROTECTED REGION END*/
 }
 /*PROTECTED REGION ID(methods1520850797525) ENABLED START*/ // Add additional methods here
