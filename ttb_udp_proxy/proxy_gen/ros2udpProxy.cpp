@@ -7,19 +7,17 @@
 #include <ros/transport_hints.h>
 #include <stdio.h>
 
-
 #include <SystemConfig.h>
 #include <Configuration.h>
 #include <exception>
 
 #include <boost/asio.hpp>
-#include <boost/thread.hpp> 
+#include <boost/thread.hpp>
 
 #include <sys/ioctl.h>
 #include <net/if.h>
 #include <netinet/in.h>
 #include <arpa/inet.h>
-
 
 #include "alica_msgs/PlanTreeInfo.h"
 #include "process_manager/ProcessCommand.h"
@@ -50,11 +48,7 @@
 
 using namespace supplementary;
 
-
-
 using boost::asio::ip::udp;
-
-
 
 std::string ownRosName;
 udp::socket* insocket;
@@ -62,10 +56,8 @@ udp::endpoint otherEndPoint;
 udp::endpoint destEndPoint;
 boost::asio::ip::address multiCastAddress;
 boost::asio::io_service io_service;
-void handleUdpPacket(const boost::system::error_code& error,   std::size_t bytes_transferred);
+void handleUdpPacket(const boost::system::error_code& error, std::size_t bytes_transferred);
 void listenForPacket();
-
-
 
 void onRosPlanTreeInfo3767756765(const ros::MessageEvent<alica_msgs::PlanTreeInfo>& event) {
 	if(0 == event.getPublisherName().compare(ownRosName)) return;
@@ -537,22 +529,24 @@ ros::Publisher pub2083032085;
 ros::Publisher pub1954641914;
 ros::Publisher pub1699739415;
 
-boost::array<char,64000> inBuffer;
+boost::array<char, 64000> inBuffer;
 void listenForPacket() {
-	insocket->async_receive_from(boost::asio::buffer(inBuffer), otherEndPoint,
-        boost::bind(&handleUdpPacket, boost::asio::placeholders::error,boost::asio::placeholders::bytes_transferred));
+    insocket->async_receive_from(boost::asio::buffer(inBuffer), otherEndPoint,
+            boost::bind(
+                    &handleUdpPacket, boost::asio::placeholders::error, boost::asio::placeholders::bytes_transferred));
 }
-void handleUdpPacket(const boost::system::error_code& error,   std::size_t bytes_transferred) {
-	//std::cout << "From "<<otherEndPoint.address() << std::endl;
-	if (bytes_transferred > 64000) {
-		return;
-	}
-	if (!error) { // && otherEndPoint.address() != localIP) {
-		__uint32_t id = *((__uint32_t*)(inBuffer.data()));
-		//std::cout << "Got packet"<<std::endl;
-		try {	
-			ros::serialization::IStream stream(((uint8_t*)inBuffer.data())+sizeof(__uint32_t),bytes_transferred-sizeof(__uint32_t));
-			switch(id) {
+void handleUdpPacket(const boost::system::error_code& error, std::size_t bytes_transferred) {
+    // std::cout << "From "<<otherEndPoint.address() << std::endl;
+    if (bytes_transferred > 64000) {
+        return;
+    }
+    if (!error) {  // && otherEndPoint.address() != localIP) {
+        __uint32_t id = *((__uint32_t*) (inBuffer.data()));
+        // std::cout << "Got packet"<<std::endl;
+        try {
+            ros::serialization::IStream stream(
+                    ((uint8_t*) inBuffer.data()) + sizeof(__uint32_t), bytes_transferred - sizeof(__uint32_t));
+            switch (id) {
 case 3767756765ul: {
 alica_msgs::PlanTreeInfo m3767756765;
 ros::serialization::Serializer<alica_msgs::PlanTreeInfo>::read(stream, m3767756765);
@@ -683,69 +677,56 @@ nav_msgs::Path m1699739415;
 ros::serialization::Serializer<nav_msgs::Path>::read(stream, m1699739415);
 pub1699739415.publish<nav_msgs::Path>(m1699739415);
 break; }
-			
-				default:
-					std::cerr << "Cannot find Matching topic:" << id << std::endl;
-			}
-		}
-		catch(std::exception& e) {
-			ROS_ERROR_STREAM_THROTTLE(2,"Exception while receiving DDS message:"<<e.what()<< " Discarding message!");
-		}
-		
-	}
-	listenForPacket();
-	return;
+                default: std::cerr << "Cannot find Matching topic:" << id << std::endl;
+            }
+        } catch (std::exception& e) {
+            ROS_ERROR_STREAM_THROTTLE(2, "Exception while receiving DDS message:" << e.what() << " Discarding message!");
+        }
+    }
+    listenForPacket();
+    return;
 }
 void run() {
-	io_service.run();
+    io_service.run();
 }
 
-int main (int argc, char *argv[])
-{
-	
-	SystemConfig* sc = SystemConfig::getInstance();
+int main(int argc, char* argv[]) {
+    SystemConfig* sc = SystemConfig::getInstance();
 
-	//Configuration *proxyconf = (*sc)["UdpProxy"];
-Configuration *proxyconf = (*sc)["ttb_udp_proxy"];	
-	//std::string port = proxyconf->get<std::string>("UdpProxy","Port",NULL);
-	
-	std::string baddress = proxyconf->get<std::string>("UdpProxy","MulticastAddress",NULL);
-	
-	unsigned short port = (unsigned short)proxyconf->get<int>("UdpProxy","Port",NULL);
-	
-	//udp::resolver resolver(io_service);
-    //udp::resolver::query query(udp::v4(), baddress, port);
+    // Configuration *proxyconf = (*sc)["UdpProxy"];
+Configuration *proxyconf = (*sc)["ttb_udp_proxy"];
+    // std::string port = proxyconf->get<std::string>("UdpProxy","Port",NULL);
 
-	//bcastEndPoint = *resolver.resolve(query);
-	
-	
-	
-	
-	
-  
-	//myEndPoint = udp::endpoint(udp::v4(),bcastEndPoint.port());
-	
-	multiCastAddress = boost::asio::ip::address::from_string(baddress);
-	destEndPoint = udp::endpoint(multiCastAddress,port);
-	
-	std::cout<<"Opening to "<<multiCastAddress <<std::endl;
-	
-	
-	
-	insocket = new udp::socket(io_service,udp::endpoint(multiCastAddress,port));
-	
-	insocket->set_option(boost::asio::ip::multicast::enable_loopback(false));
-	insocket->set_option(boost::asio::ip::multicast::join_group(multiCastAddress));
-	listenForPacket();
-	
-	
-ros::init(argc, argv, "ttb_udp_proxy"); //   ros::init(argc, argv, "udpProxy");
+    std::string baddress = proxyconf->get<std::string>("UdpProxy", "MulticastAddress", NULL);
+
+    unsigned short port = (unsigned short) proxyconf->get<int>("UdpProxy", "Port", NULL);
+
+    // udp::resolver resolver(io_service);
+    // udp::resolver::query query(udp::v4(), baddress, port);
+
+    // bcastEndPoint = *resolver.resolve(query);
+
+    // myEndPoint = udp::endpoint(udp::v4(),bcastEndPoint.port());
+
+    multiCastAddress = boost::asio::ip::address::from_string(baddress);
+    destEndPoint = udp::endpoint(multiCastAddress, port);
+
+    std::cout << "Opening to " << multiCastAddress << std::endl;
+
+    insocket = new udp::socket(io_service, udp::endpoint(multiCastAddress, port));
+
+    insocket->set_option(boost::asio::ip::multicast::enable_loopback(false));
+    insocket->set_option(boost::asio::ip::multicast::join_group(multiCastAddress));
+    listenForPacket();
+
+ros::init(argc, argv, "ttb_udp_proxy");
+    //   ros::init(argc, argv, "udpProxy");
 
     ros::NodeHandle n;
-    ownRosName = ros::this_node::getName();//n.getNamespace();//n.resolveName("ddsProxy",true);
-    
+    ownRosName = ros::this_node::getName();  // n.getNamespace();//n.resolveName("ddsProxy",true);
+
     std::cout << ownRosName << std::endl;
-    
+
 ros::Subscriber sub0 = n.subscribe("/AlicaEngine/PlanTreeInfo",5, onRosPlanTreeInfo3767756765,ros::TransportHints().unreliable().tcpNoDelay().reliable());
 ros::Subscriber sub1 = n.subscribe("/process_manager/ProcessCommand",5, onRosProcessCommand3108117629,ros::TransportHints().unreliable().tcpNoDelay().reliable());
 ros::Subscriber sub2 = n.subscribe("/process_manager/ProcessStats",5, onRosProcessStats2783514677,ros::TransportHints().unreliable().tcpNoDelay().reliable());
@@ -772,7 +753,7 @@ ros::Subscriber sub22 = n.subscribe("/donatello/move_base_simple/goal",5, onRosP
 ros::Subscriber sub23 = n.subscribe("/donatello/initialpose",5, onRosPoseWithCovarianceStamped2083032085,ros::TransportHints().unreliable().tcpNoDelay().reliable());
 ros::Subscriber sub24 = n.subscribe("/donatello/mobile_base/sensors/core",5, onRosSensorState1954641914,ros::TransportHints().unreliable().tcpNoDelay().reliable());
 ros::Subscriber sub25 = n.subscribe("/donatello/move_base/NavfnROS/plan",5, onRosPath1699739415,ros::TransportHints().unreliable().tcpNoDelay().reliable());
-	
+
 pub3767756765 = n.advertise<alica_msgs::PlanTreeInfo>("/AlicaEngine/PlanTreeInfo",5,false);
 pub3108117629 = n.advertise<process_manager::ProcessCommand>("/process_manager/ProcessCommand",5,false);
 pub2783514677 = n.advertise<process_manager::ProcessStats>("/process_manager/ProcessStats",5,false);
@@ -799,22 +780,21 @@ pub2503873000 = n.advertise<geometry_msgs::PoseStamped>("/donatello/move_base_si
 pub2083032085 = n.advertise<geometry_msgs::PoseWithCovarianceStamped>("/donatello/initialpose",5,false);
 pub1954641914 = n.advertise<kobuki_msgs::SensorState>("/donatello/mobile_base/sensors/core",5,false);
 pub1699739415 = n.advertise<nav_msgs::Path>("/donatello/move_base/NavfnROS/plan",5,false);
-	
-	boost::thread iothread(run);
-    
-    //ros::spin();
-	ros::AsyncSpinner *spinner;
-	
-	spinner = new ros::AsyncSpinner(4);
-	spinner->start();
-	
-	std::cout << "Ros2Udp Proxy running..." <<std::endl;
-    while(n.ok()) {
-	    usleep(300000);
+
+    boost::thread iothread(run);
+
+    // ros::spin();
+    ros::AsyncSpinner* spinner;
+
+    spinner = new ros::AsyncSpinner(4);
+    spinner->start();
+
+    std::cout << "Ros2Udp Proxy running..." << std::endl;
+    while (n.ok()) {
+        usleep(300000);
     }
     io_service.stop();
     iothread.join();
     return 0;
 }
-
 
