@@ -7,6 +7,7 @@ using namespace std;
 #include <geometry_msgs/Point.h>
 #include <robot/SimulatedArm.h>
 #include <ttb/TTBWorldModel.h>
+#include <alica/reasoner/DummyVariable.h>
 /*PROTECTED REGION END*/
 namespace alica
 {
@@ -49,7 +50,7 @@ void PutDown::run(void *msg)
     //              std::endl;
 
     auto object = this->wm->logicalCameraData.getObject(result[3]);
-    if (!object)
+    if (!object || result[3].compare(alica::reasoner::DummyVariable::NO_VALUE) == 0)
     {
         this->setFailure(true);
         return;

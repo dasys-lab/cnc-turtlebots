@@ -6,6 +6,7 @@ using namespace std;
 #include <TurtleBot.h>
 #include <robot/SimulatedArm.h>
 #include <ttb/TTBWorldModel.h>
+#include <alica/reasoner/DummyVariable.h>
 /*PROTECTED REGION END*/
 namespace alica
 {
@@ -40,7 +41,7 @@ void PickUp::run(void *msg)
     //                << std::endl;
 
     auto object = this->wm->logicalCameraData.getObject(result[0]);
-    if (!object)
+    if (!object || result[0].compare(alica::reasoner::DummyVariable::NO_VALUE) == 0)
     {
         this->setFailure(true);
         return;

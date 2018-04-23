@@ -8,6 +8,7 @@ using namespace std;
 #include <robot/TTBEnums.h>
 #include <ttb/TTBWorldModel.h>
 #include <ttb/wm/topology/TopologicalModel.h>
+#include <alica/reasoner/DummyVariable.h>
 /*PROTECTED REGION END*/
 namespace alica
 {
@@ -48,6 +49,12 @@ void DriveToPOI::run(void *msg)
         this->turtleBot->movement->cancelAllGoals();
         this->setSuccess(true);
         return;
+    }
+
+    if(result[0].compare(alica::reasoner::DummyVariable::NO_VALUE) == 0)
+    {
+    	std::cout << "DriveToPoi: no solution found result contains: " << result[0] << std::endl;
+    	return;
     }
 
     auto newGoalPOI = this->wm->topologicalModel.getPOI(stoi(result[0]));
