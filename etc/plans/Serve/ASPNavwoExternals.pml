@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="ASCII"?>
 <alica:Plan xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:alica="http:///de.uni_kassel.vs.cn" id="1477229620130" name="ASPNavwoExternals" comment="" masterPlan="true" utilityFunction="" utilityThreshold="0.1" destinationPath="Plans/Serve" priority="0.0" minCardinality="0" maxCardinality="2147483647">
-  <conditions xsi:type="alica:RuntimeCondition" id="1477229706852" name="NewRuntimeCondition" comment="" conditionString="" pluginName="DefaultPlugin">
+  <runtimeCondition xsi:type="alica:RuntimeCondition" id="1477229706852" name="NewRuntimeCondition" comment="" conditionString="" pluginName="DefaultPlugin">
     <vars>#1477229962547</vars>
-  </conditions>
+  </runtimeCondition>
   <vars id="1477229962547" name="PlanVar1" comment="" Type=""/>
   <states id="1477229620131" name="Nav1" comment="" entryPoint="1477229620132">
     <parametrisation id="1477229991230" name="MISSING_NAME" comment="">
-      <subplan xsi:type="alica:BehaviourConfiguration">../Behaviours/ASPNavwoExt.beh#1477229777461</subplan>
+      <subplan xsi:type="alica:Behaviour">../Behaviours/ASPNavwoExt.beh#1477229760910</subplan>
       <subvar>../Behaviours/ASPNavwoExt.beh#1477229971246</subvar>
       <var>#1477229962547</var>
     </parametrisation>
-    <plans xsi:type="alica:BehaviourConfiguration">../Behaviours/ASPNavwoExt.beh#1477229777461</plans>
+    <plans xsi:type="alica:Behaviour">../Behaviours/ASPNavwoExt.beh#1477229760910</plans>
     <outTransitions>#1477229632397</outTransitions>
   </states>
   <states id="1477229628161" name="InnerState" comment="">

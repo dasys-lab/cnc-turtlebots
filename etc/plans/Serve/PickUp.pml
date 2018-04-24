@@ -1,27 +1,27 @@
 <?xml version="1.0" encoding="ASCII"?>
 <alica:Plan xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:alica="http:///de.uni_kassel.vs.cn" id="1520438299583" name="PickUp" comment="" masterPlan="false" utilityFunction="" utilityThreshold="0.1" destinationPath="Plans/Serve" priority="0.0" minCardinality="0" maxCardinality="2147483647">
-  <conditions xsi:type="alica:RuntimeCondition" id="1520438401434" name="NewRuntimeCondition" comment="" conditionString="" pluginName="DefaultPlugin">
+  <runtimeCondition xsi:type="alica:RuntimeCondition" id="1520438401434" name="NewRuntimeCondition" comment="" conditionString="" pluginName="DefaultPlugin">
     <vars>#1520438389375</vars>
-  </conditions>
+  </runtimeCondition>
   <vars id="1520438389375" name="entity" comment="" Type=""/>
   <states id="1520438315109" name="DriveToPickUpPos" comment="" entryPoint="1520438315110">
     <parametrisation id="1520603215322" name="MISSING_NAME" comment="">
-      <subplan xsi:type="alica:BehaviourConfiguration">../Behaviours/DriveCloseToObject.beh#1520521878834</subplan>
+      <subplan xsi:type="alica:Behaviour">../Behaviours/DriveCloseToObject.beh#1520521852939</subplan>
       <subvar>../Behaviours/DriveCloseToObject.beh#1520603151573</subvar>
       <var>#1520438389375</var>
     </parametrisation>
-    <plans xsi:type="alica:BehaviourConfiguration">../Behaviours/DriveCloseToObject.beh#1520521878834</plans>
+    <plans xsi:type="alica:Behaviour">../Behaviours/DriveCloseToObject.beh#1520521852939</plans>
     <inTransitions>#1520518910440</inTransitions>
     <outTransitions>#1520438351648</outTransitions>
     <outTransitions>#1520589542298</outTransitions>
   </states>
   <states id="1520438338624" name="Grap" comment="">
     <parametrisation id="1520438802179" name="MISSING_NAME" comment="">
-      <subplan xsi:type="alica:BehaviourConfiguration">../Behaviours/PickUp.beh#1520438478153</subplan>
+      <subplan xsi:type="alica:Behaviour">../Behaviours/PickUp.beh#1520438451345</subplan>
       <subvar>../Behaviours/PickUp.beh#1520438797719</subvar>
       <var>#1520438389375</var>
     </parametrisation>
-    <plans xsi:type="alica:BehaviourConfiguration">../Behaviours/PickUp.beh#1520438478153</plans>
+    <plans xsi:type="alica:Behaviour">../Behaviours/PickUp.beh#1520438451345</plans>
     <inTransitions>#1520438351648</inTransitions>
     <outTransitions>#1520438354450</outTransitions>
     <outTransitions>#1520516953565</outTransitions>

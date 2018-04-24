@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="ASCII"?>
 <alica:Plan xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:alica="http:///de.uni_kassel.vs.cn" id="1519913821580" name="DriveToPOI" comment="" masterPlan="false" utilityFunction="" utilityThreshold="0.1" destinationPath="Plans/Serve" priority="0.0" minCardinality="0" maxCardinality="2147483647">
-  <conditions xsi:type="alica:RuntimeCondition" id="1519914269940" name="NewRuntimeCondition" comment="" conditionString="" pluginName="DefaultPlugin">
+  <runtimeCondition xsi:type="alica:RuntimeCondition" id="1519914269940" name="NewRuntimeCondition" comment="" conditionString="" pluginName="DefaultPlugin">
     <vars>#1519913984042</vars>
     <vars>#1519913989387</vars>
-  </conditions>
+  </runtimeCondition>
   <vars id="1519913984042" name="door" comment="" Type=""/>
   <vars id="1519913989387" name="poi" comment="" Type=""/>
   <states id="1519913874345" name="DriveToPOI" comment="" entryPoint="1519913874346">
     <parametrisation id="1519914162033" name="MISSING_NAME" comment="">
-      <subplan xsi:type="alica:BehaviourConfiguration">../Behaviours/DriveToPOI.beh#1519913781149</subplan>
+      <subplan xsi:type="alica:Behaviour">../Behaviours/DriveToPOI.beh#1454329856163</subplan>
       <subvar>../Behaviours/DriveToPOI.beh#1519914156317</subvar>
       <var>#1519913989387</var>
     </parametrisation>
-    <plans xsi:type="alica:BehaviourConfiguration">../Behaviours/DriveToPOI.beh#1519913781149</plans>
+    <plans xsi:type="alica:Behaviour">../Behaviours/DriveToPOI.beh#1454329856163</plans>
     <inTransitions>#1519913901227</inTransitions>
     <outTransitions>#1519913899492</outTransitions>
     <outTransitions>#1519914091859</outTransitions>
@@ -20,11 +20,11 @@
   </states>
   <states id="1519913892405" name="OpenDoor" comment="">
     <parametrisation id="1519914173337" name="MISSING_NAME" comment="">
-      <subplan xsi:type="alica:BehaviourConfiguration">../Behaviours/OpenDoor.beh#1519913968184</subplan>
+      <subplan xsi:type="alica:Behaviour">../Behaviours/OpenDoor.beh#1519913953735</subplan>
       <subvar>../Behaviours/OpenDoor.beh#1519914169008</subvar>
       <var>#1519913984042</var>
     </parametrisation>
-    <plans xsi:type="alica:BehaviourConfiguration">../Behaviours/OpenDoor.beh#1519913968184</plans>
+    <plans xsi:type="alica:Behaviour">../Behaviours/OpenDoor.beh#1519913953735</plans>
     <inTransitions>#1519913899492</inTransitions>
     <outTransitions>#1519913901227</outTransitions>
     <outTransitions>#1519914329278</outTransitions>
