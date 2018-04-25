@@ -29,11 +29,11 @@
     </value>
   </extensions>
   <extensions>
-    <key href="../Behaviours/DriveToPOI.beh#1519913781149"/>
+    <key href="Behaviours/DriveToPOI.beh#1519913781149"/>
     <value/>
   </extensions>
   <extensions>
-    <key href="../Behaviours/OpenDoor.beh#1519913968184"/>
+    <key href="Behaviours/OpenDoor.beh#1519913968184"/>
     <value/>
   </extensions>
   <extensions>

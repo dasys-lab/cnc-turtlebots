@@ -6,11 +6,11 @@
   <vars id="1520437454401" name="entity" comment="" Type=""/>
   <states id="1520437031577" name="DriveAround" comment="" entryPoint="1520437031578">
     <parametrisation id="1520437631553" name="MISSING_NAME" comment="">
-      <subplan xsi:type="alica:Behaviour">../Behaviours/Sweep.beh#1520437499749</subplan>
-      <subvar>../Behaviours/Sweep.beh#1520437620566</subvar>
+      <subplan xsi:type="alica:Behaviour">Behaviours/Sweep.beh#1520437499749</subplan>
+      <subvar>Behaviours/Sweep.beh#1520437620566</subvar>
       <var>#1520437454401</var>
     </parametrisation>
-    <plans xsi:type="alica:Behaviour">../Behaviours/Sweep.beh#1520437499749</plans>
+    <plans xsi:type="alica:Behaviour">Behaviours/Sweep.beh#1520437499749</plans>
     <outTransitions>#1520438035537</outTransitions>
   </states>
   <states xsi:type="alica:SuccessState" id="1520438026668" name="FoundEntity" comment="">
@@ -22,7 +22,7 @@
     <outState>#1520438026668</outState>
   </transitions>
   <entryPoints id="1520437031578" name="Search" comment="" successRequired="true" minCardinality="0" maxCardinality="2147483647">
-    <task>../../Misc/taskrepository.tsk#1481544910904</task>
+    <task>taskrepository.tsk#1481544910904</task>
     <state>#1520437031577</state>
   </entryPoints>
 </alica:Plan>

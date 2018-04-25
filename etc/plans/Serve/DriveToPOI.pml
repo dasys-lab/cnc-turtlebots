@@ -8,11 +8,11 @@
   <vars id="1519913989387" name="poi" comment="" Type=""/>
   <states id="1519913874345" name="DriveToPOI" comment="" entryPoint="1519913874346">
     <parametrisation id="1519914162033" name="MISSING_NAME" comment="">
-      <subplan xsi:type="alica:Behaviour">../Behaviours/DriveToPOI.beh#1454329856163</subplan>
-      <subvar>../Behaviours/DriveToPOI.beh#1519914156317</subvar>
+      <subplan xsi:type="alica:Behaviour">Behaviours/DriveToPOI.beh#1454329856163</subplan>
+      <subvar>Behaviours/DriveToPOI.beh#1519914156317</subvar>
       <var>#1519913989387</var>
     </parametrisation>
-    <plans xsi:type="alica:Behaviour">../Behaviours/DriveToPOI.beh#1454329856163</plans>
+    <plans xsi:type="alica:Behaviour">Behaviours/DriveToPOI.beh#1454329856163</plans>
     <inTransitions>#1519913901227</inTransitions>
     <outTransitions>#1519913899492</outTransitions>
     <outTransitions>#1519914091859</outTransitions>
@@ -20,11 +20,11 @@
   </states>
   <states id="1519913892405" name="OpenDoor" comment="">
     <parametrisation id="1519914173337" name="MISSING_NAME" comment="">
-      <subplan xsi:type="alica:Behaviour">../Behaviours/OpenDoor.beh#1519913953735</subplan>
-      <subvar>../Behaviours/OpenDoor.beh#1519914169008</subvar>
+      <subplan xsi:type="alica:Behaviour">Behaviours/OpenDoor.beh#1519913953735</subplan>
+      <subvar>Behaviours/OpenDoor.beh#1519914169008</subvar>
       <var>#1519913984042</var>
     </parametrisation>
-    <plans xsi:type="alica:Behaviour">../Behaviours/OpenDoor.beh#1519913953735</plans>
+    <plans xsi:type="alica:Behaviour">Behaviours/OpenDoor.beh#1519913953735</plans>
     <inTransitions>#1519913899492</inTransitions>
     <outTransitions>#1519913901227</outTransitions>
     <outTransitions>#1519914329278</outTransitions>
@@ -62,7 +62,7 @@
     <outState>#1519914308674</outState>
   </transitions>
   <entryPoints id="1519913874346" name="MISSING_NAME" comment="" successRequired="true" minCardinality="0" maxCardinality="2147483647">
-    <task>../../Misc/taskrepository.tsk#1414681164704</task>
+    <task>taskrepository.tsk#1414681164704</task>
     <state>#1519913874345</state>
   </entryPoints>
 </alica:Plan>

@@ -21,11 +21,11 @@
     <value/>
   </extensions>
   <extensions>
-    <key href="../Behaviours/ChargingDefault.beh#1447958132701"/>
+    <key href="Behaviours/ChargingDefault.beh#1447958132701"/>
     <value/>
   </extensions>
   <extensions>
-    <key href="../Behaviours/SearchForDockingStationAsp.beh#1470041828429"/>
+    <key href="Behaviours/SearchForDockingStationAsp.beh#1470041828429"/>
     <value/>
   </extensions>
   <extensions>

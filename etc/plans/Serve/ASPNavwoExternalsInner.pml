@@ -6,11 +6,11 @@
   <vars id="1477229909334" name="PlanVar2" comment="" Type=""/>
   <states id="1477229659174" name="Nav2" comment="" entryPoint="1477229659175">
     <parametrisation id="1477229943530" name="MISSING_NAME" comment="">
-      <subplan xsi:type="alica:Behaviour">../Behaviours/ASPNavwoExt.beh#1477229760910</subplan>
-      <subvar>../Behaviours/ASPNavwoExt.beh#1477229925769</subvar>
+      <subplan xsi:type="alica:Behaviour">Behaviours/ASPNavwoExt.beh#1477229760910</subplan>
+      <subvar>Behaviours/ASPNavwoExt.beh#1477229925769</subvar>
       <var>#1477229909334</var>
     </parametrisation>
-    <plans xsi:type="alica:Behaviour">../Behaviours/ASPNavwoExt.beh#1477229760910</plans>
+    <plans xsi:type="alica:Behaviour">Behaviours/ASPNavwoExt.beh#1477229760910</plans>
     <outTransitions>#1479298299806</outTransitions>
   </states>
   <states xsi:type="alica:SuccessState" id="1479298294756" name="NewSuccessState" comment="">
@@ -22,7 +22,7 @@
     <outState>#1479298294756</outState>
   </transitions>
   <entryPoints id="1477229659175" name="MISSING_NAME" comment="" successRequired="true" minCardinality="0" maxCardinality="2147483647">
-    <task>../../Misc/taskrepository.tsk#1414681164704</task>
+    <task>taskrepository.tsk#1414681164704</task>
     <state>#1477229659174</state>
   </entryPoints>
 </alica:Plan>

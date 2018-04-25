@@ -12,42 +12,42 @@
   <vars id="1520872574322" name="z" comment="" Type=""/>
   <states id="1520511964767" name="DriveToPoint" comment="" entryPoint="1520511964768">
     <parametrisation id="1520851098640" name="MISSING_NAME" comment="">
-      <subplan xsi:type="alica:Behaviour">../Behaviours/DriveToPoint.beh#1520850811997</subplan>
-      <subvar>../Behaviours/DriveToPoint.beh#1520851080475</subvar>
+      <subplan xsi:type="alica:Behaviour">Behaviours/DriveToPoint.beh#1520850811997</subplan>
+      <subvar>Behaviours/DriveToPoint.beh#1520851080475</subvar>
       <var>#1520850749297</var>
     </parametrisation>
     <parametrisation id="1520851104524" name="MISSING_NAME" comment="">
-      <subplan xsi:type="alica:Behaviour">../Behaviours/DriveToPoint.beh#1520850811997</subplan>
-      <subvar>../Behaviours/DriveToPoint.beh#1520851082139</subvar>
+      <subplan xsi:type="alica:Behaviour">Behaviours/DriveToPoint.beh#1520850811997</subplan>
+      <subvar>Behaviours/DriveToPoint.beh#1520851082139</subvar>
       <var>#1520850749534</var>
     </parametrisation>
-    <plans xsi:type="alica:Behaviour">../Behaviours/DriveToPoint.beh#1520850811997</plans>
+    <plans xsi:type="alica:Behaviour">Behaviours/DriveToPoint.beh#1520850811997</plans>
     <inTransitions>#1520849450854</inTransitions>
     <outTransitions>#1520849449636</outTransitions>
     <outTransitions>#1520849520077</outTransitions>
   </states>
   <states id="1520845381633" name="PutDown" comment="">
     <parametrisation id="1520851109354" name="MISSING_NAME" comment="">
-      <subplan xsi:type="alica:Behaviour">../Behaviours/PutDown.beh#1520850797525</subplan>
-      <subvar>../Behaviours/PutDown.beh#1520851061716</subvar>
+      <subplan xsi:type="alica:Behaviour">Behaviours/PutDown.beh#1520850797525</subplan>
+      <subvar>Behaviours/PutDown.beh#1520851061716</subvar>
       <var>#1520850764148</var>
     </parametrisation>
     <parametrisation id="1520851114255" name="MISSING_NAME" comment="">
-      <subplan xsi:type="alica:Behaviour">../Behaviours/PutDown.beh#1520850797525</subplan>
-      <subvar>../Behaviours/PutDown.beh#1520851062978</subvar>
+      <subplan xsi:type="alica:Behaviour">Behaviours/PutDown.beh#1520850797525</subplan>
+      <subvar>Behaviours/PutDown.beh#1520851062978</subvar>
       <var>#1520850749297</var>
     </parametrisation>
     <parametrisation id="1520851116894" name="MISSING_NAME" comment="">
-      <subplan xsi:type="alica:Behaviour">../Behaviours/PutDown.beh#1520850797525</subplan>
-      <subvar>../Behaviours/PutDown.beh#1520851063507</subvar>
+      <subplan xsi:type="alica:Behaviour">Behaviours/PutDown.beh#1520850797525</subplan>
+      <subvar>Behaviours/PutDown.beh#1520851063507</subvar>
       <var>#1520850749534</var>
     </parametrisation>
     <parametrisation id="1520872605849" name="MISSING_NAME" comment="">
-      <subplan xsi:type="alica:Behaviour">../Behaviours/PutDown.beh#1520850797525</subplan>
-      <subvar>../Behaviours/PutDown.beh#1520872596739</subvar>
+      <subplan xsi:type="alica:Behaviour">Behaviours/PutDown.beh#1520850797525</subplan>
+      <subvar>Behaviours/PutDown.beh#1520872596739</subvar>
       <var>#1520872574322</var>
     </parametrisation>
-    <plans xsi:type="alica:Behaviour">../Behaviours/PutDown.beh#1520850797525</plans>
+    <plans xsi:type="alica:Behaviour">Behaviours/PutDown.beh#1520850797525</plans>
     <inTransitions>#1520849449636</inTransitions>
     <outTransitions>#1520849450854</outTransitions>
     <outTransitions>#1520849521816</outTransitions>
@@ -88,7 +88,7 @@
     <outState>#1520849459774</outState>
   </transitions>
   <entryPoints id="1520511964768" name="MISSING_NAME" comment="" successRequired="false" minCardinality="0" maxCardinality="2147483647">
-    <task>../../Misc/taskrepository.tsk#1414681164704</task>
+    <task>taskrepository.tsk#1414681164704</task>
     <state>#1520511964767</state>
   </entryPoints>
 </alica:Plan>

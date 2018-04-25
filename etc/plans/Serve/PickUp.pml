@@ -6,22 +6,22 @@
   <vars id="1520438389375" name="entity" comment="" Type=""/>
   <states id="1520438315109" name="DriveToPickUpPos" comment="" entryPoint="1520438315110">
     <parametrisation id="1520603215322" name="MISSING_NAME" comment="">
-      <subplan xsi:type="alica:Behaviour">../Behaviours/DriveCloseToObject.beh#1520521852939</subplan>
-      <subvar>../Behaviours/DriveCloseToObject.beh#1520603151573</subvar>
+      <subplan xsi:type="alica:Behaviour">Behaviours/DriveCloseToObject.beh#1520521852939</subplan>
+      <subvar>Behaviours/DriveCloseToObject.beh#1520603151573</subvar>
       <var>#1520438389375</var>
     </parametrisation>
-    <plans xsi:type="alica:Behaviour">../Behaviours/DriveCloseToObject.beh#1520521852939</plans>
+    <plans xsi:type="alica:Behaviour">Behaviours/DriveCloseToObject.beh#1520521852939</plans>
     <inTransitions>#1520518910440</inTransitions>
     <outTransitions>#1520438351648</outTransitions>
     <outTransitions>#1520589542298</outTransitions>
   </states>
   <states id="1520438338624" name="Grap" comment="">
     <parametrisation id="1520438802179" name="MISSING_NAME" comment="">
-      <subplan xsi:type="alica:Behaviour">../Behaviours/PickUp.beh#1520438451345</subplan>
-      <subvar>../Behaviours/PickUp.beh#1520438797719</subvar>
+      <subplan xsi:type="alica:Behaviour">Behaviours/PickUp.beh#1520438451345</subplan>
+      <subvar>Behaviours/PickUp.beh#1520438797719</subvar>
       <var>#1520438389375</var>
     </parametrisation>
-    <plans xsi:type="alica:Behaviour">../Behaviours/PickUp.beh#1520438451345</plans>
+    <plans xsi:type="alica:Behaviour">Behaviours/PickUp.beh#1520438451345</plans>
     <inTransitions>#1520438351648</inTransitions>
     <outTransitions>#1520438354450</outTransitions>
     <outTransitions>#1520516953565</outTransitions>
@@ -62,7 +62,7 @@
     <outState>#1520589504282</outState>
   </transitions>
   <entryPoints id="1520438315110" name="FetchEP" comment="" successRequired="true" minCardinality="0" maxCardinality="2147483647">
-    <task>../../Misc/taskrepository.tsk#1520438413494</task>
+    <task>taskrepository.tsk#1520438413494</task>
     <state>#1520438315109</state>
   </entryPoints>
 </alica:Plan>

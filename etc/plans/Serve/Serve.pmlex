@@ -31,7 +31,7 @@
     <value/>
   </extensions>
   <extensions>
-    <key href="../Behaviours/Stop.beh#1414681278745"/>
+    <key href="Behaviours/Stop.beh#1414681278745"/>
     <value/>
   </extensions>
   <extensions>
@@ -61,7 +61,7 @@
     </value>
   </extensions>
   <extensions>
-    <key href="../Behaviours/DriveToPOI.beh#1519913781149"/>
+    <key href="Behaviours/DriveToPOI.beh#1519913781149"/>
     <value/>
   </extensions>
   <extensions>

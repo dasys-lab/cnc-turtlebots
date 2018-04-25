@@ -57,11 +57,11 @@
     <value xPos="303" yPos="292"/>
   </extensions>
   <extensions>
-    <key href="../Behaviours/PutDown.beh#1520850807590"/>
+    <key href="Behaviours/PutDown.beh#1520850807590"/>
     <value/>
   </extensions>
   <extensions>
-    <key href="../Behaviours/DriveToPoint.beh#1520850827610"/>
+    <key href="Behaviours/DriveToPoint.beh#1520850827610"/>
     <value/>
   </extensions>
 </uiextensionmodel:PmlUiExtensionMap>

@@ -35,11 +35,11 @@
     <value xPos="304" yPos="382"/>
   </extensions>
   <extensions>
-    <key href="../Behaviours/PickUp.beh#1520438478153"/>
+    <key href="Behaviours/PickUp.beh#1520438478153"/>
     <value/>
   </extensions>
   <extensions>
-    <key href="../Behaviours/DriveToPOI.beh#1519913781149"/>
+    <key href="Behaviours/DriveToPOI.beh#1519913781149"/>
     <value/>
   </extensions>
   <extensions>
@@ -57,7 +57,7 @@
     </value>
   </extensions>
   <extensions>
-    <key href="../Behaviours/DriveCloseToObject.beh#1520521878834"/>
+    <key href="Behaviours/DriveCloseToObject.beh#1520521878834"/>
     <value/>
   </extensions>
   <extensions>

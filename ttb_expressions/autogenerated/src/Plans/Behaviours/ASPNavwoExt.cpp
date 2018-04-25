@@ -8,6 +8,7 @@ using namespace std;
 #include <asp_commons/ASPQuery.h>
 #include <asp_commons/IASPSolver.h>
 #include <asp_solver_wrapper/ASPSolverWrapper.h>
+#include <SystemConfig.h>
 /*PROTECTED REGION END*/
 namespace alica
 {
@@ -128,21 +129,7 @@ void ASPNavwoExt::initialiseParameters()
     /*PROTECTED REGION ID(initialiseParameters1477229760910) ENABLED START*/ // Add additional options here
     query->clearStaticVariables();
     result.clear();
-    bool success = true;
-    string tmp = "";
-    try
-    {
-        success &= getParameter("doorConfig", this->doorConfig);
-    }
-
-    catch (exception &e)
-    {
-        cerr << "Could not cast the parameter properly" << endl;
-    }
-    if (!success)
-    {
-        cerr << "ASP: Parameter does not exist" << endl;
-    }
+    this->doorConfig = this->getParameter("doorConfig");
     if (this->doorConfig.compare("config1") == 0)
     {
         query->addStaticVariable(getVariableByName("NavVar1"));

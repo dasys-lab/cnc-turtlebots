@@ -6,14 +6,14 @@
   <vars id="1477125989168" name="PlanVar" comment="" Type=""/>
   <states id="1477125857344" name="Minimize" comment="" entryPoint="1477125857346">
     <parametrisation id="1477126009717" name="MISSING_NAME" comment="">
-      <subplan xsi:type="alica:Behaviour">../Behaviours/ASPMinimizePath.beh#1477125924367</subplan>
-      <subvar>../Behaviours/ASPMinimizePath.beh#1477125960857</subvar>
+      <subplan xsi:type="alica:Behaviour">Behaviours/ASPMinimizePath.beh#1477125924367</subplan>
+      <subvar>Behaviours/ASPMinimizePath.beh#1477125960857</subvar>
       <var>#1477125989168</var>
     </parametrisation>
-    <plans xsi:type="alica:Behaviour">../Behaviours/ASPMinimizePath.beh#1477125924367</plans>
+    <plans xsi:type="alica:Behaviour">Behaviours/ASPMinimizePath.beh#1477125924367</plans>
   </states>
   <entryPoints id="1477125857346" name="MISSING_NAME" comment="" successRequired="false" minCardinality="0" maxCardinality="2147483647">
-    <task>../../Misc/taskrepository.tsk#1414681164704</task>
+    <task>taskrepository.tsk#1414681164704</task>
     <state>#1477125857344</state>
   </entryPoints>
 </alica:Plan>

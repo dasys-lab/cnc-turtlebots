@@ -6,15 +6,15 @@
   <vars id="1470043579268" name="DockingStationVar" comment="" Type=""/>
   <states id="1470041057808" name="SearchForFreeDockingStation" comment="" entryPoint="1470041057809">
     <parametrisation id="1470043878556" name="MISSING_NAME" comment="">
-      <subplan xsi:type="alica:Behaviour">../Behaviours/SearchForDockingStationAsp.beh#1470041810334</subplan>
-      <subvar>../Behaviours/SearchForDockingStationAsp.beh#1470043788379</subvar>
+      <subplan xsi:type="alica:Behaviour">Behaviours/SearchForDockingStationAsp.beh#1470041810334</subplan>
+      <subvar>Behaviours/SearchForDockingStationAsp.beh#1470043788379</subvar>
       <var>#1470043579268</var>
     </parametrisation>
-    <plans xsi:type="alica:Behaviour">../Behaviours/SearchForDockingStationAsp.beh#1470041810334</plans>
+    <plans xsi:type="alica:Behaviour">Behaviours/SearchForDockingStationAsp.beh#1470041810334</plans>
     <outTransitions>#1470041207327</outTransitions>
   </states>
   <states id="1470041204046" name="Charge" comment="">
-    <plans xsi:type="alica:Behaviour">../Behaviours/ChargingDefault.beh#1447958115909</plans>
+    <plans xsi:type="alica:Behaviour">Behaviours/ChargingDefault.beh#1447958115909</plans>
     <inTransitions>#1470041207327</inTransitions>
     <outTransitions>#1470042247718</outTransitions>
   </states>
@@ -32,7 +32,7 @@
     <outState>#1470042244415</outState>
   </transitions>
   <entryPoints id="1470041057809" name="MISSING_NAME" comment="" successRequired="true" minCardinality="0" maxCardinality="2147483647">
-    <task>../../Misc/taskrepository.tsk#1414681164704</task>
+    <task>taskrepository.tsk#1414681164704</task>
     <state>#1470041057808</state>
   </entryPoints>
 </alica:Plan>

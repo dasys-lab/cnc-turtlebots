@@ -29,15 +29,11 @@
     <value/>
   </extensions>
   <extensions>
-    <key href="../Behaviours/SearchDockingStation.beh#1414681446065"/>
+    <key href="Behaviours/SearchDockingStation.beh#1414681446065"/>
     <value/>
   </extensions>
   <extensions>
-    <key href="../Behaviours/ChargingDefault.beh#1447958132701"/>
-    <value/>
-  </extensions>
-  <extensions>
-    <key href="../Test.pty#1519998523828"/>
+    <key href="Behaviours/ChargingDefault.beh#1447958132701"/>
     <value/>
   </extensions>
 </uiextensionmodel:PmlUiExtensionMap>
