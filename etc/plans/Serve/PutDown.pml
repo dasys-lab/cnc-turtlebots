@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="ASCII"?>
-<alica:Plan xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:alica="http:///de.uni_kassel.vs.cn" id="1520511951867" name="PutDown" comment="" masterPlan="false" utilityFunction="" utilityThreshold="0.1" destinationPath="Plans/Serve" priority="0.0" minCardinality="0" maxCardinality="2147483647">
-  <runtimeCondition xsi:type="alica:RuntimeCondition" id="1520850075314" name="NewRuntimeCondition" comment="" conditionString="" pluginName="DefaultPlugin">
+<alica:Plan xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:alica="http:///de.uni_kassel.vs.cn" id="1520511951867" name="PutDown" comment="" destinationPath="Plans/Serve" priority="0.0" minCardinality="0" maxCardinality="2147483647" masterPlan="false" utilityFunction="" utilityThreshold="0.1">
+  <vars id="1520850749297" name="x" comment="" Type=""/>
+  <vars id="1520850749534" name="y" comment="" Type=""/>
+  <vars id="1520850764148" name="entity" comment="" Type=""/>
+  <vars id="1520872574322" name="z" comment="" Type=""/>
+  <runtimeCondition id="1520850075314" name="NewRuntimeCondition" comment="" conditionString="" pluginName="DefaultPlugin">
     <vars>Serve/PutDown.pml#1520850749297</vars>
     <vars>Serve/PutDown.pml#1520850749534</vars>
     <vars>Serve/PutDown.pml#1520872574322</vars>
     <vars>Serve/PutDown.pml#1520850764148</vars>
   </runtimeCondition>
-  <vars id="1520850749297" name="x" comment="" Type=""/>
-  <vars id="1520850749534" name="y" comment="" Type=""/>
-  <vars id="1520850764148" name="entity" comment="" Type=""/>
-  <vars id="1520872574322" name="z" comment="" Type=""/>
   <states id="1520511964767" name="DriveToPoint" comment="" entryPoint="1520511964768">
     <parametrisation id="1520851098640" name="MISSING_NAME" comment="">
       <subplan xsi:type="alica:Behaviour">Behaviours/DriveToPoint.beh#1520850811997</subplan>
