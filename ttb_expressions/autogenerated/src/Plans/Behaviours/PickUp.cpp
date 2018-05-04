@@ -1,33 +1,43 @@
-using namespace std;
 #include "Plans/Behaviours/PickUp.h"
+#include <memory>
 
-/*PROTECTED REGION ID(inccpp1520438451345) ENABLED START*/ // Add additional includes here
+using std::make_shared;
+using std::shared_ptr;
+
+/*PROTECTED REGION ID(inccpp1520438451345) ENABLED START*/
+// Add additional includes here
 #include <SolverType.h>
 #include <TurtleBot.h>
+#include <alica/reasoner/DummyVariable.h>
 #include <robot/SimulatedArm.h>
 #include <ttb/TTBWorldModel.h>
-#include <alica/reasoner/DummyVariable.h>
 /*PROTECTED REGION END*/
+
 namespace alica
 {
-/*PROTECTED REGION ID(staticVars1520438451345) ENABLED START*/ // initialise static variables here
+/*PROTECTED REGION ID(staticVars1520438451345) ENABLED START*/
+// initialise static variables here
 /*PROTECTED REGION END*/
+
 PickUp::PickUp()
     : DomainBehaviour("PickUp")
 {
-    /*PROTECTED REGION ID(con1520438451345) ENABLED START*/ // Add additional options her
+    /*PROTECTED REGION ID(con1520438451345) ENABLED START*/
+    // Add additional options her
     this->query = std::make_shared<alica::Query>();
     this->isGrabbing = false;
     /*PROTECTED REGION END*/
 }
 PickUp::~PickUp()
 {
-    /*PROTECTED REGION ID(dcon1520438451345) ENABLED START*/ // Add additional options here
+    /*PROTECTED REGION ID(dcon1520438451345) ENABLED START*/
+    // Add additional options here
     /*PROTECTED REGION END*/
 }
 void PickUp::run(void *msg)
 {
-    /*PROTECTED REGION ID(run1520438451345) ENABLED START*/ // Add additional options here
+    /*PROTECTED REGION ID(run1520438451345) ENABLED START*/
+    // Add additional options here
     result.clear();
     if (!this->query->getSolution(SolverType::DUMMYSOLVER, runningPlan, result))
     {
@@ -73,13 +83,17 @@ void PickUp::run(void *msg)
 }
 void PickUp::initialiseParameters()
 {
-    /*PROTECTED REGION ID(initialiseParameters1520438451345) ENABLED START*/ // Add additional options here
+    /*PROTECTED REGION ID(initialiseParameters1520438451345) ENABLED START*/
+    // Add additional options here
     this->isGrabbing = false;
     this->query->clearStaticVariables();
     this->result.clear();
     this->query->addStaticVariable(getVariableByName("entity"));
+
     /*PROTECTED REGION END*/
 }
-/*PROTECTED REGION ID(methods1520438451345) ENABLED START*/ // Add additional methods here
+/*PROTECTED REGION ID(methods1520438451345) ENABLED START*/
+// Add additional methods here
 /*PROTECTED REGION END*/
+
 } /* namespace alica */

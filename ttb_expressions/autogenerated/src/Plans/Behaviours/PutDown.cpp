@@ -1,34 +1,44 @@
-using namespace std;
 #include "Plans/Behaviours/PutDown.h"
+#include <memory>
 
-/*PROTECTED REGION ID(inccpp1520850797525) ENABLED START*/ // Add additional includes here
+using std::make_shared;
+using std::shared_ptr;
+
+/*PROTECTED REGION ID(inccpp1520850797525) ENABLED START*/
+// Add additional includes here
 #include <SolverType.h>
 #include <TurtleBot.h>
+#include <alica/reasoner/DummyVariable.h>
 #include <geometry_msgs/Point.h>
 #include <robot/SimulatedArm.h>
 #include <ttb/TTBWorldModel.h>
-#include <alica/reasoner/DummyVariable.h>
 /*PROTECTED REGION END*/
+
 namespace alica
 {
-/*PROTECTED REGION ID(staticVars1520850797525) ENABLED START*/ // initialise static variables here
+/*PROTECTED REGION ID(staticVars1520850797525) ENABLED START*/
+// initialise static variables here
 /*PROTECTED REGION END*/
+
 PutDown::PutDown()
     : DomainBehaviour("PutDown")
 {
-    /*PROTECTED REGION ID(con1520850797525) ENABLED START*/ // Add additional options here
+    /*PROTECTED REGION ID(con1520850797525) ENABLED START*/
+    // Add additional options here
     this->query = std::make_shared<alica::Query>();
     this->isPuttingDown = false;
     /*PROTECTED REGION END*/
 }
 PutDown::~PutDown()
 {
-    /*PROTECTED REGION ID(dcon1520850797525) ENABLED START*/ // Add additional options here
+    /*PROTECTED REGION ID(dcon1520850797525) ENABLED START*/
+    // Add additional options here
     /*PROTECTED REGION END*/
 }
 void PutDown::run(void *msg)
 {
-    /*PROTECTED REGION ID(run1520850797525) ENABLED START*/ // Add additional options here
+    /*PROTECTED REGION ID(run1520850797525) ENABLED START*/
+    // Add additional options here
     result.clear();
     if (!this->query->getSolution(SolverType::DUMMYSOLVER, runningPlan, result))
     {
@@ -85,7 +95,8 @@ void PutDown::run(void *msg)
 }
 void PutDown::initialiseParameters()
 {
-    /*PROTECTED REGION ID(initialiseParameters1520850797525) ENABLED START*/ // Add additional options here
+    /*PROTECTED REGION ID(initialiseParameters1520850797525) ENABLED START*/
+    // Add additional options here
     this->isPuttingDown = false;
     this->query->clearStaticVariables();
     this->result.clear();
@@ -93,8 +104,11 @@ void PutDown::initialiseParameters()
     this->query->addStaticVariable(getVariableByName("y"));
     this->query->addStaticVariable(getVariableByName("z"));
     this->query->addStaticVariable(getVariableByName("entity"));
+
     /*PROTECTED REGION END*/
 }
-/*PROTECTED REGION ID(methods1520850797525) ENABLED START*/ // Add additional methods here
+/*PROTECTED REGION ID(methods1520850797525) ENABLED START*/
+// Add additional methods here
 /*PROTECTED REGION END*/
+
 } /* namespace alica */

@@ -1,29 +1,39 @@
-using namespace std;
 #include "Plans/Behaviours/Carry.h"
+#include <memory>
 
-/*PROTECTED REGION ID(inccpp1468494621581) ENABLED START*/ // Add additional includes here
+using std::make_shared;
+using std::shared_ptr;
+
+/*PROTECTED REGION ID(inccpp1468494621581) ENABLED START*/
+// Add additional includes here
 #include "SolverType.h"
 #include <ttb/TTBWorldModel.h>
 /*PROTECTED REGION END*/
+
 namespace alica
 {
-/*PROTECTED REGION ID(staticVars1468494621581) ENABLED START*/ // initialise static variables here
+/*PROTECTED REGION ID(staticVars1468494621581) ENABLED START*/
+// initialise static variables here
 /*PROTECTED REGION END*/
+
 Carry::Carry()
     : DomainBehaviour("Carry")
 {
-    /*PROTECTED REGION ID(con1468494621581) ENABLED START*/ // Add additional options here
+    /*PROTECTED REGION ID(con1468494621581) ENABLED START*/
+    // Add additional options here
     this->query = make_shared<alica::Query>();
     /*PROTECTED REGION END*/
 }
 Carry::~Carry()
 {
-    /*PROTECTED REGION ID(dcon1468494621581) ENABLED START*/ // Add additional options here
+    /*PROTECTED REGION ID(dcon1468494621581) ENABLED START*/
+    // Add additional options here
     /*PROTECTED REGION END*/
 }
 void Carry::run(void *msg)
 {
-    /*PROTECTED REGION ID(run1468494621581) ENABLED START*/ // Add additional options here
+    /*PROTECTED REGION ID(run1468494621581) ENABLED START*/
+    // Add additional options here
     query->getSolution(SolverType::ASPSOLVER, runningPlan, result);
     if (result.size() > 0)
     {
@@ -75,12 +85,16 @@ void Carry::run(void *msg)
 }
 void Carry::initialiseParameters()
 {
-    /*PROTECTED REGION ID(initialiseParameters1468494621581) ENABLED START*/ // Add additional options here
+    /*PROTECTED REGION ID(initialiseParameters1468494621581) ENABLED START*/
+    // Add additional options here
     query->clearStaticVariables();
     query->addStaticVariable(getVariableByName("CarryVar"));
     result.clear();
+
     /*PROTECTED REGION END*/
 }
-/*PROTECTED REGION ID(methods1468494621581) ENABLED START*/ // Add additional methods here
+/*PROTECTED REGION ID(methods1468494621581) ENABLED START*/
+// Add additional methods here
 /*PROTECTED REGION END*/
+
 } /* namespace alica */

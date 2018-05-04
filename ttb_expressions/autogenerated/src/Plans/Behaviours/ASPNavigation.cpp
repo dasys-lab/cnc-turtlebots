@@ -1,7 +1,11 @@
-using namespace std;
 #include "Plans/Behaviours/ASPNavigation.h"
+#include <memory>
 
-/*PROTECTED REGION ID(inccpp1475693360605) ENABLED START*/ // Add additional includes here
+using std::make_shared;
+using std::shared_ptr;
+
+/*PROTECTED REGION ID(inccpp1475693360605) ENABLED START*/
+// Add additional includes here
 #include <SolverType.h>
 #include <ttb/TTBWorldModel.h>
 
@@ -13,14 +17,18 @@ using namespace std;
 #include <actionlib/client/simple_action_client.h>
 #include <move_base_msgs/MoveBaseAction.h>
 /*PROTECTED REGION END*/
+
 namespace alica
 {
-/*PROTECTED REGION ID(staticVars1475693360605) ENABLED START*/ // initialise static variables here
+/*PROTECTED REGION ID(staticVars1475693360605) ENABLED START*/
+// initialise static variables here
 /*PROTECTED REGION END*/
+
 ASPNavigation::ASPNavigation()
     : DomainBehaviour("ASPNavigation")
 {
-    /*PROTECTED REGION ID(con1475693360605) ENABLED START*/ // Add additional options here
+    /*PROTECTED REGION ID(con1475693360605) ENABLED START*/
+    // Add additional options here
     this->query = make_shared<alica::Query>();
     this->iterationCounter = 0;
     resultfile.open("results_externals.txt", fstream::app);
@@ -28,13 +36,15 @@ ASPNavigation::ASPNavigation()
 }
 ASPNavigation::~ASPNavigation()
 {
-    /*PROTECTED REGION ID(dcon1475693360605) ENABLED START*/ // Add additional options here
+    /*PROTECTED REGION ID(dcon1475693360605) ENABLED START*/
+    // Add additional options here
     resultfile.close();
     /*PROTECTED REGION END*/
 }
 void ASPNavigation::run(void *msg)
 {
-    /*PROTECTED REGION ID(run1475693360605) ENABLED START*/ // Add additional options here
+    /*PROTECTED REGION ID(run1475693360605) ENABLED START*/
+    // Add additional options here
     if (this->isSuccess())
     {
         return;
@@ -56,7 +66,7 @@ void ASPNavigation::run(void *msg)
     //			solver->loadFileFromConfig("navTest");
     //			solver->ground( { {"navTest", {}}}, nullptr);
     //			auto ext = make_shared<Gringo::Value>(solver->getGringoModule()->parseValue("reachable(r1405B,
-    //r1411)"));
+    // r1411)"));
     //			solver->getClingo()->assignExternal(*(ext), Gringo::TruthValue::True);
     //			solver->solve();
     //		}
@@ -65,7 +75,7 @@ void ASPNavigation::run(void *msg)
     //			cout << "ASPNavigation: grounding navTest2" << endl;
     //			solver->ground( { {"navTest2", {}}}, nullptr);
     //			auto ext = make_shared<Gringo::Value>(solver->getGringoModule()->parseValue("reachable(r1405B,
-    //r1411)"));
+    // r1411)"));
     //			solver->getClingo()->assignExternal(*(ext), Gringo::TruthValue::False);
     //			solver->solve();
     //		}
@@ -74,7 +84,7 @@ void ASPNavigation::run(void *msg)
     //			cout << "ASPNavigation: grounding navTest3" << endl;
     //			solver->ground( { {"navTest3", {}}}, nullptr);
     //			auto ext = make_shared<Gringo::Value>(solver->getGringoModule()->parseValue("reachable(r1405B,
-    //r1411)"));
+    // r1411)"));
     //			solver->getClingo()->assignExternal(*(ext), Gringo::TruthValue::True);
     //			solver->solve();
     //		}
@@ -154,7 +164,7 @@ void ASPNavigation::run(void *msg)
                 //					cout << "\tThe model contains the predicates: " << endl;
                 //					cout << "\t\t";
                 //					for (int i = 0; i < it->query->getCurrentModels()->at(0).size();
-                //i++)
+                // i++)
                 //					{
                 //						cout << it->query->getCurrentModels()->at(0).at(i) << "
                 //";
@@ -167,7 +177,7 @@ void ASPNavigation::run(void *msg)
                 //					cout << "\tThe model contains the predicates: " << endl;
                 //					cout << "\t\t";
                 //					for (int i = 0; i < it->query->getCurrentModels()->at(0).size();
-                //i++)
+                // i++)
                 //					{
                 //						cout << it->query->getCurrentModels()->at(0).at(i) << "
                 //";
@@ -194,12 +204,16 @@ void ASPNavigation::run(void *msg)
 }
 void ASPNavigation::initialiseParameters()
 {
-    /*PROTECTED REGION ID(initialiseParameters1475693360605) ENABLED START*/ // Add additional options here
+    /*PROTECTED REGION ID(initialiseParameters1475693360605) ENABLED START*/
+    // Add additional options here
     query->clearStaticVariables();
     query->addStaticVariable(getVariableByName("NavVar"));
     // result.clear(); // <-- this is done in each query->getSolution call
+
     /*PROTECTED REGION END*/
 }
-/*PROTECTED REGION ID(methods1475693360605) ENABLED START*/ // Add additional methods here
+/*PROTECTED REGION ID(methods1475693360605) ENABLED START*/
+// Add additional methods here
 /*PROTECTED REGION END*/
+
 } /* namespace alica */

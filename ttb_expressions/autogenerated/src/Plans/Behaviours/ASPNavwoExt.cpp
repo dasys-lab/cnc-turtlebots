@@ -1,23 +1,31 @@
-using namespace std;
 #include "Plans/Behaviours/ASPNavwoExt.h"
+#include <memory>
 
-/*PROTECTED REGION ID(inccpp1477229760910) ENABLED START*/ // Add additional includes here
+using std::make_shared;
+using std::shared_ptr;
+
+/*PROTECTED REGION ID(inccpp1477229760910) ENABLED START*/
+// Add additional includes here
 #include <SolverType.h>
 #include <ttb/TTBWorldModel.h>
 
+#include <SystemConfig.h>
 #include <asp_commons/ASPQuery.h>
 #include <asp_commons/IASPSolver.h>
 #include <asp_solver_wrapper/ASPSolverWrapper.h>
-#include <SystemConfig.h>
 /*PROTECTED REGION END*/
+
 namespace alica
 {
-/*PROTECTED REGION ID(staticVars1477229760910) ENABLED START*/ // initialise static variables here
+/*PROTECTED REGION ID(staticVars1477229760910) ENABLED START*/
+// initialise static variables here
 /*PROTECTED REGION END*/
+
 ASPNavwoExt::ASPNavwoExt()
     : DomainBehaviour("ASPNavwoExt")
 {
-    /*PROTECTED REGION ID(con1477229760910) ENABLED START*/ // Add additional options here
+    /*PROTECTED REGION ID(con1477229760910) ENABLED START*/
+    // Add additional options here
     this->query = std::make_shared<alica::Query>();
     this->doorConfig = "";
     this->iterationCounter = 0;
@@ -26,13 +34,15 @@ ASPNavwoExt::ASPNavwoExt()
 }
 ASPNavwoExt::~ASPNavwoExt()
 {
-    /*PROTECTED REGION ID(dcon1477229760910) ENABLED START*/ // Add additional options here
+    /*PROTECTED REGION ID(dcon1477229760910) ENABLED START*/
+    // Add additional options here
     resultfile.close();
     /*PROTECTED REGION END*/
 }
 void ASPNavwoExt::run(void *msg)
 {
-    /*PROTECTED REGION ID(run1477229760910) ENABLED START*/ // Add additional options here
+    /*PROTECTED REGION ID(run1477229760910) ENABLED START*/
+    // Add additional options here
     if (this->isSuccess())
     {
         return;
@@ -126,7 +136,8 @@ void ASPNavwoExt::run(void *msg)
 }
 void ASPNavwoExt::initialiseParameters()
 {
-    /*PROTECTED REGION ID(initialiseParameters1477229760910) ENABLED START*/ // Add additional options here
+    /*PROTECTED REGION ID(initialiseParameters1477229760910) ENABLED START*/
+    // Add additional options here
     query->clearStaticVariables();
     result.clear();
     this->doorConfig = this->getParameter("doorConfig");
@@ -138,8 +149,11 @@ void ASPNavwoExt::initialiseParameters()
     {
         query->addStaticVariable(getVariableByName("NavVar2"));
     }
+
     /*PROTECTED REGION END*/
 }
-/*PROTECTED REGION ID(methods1477229760910) ENABLED START*/ // Add additional methods here
+/*PROTECTED REGION ID(methods1477229760910) ENABLED START*/
+// Add additional methods here
 /*PROTECTED REGION END*/
+
 } /* namespace alica */

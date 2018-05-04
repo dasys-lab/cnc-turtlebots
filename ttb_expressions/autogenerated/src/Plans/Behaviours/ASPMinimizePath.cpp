@@ -1,30 +1,40 @@
-using namespace std;
 #include "Plans/Behaviours/ASPMinimizePath.h"
+#include <memory>
 
-/*PROTECTED REGION ID(inccpp1477125924367) ENABLED START*/ // Add additional includes here
+using std::make_shared;
+using std::shared_ptr;
+
+/*PROTECTED REGION ID(inccpp1477125924367) ENABLED START*/
+// Add additional includes here
 #include <SolverType.h>
 #include <asp_commons/ASPQuery.h>
 #include <ttb/TTBWorldModel.h>
 /*PROTECTED REGION END*/
+
 namespace alica
 {
-/*PROTECTED REGION ID(staticVars1477125924367) ENABLED START*/ // initialise static variables here
+/*PROTECTED REGION ID(staticVars1477125924367) ENABLED START*/
+// initialise static variables here
 /*PROTECTED REGION END*/
+
 ASPMinimizePath::ASPMinimizePath()
     : DomainBehaviour("ASPMinimizePath")
 {
-    /*PROTECTED REGION ID(con1477125924367) ENABLED START*/ // Add additional options here
+    /*PROTECTED REGION ID(con1477125924367) ENABLED START*/
+    // Add additional options here
     this->query = std::make_shared<alica::Query>();
     /*PROTECTED REGION END*/
 }
 ASPMinimizePath::~ASPMinimizePath()
 {
-    /*PROTECTED REGION ID(dcon1477125924367) ENABLED START*/ // Add additional options here
+    /*PROTECTED REGION ID(dcon1477125924367) ENABLED START*/
+    // Add additional options here
     /*PROTECTED REGION END*/
 }
 void ASPMinimizePath::run(void *msg)
 {
-    /*PROTECTED REGION ID(run1477125924367) ENABLED START*/ // Add additional options here
+    /*PROTECTED REGION ID(run1477125924367) ENABLED START*/
+    // Add additional options here
     if (this->isSuccess())
     {
         return;
@@ -89,12 +99,16 @@ void ASPMinimizePath::run(void *msg)
 }
 void ASPMinimizePath::initialiseParameters()
 {
-    /*PROTECTED REGION ID(initialiseParameters1477125924367) ENABLED START*/ // Add additional options here
+    /*PROTECTED REGION ID(initialiseParameters1477125924367) ENABLED START*/
+    // Add additional options here
     query->clearStaticVariables();
     query->addStaticVariable(getVariableByName("MinVar"));
     result.clear();
+
     /*PROTECTED REGION END*/
 }
-/*PROTECTED REGION ID(methods1477125924367) ENABLED START*/ // Add additional methods here
+/*PROTECTED REGION ID(methods1477125924367) ENABLED START*/
+// Add additional methods here
 /*PROTECTED REGION END*/
+
 } /* namespace alica */

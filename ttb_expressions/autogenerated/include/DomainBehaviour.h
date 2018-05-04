@@ -1,31 +1,33 @@
 #pragma once
 
 #include <engine/BasicBehaviour.h>
-#include <ros/ros.h>
 #include <string>
-
-namespace supplementary {
-	class SystemConfig;
+/*PROTECTED REGION ID(domainBehaviourHeaderHead) ENABLED START*/
+#include <ros/ros.h>
+namespace supplementary
+{
+class SystemConfig;
 }
 
-namespace ttb {
-	class TTBWorldModel;
-	class TurtleBot;
+namespace ttb
+{
+class TTBWorldModel;
+class TurtleBot;
 }
+/*PROTECTED REGION END*/
 
 namespace alica
 {
-	class DomainBehaviour : public BasicBehaviour
-	{
-	public:
-		DomainBehaviour(std::string name);
-		virtual ~DomainBehaviour();
+class DomainBehaviour : public BasicBehaviour
+{
+  public:
+    DomainBehaviour(std::string name);
+    virtual ~DomainBehaviour();
 
-	protected:
-		supplementary::SystemConfig* sc;
-		ttb::TTBWorldModel* wm;
-		ttb::TurtleBot* turtleBot;
-	};
+    /*PROTECTED REGION ID(domainBehaviourClassDecl) ENABLED START*/
+    supplementary::SystemConfig *sc;
+    ttb::TTBWorldModel *wm;
+    ttb::TurtleBot *turtleBot;
+    /*PROTECTED REGION END*/
+};
 } /* namespace alica */
-
-

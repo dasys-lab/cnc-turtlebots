@@ -1,7 +1,11 @@
-using namespace std;
 #include "Plans/Behaviours/ASPRCCTest.h"
+#include <memory>
 
-/*PROTECTED REGION ID(inccpp1480766583222) ENABLED START*/ // Add additional includes here
+using std::make_shared;
+using std::shared_ptr;
+
+/*PROTECTED REGION ID(inccpp1480766583222) ENABLED START*/
+// Add additional includes here
 #include <SolverType.h>
 #include <ttb/TTBWorldModel.h>
 
@@ -13,14 +17,18 @@ using namespace std;
 #include <actionlib/client/simple_action_client.h>
 #include <move_base_msgs/MoveBaseAction.h>
 /*PROTECTED REGION END*/
+
 namespace alica
 {
-/*PROTECTED REGION ID(staticVars1480766583222) ENABLED START*/ // initialise static variables here
+/*PROTECTED REGION ID(staticVars1480766583222) ENABLED START*/
+// initialise static variables here
 /*PROTECTED REGION END*/
+
 ASPRCCTest::ASPRCCTest()
     : DomainBehaviour("ASPRCCTest")
 {
-    /*PROTECTED REGION ID(con1480766583222) ENABLED START*/ // Add additional options here
+    /*PROTECTED REGION ID(con1480766583222) ENABLED START*/
+    // Add additional options here
     this->query = make_shared<alica::Query>();
     this->iterationCounter = 0;
     resultfile.open("results_rcctest.txt", fstream::app);
@@ -28,13 +36,15 @@ ASPRCCTest::ASPRCCTest()
 }
 ASPRCCTest::~ASPRCCTest()
 {
-    /*PROTECTED REGION ID(dcon1480766583222) ENABLED START*/ // Add additional options here
+    /*PROTECTED REGION ID(dcon1480766583222) ENABLED START*/
+    // Add additional options here
     resultfile.close();
     /*PROTECTED REGION END*/
 }
 void ASPRCCTest::run(void *msg)
 {
-    /*PROTECTED REGION ID(run1480766583222) ENABLED START*/ // Add additional options here
+    /*PROTECTED REGION ID(run1480766583222) ENABLED START*/
+    // Add additional options here
     if (this->isSuccess())
     {
         return;
@@ -78,7 +88,7 @@ void ASPRCCTest::run(void *msg)
                 //					cout << "\tThe model contains the predicates: " << endl;
                 //					cout << "\t\t";
                 //					for (int i = 0; i < it->query->getCurrentModels()->at(0).size();
-                //i++)
+                // i++)
                 //					{
                 //						cout << it->query->getCurrentModels()->at(0).at(i) << "
                 //";
@@ -91,7 +101,7 @@ void ASPRCCTest::run(void *msg)
                 //					cout << "\tThe model contains the predicates: " << endl;
                 //					cout << "\t\t";
                 //					for (int i = 0; i < it->query->getCurrentModels()->at(0).size();
-                //i++)
+                // i++)
                 //					{
                 //						cout << it->query->getCurrentModels()->at(0).at(i) << "
                 //";
@@ -123,11 +133,15 @@ void ASPRCCTest::run(void *msg)
 }
 void ASPRCCTest::initialiseParameters()
 {
-    /*PROTECTED REGION ID(initialiseParameters1480766583222) ENABLED START*/ // Add additional options here
+    /*PROTECTED REGION ID(initialiseParameters1480766583222) ENABLED START*/
+    // Add additional options here
     query->clearStaticVariables();
     query->addStaticVariable(getVariableByName("TestVar"));
+
     /*PROTECTED REGION END*/
 }
-/*PROTECTED REGION ID(methods1480766583222) ENABLED START*/ // Add additional methods here
+/*PROTECTED REGION ID(methods1480766583222) ENABLED START*/
+// Add additional methods here
 /*PROTECTED REGION END*/
+
 } /* namespace alica */

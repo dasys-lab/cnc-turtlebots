@@ -1,32 +1,42 @@
-using namespace std;
 #include "Plans/Behaviours/DriveToPoint.h"
+#include <memory>
 
-/*PROTECTED REGION ID(inccpp1520850811997) ENABLED START*/ // Add additional includes here
+using std::make_shared;
+using std::shared_ptr;
+
+/*PROTECTED REGION ID(inccpp1520850811997) ENABLED START*/
+// Add additional includes here
 #include <SolverType.h>
 #include <TurtleBot.h>
 #include <robot/SimulatedArm.h>
 #include <ttb/TTBWorldModel.h>
 /*PROTECTED REGION END*/
+
 namespace alica
 {
-/*PROTECTED REGION ID(staticVars1520850811997) ENABLED START*/ // initialise static variables here
+/*PROTECTED REGION ID(staticVars1520850811997) ENABLED START*/
+// initialise static variables here
 /*PROTECTED REGION END*/
+
 DriveToPoint::DriveToPoint()
     : DomainBehaviour("DriveToPoint")
 {
-    /*PROTECTED REGION ID(con1520850811997) ENABLED START*/ // Add additional options here
+    /*PROTECTED REGION ID(con1520850811997) ENABLED START*/
+    // Add additional options here
     this->query = std::make_shared<alica::Query>();
     this->goalHandle.reset();
     /*PROTECTED REGION END*/
 }
 DriveToPoint::~DriveToPoint()
 {
-    /*PROTECTED REGION ID(dcon1520850811997) ENABLED START*/ // Add additional options here
+    /*PROTECTED REGION ID(dcon1520850811997) ENABLED START*/
+    // Add additional options here
     /*PROTECTED REGION END*/
 }
 void DriveToPoint::run(void *msg)
 {
-    /*PROTECTED REGION ID(run1520850811997) ENABLED START*/ // Add additional options here
+    /*PROTECTED REGION ID(run1520850811997) ENABLED START*/
+    // Add additional options here
     result.clear();
     if (!this->query->getSolution(SolverType::DUMMYSOLVER, runningPlan, result))
     {
@@ -65,15 +75,18 @@ void DriveToPoint::run(void *msg)
 }
 void DriveToPoint::initialiseParameters()
 {
-    /*PROTECTED REGION ID(initialiseParameters1520850811997) ENABLED START*/ // Add additional options here
+    /*PROTECTED REGION ID(initialiseParameters1520850811997) ENABLED START*/
+    // Add additional options here
     this->query->clearStaticVariables();
     this->result.clear();
     this->query->addStaticVariable(getVariableByName("x"));
     this->query->addStaticVariable(getVariableByName("y"));
     this->goalHandle.reset();
+
     /*PROTECTED REGION END*/
 }
-/*PROTECTED REGION ID(methods1520850811997) ENABLED START*/ // Add additional methods here
+/*PROTECTED REGION ID(methods1520850811997) ENABLED START*/
+// Add additional methods here
 bool DriveToPoint::isMoveBaseDone()
 {
     if (!this->goalHandle.isExpired() && this->goalHandle.getCommState() == actionlib::CommState::DONE)
@@ -92,4 +105,5 @@ bool DriveToPoint::isMoveBaseDone()
     return false;
 }
 /*PROTECTED REGION END*/
+
 } /* namespace alica */

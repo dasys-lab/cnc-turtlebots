@@ -1,24 +1,23 @@
-#ifndef CONDITIONCREATOR_H_
-#define CONDITIONCREATOR_H_
+#pragma once
 
-using namespace std;
-
-#include "engine/IConditionCreator.h"
+#include <engine/IConditionCreator.h>
+#include <iostream>
 #include <memory>
-#include "iostream"
+
+using std::exception;
+using std::make_shared;
+using std::cout;
 
 namespace alica
 {
-    class BasicCondition;
+class BasicCondition;
 
-    class ConditionCreator : public IConditionCreator
-    {
-    public:
-        ConditionCreator();
-        virtual ~ConditionCreator();
-        shared_ptr<BasicCondition> createConditions(long conditionConfId);
-    };
+class ConditionCreator : public IConditionCreator
+{
+  public:
+    ConditionCreator();
+    virtual ~ConditionCreator();
+    shared_ptr<BasicCondition> createConditions(long conditionConfId);
+};
 
 } /* namespace alica */
-
-#endif /* ALICA_ALICA_TEST_SRC_TESTCONSTRAINTCREATOR_H_ */
