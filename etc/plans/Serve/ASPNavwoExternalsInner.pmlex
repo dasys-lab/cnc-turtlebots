@@ -1,2 +1,19 @@
 <?xml version="1.0" encoding="ASCII"?>
-<uiextensionmodel:PmlUiExtensionMap xmlns:uiextensionmodel="http:///de.uni_kassel.vs.cn/planDesigner/pmlextension/uiextensionmodel"/>
+<uiextensionmodel:PmlUiExtensionMap xmlns:uiextensionmodel="http:///de.uni_kassel.vs.cn/planDesigner/pmlextension/uiextensionmodel">
+  <extension>
+    <key href="Serve/ASPNavwoExternalsInner.pml#1477229659174"/>
+    <value xPos="358" yPos="-183" width="-1" height="-1" collapsed="true" visible="true"/>
+  </extension>
+  <extension>
+    <key href="Serve/ASPNavwoExternalsInner.pml#1479298294756"/>
+    <value xPos="574" yPos="-194" width="-1" height="-1" collapsed="true" visible="true"/>
+  </extension>
+  <extension>
+    <key href="Serve/ASPNavwoExternalsInner.pml#1479298299806"/>
+    <value width="-1" height="-1" collapsed="true" visible="true"/>
+  </extension>
+  <extension>
+    <key href="Serve/ASPNavwoExternalsInner.pml#1477229659175"/>
+    <value xPos="170" yPos="-182" width="-1" height="-1" collapsed="true" visible="true"/>
+  </extension>
+</uiextensionmodel:PmlUiExtensionMap>

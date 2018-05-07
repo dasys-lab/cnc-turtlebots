@@ -1,2 +1,45 @@
 <?xml version="1.0" encoding="ASCII"?>
-<uiextensionmodel:PmlUiExtensionMap xmlns:uiextensionmodel="http:///de.uni_kassel.vs.cn/planDesigner/pmlextension/uiextensionmodel"/>
+<uiextensionmodel:PmlUiExtensionMap xmlns:uiextensionmodel="http:///de.uni_kassel.vs.cn/planDesigner/pmlextension/uiextensionmodel">
+  <extension>
+    <key href="Serve/ServeMaster.pml#1454332108134"/>
+    <value xPos="216" yPos="126" width="-1" height="-1" collapsed="true" visible="true"/>
+  </extension>
+  <extension>
+    <key href="Serve/ServeMaster.pml#1454332119685"/>
+    <value xPos="312" yPos="125" width="-1" height="-1" collapsed="true" visible="true"/>
+  </extension>
+  <extension>
+    <key href="Serve/ServeMaster.pml#1454332121310"/>
+    <value xPos="253" yPos="-75" width="-1" height="-1" collapsed="true" visible="true"/>
+  </extension>
+  <extension>
+    <key href="Serve/ServeMaster.pml#1454332141413"/>
+    <value width="-1" height="-1" collapsed="true" visible="true"/>
+  </extension>
+  <extension>
+    <key href="Serve/ServeMaster.pml#1454332142505"/>
+    <value width="-1" height="-1" collapsed="true" visible="true"/>
+  </extension>
+  <extension>
+    <key href="Serve/ServeMaster.pml#1454332144573"/>
+    <value width="-1" height="-1" collapsed="true" visible="true">
+      <bendpoints xPos="399" yPos="-25"/>
+    </value>
+  </extension>
+  <extension>
+    <key href="Serve/ServeMaster.pml#1454332145537"/>
+    <value width="-1" height="-1" collapsed="true" visible="true"/>
+  </extension>
+  <extension>
+    <key href="Serve/ServeMaster.pml#1454332146639"/>
+    <value width="-1" height="-1" collapsed="true" visible="true"/>
+  </extension>
+  <extension>
+    <key href="Serve/ServeMaster.pml#1454332108135"/>
+    <value xPos="113" yPos="-158" width="-1" height="-1" collapsed="true" visible="true"/>
+  </extension>
+  <extension>
+    <key href="Serve/ServeMaster.pml#1525694191203"/>
+    <value xPos="500" yPos="10" width="-1" height="-1" collapsed="true" visible="true"/>
+  </extension>
+</uiextensionmodel:PmlUiExtensionMap>

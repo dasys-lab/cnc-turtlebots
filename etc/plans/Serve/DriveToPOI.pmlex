@@ -1,2 +1,43 @@
 <?xml version="1.0" encoding="ASCII"?>
-<uiextensionmodel:PmlUiExtensionMap xmlns:uiextensionmodel="http:///de.uni_kassel.vs.cn/planDesigner/pmlextension/uiextensionmodel"/>
+<uiextensionmodel:PmlUiExtensionMap xmlns:uiextensionmodel="http:///de.uni_kassel.vs.cn/planDesigner/pmlextension/uiextensionmodel">
+  <extension>
+    <key href="Serve/DriveToPOI.pml#1519913874345"/>
+    <value xPos="158" yPos="76" width="-1" height="-1" collapsed="true" visible="true"/>
+  </extension>
+  <extension>
+    <key href="Serve/DriveToPOI.pml#1519913892405"/>
+    <value xPos="240" yPos="-67" width="-1" height="-1" collapsed="true" visible="true"/>
+  </extension>
+  <extension>
+    <key href="Serve/DriveToPOI.pml#1519914080351"/>
+    <value xPos="501" yPos="71" width="-1" height="-1" collapsed="true" visible="true"/>
+  </extension>
+  <extension>
+    <key href="Serve/DriveToPOI.pml#1519914308674"/>
+    <value xPos="435" yPos="-39" width="-1" height="-1" collapsed="true" visible="true"/>
+  </extension>
+  <extension>
+    <key href="Serve/DriveToPOI.pml#1519913899492"/>
+    <value width="-1" height="-1" collapsed="true" visible="true"/>
+  </extension>
+  <extension>
+    <key href="Serve/DriveToPOI.pml#1519913901227"/>
+    <value width="-1" height="-1" collapsed="true" visible="true"/>
+  </extension>
+  <extension>
+    <key href="Serve/DriveToPOI.pml#1519914091859"/>
+    <value width="-1" height="-1" collapsed="true" visible="true"/>
+  </extension>
+  <extension>
+    <key href="Serve/DriveToPOI.pml#1519914329278"/>
+    <value width="-1" height="-1" collapsed="true" visible="true"/>
+  </extension>
+  <extension>
+    <key href="Serve/DriveToPOI.pml#1519914331850"/>
+    <value width="-1" height="-1" collapsed="true" visible="true"/>
+  </extension>
+  <extension>
+    <key href="Serve/DriveToPOI.pml#1519913874346"/>
+    <value xPos="4" yPos="71" width="-1" height="-1" collapsed="true" visible="true"/>
+  </extension>
+</uiextensionmodel:PmlUiExtensionMap>

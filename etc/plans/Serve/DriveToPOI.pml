@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="ASCII"?>
-<alica:Plan xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:alica="http:///de.uni_kassel.vs.cn" id="1519913821580" name="DriveToPOI" comment="" masterPlan="false" utilityFunction="" utilityThreshold="0.1" destinationPath="Plans/Serve" priority="0.0" minCardinality="0" maxCardinality="2147483647">
-  <runtimeCondition xsi:type="alica:RuntimeCondition" id="1519914269940" name="NewRuntimeCondition" comment="" conditionString="" pluginName="DefaultPlugin">
+<alica:Plan xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:alica="http:///de.uni_kassel.vs.cn" id="1519913821580" name="DriveToPOI" comment="" destinationPath="Plans/Serve" priority="0.0" minCardinality="0" maxCardinality="2147483647" masterPlan="false" utilityFunction="" utilityThreshold="0.1">
+  <vars id="1519913984042" name="door" comment="" Type=""/>
+  <vars id="1519913989387" name="poi" comment="" Type=""/>
+  <runtimeCondition id="1519914269940" name="NewRuntimeCondition" comment="" conditionString="" pluginName="DefaultPlugin">
     <vars>Serve/DriveToPOI.pml#1519913984042</vars>
     <vars>Serve/DriveToPOI.pml#1519913989387</vars>
   </runtimeCondition>
-  <vars id="1519913984042" name="door" comment="" Type=""/>
-  <vars id="1519913989387" name="poi" comment="" Type=""/>
   <states id="1519913874345" name="DriveToPOI" comment="" entryPoint="1519913874346">
     <parametrisation id="1519914162033" name="MISSING_NAME" comment="">
       <subplan xsi:type="alica:Behaviour">Behaviours/DriveToPOI.beh#1454329856163</subplan>
