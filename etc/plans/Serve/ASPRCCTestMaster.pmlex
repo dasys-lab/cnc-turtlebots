@@ -1,2 +1,19 @@
 <?xml version="1.0" encoding="ASCII"?>
-<uiextensionmodel:PmlUiExtensionMap xmlns:uiextensionmodel="http:///de.uni_kassel.vs.cn/planDesigner/pmlextension/uiextensionmodel"/>
+<uiextensionmodel:PmlUiExtensionMap xmlns:uiextensionmodel="http:///de.uni_kassel.vs.cn/planDesigner/pmlextension/uiextensionmodel">
+  <extension>
+    <key href="Serve/ASPRCCTestMaster.pml#1480766525773"/>
+    <value xPos="188" yPos="-86" width="-1" height="-1" collapsed="true" visible="true"/>
+  </extension>
+  <extension>
+    <key href="Serve/ASPRCCTestMaster.pml#1480766535708"/>
+    <value xPos="391" yPos="-113" width="-1" height="-1" collapsed="true" visible="true"/>
+  </extension>
+  <extension>
+    <key href="Serve/ASPRCCTestMaster.pml#1480766545779"/>
+    <value width="-1" height="-1" collapsed="true" visible="true"/>
+  </extension>
+  <extension>
+    <key href="Serve/ASPRCCTestMaster.pml#1480766525774"/>
+    <value xPos="11" yPos="-132" width="-1" height="-1" collapsed="true" visible="true"/>
+  </extension>
+</uiextensionmodel:PmlUiExtensionMap>

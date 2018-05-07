@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="ASCII"?>
-<alica:Plan xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:alica="http:///de.uni_kassel.vs.cn" id="1468493942500" name="CarryBookMaster" comment="" masterPlan="true" utilityFunction="" utilityThreshold="0.1" destinationPath="Plans/Serve" priority="0.0" minCardinality="0" maxCardinality="2147483647">
+<alica:Plan xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:alica="http:///de.uni_kassel.vs.cn" id="1468493942500" name="CarryBookMaster" comment="" destinationPath="Plans/Serve" priority="0.0" minCardinality="0" maxCardinality="2147483647" masterPlan="true" utilityFunction="" utilityThreshold="0.1">
   <states id="1468493942502" name="CarryBookState1" comment="" entryPoint="1468494403537">
-    <plans xsi:type="alica:Plan">CarryBook.pml#1468494583802</plans>
+    <plans xsi:type="alica:Plan">Serve/CarryBook.pml#1468494583802</plans>
     <outTransitions>Serve/CarryBookMaster.pml#1469016823576</outTransitions>
   </states>
   <states xsi:type="alica:SuccessState" id="1469016820804" name="NewSuccessState" comment="">

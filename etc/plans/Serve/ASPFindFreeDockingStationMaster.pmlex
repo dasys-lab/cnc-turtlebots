@@ -1,2 +1,27 @@
 <?xml version="1.0" encoding="ASCII"?>
-<uiextensionmodel:PmlUiExtensionMap xmlns:uiextensionmodel="http:///de.uni_kassel.vs.cn/planDesigner/pmlextension/uiextensionmodel"/>
+<uiextensionmodel:PmlUiExtensionMap xmlns:uiextensionmodel="http:///de.uni_kassel.vs.cn/planDesigner/pmlextension/uiextensionmodel">
+  <extension>
+    <key href="Serve/ASPFindFreeDockingStationMaster.pml#1470041057808"/>
+    <value xPos="-1" yPos="-118" width="-1" height="-1" collapsed="true" visible="true"/>
+  </extension>
+  <extension>
+    <key href="Serve/ASPFindFreeDockingStationMaster.pml#1470041204046"/>
+    <value xPos="117" yPos="-34" width="-1" height="-1" collapsed="true" visible="true"/>
+  </extension>
+  <extension>
+    <key href="Serve/ASPFindFreeDockingStationMaster.pml#1470042244415"/>
+    <value xPos="331" yPos="-145" width="-1" height="-1" collapsed="true" visible="true"/>
+  </extension>
+  <extension>
+    <key href="Serve/ASPFindFreeDockingStationMaster.pml#1470041207327"/>
+    <value width="-1" height="-1" collapsed="true" visible="true"/>
+  </extension>
+  <extension>
+    <key href="Serve/ASPFindFreeDockingStationMaster.pml#1470042247718"/>
+    <value width="-1" height="-1" collapsed="true" visible="true"/>
+  </extension>
+  <extension>
+    <key href="Serve/ASPFindFreeDockingStationMaster.pml#1470041057809"/>
+    <value xPos="-18" yPos="-217" width="-1" height="-1" collapsed="true" visible="true"/>
+  </extension>
+</uiextensionmodel:PmlUiExtensionMap>

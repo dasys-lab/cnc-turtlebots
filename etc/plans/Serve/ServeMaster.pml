@@ -19,7 +19,6 @@
     <outTransitions>Serve/ServeMaster.pml#1454332141413</outTransitions>
     <outTransitions>Serve/ServeMaster.pml#1454332144573</outTransitions>
   </states>
-  <states id="1525694191203" name="MISSING NAME" comment=""/>
   <transitions id="1454332141413" name="MISSING_NAME" comment="stop" msg="">
     <preCondition id="1454332142376" name="MISSING_NAME" comment="" conditionString="" pluginName="DefaultPlugin" enabled="true"/>
     <inState>Serve/ServeMaster.pml#1454332121310</inState>

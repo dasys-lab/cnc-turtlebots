@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="ASCII"?>
-<alica:Plan xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:alica="http:///de.uni_kassel.vs.cn" id="1480766525772" name="ASPRCCTestMaster" comment="" masterPlan="true" utilityFunction="" utilityThreshold="0.1" destinationPath="Plans/Serve" priority="0.0" minCardinality="0" maxCardinality="2147483647">
-  <runtimeCondition xsi:type="alica:RuntimeCondition" id="1480766551805" name="NewRuntimeCondition" comment="" conditionString="" pluginName="DefaultPlugin">
+<alica:Plan xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:alica="http:///de.uni_kassel.vs.cn" id="1480766525772" name="ASPRCCTestMaster" comment="" destinationPath="Plans/Serve" priority="0.0" minCardinality="0" maxCardinality="2147483647" masterPlan="true" utilityFunction="" utilityThreshold="0.1">
+  <vars id="1480766663869" name="PlanVar" comment="" Type=""/>
+  <runtimeCondition id="1480766551805" name="NewRuntimeCondition" comment="" conditionString="" pluginName="DefaultPlugin">
     <vars>Serve/ASPRCCTestMaster.pml#1480766663869</vars>
   </runtimeCondition>
-  <vars id="1480766663869" name="PlanVar" comment="" Type=""/>
   <states id="1480766525773" name="NewState" comment="" entryPoint="1480766525774">
     <parametrisation id="1480766690594" name="MISSING_NAME" comment="">
       <subplan xsi:type="alica:Behaviour">Behaviours/ASPRCCTest.beh#1480766583222</subplan>
