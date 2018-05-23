@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="ASCII"?>
+<de.uni_kassel.vs.cn.planDesigner:PlanType xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:de.uni_kassel.vs.cn.planDesigner="http:///de.uni_kassel.vs.cn" id="1527061175266" name="TestPlanType" comment="" destinationPath="Plans/Serve">
+  <plans id="1527061361916" name="MISSING_NAME" comment="" activated="true">
+    <plan>Serve/DriveToPOI.pml#1519913821580</plan>
+  </plans>
+  <plans id="1527061369539" name="MISSING_NAME" comment="" activated="true">
+    <plan>Serve/Charge.pml#1454331030770</plan>
+  </plans>
+  <plans id="1527061371306" name="MISSING_NAME" comment="" activated="true">
+    <plan>Serve/Serve.pml#1454331313621</plan>
+  </plans>
+</de.uni_kassel.vs.cn.planDesigner:PlanType>
