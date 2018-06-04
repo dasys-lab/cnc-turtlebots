@@ -29,9 +29,13 @@
 
 #include  "Plans/Tests/constraints/TurtleGenericTestMaster1454329729827Constraints.h"
 
+#include  "Plans/Tests/TestsAlex/constraints/TestCommunication1528124991817Constraints.h"
+
 #include  "Plans/Serve/constraints/ASPRCCTestMaster1480766525772Constraints.h"
 
 #include  "Plans/Wumpus/constraints/Turn1489674129255Constraints.h"
+
+#include  "Plans/Tests/TestsAlex/constraints/TestCommunicationMaster1528124971225Constraints.h"
 
 #include  "Plans/Tests/constraints/TestPOI1454329810785Constraints.h"
 

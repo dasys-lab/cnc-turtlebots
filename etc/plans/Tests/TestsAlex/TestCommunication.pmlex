@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="ASCII"?>
+<uiextensionmodel:PmlUiExtensionMap xmlns:uiextensionmodel="http:///de.uni_kassel.vs.cn/planDesigner/pmlextension/uiextensionmodel">
+  <extensions>
+    <key href="TestCommunication.pml#1528125008667"/>
+    <value xPos="128" yPos="48" width="82" height="67" collapsed="false"/>
+  </extensions>
+  <extensions>
+    <key href="TestCommunication.pml#1528124991817"/>
+    <value width="542" height="308"/>
+  </extensions>
+  <extensions>
+    <key href="TestCommunication.pml#1528125008668"/>
+    <value/>
+  </extensions>
+  <extensions>
+    <key href="TestCommunication.pml#1528125016366"/>
+    <value xPos="98" yPos="230"/>
+  </extensions>
+  <extensions>
+    <key href="TestCommunication.pml#1528125050252"/>
+    <value xPos="118" yPos="150" width="82" height="67" collapsed="false"/>
+  </extensions>
+  <extensions>
+    <key href="TestCommunication.pml#1528125060365"/>
+    <value xPos="447" yPos="137"/>
+  </extensions>
+  <extensions>
+    <key href="TestCommunication.pml#1528125075116"/>
+    <value/>
+  </extensions>
+  <extensions>
+    <key href="Publish.beh#1528125242157"/>
+    <value/>
+  </extensions>
+  <extensions>
+    <key href="Subscribe.beh#1528125256074"/>
+    <value/>
+  </extensions>
+</uiextensionmodel:PmlUiExtensionMap>

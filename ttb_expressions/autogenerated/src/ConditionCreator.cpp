@@ -28,9 +28,13 @@
 
 #include  "Plans/Tests/TurtleGenericTestMaster1454329729827.h"
 
+#include  "Plans/Tests/TestsAlex/TestCommunication1528124991817.h"
+
 #include  "Plans/Serve/ASPRCCTestMaster1480766525772.h"
 
 #include  "Plans/Wumpus/Turn1489674129255.h"
+
+#include  "Plans/Tests/TestsAlex/TestCommunicationMaster1528124971225.h"
 
 #include  "Plans/Tests/TestPOI1454329810785.h"
 
@@ -310,6 +314,12 @@ namespace alica
 
                 break;
 
+            case 1528125076265:
+
+                return make_shared<TransitionCondition1528125076265>();
+
+                break;
+
             case 1480766551805:
 
                 return make_shared<RunTimeCondition1480766551805>();
@@ -367,6 +377,12 @@ namespace alica
             case 1489746562418:
 
                 return make_shared<TransitionCondition1489746562418>();
+
+                break;
+
+            case 1528125190720:
+
+                return make_shared<TransitionCondition1528125190720>();
 
                 break;
 

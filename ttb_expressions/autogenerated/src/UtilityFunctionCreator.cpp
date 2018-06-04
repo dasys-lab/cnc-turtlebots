@@ -29,9 +29,13 @@
 
 #include  "Plans/Tests/TurtleGenericTestMaster1454329729827.h"
 
+#include  "Plans/Tests/TestsAlex/TestCommunication1528124991817.h"
+
 #include  "Plans/Serve/ASPRCCTestMaster1480766525772.h"
 
 #include  "Plans/Wumpus/Turn1489674129255.h"
+
+#include  "Plans/Tests/TestsAlex/TestCommunicationMaster1528124971225.h"
 
 #include  "Plans/Tests/TestPOI1454329810785.h"
 
@@ -111,12 +115,20 @@ namespace alica
                 return make_shared<UtilityFunction1454329729827>();
                 break;
 
+            case 1528124991817:
+                return make_shared<UtilityFunction1528124991817>();
+                break;
+
             case 1480766525772:
                 return make_shared<UtilityFunction1480766525772>();
                 break;
 
             case 1489674129255:
                 return make_shared<UtilityFunction1489674129255>();
+                break;
+
+            case 1528124971225:
+                return make_shared<UtilityFunction1528124971225>();
                 break;
 
             case 1454329810785:

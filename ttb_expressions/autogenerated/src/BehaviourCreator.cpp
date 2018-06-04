@@ -9,11 +9,15 @@ using namespace std;
 
 #include  "Plans/Behaviours/Wumpus/Wumpus.h"
 
+#include  "Plans/Tests/TestsAlex/Subscribe.h"
+
 #include  "Plans/Behaviours/Wumpus/Shoot.h"
 
 #include  "Plans/Behaviours/SearchForDockingStationAsp.h"
 
 #include  "Plans/Behaviours/ASPNavigation.h"
+
+#include  "Plans/Tests/TestsAlex/Publish.h"
 
 #include  "Plans/Behaviours/ChargingDefault.h"
 
@@ -74,6 +78,11 @@ namespace alica
                 return make_shared<Wumpus>();
                 break;
 
+            case 1528125256074:
+
+                return make_shared<Subscribe>();
+                break;
+
             case 1489674687663:
 
                 return make_shared<Shoot>();
@@ -89,6 +98,11 @@ namespace alica
             case 1476356448920:
 
                 return make_shared<ASPNavigation>();
+                break;
+
+            case 1528125242157:
+
+                return make_shared<Publish>();
                 break;
 
             case 1447958132701:
