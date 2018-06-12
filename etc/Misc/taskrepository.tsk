@@ -1,0 +1,13 @@
+{
+  "id" : 1528814511762,
+  "name" : "taskrepository",
+  "comment" : null,
+  "relativeDirectory" : "result.json",
+  "tasks" : [ {
+    "id" : 1528814511764,
+    "name" : "DefaultTask",
+    "comment" : null,
+    "taskRepository" : "result.json/taskrepository.tsk#1528814511762"
+  } ],
+  "defaultTask" : 1528814511764
+}
