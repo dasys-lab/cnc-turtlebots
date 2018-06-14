@@ -2,7 +2,7 @@
   "id" : 1528810473500,
   "name" : "TestMasterPlan",
   "comment" : "Test Comment String",
-  "relativeDirectory" : "result.json",
+  "relativeDirectory" : "",
   "masterPlan" : true,
   "activated" : true,
   "utilityThreshold" : 0.0,
