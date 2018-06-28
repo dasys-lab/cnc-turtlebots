@@ -25,7 +25,7 @@
     "comment" : "Stops the robot",
     "entryPoint" : 1528810473595,
     "parentPlan" : 1528810473500,
-    "plans" : "TestBehaviour.beh#1528810473503, TestBehaviour2.beh#1528810473592, ",
+    "plans" : "",
     "parametrisations" : [ ],
     "inTransitions" : [ ],
     "outTransitions" : [ ]
