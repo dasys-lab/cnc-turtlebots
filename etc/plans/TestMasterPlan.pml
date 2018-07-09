@@ -12,7 +12,7 @@
     "id" : 1528810473595,
     "name" : "TestEP",
     "comment" : null,
-    "task" : "taskrepository.tsk#1528875085489",
+    "task" : "TurtleBot.tsk#1528875085489",
     "successRequired" : false,
     "state" : 1528810473502,
     "plan" : 1528810473500,
