@@ -4,7 +4,6 @@
   "comment" : "Test Comment String",
   "relativeDirectory" : "",
   "masterPlan" : true,
-  "activated" : true,
   "utilityThreshold" : 0.0,
   "preCondition" : null,
   "runtimeCondition" : null,
