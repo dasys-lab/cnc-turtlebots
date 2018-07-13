@@ -1,0 +1,14 @@
+{
+  "id" : 1531473164094,
+  "name" : "TestPlanType",
+  "comment" : null,
+  "relativeDirectory" : "Plantypes",
+  "parametrisations" : [ ],
+  "plans" : [ {
+    "id" : 1531473171849,
+    "name" : "AnnotatedTestMasterPlan",
+    "comment" : null,
+    "plan" : "TestMasterPlan.pml#1528810473500",
+    "activated" : true
+  } ]
+}
