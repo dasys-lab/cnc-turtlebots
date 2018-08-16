@@ -5,24 +5,31 @@
     <inTransitions>#1454331501621</inTransitions>
     <inTransitions>#1486383766847</inTransitions>
     <inTransitions>#1486383788195</inTransitions>
+    <inTransitions>#1520511978130</inTransitions>
     <outTransitions>#1454331382859</outTransitions>
     <outTransitions>#1454331384188</outTransitions>
     <outTransitions>#1486383786264</outTransitions>
+    <outTransitions>#1520511976445</outTransitions>
   </states>
-  <states id="1454331334336" name="DriveTo" comment="">
-    <plans xsi:type="alica:BehaviourConfiguration">../Behaviours/DriveToPOI.beh#1454330438527</plans>
+  <states id="1454331334336" name="DriveToPOI" comment="">
+    <plans xsi:type="alica:Plan">DriveToPOI.pml#1519913821580</plans>
     <inTransitions>#1454331382859</inTransitions>
     <outTransitions>#1454331501621</outTransitions>
   </states>
   <states id="1454331358257" name="SearchFor" comment="">
-    <plans xsi:type="alica:Plan">PKVR16/SearchBoxes.pml#1481545038564</plans>
+    <plans xsi:type="alica:Plan">Search.pml#1520437018620</plans>
     <inTransitions>#1454331384188</inTransitions>
     <outTransitions>#1486383766847</outTransitions>
   </states>
   <states id="1486383776159" name="PickUp" comment="">
-    <plans xsi:type="alica:BehaviourConfiguration">PKVR16/PickUp.beh#1486381497239</plans>
+    <plans xsi:type="alica:Plan">PickUp.pml#1520438299583</plans>
     <inTransitions>#1486383786264</inTransitions>
     <outTransitions>#1486383788195</outTransitions>
+  </states>
+  <states id="1520511867671" name="PutDown" comment="">
+    <plans xsi:type="alica:Plan">PutDown.pml#1520511951867</plans>
+    <inTransitions>#1520511976445</inTransitions>
+    <outTransitions>#1520511978130</outTransitions>
   </states>
   <transitions id="1454331382859" name="MISSING_NAME" comment="POI received" msg="">
     <preCondition id="1454331384091" name="MISSING_NAME" comment="" conditionString="" pluginName="DefaultPlugin" enabled="true"/>
@@ -34,7 +41,7 @@
     <inState>#1454331321919</inState>
     <outState>#1454331358257</outState>
   </transitions>
-  <transitions id="1454331501621" name="MISSING_NAME" comment="reached goal" msg="">
+  <transitions id="1454331501621" name="MISSING_NAME" comment="reached goal | failed" msg="">
     <preCondition id="1454331503425" name="MISSING_NAME" comment="" conditionString="" pluginName="DefaultPlugin" enabled="true"/>
     <inState>#1454331334336</inState>
     <outState>#1454331321919</outState>
@@ -52,6 +59,16 @@
   <transitions id="1486383788195" name="MISSING_NAME" comment="picked up" msg="">
     <preCondition id="1486383790747" name="MISSING_NAME" comment="" conditionString="" pluginName="DefaultPlugin" enabled="true"/>
     <inState>#1486383776159</inState>
+    <outState>#1454331321919</outState>
+  </transitions>
+  <transitions id="1520511976445" name="MISSING_NAME" comment="start put down" msg="">
+    <preCondition id="1520511978036" name="MISSING_NAME" comment="" conditionString="" pluginName="DefaultPlugin" enabled="true"/>
+    <inState>#1454331321919</inState>
+    <outState>#1520511867671</outState>
+  </transitions>
+  <transitions id="1520511978130" name="MISSING_NAME" comment="finished putting object down" msg="">
+    <preCondition id="1520511979544" name="MISSING_NAME" comment="" conditionString="" pluginName="DefaultPlugin" enabled="true"/>
+    <inState>#1520511867671</inState>
     <outState>#1454331321919</outState>
   </transitions>
   <entryPoints id="1454331321920" name="MISSING_NAME" comment="" successRequired="false" minCardinality="0" maxCardinality="2147483647">

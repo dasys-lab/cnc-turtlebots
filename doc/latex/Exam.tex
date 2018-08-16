@@ -3,7 +3,7 @@
 
 The question in all courses is: ``What is relevant for the exam?''
 
-Each semester I will try to give an answer to that question again and again \ldots and again. \textbf{Here is my answer (not fixed yet) for the winter term 2016/17}:
+Each semester I will try to give an answer to that question again and again \ldots and again. \textbf{Here is my answer (not fixed yet) for the winter term 2017/18}:
 
 You should be able to give the right answer to the following questions and be able to fullfil the given tasks:
 
@@ -18,6 +18,7 @@ You should be able to give the right answer to the following questions and be ab
  \item Name two different sensors and explain their categories, properties, and value properties.
  \item What is an actuator?
  \item What is odometry?
+ \item Explain purpose of the MAPE-K cycle.
 \end{itemize}
 
 \section{Questions: External Software and Developing Tools}
@@ -40,6 +41,7 @@ You should be able to give the right answer to the following questions and be ab
  \item What is written in the header file and what in the source file of a C++ class?
  \item How does a shared\_ptr work and what is it good for?
  \item Explain roughly what the gcc compiler does.
+ \item What is the advantage of using C/C++ in the context of the robotic domain?
 \end{itemize}
 
 \section{Questions: Real Robots}
@@ -56,6 +58,11 @@ You should be able to give the right answer to the following questions and be ab
 
 \begin{itemize}
  \item Why do we use the logical camera sensor in simulation?
+ \item What is the purpose of the fake\_localization package and what does it require from Gazebo?
+ \item Why do we use the fake\_localization package instead of AMCL in a simulated environment?
+ \item How did we implement the artificial arm in Gazebo? Please name all components and plugins and describe there purpose.
+ \item Describe the process of inserting new models into Gazebo.
+ \item What is the difference between a link and a joint? How are they related?
 \end{itemize}
 
 \section{Questions: Navigation and Mapping}
@@ -63,15 +70,17 @@ You should be able to give the right answer to the following questions and be ab
 
 \begin{itemize}
  \item What is a CostMap?
+ \item What is the difference between the local and the global CostMap?
  \item Explain the following diagram (see Figure~\ref{fig:costmap}).
  \item Sketch the CostMap on the following drawing.
- \item Sketch an algorithm for driving to the given destination (see Figure~\ref{nav_task}) with the help of the laser scanner data.
+ \item Sketch an algorithm for driving to the given destination (see Figure~\ref{fig:nav_task}) with the help of the laser scanner data.
  \item Denote the input and the output of AMCL and sketch how AMCL is calculating the robtos position based on the input.
+ \item Explain the purpose of safety controller, velocity muxer, and velocity smoother.
 \end{itemize}
 
 \begin{figure*}[htbp]
  \includegraphics[width=\textwidth]{pic/costmapspec.png}
- \caption{CostMap Valuation Diagram (Source: http://wiki.ros.org/costmap\_2d)}
+ \caption{CostMap Valuation Diagram (Source: \href{http://wiki.ros.org/costmap\_2d}{http://wiki.ros.org/costmap\_2d})}
  \label{fig:costmap}
 \end{figure*}
 
@@ -80,7 +89,6 @@ You should be able to give the right answer to the following questions and be ab
  \caption{A Simple Navigation Task}
  \label{fig:nav_task}
 \end{figure*}
-
 
 \section{Questions: Application Scenario}
 \label{sec:questions_app_scenario}

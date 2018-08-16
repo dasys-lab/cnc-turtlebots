@@ -43,19 +43,29 @@ Don't forget to close the terminal after you edited the \verb$.bashrc$ file. It 
 \subsection{Starting Gazebo Simulation}
 \label{ssec:StartSimulation}
 
-The following command starts Gazebo with the Turtlebots in the map of our department and provides a ROS map\_server node.
+Currently, there are three different start-up scripts \textemdash each for another more or less complex environment. 
 
-\verb$roslaunch turtlebot_bringup simulation.launch$
+\begin{description}
+  \item[simulation.launch] This is the most simple scenario. Except from the robot(s), there is only one model in the world. This model represents the walls and ground of our Distributed Systems Department.
+  \item[disaster.launch] This scenario is very similar to the simulation.launch scenario. It simple includes further models with simple geometry. The idea is to represent some fire, gas, victims and landmarks for relative orientation. The scenario was used for a proof-of-concept in the \href{http://www.uni-kassel.de/eecs/fachgebiete/vs/research/nicer.html}{NICER project} and Stefan Niemczyk's disseration. 
+  \item[service\_robots.launch] This scenario is currently the most complex scenario. It includes doors, that can be opened and closed via ROS messages. The rooms are filled with furnitures like tables and cupboards and a lot of items are lying arround, e.g., coke cans, trash cans, cups, tools, books, etc. Therefore, the world includes several Gazebo plugins for the doors to move, or the simulated robot arm to grasp things.
+\end{description}
 
-Another possible environment is \verb$disaster.launch$.
+In order launch one of the scenarios, you need to execute the following command on your commandline:
 
-Next you can start the navigation and localization stack for your turtlebots. The following command starts the Adaptive Monte Carlo Localization (AMCL) and move\_base including its local and global path planners, costmaps, and recovery behaviours.
+\verb$roslaunch turtlebot_bringup <name-of-scenario>.launch$
+
+In order to make the robot move arround, you need to execute the next command in another terminal:
 
 \verb$roslaunch turtlebot_bringup navigation_gazebo.launch$
 
+It will start the fake\_localization and move\_base node, which are responsible for localizing the robot in simulation and moving the robot arround, respectively.
+
 For debugging purposes ROS provides us with the Robot Vizualization program (rviz). We have an already configured launch file for rviz:
 
-\verb$roslaunch rviz_sim.launch$
+\verb$roslaunch turtlebot_bringup rviz_sim.launch$
+
+With rviz you are able to make the robot move arround and see what the robot sees.
 
 \section{Simulation Environment}
 \label{sec:SimulationEnvironment}
@@ -132,12 +142,81 @@ As you may have noticed, the message type of each topic is given in square brace
 
 One typical error, during programming your own ROS node, is that the topics of your node are not prefixed with the name of your robot at hand. When your node is working and is integrated into one of our launch files above the topics will be prefixed automatically, but if you test your node ``by hand'' you have to take care by yourself, that the topics include the robots name (if necessary). The prefixes are necessary, for example, in order to have one path planning topic for each spawned robot. Otherwise all robots would receive the same path planning goals and drive to them. 
 
-\subsection{Interesting Topics}
-\label{ssec:InterestingTopics}
+Another option is to run rqt\_graph from the commandline. It will open a sophisticated GUI, that visualize the current ROS topic graph and is able to update at runtime. We recommand to visualize nodes and topics \textendash in this case nodes are ellipses and topics are rectangles. Hovering above some node, will highlight sending and receiving topics of that node.
+
+\section{Moving arround with Move Base}
+\label{sec:MovingWithMoveBase}
+
+In this section, we document our experience with the motion framework in ROS, including \href{http://wiki.ros.org/move_base}{move base}, \href{http://wiki.ros.org/dwa_local_planner}{local} and \href{http://wiki.ros.org/global_planner}{global} pathplanner, \href{http://wiki.ros.org/costmap_2d}{local and global costmap}, \href{http://wiki.ros.org/fake_localization}{fake localization}, and different submodules of the framework.
+
+\subsection{Fake Localization}
+\label{ssec:FakeLocalization}
+
+Moving arround requires to be localized. In a simulated environment, we are in the lucky situation that the simulator provides us with a perfect position allowing to omit any extra localization algorithm, e.g., the Adaptive Monte Carlo Localization (AMCL). Two things are necessary, for a perfect localization through the simulator itself. First we need to load a certain plugin into the gazebo runtime. Therefore, we inserted the following lines into the file \verb$turtlebot_description/urdf/turtlebot_gazebo.urdf.xacro$:
+
+\begin{Verbatim}[fontsize=\scriptsize]
+ <!-- Makes Gazebo publishing a ground truth position. -->
+  <xacro:macro name="turtlebot_ground_truth_pose">
+    <gazebo>
+      <plugin name="p3d_controller" filename="libgazebo_ros_p3d.so">
+       <alwaysOn>true</alwaysOn>
+       <updateRate>100.0</updateRate>
+       <bodyName>base_link</bodyName>
+       <topicName>ground_truth_pose</topicName>
+       <frameName>/map</frameName>
+       <xyzOffsets>1 1 0</xyzOffsets> <!-- option to initialize odometry for fake localization-->
+       <rpyOffsets>0 0 0</rpyOffsets>
+      </plugin>
+    </gazebo>
+  </xacro:macro>
+\end{Verbatim}
+
+In future, this xacro needs additional parameters,e.g., setting the xyzOffsets according to the intial robots position. In order to use this xacro we inserted the following line into the \verb$turtlebot_description/robots/kobuki_ninja-hexagons_ninja-kinect_sim.urdf.xacro$ file:
+
+\verb$<turtlebot_ground_truth_pose/>$
+
+At this point the simulator is already pubishing the ground-truth position of each roboto to the topic \emph{$<$robotname$>$/ground\_truth\_pose}, but this is not very compatible to the downstream packages running on real and simulated robots. Therefore we introduced the actual \verb$fake_localization$ node into the \verb$navigation_gazebo.launch$ start-up script, like this:
+
+\begin{Verbatim}[fontsize=\scriptsize]
+<!-- Localization -->
+<node pkg="fake_localization" type="fake_localization" name="fake_localization">
+ <param name="odom_frame_id"   value="/leonardo/odom"/>
+ <param name="base_frame_id"   value="/leonardo/base_link"/>
+ <remap from="base_pose_ground_truth" to="ground_truth_pose"/>
+</node>
+\end{Verbatim}
+
+This \verb$fake_localization$ node will us the simulators ground-truth position and publish this position like AMCL would do. This makes the localization compatible to move base and any other common motion package in ROS. 
+
+\subsection{Move Base}
+\label{ssec:MoveBase}
+
+Move Base is a single ROS node, as you would expect it to be for a single purpose (move arround) component. Nevertheless, it comprises a rather complex set of components, like different costmaps, and path planners. There exists a rather \href{http://wiki.ros.org/move_base}{verbose documentation} about the architecture of Move Base, we recommend to read it! Further informations can be gathered from a nice \href{http://kaiyuzheng.me/documents/navguide.pdf}{report about tuning Move Base} and its components from Kaiyu Zheng (2016). You should definitely read it, too.
+
+\paragraph{Path Planners}
+
+For the local and global path planner, we followed the tuning guide and did choose the \href{http://wiki.ros.org/global_planner}{global\_planner} as global path planner and the \href{http://wiki.ros.org/dwa_local_planner}{dwa\_local\_planner} as local path planner. 
+
+\paragraph{Cost Maps}
+
+The software for the local and global costmap is basically the same: \href{http://wiki.ros.org/costmap_2d}{costmap\_2d}. The crucial difference is located it is configuration files. Apart from looking at the configuration files (located in \verb$turtlebot_bringup/param/$), we recommend again to read the \href{http://kaiyuzheng.me/documents/navguide.pdf}{tuning guide} from Kaiyu Zheng.
+
+\paragraph{Simple Move Base Interface}
 
 Interacting with the move\_base node is a little bit complex, as it uses an \href{http://wiki.ros.org/actionlib/Tutorials}{ROS Action Server}. For simply posting a path planning goal to move\_base you can use the topic \verb$/leonardo/move_base_simple/goal$. The move\_base node will drive to that goal without giving you feedback about it. 
 
-AMCL is not able to localize itself globally on the map. Therefore, the AMCL node on each robot needs to receive its initial position from extern. The topic for this is \verb$/leonardo/initialpose$. Note that it is easy to send this information via RVIZ and its \emph{initial pose estimate} command.
+\subsection{Additional Components}
+\label{ssec:AddComponents}
+
+Additional to Move Base, there exist several auxiliary ROS nodes, concerned about the motion of a robot:
+
+\begin{description}
+  \item[Safety Controller:] A safetry controller, is some low-level piece of software that should avoid any dangerous action of the robot, like falling down some stairs or driving against sensitive objects or humans. Therefore, it is subscribed to certain sensor topics and publishes risk avoiding movement commands, i.d., stop when there is a cliff in your current direction, drive backwards when you hit something, etc. Currently there exist at least two safety controlle, that a rather similar: \href{http://wiki.ros.org/kobuki_safety_controller}{kobuki\_safety\_controller}, \href{http://wiki.ros.org/yocs_safety_controller}{yocs\_safety\_controller}.
+  \item[Velocity Muxer:] This simple node is an arbiter that decides which of its subscribed motion command topics should be forwarded to the actual robot hardware or simulator. It does this simply be a given priority for each subscribed topic. The safety controlle, e.g., should have the highest priority, while normal moving commands can have a lower priority. This guarantees, e.g., that the robot's hardware or simulator does not receive movement commands in different directions at the same time. Here is the \href{http://wiki.ros.org/cmd_vel_mux}{documentation of the muxer}.
+  \item[Velocity Smoother:] The \href{http://wiki.ros.org/yocs_velocity_smoother}{velocity smoother} tries to avoid jumps in movement commands and the robot's actual movements. Therefore, it applies configured limits to the incoming motion commands and prohibits accelerations and velocities beyond the hardware limits of a robot. 
+\end{description}
+
+In our simulation environment, we decided to drop all of these additional components and let the Move Base node talk to the simulator directly.
 
 \section{Turtlebot Sensor Plugin}
 

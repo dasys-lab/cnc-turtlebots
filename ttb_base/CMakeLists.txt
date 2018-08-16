@@ -16,6 +16,7 @@ find_package(catkin REQUIRED COMPONENTS
   system_util 
   fsystem 
   autodiff 
+  agent_id
   event_handling 
   alica_engine 
   alica_ros_proxy 
@@ -26,6 +27,7 @@ find_package(catkin REQUIRED COMPONENTS
   asp_commons
   asp_solver_wrapper
   asp_solver
+  dummy_solver
 )
 
 ###################################
@@ -40,7 +42,7 @@ find_package(catkin REQUIRED COMPONENTS
 catkin_package(
   INCLUDE_DIRS include
   LIBRARIES 
-  CATKIN_DEPENDS alica_engine alica_ros_proxy ttb_expressions ttb_worldmodel asp_commons asp_solver_wrapper asp_solver
+  CATKIN_DEPENDS alica_engine alica_ros_proxy ttb_expressions ttb_worldmodel asp_commons asp_solver_wrapper asp_solver agent_id dummy_solver
 #  DEPENDS tinyxml
 )
 

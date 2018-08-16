@@ -1,6 +1,0 @@
-msl_msgs/PositionInfo position
-msl_msgs/MotionInfo motion
-uint64 timestamp
-float64 certainty
-LocalizationType locType
-CovMatrix3D covarianceMatrix

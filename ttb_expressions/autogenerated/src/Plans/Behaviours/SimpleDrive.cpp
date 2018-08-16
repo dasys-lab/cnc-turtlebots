@@ -2,6 +2,10 @@ using namespace std;
 #include "Plans/Behaviours/SimpleDrive.h"
 
 /*PROTECTED REGION ID(inccpp1432735451661) ENABLED START*/ //Add additional includes here
+#include <kobuki_msgs/BumperEvent.h>
+#include <geometry_msgs/Twist.h>
+#include <TurtleBot.h>
+#include <ttb/TTBWorldModel.h>
 /*PROTECTED REGION END*/
 namespace alica
 {
@@ -25,14 +29,14 @@ namespace alica
 
         move.linear.x = 0.3;
 
-        if ((wm->rawSensorData.getOwnBumperEvents() != nullptr)
-                && wm->rawSensorData.getOwnBumperEvents()->state == kobuki_msgs::BumperEvent::PRESSED)
+        auto bumperEvent = wm->rawSensorData.getBumperEventBuffer()->getLastValidContent();
+        if (bumperEvent && bumperEvent->state == kobuki_msgs::BumperEvent::PRESSED)
         {
             this->setSuccess(true);
         }
         else
         {
-            send(move);
+            this->turtleBot->movement->send(move);
         }
 
         /*PROTECTED REGION END*/

@@ -1,15 +1,6 @@
 <?xml version="1.0" encoding="ASCII"?>
 <alica:Behaviour xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:alica="http:///de.uni_kassel.vs.cn" id="1454329856163" name="DriveToPOI" comment="" destinationPath="Plans/Behaviours">
-  <configurations id="1454329864420" name="DriveToPOI1" comment="" masterPlan="false" utilityFunction="" utilityThreshold="0.1" destinationPath="" deferring="0" frequency="30" eventDriven="false">
-    <parameters id="1454329894704" name="MISSING_NAME" comment="" key="ID" value="1"/>
-  </configurations>
-  <configurations id="1454329905072" name="DriveToPOI2" comment="" masterPlan="false" utilityFunction="" utilityThreshold="0.1" destinationPath="" deferring="0" frequency="30" eventDriven="false">
-    <parameters id="1454329910462" name="MISSING_NAME" comment="" key="ID" value="2"/>
-  </configurations>
-  <configurations id="1454329918634" name="DriveToPOI3" comment="" masterPlan="false" utilityFunction="" utilityThreshold="0.1" destinationPath="" deferring="0" frequency="30" eventDriven="false">
-    <parameters id="1454329923570" name="MISSING_NAME" comment="" key="ID" value="3"/>
-  </configurations>
-  <configurations id="1454330438527" name="DriveToWMsPOI" comment="" masterPlan="false" utilityFunction="" utilityThreshold="0.1" destinationPath="" deferring="0" frequency="30" eventDriven="false">
-    <parameters id="1454331425186" name="MISSING_NAME" comment="" key="ID" value="0"/>
+  <configurations id="1519913781149" name="DriveToPOIDefault" comment="" masterPlan="false" utilityFunction="" utilityThreshold="0.1" destinationPath="" deferring="0" frequency="30" eventDriven="false">
+    <vars id="1519914156317" name="poi" comment="" Type=""/>
   </configurations>
 </alica:Behaviour>

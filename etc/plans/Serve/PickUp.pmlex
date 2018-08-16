@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="ASCII"?>
+<uiextensionmodel:PmlUiExtensionMap xmlns:uiextensionmodel="http:///de.uni_kassel.vs.cn/planDesigner/pmlextension/uiextensionmodel">
+  <extensions>
+    <key href="PickUp.pml#1520438315109"/>
+    <value xPos="165" yPos="247" width="248" height="86" collapsed="false"/>
+  </extensions>
+  <extensions>
+    <key href="PickUp.pml#1520438299583"/>
+    <value width="661" height="511"/>
+  </extensions>
+  <extensions>
+    <key href="PickUp.pml#1520438315110"/>
+    <value/>
+  </extensions>
+  <extensions>
+    <key href="PickUp.pml#1520438338624"/>
+    <value xPos="213" yPos="139" width="159" height="86" collapsed="false"/>
+  </extensions>
+  <extensions>
+    <key href="PickUp.pml#1520438345249"/>
+    <value xPos="453" yPos="295" width="79" height="32"/>
+  </extensions>
+  <extensions>
+    <key href="PickUp.pml#1520438351648"/>
+    <value>
+      <bendpoints xPos="354" yPos="273"/>
+    </value>
+  </extensions>
+  <extensions>
+    <key href="PickUp.pml#1520438354450"/>
+    <value/>
+  </extensions>
+  <extensions>
+    <key href="PickUp.pml#1520438401434"/>
+    <value xPos="304" yPos="382"/>
+  </extensions>
+  <extensions>
+    <key href="../Behaviours/PickUp.beh#1520438478153"/>
+    <value/>
+  </extensions>
+  <extensions>
+    <key href="../Behaviours/DriveToPOI.beh#1519913781149"/>
+    <value/>
+  </extensions>
+  <extensions>
+    <key href="PickUp.pml#1520516913557"/>
+    <value xPos="524" yPos="263"/>
+  </extensions>
+  <extensions>
+    <key href="PickUp.pml#1520516953565"/>
+    <value/>
+  </extensions>
+  <extensions>
+    <key href="PickUp.pml#1520518910440"/>
+    <value>
+      <bendpoints xPos="308" yPos="273"/>
+    </value>
+  </extensions>
+  <extensions>
+    <key href="../Behaviours/DriveCloseToObject.beh#1520521878834"/>
+    <value/>
+  </extensions>
+  <extensions>
+    <key href="PickUp.pml#1520589542298"/>
+    <value/>
+  </extensions>
+  <extensions>
+    <key href="PickUp.pml#1520589504282"/>
+    <value/>
+  </extensions>
+</uiextensionmodel:PmlUiExtensionMap>

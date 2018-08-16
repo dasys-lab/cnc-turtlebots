@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="ASCII"?>
+<alica:Behaviour xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:alica="http:///de.uni_kassel.vs.cn" id="1520438451345" name="PickUp" comment="" destinationPath="Plans/Behaviours">
+  <configurations id="1520438478153" name="PickUpDefault" comment="" masterPlan="false" utilityFunction="" utilityThreshold="0.1" destinationPath="" deferring="0" frequency="30" eventDriven="false">
+    <vars id="1520438797719" name="entity" comment="" Type=""/>
+  </configurations>
+</alica:Behaviour>

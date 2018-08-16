@@ -1,0 +1,26 @@
+#ifndef Sweep_H_
+#define Sweep_H_
+
+#include "DomainBehaviour.h"
+/*PROTECTED REGION ID(inc1520437499749) ENABLED START*/ //Add additional includes here
+/*PROTECTED REGION END*/
+namespace alica
+{
+    class Sweep : public DomainBehaviour
+    {
+    public:
+        Sweep();
+        virtual ~Sweep();
+        virtual void run(void* msg);
+        /*PROTECTED REGION ID(pub1520437499749) ENABLED START*/ //Add additional public methods here
+        /*PROTECTED REGION END*/
+    protected:
+        virtual void initialiseParameters();
+        /*PROTECTED REGION ID(pro1520437499749) ENABLED START*/ //Add additional protected methods here
+        /*PROTECTED REGION END*/
+    private:
+        /*PROTECTED REGION ID(prv1520437499749) ENABLED START*/ //Add additional private methods here
+        /*PROTECTED REGION END*/};
+} /* namespace alica */
+
+#endif /* Sweep_H_ */

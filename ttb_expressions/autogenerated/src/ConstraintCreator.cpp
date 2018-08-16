@@ -3,11 +3,7 @@
 
 #include  "Plans/Serve/constraints/ASPFindFreeDockingStationMaster1470041057806Constraints.h"
 
-#include  "Plans/Serve/PKVR16/constraints/SearchBoxes1481545038564Constraints.h"
-
-#include  "Plans/Wumpus/constraints/WumpusMaster1489673406228Constraints.h"
-
-#include  "Plans/Wumpus/constraints/InteractWIthPlayground1489673751539Constraints.h"
+#include  "Plans/Serve/constraints/DriveToPOI1519913821580Constraints.h"
 
 #include  "Plans/Serve/constraints/ServeMaster1454332108133Constraints.h"
 
@@ -15,11 +11,15 @@
 
 #include  "Plans/Serve/constraints/CarryBook1468494583802Constraints.h"
 
+#include  "Plans/Serve/constraints/PutDown1520511951867Constraints.h"
+
+#include  "Plans/Serve/constraints/PickUp1520438299583Constraints.h"
+
 #include  "Plans/Serve/constraints/ASPNavwoExternalsInner1477229638868Constraints.h"
 
 #include  "Plans/Serve/constraints/ASPMinimizePathMaster1477125857343Constraints.h"
 
-#include  "Plans/Tests/constraints/ChargeAndSimpleDriveTest1414681057676Constraints.h"
+#include  "Plans/Serve/constraints/Search1520437018620Constraints.h"
 
 #include  "Plans/Serve/constraints/CarryBookMaster1468493942500Constraints.h"
 
@@ -27,13 +27,7 @@
 
 #include  "Plans/Serve/constraints/Serve1454331313621Constraints.h"
 
-#include  "Plans/Tests/constraints/TurtleGenericTestMaster1454329729827Constraints.h"
-
 #include  "Plans/Serve/constraints/ASPRCCTestMaster1480766525772Constraints.h"
-
-#include  "Plans/Wumpus/constraints/Turn1489674129255Constraints.h"
-
-#include  "Plans/Tests/constraints/TestPOI1454329810785Constraints.h"
 
 #include  "Plans/Serve/constraints/Charge1454331030770Constraints.h"
 
@@ -60,6 +54,10 @@ namespace alica
                 return make_shared<Constraint1470042926317>();
                 break;
 
+            case 1519914269940:
+                return make_shared<Constraint1519914269940>();
+                break;
+
             case 1477229706852:
                 return make_shared<Constraint1477229706852>();
                 break;
@@ -68,12 +66,24 @@ namespace alica
                 return make_shared<Constraint1468495216221>();
                 break;
 
+            case 1520850075314:
+                return make_shared<Constraint1520850075314>();
+                break;
+
+            case 1520438401434:
+                return make_shared<Constraint1520438401434>();
+                break;
+
             case 1477229712321:
                 return make_shared<Constraint1477229712321>();
                 break;
 
             case 1477125906086:
                 return make_shared<Constraint1477125906086>();
+                break;
+
+            case 1520437448508:
+                return make_shared<Constraint1520437448508>();
                 break;
 
             case 1475692986360:

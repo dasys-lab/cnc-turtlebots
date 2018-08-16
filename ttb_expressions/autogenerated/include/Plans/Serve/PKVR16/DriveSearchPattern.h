@@ -3,6 +3,7 @@
 
 #include "DomainBehaviour.h"
 /*PROTECTED REGION ID(inc1481545714198) ENABLED START*/ //Add additional includes here
+#include <geometry_msgs/Point.h>
 /*PROTECTED REGION END*/
 namespace alica
 {
@@ -32,7 +33,7 @@ namespace alica
         double distanceGoalX;
         double distanceGoalY;
         double distanceToGoal;
-        shared_ptr<geometry::CNPosition> ownPosition;
+
         vector<geometry_msgs::Point> list;
         /*PROTECTED REGION END*/};
 } /* namespace alica */

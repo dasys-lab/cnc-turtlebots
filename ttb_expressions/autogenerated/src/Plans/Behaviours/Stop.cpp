@@ -2,6 +2,8 @@ using namespace std;
 #include "Plans/Behaviours/Stop.h"
 
 /*PROTECTED REGION ID(inccpp1414681269156) ENABLED START*/ //Add additional includes here
+#include <TurtleBot.h>
+#include <geometry_msgs/Twist.h>
 /*PROTECTED REGION END*/
 namespace alica
 {
@@ -21,6 +23,7 @@ namespace alica
     void Stop::run(void* msg)
     {
         /*PROTECTED REGION ID(run1414681269156) ENABLED START*/ //Add additional options here
+        // send direct stop driving command
         geometry_msgs::Twist tw;
         tw.linear.x = 0.0;
         tw.linear.y = 0.0;
@@ -29,7 +32,10 @@ namespace alica
         tw.angular.x = 0.0;
         tw.angular.y = 0.0;
         tw.angular.z = 0.0;
-        send(tw);
+        this->turtleBot->movement->send(tw);
+
+        // cancel move base goals
+        this->turtleBot->movement->cancelAllGoals();
         /*PROTECTED REGION END*/
     }
     void Stop::initialiseParameters()

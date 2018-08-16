@@ -1,100 +1,100 @@
 using namespace std;
 #include "Plans/Behaviours/ASPMinimizePath.h"
 
-/*PROTECTED REGION ID(inccpp1477125924367) ENABLED START*/ //Add additional includes here
-#include "SolverType.h"
+/*PROTECTED REGION ID(inccpp1477125924367) ENABLED START*/ // Add additional includes here
+#include <SolverType.h>
 #include <asp_commons/ASPQuery.h>
+#include <ttb/TTBWorldModel.h>
 /*PROTECTED REGION END*/
 namespace alica
 {
-    /*PROTECTED REGION ID(staticVars1477125924367) ENABLED START*/ //initialise static variables here
+/*PROTECTED REGION ID(staticVars1477125924367) ENABLED START*/ // initialise static variables here
+/*PROTECTED REGION END*/
+ASPMinimizePath::ASPMinimizePath()
+    : DomainBehaviour("ASPMinimizePath")
+{
+    /*PROTECTED REGION ID(con1477125924367) ENABLED START*/ // Add additional options here
+    this->query = std::make_shared<alica::Query>();
     /*PROTECTED REGION END*/
-    ASPMinimizePath::ASPMinimizePath() :
-            DomainBehaviour("ASPMinimizePath")
+}
+ASPMinimizePath::~ASPMinimizePath()
+{
+    /*PROTECTED REGION ID(dcon1477125924367) ENABLED START*/ // Add additional options here
+    /*PROTECTED REGION END*/
+}
+void ASPMinimizePath::run(void *msg)
+{
+    /*PROTECTED REGION ID(run1477125924367) ENABLED START*/ // Add additional options here
+    if (this->isSuccess())
     {
-        /*PROTECTED REGION ID(con1477125924367) ENABLED START*/ //Add additional options here
-        this->query = make_shared < alica::Query > (this->wm->getEngine());
-        /*PROTECTED REGION END*/
+        return;
     }
-    ASPMinimizePath::~ASPMinimizePath()
+    auto start = std::chrono::high_resolution_clock::now();
+    query->getSolution(SolverType::ASPSOLVER, runningPlan, result);
+    auto end = std::chrono::high_resolution_clock::now();
+    cout << "ASPMinimizePath: Measured Solving and Grounding Time: "
+         << std::chrono::duration_cast<chrono::milliseconds>(end - start).count() << " ms" << endl;
+    if (result.size() > 0)
     {
-        /*PROTECTED REGION ID(dcon1477125924367) ENABLED START*/ //Add additional options here
-        /*PROTECTED REGION END*/
-    }
-    void ASPMinimizePath::run(void* msg)
-    {
-        /*PROTECTED REGION ID(run1477125924367) ENABLED START*/ //Add additional options here
-        if (this->isSuccess())
+        auto it = find_if(result.begin(), result.end(),
+                          [](::reasoner::AnnotatedValVec element) { return element.id == 1477125906086; });
+        if (it != result.end())
         {
-            return;
-        }
-        std::chrono::_V2::system_clock::time_point start = std::chrono::high_resolution_clock::now();
-        query->getSolution(SolverType::ASPSOLVER, runningPlan, result);
-        std::chrono::_V2::system_clock::time_point end = std::chrono::high_resolution_clock::now();
-        cout << "ASPMinimizePath: Measured Solving and Grounding Time: " << std::chrono::duration_cast
-                < chrono::milliseconds > (end - start).count() << " ms" << endl;
-        if (result.size() > 0)
-        {
-            auto it = find_if(result.begin(), result.end(), [](::reasoner::AnnotatedValVec element)
-            {   return element.id == 1477125906086;});
-            if (it != result.end())
+            if (it->variableQueryValues.size() > 0)
             {
-                if (it->variableQueryValues.size() > 0)
+                cout << "ASPMinimizePath: ASP result found!" << endl;
+                cout << "\tResult contains the predicates: " << endl;
+                cout << "\t\t";
+                for (int i = 0; i < result.size(); i++)
                 {
-                    cout << "ASPMinimizePath: ASP result found!" << endl;
-                    cout << "\tResult contains the predicates: " << endl;
-                    cout << "\t\t";
-                    for (int i = 0; i < result.size(); i++)
+                    for (int j = 0; j < result.at(i).variableQueryValues.size(); j++)
                     {
-                        for (int j = 0; j < result.at(i).variableQueryValues.size(); j++)
+                        for (int k = 0; k < result.at(i).variableQueryValues.at(j).size(); k++)
                         {
-                            for (int k = 0; k < result.at(i).variableQueryValues.at(j).size(); k++)
-                            {
-                                cout << result.at(i).variableQueryValues.at(j).at(k) << " ";
-                            }
+                            cout << result.at(i).variableQueryValues.at(j).at(k) << " ";
                         }
                     }
-                    cout << "\tThe model contains the predicates: " << endl;
-                    cout << "\t\t";
-                    for (int i = 0; i < it->query->getCurrentModels()->at(0).size(); i++)
-                    {
-                        cout << it->query->getCurrentModels()->at(0).at(i) << " ";
-                    }
-                    cout << endl;
                 }
-                else
+                cout << "\tThe model contains the predicates: " << endl;
+                cout << "\t\t";
+                for (int i = 0; i < it->query->getCurrentModels()->at(0).size(); i++)
                 {
-                    cout << "ASPMinimizePath: no result found!" << endl;
-                    cout << "\tThe model contains the predicates: " << endl;
-                    cout << "\t\t";
-                    for (int i = 0; i < it->query->getCurrentModels()->at(0).size(); i++)
-                    {
-                        cout << it->query->getCurrentModels()->at(0).at(i) << " ";
-                    }
-                    cout << endl;
+                    cout << it->query->getCurrentModels()->at(0).at(i) << " ";
                 }
+                cout << endl;
             }
             else
             {
-                cout << "ASPNavigation: no result found!" << endl;
+                cout << "ASPMinimizePath: no result found!" << endl;
+                cout << "\tThe model contains the predicates: " << endl;
+                cout << "\t\t";
+                for (int i = 0; i < it->query->getCurrentModels()->at(0).size(); i++)
+                {
+                    cout << it->query->getCurrentModels()->at(0).at(i) << " ";
+                }
+                cout << endl;
             }
-
         }
         else
         {
             cout << "ASPNavigation: no result found!" << endl;
         }
-        this->setSuccess(true);
-        /*PROTECTED REGION END*/
     }
-    void ASPMinimizePath::initialiseParameters()
+    else
     {
-        /*PROTECTED REGION ID(initialiseParameters1477125924367) ENABLED START*/ //Add additional options here
-        query->clearStaticVariables();
-        query->addStaticVariable(getVariablesByName("MinVar"));
-        result.clear();
-        /*PROTECTED REGION END*/
+        cout << "ASPNavigation: no result found!" << endl;
     }
-/*PROTECTED REGION ID(methods1477125924367) ENABLED START*/ //Add additional methods here
+    this->setSuccess(true);
+    /*PROTECTED REGION END*/
+}
+void ASPMinimizePath::initialiseParameters()
+{
+    /*PROTECTED REGION ID(initialiseParameters1477125924367) ENABLED START*/ // Add additional options here
+    query->clearStaticVariables();
+    query->addStaticVariable(getVariableByName("MinVar"));
+    result.clear();
+    /*PROTECTED REGION END*/
+}
+/*PROTECTED REGION ID(methods1477125924367) ENABLED START*/ // Add additional methods here
 /*PROTECTED REGION END*/
 } /* namespace alica */

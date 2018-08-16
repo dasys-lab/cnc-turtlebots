@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>ttb_robot</name>
+  <version>0.0.0</version>
+  <description>The ttb_robot package</description>
+
+  <maintainer email="opfer@vs.uni-kassel.de">Stephan Opfer</maintainer>
+
+  <license>MIT</license>
+
+
+  <depend>message_generation</depend>
+  <depend>roscpp</depend>
+  <depend>system_config</depend>
+  <depend>ttb_msgs</depend>
+  <depend>ttb_worldmodel</depend>
+  <buildtool_depend>catkin</buildtool_depend>
+
+
+  <export>
+  </export>
+</package>

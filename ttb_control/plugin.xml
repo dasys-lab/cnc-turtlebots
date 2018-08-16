@@ -1,0 +1,16 @@
+<library path="lib/libttb_control">
+  <class name="ttb_control/TTBControl" type="ttb_control::TTBControl" base_class_type="rqt_gui_cpp::Plugin">
+    <description>
+      A GUI plugin to monitor turtlebot robot specific things like room etc.
+    </description>
+    <qtgui>
+      <group>
+        <label>Robot Tools</label>
+        <icon type="theme">folder</icon>
+        <statustip>Plugins related to robot tools.</statustip>
+      </group>
+      <label>TTB Control</label>
+      <statustip>A GUI plugin for controlling and monitoring robots.</statustip>
+    </qtgui>
+  </class>
+</library>

@@ -3,10 +3,10 @@
 
 #include "DomainBehaviour.h"
 /*PROTECTED REGION ID(inc1477125924367) ENABLED START*/ //Add additional includes here
-//#include <clingo/clingocontrol.hh>
 #include <engine/constraintmodul/Query.h>
-#include <memory>
 #include <asp_commons/AnnotatedValVec.h>
+
+#include <memory>
 /*PROTECTED REGION END*/
 namespace alica
 {
