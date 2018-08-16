@@ -398,7 +398,7 @@ void ttb::wm::RawSensorData::processTransportSystemState(
 	auto transportSystemStateInfo =
 			make_shared < InformationElement<std::shared_ptr<std_msgs::Bool>>>(transportSystemStatePtr, wm->getTime(), transportSystemValidityDuration, 1.0);
 	transportStateBuffer->add(transportSystemStateInfo);
-	std::cout <<  "RawSensorData -> processTransportSystemState -> State: " << transportSystemState << std::endl;
+	std::cout <<  "RawSensorData -> processTransportSystemState -> State: " << *transportSystemState << std::endl;
 }
 
 const supplementary::InfoBuffer<std::shared_ptr<nav_msgs::Odometry>> *RawSensorData::getOdometryBuffer() {
