@@ -82,6 +82,9 @@ Communication::Communication(ttb::TTBWorldModel *wm)
     topic = (*sc)["TTBWorldModel"]->get<string>("Data.ServeTask.Topic", NULL);
     serveTaskSub = n.subscribe(topic, 10, &Communication::onServeTask, (Communication *)this);
 
+    topic = (*sc)["TTBWorldModel"]->get<string>("Data.TransportSystem.Topic", NULL);
+    transportSystemSub = n.subscribe(topic, 10, &Communication::onTransportSystemState, (Communication *)this);
+
     wrappedMessageHandler = nullptr;
     //    wrappedMessageHandler = new WrappedMessageHandler();
     //    wrappedMessageHandler->init(this->wm->getOwnId(), this->wm->getEngine());
@@ -162,6 +165,10 @@ void Communication::onDockInfrRed(kobuki_msgs::DockInfraRed dockInfrRed)
     this->wm->rawSensorData.processDockInfrRed(dockInfrRed);
 }
 
+void ttb::wm::Communication::onTransportSystemState(std_msgs::BoolPtr transportSystemState) {
+	this->wm->rawSensorData.processTransportSystemState(transportSystemState);
+}
+
 void Communication::onServeTask(ttb_msgs::ServeTask serveTask)
 {
     auto ownID = this->wm->getOwnId();
@@ -196,3 +203,4 @@ void Communication::onGazeboModelStates(gazebo_msgs::ModelStatesPtr modelStates)
 
 } /* namespace wm */
 } /* namespace ttb */
+

@@ -11,6 +11,11 @@
 
 #define RAW_SENSOR_DEBUG
 
+namespace std_msgs
+{
+ROS_DECLARE_MESSAGE(Bool)
+}
+
 namespace sensor_msgs
 {
 ROS_DECLARE_MESSAGE(PointCloud2)
@@ -89,6 +94,7 @@ class RawSensorData
     void processLogicalCamera(ttb_msgs::LogicalCameraPtr logicalCamera);
     void processAMCLPose(geometry_msgs::PoseWithCovarianceStamped msg);
     void processGazeboModelState(gazebo_msgs::ModelStatesPtr modelStates);
+    void processTransportSystemState(std_msgs::BoolPtr transportSystemState);
 
     // data access through public buffers
     const supplementary::InfoBuffer<std::shared_ptr<nav_msgs::Odometry>> *getOdometryBuffer();
@@ -109,6 +115,7 @@ class RawSensorData
     const supplementary::InfoBuffer<geometry_msgs::PoseStamped> *getAlvarMarkerBuffer(unsigned int id);
     const supplementary::InfoBuffer<std::shared_ptr<ttb_msgs::LogicalCamera>> *getLogicalCameraBuffer();
     const supplementary::InfoBuffer<std::shared_ptr<gazebo_msgs::ModelStates>> *getGazeboModelStatesBuffer();
+    const supplementary::InfoBuffer<std::shared_ptr<std_msgs::Bool>> *getTransportSystemStateBuffer();
 
   private:
     TTBWorldModel *wm;
@@ -173,6 +180,9 @@ class RawSensorData
 
     supplementary::InfoTime modelStatesValidityDuration;
     supplementary::InfoBuffer<std::shared_ptr<gazebo_msgs::ModelStates>> *modelStatesBuffer;
+
+    supplementary::InfoTime transportSystemValidityDuration;
+    supplementary::InfoBuffer<std::shared_ptr<std_msgs::Bool>> *transportStateBuffer;
 };
 } /* namespace wm */
 } /* namespace ttb */

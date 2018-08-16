@@ -19,6 +19,7 @@
 #include <sensor_msgs/JointState.h>
 #include <sensor_msgs/LaserScan.h>
 #include <sensor_msgs/PointCloud2.h>
+#include <std_msgs/Bool.h>
 #include <tf/transform_listener.h>
 #include <ttb_msgs/ServeTask.h>
 #include <ttb_msgs/LogicalCamera.h>
@@ -59,6 +60,7 @@ class Communication
     void onAMCLPose(geometry_msgs::PoseWithCovarianceStamped msg);
     void onLogicalCamera(ttb_msgs::LogicalCameraPtr logicalCamera);
     void onGazeboModelStates(gazebo_msgs::ModelStatesPtr modelStates);
+    void onTransportSystemState(std_msgs::BoolPtr transportSystemState);
 
     ttb::TTBWorldModel *wm;
 
@@ -86,6 +88,7 @@ class Communication
     ros::Subscriber dockInfrRedSub;
     ros::Subscriber amclPoseSub;
     ros::Subscriber logicalCameraSensorSub;
+    ros::Subscriber transportSystemSub;
 
     WrappedMessageHandler *wrappedMessageHandler;
 };
