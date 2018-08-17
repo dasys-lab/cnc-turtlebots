@@ -50,12 +50,6 @@ set(wumpuswidget_SRCS
 
 set(wumpuswidget_HDRS
   include/wumpus_simulator/WumpusSimulator.h 
-  include/model/Agent.h
-  include/model/GroundTile.h
-  include/model/Model.h
-  include/model/Wumpus.h
-  include/model/Movable.h
-  include/model/WumpusEnums.h
 )
 
 set(wumpuswidget_UIS
@@ -70,8 +64,13 @@ set(wumpus_simulator_INCLUDE_DIRECTORIES
     ${Qt5Network_INCLUDE_DIRS}
     ${Qt5Widgets_INCLUDE_DIRS}
     ${Qt5WebKitWidgets_INCLUDE_DIRS}
-    ${CMAKE_CURRENT_BINARY_DIR}
+    "${CATKIN_DEVEL_PREFIX}/${CATKIN_GLOBAL_INCLUDE_DESTINATION}"
 )
+
+if(NOT EXISTS "${CATKIN_DEVEL_PREFIX}/${CATKIN_GLOBAL_INCLUDE_DESTINATION}")
+  file(MAKE_DIRECTORY "${CATKIN_DEVEL_PREFIX}/${CATKIN_GLOBAL_INCLUDE_DESTINATION}")
+endif()
+
 include_directories(${wumpus_simulator_INCLUDE_DIRECTORIES} ${catkin_INCLUDE_DIRS})
 
 file(GLOB QT_RESOURCES RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} resources/*.qrc)
@@ -79,12 +78,16 @@ file(GLOB QT_RESOURCES RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} resources/*.qrc)
 catkin_package(
   INCLUDE_DIRS ${wumpus_simulator_INCLUDE_DIRECTORIES}
   LIBRARIES ${PROJECT_NAME}
-  CATKIN_DEPENDS qt_gui rqt_gui rqt_gui_cpp system_config message_runtime
+  CATKIN_DEPENDS qt_gui rqt_gui rqt_gui_cpp message_runtime
 )
 
 QT5_ADD_RESOURCES(QT_RESOURCES_CPP ${QT_RESOURCES})
 QT5_WRAP_CPP(wumpus_MOCS ${wumpuswidget_HDRS})
+# ensure generated header files are being created in the devel space
+set(_cmake_current_binary_dir "${CMAKE_CURRENT_BINARY_DIR}")
+set(CMAKE_CURRENT_BINARY_DIR "${CATKIN_DEVEL_PREFIX}/${CATKIN_GLOBAL_INCLUDE_DESTINATION}")
 QT5_WRAP_UI(wumpus_UIS_H ${wumpuswidget_UIS})
+set(CMAKE_CURRENT_BINARY_DIR "${_cmake_current_binary_dir}")
 
 add_library(${PROJECT_NAME} ${wumpuswidget_SRCS} ${wumpus_MOCS} ${wumpus_UIS_H} ${QT_RESOURCES_CPP})
 target_link_libraries(${PROJECT_NAME} ${catkin_LIBRARIES} ${Qt5Widgets_location} ${Qt5Core_location} ${Qt5Gui_location} ${Qt5Network_location} ${Qt5WebKitWidgets_location})
