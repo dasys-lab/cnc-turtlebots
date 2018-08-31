@@ -4,19 +4,19 @@
   "comment" : "Test Comment String",
   "relativeDirectory" : "",
   "masterPlan" : true,
-  "utilityThreshold" : 0.0,
+  "utilityThreshold" : 0.5,
   "preCondition" : null,
   "runtimeCondition" : null,
   "entryPoints" : [ {
     "id" : 1528810473595,
     "name" : "TestEP",
     "comment" : null,
-    "task" : "TurtleBot.tsk#1528875085489",
     "successRequired" : false,
-    "state" : 1528810473502,
-    "plan" : 1528810473500,
     "minCardinality" : 1,
-    "maxCardinality" : 2
+    "maxCardinality" : 2,
+    "task" : "TurtleBot2.tsk#1528875085489",
+    "state" : 1528810473502,
+    "plan" : 1528810473500
   } ],
   "states" : [ {
     "id" : 1528810473502,

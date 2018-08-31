@@ -1,11 +1,12 @@
 {
   "id" : 1530628964195,
-  "name" : "RunForest",
-  "comment" : null,
+  "name" : "RunForest2",
+  "comment" : "abcde",
   "relativeDirectory" : "Behaviours",
+  "frequency" : 2,
+  "deferring" : 3,
   "preCondition" : null,
   "runtimeCondition" : null,
   "postCondition" : null,
-  "variables" : [ ],
-  "frequency" : 0
+  "variables" : [ ]
 }

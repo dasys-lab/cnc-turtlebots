@@ -1,14 +1,14 @@
 {
   "id" : 1531473164094,
   "name" : "TestPlanType",
-  "comment" : null,
+  "comment" : "abcde",
   "relativeDirectory" : "Plantypes",
   "parametrisations" : [ ],
   "plans" : [ {
-    "id" : 1531473171849,
-    "name" : "AnnotatedTestMasterPlan",
+    "id" : 1535024272960,
+    "name" : "Annotatedabc",
     "comment" : null,
-    "plan" : "TestMasterPlan.pml#1528810473500",
-    "activated" : true
+    "activated" : true,
+    "plan" : "abc.pml#1534253305877"
   } ]
 }
