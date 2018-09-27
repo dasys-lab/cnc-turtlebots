@@ -225,3 +225,6 @@ TSWLatexianTemp*
 *~[0-9]*
 
 proxy_gen/
+
+**/.idea
+**/cmake-build-debug
