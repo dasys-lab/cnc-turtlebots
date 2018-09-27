@@ -50,8 +50,13 @@ set(ttb_control_INCLUDE_DIRECTORIES
   ${Qt5Gui_INCLUDE_DIRS} 
   ${Qt5Network_INCLUDE_DIRS}
   ${Qt5Widgets_INCLUDE_DIRS}
-  ${CMAKE_CURRENT_BINARY_DIR}
+  "${CATKIN_DEVEL_PREFIX}/${CATKIN_GLOBAL_INCLUDE_DESTINATION}"
 )
+
+if(NOT EXISTS "${CATKIN_DEVEL_PREFIX}/${CATKIN_GLOBAL_INCLUDE_DESTINATION}")
+  file(MAKE_DIRECTORY "${CATKIN_DEVEL_PREFIX}/${CATKIN_GLOBAL_INCLUDE_DESTINATION}")
+endif()
+
 include_directories(${ttb_control_INCLUDE_DIRECTORIES} ${catkin_INCLUDE_DIRS})
 
 set(ttb_control_RCS
@@ -65,9 +70,13 @@ catkin_package(
 )
 
 
-QT5_WRAP_CPP(ttb_control_MOCS ${ttb_control_HDRS})
 QT5_ADD_RESOURCES(ttb_control_RESOURCES ${ttb_control_RCS}) 
+QT5_WRAP_CPP(ttb_control_MOCS ${ttb_control_HDRS})
+# ensure generated header files are being created in the devel space
+set(_cmake_current_binary_dir "${CMAKE_CURRENT_BINARY_DIR}")
+set(CMAKE_CURRENT_BINARY_DIR "${CATKIN_DEVEL_PREFIX}/${CATKIN_GLOBAL_INCLUDE_DESTINATION}")
 QT5_WRAP_UI(ttb_control_UIS_H ${ttb_control_UIS})
+set(CMAKE_CURRENT_BINARY_DIR "${_cmake_current_binary_dir}")
 
 add_library(${PROJECT_NAME} ${ttb_control_SRCS} ${ttb_control_MOCS} ${ttb_control_UIS_H} ${ttb_control_RESOURCES})
 target_link_libraries(${PROJECT_NAME} ${catkin_LIBRARIES} ${Qt5Core_location} ${Qt5Gui_location} ${Qt5Network_location})
