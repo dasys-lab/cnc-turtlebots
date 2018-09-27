@@ -83,7 +83,7 @@ void TTBControl::showContextMenu(const QPoint &pos)
     QMenu myMenu;
     for (auto &robot : this->pmRegistry->getRobots())
     {
-        stringstream ss;
+        std::stringstream ss;
         ss << *(robot.second->agentID);
         QIcon icon;
         if (this->controlledRobotsMap[robot.first]->isHidden())
@@ -104,7 +104,7 @@ void TTBControl::showContextMenu(const QPoint &pos)
         std::string name = selectedItem->iconText().toStdString().substr();
         name = name.substr(0, name.find('(') - 1);
 
-        cout << "RC: '" << name << "'" << endl;
+        std::cout << "RC: '" << name << "'" << endl;
 
         const supplementary::AgentID *robotId = this->pmRegistry->getRobotId(name);
         if (robotId != nullptr)
@@ -113,12 +113,12 @@ void TTBControl::showContextMenu(const QPoint &pos)
         }
         else
         {
-            cerr << "RC: Chosen robot is not known in the robot registry!" << endl;
+            std::cerr << "RC: Chosen robot is not known in the robot registry!" << endl;
         }
     }
     else
     {
-        cout << "RC: Nothing chosen!" << endl;
+        std::cout << "RC: Nothing chosen!" << endl;
     }
 }
 
@@ -156,7 +156,7 @@ void TTBControl::receiveTopologicalInfo(ttb_msgs::TopologicalInfoPtr topoInfo)
 void TTBControl::processMessages()
 {
     {
-        std::lock_guard<mutex> lck(topologicalInfoMsgQueueMutex);
+        std::lock_guard<std::mutex> lck(topologicalInfoMsgQueueMutex);
         while (!this->topologicalInfoMsgQueue.empty())
         {
             // unqueue the ROS kicker stat info message
@@ -179,17 +179,17 @@ void TTBControl::checkAndInit(const supplementary::AgentID *robotId)
     auto pmEntry = this->controlledRobotsMap.find(robotId);
     if (pmEntry == this->controlledRobotsMap.end())
     { // robot is not known, so create a corresponding instance
-        string robotName;
+        std::string robotName;
         if (this->pmRegistry->getRobotName(robotId, robotName))
         {
-            cout << "RC: Create new ControlledRobot with ID " << robotId << " and host name " << robotName << "!"
+            std::cout << "RC: Create new ControlledRobot with ID " << robotId << " and host name " << robotName << "!"
                  << endl;
             Robot *controlledRobot = new Robot(robotName, robotId, this);
             this->controlledRobotsMap.emplace(robotId, controlledRobot);
         }
         else
         {
-            cerr << "RC: Received message from unknown robot with sender id " << robotId << endl;
+            std::cerr << "RC: Received message from unknown robot with sender id " << robotId << endl;
         }
     }
 }
