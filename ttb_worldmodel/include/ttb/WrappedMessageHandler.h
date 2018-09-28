@@ -48,7 +48,7 @@ class WrappedMessageHandler
     void onRosAMCLPoseWrapped2852345798(const ros::MessageEvent<ttb_msgs::AMCLPoseWrapped> &event)
     {
         const ttb_msgs::AMCLPoseWrapped::ConstPtr &message = event.getMessage();
-        auto receiverId = this->engine->getIDFromBytes(message->receiver.id);
+        auto receiverId = this->engine->getIdFromBytes(message->receiver.id);
         if (*receiverId == *robotID && event.getPublisherName().compare(ros::this_node::getName()) != 0)
         {
             pubPoseWithCovarianceStamped_amcl_pose.publish(message->msg);
@@ -64,7 +64,7 @@ class WrappedMessageHandler
     void onRosGoalWrapped3037331423(const ros::MessageEvent<ttb_msgs::GoalWrapped> &event)
     {
         const ttb_msgs::GoalWrapped::ConstPtr &message = event.getMessage();
-        auto receiverId = this->engine->getIDFromBytes(message->receiver.id);
+        auto receiverId = this->engine->getIdFromBytes(message->receiver.id);
         if (*receiverId == *robotID && event.getPublisherName().compare(ros::this_node::getName()) != 0)
         {
             pubPoseStamped_move_base_simple_goal.publish(message->msg);
@@ -81,7 +81,7 @@ class WrappedMessageHandler
     void onRosInitialPoseWrapped2637701444(const ros::MessageEvent<ttb_msgs::InitialPoseWrapped> &event)
     {
         const ttb_msgs::InitialPoseWrapped::ConstPtr &message = event.getMessage();
-        auto receiverId = this->engine->getIDFromBytes(message->receiver.id);
+        auto receiverId = this->engine->getIdFromBytes(message->receiver.id);
         if (*receiverId == *robotID && event.getPublisherName().compare(ros::this_node::getName()) != 0)
         {
             pubPoseWithCovarianceStamped_initialpose.publish(message->msg);

@@ -14,6 +14,8 @@
 #include <kobuki_msgs/BumperEvent.h>
 #include <kobuki_msgs/CliffEvent.h>
 
+#include <engine/AlicaClock.h>
+
 #include <exception>
 #include <iostream>
 #include <map>
@@ -105,7 +107,7 @@ RawSensorData::~RawSensorData()
 
 void RawSensorData::processAlvarMarkers(ar_track_alvar_msgs::AlvarMarkersPtr alvarMarkers)
 {
-    InfoTime time = wm->getTime();
+    alica::AlicaTime time = wm->getTime();
 
     for (auto marker : alvarMarkers->markers)
     {
@@ -118,16 +120,16 @@ void RawSensorData::processAlvarMarkers(ar_track_alvar_msgs::AlvarMarkersPtr alv
             listener.waitForTransform("/base_link", "/camera_rgb_optical_frame", ros::Time(0), ros::Duration(5));
             listener.transformPose("/base_link", marker.pose, pose_out);
         }
-        catch (exception &e)
+        catch (std::exception &e)
         {
-            cout << "RawSensorData::processAlvarData: Marker Transform Exception: " << e.what() << endl;
+            std::cout << "RawSensorData::processAlvarData: Marker Transform Exception: " << e.what() << std::endl;
             return;
         }
 #ifdef RAW_SENSOR_DEBUG
-        cout << "RawSensorData::processAlvarData: marker pos x,y,z: " << pose_out.pose.position.x << " ," << pose_out.pose.position.y << " ,"
-             << pose_out.pose.position.z << endl;
-        cout << "RawSensorData::processAlvarData: marker orientation w,x,y,z: " << pose_out.pose.orientation.w << " ," << pose_out.pose.orientation.x << " ,"
-             << pose_out.pose.orientation.y << " ," << pose_out.pose.orientation.z << endl;
+        std::cout << "RawSensorData::processAlvarData: marker pos x,y,z: " << pose_out.pose.position.x << " ," << pose_out.pose.position.y << " ,"
+             << pose_out.pose.position.z << std::endl;
+        std::cout << "RawSensorData::processAlvarData: marker orientation w,x,y,z: " << pose_out.pose.orientation.w << " ," << pose_out.pose.orientation.x << " ,"
+             << pose_out.pose.orientation.y << " ," << pose_out.pose.orientation.z << std::endl;
 #endif
 
         // check whether buffer already exists for given marker id
@@ -139,14 +141,14 @@ void RawSensorData::processAlvarMarkers(ar_track_alvar_msgs::AlvarMarkersPtr alv
 
         // add detected marker to buffer
         auto alvarPoseStamped =
-            make_shared<const InformationElement<geometry_msgs::PoseStamped>>(pose_out, time, this->alvarMarkerValidityDuration, marker.confidence);
+            make_shared<const InformationElement<geometry_msgs::PoseStamped>>(pose_out, time.inNanoseconds(), this->alvarMarkerValidityDuration, marker.confidence);
         alvarMarkerMap[marker.id]->add(alvarPoseStamped);
     }
 }
 
 void RawSensorData::processBumperEvent(kobuki_msgs::BumperEvent bumperEvent)
 {
-    auto ownBumperEventsInfo = make_shared<InformationElement<kobuki_msgs::BumperEvent>>(bumperEvent, wm->getTime(), bumperEventValidityDuration, 1.0);
+    auto ownBumperEventsInfo = make_shared<InformationElement<kobuki_msgs::BumperEvent>>(bumperEvent, wm->getTime().inNanoseconds(), bumperEventValidityDuration, 1.0);
     bumperEventBuffer->add(ownBumperEventsInfo);
 }
 
@@ -154,13 +156,13 @@ void RawSensorData::processBumperCloud(sensor_msgs::PointCloud2Ptr bumperCloud)
 {
     auto bumperCloudPtr = shared_ptr<sensor_msgs::PointCloud2>(bumperCloud.get(), [bumperCloud](sensor_msgs::PointCloud2 *) mutable { bumperCloud.reset(); });
     auto ownBumperSensorsInfo =
-        make_shared<InformationElement<std::shared_ptr<sensor_msgs::PointCloud2>>>(bumperCloudPtr, wm->getTime(), bumperCloudValidityDuration, 1.0);
+        make_shared<InformationElement<std::shared_ptr<sensor_msgs::PointCloud2>>>(bumperCloudPtr, wm->getTime().inNanoseconds(), bumperCloudValidityDuration, 1.0);
     bumperCloudBuffer->add(ownBumperSensorsInfo);
 }
 
 void RawSensorData::processCliffEvent(kobuki_msgs::CliffEvent cliffEvent)
 {
-    auto ownCliffEventInfo = make_shared<InformationElement<kobuki_msgs::CliffEvent>>(cliffEvent, wm->getTime(), cliffEventValidityDuration, 1.0);
+    auto ownCliffEventInfo = make_shared<InformationElement<kobuki_msgs::CliffEvent>>(cliffEvent, wm->getTime().inNanoseconds(), cliffEventValidityDuration, 1.0);
     this->cliffEventBuffer->add(ownCliffEventInfo);
 }
 
@@ -169,13 +171,13 @@ void RawSensorData::processDepthCameraCloud(sensor_msgs::PointCloud2Ptr depthIma
     auto depthImageCloudPtr =
         std::shared_ptr<sensor_msgs::PointCloud2>(depthImageCloud.get(), [depthImageCloud](sensor_msgs::PointCloud2 *) mutable { depthImageCloud.reset(); });
     auto depthImageCloudPtrInfo =
-        make_shared<InformationElement<std::shared_ptr<sensor_msgs::PointCloud2>>>(depthImageCloudPtr, wm->getTime(), depthCameraCloudValidityDuration, 1.0);
+        make_shared<InformationElement<std::shared_ptr<sensor_msgs::PointCloud2>>>(depthImageCloudPtr, wm->getTime().inNanoseconds(), depthCameraCloudValidityDuration, 1.0);
     depthCameraCloudBuffer->add(depthImageCloudPtrInfo);
 }
 
 void RawSensorData::processImu(sensor_msgs::Imu imu)
 {
-    auto ownImuDataInfo = make_shared<InformationElement<sensor_msgs::Imu>>(imu, wm->getTime(), imuDataValidityDuration, 1.0);
+    auto ownImuDataInfo = make_shared<InformationElement<sensor_msgs::Imu>>(imu, wm->getTime().inNanoseconds(), imuDataValidityDuration, 1.0);
     imuDataBuffer->add(ownImuDataInfo);
 }
 
@@ -183,29 +185,29 @@ void RawSensorData::processLaserScan(sensor_msgs::LaserScanPtr laserScan)
 {
     auto laserScanPtr = std::shared_ptr<sensor_msgs::LaserScan>(laserScan.get(), [laserScan](sensor_msgs::LaserScan *) mutable { laserScan.reset(); });
     auto laserScanPtrInfo =
-        make_shared<InformationElement<std::shared_ptr<sensor_msgs::LaserScan>>>(laserScanPtr, wm->getTime(), this->laserScanValidityDuration, 1.0);
+        make_shared<InformationElement<std::shared_ptr<sensor_msgs::LaserScan>>>(laserScanPtr, wm->getTime().inNanoseconds(), this->laserScanValidityDuration, 1.0);
     laserScanBuffer->add(laserScanPtrInfo);
 }
 
 void RawSensorData::processOdometry(nav_msgs::OdometryPtr odometry)
 {
-    InfoTime time = wm->getTime();
+    alica::AlicaTime time = wm->getTime();
 
     // Position
     auto odomPosition = make_shared<InformationElement<geometry::CNPositionAllo>>(
         geometry::CNPositionAllo(odometry->pose.pose.position.x, odometry->pose.pose.position.y,
                                  odometry->pose.pose.orientation.z / odometry->pose.pose.orientation.w),
-        time, odomPositionValidityDuration, 1.0);
+        time.inNanoseconds(), odomPositionValidityDuration, 1.0);
     this->odomPositionBuffer->add(odomPosition);
 
     // Velocity
     auto odomVelocityPtrInfo = make_shared<InformationElement<geometry::CNVecAllo>>(
-        geometry::CNVecAllo(odometry->twist.twist.linear.x, odometry->twist.twist.linear.y), time, odomVelocityValidityDuration, 1.0);
+        geometry::CNVecAllo(odometry->twist.twist.linear.x, odometry->twist.twist.linear.y), time.inNanoseconds(), odomVelocityValidityDuration, 1.0);
     odomVelocityBuffer->add(odomVelocityPtrInfo);
 
     // Odom
     auto odomDataPtr = std::shared_ptr<nav_msgs::Odometry>(odometry.get(), [odometry](nav_msgs::Odometry *) mutable { odometry.reset(); });
-    auto ownOdomScanInfo = make_shared<InformationElement<std::shared_ptr<nav_msgs::Odometry>>>(odomDataPtr, time, odometryValidityDuration, 1.0);
+    auto ownOdomScanInfo = make_shared<InformationElement<std::shared_ptr<nav_msgs::Odometry>>>(odomDataPtr, time.inNanoseconds(), odometryValidityDuration, 1.0);
     odometryBuffer->add(ownOdomScanInfo);
 }
 
@@ -213,7 +215,7 @@ void RawSensorData::processAMCLPose(geometry_msgs::PoseWithCovarianceStamped msg
 {
     auto postion = geometry::CNPositionAllo(msg.pose.pose.position.x, msg.pose.pose.position.y, msg.pose.pose.orientation.z / msg.pose.pose.orientation.w);
 
-    auto positionInfo = make_shared<InformationElement<geometry::CNPositionAllo>>(postion, wm->getTime(), amclPositionValidityDuration, 1.0);
+    auto positionInfo = make_shared<InformationElement<geometry::CNPositionAllo>>(postion, wm->getTime().inNanoseconds(), amclPositionValidityDuration, 1.0);
 
     amclPositionBuffer->add(positionInfo);
 }
@@ -223,13 +225,13 @@ void RawSensorData::processRawCameraImage(sensor_msgs::ImagePtr rawCameraImage)
     auto rawCameraImagePtr =
         std::shared_ptr<sensor_msgs::Image>(rawCameraImage.get(), [rawCameraImage](sensor_msgs::Image *) mutable { rawCameraImage.reset(); });
     auto rawCameraImagePtrInfo =
-        make_shared<InformationElement<std::shared_ptr<sensor_msgs::Image>>>(rawCameraImagePtr, wm->getTime(), this->rawCameraImageValidityDuration, 1.0);
+        make_shared<InformationElement<std::shared_ptr<sensor_msgs::Image>>>(rawCameraImagePtr, wm->getTime().inNanoseconds(), this->rawCameraImageValidityDuration, 1.0);
     rawCameraImageBuffer->add(rawCameraImagePtrInfo);
 }
 
 void RawSensorData::processRobotCommand(robot_control::RobotCommand robotCommand)
 {
-    auto robotCommandInfo = make_shared<InformationElement<robot_control::RobotCommand>>(robotCommand, wm->getTime(), robotCommandValidityDuration, 1.0);
+    auto robotCommandInfo = make_shared<InformationElement<robot_control::RobotCommand>>(robotCommand, wm->getTime().inNanoseconds(), robotCommandValidityDuration, 1.0);
     robotCommandBuffer->add(robotCommandInfo);
 }
 
@@ -237,20 +239,20 @@ void RawSensorData::processMobileBaseSensorState(kobuki_msgs::SensorStatePtr mob
 {
     auto mobileBaseSensorStatePtr = std::shared_ptr<kobuki_msgs::SensorState>(
         mobileBaseSensorState.get(), [mobileBaseSensorState](kobuki_msgs::SensorState *) mutable { mobileBaseSensorState.reset(); });
-    auto mobileBaseSensorStatePtrInfo = make_shared<InformationElement<std::shared_ptr<kobuki_msgs::SensorState>>>(mobileBaseSensorStatePtr, wm->getTime(),
+    auto mobileBaseSensorStatePtrInfo = make_shared<InformationElement<std::shared_ptr<kobuki_msgs::SensorState>>>(mobileBaseSensorStatePtr, wm->getTime().inNanoseconds(),
                                                                                                                    mobileBaseSensorStateValidityDuration, 1.0);
     mobileBaseSensorStateBuffer->add(mobileBaseSensorStatePtrInfo);
 }
 
 void RawSensorData::processDockInfrRed(kobuki_msgs::DockInfraRed dockInfrRed)
 {
-    auto ownDockInfrRedInfo = make_shared<InformationElement<kobuki_msgs::DockInfraRed>>(dockInfrRed, wm->getTime(), dockInfrRedValidityDuration, 1.0);
+    auto ownDockInfrRedInfo = make_shared<InformationElement<kobuki_msgs::DockInfraRed>>(dockInfrRed, wm->getTime().inNanoseconds(), dockInfrRedValidityDuration, 1.0);
     dockInfrRedBuffer->add(ownDockInfrRedInfo);
 }
 
 void RawSensorData::processServeTask(ttb_msgs::ServeTask serveTask)
 {
-    auto serveTaskInfo = make_shared<InformationElement<ttb_msgs::ServeTask>>(serveTask, wm->getTime(), this->serveTaskValidityDuration, 1.0);
+    auto serveTaskInfo = make_shared<InformationElement<ttb_msgs::ServeTask>>(serveTask, wm->getTime().inNanoseconds(), this->serveTaskValidityDuration, 1.0);
     serveTaskBuffer->add(serveTaskInfo);
     this->wm->taskManager.pushTask(serveTaskInfo);
 }
@@ -260,7 +262,7 @@ void RawSensorData::processLogicalCamera(ttb_msgs::LogicalCameraPtr logicalCamer
     auto logicalCameraPtr =
         shared_ptr<ttb_msgs::LogicalCamera>(logicalCamera.get(), [logicalCamera](ttb_msgs::LogicalCamera *) mutable { logicalCamera.reset(); });
     auto ownLogicalCameraInfo =
-        make_shared<InformationElement<std::shared_ptr<ttb_msgs::LogicalCamera>>>(logicalCameraPtr, wm->getTime(), logicalCameraValidityDuration, 1.0);
+        make_shared<InformationElement<std::shared_ptr<ttb_msgs::LogicalCamera>>>(logicalCameraPtr, wm->getTime().inNanoseconds(), logicalCameraValidityDuration, 1.0);
     logicalCameraBuffer->add(ownLogicalCameraInfo);
 }
 
@@ -269,7 +271,7 @@ void RawSensorData::processGazeboModelState(gazebo_msgs::ModelStatesPtr modelSta
     auto modelStatesPtr =
         shared_ptr<gazebo_msgs::ModelStates>(modelStates.get(), [modelStates](gazebo_msgs::ModelStates *) mutable { modelStates.reset(); });
     auto modelStatesnfo =
-        make_shared<InformationElement<std::shared_ptr<gazebo_msgs::ModelStates>>>(modelStatesPtr, wm->getTime(), modelStatesValidityDuration, 1.0);
+        make_shared<InformationElement<std::shared_ptr<gazebo_msgs::ModelStates>>>(modelStatesPtr, wm->getTime().inNanoseconds(), modelStatesValidityDuration, 1.0);
     modelStatesBuffer->add(modelStatesnfo);
 }
 const supplementary::InfoBuffer<std::shared_ptr<nav_msgs::Odometry>> *RawSensorData::getOdometryBuffer()

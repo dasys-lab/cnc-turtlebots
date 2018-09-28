@@ -71,7 +71,7 @@ void AnnotatedGrid::receiveAnnotatedGridPoints(ttb_msgs::AnnotatedGridPtr annota
         }
         else
         {
-            this->gridMap.emplace(poi->room, vector<ttb::wm::AnnotatedGridPoint>());
+            this->gridMap.emplace(poi->room, std::vector<ttb::wm::AnnotatedGridPoint>());
             mapEntry->second.push_back(AnnotatedGridPoint(poi->room, annotatedGrid->points[i]));
         }
     }
@@ -87,7 +87,7 @@ std::vector<ttb::wm::AnnotatedGridPoint> AnnotatedGrid::getGridOfRoom(std::share
     else
     {
         std::cerr << "AnnotatedGrid: Requested room " << room->name << " is unknown!" << std::endl;
-        return vector<ttb::wm::AnnotatedGridPoint>();
+        return std::vector<ttb::wm::AnnotatedGridPoint>();
     }
 }
 

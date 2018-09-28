@@ -17,12 +17,12 @@ TaskManager::~TaskManager()
 {
 }
 
-void TaskManager::pushTask(shared_ptr<InformationElement<ttb_msgs::ServeTask>> taskMsg)
+void TaskManager::pushTask(std::shared_ptr<InformationElement<ttb_msgs::ServeTask>> taskMsg)
 {
 	this->pendingTasks.push_back(taskMsg);
 }
 
-shared_ptr<InformationElement<ttb_msgs::ServeTask>> TaskManager::popNextTask()
+std::shared_ptr<InformationElement<ttb_msgs::ServeTask>> TaskManager::popNextTask()
 {
     if (this->pendingTasks.size() > 0)
     {
@@ -36,7 +36,7 @@ shared_ptr<InformationElement<ttb_msgs::ServeTask>> TaskManager::popNextTask()
     }
 }
 
-shared_ptr<InformationElement<ttb_msgs::ServeTask>> TaskManager::getNextTask()
+std::shared_ptr<InformationElement<ttb_msgs::ServeTask>> TaskManager::getNextTask()
 {
     if (this->pendingTasks.size() > 0)
     {

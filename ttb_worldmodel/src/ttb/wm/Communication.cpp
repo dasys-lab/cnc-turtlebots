@@ -15,8 +15,8 @@ namespace wm
 
 Communication::Communication(ttb::TTBWorldModel *wm)
     : wm(wm)
-    , timeLastSimMsgReceived(0)
 {
+    this->timeLastSimMsgReceived = alica::AlicaTime::zero();
     auto sc = wm->getSystemConfig();
     // SET ROS STUFF
     string topic;
@@ -97,7 +97,7 @@ Communication::~Communication()
     delete wrappedMessageHandler;
 }
 
-supplementary::InfoTime Communication::getTimeLastSimMsgReceived()
+alica::AlicaTime Communication::getTimeLastSimMsgReceived()
 {
     return this->timeLastSimMsgReceived;
 }
@@ -165,8 +165,8 @@ void Communication::onDockInfrRed(kobuki_msgs::DockInfraRed dockInfrRed)
 void Communication::onServeTask(ttb_msgs::ServeTask serveTask)
 {
     auto ownID = this->wm->getOwnId();
-    auto senderId = this->wm->getEngine()->getIDFromBytes(serveTask.sender.id);
-    auto receiverId = this->wm->getEngine()->getIDFromBytes(serveTask.receiver.id);
+    auto senderId = this->wm->getEngine()->getIdFromBytes(serveTask.sender.id);
+    auto receiverId = this->wm->getEngine()->getIdFromBytes(serveTask.receiver.id);
     if (*senderId != *ownID && (*receiverId == *ownID || serveTask.receiver.type == supplementary::BroadcastID::BC_TYPE))
     {
         this->wm->rawSensorData.processServeTask(serveTask);

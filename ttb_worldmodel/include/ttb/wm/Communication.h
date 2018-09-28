@@ -24,6 +24,7 @@
 #include <ttb_msgs/LogicalCamera.h>
 #include <nav_msgs/Odometry.h>
 #include <gazebo_msgs/ModelStates.h>
+#include <engine/AlicaClock.h>
 
 #define COMM_DEBUG
 
@@ -40,7 +41,7 @@ class Communication
   public:
     Communication(ttb::TTBWorldModel *wm);
     virtual ~Communication();
-    supplementary::InfoTime getTimeLastSimMsgReceived();
+    alica::AlicaTime getTimeLastSimMsgReceived();
 
   private:
     void onAlvarMarkers(ar_track_alvar_msgs::AlvarMarkersPtr alvar);
@@ -66,7 +67,7 @@ class Communication
     ros::NodeHandle n;
     ros::AsyncSpinner *spinner;
 
-    supplementary::InfoTime timeLastSimMsgReceived;
+    alica::AlicaTime timeLastSimMsgReceived;
 
     ros::Subscriber gazeboModelStatesSub;
     ros::Subscriber odometrySub;

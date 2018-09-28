@@ -7,6 +7,8 @@
 #include <supplementary/AgentID.h>
 #include <ttb_msgs/TopologicalInfo.h>
 
+#include <engine/AlicaClock.h>
+
 #include <memory>
 
 namespace ttb
@@ -64,7 +66,7 @@ void TopologicalLocalization::run()
         }
     }
     auto infoElement =
-        std::make_shared<const supplementary::InformationElement<std::shared_ptr<Room>>>(closestPOI->room, wm->getTime(), this->roomValidityDuration, 1.0);
+        std::make_shared<const supplementary::InformationElement<std::shared_ptr<Room>>>(closestPOI->room, wm->getTime().inNanoseconds(), this->roomValidityDuration, 1.0);
     this->roomBuffer->add(infoElement);
 }
 

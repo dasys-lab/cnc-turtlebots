@@ -5,7 +5,7 @@
 //#include "ttb/wm/RawSensorData.h"
 
 #include <engine/AlicaEngine.h>
-#include <engine/IAlicaClock.h>
+#include <engine/AlicaClock.h>
 #include <nav_msgs/Odometry.h>
 #include <chrono>
 
@@ -59,7 +59,7 @@ void TTBWorldModel::init()
 
 bool TTBWorldModel::isUsingSimulator()
 {
-	return this->usingSimulator || (this->communication != nullptr && this->communication->getTimeLastSimMsgReceived() > 0);
+	return this->usingSimulator || (this->communication != nullptr && this->communication->getTimeLastSimMsgReceived() > alica::AlicaTime::zero());
 }
 
 void TTBWorldModel::enableUsingSimulator()

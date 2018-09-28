@@ -38,13 +38,13 @@ void TopologicalModel::readTopologyFromConfig()
         }
         if (room->pois.size() == 0)
         {
-            shared_ptr<vector<string>> poisIDStrings = make_shared<vector<string>>();
+            std::shared_ptr<std::vector<std::string>> poisIDStrings = std::make_shared<std::vector<std::string>>();
             try
             {
                 poisIDStrings =
                     (*sc)["TopologicalModel"]->getSections("DistributedSystems.Rooms", roomName.c_str(), "POIs", NULL);
             }
-            catch (exception &e)
+            catch (std::exception &e)
             {
                 continue;
             }
@@ -117,7 +117,7 @@ std::shared_ptr<POI> TopologicalModel::getPOIInternal(int id)
     auto entry = this->pois.insert(std::make_shared<POI>(id));
     if (entry.second)
     {
-        (*(entry.first))->gazeboModel = std::make_shared<LogicalObject>("poi_" + to_string(id), "poi");
+        (*(entry.first))->gazeboModel = std::make_shared<LogicalObject>("poi_" + std::to_string(id), "poi");
         wm->logicalCameraData.addLogicalObject((*(entry.first))->gazeboModel->getName(), (*(entry.first))->gazeboModel);
     }
     return *(entry.first);
