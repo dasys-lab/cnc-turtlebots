@@ -25,7 +25,7 @@ Movement::Movement(ttb::TTBWorldModel *wm, ttb::TurtleBot *turtleBot)
     this->directVelocityCmdPub = n.advertise<geometry_msgs::Twist>(this->directVelocityCmd, 10);
 
     this->moveBaseActionClientNamespace =
-        (*this->sc)["Drive"]->get<string>("Topics.MoveBaseActionClientNamespace", NULL);
+        (*this->sc)["Drive"]->get<std::string>("Topics.MoveBaseActionClientNamespace", NULL);
     this->ac = new actionlib::ActionClient<move_base_msgs::MoveBaseAction>(moveBaseActionClientNamespace);
 
     this->seqCounter = 0;
@@ -55,7 +55,7 @@ std::shared_ptr<ttb::wm::Door> Movement::getNextDoor(std::shared_ptr<ttb::wm::PO
 std::shared_ptr<ttb::wm::POI> Movement::getNextPOI(std::shared_ptr<ttb::wm::POI> goalPOI)
 {
     // only one query at a time
-    lock_guard<std::mutex> guard(this->queryMutex);
+    std::lock_guard<std::mutex> guard(this->queryMutex);
     this->reset();
 
     // get own room
