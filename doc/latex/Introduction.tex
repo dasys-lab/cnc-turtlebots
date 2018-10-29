@@ -34,4 +34,41 @@ The final issue is to decide which editor you choose for compiling this \LaTeX d
 
 With TexMaker you only have to open the \verb#Software_Reference_Book.tex# file and click on \verb#Quick Build#. If you get compile errors, you probably need to install the necessary \LaTeX packages. Under Ubuntu this is done by executing the following console command:
 
-\verb#sudo apt-get install texlive-full#
+\verb#sudo apt install texlive-full#
+
+\section{How to Setup your Development-PC?}
+\label{sec:SetupPC}
+
+The development environment recommended to develop software for the TurtleBots of the Distributed Systems Department is the result of best practises over years and continuously under development. Nevertheless, we try to keep this section up-to-date. There also exist scripts for doing these steps, however for the purpose of getting hands on experience we recommend to drudge through the drudgery at least once and thereby trying to understand what is actually going.
+
+\begin{description}
+	\item[1. Install Ubuntu] The currently used operating system is Ubuntu 18.04 LTS (long-term support) with all available updates installed.
+	\item[2. Install Ubuntu - Extra Packages] Simply install the package with the following command: \verb#sudo apt install vim git ssh #
+	\item[3. Install ROS Desktop Full] The currently used ROS version is ROS Melodic Morenia with all available updates installed. Like Ubuntu 18.04 it is also a long-term support version. The instructions for installing ROS under Ubuntu can be found on the corresponding \href{http://wiki.ros.org/melodic/Installation/Ubuntu}{ROS Wikipage}.
+	\item[4. Install ROS - Extra Packages] Simply install the package with the following command: \verb#sudo apt install #
+	\item[5. Create ROS Workspace] We recommend to follow this folder structure, as things can get complicated otherwise. 
+	\begin{itemize}
+		\item \verb#cd#
+		\item \verb#mkdir -p rosws/src#
+	\end{itemize}
+	\item[6. Checkout Github Repositories] You need access to our GIT repositories on Github. Therefore, please provide your GITHub Username to us. We will grant you the corresponding permissions. Furthermore, it is recommended to setup ssh access to your GITHub account, in order to avoid typing the passwords over and over again:
+	\begin{itemize}
+		\item \verb#ssh-keygen# followed by pressing enter until the command terminates. ;-)
+		\item Follow the \href{https://help.github.com/articles/adding-a-new-ssh-key-to-your-github-account/}{GITHub Tutorial about adding SSH-Keys to your account}.
+	\end{itemize}
+	The next steps are for checking out the repositories under the assumption that you have the corresponding permissions:
+	\begin{itemize}
+		\item \verb#cd ~/rosws/src#
+		\item \verb#git clone git@github.com:carpe-noctem-cassel/alica.git#
+		\item \verb#git clone git@github.com:carpe-noctem-cassel/clingo.git#
+		\item \verb#git clone git@github.com:carpe-noctem-cassel/cnc-turtlebots.git#
+		\item \verb#git clone git@github.com:carpe-noctem-cassel/supplementary.git#
+		\item \verb#git clone git@github.com:carpe-noctem-cassel/symrock.git#
+		\item \verb#git clone git@github.com:carpe-noctem-cassel/turtlebot.git#
+	\end{itemize}
+	\item[7. General Configurations]
+	\item[8. Switch Repository Branches]
+	\item[9. Compile Workspace]
+	\item[10. Setup CLion]
+\end{description}
+
