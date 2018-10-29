@@ -136,7 +136,7 @@ void ASPRCCTest::initialiseParameters()
     /*PROTECTED REGION ID(initialiseParameters1480766583222) ENABLED START*/
     // Add additional options here
     query->clearStaticVariables();
-    query->addStaticVariable(getVariableByName("TestVar"));
+    query->addStaticVariable(getVariable("TestVar"));
 
     /*PROTECTED REGION END*/
 }

@@ -79,8 +79,8 @@ void DriveToPoint::initialiseParameters()
     // Add additional options here
     this->query->clearStaticVariables();
     this->result.clear();
-    this->query->addStaticVariable(getVariableByName("x"));
-    this->query->addStaticVariable(getVariableByName("y"));
+    this->query->addStaticVariable(getVariable("x"));
+    this->query->addStaticVariable(getVariable("y"));
     this->goalHandle.reset();
 
     /*PROTECTED REGION END*/

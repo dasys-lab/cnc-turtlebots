@@ -51,14 +51,15 @@ void ASPNavigation::run(void *msg)
     }
     if (this->iterationCounter % 4 == 0)
     {
-        auto s = (alica::reasoner::ASPSolverWrapper *)this->wm->getEngine()->getSolver(SolverType::ASPSOLVER);
+        // Reinitialize the Solver of the Engine every Xth iteration.
+        auto s = (alica::reasoner::ASPSolverWrapper *)this->getPlanContext().getAlicaEngine()->getSolver<alica::reasoner::ASPSolverWrapper>();
         delete s;
-        auto ae = this->wm->getEngine();
+        auto ae = this->getPlanContext().getAlicaEngine();
         std::vector<char const *> args{"clingo", nullptr};
         auto solver = new ::reasoner::ASPSolver(args);
         auto solverWrapper = new alica::reasoner::ASPSolverWrapper(ae, args);
         solverWrapper->init(solver);
-        ae->addSolver(SolverType::ASPSOLVER, solverWrapper);
+        ae->addSolver<alica::reasoner::ASPSolverWrapper>(solverWrapper);
     }
     //		if (this->iterationCounter == 0)
     //		{
@@ -135,10 +136,10 @@ void ASPNavigation::run(void *msg)
     //      this->wm->doors.openDoor("doorClosed(offices, utility)");
 
     std::chrono::_V2::system_clock::time_point start = std::chrono::high_resolution_clock::now();
-    query->getSolution(SolverType::ASPSOLVER, runningPlan, result);
+    query->getSolution<alica::reasoner::ASPSolverWrapper, ::reasoner::AnnotatedValVec>(this->getPlanContext(), result);
     std::chrono::_V2::system_clock::time_point end = std::chrono::high_resolution_clock::now();
     cout << "ASPNavigation: Measured Solving and Grounding Time: "
-         << std::chrono::duration_cast<chrono::nanoseconds>(end - start).count() / 1000000.0 << " ms" << endl;
+         << std::chrono::duration_cast<chrono::milliseconds>(end - start).count() << " ms" << endl;
     if (result.size() > 0)
     {
         auto it = find_if(result.begin(), result.end(),
@@ -196,7 +197,7 @@ void ASPNavigation::run(void *msg)
     }
     if (this->iterationCounter == 3)
     {
-        this->setSuccess(true);
+        this->setSuccess();
     }
     this->iterationCounter++;
 
@@ -207,7 +208,7 @@ void ASPNavigation::initialiseParameters()
     /*PROTECTED REGION ID(initialiseParameters1475693360605) ENABLED START*/
     // Add additional options here
     query->clearStaticVariables();
-    query->addStaticVariable(getVariableByName("NavVar"));
+    query->addStaticVariable(getVariable("NavVar"));
     // result.clear(); // <-- this is done in each query->getSolution call
 
     /*PROTECTED REGION END*/

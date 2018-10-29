@@ -88,7 +88,7 @@ void Carry::initialiseParameters()
     /*PROTECTED REGION ID(initialiseParameters1468494621581) ENABLED START*/
     // Add additional options here
     query->clearStaticVariables();
-    query->addStaticVariable(getVariableByName("CarryVar"));
+    query->addStaticVariable(getVariable("CarryVar"));
     result.clear();
 
     /*PROTECTED REGION END*/

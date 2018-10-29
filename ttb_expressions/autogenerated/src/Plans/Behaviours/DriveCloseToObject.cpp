@@ -91,7 +91,7 @@ void DriveCloseToObject::initialiseParameters()
     // Add additional options here
     this->query->clearStaticVariables();
     this->result.clear();
-    this->query->addStaticVariable(getVariableByName("entity"));
+    this->query->addStaticVariable(getVariable("entity"));
     this->goalHandle.reset();
 
     /*PROTECTED REGION END*/
