@@ -43,7 +43,7 @@ The development environment recommended to develop software for the TurtleBots o
 
 \begin{description}
 	\item[1. Install Ubuntu] The currently used operating system is Ubuntu 18.04 LTS (long-term support) with all available updates installed.
-	\item[2. Install Ubuntu - Extra Packages] Simply install the package with the following command: \verb#sudo apt install vim git ssh #
+	\item[2. Install Ubuntu - Extra Packages] Simply install the package with the following command: \verb#sudo apt install vim git ssh myrepos#
 	\item[3. Install ROS Desktop Full] The currently used ROS version is ROS Melodic Morenia with all available updates installed. Like Ubuntu 18.04 it is also a long-term support version. The instructions for installing ROS under Ubuntu can be found on the corresponding \href{http://wiki.ros.org/melodic/Installation/Ubuntu}{ROS Wikipage}.
 	\item[4. Install ROS - Extra Packages] Simply install the package with the following command: \verb#sudo apt install #
 	\item[5. Create ROS Workspace] We recommend to follow this folder structure, as things can get complicated otherwise. 
@@ -51,7 +51,7 @@ The development environment recommended to develop software for the TurtleBots o
 		\item \verb#cd#
 		\item \verb#mkdir -p rosws/src#
 	\end{itemize}
-	\item[6. Checkout Github Repositories] You need access to our GIT repositories on Github. Therefore, please provide your GITHub Username to us. We will grant you the corresponding permissions. Furthermore, it is recommended to setup ssh access to your GITHub account, in order to avoid typing the passwords over and over again:
+	\item[6. Checkout Github Repositories] You need access to our GIT repositories on GITHub. Therefore, please provide your GITHub Username to us. We will grant you the corresponding permissions. Furthermore, it is recommended to setup ssh access to your GITHub account, in order to avoid typing the passwords over and over again:
 	\begin{itemize}
 		\item \verb#ssh-keygen# followed by pressing enter until the command terminates. ;-)
 		\item Follow the \href{https://help.github.com/articles/adding-a-new-ssh-key-to-your-github-account/}{GITHub Tutorial about adding SSH-Keys to your account}.
@@ -66,9 +66,51 @@ The development environment recommended to develop software for the TurtleBots o
 		\item \verb#git clone git@github.com:carpe-noctem-cassel/symrock.git#
 		\item \verb#git clone git@github.com:carpe-noctem-cassel/turtlebot.git#
 	\end{itemize}
-	\item[7. General Configurations]
-	\item[8. Switch Repository Branches]
-	\item[9. Compile Workspace]
+	\item[7. General Configurations] You need to configure some of the installed tools:
+		\begin{itemize}
+			\item \textbf{git:} Copy the 'gitconfig' file from the cnc-turtlebots/configuration folder into your home folder and rename it to '.gitconfig'. Open the '.gitconfig' file and replace the 'email' and the 'name' in the 'user' section.
+			\item \textbf{myrepos:} Jump into each repository and execute: \verb#mr register#
+			\item \textbf{.bashrc:} You need to enter the lines from Appendix~\ref{sec:bashrc} into your '.bashrc' file.
+		\end{itemize}
+	\item[8. Switch Repository Branches] During the lecture, we are working on the following branches of the corresponding GIT repositories:
+	\begin{itemize}
+		\item alica - master
+		\item clingo - master
+		\item cnc-turtlebots - pkvr
+		\item supplementary - ttb\_dev
+		\item symrock - zmq
+		\item turtlebot - kinetic
+	\end{itemize}
+	The main work will take place within cnc-turtlebots, supplementary, turtlebot, and symrock. That is why the master branch (incl. branch protection) for alica and clingo are ok for us. In order to switch a branch execute\\\verb#git checkout <branch name># within the repositories root folder.
+	\item[9. Compile Workspace] Within the 'rosws/src' folder execute \verb#catkin build#.
 	\item[10. Setup CLion]
 \end{description}
 
+\section{Unix Basics}
+\label{sec:LinuxBasics}
+
+Differences between Unix and Windows can be found in this \href{https://www.techrepublic.com/blog/10-things/10-fundamental-differences-between-linux-and-windows/}{nice article}. This \href{https://www.howtogeek.com/137096/6-ways-the-linux-file-system-is-different-from-the-windows-file-system/}{special article about the different filesystems} is also very enlighting to read for Unix newcomers.
+
+In order to operate easily with a Unix-based operating system like Ubuntu, you should understand the following terminal commands including their common parameters 
+
+\begin{description}
+\item [cd] Changing the directory, including special folders like '.', '..', and '~'.
+\item [mkdir] Creating folders, including '-p' for nested folders.
+\item [rm] Deleting files and '-r' for folders.
+\item [ls] Showing the content of the current folder.
+\item [ll] Like ls, just including several more information like permissions etc.
+\item [grep] Finding strings inside of files, incl. the meaning of each of the three letters '-inr': \verb#grep "test" .# 
+\item [find] Finding files: \verb#find . -name "regex-expression"#
+\item [vim] Terminal-based editor for quick editing. Useful commands ':wq', 'ESC', 'i'
+\item [ssh] Connecting to another machine goes like: \verb#ssh -pPORT USER@IP#,\\e.\,g., \verb#ssh -p222 cn@141.51.122.141#
+\item [ssh-keygen] Creates a new ssh-key (or overwrites the old one).
+\end{description}
+
+Here are some resources for your own studies. Nevertheless, our experience is that, if you are open and willing to learn, attending the lecture in an attentive way, will be enough to understand everything you need.
+\begin{itemize}
+\item \href{https://www.digitalocean.com/community/tutorials/an-introduction-to-linux-basics}{Basic Terminal Stuff}
+\item \href{https://www.digitalocean.com/community/tutorials/linux-permissions-basics-and-how-to-use-umask-on-a-vps}{Linux Permission System}
+\item \href{https://www.tutorialspoint.com/vim/vim_quick_guide.htm}{Vim - "Quick" Guide}
+\end{itemize}
+
+And finally always remember: You can 'google' everything you need to know very easily. So don't get frustrated, just keep digging.
