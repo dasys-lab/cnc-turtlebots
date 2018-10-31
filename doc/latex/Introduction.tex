@@ -43,9 +43,16 @@ The development environment recommended to develop software for the TurtleBots o
 
 \begin{description}
 	\item[1. Install Ubuntu] The currently used operating system is Ubuntu 18.04 LTS (long-term support) with all available updates installed.
-	\item[2. Install Ubuntu - Extra Packages] Simply install the package with the following command: \verb#sudo apt install vim git ssh myrepos#
+	\item[2. Install Ubuntu - Extra Packages] Simply install the package with the following command: \verb#sudo apt install vim git ssh myrepos capnproto#\\\verb# libcapnp-dev libqt5x11extras5-dev liblua5.1.0-dev bison re2c#
+	\item[3. Install ZMQ] Execute the following lines in a terminal:\\
+\verb#sudo su#\\
+\verb#echo "deb http://download.opensuse.org/repositories/network:/#\\\verb#   messaging:/zeromq:/git-draft/xUbuntu_18.04/ ./" >> /etc#\\\verb#   /apt/sources.list#\\
+\verb#exit#\\
+\verb#wget https://download.opensuse.org/repositories/network:/#\\\verb#   messaging:/zeromq:/git-draft/xUbuntu_18.04/Release#\\\verb#   .key -O- | sudo apt-key add#\\
+\verb#sudo apt install libzmq3-dev#
+	\item[4. Install Clingo] Clone the \href{https://github.com/potassco/clingo}{Clingo Repository} and follow their installation instructions.
 	\item[3. Install ROS Desktop Full] The currently used ROS version is ROS Melodic Morenia with all available updates installed. Like Ubuntu 18.04 it is also a long-term support version. The instructions for installing ROS under Ubuntu can be found on the corresponding \href{http://wiki.ros.org/melodic/Installation/Ubuntu}{ROS Wikipage}.
-	\item[4. Install ROS - Extra Packages] Simply install the package with the following command: \verb#sudo apt install #
+	\item[4. Install ROS - Extra Packages] Simply install the package with the following command: \verb#sudo apt install ros-melodic-costmap-2d ros-melodic-urg-node #\\\verb#ros-melodic-base-local-planner ros-melodic-nav-core#\\\verb#ros-melodic-kobuki-msgs ros-melodic-joy#
 	\item[5. Create ROS Workspace] We recommend to follow this folder structure, as things can get complicated otherwise. 
 	\begin{itemize}
 		\item \verb#cd#
@@ -71,6 +78,9 @@ The development environment recommended to develop software for the TurtleBots o
 			\item \textbf{git:} Copy the 'gitconfig' file from the cnc-turtlebots/configuration folder into your home folder and rename it to '.gitconfig'. Open the '.gitconfig' file and replace the 'email' and the 'name' in the 'user' section.
 			\item \textbf{myrepos:} Jump into each repository and execute: \verb#mr register#
 			\item \textbf{.bashrc:} You need to enter the lines from Appendix~\ref{sec:bashrc} into your '.bashrc' file.
+			\item \textbf{mr branches:} Add the following lines at the beginning of the '.mrconfig' file in your home folder:\\
+			\verb#[DEFAULT]#\\
+			\verb#branch = git branch#
 		\end{itemize}
 	\item[8. Switch Repository Branches] During the lecture, we are working on the following branches of the corresponding GIT repositories:
 	\begin{itemize}
@@ -79,7 +89,7 @@ The development environment recommended to develop software for the TurtleBots o
 		\item cnc-turtlebots - pkvr
 		\item supplementary - ttb\_dev
 		\item symrock - zmq
-		\item turtlebot - kinetic
+		\item turtlebot - pkvr
 	\end{itemize}
 	The main work will take place within cnc-turtlebots, supplementary, turtlebot, and symrock. That is why the master branch (incl. branch protection) for alica and clingo are ok for us. In order to switch a branch execute\\\verb#git checkout <branch name># within the repositories root folder.
 	\item[9. Compile Workspace] Within the 'rosws/src' folder execute \verb#catkin build#.
