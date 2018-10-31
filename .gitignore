@@ -228,3 +228,4 @@ proxy_gen/
 
 **/.idea
 **/cmake-build-debug
+doc/latex/build
