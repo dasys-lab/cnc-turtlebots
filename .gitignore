@@ -223,3 +223,7 @@ TSWLatexianTemp*
 
 # KBibTeX
 *~[0-9]*
+
+.idea/
+doc/latex/build
+cmake-build-debug/
