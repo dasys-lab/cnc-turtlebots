@@ -51,14 +51,14 @@ The development environment recommended to develop software for the TurtleBots o
 \verb#wget https://download.opensuse.org/repositories/network:/#\\\verb#   messaging:/zeromq:/git-draft/xUbuntu_18.04/Release#\\\verb#   .key -O- | sudo apt-key add#\\
 \verb#sudo apt install libzmq3-dev#
 	\item[4. Install Clingo] Clone the \href{https://github.com/potassco/clingo}{Clingo Repository} and follow their installation instructions.
-	\item[3. Install ROS Desktop Full] The currently used ROS version is ROS Melodic Morenia with all available updates installed. Like Ubuntu 18.04 it is also a long-term support version. The instructions for installing ROS under Ubuntu can be found on the corresponding \href{http://wiki.ros.org/melodic/Installation/Ubuntu}{ROS Wikipage}.
-	\item[4. Install ROS - Extra Packages] Simply install the package with the following command: \verb#sudo apt install ros-melodic-costmap-2d ros-melodic-urg-node #\\\verb#ros-melodic-base-local-planner ros-melodic-nav-core#\\\verb#ros-melodic-kobuki-msgs ros-melodic-joy ros-melodic-ar-track-alvar#
-	\item[5. Create ROS Workspace] We recommend to follow this folder structure, as things can get complicated otherwise. 
+	\item[5. Install ROS Desktop Full] The currently used ROS version is ROS Melodic Morenia with all available updates installed. Like Ubuntu 18.04 it is also a long-term support version. The instructions for installing ROS under Ubuntu can be found on the corresponding \href{http://wiki.ros.org/melodic/Installation/Ubuntu}{ROS Wikipage}.
+	\item[6. Install ROS - Extra Packages] Simply install the package with the following command: \verb#sudo apt install ros-melodic-costmap-2d ros-melodic-urg-node #\\\verb#ros-melodic-base-local-planner ros-melodic-nav-core#\\\verb#ros-melodic-kobuki-msgs ros-melodic-joy ros-melodic-ar-track-alvar#
+	\item[7. Create ROS Workspace] We recommend to follow this folder structure, as things can get complicated otherwise. 
 	\begin{itemize}
 		\item \verb#cd#
 		\item \verb#mkdir -p rosws/src#
 	\end{itemize}
-	\item[6. Checkout Github Repositories] You need access to our GIT repositories on GITHub. Therefore, please provide your GITHub Username to us. We will grant you the corresponding permissions. Furthermore, it is recommended to setup ssh access to your GITHub account, in order to avoid typing the passwords over and over again:
+	\item[8. Checkout Github Repositories] You need access to our GIT repositories on GITHub. Therefore, please provide your GITHub Username to us. We will grant you the corresponding permissions. Furthermore, it is recommended to setup ssh access to your GITHub account, in order to avoid typing the passwords over and over again:
 	\begin{itemize}
 		\item \verb#ssh-keygen# followed by pressing enter until the command terminates. ;-)
 		\item Follow the \href{https://help.github.com/articles/adding-a-new-ssh-key-to-your-github-account/}{GITHub Tutorial about adding SSH-Keys to your account}.
@@ -67,13 +67,12 @@ The development environment recommended to develop software for the TurtleBots o
 	\begin{itemize}
 		\item \verb#cd ~/rosws/src#
 		\item \verb#git clone git@github.com:carpe-noctem-cassel/alica.git#
-		\item \verb#git clone git@github.com:carpe-noctem-cassel/clingo.git#
 		\item \verb#git clone git@github.com:carpe-noctem-cassel/cnc-turtlebots.git#
 		\item \verb#git clone git@github.com:carpe-noctem-cassel/supplementary.git#
 		\item \verb#git clone git@github.com:carpe-noctem-cassel/symrock.git#
 		\item \verb#git clone git@github.com:carpe-noctem-cassel/turtlebot.git#
 	\end{itemize}
-	\item[7. General Configurations] You need to configure some of the installed tools:
+	\item[9. General Configurations] You need to configure some of the installed tools:
 		\begin{itemize}
 			\item \textbf{git:} Copy the 'gitconfig' file from the cnc-turtlebots/configuration folder into your home folder and rename it to '.gitconfig'. Open the '.gitconfig' file and replace the 'email' and the 'name' in the 'user' section.
 			\item \textbf{myrepos:} Jump into each repository and execute: \verb#mr register#
@@ -82,18 +81,17 @@ The development environment recommended to develop software for the TurtleBots o
 			\verb#[DEFAULT]#\\
 			\verb#branch = git branch#
 		\end{itemize}
-	\item[8. Switch Repository Branches] During the lecture, we are working on the following branches of the corresponding GIT repositories:
+	\item[10. Switch Repository Branches] During the lecture, we are working on the following branches of the corresponding GIT repositories:
 	\begin{itemize}
-		\item alica - master
-		\item clingo - master
-		\item cnc-turtlebots - pkvr
+		\item alica - newPD
+		\item cnc-turtlebots - conversion2newPD
 		\item supplementary - ttb\_dev
 		\item symrock - zmq
 		\item turtlebot - pkvr
 	\end{itemize}
 	The main work will take place within cnc-turtlebots, supplementary, turtlebot, and symrock. That is why the master branch (incl. branch protection) for alica and clingo are ok for us. In order to switch a branch execute\\\verb#git checkout <branch name># within the repositories root folder.
-	\item[9. Compile Workspace] Within the 'rosws/src' folder execute \verb#catkin build#.
-	\item[10. Setup CLion]
+	\item[11. Compile Workspace] Within the 'rosws/src' folder execute \verb#catkin build#.
+	\item[12. Setup CLion]
 \end{description}
 
 \section{Unix Basics}
