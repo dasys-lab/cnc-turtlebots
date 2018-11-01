@@ -754,7 +754,7 @@ ros::Subscriber sub23 = n.subscribe("/donatello/initialpose",5, onRosPoseWithCov
 ros::Subscriber sub24 = n.subscribe("/donatello/mobile_base/sensors/core",5, onRosSensorState1954641914,ros::TransportHints().unreliable().tcpNoDelay().reliable());
 ros::Subscriber sub25 = n.subscribe("/donatello/move_base/NavfnROS/plan",5, onRosPath1699739415,ros::TransportHints().unreliable().tcpNoDelay().reliable());
 
-pub3767756765 = n.advertise<alica_msgs::PlanTreeInfo>("/AlicaEngine/PlanTreeInfo",5,false);
+pub3767756765 = n.advertise<alica_ros_proxy::PlanTreeInfo>("/AlicaEngine/PlanTreeInfo",5,false);
 pub3108117629 = n.advertise<process_manager::ProcessCommand>("/process_manager/ProcessCommand",5,false);
 pub2783514677 = n.advertise<process_manager::ProcessStats>("/process_manager/ProcessStats",5,false);
 pub2611391888 = n.advertise<ttb_msgs::AMCLPoseWrapped>("/wrapped/amcl_pose",5,false);
