@@ -36,9 +36,9 @@
 
 #include "cv.h"
 
-#include "Pose.h"
 #include "Camera.h"
 #include "EC.h"
+#include "Pose.h"
 
 namespace alvar
 {
@@ -48,28 +48,28 @@ namespace alvar
  */
 class ALVAR_EXPORT FernPoseEstimator
 {
-	
+
 public:
-	FernPoseEstimator();
+    FernPoseEstimator();
     ~FernPoseEstimator();
 
     Pose pose() const;
     Camera camera() const;
 
-    bool setCalibration(const std::string &filename, int width, int height);
+    bool setCalibration(const std::string& filename, int width, int height);
     void setResolution(int width, int height);
-	
+
     typedef std::vector<CvPoint2D64f> ImagePointVector;
     typedef std::vector<CvPoint3D64f> ModelPointVector;
     typedef std::map<int, alvar::ExternalContainer> ExternalContainerMap;
-    void calculateFromPointCorrespondences(ModelPointVector &mpts, ImagePointVector &ipts);
-    void updateFromTrackedPoints(ExternalContainerMap &container);
-    void extractPlaneCoordinates(ExternalContainerMap &container);
+    void calculateFromPointCorrespondences(ModelPointVector& mpts, ImagePointVector& ipts);
+    void updateFromTrackedPoints(ExternalContainerMap& container);
+    void extractPlaneCoordinates(ExternalContainerMap& container);
 
 private:
-	Pose mPose;
-	Camera mCamera;
-	CameraEC mCameraEC;
+    Pose mPose;
+    Camera mCamera;
+    CameraEC mCameraEC;
 };
 
 } // namespace alvar

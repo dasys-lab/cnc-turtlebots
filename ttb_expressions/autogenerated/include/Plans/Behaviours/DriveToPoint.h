@@ -19,23 +19,23 @@ namespace alica
 {
 class DriveToPoint : public DomainBehaviour
 {
-  public:
+public:
     DriveToPoint();
     virtual ~DriveToPoint();
-    virtual void run(void *msg);
+    virtual void run(void* msg);
     /*PROTECTED REGION ID(pub1520850811997) ENABLED START*/
     // Add additional public methods here
     /*PROTECTED REGION END*/
-  protected:
+protected:
     virtual void initialiseParameters();
     /*PROTECTED REGION ID(pro1520850811997) ENABLED START*/
     // Add additional protected methods here
     /*PROTECTED REGION END*/
-  private:
+private:
     /*PROTECTED REGION ID(prv1520850811997) ENABLED START*/
     // Add additional private methods here
     std::shared_ptr<alica::Query> query;
-    std::vector<std::string> result;
+    std::vector<alica::BBIdent> result;
     actionlib::ClientGoalHandle<move_base_msgs::MoveBaseAction> goalHandle;
     bool isMoveBaseDone();
     /*PROTECTED REGION END*/

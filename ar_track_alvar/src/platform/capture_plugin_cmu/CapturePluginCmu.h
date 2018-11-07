@@ -31,13 +31,13 @@
  */
 
 #ifdef WIN32
-    #ifdef ALVAR_Capture_Plugin_CMU_BUILD
-        #define ALVAR_CAPTURE_PLUGIN_CMU_EXPORT __declspec(dllexport)
-    #else
-        #define ALVAR_CAPTURE_PLUGIN_CMU_EXPORT __declspec(dllimport)
-    #endif
+#ifdef ALVAR_Capture_Plugin_CMU_BUILD
+#define ALVAR_CAPTURE_PLUGIN_CMU_EXPORT __declspec(dllexport)
 #else
-    #define ALVAR_CAPTURE_PLUGIN_CMU_EXPORT
+#define ALVAR_CAPTURE_PLUGIN_CMU_EXPORT __declspec(dllimport)
+#endif
+#else
+#define ALVAR_CAPTURE_PLUGIN_CMU_EXPORT
 #endif
 
 #include "Capture.h"
@@ -45,18 +45,19 @@
 
 #include "1394camera.h"
 
-namespace alvar {
-  
+namespace alvar
+{
+
 /**
  * \brief Dynamically loaded plugins namespace.
  */
-namespace plugins {
+namespace plugins
+{
 
 /**
  * \brief Implementation of Capture interface for Cmu plugin.
  */
-class ALVAR_CAPTURE_PLUGIN_CMU_EXPORT CaptureCmu
-    : public alvar::Capture
+class ALVAR_CAPTURE_PLUGIN_CMU_EXPORT CaptureCmu : public alvar::Capture
 {
 public:
     /**
@@ -71,21 +72,21 @@ public:
     ~CaptureCmu();
     bool start();
     void stop();
-    IplImage *captureImage();
+    IplImage* captureImage();
     bool showSettingsDialog();
-	std::string SerializeId();
-	bool Serialize(Serialization *serialization);
+    std::string SerializeId();
+    bool Serialize(Serialization* serialization);
+
 private:
-    C1394Camera *mCamera;
+    C1394Camera* mCamera;
     int mChannels;
-    IplImage *mReturnFrame;
+    IplImage* mReturnFrame;
 };
 
 /**
  * \brief Implementation of CapturePlugin interface for Cmu plugin.
  */
-class ALVAR_CAPTURE_PLUGIN_CMU_EXPORT CapturePluginCmu
-    : public alvar::CapturePlugin
+class ALVAR_CAPTURE_PLUGIN_CMU_EXPORT CapturePluginCmu : public alvar::CapturePlugin
 {
 public:
     /**
@@ -93,16 +94,16 @@ public:
      *
      * \param captureType A unique identifier for the capture plugin.
      */
-    CapturePluginCmu(const std::string &captureType);
+    CapturePluginCmu(const std::string& captureType);
     /**
      * \brief Destructor.
      */
     ~CapturePluginCmu();
     CaptureDeviceVector enumerateDevices();
-    Capture *createCapture(const CaptureDevice captureDevice);
+    Capture* createCapture(const CaptureDevice captureDevice);
 };
 
-extern "C" ALVAR_CAPTURE_PLUGIN_CMU_EXPORT void registerPlugin(const std::string &captureType, alvar::CapturePlugin *&capturePlugin);
+extern "C" ALVAR_CAPTURE_PLUGIN_CMU_EXPORT void registerPlugin(const std::string& captureType, alvar::CapturePlugin*& capturePlugin);
 
 } // namespace plugins
 } // namespace alvar

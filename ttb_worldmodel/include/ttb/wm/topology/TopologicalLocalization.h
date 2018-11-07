@@ -15,19 +15,19 @@ namespace wm
 class LogicalCameraData;
 class TopologicalLocalization : public supplementary::Worker
 {
-  public:
+public:
     TopologicalLocalization(ttb::TTBWorldModel* wm);
     virtual ~TopologicalLocalization();
 
     virtual void run();
-    const supplementary::InfoBuffer<std::shared_ptr<Room>> *getRoomBuffer();
+    const supplementary::InfoBuffer<std::shared_ptr<Room>>* getRoomBuffer();
 
-  private:
+private:
     ttb::TTBWorldModel* wm;
 
-    supplementary::InfoTime ownPoseValidityDuration;
-    supplementary::InfoTime roomValidityDuration;
-    supplementary::InfoBuffer<std::shared_ptr<Room>> *roomBuffer;
+    alica::AlicaTime ownPoseValidityDuration;
+    alica::AlicaTime roomValidityDuration;
+    supplementary::InfoBuffer<std::shared_ptr<Room>>* roomBuffer;
 };
 
 } /* namespace wm */

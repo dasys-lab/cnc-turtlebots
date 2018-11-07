@@ -25,7 +25,8 @@
 
 #include <iostream>
 
-namespace alvar {
+namespace alvar
+{
 
 void alvarInfo()
 {
@@ -36,10 +37,9 @@ void alvarInfo()
     std::cerr << std::endl;
 }
 
-struct AlvarLoader {
-	AlvarLoader() {
-		alvarInfo();
-	}
+struct AlvarLoader
+{
+    AlvarLoader() { alvarInfo(); }
 } alvarBasicLoader;
 
 } // namespace alvar

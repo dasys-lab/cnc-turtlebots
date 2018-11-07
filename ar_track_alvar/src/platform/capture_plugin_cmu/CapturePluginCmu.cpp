@@ -25,14 +25,16 @@
 
 #include <sstream>
 
-namespace alvar {
-namespace plugins {
+namespace alvar
+{
+namespace plugins
+{
 
 CaptureCmu::CaptureCmu(const CaptureDevice captureDevice)
-    : Capture(captureDevice)
-    , mCamera(new C1394Camera())
-    , mChannels(-1)
-    , mReturnFrame(NULL)
+        : Capture(captureDevice)
+        , mCamera(new C1394Camera())
+        , mChannels(-1)
+        , mReturnFrame(NULL)
 {
 }
 
@@ -76,88 +78,98 @@ bool CaptureCmu::start()
 
     // TODO: this needs to be parameterized somehow
     if (mCamera->HasVideoMode(2, 4)) { // 1600x1200rgb
-        if (mCamera->SetVideoFormat(2) != CAM_SUCCESS) return false;
-        if (mCamera->SetVideoMode(4) != CAM_SUCCESS) return false;
+        if (mCamera->SetVideoFormat(2) != CAM_SUCCESS)
+            return false;
+        if (mCamera->SetVideoMode(4) != CAM_SUCCESS)
+            return false;
         mChannels = 3;
-    }
-    else if (mCamera->HasVideoMode(2, 1)) { // 1280x960rgb
-        if (mCamera->SetVideoFormat(2) != CAM_SUCCESS) return false;
-        if (mCamera->SetVideoMode(1) != CAM_SUCCESS) return false;
+    } else if (mCamera->HasVideoMode(2, 1)) { // 1280x960rgb
+        if (mCamera->SetVideoFormat(2) != CAM_SUCCESS)
+            return false;
+        if (mCamera->SetVideoMode(1) != CAM_SUCCESS)
+            return false;
         mChannels = 3;
-    }
-    else if (mCamera->HasVideoMode(1, 4)) { // 1024x768rgb
-        if (mCamera->SetVideoFormat(1) != CAM_SUCCESS) return false;
-        if (mCamera->SetVideoMode(4) != CAM_SUCCESS) return false;
+    } else if (mCamera->HasVideoMode(1, 4)) { // 1024x768rgb
+        if (mCamera->SetVideoFormat(1) != CAM_SUCCESS)
+            return false;
+        if (mCamera->SetVideoMode(4) != CAM_SUCCESS)
+            return false;
         mChannels = 3;
-    }
-    else if (mCamera->HasVideoMode(1, 1)) { // 800x600rgb
-        if (mCamera->SetVideoFormat(1) != CAM_SUCCESS) return false;
-        if (mCamera->SetVideoMode(1) != CAM_SUCCESS) return false;
+    } else if (mCamera->HasVideoMode(1, 1)) { // 800x600rgb
+        if (mCamera->SetVideoFormat(1) != CAM_SUCCESS)
+            return false;
+        if (mCamera->SetVideoMode(1) != CAM_SUCCESS)
+            return false;
         mChannels = 3;
-    }
-    else if (mCamera->HasVideoMode(0, 4)) { // 640x480rgb
-        if (mCamera->SetVideoFormat(0) != CAM_SUCCESS) return false;
-        if (mCamera->SetVideoMode(4) != CAM_SUCCESS) return false;
+    } else if (mCamera->HasVideoMode(0, 4)) { // 640x480rgb
+        if (mCamera->SetVideoFormat(0) != CAM_SUCCESS)
+            return false;
+        if (mCamera->SetVideoMode(4) != CAM_SUCCESS)
+            return false;
         mChannels = 3;
-    /* // TODO: also support YUV422
-    }
-    else if (mCamera->HasVideoMode(2, 3)) { // 1600x1200yuv422
-        if (mCamera->SetVideoFormat(2) != CAM_SUCCESS) return false;
-        if (mCamera->SetVideoMode(3) != CAM_SUCCESS) return false;
-        mChannels = 2;
-    }
-    else if (mCamera->HasVideoMode(2, 0)) { // 1280x960yuv422
-        if (mCamera->SetVideoFormat(2) != CAM_SUCCESS) return false;
-        if (mCamera->SetVideoMode(0) != CAM_SUCCESS) return false;
-        mChannels = 2;
-    }
-    else if (mCamera->HasVideoMode(1, 3)) { // 1024x768yuv422
-        if (mCamera->SetVideoFormat(1) != CAM_SUCCESS) return false;
-        if (mCamera->SetVideoMode(3) != CAM_SUCCESS) return false;
-        mChannels = 2;
-    }
-    else if (mCamera->HasVideoMode(1, 0)) { // 800x600yuv422
-        if (mCamera->SetVideoFormat(1) != CAM_SUCCESS) return false;
-        if (mCamera->SetVideoMode(0) != CAM_SUCCESS) return false;
-        mChannels = 2;
-    }
-    else if (mCamera->HasVideoMode(0, 3)) { // 640x480yuv422
-        if (mCamera->SetVideoFormat(0) != CAM_SUCCESS) return false;
-        if (mCamera->SetVideoMode(3) != CAM_SUCCESS) return false;
-        mChannels = 2;
-    }
-    else if (mCamera->HasVideoMode(0, 1)) { // 320x240yuv422
-        if (mCamera->SetVideoFormat(0) != CAM_SUCCESS) return false;
-        if (mCamera->SetVideoMode(1) != CAM_SUCCESS) return false;
-        mChannels = 2;
-    */
-    }
-    else if (mCamera->HasVideoMode(2, 5)) { // 1600x1200mono
-        if (mCamera->SetVideoFormat(2) != CAM_SUCCESS) return false;
-        if (mCamera->SetVideoMode(5) != CAM_SUCCESS) return false;
+        /* // TODO: also support YUV422
+        }
+        else if (mCamera->HasVideoMode(2, 3)) { // 1600x1200yuv422
+            if (mCamera->SetVideoFormat(2) != CAM_SUCCESS) return false;
+            if (mCamera->SetVideoMode(3) != CAM_SUCCESS) return false;
+            mChannels = 2;
+        }
+        else if (mCamera->HasVideoMode(2, 0)) { // 1280x960yuv422
+            if (mCamera->SetVideoFormat(2) != CAM_SUCCESS) return false;
+            if (mCamera->SetVideoMode(0) != CAM_SUCCESS) return false;
+            mChannels = 2;
+        }
+        else if (mCamera->HasVideoMode(1, 3)) { // 1024x768yuv422
+            if (mCamera->SetVideoFormat(1) != CAM_SUCCESS) return false;
+            if (mCamera->SetVideoMode(3) != CAM_SUCCESS) return false;
+            mChannels = 2;
+        }
+        else if (mCamera->HasVideoMode(1, 0)) { // 800x600yuv422
+            if (mCamera->SetVideoFormat(1) != CAM_SUCCESS) return false;
+            if (mCamera->SetVideoMode(0) != CAM_SUCCESS) return false;
+            mChannels = 2;
+        }
+        else if (mCamera->HasVideoMode(0, 3)) { // 640x480yuv422
+            if (mCamera->SetVideoFormat(0) != CAM_SUCCESS) return false;
+            if (mCamera->SetVideoMode(3) != CAM_SUCCESS) return false;
+            mChannels = 2;
+        }
+        else if (mCamera->HasVideoMode(0, 1)) { // 320x240yuv422
+            if (mCamera->SetVideoFormat(0) != CAM_SUCCESS) return false;
+            if (mCamera->SetVideoMode(1) != CAM_SUCCESS) return false;
+            mChannels = 2;
+        */
+    } else if (mCamera->HasVideoMode(2, 5)) { // 1600x1200mono
+        if (mCamera->SetVideoFormat(2) != CAM_SUCCESS)
+            return false;
+        if (mCamera->SetVideoMode(5) != CAM_SUCCESS)
+            return false;
         mChannels = 1;
-    }
-    else if (mCamera->HasVideoMode(2, 2)) { // 1280x960mono
-        if (mCamera->SetVideoFormat(2) != CAM_SUCCESS) return false;
-        if (mCamera->SetVideoMode(2) != CAM_SUCCESS) return false;
+    } else if (mCamera->HasVideoMode(2, 2)) { // 1280x960mono
+        if (mCamera->SetVideoFormat(2) != CAM_SUCCESS)
+            return false;
+        if (mCamera->SetVideoMode(2) != CAM_SUCCESS)
+            return false;
         mChannels = 1;
-    }
-    else if (mCamera->HasVideoMode(1, 5)) { // 1024x768mono
-        if (mCamera->SetVideoFormat(1) != CAM_SUCCESS) return false;
-        if (mCamera->SetVideoMode(5) != CAM_SUCCESS) return false;
+    } else if (mCamera->HasVideoMode(1, 5)) { // 1024x768mono
+        if (mCamera->SetVideoFormat(1) != CAM_SUCCESS)
+            return false;
+        if (mCamera->SetVideoMode(5) != CAM_SUCCESS)
+            return false;
         mChannels = 1;
-    }
-    else if (mCamera->HasVideoMode(1, 2)) { // 800x600mono
-        if (mCamera->SetVideoFormat(1) != CAM_SUCCESS) return false;
-        if (mCamera->SetVideoMode(2) != CAM_SUCCESS) return false;
+    } else if (mCamera->HasVideoMode(1, 2)) { // 800x600mono
+        if (mCamera->SetVideoFormat(1) != CAM_SUCCESS)
+            return false;
+        if (mCamera->SetVideoMode(2) != CAM_SUCCESS)
+            return false;
         mChannels = 1;
-    }
-    else if (mCamera->HasVideoMode(0, 5)) { // 640x480mono
-        if (mCamera->SetVideoFormat(0) != CAM_SUCCESS) return false;
-        if (mCamera->SetVideoMode(5) != CAM_SUCCESS) return false;
+    } else if (mCamera->HasVideoMode(0, 5)) { // 640x480mono
+        if (mCamera->SetVideoFormat(0) != CAM_SUCCESS)
+            return false;
+        if (mCamera->SetVideoMode(5) != CAM_SUCCESS)
+            return false;
         mChannels = 1;
-    }
-    else {
+    } else {
         return false;
     }
 
@@ -178,7 +190,7 @@ void CaptureCmu::stop()
     }
 }
 
-IplImage *CaptureCmu::captureImage()
+IplImage* CaptureCmu::captureImage()
 {
     if (!isCapturing()) {
         return NULL;
@@ -202,60 +214,68 @@ std::string CaptureCmu::SerializeId()
     return "CaptureCmu";
 }
 
-bool CaptureCmu::Serialize(Serialization *serialization)
+bool CaptureCmu::Serialize(Serialization* serialization)
 {
     if (!mCamera) {
         return false;
     }
 
-	unsigned short value;
-	if (serialization->IsInput()) {
-		if (!serialization->Serialize(value, "Gain")) return false;
-		mCamera->GetCameraControl(FEATURE_GAIN)->SetAutoMode(false);
-		mCamera->GetCameraControl(FEATURE_GAIN)->SetValue(value);
+    unsigned short value;
+    if (serialization->IsInput()) {
+        if (!serialization->Serialize(value, "Gain"))
+            return false;
+        mCamera->GetCameraControl(FEATURE_GAIN)->SetAutoMode(false);
+        mCamera->GetCameraControl(FEATURE_GAIN)->SetValue(value);
 
-		if (!serialization->Serialize(value, "AutoExposure")) return false;
-		mCamera->GetCameraControl(FEATURE_AUTO_EXPOSURE)->SetAutoMode(false);
-		mCamera->GetCameraControl(FEATURE_AUTO_EXPOSURE)->SetValue(value);
+        if (!serialization->Serialize(value, "AutoExposure"))
+            return false;
+        mCamera->GetCameraControl(FEATURE_AUTO_EXPOSURE)->SetAutoMode(false);
+        mCamera->GetCameraControl(FEATURE_AUTO_EXPOSURE)->SetValue(value);
 
-		if (!serialization->Serialize(value, "Shutter")) return false;
-		mCamera->GetCameraControl(FEATURE_SHUTTER)->SetAutoMode(false);
-		mCamera->GetCameraControl(FEATURE_SHUTTER)->SetValue(value);
+        if (!serialization->Serialize(value, "Shutter"))
+            return false;
+        mCamera->GetCameraControl(FEATURE_SHUTTER)->SetAutoMode(false);
+        mCamera->GetCameraControl(FEATURE_SHUTTER)->SetValue(value);
 
-		if (!serialization->Serialize(value, "Brightness")) return false;
-		mCamera->GetCameraControl(FEATURE_BRIGHTNESS)->SetAutoMode(false);
-		mCamera->GetCameraControl(FEATURE_BRIGHTNESS)->SetValue(value);
+        if (!serialization->Serialize(value, "Brightness"))
+            return false;
+        mCamera->GetCameraControl(FEATURE_BRIGHTNESS)->SetAutoMode(false);
+        mCamera->GetCameraControl(FEATURE_BRIGHTNESS)->SetValue(value);
 
-		if (!serialization->Serialize(value, "Gamma")) return false;
-		mCamera->GetCameraControl(FEATURE_GAMMA)->SetAutoMode(false);
-		mCamera->GetCameraControl(FEATURE_GAMMA)->SetValue(value);
-	} else {
-		mCamera->GetCameraControl(FEATURE_GAIN)->GetValue(&value);
-		if (!serialization->Serialize(value, "Gain")) return false;
+        if (!serialization->Serialize(value, "Gamma"))
+            return false;
+        mCamera->GetCameraControl(FEATURE_GAMMA)->SetAutoMode(false);
+        mCamera->GetCameraControl(FEATURE_GAMMA)->SetValue(value);
+    } else {
+        mCamera->GetCameraControl(FEATURE_GAIN)->GetValue(&value);
+        if (!serialization->Serialize(value, "Gain"))
+            return false;
 
-		mCamera->GetCameraControl(FEATURE_AUTO_EXPOSURE)->GetValue(&value);
-		if (!serialization->Serialize(value, "AutoExposure")) return false;
+        mCamera->GetCameraControl(FEATURE_AUTO_EXPOSURE)->GetValue(&value);
+        if (!serialization->Serialize(value, "AutoExposure"))
+            return false;
 
-		mCamera->GetCameraControl(FEATURE_SHUTTER)->GetValue(&value);
-		if (!serialization->Serialize(value, "Shutter")) return false;
+        mCamera->GetCameraControl(FEATURE_SHUTTER)->GetValue(&value);
+        if (!serialization->Serialize(value, "Shutter"))
+            return false;
 
-		mCamera->GetCameraControl(FEATURE_BRIGHTNESS)->GetValue(&value);
-		if (!serialization->Serialize(value, "Brightness")) return false;
+        mCamera->GetCameraControl(FEATURE_BRIGHTNESS)->GetValue(&value);
+        if (!serialization->Serialize(value, "Brightness"))
+            return false;
 
-		mCamera->GetCameraControl(FEATURE_GAMMA)->GetValue(&value);
-		if (!serialization->Serialize(value, "Gamma")) return false;
-	}
-	return true;
+        mCamera->GetCameraControl(FEATURE_GAMMA)->GetValue(&value);
+        if (!serialization->Serialize(value, "Gamma"))
+            return false;
+    }
+    return true;
 }
 
-CapturePluginCmu::CapturePluginCmu(const std::string &captureType)
-    : CapturePlugin(captureType)
+CapturePluginCmu::CapturePluginCmu(const std::string& captureType)
+        : CapturePlugin(captureType)
 {
 }
 
-CapturePluginCmu::~CapturePluginCmu()
-{
-}
+CapturePluginCmu::~CapturePluginCmu() {}
 
 CapturePlugin::CaptureDeviceVector CapturePluginCmu::enumerateDevices()
 {
@@ -286,12 +306,12 @@ CapturePlugin::CaptureDeviceVector CapturePluginCmu::enumerateDevices()
     return devices;
 }
 
-Capture *CapturePluginCmu::createCapture(const CaptureDevice captureDevice)
+Capture* CapturePluginCmu::createCapture(const CaptureDevice captureDevice)
 {
     return new CaptureCmu(captureDevice);
 }
 
-void registerPlugin(const std::string &captureType, alvar::CapturePlugin *&capturePlugin)
+void registerPlugin(const std::string& captureType, alvar::CapturePlugin*& capturePlugin)
 {
     capturePlugin = new CapturePluginCmu(captureType);
 }

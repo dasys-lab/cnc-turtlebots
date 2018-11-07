@@ -17,31 +17,31 @@ namespace wm
 {
 class POI;
 }
-}
+} // namespace ttb
 /*PROTECTED REGION END*/
 
 namespace alica
 {
 class DriveToPOI : public DomainBehaviour
 {
-  public:
+public:
     DriveToPOI();
     virtual ~DriveToPOI();
-    virtual void run(void *msg);
+    virtual void run(void* msg);
     /*PROTECTED REGION ID(pub1454329856163) ENABLED START*/
     // Add additional public methods here
     /*PROTECTED REGION END*/
-  protected:
+protected:
     virtual void initialiseParameters();
     /*PROTECTED REGION ID(pro1454329856163) ENABLED START*/
     // Add additional protected methods here
     /*PROTECTED REGION END*/
-  private:
+private:
     /*PROTECTED REGION ID(prv1454329856163) ENABLED START*/
     // Add additional private methods here
     bool isMoveBaseDone();
     std::shared_ptr<alica::Query> query;
-    std::vector<std::string> result;
+    std::vector<BBIdent> result;
     actionlib::ClientGoalHandle<move_base_msgs::MoveBaseAction> goalHandle;
     std::shared_ptr<ttb::wm::POI> goalPOI;
     /*PROTECTED REGION END*/

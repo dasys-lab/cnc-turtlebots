@@ -1,7 +1,7 @@
 #include "ttb/wm/topology/TopologicalLocalization.h"
 
-#include "ttb/wm/sim/LogicalCameraData.h"
 #include "ttb/TTBWorldModel.h"
+#include "ttb/wm/sim/LogicalCameraData.h"
 
 #include <cnc_geometry/Calculator.h>
 #include <supplementary/AgentID.h>
@@ -16,61 +16,53 @@ namespace ttb
 namespace wm
 {
 
-TopologicalLocalization::TopologicalLocalization(ttb::TTBWorldModel *wm)
-    : supplementary::Worker("TopologicalLocalization")
-    , wm(wm)
+TopologicalLocalization::TopologicalLocalization(ttb::TTBWorldModel* wm)
+        : supplementary::Worker("TopologicalLocalization")
+        , wm(wm)
 {
-    supplementary::SystemConfig *sc = supplementary::SystemConfig::getInstance();
+    supplementary::SystemConfig* sc = supplementary::SystemConfig::getInstance();
     this->roomBuffer = new supplementary::InfoBuffer<std::shared_ptr<Room>>((*sc)["TopologicalLocalization"]->get<int>("Data.Room.BufferLength", NULL));
-    this->roomValidityDuration = (*sc)["TopologicalLocalization"]->get<int>("Data.Room.ValidityDuration", NULL);
+    this->roomValidityDuration = alica::AlicaTime::nanoseconds((*sc)["TopologicalLocalization"]->get<int>("Data.Room.ValidityDuration", NULL));
 
-    this->ownPoseValidityDuration = (*sc)["TTBWorldModel"]->get<int>("Data.AMCLPose.ValidityDuration", NULL);
+    this->ownPoseValidityDuration = alica::AlicaTime::nanoseconds((*sc)["TTBWorldModel"]->get<int>("Data.AMCLPose.ValidityDuration", NULL));
 }
 
-TopologicalLocalization::~TopologicalLocalization()
-{
-}
+TopologicalLocalization::~TopologicalLocalization() {}
 
 void TopologicalLocalization::run()
 {
     auto ownPos = this->wm->rawSensorData.getAMCLPositionBuffer()->getLastValid();
-    if (!ownPos)
-    {
+    if (!ownPos) {
         return;
     }
 
     auto pois = this->wm->topologicalModel.getPOIs();
     std::vector<std::shared_ptr<POI>> currentPOIs;
-    for (auto poi : pois)
-    {
+    for (auto poi : pois) {
         auto pose = poi->gazeboModel->getPoseBuffer()->getTemporalCloseTo(ownPos->getCreationTime(), ownPoseValidityDuration);
-        if (pose)
-        {
+        if (pose) {
             currentPOIs.push_back(poi);
         }
     }
 
     double minDist = std::numeric_limits<double>::max();
     std::shared_ptr<POI> closestPOI;
-    if (currentPOIs.empty())
-    {
+    if (currentPOIs.empty()) {
         return;
     }
-    for (auto tmpPOI : currentPOIs)
-    {
+    for (auto tmpPOI : currentPOIs) {
         double tmpDist = geometry::distance(tmpPOI->x, tmpPOI->y, ownPos->getInformation().x, ownPos->getInformation().y);
-        if (tmpDist < minDist)
-        {
+        if (tmpDist < minDist) {
             minDist = tmpDist;
             closestPOI = tmpPOI;
         }
     }
     auto infoElement =
-        std::make_shared<const supplementary::InformationElement<std::shared_ptr<Room>>>(closestPOI->room, wm->getTime().inNanoseconds(), this->roomValidityDuration, 1.0);
+            std::make_shared<const supplementary::InformationElement<std::shared_ptr<Room>>>(closestPOI->room, wm->getTime(), this->roomValidityDuration, 1.0);
     this->roomBuffer->add(infoElement);
 }
 
-const supplementary::InfoBuffer<std::shared_ptr<Room>> *TopologicalLocalization::getRoomBuffer()
+const supplementary::InfoBuffer<std::shared_ptr<Room>>* TopologicalLocalization::getRoomBuffer()
 {
     return this->roomBuffer;
 }

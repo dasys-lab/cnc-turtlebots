@@ -25,10 +25,11 @@
 
 #include "Timer_private.h"
 
-namespace alvar {
+namespace alvar
+{
 
 Timer::Timer()
-    : d(new TimerPrivate())
+        : d(new TimerPrivate())
 {
 }
 

@@ -7,8 +7,9 @@
 
 #include <string>
 
-namespace supplementary {
-	class SystemConfig;
+namespace supplementary
+{
+class SystemConfig;
 }
 
 namespace ttb
@@ -18,19 +19,16 @@ namespace robot
 
 class Speech
 {
-  public:
+public:
     Speech();
     virtual ~Speech();
     void say(std::string text);
 
-  protected:
-
-  private:
-	supplementary::SystemConfig* sc;
+protected:
+private:
+    supplementary::SystemConfig* sc;
     sound_play::SoundClient soundClient;
-
 };
 
 } /* namespace robot */
 } /* namespace ttb */
-

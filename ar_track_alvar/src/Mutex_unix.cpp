@@ -25,13 +25,14 @@
 
 #include <pthread.h>
 
-namespace alvar {
+namespace alvar
+{
 
 class MutexPrivateData
 {
 public:
     MutexPrivateData()
-        : mMutex()
+            : mMutex()
     {
     }
 
@@ -39,7 +40,7 @@ public:
 };
 
 MutexPrivate::MutexPrivate()
-    : d(new MutexPrivateData())
+        : d(new MutexPrivateData())
 {
     pthread_mutex_init(&d->mMutex, NULL);
 }

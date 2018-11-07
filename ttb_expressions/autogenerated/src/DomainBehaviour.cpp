@@ -9,7 +9,7 @@
 namespace alica
 {
 DomainBehaviour::DomainBehaviour(std::string name)
-    : BasicBehaviour(name)
+        : BasicBehaviour(name)
 {
     /*PROTECTED REGION ID(domainBehaviourConstructor) ENABLED START*/
     sc = supplementary::SystemConfig::getInstance();

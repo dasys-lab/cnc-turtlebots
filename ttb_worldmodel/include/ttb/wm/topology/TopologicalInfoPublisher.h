@@ -1,7 +1,7 @@
 #pragma once
 
-#include <supplementary/Worker.h>
 #include <ros/ros.h>
+#include <supplementary/Worker.h>
 
 namespace ttb
 {
@@ -11,12 +11,12 @@ namespace wm
 
 class TopologicalInfoPublisher : public supplementary::Worker
 {
-  public:
+public:
     TopologicalInfoPublisher(ttb::TTBWorldModel* wm);
     virtual ~TopologicalInfoPublisher();
     virtual void run();
 
-    private:
+private:
     ttb::TTBWorldModel* wm;
     ros::Publisher topoInfoPub;
 };

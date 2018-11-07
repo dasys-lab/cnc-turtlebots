@@ -25,18 +25,17 @@
 
 #include <sstream>
 
-namespace alvar {
+namespace alvar
+{
 
 CaptureDevice::CaptureDevice(const std::string captureType, const std::string id, const std::string description)
-    : mCaptureType(captureType)
-    , mId(id)
-    , mDescription(description)
+        : mCaptureType(captureType)
+        , mId(id)
+        , mDescription(description)
 {
 }
 
-CaptureDevice::~CaptureDevice()
-{
-}
+CaptureDevice::~CaptureDevice() {}
 
 std::string CaptureDevice::captureType() const
 {

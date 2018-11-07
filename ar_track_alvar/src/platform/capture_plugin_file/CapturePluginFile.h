@@ -31,13 +31,13 @@
  */
 
 #ifdef WIN32
-    #ifdef ALVAR_Capture_Plugin_File_BUILD
-        #define ALVAR_CAPTURE_PLUGIN_FILE_EXPORT __declspec(dllexport)
-    #else
-        #define ALVAR_CAPTURE_PLUGIN_FILE_EXPORT __declspec(dllimport)
-    #endif
+#ifdef ALVAR_Capture_Plugin_File_BUILD
+#define ALVAR_CAPTURE_PLUGIN_FILE_EXPORT __declspec(dllexport)
 #else
-    #define ALVAR_CAPTURE_PLUGIN_FILE_EXPORT
+#define ALVAR_CAPTURE_PLUGIN_FILE_EXPORT __declspec(dllimport)
+#endif
+#else
+#define ALVAR_CAPTURE_PLUGIN_FILE_EXPORT
 #endif
 
 #include "Capture.h"
@@ -45,18 +45,19 @@
 
 #include "highgui.h"
 
-namespace alvar {
-  
+namespace alvar
+{
+
 /**
  * \brief Dynamically loaded plugins namespace.
  */
-namespace plugins {
+namespace plugins
+{
 
 /**
  * \brief Implementation of Capture interface for File plugin.
  */
-class ALVAR_CAPTURE_PLUGIN_FILE_EXPORT CaptureFile
-    : public alvar::Capture
+class ALVAR_CAPTURE_PLUGIN_FILE_EXPORT CaptureFile : public alvar::Capture
 {
 public:
     /**
@@ -71,10 +72,11 @@ public:
     ~CaptureFile();
     bool start();
     void stop();
-    IplImage *captureImage();
+    IplImage* captureImage();
     bool showSettingsDialog();
-	std::string SerializeId();
-	bool Serialize(Serialization *serialization);
+    std::string SerializeId();
+    bool Serialize(Serialization* serialization);
+
 private:
     cv::VideoCapture mVideoCapture;
     cv::Mat mMatrix;
@@ -84,8 +86,7 @@ private:
 /**
  * \brief Implementation of CapturePlugin interface for File plugin.
  */
-class ALVAR_CAPTURE_PLUGIN_FILE_EXPORT CapturePluginFile
-    : public alvar::CapturePlugin
+class ALVAR_CAPTURE_PLUGIN_FILE_EXPORT CapturePluginFile : public alvar::CapturePlugin
 {
 public:
     /**
@@ -93,16 +94,16 @@ public:
      *
      * \param captureType A unique identifier for the capture plugin.
      */
-    CapturePluginFile(const std::string &captureType);
+    CapturePluginFile(const std::string& captureType);
     /**
      * \brief Destructor.
      */
     ~CapturePluginFile();
     CaptureDeviceVector enumerateDevices();
-    Capture *createCapture(const CaptureDevice captureDevice);
+    Capture* createCapture(const CaptureDevice captureDevice);
 };
 
-extern "C" ALVAR_CAPTURE_PLUGIN_FILE_EXPORT void registerPlugin(const std::string &captureType, alvar::CapturePlugin *&capturePlugin);
+extern "C" ALVAR_CAPTURE_PLUGIN_FILE_EXPORT void registerPlugin(const std::string& captureType, alvar::CapturePlugin*& capturePlugin);
 
 } // namespace plugins
 } // namespace alvar

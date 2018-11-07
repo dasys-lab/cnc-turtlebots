@@ -34,7 +34,8 @@
 
 #include <string>
 
-namespace alvar {
+namespace alvar
+{
 
 /**
  * \brief CaptureDevice holder for camera information.

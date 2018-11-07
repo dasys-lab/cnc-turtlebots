@@ -17,7 +17,7 @@ namespace alica
 /*PROTECTED REGION END*/
 
 Stop::Stop()
-    : DomainBehaviour("Stop")
+        : DomainBehaviour("Stop")
 {
     /*PROTECTED REGION ID(con1414681269156) ENABLED START*/
     // Add additional options here
@@ -29,7 +29,7 @@ Stop::~Stop()
     // Add additional options here
     /*PROTECTED REGION END*/
 }
-void Stop::run(void *msg)
+void Stop::run(void* msg)
 {
     /*PROTECTED REGION ID(run1414681269156) ENABLED START*/
     // Add additional options here

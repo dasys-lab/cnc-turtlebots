@@ -11,7 +11,7 @@ class Door;
 class Area
 {
 
-  public:
+public:
     Area(std::string name);
     virtual ~Area();
     std::size_t hash() const;
@@ -23,18 +23,12 @@ class Area
 
 struct AreaComperator
 {
-    bool operator()(const std::shared_ptr<Area> a, const std::shared_ptr<Area> b) const
-    {
-        return a->name == b->name;
-    }
+    bool operator()(const std::shared_ptr<Area> a, const std::shared_ptr<Area> b) const { return a->name == b->name; }
 };
 
 struct AreaHash
 {
-    std::size_t operator()(const std::shared_ptr<Area> obj) const
-    {
-    	return obj->hash();
-    }
+    std::size_t operator()(const std::shared_ptr<Area> obj) const { return obj->hash(); }
 };
 } /* namespace wm */
 } /* namespace ttb */

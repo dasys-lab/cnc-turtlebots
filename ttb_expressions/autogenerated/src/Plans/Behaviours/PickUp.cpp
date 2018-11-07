@@ -6,9 +6,9 @@ using std::shared_ptr;
 
 /*PROTECTED REGION ID(inccpp1520438451345) ENABLED START*/
 // Add additional includes here
-#include <SolverType.h>
 #include <TurtleBot.h>
 #include <alica/reasoner/DummyVariable.h>
+#include <alica/reasoner/DummySolver.h>
 #include <robot/SimulatedArm.h>
 #include <ttb/TTBWorldModel.h>
 /*PROTECTED REGION END*/
@@ -20,7 +20,7 @@ namespace alica
 /*PROTECTED REGION END*/
 
 PickUp::PickUp()
-    : DomainBehaviour("PickUp")
+        : DomainBehaviour("PickUp")
 {
     /*PROTECTED REGION ID(con1520438451345) ENABLED START*/
     // Add additional options her
@@ -34,15 +34,15 @@ PickUp::~PickUp()
     // Add additional options here
     /*PROTECTED REGION END*/
 }
-void PickUp::run(void *msg)
+void PickUp::run(void* msg)
 {
     /*PROTECTED REGION ID(run1520438451345) ENABLED START*/
     // Add additional options here
     result.clear();
-    if (!this->query->getSolution(SolverType::DUMMYSOLVER, runningPlan, result))
-    {
-        std::cout << "PickUp: Unable to get solution for variable: "
-                  << this->query->getUniqueVariableStore()->getAllRep()[0]->getName() << std::endl;
+    if (!this->query->getSolution<reasoner::DummySolver, alica::BBIdent>(this->getPlanContext(), result)) {
+        VariableGrp vars;
+        this->query->getUniqueVariableStore().getAllRep(vars);
+        std::cout << "PickUp: Unable to get solution for variable: " << vars[0]->getName() << std::endl;
         return;
     }
 
@@ -50,34 +50,29 @@ void PickUp::run(void *msg)
     //                << this->query->getUniqueVariableStore()->getAllRep()[0]->getName() << " is: " << result[0]
     //                << std::endl;
 
-    auto object = this->wm->logicalCameraData.getObject(result[0]);
-    if (!object || result[0].compare(alica::reasoner::DummyVariable::NO_VALUE) == 0)
-    {
-        this->setFailure(true);
+    const auto& bbValue = this->getPlanContext().getAlicaEngine()->getBlackBoard().getValue(result[0]);
+    string objectName = std::string(reinterpret_cast<const char *>(bbValue.begin()),bbValue.size());
+
+    auto object = this->wm->logicalCameraData.getObject(objectName);
+    if (!object || objectName.compare(alica::reasoner::DummyVariable::NO_VALUE) == 0) {
+        this->setFailure();
         return;
     }
-    if (!this->isGrabbing)
-    {
-        this->isGrabbing = this->turtleBot->simulatedArm->grabObject(result[0]);
+    if (!this->isGrabbing) {
+        this->isGrabbing = this->turtleBot->simulatedArm->grabObject(objectName);
     }
-    if (!this->isGrabbing)
-    {
+    if (!this->isGrabbing) {
         std::cout << "Pickup: grabbing failed" << std::endl;
-        this->setFailure(true);
+        this->setFailure();
         return;
     }
     auto armState = this->turtleBot->simulatedArm->getArmState();
-    if (armState == ttb::robot::SimulatedArm::ArmState::waiting)
-    {
+    if (armState == ttb::robot::SimulatedArm::ArmState::waiting) {
         return;
-    }
-    else if (armState == ttb::robot::SimulatedArm::ArmState::failed)
-    {
-        this->setFailure(true);
-    }
-    else
-    {
-        this->setSuccess(true);
+    } else if (armState == ttb::robot::SimulatedArm::ArmState::failed) {
+        this->setFailure();
+    } else {
+        this->setSuccess();
     }
     /*PROTECTED REGION END*/
 }

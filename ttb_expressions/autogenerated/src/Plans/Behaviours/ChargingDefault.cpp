@@ -19,7 +19,7 @@ namespace alica
 /*PROTECTED REGION END*/
 
 ChargingDefault::ChargingDefault()
-    : DomainBehaviour("ChargingDefault")
+        : DomainBehaviour("ChargingDefault")
 {
     /*PROTECTED REGION ID(con1447958115909) ENABLED START*/
     // Add additional options here
@@ -31,18 +31,14 @@ ChargingDefault::~ChargingDefault()
     // Add additional options here
     /*PROTECTED REGION END*/
 }
-void ChargingDefault::run(void *msg)
+void ChargingDefault::run(void* msg)
 {
     /*PROTECTED REGION ID(run1447958115909) ENABLED START*/
     // Add additional options here
     auto core = wm->rawSensorData.getMobileBaseSensorStateBuffer()->getLastValidContent();
-    if ((*core)->charger == kobuki_msgs::SensorState::DOCKING_CHARGED ||
-        (*core)->charger == kobuki_msgs::SensorState::ADAPTER_CHARGED)
-    {
-        this->setSuccess(true);
-    }
-    else
-    {
+    if ((*core)->charger == kobuki_msgs::SensorState::DOCKING_CHARGED || (*core)->charger == kobuki_msgs::SensorState::ADAPTER_CHARGED) {
+        this->setSuccess();
+    } else {
         geometry_msgs::Twist cmd_vel;
         cmd_vel.linear.x = 0;
         cmd_vel.angular.z = 0;

@@ -13,7 +13,7 @@ namespace alica
 {
 class DomainCondition : public BasicCondition
 {
-  public:
+public:
     DomainCondition();
     virtual ~DomainCondition();
 
@@ -24,13 +24,13 @@ class DomainCondition : public BasicCondition
 
     /*PROTECTED REGION END*/
 
-  protected:
+protected:
     /*PROTECTED REGION ID(protectedDomainHeader) ENABLED START*/
-    ttb::TTBWorldModel *wm;
+    ttb::TTBWorldModel* wm;
 
     /*PROTECTED REGION END*/
 
-  private:
+private:
     /*PROTECTED REGION ID(privateDomainHeader) ENABLED START*/
     // Add additional options here
     /*PROTECTED REGION END*/

@@ -14,30 +14,30 @@ namespace wm
 {
 class Door;
 }
-}
+} // namespace ttb
 /*PROTECTED REGION END*/
 
 namespace alica
 {
 class OpenDoor : public DomainBehaviour
 {
-  public:
+public:
     OpenDoor();
     virtual ~OpenDoor();
-    virtual void run(void *msg);
+    virtual void run(void* msg);
     /*PROTECTED REGION ID(pub1519913953735) ENABLED START*/
     // Add additional public methods here
     /*PROTECTED REGION END*/
-  protected:
+protected:
     virtual void initialiseParameters();
     /*PROTECTED REGION ID(pro1519913953735) ENABLED START*/
     // Add additional protected methods here
     /*PROTECTED REGION END*/
-  private:
+private:
     /*PROTECTED REGION ID(prv1519913953735) ENABLED START*/
     // Add additional private methods here
     std::shared_ptr<ttb::wm::Door> currentDoor;
-    std::vector<std::string> result;
+    std::vector<alica::BBIdent> result;
     std::shared_ptr<alica::Query> query;
     /*PROTECTED REGION END*/
 };

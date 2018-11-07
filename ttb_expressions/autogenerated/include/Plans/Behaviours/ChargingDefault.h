@@ -9,19 +9,19 @@ namespace alica
 {
 class ChargingDefault : public DomainBehaviour
 {
-  public:
+public:
     ChargingDefault();
     virtual ~ChargingDefault();
-    virtual void run(void *msg);
+    virtual void run(void* msg);
     /*PROTECTED REGION ID(pub1447958115909) ENABLED START*/
     // Add additional public methods here
     /*PROTECTED REGION END*/
-  protected:
+protected:
     virtual void initialiseParameters();
     /*PROTECTED REGION ID(pro1447958115909) ENABLED START*/
     // Add additional protected methods here
     /*PROTECTED REGION END*/
-  private:
+private:
     /*PROTECTED REGION ID(prv1447958115909) ENABLED START*/
     // Add additional private methods here
     /*PROTECTED REGION END*/

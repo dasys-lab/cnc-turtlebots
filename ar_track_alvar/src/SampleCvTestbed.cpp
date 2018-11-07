@@ -3,16 +3,16 @@
 using namespace alvar;
 using namespace std;
 
-void videocallback(IplImage *image)
+void videocallback(IplImage* image)
 {
-    static IplImage *img_gray=NULL;
+    static IplImage* img_gray = NULL;
 
     assert(image);
     if (img_gray == NULL) {
         // Following image is toggled visible using key '0'
         img_gray = CvTestbed::Instance().CreateImageWithProto("Grayscale", image, 0, 1);
     }
-    if (image->nChannels > 1) { 
+    if (image->nChannels > 1) {
         cvCvtColor(image, img_gray, CV_RGB2GRAY);
     } else {
         cvCopy(image, img_gray);
@@ -20,7 +20,7 @@ void videocallback(IplImage *image)
     // TODO: Do your image operations
 }
 
-int main(int argc, char *argv[])
+int main(int argc, char* argv[])
 {
     try {
         // Output usage message
@@ -75,7 +75,7 @@ int main(int argc, char *argv[])
         if (argc > 1) {
             selectedDevice = atoi(argv[1]);
         }
-        if (selectedDevice >= (int)devices.size()) {
+        if (selectedDevice >= (int) devices.size()) {
             selectedDevice = defaultDevice(devices);
         }
 
@@ -85,7 +85,7 @@ int main(int argc, char *argv[])
         std::cout << std::endl;
 
         // Create capture object from camera
-        Capture *cap = CaptureFactory::instance()->createCapture(devices[selectedDevice]);
+        Capture* cap = CaptureFactory::instance()->createCapture(devices[selectedDevice]);
         std::string uniqueName = devices[selectedDevice].uniqueName();
 
         // Handle capture lifecycle and start video capture
@@ -112,19 +112,15 @@ int main(int argc, char *argv[])
 
             cap->stop();
             delete cap;
-        }
-        else if (CvTestbed::Instance().StartVideo(0, argv[0])) {
-        }
-        else {
+        } else if (CvTestbed::Instance().StartVideo(0, argv[0])) {
+        } else {
             std::cout << "Could not initialize the selected capture backend." << std::endl;
         }
 
         return 0;
-    }
-    catch (const std::exception &e) {
+    } catch (const std::exception& e) {
         std::cout << "Exception: " << e.what() << endl;
-    }
-    catch (...) {
+    } catch (...) {
         std::cout << "Exception: unknown" << std::endl;
     }
 }

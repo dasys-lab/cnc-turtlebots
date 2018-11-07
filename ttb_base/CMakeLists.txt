@@ -58,4 +58,4 @@ include_directories(include ${catkin_INCLUDE_DIRS})
 add_executable(ttb_base src/Base.cpp)
 
 ## Specify libraries to link a library or executable target against
-target_link_libraries(ttb_base ${catkin_LIBRARIES} )
+target_link_libraries(ttb_base ${catkin_LIBRARIES} clingo)

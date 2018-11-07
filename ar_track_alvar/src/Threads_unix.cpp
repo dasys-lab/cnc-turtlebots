@@ -23,16 +23,17 @@
 
 #include "ar_track_alvar/Threads_private.h"
 
-#include <vector>
 #include <pthread.h>
+#include <vector>
 
-namespace alvar {
+namespace alvar
+{
 
 class ThreadsPrivateData
 {
 public:
     ThreadsPrivateData()
-        : mHandles()
+            : mHandles()
     {
     }
 
@@ -40,21 +41,21 @@ public:
 };
 
 ThreadsPrivate::ThreadsPrivate()
-    : d(new ThreadsPrivateData())
+        : d(new ThreadsPrivateData())
 {
 }
 
 ThreadsPrivate::~ThreadsPrivate()
 {
-    for (int i = 0; i < (int)d->mHandles.size(); ++i) {
-		pthread_exit(&d->mHandles.at(i));
-	}
-	d->mHandles.clear();
+    for (int i = 0; i < (int) d->mHandles.size(); ++i) {
+        pthread_exit(&d->mHandles.at(i));
+    }
+    d->mHandles.clear();
 
     delete d;
 }
 
-bool ThreadsPrivate::create(void *(*method)(void *), void *parameters)
+bool ThreadsPrivate::create(void* (*method)(void*), void* parameters)
 {
     pthread_t thread;
     if (pthread_create(&thread, 0, method, parameters)) {

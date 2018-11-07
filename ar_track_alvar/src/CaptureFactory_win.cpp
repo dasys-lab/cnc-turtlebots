@@ -25,7 +25,8 @@
 
 #include <windows.h>
 
-namespace alvar {
+namespace alvar
+{
 
 void CaptureFactoryPrivate::setupPluginPaths()
 {
@@ -47,26 +48,26 @@ void CaptureFactoryPrivate::setupPluginPaths()
     parseEnvironmentVariable(std::string("ALVAR_PLUGIN_PATH"));
 }
 
-void CaptureFactoryPrivate::parseEnvironmentVariable(const std::string &variable)
+void CaptureFactoryPrivate::parseEnvironmentVariable(const std::string& variable)
 {
     // acquire environment variable
-    char *buffer;
+    char* buffer;
     std::string path("");
-    #if defined(_MSC_VER) && (_MSC_VER < 1400)
-        buffer = getenv(variable.data());
-		if (buffer) {
-			path = std::string(buffer);
-		}
-    #else
-        size_t requiredSize;
-        getenv_s(&requiredSize, NULL, 0, variable.data());
-        if (requiredSize > 0) {
-            buffer = (char *)malloc(requiredSize * sizeof(char));
-            getenv_s(&requiredSize, buffer, requiredSize, variable.data());
-            path = std::string(buffer, requiredSize - 1);
-            free(buffer);
-        }
-    #endif
+#if defined(_MSC_VER) && (_MSC_VER < 1400)
+    buffer = getenv(variable.data());
+    if (buffer) {
+        path = std::string(buffer);
+    }
+#else
+    size_t requiredSize;
+    getenv_s(&requiredSize, NULL, 0, variable.data());
+    if (requiredSize > 0) {
+        buffer = (char*) malloc(requiredSize * sizeof(char));
+        getenv_s(&requiredSize, buffer, requiredSize, variable.data());
+        path = std::string(buffer, requiredSize - 1);
+        free(buffer);
+    }
+#endif
 
     // tokenize paths
     char delimitor = ';';

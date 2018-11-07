@@ -32,7 +32,8 @@
 
 #include "Alvar.h"
 
-namespace alvar {
+namespace alvar
+{
 
 class TimerPrivate;
 
@@ -65,7 +66,7 @@ public:
     double stop();
 
 private:
-    TimerPrivate *d;
+    TimerPrivate* d;
 };
 
 } // namespace alvar

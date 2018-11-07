@@ -34,13 +34,13 @@
  */
 
 #ifdef WIN32
-    #ifdef ALVAR_Capture_Plugin_Ptgrey_BUILD
-        #define ALVAR_CAPTURE_PLUGIN_PTGREY_EXPORT __declspec(dllexport)
-    #else
-        #define ALVAR_CAPTURE_PLUGIN_PTGREY_EXPORT __declspec(dllimport)
-    #endif
+#ifdef ALVAR_Capture_Plugin_Ptgrey_BUILD
+#define ALVAR_CAPTURE_PLUGIN_PTGREY_EXPORT __declspec(dllexport)
 #else
-    #define ALVAR_CAPTURE_PLUGIN_PTGREY_EXPORT
+#define ALVAR_CAPTURE_PLUGIN_PTGREY_EXPORT __declspec(dllimport)
+#endif
+#else
+#define ALVAR_CAPTURE_PLUGIN_PTGREY_EXPORT
 #endif
 
 #include "Capture.h"
@@ -49,17 +49,20 @@
 #include "FlyCapture2Defs.h"
 
 // Forward declaration for PTGrey specific classes.
-namespace FlyCapture2 {
-  class Camera; 
-  class Image;
-}
+namespace FlyCapture2
+{
+class Camera;
+class Image;
+} // namespace FlyCapture2
 
-namespace alvar {
-  
+namespace alvar
+{
+
 /**
  * \brief Dynamically loaded plugins namespace.
  */
-namespace plugins {
+namespace plugins
+{
 
 /**
  * \brief Implementation of Capture interface for Ptgrey plugin.
@@ -67,8 +70,7 @@ namespace plugins {
  * \note The PointGrey plugin is currently experimental and not included in
  *       the build by default.
  */
-class ALVAR_CAPTURE_PLUGIN_PTGREY_EXPORT CapturePtgrey
-    : public alvar::Capture
+class ALVAR_CAPTURE_PLUGIN_PTGREY_EXPORT CapturePtgrey : public alvar::Capture
 {
 public:
     /**
@@ -83,16 +85,17 @@ public:
     ~CapturePtgrey();
     bool start();
     void stop();
-    IplImage *captureImage();
+    IplImage* captureImage();
     bool showSettingsDialog();
     std::string SerializeId();
-    bool Serialize(Serialization *serialization);
+    bool Serialize(Serialization* serialization);
+
 private:
-    FlyCapture2::Camera *mCamera;
-    FlyCapture2::Image *mImage;
+    FlyCapture2::Camera* mCamera;
+    FlyCapture2::Image* mImage;
     FlyCapture2::PGRGuid mGUID;
     int mChannels;
-    IplImage *mReturnFrame;
+    IplImage* mReturnFrame;
 };
 
 /**
@@ -101,8 +104,7 @@ private:
  * \note The PointGrey plugin is currently experimental and not included in
  *       the build by default.
  */
-class ALVAR_CAPTURE_PLUGIN_PTGREY_EXPORT CapturePluginPtgrey
-    : public alvar::CapturePlugin
+class ALVAR_CAPTURE_PLUGIN_PTGREY_EXPORT CapturePluginPtgrey : public alvar::CapturePlugin
 {
 public:
     /**
@@ -110,16 +112,16 @@ public:
      *
      * \param captureType A unique identifier for the capture plugin.
      */
-    CapturePluginPtgrey(const std::string &captureType);
+    CapturePluginPtgrey(const std::string& captureType);
     /**
      * \brief Destructor.
      */
     ~CapturePluginPtgrey();
     CaptureDeviceVector enumerateDevices();
-    Capture *createCapture(const CaptureDevice captureDevice);
+    Capture* createCapture(const CaptureDevice captureDevice);
 };
 
-extern "C" ALVAR_CAPTURE_PLUGIN_PTGREY_EXPORT void registerPlugin(const std::string &captureType, alvar::CapturePlugin *&capturePlugin);
+extern "C" ALVAR_CAPTURE_PLUGIN_PTGREY_EXPORT void registerPlugin(const std::string& captureType, alvar::CapturePlugin*& capturePlugin);
 
 } // namespace plugins
 } // namespace alvar

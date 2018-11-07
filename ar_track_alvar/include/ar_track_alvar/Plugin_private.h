@@ -26,7 +26,8 @@
 
 #include <string>
 
-namespace alvar {
+namespace alvar
+{
 
 class PluginPrivateData;
 
@@ -37,9 +38,9 @@ public:
     ~PluginPrivate();
     void load(const std::string filename);
     void unload();
-    void *resolve(const char *symbol);
+    void* resolve(const char* symbol);
 
-    PluginPrivateData *d;
+    PluginPrivateData* d;
 };
 
 } // namespace alvar

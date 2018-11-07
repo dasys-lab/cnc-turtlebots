@@ -26,7 +26,7 @@ SimulatedArm::SimulatedArm()
     this->doorCmdPub = n.advertise<ttb_msgs::DoorCmd>("/DoorCmd", 5, false);
     this->armCmdPub = n.advertise<ttb_msgs::GrabDropObject>("/ArmCmd", 5, false);
     this->robotName = this->sc->getHostname();
-    this->armCmdSub = n.subscribe("/ArmCmdResponse", 10, &SimulatedArm::onOwnArmCmd, (SimulatedArm *)this);
+    this->armCmdSub = n.subscribe("/ArmCmdResponse", 10, &SimulatedArm::onOwnArmCmd, (SimulatedArm*) this);
 
     this->armState = ArmState::waiting;
     spinner = new ros::AsyncSpinner(4);
@@ -42,8 +42,7 @@ SimulatedArm::~SimulatedArm()
 bool SimulatedArm::openDoor(std::string doorName, bool open)
 {
     auto door = this->wm->topologicalModel.getDoor(doorName);
-    if (!door)
-    {
+    if (!door) {
         std::cout << "SimulatedArm::openDoor: Door " << doorName << " not found in topological model!" << std::endl;
         return false;
     }
@@ -53,8 +52,7 @@ bool SimulatedArm::openDoor(std::string doorName, bool open)
 bool SimulatedArm::openDoor(std::shared_ptr<ttb::wm::Door> door, bool open)
 {
     auto lastValidDoorPose = door->gazeboModel->getPoseBuffer()->getLastValidContent();
-    if (!lastValidDoorPose)
-    {
+    if (!lastValidDoorPose) {
         // Do not open a door which the robot has not seen for some time
         // or has not seen at all
         std::cout << "SimulatedArm::openDoor: Door " << door->name << " has no valid position!" << std::endl;
@@ -62,16 +60,14 @@ bool SimulatedArm::openDoor(std::shared_ptr<ttb::wm::Door> door, bool open)
     }
 
     auto ownPos = this->wm->rawSensorData.getAMCLPositionBuffer()->getLastValidContent();
-    if (!ownPos)
-    {
+    if (!ownPos) {
         // Do not open a door if the robot does not know its own position
         std::cout << "SimulatedArm::openDoor: Own position not valid!" << std::endl;
         return false;
     }
     geometry::CNPointAllo doorPoint = geometry::CNPointAllo(lastValidDoorPose->x, lastValidDoorPose->y);
     auto doorDistance = ownPos->distanceTo(doorPoint);
-    if (doorDistance > this->armRange)
-    {
+    if (doorDistance > this->armRange) {
         std::cout << "SimulatedArm::openDoor: Door " << door->name << " is out of range! Range is: " << this->armRange << " distance is: " << doorDistance
                   << " ownPos: " << ownPos->toString() << " door point: " << doorPoint.toString() << std::endl;
         // Not possible to open a door which is out of range
@@ -79,19 +75,16 @@ bool SimulatedArm::openDoor(std::shared_ptr<ttb::wm::Door> door, bool open)
     }
     ttb_msgs::DoorCmd msg;
     msg.name = door->name;
-    if (open)
-    {
+    if (open) {
         msg.state = ttb_msgs::DoorCmd::OPEN;
-    }
-    else
-    {
+    } else {
         msg.state = ttb_msgs::DoorCmd::CLOSE;
     }
     this->doorCmdPub.publish(msg);
     return true;
 }
 
-const std::string &SimulatedArm::getCarriedObjectName() const
+const std::string& SimulatedArm::getCarriedObjectName() const
 {
     return carriedObjectName;
 }
@@ -103,8 +96,7 @@ SimulatedArm::ArmState SimulatedArm::getArmState()
 
 bool SimulatedArm::grabObject(std::string objectName)
 {
-    if (objectName.empty() || !this->carriedObjectName.empty() || !this->requestedObject.empty())
-    {
+    if (objectName.empty() || !this->carriedObjectName.empty() || !this->requestedObject.empty()) {
         return false;
     }
     auto objectToCarry = wm->logicalCameraData.getObject(objectName);
@@ -120,9 +112,8 @@ bool SimulatedArm::grabObject(std::string objectName)
 
 bool SimulatedArm::dropObject(std::string objectName, geometry_msgs::Point entityPoint)
 {
-	std::cout << "SimulatedArm: objectname: " << objectName << "carried object: " << this->carriedObjectName << std::endl;
-    if (objectName.empty() || this->carriedObjectName.compare(objectName) != 0)
-    {
+    std::cout << "SimulatedArm: objectname: " << objectName << "carried object: " << this->carriedObjectName << std::endl;
+    if (objectName.empty() || this->carriedObjectName.compare(objectName) != 0) {
         return false;
     }
     ttb_msgs::GrabDropObject msg;
@@ -138,28 +129,22 @@ bool SimulatedArm::dropObject(std::string objectName, geometry_msgs::Point entit
 
 void SimulatedArm::onOwnArmCmd(ttb_msgs::GrabDropObjectPtr msg)
 {
-    if (msg->senderName.compare(this->robotName) != 0)
-    {
+    if (msg->senderName.compare(this->robotName) != 0) {
         return;
     }
-    if (msg->objectName.empty())
-    {
+    if (msg->objectName.empty()) {
         this->requestedObject = "";
         this->armState = ArmState::failed;
         return;
     }
-    if (msg->objectName.compare(this->requestedObject) != 0)
-    {
+    if (msg->objectName.compare(this->requestedObject) != 0) {
         return;
     }
-    if (msg->action == ttb_msgs::GrabDropObject::GRAB)
-    {
+    if (msg->action == ttb_msgs::GrabDropObject::GRAB) {
         this->carriedObjectName = msg->objectName;
         this->requestedObject = "";
         this->armState = ArmState::successful;
-    }
-    else
-    {
+    } else {
         this->carriedObjectName = "";
         this->requestedObject = "";
         this->armState = ArmState::successful;

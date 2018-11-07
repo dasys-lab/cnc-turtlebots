@@ -25,24 +25,25 @@
 
 #include "AlvarException.h"
 
-#include <windows.h>
 #include <sstream>
+#include <windows.h>
 
-namespace alvar {
+namespace alvar
+{
 
 class PluginPrivateData
 {
 public:
     PluginPrivateData()
-        : mHandle(NULL)
+            : mHandle(NULL)
     {
     }
-    
+
     HINSTANCE mHandle;
 };
 
 PluginPrivate::PluginPrivate()
-    : d(new PluginPrivateData())
+        : d(new PluginPrivateData())
 {
 }
 
@@ -56,8 +57,7 @@ void PluginPrivate::load(const std::string filename)
     d->mHandle = LoadLibrary(filename.data());
     if (!d->mHandle) {
         std::stringstream message;
-        message << "could not load " << filename
-                << ", error code " << GetLastError();
+        message << "could not load " << filename << ", error code " << GetLastError();
         throw AlvarException(message.str().data());
     }
 }
@@ -67,9 +67,9 @@ void PluginPrivate::unload()
     FreeLibrary(d->mHandle);
 }
 
-void *PluginPrivate::resolve(const char *symbol)
+void* PluginPrivate::resolve(const char* symbol)
 {
-    void *address = (void *)GetProcAddress(d->mHandle, symbol);
+    void* address = (void*) GetProcAddress(d->mHandle, symbol);
     if (!address) {
         std::stringstream message;
         message << "could not resolve " << symbol;

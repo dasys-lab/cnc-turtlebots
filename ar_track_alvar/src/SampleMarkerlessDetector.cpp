@@ -1,8 +1,8 @@
 #include "CvTestbed.h"
-#include "GlutViewer.h"
-#include "Shared.h"
 #include "FernImageDetector.h"
 #include "FernPoseEstimator.h"
+#include "GlutViewer.h"
+#include "Shared.h"
 
 using namespace alvar;
 using namespace std;
@@ -15,9 +15,9 @@ Drawable d;
 cv::Mat gray;
 bool reset = false;
 
-void videocallback(IplImage *image)
+void videocallback(IplImage* image)
 {
-    bool flip_image = (image->origin?true:false);
+    bool flip_image = (image->origin ? true : false);
     if (flip_image) {
         cvFlip(image);
         image->origin = !image->origin;
@@ -42,8 +42,7 @@ void videocallback(IplImage *image)
     if (image->nChannels == 3) {
         cv::Mat img = cvarrToMat(image);
         cv::cvtColor(img, gray, CV_RGB2GRAY);
-    }
-    else {
+    } else {
         gray = image;
     }
 
@@ -69,7 +68,7 @@ void videocallback(IplImage *image)
     }
 }
 
-int main(int argc, char *argv[])
+int main(int argc, char* argv[])
 {
     try {
         // Output usage message
@@ -135,17 +134,17 @@ int main(int argc, char *argv[])
         if (argc > 2) {
             selectedDevice = atoi(argv[2]);
         }
-        if (selectedDevice >= (int)devices.size()) {
+        if (selectedDevice >= (int) devices.size()) {
             selectedDevice = defaultDevice(devices);
         }
-        
+
         // Display capture devices
         std::cout << "Enumerated Capture Devices:" << std::endl;
         outputEnumeratedDevices(devices, selectedDevice);
         std::cout << std::endl;
-        
+
         // Create capture object from camera
-        Capture *cap = CaptureFactory::instance()->createCapture(devices[selectedDevice]);
+        Capture* cap = CaptureFactory::instance()->createCapture(devices[selectedDevice]);
         std::string uniqueName = devices[selectedDevice].uniqueName();
 
         // Handle capture lifecycle and start video capture
@@ -162,10 +161,10 @@ int main(int argc, char *argv[])
             std::stringstream settingsFilename;
             settingsFilename << "camera_settings_" << uniqueName << ".xml";
             calibrationFilename << "camera_calibration_" << uniqueName << ".xml";
-            
+
             cap->start();
             cap->setResolution(640, 480);
-            
+
             if (cap->loadSettings(settingsFilename.str())) {
                 std::cout << "Loading settings: " << settingsFilename.str() << std::endl;
             }
@@ -181,19 +180,15 @@ int main(int argc, char *argv[])
 
             cap->stop();
             delete cap;
-        }
-        else if (CvTestbed::Instance().StartVideo(0, argv[0])) {
-        }
-        else {
+        } else if (CvTestbed::Instance().StartVideo(0, argv[0])) {
+        } else {
             std::cout << "Could not initialize the selected capture backend." << std::endl;
         }
 
         return 0;
-    }
-    catch (const std::exception &e) {
+    } catch (const std::exception& e) {
         std::cout << "Exception: " << e.what() << endl;
-    }
-    catch (...) {
+    } catch (...) {
         std::cout << "Exception: unknown" << std::endl;
     }
 }

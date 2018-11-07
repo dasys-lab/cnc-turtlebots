@@ -13,21 +13,21 @@ namespace ttb
 {
 class TTBWorldModel;
 class TurtleBot;
-}
+} // namespace ttb
 /*PROTECTED REGION END*/
 
 namespace alica
 {
 class DomainBehaviour : public BasicBehaviour
 {
-  public:
+public:
     DomainBehaviour(std::string name);
     virtual ~DomainBehaviour();
 
     /*PROTECTED REGION ID(domainBehaviourClassDecl) ENABLED START*/
-    supplementary::SystemConfig *sc;
-    ttb::TTBWorldModel *wm;
-    ttb::TurtleBot *turtleBot;
+    supplementary::SystemConfig* sc;
+    ttb::TTBWorldModel* wm;
+    ttb::TurtleBot* turtleBot;
     /*PROTECTED REGION END*/
 };
 } /* namespace alica */

@@ -2,8 +2,8 @@
 
 #include "ttb/wm/topology/Area.h"
 #include "ttb/wm/topology/Door.h"
-#include "ttb/wm/topology/Room.h"
 #include "ttb/wm/topology/POI.h"
+#include "ttb/wm/topology/Room.h"
 
 #include <memory>
 #include <unordered_set>
@@ -16,13 +16,13 @@ class SystemConfig;
 }
 namespace ttb
 {
-	class TTBWorldModel;
+class TTBWorldModel;
 namespace wm
 {
 
 class TopologicalModel
 {
-  public:
+public:
     TopologicalModel(TTBWorldModel* wm);
     virtual ~TopologicalModel();
 
@@ -37,7 +37,7 @@ class TopologicalModel
 
     std::string toString();
 
-  private:
+private:
     std::shared_ptr<Room> getRoomInternal(std::string name);
     std::shared_ptr<Area> getAreaInternal(std::string name);
     std::shared_ptr<Door> getDoorInternal(std::string name);
@@ -47,7 +47,7 @@ class TopologicalModel
     std::unordered_set<std::shared_ptr<Door>, DoorHash, DoorComperator> doors;
     std::unordered_set<std::shared_ptr<POI>, POIHash, POIComperator> pois;
 
-    supplementary::SystemConfig *sc;
+    supplementary::SystemConfig* sc;
     void readTopologyFromConfig();
     TTBWorldModel* wm;
 };

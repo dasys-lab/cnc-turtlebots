@@ -4,20 +4,16 @@
 #include <iostream>
 #include <memory>
 
-using std::exception;
-using std::make_shared;
-using std::cout;
-
 namespace alica
 {
 class BasicCondition;
 
 class ConditionCreator : public IConditionCreator
 {
-  public:
+public:
     ConditionCreator();
     virtual ~ConditionCreator();
-    shared_ptr<BasicCondition> createConditions(long conditionConfId);
+    std::shared_ptr<BasicCondition> createConditions(long conditionConfId);
 };
 
 } /* namespace alica */

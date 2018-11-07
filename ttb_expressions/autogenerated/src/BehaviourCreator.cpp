@@ -19,26 +19,21 @@
 #include "Plans/Behaviours/Sweep.h"
 #include "engine/BasicBehaviour.h"
 
+using std::cout;
 using std::exception;
 using std::make_shared;
-using std::cout;
 using std::string;
 
 namespace alica
 {
 
-BehaviourCreator::BehaviourCreator()
-{
-}
+BehaviourCreator::BehaviourCreator() {}
 
-BehaviourCreator::~BehaviourCreator()
-{
-}
+BehaviourCreator::~BehaviourCreator() {}
 
 std::shared_ptr<BasicBehaviour> BehaviourCreator::createBehaviour(long behaviourConfId)
 {
-    switch (behaviourConfId)
-    {
+    switch (behaviourConfId) {
     case 1414681269156:
         return make_shared<Stop>();
         break;
@@ -99,4 +94,4 @@ std::shared_ptr<BasicBehaviour> BehaviourCreator::createBehaviour(long behaviour
         break;
     }
 }
-}
+} // namespace alica

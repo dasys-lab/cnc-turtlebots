@@ -9,19 +9,19 @@ namespace alica
 {
 class Rotate : public DomainBehaviour
 {
-  public:
+public:
     Rotate();
     virtual ~Rotate();
-    virtual void run(void *msg);
+    virtual void run(void* msg);
     /*PROTECTED REGION ID(pub1447068205139) ENABLED START*/
     // Add additional public methods here
     /*PROTECTED REGION END*/
-  protected:
+protected:
     virtual void initialiseParameters();
     /*PROTECTED REGION ID(pro1447068205139) ENABLED START*/
     // Add additional protected methods here
     /*PROTECTED REGION END*/
-  private:
+private:
     /*PROTECTED REGION ID(prv1447068205139) ENABLED START*/
     // Add additional private methods here
     int counter;

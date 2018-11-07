@@ -34,7 +34,8 @@
 #include "Mutex.h"
 #include "Uncopyable.h"
 
-namespace alvar {
+namespace alvar
+{
 
 /**
  * \brief Lock for simplifying mutex handling.
@@ -51,22 +52,19 @@ public:
      *
      * \param mutex The mutex to lock.
      */
-    Lock(Mutex *mutex)
-        : mMutex(mutex)
-	{
+    Lock(Mutex* mutex)
+            : mMutex(mutex)
+    {
         mMutex->lock();
-	}
+    }
 
     /**
      * \brief Destructor.
      */
-    ~Lock()
-	{
-        mMutex->unlock();
-	}
+    ~Lock() { mMutex->unlock(); }
 
 private:
-    Mutex *mMutex;
+    Mutex* mMutex;
 };
 
 } // namespace alvar

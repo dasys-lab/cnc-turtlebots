@@ -26,28 +26,29 @@
 #include <vector>
 #include <windows.h>
 
-namespace alvar {
+namespace alvar
+{
 
 struct StartThreadParameters
 {
-    void *(*method)(void *);
-    void *parameters;
+    void* (*method)(void*);
+    void* parameters;
 };
 
-static DWORD WINAPI startThread(void *parameters)
+static DWORD WINAPI startThread(void* parameters)
 {
     DWORD value;
-    struct StartThreadParameters *p = (struct StartThreadParameters *)parameters;
-    value = (DWORD)p->method(p->parameters);
+    struct StartThreadParameters* p = (struct StartThreadParameters*) parameters;
+    value = (DWORD) p->method(p->parameters);
     delete p;
-	return value;
+    return value;
 }
 
 class ThreadsPrivateData
 {
 public:
     ThreadsPrivateData()
-        : mHandles()
+            : mHandles()
     {
     }
 
@@ -55,39 +56,33 @@ public:
 };
 
 ThreadsPrivate::ThreadsPrivate()
-    : d(new ThreadsPrivateData())
+        : d(new ThreadsPrivateData())
 {
 }
 
 ThreadsPrivate::~ThreadsPrivate()
 {
-    for (int i = 0; i < (int)d->mHandles.size(); ++i) {
-		CloseHandle(d->mHandles.at(i));
-	}
-	d->mHandles.clear();
+    for (int i = 0; i < (int) d->mHandles.size(); ++i) {
+        CloseHandle(d->mHandles.at(i));
+    }
+    d->mHandles.clear();
 
     delete d;
 }
 
-bool ThreadsPrivate::create(void *(*method)(void *), void *parameters)
+bool ThreadsPrivate::create(void* (*method)(void*), void* parameters)
 {
-    StartThreadParameters *p = new StartThreadParameters;
+    StartThreadParameters* p = new StartThreadParameters;
     p->method = method;
     p->parameters = parameters;
 
-    HANDLE thread = CreateThread(
-	    NULL,
-	    0,
-	    (LPTHREAD_START_ROUTINE)startThread,
-	    p,
-	    0,
-	    NULL);
+    HANDLE thread = CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE) startThread, p, 0, NULL);
 
-	if (thread != NULL) {
+    if (thread != NULL) {
         d->mHandles.push_back(thread);
         return true;
-	}
-	return false;
+    }
+    return false;
 }
 
 } // namespace alvar

@@ -13,7 +13,7 @@ class Room;
 
 class AnnotatedGridPoint : public geometry::CNPointAllo
 {
-  public:
+public:
     AnnotatedGridPoint(std::shared_ptr<ttb::wm::Room> room, geometry_msgs::Point point);
     virtual ~AnnotatedGridPoint();
 

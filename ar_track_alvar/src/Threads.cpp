@@ -25,10 +25,11 @@
 
 #include "ar_track_alvar/Threads_private.h"
 
-namespace alvar {
+namespace alvar
+{
 
 Threads::Threads()
-    : d(new ThreadsPrivate())
+        : d(new ThreadsPrivate())
 {
 }
 
@@ -37,7 +38,7 @@ Threads::~Threads()
     delete d;
 }
 
-bool Threads::create(void *(*method)(void *), void *parameters)
+bool Threads::create(void* (*method)(void*), void* parameters)
 {
     return d->create(method, parameters);
 }

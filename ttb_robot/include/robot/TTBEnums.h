@@ -7,13 +7,12 @@ namespace robot
 
 enum MovementReturnState
 {
-	GoalReached,
-	GoalFailed,
-	GoalInProgress,
-	OtherGoalAssigned,
-	NoGoalAssigned
+    GoalReached,
+    GoalFailed,
+    GoalInProgress,
+    OtherGoalAssigned,
+    NoGoalAssigned
 };
 
 } /* namespace robot */
 } /* namespace ttb */
-

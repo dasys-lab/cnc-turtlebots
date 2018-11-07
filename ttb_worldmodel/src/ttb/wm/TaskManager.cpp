@@ -9,57 +9,44 @@ namespace ttb
 namespace wm
 {
 
-TaskManager::TaskManager()
-{
-}
+TaskManager::TaskManager() {}
 
-TaskManager::~TaskManager()
-{
-}
+TaskManager::~TaskManager() {}
 
 void TaskManager::pushTask(std::shared_ptr<InformationElement<ttb_msgs::ServeTask>> taskMsg)
 {
-	this->pendingTasks.push_back(taskMsg);
+    this->pendingTasks.push_back(taskMsg);
 }
 
 std::shared_ptr<InformationElement<ttb_msgs::ServeTask>> TaskManager::popNextTask()
 {
-    if (this->pendingTasks.size() > 0)
-    {
+    if (this->pendingTasks.size() > 0) {
         auto nextTask = this->pendingTasks[0];
         this->pendingTasks.erase(this->pendingTasks.begin());
         return nextTask;
-    }
-    else
-    {
+    } else {
         return nullptr;
     }
 }
 
 std::shared_ptr<InformationElement<ttb_msgs::ServeTask>> TaskManager::getNextTask()
 {
-    if (this->pendingTasks.size() > 0)
-    {
+    if (this->pendingTasks.size() > 0) {
         auto nextTask = this->pendingTasks[0];
         return nextTask;
-    }
-    else
-    {
+    } else {
         return nullptr;
     }
 }
 
 bool TaskManager::isNextTask(ttb_msgs::ServeTask::_type_type type)
 {
-    if (this->pendingTasks.size() > 0)
-    {
+    if (this->pendingTasks.size() > 0) {
         return this->pendingTasks[0]->getInformation().type == type;
-    }
-    else
-    {
+    } else {
         return false;
     }
 }
 
-}
+} // namespace wm
 } /* namespace ttb */

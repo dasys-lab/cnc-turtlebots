@@ -12,7 +12,7 @@ find_package(catkin REQUIRED COMPONENTS cnc_geometry system_config event_handlin
 catkin_package(
   INCLUDE_DIRS include
   LIBRARIES ttb_worldmodel
-  CATKIN_DEPENDS cnc_geometry system_config event_handling robot_control ttb_msgs world_model
+  CATKIN_DEPENDS cnc_geometry system_config event_handling robot_control ttb_msgs world_model alica_engine
 )
  
 include_directories(include ${catkin_INCLUDE_DIRS})

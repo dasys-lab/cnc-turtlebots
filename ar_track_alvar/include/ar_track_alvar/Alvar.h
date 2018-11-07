@@ -150,7 +150,7 @@
  * This is an example that shows how to perform tracking of the optical flow using \e TrackerPsa,
  * \e TrackerPsaRot, \e TrackerFeatures or \e TrackerStat.
  */
- 
+
 /**
  * \file Alvar.h
  *
@@ -159,19 +159,20 @@
  */
 
 #if defined(WIN32) && !defined(ALVAR_STATIC)
-    #ifdef ALVAR_BUILD
-        #define ALVAR_EXPORT __declspec(dllexport)
-    #else
-        #define ALVAR_EXPORT __declspec(dllimport)
-    #endif
+#ifdef ALVAR_BUILD
+#define ALVAR_EXPORT __declspec(dllexport)
 #else
-	#define ALVAR_EXPORT
+#define ALVAR_EXPORT __declspec(dllimport)
+#endif
+#else
+#define ALVAR_EXPORT
 #endif
 
 /**
  * \brief Main ALVAR namespace.
  */
-namespace alvar {
+namespace alvar
+{
 
 /**
  * \brief Major version number.
@@ -193,35 +194,35 @@ static const int ALVAR_VERSION_PATCH = 0;
  *
  * The tag contains alpha, beta and release candidate versions.
  */
-static const char *ALVAR_VERSION_TAG = "";
+static const char* ALVAR_VERSION_TAG = "";
 
 /**
  * \brief Revision version string.
  *
  * The revision contains an identifier from the source control system.
  */
-static const char *ALVAR_VERSION_REVISION = "";
+static const char* ALVAR_VERSION_REVISION = "";
 
 /**
  * \brief Entire version string.
  */
-static const char *ALVAR_VERSION = "2.0.0";
+static const char* ALVAR_VERSION = "2.0.0";
 
 /**
  * \brief Entire version string without dots.
  */
-static const char *ALVAR_VERSION_NODOTS = "200";
+static const char* ALVAR_VERSION_NODOTS = "200";
 
 /**
  * \brief Date the library was built.
  */
-static const char *ALVAR_DATE = "2012-06-20";
+static const char* ALVAR_DATE = "2012-06-20";
 
 /**
  * \brief System the library was built on.
  */
-static const char *ALVAR_SYSTEM = "Linux 3.2.0-24-generic x86_64";
+static const char* ALVAR_SYSTEM = "Linux 3.2.0-24-generic x86_64";
 
-}
+} // namespace alvar
 
 #endif

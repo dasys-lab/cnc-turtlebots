@@ -8,33 +8,30 @@
 
 #include <chrono>
 #include <limits.h>
-#include <ttb_control/TTBControl.h>
 #include <sstream>
+#include <ttb_control/TTBControl.h>
 
 using std::string;
 
 namespace ttb_control
 {
-Robot::Robot(string robotName, const supplementary::AgentID* robotId, TTBControl *parentTTBControl)
-    : RobotMetaData(robotName, robotId)
-    , parentTTBControl(parentTTBControl)
-    , widget(new QFrame())
-    , uiTTBRobot(new Ui::TTBRobotWidget())
-    , shown(true)
+Robot::Robot(string robotName, const supplementary::AgentID* robotId, TTBControl* parentTTBControl)
+        : RobotMetaData(robotName, robotId)
+        , parentTTBControl(parentTTBControl)
+        , widget(new QFrame())
+        , uiTTBRobot(new Ui::TTBRobotWidget())
+        , shown(true)
 {
     this->uiTTBRobot->setupUi(this);
     std::stringstream ss;
     ss << *robotId;
     // manual configuration of widgets
-    this->uiTTBRobot->robotNameLbl->setText(
-        QString(std::string(this->name + " (" + ss.str() + ")").c_str()));
+    this->uiTTBRobot->robotNameLbl->setText(QString(std::string(this->name + " (" + ss.str() + ")").c_str()));
 
     this->parentTTBControl->robotControlWidget_.robotControlLayout->addWidget(this);
 }
 
-Robot::~Robot()
-{
-}
+Robot::~Robot() {}
 
 QSize Robot::sizeHint()
 {
@@ -43,32 +40,26 @@ QSize Robot::sizeHint()
 
 void Robot::updateGUI(std::chrono::system_clock::time_point now)
 {
-	if ((now - this->timeLastMsgReceived) > std::chrono::milliseconds(1000))
-	{
-		this->uiTTBRobot->RoomValue->setText(QString(""));
-	}
+    if ((now - this->timeLastMsgReceived) > std::chrono::milliseconds(1000)) {
+        this->uiTTBRobot->RoomValue->setText(QString(""));
+    }
 }
 
-void Robot::handleTopologicalInfo(
-    std::pair<std::chrono::system_clock::time_point, ttb_msgs::TopologicalInfoPtr> timeTopologicalInfoPair)
+void Robot::handleTopologicalInfo(std::pair<std::chrono::system_clock::time_point, ttb_msgs::TopologicalInfoPtr> timeTopologicalInfoPair)
 {
-	this->timeLastMsgReceived = timeTopologicalInfoPair.first;
-	this->uiTTBRobot->RoomValue->setText(QString(timeTopologicalInfoPair.second->ownRoom.c_str()));
-	this->uiTTBRobot->DoorValues->clear();
-	for (auto door : timeTopologicalInfoPair.second->openDoors)
-	{
-		this->uiTTBRobot->DoorValues->appendPlainText(QString((door + " ").c_str()));
-	}
+    this->timeLastMsgReceived = timeTopologicalInfoPair.first;
+    this->uiTTBRobot->RoomValue->setText(QString(timeTopologicalInfoPair.second->ownRoom.c_str()));
+    this->uiTTBRobot->DoorValues->clear();
+    for (auto door : timeTopologicalInfoPair.second->openDoors) {
+        this->uiTTBRobot->DoorValues->appendPlainText(QString((door + " ").c_str()));
+    }
 }
 
 void Robot::toggle()
 {
-    if (shown)
-    {
+    if (shown) {
         this->hide();
-    }
-    else
-    {
+    } else {
         this->show();
     }
 }

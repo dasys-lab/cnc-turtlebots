@@ -1,10 +1,13 @@
 #pragma once
 
-#include <geometry_msgs/Pose2D.h>
-#include <ros/message_forward.h>
-#include <string>
+#include <engine/AlicaClock.h>
 #include <supplementary/InfoBuffer.h>
 #include <ttb_msgs/ObjectSize.h>
+
+#include <geometry_msgs/Pose2D.h>
+#include <ros/message_forward.h>
+
+#include <string>
 
 namespace ttb_msgs
 {
@@ -20,8 +23,8 @@ namespace wm
  */
 class LogicalObject
 {
-  public:
-	LogicalObject(std::string modelName, std::string configSectionName);
+public:
+    LogicalObject(std::string modelName, std::string configSectionName);
     LogicalObject(ttb_msgs::LogicalCameraPtr logicalCameraData, std::string configSectionName);
     virtual ~LogicalObject();
 
@@ -29,11 +32,11 @@ class LogicalObject
     supplementary::InfoBuffer<geometry_msgs::Pose2D>* getPoseBuffer();
     std::string getName();
 
-  protected:
+protected:
     std::string name;
     ttb_msgs::ObjectSize size;
-    supplementary::InfoTime maxValidityDuration;
+    alica::AlicaTime maxValidityDuration;
     supplementary::InfoBuffer<geometry_msgs::Pose2D>* poses;
 };
-}
-}
+} // namespace wm
+} // namespace ttb

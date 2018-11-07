@@ -12,23 +12,23 @@ namespace alica
 {
 class PutDown : public DomainBehaviour
 {
-  public:
+public:
     PutDown();
     virtual ~PutDown();
-    virtual void run(void *msg);
+    virtual void run(void* msg);
     /*PROTECTED REGION ID(pub1520850797525) ENABLED START*/
     // Add additional public methods here
     /*PROTECTED REGION END*/
-  protected:
+protected:
     virtual void initialiseParameters();
     /*PROTECTED REGION ID(pro1520850797525) ENABLED START*/
     // Add additional protected methods here
     /*PROTECTED REGION END*/
-  private:
+private:
     /*PROTECTED REGION ID(prv1520850797525) ENABLED START*/
     // Add additional private methods here
     std::shared_ptr<alica::Query> query;
-    std::vector<std::string> result;
+    std::vector<alica::BBIdent> result;
     bool isPuttingDown;
     /*PROTECTED REGION END*/
 };

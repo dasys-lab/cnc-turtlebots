@@ -7,24 +7,26 @@
 
 #include <memory>
 
-namespace ttb { namespace wm
+namespace ttb
 {
-	class TaskManager
-	{
-	public:
-		TaskManager();
-		virtual ~TaskManager();
+namespace wm
+{
+class TaskManager
+{
+public:
+    TaskManager();
+    virtual ~TaskManager();
 
-		void pushTask(std::shared_ptr<supplementary::InformationElement<ttb_msgs::ServeTask>> task);
+    void pushTask(std::shared_ptr<supplementary::InformationElement<ttb_msgs::ServeTask>> task);
 
-		std::shared_ptr<supplementary::InformationElement<ttb_msgs::ServeTask>> popNextTask();
-		std::shared_ptr<supplementary::InformationElement<ttb_msgs::ServeTask>> getNextTask();
+    std::shared_ptr<supplementary::InformationElement<ttb_msgs::ServeTask>> popNextTask();
+    std::shared_ptr<supplementary::InformationElement<ttb_msgs::ServeTask>> getNextTask();
 
-		bool isNextTask(ttb_msgs::ServeTask::_type_type type);
+    bool isNextTask(ttb_msgs::ServeTask::_type_type type);
 
+private:
+    std::vector<std::shared_ptr<supplementary::InformationElement<ttb_msgs::ServeTask>>> pendingTasks;
+};
 
-	private:
-		std::vector<std::shared_ptr<supplementary::InformationElement<ttb_msgs::ServeTask>>> pendingTasks;
-	};
-
-}} /* namespace ttb */
+} // namespace wm
+} /* namespace ttb */

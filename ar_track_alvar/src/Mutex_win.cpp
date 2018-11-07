@@ -25,13 +25,14 @@
 
 #include <windows.h>
 
-namespace alvar {
+namespace alvar
+{
 
 class MutexPrivateData
 {
 public:
     MutexPrivateData()
-        : mCriticalSection()
+            : mCriticalSection()
     {
     }
 
@@ -39,7 +40,7 @@ public:
 };
 
 MutexPrivate::MutexPrivate()
-    : d(new MutexPrivateData())
+        : d(new MutexPrivateData())
 {
     InitializeCriticalSection(&d->mCriticalSection);
 }

@@ -9,31 +9,28 @@ namespace ttb
 namespace wm
 {
 Area::Area(std::string name)
-	: name(name)
+        : name(name)
 {
-	this->blocked = false;
+    this->blocked = false;
 }
 
-Area::~Area()
-{
-}
+Area::~Area() {}
 
 std::size_t Area::hash() const
 {
-	return std::hash<std::string>()(this->name);
+    return std::hash<std::string>()(this->name);
 }
 
 std::string Area::toString()
 {
-	std::stringstream ss;
-	ss << "\tArea: " << this->name << " Hash: " << this->hash() << std::endl;
-	ss << "\t\tDoors: " << std::endl;
-	for(auto door : this->doors)
-	{
-		ss << "\t\t\t" << door->toString();
-	}
-	ss << std::endl;
-	return ss.str();
+    std::stringstream ss;
+    ss << "\tArea: " << this->name << " Hash: " << this->hash() << std::endl;
+    ss << "\t\tDoors: " << std::endl;
+    for (auto door : this->doors) {
+        ss << "\t\t\t" << door->toString();
+    }
+    ss << std::endl;
+    return ss.str();
 }
 } /* namespace wm */
 } /* namespace ttb */

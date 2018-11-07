@@ -25,10 +25,11 @@
 
 #include "ar_track_alvar/DirectoryIterator_private.h"
 
-namespace alvar {
+namespace alvar
+{
 
-DirectoryIterator::DirectoryIterator(const std::string &path)
-    : d(new DirectoryIteratorPrivate(path))
+DirectoryIterator::DirectoryIterator(const std::string& path)
+        : d(new DirectoryIteratorPrivate(path))
 {
 }
 

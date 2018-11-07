@@ -26,8 +26,7 @@ namespace robot
 
 class SimulatedArm
 {
-  public:
-
+public:
     enum ArmState
     {
         failed,
@@ -37,7 +36,7 @@ class SimulatedArm
 
     SimulatedArm();
     virtual ~SimulatedArm();
-    const std::string &getCarriedObjectName() const;
+    const std::string& getCarriedObjectName() const;
     bool grabObject(std::string objectName);
     bool dropObject(std::string objectName, geometry_msgs::Point entityPoint);
     SimulatedArm::ArmState getArmState();
@@ -46,7 +45,7 @@ class SimulatedArm
     bool openDoor(std::shared_ptr<ttb::wm::Door> door, bool open = true);
     double getArmRange();
 
-  private:
+private:
     std::string carriedObjectName;
     std::string requestedObject;
     ros::Publisher armCmdPub;
@@ -55,10 +54,10 @@ class SimulatedArm
     double armRange;
 
     SimulatedArm::ArmState armState;
-    supplementary::SystemConfig *sc;
+    supplementary::SystemConfig* sc;
     std::string robotName;
-    ros::AsyncSpinner *spinner;
-    ttb::TTBWorldModel *wm;
+    ros::AsyncSpinner* spinner;
+    ttb::TTBWorldModel* wm;
 };
 
 } /* namespace robot */

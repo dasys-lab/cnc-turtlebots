@@ -9,7 +9,7 @@
 namespace alica
 {
 DomainCondition::DomainCondition()
-    : BasicCondition()
+        : BasicCondition()
 {
     /*PROTECTED REGION ID(domainSourceConstructor) ENABLED START*/
     this->wm = ttb::TTBWorldModel::get();
@@ -27,8 +27,7 @@ DomainCondition::~DomainCondition()
 bool DomainCondition::checkLastCommand(robot_control::RobotCommand::_cmd_type cmd)
 {
     auto lastCmd = wm->rawSensorData.getRobotCommandBuffer()->getLastValidContent();
-    if (lastCmd && lastCmd->cmd == cmd)
-    {
+    if (lastCmd && lastCmd->cmd == cmd) {
         return true;
     }
     return false;
@@ -37,9 +36,7 @@ bool DomainCondition::checkLastCommand(robot_control::RobotCommand::_cmd_type cm
 bool DomainCondition::fullyCharged()
 {
     auto core = wm->rawSensorData.getMobileBaseSensorStateBuffer()->getLastValidContent();
-    if ((*core)->charger == kobuki_msgs::SensorState::DOCKING_CHARGED ||
-        (*core)->charger == kobuki_msgs::SensorState::ADAPTER_CHARGED)
-    {
+    if ((*core)->charger == kobuki_msgs::SensorState::DOCKING_CHARGED || (*core)->charger == kobuki_msgs::SensorState::ADAPTER_CHARGED) {
         return true;
     }
     return false;
@@ -48,9 +45,7 @@ bool DomainCondition::fullyCharged()
 bool DomainCondition::isCharging()
 {
     auto core = wm->rawSensorData.getMobileBaseSensorStateBuffer()->getLastValidContent();
-    if ((*core)->charger == kobuki_msgs::SensorState::DOCKING_CHARGING ||
-        (*core)->charger == kobuki_msgs::SensorState::ADAPTER_CHARGING)
-    {
+    if ((*core)->charger == kobuki_msgs::SensorState::DOCKING_CHARGING || (*core)->charger == kobuki_msgs::SensorState::ADAPTER_CHARGING) {
         return true;
     }
     return false;

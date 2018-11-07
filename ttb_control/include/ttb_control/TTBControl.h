@@ -22,7 +22,7 @@ namespace supplementary
 {
 class SystemConfig;
 class RobotExecutableRegistry;
-}
+} // namespace supplementary
 
 namespace ttb_control
 {
@@ -32,13 +32,12 @@ class TTBControl : public rqt_gui_cpp::Plugin
 
     Q_OBJECT
 
-  public:
+public:
     TTBControl();
-    virtual void initPlugin(qt_gui_cpp::PluginContext &context);
+    virtual void initPlugin(qt_gui_cpp::PluginContext& context);
     virtual void shutdownPlugin();
-    virtual void saveSettings(qt_gui_cpp::Settings &plugin_settings, qt_gui_cpp::Settings &instance_settings) const;
-    virtual void restoreSettings(const qt_gui_cpp::Settings &plugin_settings,
-                                 const qt_gui_cpp::Settings &instance_settings);
+    virtual void saveSettings(qt_gui_cpp::Settings& plugin_settings, qt_gui_cpp::Settings& instance_settings) const;
+    virtual void restoreSettings(const qt_gui_cpp::Settings& plugin_settings, const qt_gui_cpp::Settings& instance_settings);
 
     void addRobot();
     void removeRobot();
@@ -46,28 +45,28 @@ class TTBControl : public rqt_gui_cpp::Plugin
     static std::chrono::duration<double> msgTimeOut;
 
     Ui::RobotControlWidget robotControlWidget_;
-    QWidget *widget_;
+    QWidget* widget_;
 
-    supplementary::RobotExecutableRegistry *pmRegistry;
-    ros::NodeHandle *rosNode;
+    supplementary::RobotExecutableRegistry* pmRegistry;
+    ros::NodeHandle* rosNode;
 
-  private:
-    supplementary::SystemConfig *sc;
+private:
+    supplementary::SystemConfig* sc;
     ros::Subscriber topologicalInfoSub;
 
-    std::map<const supplementary::AgentID *, Robot *> controlledRobotsMap;
+    std::map<const supplementary::AgentID*, Robot*> controlledRobotsMap;
     std::mutex topologicalInfoMsgQueueMutex;
     std::queue<std::pair<std::chrono::system_clock::time_point, ttb_msgs::TopologicalInfoPtr>> topologicalInfoMsgQueue;
 
     void receiveTopologicalInfo(ttb_msgs::TopologicalInfoPtr topoInfo);
     void processMessages();
-    void checkAndInit(const supplementary::AgentID *robotId);
+    void checkAndInit(const supplementary::AgentID* robotId);
 
-    QTimer *guiUpdateTimer;
+    QTimer* guiUpdateTimer;
 
-  public Q_SLOTS:
+public Q_SLOTS:
     void run();
     void updateGUI();
-    void showContextMenu(const QPoint &pos);
+    void showContextMenu(const QPoint& pos);
 };
-}
+} // namespace ttb_control

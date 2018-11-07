@@ -15,20 +15,20 @@ namespace alica
 {
 class SearchForDockingStationAsp : public DomainBehaviour
 {
-  public:
+public:
     SearchForDockingStationAsp();
     virtual ~SearchForDockingStationAsp();
-    virtual void run(void *msg);
+    virtual void run(void* msg);
     /*PROTECTED REGION ID(pub1470041810334) ENABLED START*/
     // Add additional public methods here
-    vector<::reasoner::AnnotatedValVec> result;
+    vector<::reasoner::AnnotatedValVec*> result;
     /*PROTECTED REGION END*/
-  protected:
+protected:
     virtual void initialiseParameters();
     /*PROTECTED REGION ID(pro1470041810334) ENABLED START*/
     // Add additional protected methods here
     /*PROTECTED REGION END*/
-  private:
+private:
 /*PROTECTED REGION ID(prv1470041810334) ENABLED START*/
 // Add additional private methods here
 #ifdef testWithoutTTB

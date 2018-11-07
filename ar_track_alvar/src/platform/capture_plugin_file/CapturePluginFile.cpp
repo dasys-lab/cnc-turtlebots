@@ -23,14 +23,16 @@
 
 #include "CapturePluginFile.h"
 
-namespace alvar {
-namespace plugins {
+namespace alvar
+{
+namespace plugins
+{
 
 CaptureFile::CaptureFile(const CaptureDevice captureDevice)
-    : Capture(captureDevice)
-    , mVideoCapture()
-    , mMatrix()
-    , mImage()
+        : Capture(captureDevice)
+        , mVideoCapture()
+        , mMatrix()
+        , mImage()
 {
 }
 
@@ -47,8 +49,8 @@ bool CaptureFile::start()
 
     mVideoCapture.open(captureDevice().id().c_str());
     if (mVideoCapture.isOpened()) {
-        mXResolution = (int)mVideoCapture.get(CV_CAP_PROP_FRAME_WIDTH);
-        mYResolution = (int)mVideoCapture.get(CV_CAP_PROP_FRAME_HEIGHT);
+        mXResolution = (int) mVideoCapture.get(CV_CAP_PROP_FRAME_WIDTH);
+        mYResolution = (int) mVideoCapture.get(CV_CAP_PROP_FRAME_HEIGHT);
         mIsCapturing = true;
     }
 
@@ -63,7 +65,7 @@ void CaptureFile::stop()
     }
 }
 
-IplImage *CaptureFile::captureImage()
+IplImage* CaptureFile::captureImage()
 {
     if (!isCapturing()) {
         return NULL;
@@ -97,19 +99,17 @@ std::string CaptureFile::SerializeId()
     return "CaptureFile";
 }
 
-bool CaptureFile::Serialize(Serialization *serialization)
+bool CaptureFile::Serialize(Serialization* serialization)
 {
     return false;
 }
 
-CapturePluginFile::CapturePluginFile(const std::string &captureType)
-    : CapturePlugin(captureType)
+CapturePluginFile::CapturePluginFile(const std::string& captureType)
+        : CapturePlugin(captureType)
 {
 }
 
-CapturePluginFile::~CapturePluginFile()
-{
-}
+CapturePluginFile::~CapturePluginFile() {}
 
 CapturePlugin::CaptureDeviceVector CapturePluginFile::enumerateDevices()
 {
@@ -117,12 +117,12 @@ CapturePlugin::CaptureDeviceVector CapturePluginFile::enumerateDevices()
     return devices;
 }
 
-Capture *CapturePluginFile::createCapture(const CaptureDevice captureDevice)
+Capture* CapturePluginFile::createCapture(const CaptureDevice captureDevice)
 {
     return new CaptureFile(captureDevice);
 }
 
-void registerPlugin(const std::string &captureType, alvar::CapturePlugin *&capturePlugin)
+void registerPlugin(const std::string& captureType, alvar::CapturePlugin*& capturePlugin)
 {
     capturePlugin = new CapturePluginFile(captureType);
 }

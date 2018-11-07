@@ -22,24 +22,26 @@
  */
 
 #include "CapturePluginPtgrey.h"
-#include <../../FlyCapture2/include/Camera.h>
-#include <../../FlyCapture2/include/Image.h>
-#include <../../FlyCapture2/include/Error.h>
 #include <../../FlyCapture2/include/BusManager.h>
+#include <../../FlyCapture2/include/Camera.h>
+#include <../../FlyCapture2/include/Error.h>
+#include <../../FlyCapture2/include/Image.h>
 
 #include <sstream>
 
 using namespace std;
 
-namespace alvar {
-namespace plugins {
+namespace alvar
+{
+namespace plugins
+{
 
 CapturePtgrey::CapturePtgrey(const CaptureDevice captureDevice)
-    : Capture(captureDevice)
-    , mCamera(new FlyCapture2::Camera)
-    , mImage(new FlyCapture2::Image)
-    , mChannels(-1)
-    , mReturnFrame(NULL)
+        : Capture(captureDevice)
+        , mCamera(new FlyCapture2::Camera)
+        , mImage(new FlyCapture2::Image)
+        , mChannels(-1)
+        , mReturnFrame(NULL)
 {
 }
 
@@ -55,12 +57,15 @@ bool CapturePtgrey::start()
     if (isCapturing()) {
         return isCapturing();
     }
-    
+
     stringstream id(captureDevice().id());
     id.setf(ios_base::hex, ios_base::basefield);
-    id >> mGUID.value[0]; id.get();
-    id >> mGUID.value[1]; id.get();
-    id >> mGUID.value[2]; id.get();
+    id >> mGUID.value[0];
+    id.get();
+    id >> mGUID.value[1];
+    id.get();
+    id >> mGUID.value[2];
+    id.get();
     id >> mGUID.value[3];
 
     if (mCamera->Connect(&mGUID) != FlyCapture2::PGRERROR_OK) {
@@ -69,60 +74,60 @@ bool CapturePtgrey::start()
 
     FlyCapture2::VideoMode videoMode;
     FlyCapture2::FrameRate frameRate;
-    if (mCamera->GetVideoModeAndFrameRate (&videoMode, &frameRate) != FlyCapture2::PGRERROR_OK) {
+    if (mCamera->GetVideoModeAndFrameRate(&videoMode, &frameRate) != FlyCapture2::PGRERROR_OK) {
         return false;
     }
-    
+
     if (videoMode == FlyCapture2::VIDEOMODE_640x480RGB) {
-      mChannels = 3;
-      mXResolution = 640;
-      mYResolution = 480;
-    
+        mChannels = 3;
+        mXResolution = 640;
+        mYResolution = 480;
+
     } else if (videoMode == FlyCapture2::VIDEOMODE_640x480Y8) {
-      mChannels = 1;
-      mXResolution = 640;
-      mYResolution = 480;
-    
+        mChannels = 1;
+        mXResolution = 640;
+        mYResolution = 480;
+
     } else if (videoMode == FlyCapture2::VIDEOMODE_800x600RGB) {
-      mChannels = 3;
-      mXResolution = 800;
-      mYResolution = 600;
-    
+        mChannels = 3;
+        mXResolution = 800;
+        mYResolution = 600;
+
     } else if (videoMode == FlyCapture2::VIDEOMODE_800x600Y8) {
-      mChannels = 1;
-      mXResolution = 800;
-      mYResolution = 600;
-    
+        mChannels = 1;
+        mXResolution = 800;
+        mYResolution = 600;
+
     } else if (videoMode == FlyCapture2::VIDEOMODE_1024x768RGB) {
-      mChannels = 3;
-      mXResolution = 1024;
-      mYResolution = 768;
-    
+        mChannels = 3;
+        mXResolution = 1024;
+        mYResolution = 768;
+
     } else if (videoMode == FlyCapture2::VIDEOMODE_1024x768Y8) {
-      mChannels = 1;
-      mXResolution = 1024;
-      mYResolution = 768;
-    
+        mChannels = 1;
+        mXResolution = 1024;
+        mYResolution = 768;
+
     } else if (videoMode == FlyCapture2::VIDEOMODE_1280x960RGB) {
-      mChannels = 3;
-      mXResolution = 1280;
-      mYResolution = 960;
-    
+        mChannels = 3;
+        mXResolution = 1280;
+        mYResolution = 960;
+
     } else if (videoMode == FlyCapture2::VIDEOMODE_1280x960Y8) {
-      mChannels = 1;
-      mXResolution = 1280;
-      mYResolution = 960;
-    
+        mChannels = 1;
+        mXResolution = 1280;
+        mYResolution = 960;
+
     } else if (videoMode == FlyCapture2::VIDEOMODE_1600x1200RGB) {
-      mChannels = 3;
-      mXResolution = 1600;
-      mYResolution = 1200;
-    
+        mChannels = 3;
+        mXResolution = 1600;
+        mYResolution = 1200;
+
     } else if (videoMode == FlyCapture2::VIDEOMODE_1600x1200Y8) {
-      mChannels = 1;
-      mXResolution = 1600;
-      mYResolution = 1200;
-    
+        mChannels = 1;
+        mXResolution = 1600;
+        mYResolution = 1200;
+
     } else {
         return false;
     }
@@ -143,7 +148,7 @@ void CapturePtgrey::stop()
     }
 }
 
-IplImage *CapturePtgrey::captureImage()
+IplImage* CapturePtgrey::captureImage()
 {
     if (!isCapturing()) {
         return NULL;
@@ -166,19 +171,17 @@ string CapturePtgrey::SerializeId()
     return "CapturePtgrey";
 }
 
-bool CapturePtgrey::Serialize(Serialization *serialization)
+bool CapturePtgrey::Serialize(Serialization* serialization)
 {
     return false;
 }
 
-CapturePluginPtgrey::CapturePluginPtgrey(const string &captureType)
-    : CapturePlugin(captureType)
+CapturePluginPtgrey::CapturePluginPtgrey(const string& captureType)
+        : CapturePlugin(captureType)
 {
 }
 
-CapturePluginPtgrey::~CapturePluginPtgrey()
-{
-}
+CapturePluginPtgrey::~CapturePluginPtgrey() {}
 
 CapturePlugin::CaptureDeviceVector CapturePluginPtgrey::enumerateDevices()
 {
@@ -191,7 +194,7 @@ CapturePlugin::CaptureDeviceVector CapturePluginPtgrey::enumerateDevices()
 
     unsigned int numberCameras = 0;
     bus.GetNumOfCameras(&numberCameras);
-    
+
     for (unsigned int i = 0; i < numberCameras; i++) {
         FlyCapture2::PGRGuid guid;
         bus.GetCameraFromIndex(i, &guid);
@@ -202,9 +205,11 @@ CapturePlugin::CaptureDeviceVector CapturePluginPtgrey::enumerateDevices()
         convert << "_" << hex << guid.value[3];
         stringstream description;
         FlyCapture2::Camera camera;
-        if (camera.Connect(&guid) != FlyCapture2::PGRERROR_OK) continue;
+        if (camera.Connect(&guid) != FlyCapture2::PGRERROR_OK)
+            continue;
         FlyCapture2::CameraInfo info;
-        if (camera.GetCameraInfo (&info) != FlyCapture2::PGRERROR_OK) continue;
+        if (camera.GetCameraInfo(&info) != FlyCapture2::PGRERROR_OK)
+            continue;
         description << info.vendorName << " ";
         description << info.modelName;
         CaptureDevice captureDevice(mCaptureType, convert.str(), description.str());
@@ -214,12 +219,12 @@ CapturePlugin::CaptureDeviceVector CapturePluginPtgrey::enumerateDevices()
     return devices;
 }
 
-Capture *CapturePluginPtgrey::createCapture(const CaptureDevice captureDevice)
+Capture* CapturePluginPtgrey::createCapture(const CaptureDevice captureDevice)
 {
     return new CapturePtgrey(captureDevice);
 }
 
-void registerPlugin(const string &captureType, alvar::CapturePlugin *&capturePlugin)
+void registerPlugin(const string& captureType, alvar::CapturePlugin*& capturePlugin)
 {
     capturePlugin = new CapturePluginPtgrey(captureType);
 }

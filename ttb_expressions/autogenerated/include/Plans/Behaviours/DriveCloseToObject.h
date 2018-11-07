@@ -16,23 +16,23 @@ namespace alica
 {
 class DriveCloseToObject : public DomainBehaviour
 {
-  public:
+public:
     DriveCloseToObject();
     virtual ~DriveCloseToObject();
-    virtual void run(void *msg);
+    virtual void run(void* msg);
     /*PROTECTED REGION ID(pub1520521852939) ENABLED START*/
     // Add additional public methods here
     /*PROTECTED REGION END*/
-  protected:
+protected:
     virtual void initialiseParameters();
     /*PROTECTED REGION ID(pro1520521852939) ENABLED START*/
     // Add additional protected methods here
     /*PROTECTED REGION END*/
-  private:
+private:
     /*PROTECTED REGION ID(prv1520521852939) ENABLED START*/
     // Add additional private methods here
     std::shared_ptr<alica::Query> query;
-    std::vector<std::string> result;
+    std::vector<alica::BBIdent> result;
     actionlib::ClientGoalHandle<move_base_msgs::MoveBaseAction> goalHandle;
     bool isMoveBaseDone();
     /*PROTECTED REGION END*/

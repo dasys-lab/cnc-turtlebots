@@ -9,16 +9,14 @@ namespace robot
 
 Speech::Speech()
 {
-	sc = supplementary::SystemConfig::getInstance();
+    sc = supplementary::SystemConfig::getInstance();
 }
 
-Speech::~Speech()
-{
-}
+Speech::~Speech() {}
 
 void Speech::say(std::string text)
 {
-	this->soundClient.say(text);
+    this->soundClient.say(text);
 }
 
 } /* namespace robot */

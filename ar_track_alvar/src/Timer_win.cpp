@@ -25,16 +25,17 @@
 
 #include <windows.h>
 
-namespace alvar {
+namespace alvar
+{
 
 class TimerPrivateData
 {
 public:
     TimerPrivateData()
-        : mPerformanceQuerySupported(false)
-        , mPerformanceFrequency()
-        , mPerformanceStart()
-        , mStart()
+            : mPerformanceQuerySupported(false)
+            , mPerformanceFrequency()
+            , mPerformanceStart()
+            , mStart()
     {
     }
 
@@ -45,10 +46,10 @@ public:
 };
 
 TimerPrivate::TimerPrivate()
-    : d(new TimerPrivateData())
+        : d(new TimerPrivateData())
 {
-	QueryPerformanceFrequency(&d->mPerformanceFrequency);
-	if (d->mPerformanceFrequency.QuadPart) {
+    QueryPerformanceFrequency(&d->mPerformanceFrequency);
+    if (d->mPerformanceFrequency.QuadPart) {
         d->mPerformanceQuerySupported = true;
     }
 }
@@ -62,8 +63,7 @@ void TimerPrivate::start()
 {
     if (d->mPerformanceQuerySupported) {
         QueryPerformanceCounter(&d->mPerformanceStart);
-    }
-    else {
+    } else {
         d->mStart = GetTickCount();
     }
 }
@@ -76,8 +76,7 @@ double TimerPrivate::stop()
         QueryPerformanceCounter(&stop);
         difference.QuadPart = stop.QuadPart - d->mPerformanceStart.QuadPart;
         return double(difference.QuadPart) / d->mPerformanceFrequency.QuadPart;
-    }
-    else {
+    } else {
         return (GetTickCount() - d->mStart) / 1000.0;
     }
 }

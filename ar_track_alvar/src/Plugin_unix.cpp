@@ -26,24 +26,25 @@
 #include "ar_track_alvar/AlvarException.h"
 
 #include <dlfcn.h>
-#include <sstream>
 #include <errno.h>
+#include <sstream>
 
-namespace alvar {
+namespace alvar
+{
 
 class PluginPrivateData
 {
 public:
     PluginPrivateData()
-        : mHandle(NULL)
+            : mHandle(NULL)
     {
     }
-    
-    void *mHandle;
+
+    void* mHandle;
 };
 
 PluginPrivate::PluginPrivate()
-    : d(new PluginPrivateData())
+        : d(new PluginPrivateData())
 {
 }
 
@@ -57,8 +58,7 @@ void PluginPrivate::load(const std::string filename)
     d->mHandle = dlopen(filename.data(), RTLD_LAZY);
     if (!d->mHandle) {
         std::stringstream message;
-        message << "could not load " << filename
-                << ", error code " << errno;
+        message << "could not load " << filename << ", error code " << errno;
         throw AlvarException(message.str().data());
     }
 }
@@ -68,9 +68,9 @@ void PluginPrivate::unload()
     dlclose(d->mHandle);
 }
 
-void *PluginPrivate::resolve(const char *symbol)
+void* PluginPrivate::resolve(const char* symbol)
 {
-    void *address = (void *)dlsym(d->mHandle, symbol);
+    void* address = (void*) dlsym(d->mHandle, symbol);
     if (!address) {
         std::stringstream message;
         message << "could not resolve " << symbol;

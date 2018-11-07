@@ -9,19 +9,19 @@ namespace alica
 {
 class Sweep : public DomainBehaviour
 {
-  public:
+public:
     Sweep();
     virtual ~Sweep();
-    virtual void run(void *msg);
+    virtual void run(void* msg);
     /*PROTECTED REGION ID(pub1520437499749) ENABLED START*/
     // Add additional public methods here
     /*PROTECTED REGION END*/
-  protected:
+protected:
     virtual void initialiseParameters();
     /*PROTECTED REGION ID(pro1520437499749) ENABLED START*/
     // Add additional protected methods here
     /*PROTECTED REGION END*/
-  private:
+private:
     /*PROTECTED REGION ID(prv1520437499749) ENABLED START*/
     // Add additional private methods here
     /*PROTECTED REGION END*/

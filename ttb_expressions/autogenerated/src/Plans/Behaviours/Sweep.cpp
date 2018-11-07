@@ -15,7 +15,7 @@ namespace alica
 /*PROTECTED REGION END*/
 
 Sweep::Sweep()
-    : DomainBehaviour("Sweep")
+        : DomainBehaviour("Sweep")
 {
     /*PROTECTED REGION ID(con1520437499749) ENABLED START*/
     // Add additional options here
@@ -27,7 +27,7 @@ Sweep::~Sweep()
     // Add additional options here
     /*PROTECTED REGION END*/
 }
-void Sweep::run(void *msg)
+void Sweep::run(void* msg)
 {
     /*PROTECTED REGION ID(run1520437499749) ENABLED START*/
     // Add additional options here

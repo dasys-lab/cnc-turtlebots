@@ -13,74 +13,71 @@ namespace ttb
 namespace wm
 {
 
-Communication::Communication(ttb::TTBWorldModel *wm)
-    : wm(wm)
+Communication::Communication(ttb::TTBWorldModel* wm)
+        : wm(wm)
 {
     this->timeLastSimMsgReceived = alica::AlicaTime::zero();
     auto sc = wm->getSystemConfig();
     // SET ROS STUFF
     string topic;
-    if (wm->isUsingSimulator())
-    {
+    if (wm->isUsingSimulator()) {
 #ifdef COMM_DEBUG
         std::cout << "Communication: In SIMULATION mode." << std::endl;
 #endif
         // for simulated robot only
         topic = (*sc)["TTBWorldModel"]->get<string>("Data.LogicalCamera.Topic", NULL);
-        logicalCameraSensorSub = n.subscribe(topic, 10, &Communication::onLogicalCamera, (Communication *)this);
+        logicalCameraSensorSub = n.subscribe(topic, 10, &Communication::onLogicalCamera, (Communication*) this);
 
         topic = (*sc)["TTBWorldModel"]->get<string>("Data.GazeboModelStates.Topic", NULL);
-        gazeboModelStatesSub = n.subscribe(topic, 10, &Communication::onGazeboModelStates, (Communication *)this);
-    }
-    else
-    {
+        gazeboModelStatesSub = n.subscribe(topic, 10, &Communication::onGazeboModelStates, (Communication*) this);
+    } else {
 #ifdef COMM_DEBUG
         std::cout << "Communication: In REAL ROBOT mode." << std::endl;
 #endif
         // for real robot only
 
         topic = (*sc)["TTBWorldModel"]->get<string>("Data.DockInfrRed.Topic", NULL);
-        dockInfrRedSub = n.subscribe(topic, 10, &Communication::onDockInfrRed, (Communication *)this);
+        dockInfrRedSub = n.subscribe(topic, 10, &Communication::onDockInfrRed, (Communication*) this);
 
         topic = (*sc)["TTBWorldModel"]->get<string>("Data.MobileBaseSensorState.Topic", NULL);
-        mobileBaseSensorStateSub = n.subscribe(topic, 10, &Communication::onMobileBaseSensorState, (Communication *)this);
+        mobileBaseSensorStateSub = n.subscribe(topic, 10, &Communication::onMobileBaseSensorState, (Communication*) this);
 
         topic = (*sc)["TTBWorldModel"]->get<string>("Data.AlvarMarker.Topic", NULL);
-        alvarSub = n.subscribe(topic, 10, &Communication::onAlvarMarkers, (Communication *)this);
+        alvarSub = n.subscribe(topic, 10, &Communication::onAlvarMarkers, (Communication*) this);
     }
 
     topic = (*sc)["TTBWorldModel"]->get<string>("Data.AMCLPose.Topic", NULL);
-    amclPoseSub = n.subscribe(topic, 10, &Communication::onAMCLPose, (Communication *)this);
+    amclPoseSub = n.subscribe(topic, 10, &Communication::onAMCLPose, (Communication*) this);
 
     topic = (*sc)["TTBWorldModel"]->get<string>("Data.RawCameraImage.Topic", NULL);
-    cameraImageRawSub = n.subscribe(topic, 10, &Communication::onRawCameraImage, (Communication *)this);
+    cameraImageRawSub = n.subscribe(topic, 10, &Communication::onRawCameraImage, (Communication*) this);
 
     topic = (*sc)["TTBWorldModel"]->get<string>("Data.Odometry.Topic", NULL);
-    odometrySub = n.subscribe(topic, 10, &Communication::onOdometry, (Communication *)this);
+    odometrySub = n.subscribe(topic, 10, &Communication::onOdometry, (Communication*) this);
 
     topic = (*sc)["TTBWorldModel"]->get<string>("Data.LaserScan.Topic", NULL);
-    laserScanSub = n.subscribe(topic, 10, &Communication::onLaserScan, (Communication *)this);
+    laserScanSub = n.subscribe(topic, 10, &Communication::onLaserScan, (Communication*) this);
 
     topic = (*sc)["TTBWorldModel"]->get<string>("Data.DepthCameraCloud.Topic", NULL);
-    cameraPclSub = n.subscribe(topic, 10, &Communication::onDepthCameraCloud, (Communication *)this);
+    cameraPclSub = n.subscribe(topic, 10, &Communication::onDepthCameraCloud, (Communication*) this);
 
     topic = (*sc)["TTBWorldModel"]->get<string>("Data.CliffEvent.Topic", NULL);
-    cliffEventsSub = n.subscribe(topic, 10, &Communication::onCliffEvent, (Communication *)this);
+    cliffEventsSub = n.subscribe(topic, 10, &Communication::onCliffEvent, (Communication*) this);
 
     topic = (*sc)["TTBWorldModel"]->get<string>("Data.BumperSensor.Topic", NULL);
-    bumperSensorSub = n.subscribe(topic, 10, &Communication::onBumperCloud, (Communication *)this);
+    bumperSensorSub = n.subscribe(topic, 10, &Communication::onBumperCloud, (Communication*) this);
 
     topic = (*sc)["TTBWorldModel"]->get<string>("Data.BumperEvent.Topic", NULL);
-    bumperEventSub = n.subscribe(topic, 10, &Communication::onBumperEvent, (Communication *)this);
+    bumperEventSub = n.subscribe(topic, 10, &Communication::onBumperEvent, (Communication*) this);
 
     topic = (*sc)["TTBWorldModel"]->get<string>("Data.IMUData.Topic", NULL);
-    imuDataSub = n.subscribe(topic, 10, &Communication::onImu, (Communication *)this);
+    imuDataSub = n.subscribe(topic, 10, &Communication::onImu, (Communication*) this);
 
     topic = (*sc)["TTBWorldModel"]->get<string>("Data.RobotCommand.Topic", NULL);
-    robotCommandSub = n.subscribe(topic, 10, &Communication::onRobotCommand, (Communication *)this);
+    robotCommandSub = n.subscribe(topic, 10, &Communication::onRobotCommand, (Communication*) this);
 
     topic = (*sc)["TTBWorldModel"]->get<string>("Data.ServeTask.Topic", NULL);
-    serveTaskSub = n.subscribe(topic, 10, &Communication::onServeTask, (Communication *)this);
+    serveTaskSub = n.subscribe(topic, 10, &Communication::onServeTask, (Communication*) this);
 
     wrappedMessageHandler = nullptr;
     //    wrappedMessageHandler = new WrappedMessageHandler();
@@ -167,16 +164,14 @@ void Communication::onServeTask(ttb_msgs::ServeTask serveTask)
     auto ownID = this->wm->getOwnId();
     auto senderId = this->wm->getEngine()->getIdFromBytes(serveTask.sender.id);
     auto receiverId = this->wm->getEngine()->getIdFromBytes(serveTask.receiver.id);
-    if (*senderId != *ownID && (*receiverId == *ownID || serveTask.receiver.type == supplementary::BroadcastID::BC_TYPE))
-    {
+    if (*senderId != *ownID && (*receiverId == *ownID || serveTask.receiver.type == supplementary::BroadcastID::BC_TYPE)) {
         this->wm->rawSensorData.processServeTask(serveTask);
     }
 }
 
 void Communication::onAMCLPose(geometry_msgs::PoseWithCovarianceStamped msg)
 {
-    if (this->wm->isUsingSimulator())
-    { // this data is send by the "fake_localization" node in case of a simulator scenario
+    if (this->wm->isUsingSimulator()) { // this data is send by the "fake_localization" node in case of a simulator scenario
         this->timeLastSimMsgReceived = this->wm->getTime();
     }
 
@@ -191,7 +186,7 @@ void Communication::onLogicalCamera(ttb_msgs::LogicalCameraPtr logicalCamera)
 
 void Communication::onGazeboModelStates(gazebo_msgs::ModelStatesPtr modelStates)
 {
-	this->wm->rawSensorData.processGazeboModelState(modelStates);
+    this->wm->rawSensorData.processGazeboModelState(modelStates);
 }
 
 } /* namespace wm */

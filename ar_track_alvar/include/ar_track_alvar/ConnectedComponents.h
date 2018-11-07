@@ -31,107 +31,104 @@
  */
 
 #include "Alvar.h"
-#include "Util.h"
-#include "Line.h"
 #include "Camera.h"
+#include "Line.h"
+#include "Util.h"
 
-namespace alvar {
+namespace alvar
+{
 
 /**
  * \brief Connected components labeling methods.
-*/
+ */
 enum ALVAR_EXPORT LabelingMethod
 {
-	CVSEQ
+    CVSEQ
 };
 
 /**
  * \brief Base class for labeling connected components from binary image.
-*/
+ */
 class ALVAR_EXPORT Labeling
 {
 
-protected :
+protected:
+    Camera* cam;
+    int thresh_param1, thresh_param2;
 
-	Camera	 *cam;
-	int thresh_param1, thresh_param2;
+public:
+    /**
+     * \brief Pointer to grayscale image that is thresholded for labeling.
+     */
+    IplImage* gray;
+    /**
+     * \brief Pointer to binary image that is then labeled.
+     */
+    IplImage* bw;
 
-public :
+    /**
+     * \brief Vector of 4-length vectors where the corners of detected blobs are stored.
+     */
+    std::vector<std::vector<PointDouble>> blob_corners;
 
-	/**
-	 * \brief Pointer to grayscale image that is thresholded for labeling.
-	*/
-	IplImage *gray;
-	/**
-	 * \brief Pointer to binary image that is then labeled.
-	*/
-	IplImage *bw;
+    /**
+     * \brief Two alternatives for thresholding the gray image. ADAPT (adaptive threshold) is only supported currently.
+     */
+    enum ThresholdMethod
+    {
+        THRESH,
+        ADAPT
+    };
 
-	/**
-	 * \brief Vector of 4-length vectors where the corners of detected blobs are stored.
-	*/
-	std::vector<std::vector<PointDouble> > blob_corners;
+    /** Constructor */
+    Labeling();
 
-	/**
-	 * \brief Two alternatives for thresholding the gray image. ADAPT (adaptive threshold) is only supported currently.
-	*/
-	enum ThresholdMethod 
-	{
-		THRESH,
-		ADAPT
-	};
+    /** Destructor*/
+    virtual ~Labeling();
 
-	/** Constructor */
-	Labeling();
+    /**
+     * \brief Sets the camera object that is used to correct lens distortions.
+     */
+    void SetCamera(Camera* camera) { cam = camera; }
 
-	/** Destructor*/
-	virtual ~Labeling();
+    /**
+     * \brief Labels image and filters blobs to obtain square-shaped objects from the scene.
+     */
+    virtual void LabelSquares(IplImage* image, bool visualize = false) = 0;
 
-	/**
-	 * \brief Sets the camera object that is used to correct lens distortions.
-	*/
-	void SetCamera(Camera* camera) {cam = camera;}
+    bool CheckBorder(CvSeq* contour, int width, int height);
 
-	/**
-	 * \brief Labels image and filters blobs to obtain square-shaped objects from the scene.
-	*/
-	virtual void LabelSquares(IplImage* image, bool visualize=false) = 0;
-
-	bool CheckBorder(CvSeq* contour, int width, int height);
-
-	void SetThreshParams(int param1, int param2)
-	{
-		thresh_param1 = param1;
-		thresh_param2 = param2;
-	}
+    void SetThreshParams(int param1, int param2)
+    {
+        thresh_param1 = param1;
+        thresh_param2 = param2;
+    }
 };
 
 /**
  * \brief Labeling class that uses OpenCV routines to find connected components.
-*/
+ */
 class ALVAR_EXPORT LabelingCvSeq : public Labeling
 {
 
-protected :
+protected:
+    int _n_blobs;
+    int _min_edge;
+    int _min_area;
+    bool detect_pose_grayscale;
 
-	int _n_blobs;
-	int _min_edge;
-	int _min_area;
-	bool detect_pose_grayscale;
-
-	CvMemStorage* storage;
+    CvMemStorage* storage;
 
 public:
+    LabelingCvSeq();
+    ~LabelingCvSeq();
 
-	LabelingCvSeq();
-	~LabelingCvSeq();
+    void SetOptions(bool _detect_pose_grayscale = false);
 
-	void SetOptions(bool _detect_pose_grayscale=false);
+    void LabelSquares(IplImage* image, bool visualize = false);
 
-	void LabelSquares(IplImage* image, bool visualize=false);
-
-	// TODO: Releases memory inside, cannot return CvSeq*
-	CvSeq* LabelImage(IplImage* image, int min_size, bool approx=false);
+    // TODO: Releases memory inside, cannot return CvSeq*
+    CvSeq* LabelImage(IplImage* image, int min_size, bool approx = false);
 };
 
 } // namespace alvar

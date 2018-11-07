@@ -1,31 +1,31 @@
-#include <iostream>
 #include "Camera.h"
 #include "CvTestbed.h"
 #include "Shared.h"
+#include <iostream>
 using namespace alvar;
 using namespace std;
 
-const int calib_count_max=50;
-const int etalon_rows=6;
-const int etalon_columns=8;
+const int calib_count_max = 50;
+const int etalon_rows = 6;
+const int etalon_columns = 8;
 std::stringstream calibrationFilename;
 
-void videocallback(IplImage *image)
+void videocallback(IplImage* image)
 {
     static bool calibrated = false;
-    static int calib_count=0;
+    static int calib_count = 0;
     static Camera cam;
     static ProjPoints pp;
-    static int64 prev_tick=0;
+    static int64 prev_tick = 0;
     static bool initialized = false;
 
     if (!initialized) {
-      cam.SetRes(image->width, image->height);
-      prev_tick = cvGetTickCount();
-      initialized = true;
+        cam.SetRes(image->width, image->height);
+        prev_tick = cvGetTickCount();
+        initialized = true;
     }
-  
-    bool flip_image = (image->origin?true:false);
+
+    bool flip_image = (image->origin ? true : false);
     if (flip_image) {
         cvFlip(image);
         image->origin = !image->origin;
@@ -38,14 +38,14 @@ void videocallback(IplImage *image)
         // - Calibrate
         // - Save the calibration file
         if (calib_count >= calib_count_max) {
-            std::cout<<"Calibrating..."<<endl;
+            std::cout << "Calibrating..." << endl;
             calib_count = 0;
             cam.Calibrate(pp);
             pp.Reset();
             cam.SaveCalib(calibrationFilename.str().c_str());
-            std::cout<<"Saving calibration: "<<calibrationFilename.str()<<endl;
+            std::cout << "Saving calibration: " << calibrationFilename.str() << endl;
             calibrated = true;
-        } 
+        }
         // If we are still collecting calibration data
         // - For every 1.5s add calibration data from detected 7*9 chessboard (and visualize it if true)
         else {
@@ -54,7 +54,7 @@ void videocallback(IplImage *image)
                 if (pp.AddPointsUsingChessboard(image, 2.8, etalon_rows, etalon_columns, true)) {
                     prev_tick = tick;
                     calib_count++;
-                    cout<<calib_count<<"/"<<calib_count_max<<endl;
+                    cout << calib_count << "/" << calib_count_max << endl;
                 }
             }
         }
@@ -63,8 +63,8 @@ void videocallback(IplImage *image)
             Pose pose;
             cam.CalcExteriorOrientation(pp.object_points, pp.image_points, &pose);
             cam.ProjectPoints(pp.object_points, &pose, pp.image_points);
-            for (size_t i=0; i<pp.image_points.size(); i++) {
-                cvCircle(image, cvPoint((int)pp.image_points[i].x, (int)pp.image_points[i].y), 6, CV_RGB(0, 0, 255));
+            for (size_t i = 0; i < pp.image_points.size(); i++) {
+                cvCircle(image, cvPoint((int) pp.image_points[i].x, (int) pp.image_points[i].y), 6, CV_RGB(0, 0, 255));
             }
             pp.Reset();
         }
@@ -76,7 +76,7 @@ void videocallback(IplImage *image)
     }
 }
 
-int main(int argc, char *argv[])
+int main(int argc, char* argv[])
 {
     try {
         // Output usage message
@@ -130,17 +130,17 @@ int main(int argc, char *argv[])
         if (argc > 1) {
             selectedDevice = atoi(argv[1]);
         }
-        if (selectedDevice >= (int)devices.size()) {
+        if (selectedDevice >= (int) devices.size()) {
             selectedDevice = defaultDevice(devices);
         }
-        
+
         // Display capture devices
         std::cout << "Enumerated Capture Devices:" << std::endl;
         outputEnumeratedDevices(devices, selectedDevice);
         std::cout << std::endl;
-        
+
         // Create capture object from camera
-        Capture *cap = CaptureFactory::instance()->createCapture(devices[selectedDevice]);
+        Capture* cap = CaptureFactory::instance()->createCapture(devices[selectedDevice]);
         std::string uniqueName = devices[selectedDevice].uniqueName();
 
         // Handle capture lifecycle and start video capture
@@ -149,10 +149,10 @@ int main(int argc, char *argv[])
             std::stringstream settingsFilename;
             settingsFilename << "camera_settings_" << uniqueName << ".xml";
             calibrationFilename << "camera_calibration_" << uniqueName << ".xml";
-            
+
             cap->start();
             cap->setResolution(640, 480);
-            
+
             if (cap->loadSettings(settingsFilename.str())) {
                 std::cout << "Loading settings: " << settingsFilename.str() << std::endl;
             }
@@ -168,19 +168,15 @@ int main(int argc, char *argv[])
 
             cap->stop();
             delete cap;
-        }
-        else if (CvTestbed::Instance().StartVideo(0, argv[0])) {
-        }
-        else {
+        } else if (CvTestbed::Instance().StartVideo(0, argv[0])) {
+        } else {
             std::cout << "Could not initialize the selected capture backend." << std::endl;
         }
 
         return 0;
-    }
-    catch (const std::exception &e) {
+    } catch (const std::exception& e) {
         std::cout << "Exception: " << e.what() << endl;
-    }
-    catch (...) {
+    } catch (...) {
         std::cout << "Exception: unknown" << std::endl;
     }
 }

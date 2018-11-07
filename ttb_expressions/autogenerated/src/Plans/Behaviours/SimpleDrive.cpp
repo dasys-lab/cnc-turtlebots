@@ -19,7 +19,7 @@ namespace alica
 /*PROTECTED REGION END*/
 
 SimpleDrive::SimpleDrive()
-    : DomainBehaviour("SimpleDrive")
+        : DomainBehaviour("SimpleDrive")
 {
     /*PROTECTED REGION ID(con1432735451661) ENABLED START*/
     // Add additional options here
@@ -31,7 +31,7 @@ SimpleDrive::~SimpleDrive()
     // Add additional options here
     /*PROTECTED REGION END*/
 }
-void SimpleDrive::run(void *msg)
+void SimpleDrive::run(void* msg)
 {
     /*PROTECTED REGION ID(run1432735451661) ENABLED START*/
     // Add additional options here
@@ -40,12 +40,9 @@ void SimpleDrive::run(void *msg)
     move.linear.x = 0.3;
 
     auto bumperEvent = wm->rawSensorData.getBumperEventBuffer()->getLastValidContent();
-    if (bumperEvent && bumperEvent->state == kobuki_msgs::BumperEvent::PRESSED)
-    {
-        this->setSuccess(true);
-    }
-    else
-    {
+    if (bumperEvent && bumperEvent->state == kobuki_msgs::BumperEvent::PRESSED) {
+        this->setSuccess();
+    } else {
         this->turtleBot->movement->send(move);
     }
 

@@ -4,15 +4,15 @@
 
 #include "ttb/TTBWorldModel.h"
 
+#include <cnc_geometry/CNPointAllo.h>
 #include <ttb_msgs/AnnotatedGrid.h>
 #include <ttb_msgs/Grid.h>
-#include <cnc_geometry/CNPointAllo.h>
 
 #include <ros/ros.h>
 
-#include <vector>
 #include <map>
 #include <string>
+#include <vector>
 
 namespace ttb
 {
@@ -24,12 +24,12 @@ namespace wm
  */
 class AnnotatedGrid
 {
-  public:
+public:
     AnnotatedGrid(ttb::TTBWorldModel* wm);
     virtual ~AnnotatedGrid();
     void receiveAnnotatedGridPoints(ttb_msgs::AnnotatedGridPtr annotatedGrid);
 
-  private:
+private:
     void sendGridPoints();
     std::vector<geometry::CNPointAllo> generateGridPoints();
     std::vector<ttb::wm::AnnotatedGridPoint> getGridOfRoom(std::shared_ptr<ttb::wm::Room> room);

@@ -25,26 +25,27 @@
 
 #include <windows.h>
 
-namespace alvar {
+namespace alvar
+{
 
 class DirectoryIteratorPrivateData
 {
 public:
     DirectoryIteratorPrivateData()
-        : mHandle(INVALID_HANDLE_VALUE)
-        , mData()
+            : mHandle(INVALID_HANDLE_VALUE)
+            , mData()
     {
     }
-    
+
     HANDLE mHandle;
     WIN32_FIND_DATA mData;
 };
 
-DirectoryIteratorPrivate::DirectoryIteratorPrivate(const std::string &path)
-    : d(new DirectoryIteratorPrivateData())
-    , mDirectory(path)
-    , mEntry()
-    , mValid(false)
+DirectoryIteratorPrivate::DirectoryIteratorPrivate(const std::string& path)
+        : d(new DirectoryIteratorPrivateData())
+        , mDirectory(path)
+        , mEntry()
+        , mValid(false)
 {
     if (mDirectory.at(mDirectory.length() - 1) != '\\') {
         mDirectory.append("\\");
@@ -82,8 +83,7 @@ std::string DirectoryIteratorPrivate::next()
 
     if (!FindNextFile(d->mHandle, &d->mData)) {
         mValid = false;
-    }
-    else {
+    } else {
         skip();
     }
 

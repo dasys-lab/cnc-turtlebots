@@ -1,7 +1,7 @@
 #pragma once
 
-#include <unordered_set>
 #include <memory>
+#include <unordered_set>
 
 namespace ttb
 {
@@ -14,8 +14,8 @@ class POI;
 class Room
 {
 
-  public:
-	Room(std::string name);
+public:
+    Room(std::string name);
     virtual ~Room();
     std::size_t hash() const;
     std::string toString();
@@ -27,18 +27,12 @@ class Room
 
 struct RoomComperator
 {
-    bool operator()(const std::shared_ptr<Room> a, const std::shared_ptr<Room> b) const
-    {
-       return a->name == b->name;
-    }
+    bool operator()(const std::shared_ptr<Room> a, const std::shared_ptr<Room> b) const { return a->name == b->name; }
 };
 
 struct RoomHash
 {
-    std::size_t operator()(const std::shared_ptr<Room> obj) const
-    {
-    	return obj->hash();
-    }
+    std::size_t operator()(const std::shared_ptr<Room> obj) const { return obj->hash(); }
 };
 
 } /* namespace wm */

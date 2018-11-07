@@ -38,7 +38,8 @@
 #include "Platform.h"
 #include "Util.h"
 
-namespace alvar {
+namespace alvar
+{
 
 class CaptureFactoryPrivate;
 
@@ -55,7 +56,7 @@ public:
     /**
      * \brief The singleton instance of CaptureFactory.
      */
-    static CaptureFactory *instance();
+    static CaptureFactory* instance();
 
     /**
      * \brief Vector of strings.
@@ -86,7 +87,7 @@ public:
      * \param captureType Force the enumeration of only one type of plugin.
      * \return A vector of CaptureDevice objects that are currently available.
      */
-    CaptureDeviceVector enumerateDevices(const std::string &captureType = "");
+    CaptureDeviceVector enumerateDevices(const std::string& captureType = "");
 
     /**
      * \brief Create Capture class. Transfers onwership to the caller.
@@ -97,7 +98,7 @@ public:
      * \param captureDevice CaptureDevice object specifying the plugin to use.
      * \return A new Capture class for which the caller takes ownership.
      */
-    Capture *createCapture(const CaptureDevice captureDevice);
+    Capture* createCapture(const CaptureDevice captureDevice);
 
 protected:
     /**
@@ -112,25 +113,29 @@ private:
     class CaptureFactoryDestroyer
     {
     public:
-        CaptureFactoryDestroyer(CaptureFactory *instance = NULL) : mInstance(instance) {}
-        ~CaptureFactoryDestroyer() {delete mInstance;}
-        void set(CaptureFactory *instance) {mInstance = instance;}
+        CaptureFactoryDestroyer(CaptureFactory* instance = NULL)
+                : mInstance(instance)
+        {
+        }
+        ~CaptureFactoryDestroyer() { delete mInstance; }
+        void set(CaptureFactory* instance) { mInstance = instance; }
+
     private:
-        CaptureFactory *mInstance;
+        CaptureFactory* mInstance;
     };
 
     // private constructors and assignment operator for singleton implementation
     CaptureFactory();
     CaptureFactory(const CaptureFactory&);
-    CaptureFactory &operator=(const CaptureFactory&);
+    CaptureFactory& operator=(const CaptureFactory&);
 
     // static members for singleton implementation
-    static CaptureFactory *mInstance;
+    static CaptureFactory* mInstance;
     static Mutex mMutex;
     static CaptureFactoryDestroyer mDestroyer;
 
     // members
-    CaptureFactoryPrivate *d;
+    CaptureFactoryPrivate* d;
 };
 
 } // namespace alvar

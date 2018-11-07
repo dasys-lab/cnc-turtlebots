@@ -27,15 +27,16 @@
 #include "ar_track_alvar/CapturePlugin.h"
 #include "ar_track_alvar/DirectoryIterator.h"
 
-namespace alvar {
+namespace alvar
+{
 
 CaptureFactoryPrivate::CaptureFactoryPrivate()
-    : mPluginPaths()
-    , mPluginPrefix()
-    , mPluginPostfix()
-    , mLoadedAllPlugins(false)
-    , mPluginMap()
-    , mCapturePluginMap()
+        : mPluginPaths()
+        , mPluginPrefix()
+        , mPluginPostfix()
+        , mLoadedAllPlugins(false)
+        , mPluginMap()
+        , mCapturePluginMap()
 {
     setupPluginPaths();
 
@@ -43,9 +44,9 @@ CaptureFactoryPrivate::CaptureFactoryPrivate()
     mPluginPrefix.append("alvarcaptureplugin");
 
     mPluginPostfix.append(ALVAR_VERSION_NODOTS);
-    #if _DEBUG
-        mPluginPostfix.append("d");
-    #endif
+#if _DEBUG
+    mPluginPostfix.append("d");
+#endif
     mPluginPostfix.append(".");
     mPluginPostfix.append(pluginExtension());
 }
@@ -91,7 +92,7 @@ void CaptureFactoryPrivate::loadPlugins()
     mLoadedAllPlugins = true;
 }
 
-void CaptureFactoryPrivate::loadPlugin(const std::string &captureType)
+void CaptureFactoryPrivate::loadPlugin(const std::string& captureType)
 {
     // ensure plugin is not alredy loaded
     if (mPluginMap.find(captureType) != mPluginMap.end()) {
@@ -101,7 +102,7 @@ void CaptureFactoryPrivate::loadPlugin(const std::string &captureType)
     // iterate over search paths
     for (PluginPathsVector::iterator itr = mPluginPaths.begin(); itr != mPluginPaths.end(); ++itr) {
         DirectoryIterator directory(*itr);
-        
+
         // iterate over entries in current path
         while (directory.hasNext()) {
             std::string entry = directory.next();
@@ -118,7 +119,7 @@ void CaptureFactoryPrivate::loadPlugin(const std::string &captureType)
             if (entry != captureType) {
                 continue;
             }
-            
+
             // load the actual plugin
             loadPlugin(entry, directory.currentPath());
 
@@ -128,7 +129,7 @@ void CaptureFactoryPrivate::loadPlugin(const std::string &captureType)
     }
 }
 
-void CaptureFactoryPrivate::loadPlugin(const std::string &captureType, const std::string &filename)
+void CaptureFactoryPrivate::loadPlugin(const std::string& captureType, const std::string& filename)
 {
     // ensure plugin is not alredy loaded
     if (mPluginMap.find(captureType) != mPluginMap.end()) {
@@ -143,9 +144,9 @@ void CaptureFactoryPrivate::loadPlugin(const std::string &captureType, const std
         // for this to work, each plugin must export the following method
         //   extern "C" __declspec(dllexport) void registerPlugin(const std::string &captureType, alvar::CapturePlugin *capturePlugin);
         // which creates a new CapturePlugin object: capturePlugin = new MyCapturePlugin(captureType);
-        typedef void (*RegisterPlugin)(const std::string &captureType, CapturePlugin *&capturePlugin);
-        RegisterPlugin registerPlugin = (RegisterPlugin)plugin.resolve("registerPlugin");
-        CapturePlugin *capturePlugin = NULL;
+        typedef void (*RegisterPlugin)(const std::string& captureType, CapturePlugin*& capturePlugin);
+        RegisterPlugin registerPlugin = (RegisterPlugin) plugin.resolve("registerPlugin");
+        CapturePlugin* capturePlugin = NULL;
         if (registerPlugin) {
             registerPlugin(captureType, capturePlugin);
         }
@@ -158,16 +159,15 @@ void CaptureFactoryPrivate::loadPlugin(const std::string &captureType, const std
         // insert the plugin and capture plugin into maps
         mPluginMap.insert(PluginMap::value_type(captureType, plugin));
         mCapturePluginMap.insert(CapturePluginMap::value_type(captureType, capturePlugin));
-    }
-    catch (AlvarException e) {
-        // if anything fails, simply ignore it...
-        #if defined(_DEBUG) || !defined(NDEBUG)
-            std::cout << e.what() << std::endl;
-        #endif
+    } catch (AlvarException e) {
+// if anything fails, simply ignore it...
+#if defined(_DEBUG) || !defined(NDEBUG)
+        std::cout << e.what() << std::endl;
+#endif
     }
 }
 
-CapturePlugin *CaptureFactoryPrivate::getPlugin(const std::string &captureType)
+CapturePlugin* CaptureFactoryPrivate::getPlugin(const std::string& captureType)
 {
     // find CapturePlugin implementation according to capture type
     CapturePluginMap::iterator itr;
@@ -180,20 +180,19 @@ CapturePlugin *CaptureFactoryPrivate::getPlugin(const std::string &captureType)
     }
 
     // return CapturePlugin implementation if found
-    CapturePlugin *capturePlugin = NULL;
+    CapturePlugin* capturePlugin = NULL;
     if (itr != mCapturePluginMap.end()) {
         capturePlugin = itr->second;
     }
     return capturePlugin;
 }
 
-
 // static class variables instantiation for singleton implementation
-CaptureFactory *CaptureFactory::mInstance = NULL;
+CaptureFactory* CaptureFactory::mInstance = NULL;
 Mutex CaptureFactory::mMutex;
 CaptureFactory::CaptureFactoryDestroyer CaptureFactory::mDestroyer;
 
-CaptureFactory *CaptureFactory::instance()
+CaptureFactory* CaptureFactory::instance()
 {
     // do not use double-checked locking
     // http://www.aristeia.com/Papers/DDJ_Jul_Aug_2004_revised.pdf
@@ -208,7 +207,7 @@ CaptureFactory *CaptureFactory::instance()
 }
 
 CaptureFactory::CaptureFactory()
-    : d(new CaptureFactoryPrivate())
+        : d(new CaptureFactoryPrivate())
 {
 }
 
@@ -231,7 +230,7 @@ CaptureFactory::CapturePluginVector CaptureFactory::enumeratePlugins()
     return keys;
 }
 
-CaptureFactory::CaptureDeviceVector CaptureFactory::enumerateDevices(const std::string &captureType)
+CaptureFactory::CaptureDeviceVector CaptureFactory::enumerateDevices(const std::string& captureType)
 {
     CaptureDeviceVector devices;
 
@@ -245,7 +244,7 @@ CaptureFactory::CaptureDeviceVector CaptureFactory::enumerateDevices(const std::
     }
     // only enumerate the devices of one plugin
     else {
-        CapturePlugin *capturePlugin = d->getPlugin(captureType);
+        CapturePlugin* capturePlugin = d->getPlugin(captureType);
         if (capturePlugin) {
             devices = capturePlugin->enumerateDevices();
         }
@@ -254,13 +253,13 @@ CaptureFactory::CaptureDeviceVector CaptureFactory::enumerateDevices(const std::
     return devices;
 }
 
-Capture *CaptureFactory::createCapture(const CaptureDevice captureDevice)
+Capture* CaptureFactory::createCapture(const CaptureDevice captureDevice)
 {
     // get CapturePlugin implementation
-    CapturePlugin *capturePlugin = d->getPlugin(captureDevice.captureType());
+    CapturePlugin* capturePlugin = d->getPlugin(captureDevice.captureType());
 
     // create Capture implementation and return
-    Capture *capture = NULL;
+    Capture* capture = NULL;
     if (capturePlugin) {
         capture = capturePlugin->createCapture(captureDevice);
     }

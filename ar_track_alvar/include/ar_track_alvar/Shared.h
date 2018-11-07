@@ -5,9 +5,9 @@
 
 using namespace alvar;
 
-void outputEnumeratedPlugins(CaptureFactory::CapturePluginVector &plugins)
+void outputEnumeratedPlugins(CaptureFactory::CapturePluginVector& plugins)
 {
-    for (int i = 0; i < (int)plugins.size(); ++i) {
+    for (int i = 0; i < (int) plugins.size(); ++i) {
         if (i != 0) {
             std::cout << ", ";
         }
@@ -17,13 +17,12 @@ void outputEnumeratedPlugins(CaptureFactory::CapturePluginVector &plugins)
     std::cout << std::endl;
 }
 
-void outputEnumeratedDevices(CaptureFactory::CaptureDeviceVector &devices, int selectedDevice)
+void outputEnumeratedDevices(CaptureFactory::CaptureDeviceVector& devices, int selectedDevice)
 {
-    for (int i = 0; i < (int)devices.size(); ++i) {
+    for (int i = 0; i < (int) devices.size(); ++i) {
         if (selectedDevice == i) {
             std::cout << "* ";
-        }
-        else {
+        } else {
             std::cout << "  ";
         }
 
@@ -37,9 +36,9 @@ void outputEnumeratedDevices(CaptureFactory::CaptureDeviceVector &devices, int s
     }
 }
 
-int defaultDevice(CaptureFactory::CaptureDeviceVector &devices)
+int defaultDevice(CaptureFactory::CaptureDeviceVector& devices)
 {
-    for (int i = 0; i < (int)devices.size(); ++i) {
+    for (int i = 0; i < (int) devices.size(); ++i) {
         if (devices.at(i).captureType() == "highgui") {
             return i;
         }

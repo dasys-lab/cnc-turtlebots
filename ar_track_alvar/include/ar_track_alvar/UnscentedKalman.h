@@ -33,101 +33,103 @@
  * \brief This file implements an unscented Kalman filter.
  */
 
-namespace alvar {
+namespace alvar
+{
 
-  class UnscentedProcess;
-  class UnscentedObservation;
+class UnscentedProcess;
+class UnscentedObservation;
 
-  /**
-   * \brief Implementation of unscented kalman filter (UKF) for filtering non-linear
-   * processes.
-   *
-   * See http://www.cs.unc.edu/~welch/kalman/media/pdf/Julier1997_SPIE_KF.pdf
-   * for more details about UKF.
-   *
-   * The UKF estimates a process state (represented by a vector) using observations
-   * of the process. Observations are some derivate of the process state as usually 
-   * the process state cannot be directly observed.
-   *
-   * \e UnscentedProcess models the process by predicting the next filter state
-   * based on the current filter state.
-   *
-   * \e UnscentedObservation models the observation by predicting observation results
-   * based on the current filter state.
-   *
-   * UnscentedKalman holds the estimated process state vector and its covariance
-   * matrix. The new process state can be estimated using \e predict and \e update
-   * methods.
-   *
-   * The current implementation does not separate process noise elements from
-   * the process state vector. It is therefore the responsibility of the user
-   * to include noise terms into process state and state covariance.
-   *
-   * \code
-   *   class MyUnscentedProcess : public UnscentedProcess {
-   *     void f(CvMat *state) { // compute new state }
-   *     CvMat *getProcessNoise() { return _noise; }
-   *   } myProcess;
-   *
-   *   class MyUnscentedObservation : public UnscentedObservation {
-   *     void h(CvMat *z, cvMat *state) { // compute measurement vector z from state }
-   *     CvMat *getObservation() { return _obs; }
-   *     CvMat *getObservationNoise() { return _noise; }
-   *   } myObservation;
-   *
-   *   int state_n = NUMBER_OF_ELEMENTS_IN_PROCESS_STATE_VECTOR;
-   *   int obs_n = NUMBER_OF_ELEMENTS_IN_PROCESS_OBSERVATION_VECTOR;
-   *   int state_k = NUMBER_OF_PROCESS_NOISE_ELEMENTS; //TODO: Not supported at the moment.
-   *
-   *   UnscentedKalman ukf(state_n, obs_n, state_k);
-   *   initializeState(ukf.getState(), ukf.getStateCovariance());
-   *   ukf.initialize();
-   *
-   *   while (1) {
-   *     ukf.predict(&myProcess);
-   *     // measure new observation.
-   *     ukf.update(&myObservation);
-   *     CvMat *state = ukf.getState();
-   *     // unpack state information from the state vector and do something with it.
-   *   }
-   *
-   * \endcode
-   */
-  class ALVAR_EXPORT UnscentedKalman {
-  private:
+/**
+ * \brief Implementation of unscented kalman filter (UKF) for filtering non-linear
+ * processes.
+ *
+ * See http://www.cs.unc.edu/~welch/kalman/media/pdf/Julier1997_SPIE_KF.pdf
+ * for more details about UKF.
+ *
+ * The UKF estimates a process state (represented by a vector) using observations
+ * of the process. Observations are some derivate of the process state as usually
+ * the process state cannot be directly observed.
+ *
+ * \e UnscentedProcess models the process by predicting the next filter state
+ * based on the current filter state.
+ *
+ * \e UnscentedObservation models the observation by predicting observation results
+ * based on the current filter state.
+ *
+ * UnscentedKalman holds the estimated process state vector and its covariance
+ * matrix. The new process state can be estimated using \e predict and \e update
+ * methods.
+ *
+ * The current implementation does not separate process noise elements from
+ * the process state vector. It is therefore the responsibility of the user
+ * to include noise terms into process state and state covariance.
+ *
+ * \code
+ *   class MyUnscentedProcess : public UnscentedProcess {
+ *     void f(CvMat *state) { // compute new state }
+ *     CvMat *getProcessNoise() { return _noise; }
+ *   } myProcess;
+ *
+ *   class MyUnscentedObservation : public UnscentedObservation {
+ *     void h(CvMat *z, cvMat *state) { // compute measurement vector z from state }
+ *     CvMat *getObservation() { return _obs; }
+ *     CvMat *getObservationNoise() { return _noise; }
+ *   } myObservation;
+ *
+ *   int state_n = NUMBER_OF_ELEMENTS_IN_PROCESS_STATE_VECTOR;
+ *   int obs_n = NUMBER_OF_ELEMENTS_IN_PROCESS_OBSERVATION_VECTOR;
+ *   int state_k = NUMBER_OF_PROCESS_NOISE_ELEMENTS; //TODO: Not supported at the moment.
+ *
+ *   UnscentedKalman ukf(state_n, obs_n, state_k);
+ *   initializeState(ukf.getState(), ukf.getStateCovariance());
+ *   ukf.initialize();
+ *
+ *   while (1) {
+ *     ukf.predict(&myProcess);
+ *     // measure new observation.
+ *     ukf.update(&myObservation);
+ *     CvMat *state = ukf.getState();
+ *     // unpack state information from the state vector and do something with it.
+ *   }
+ *
+ * \endcode
+ */
+class ALVAR_EXPORT UnscentedKalman
+{
+private:
     int state_n;
     int state_k;
     int obs_n;
     int sigma_n;
     bool sigmasUpdated;
-	double lambda, lambda2;
+    double lambda, lambda2;
 
-    CvMat *state;
-    CvMat *stateCovariance;
-    CvMat *sqrtStateCovariance;
-    CvMat *stateD;
-    CvMat *stateU;
-    CvMat *stateV;
-    CvMat *stateTmp;
-    CvMat *stateDiff;
+    CvMat* state;
+    CvMat* stateCovariance;
+    CvMat* sqrtStateCovariance;
+    CvMat* stateD;
+    CvMat* stateU;
+    CvMat* stateV;
+    CvMat* stateTmp;
+    CvMat* stateDiff;
 
-    CvMat *predObs;
-    CvMat *predObsCovariance;
-    CvMat *invPredObsCovariance;
-    CvMat *predObsDiff;
+    CvMat* predObs;
+    CvMat* predObsCovariance;
+    CvMat* invPredObsCovariance;
+    CvMat* predObsDiff;
 
-    CvMat *statePredObsCrossCorrelation;
-    CvMat *kalmanGain;
-    CvMat *kalmanTmp;
+    CvMat* statePredObsCrossCorrelation;
+    CvMat* kalmanGain;
+    CvMat* kalmanTmp;
 
-    CvMat **sigma_state;
-    CvMat **sigma_predObs;
+    CvMat** sigma_state;
+    CvMat** sigma_predObs;
 
     // possess state mean and co-variance (as a list of sigma points).
     // generate sigma points from state mean vector and co-variance matrix.
     // compute state mean vector and co-variance matrix from sigma points.
 
-    // predict: 
+    // predict:
     //  - map sigma points thru process model f.
 
     // update:
@@ -138,8 +140,7 @@ namespace alvar {
     //   - compute cross correlation XZ
     //  - compute new state mean and co-variance.
     //  - generate new sigma points.
-  public:
-
+public:
     /** \brief Initializes Unscented Kalman filter.
      *
      * Initializes Unscented Kalman filter. The state vector returned by \e getState
@@ -154,14 +155,14 @@ namespace alvar {
      * \param obs_n The number of elements in observation vector.
      * \param state_k The number of noise elements used in the process model.
      *                TODO: This is currently unsupported.
-	 * \param alpha Spread of sigma points.
-	 * \param beta Prior knowlegde about the distribution (2 for Gaussian).
+     * \param alpha Spread of sigma points.
+     * \param beta Prior knowlegde about the distribution (2 for Gaussian).
      */
     UnscentedKalman(int state_n, int obs_n, int state_k = 0, double alpha = 0.001, double beta = 2.0);
     ~UnscentedKalman();
 
     /** \brief Returns the process state vector.
-     * 
+     *
      * The returned state vector contains the current state of the process.
      * The returned vector may be modified if the current process state is
      * known, for example in initialization phase. If the vector is modified,
@@ -170,7 +171,7 @@ namespace alvar {
      *
      * \return A vector of state_n elements.
      */
-    CvMat *getState() { return state; }
+    CvMat* getState() { return state; }
 
     /** \brief Returns the process state covariance matrix.
      *
@@ -181,7 +182,7 @@ namespace alvar {
      *
      * \return state_n by state_n covariance matrix.
      */
-    CvMat *getStateCovariance() { return stateCovariance; }
+    CvMat* getStateCovariance() { return stateCovariance; }
 
     /** \brief (Re-)initialize UKF internal state.
      *
@@ -198,7 +199,7 @@ namespace alvar {
      * \param process_model The model implementation that is used to predict the
      *        next state.
      */
-    void predict(UnscentedProcess *process_model);
+    void predict(UnscentedProcess* process_model);
 
     /** \brief Updates the state by an observation.
      *
@@ -210,16 +211,17 @@ namespace alvar {
      * \param observation The observation implementation the is used to update
      *        the current state.
      */
-    void update(UnscentedObservation *observation);
-  };
+    void update(UnscentedObservation* observation);
+};
 
-  /**
-   * \brief Process model for an unscented kalman filter.
-   *
-   * Implementing class needs to allocate a noise matrix of correct size.
-   */
-  class ALVAR_EXPORT UnscentedProcess {
-  public:
+/**
+ * \brief Process model for an unscented kalman filter.
+ *
+ * Implementing class needs to allocate a noise matrix of correct size.
+ */
+class ALVAR_EXPORT UnscentedProcess
+{
+public:
     /** \brief process model: state+1 = f(state)
      *
      * Model the process by computing an estimate how the process changes
@@ -228,7 +230,7 @@ namespace alvar {
      * \param state state_n size vector; The current state in input and the next
      *              state estimate in output.
      */
-    virtual void f(CvMat *state) = 0;
+    virtual void f(CvMat* state) = 0;
 
     /** \brief Returns the process noise covariance.
      *
@@ -239,18 +241,19 @@ namespace alvar {
      *
      * \return state_n by state_n size matrix; or NULL for no additional noise.
      */
-    virtual CvMat *getProcessNoise() = 0;
-  };
+    virtual CvMat* getProcessNoise() = 0;
+};
 
-  /**
-   * \brief Observation model for an unscented kalman filter.
-   *
-   * The implementation needs to  allocate correct size measurement vector and
-   * noise matrix and to implement a transformation from process state into a
-   * measurement.
-   */
-  class ALVAR_EXPORT UnscentedObservation {
-  public:
+/**
+ * \brief Observation model for an unscented kalman filter.
+ *
+ * The implementation needs to  allocate correct size measurement vector and
+ * noise matrix and to implement a transformation from process state into a
+ * measurement.
+ */
+class ALVAR_EXPORT UnscentedObservation
+{
+public:
     /** \brief observation model: z = h(state)
      *
      * Computes an estimated measurement vector from the current state estimate.
@@ -258,18 +261,18 @@ namespace alvar {
      * \param z obs_n size vector; The estimated measurement.
      * \param state state_n size vector; The current state.
      */
-    virtual void h(CvMat *z, CvMat *state) = 0;
+    virtual void h(CvMat* z, CvMat* state) = 0;
 
     /** \brief Returns the current measurement vector.
      *
-     * The returned vector should contain the latest measurement values. 
+     * The returned vector should contain the latest measurement values.
      * In the UKF update phase the process state will be modified in such a
      * way to make the difference between estimated measurement (from method \e h)
      * and the returned real measurement smaller.
-     * 
+     *
      * \return obs_n size vector containing the current measured values.
      */
-    virtual CvMat *getObservation() = 0;
+    virtual CvMat* getObservation() = 0;
 
     /** \brief Returns the observation noise covariance matrix.
      *
@@ -281,8 +284,8 @@ namespace alvar {
      * \return obs_n by obs_b matrix containing observation noise covariance; or
      *         NULL for no additional noise.
      */
-    virtual CvMat *getObservationNoise() = 0;
-  };
+    virtual CvMat* getObservationNoise() = 0;
+};
 
 } // namespace alvar
 

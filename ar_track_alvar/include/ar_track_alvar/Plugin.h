@@ -34,7 +34,8 @@
 
 #include <string>
 
-namespace alvar {
+namespace alvar
+{
 
 class PluginPrivate;
 
@@ -62,14 +63,14 @@ public:
      *
      * \param plugin The Plugin to copy.
      */
-    Plugin(const Plugin &plugin);
+    Plugin(const Plugin& plugin);
 
     /**
      * \brief Assignment operator.
      *
      * \param plugin The Plugin to copy.
      */
-    Plugin &operator=(const Plugin &plugin);
+    Plugin& operator=(const Plugin& plugin);
 
     /**
      * \brief Destructor.
@@ -85,11 +86,11 @@ public:
      * \return The address of the symbol.
      * \exception AlvarException An exception is thrown if the symbol is not found.
      */
-    void *resolve(const char *symbol);
+    void* resolve(const char* symbol);
 
 private:
-    PluginPrivate *d;
-    int *mReferenceCount;
+    PluginPrivate* d;
+    int* mReferenceCount;
 };
 
 } // namespace alvar

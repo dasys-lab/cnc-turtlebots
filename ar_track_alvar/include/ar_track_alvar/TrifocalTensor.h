@@ -25,8 +25,8 @@
 #define __TRIFOCAL_TENSOR__
 
 #include "Alvar.h"
-#include <cxcore.h>
 #include "Pose.h"
+#include <cxcore.h>
 
 /**
  * \file TrifocalTensor.h
@@ -34,45 +34,47 @@
  * \brief This file implements a trifocal tensor.
  */
 
-namespace alvar {
+namespace alvar
+{
 
-  /**
-   * \brief Trifocal tensor works for three images like a fundamental matrix
-   * works for two images.
-   * 
-   * Given three camera poses P0, P1, P2 and a 3D point X, we can calculate a
-   * trifocal tensor T(P0, P1, P2). The tensor relates projections of X in P0,
-   * P1 and P2 in such a way that when any two projections are known the third
-   * projection can be calculated.
-   *
-   * This implementation of trifocal tensor assumes that the camera poses
-   * P0, P1 and P2 are known. When projections of X in P0 and P1 are known
-   * the projection in P2 can be computed using the tensor.
-   *
-   * The current implementation cannot be used to directly compute the tensor
-   * from point correspondencies alone. The implementation can be used for 
-   * example for optimizing three camera poses when point correspondences are
-   * known in the three images by minimizing the trifocal 'projection error'
-   * computed by \e projectError -method.
-   *
-   * \code
-   *   Pose P1, P2; // P0 is identity pose.
-   *   CvPoint2D64f proj0, proj1, proj2; // A 3D point projected with poses P0, P1 and P2.
-   *
-   *   TrifocalTensor T(P1, P2);
-   *   CvPoint2D64f test2;
-   *   T.project(proj0, proj1, test2);
-   *   assert(proj2.x == test2.x);
-   *   assert(proj2.y == test2.y);
-   *   assert(proj2.z == test2.z);
-   * \endcode
-   */
-  class ALVAR_EXPORT TrifocalTensor {
-  private:
+/**
+ * \brief Trifocal tensor works for three images like a fundamental matrix
+ * works for two images.
+ *
+ * Given three camera poses P0, P1, P2 and a 3D point X, we can calculate a
+ * trifocal tensor T(P0, P1, P2). The tensor relates projections of X in P0,
+ * P1 and P2 in such a way that when any two projections are known the third
+ * projection can be calculated.
+ *
+ * This implementation of trifocal tensor assumes that the camera poses
+ * P0, P1 and P2 are known. When projections of X in P0 and P1 are known
+ * the projection in P2 can be computed using the tensor.
+ *
+ * The current implementation cannot be used to directly compute the tensor
+ * from point correspondencies alone. The implementation can be used for
+ * example for optimizing three camera poses when point correspondences are
+ * known in the three images by minimizing the trifocal 'projection error'
+ * computed by \e projectError -method.
+ *
+ * \code
+ *   Pose P1, P2; // P0 is identity pose.
+ *   CvPoint2D64f proj0, proj1, proj2; // A 3D point projected with poses P0, P1 and P2.
+ *
+ *   TrifocalTensor T(P1, P2);
+ *   CvPoint2D64f test2;
+ *   T.project(proj0, proj1, test2);
+ *   assert(proj2.x == test2.x);
+ *   assert(proj2.y == test2.y);
+ *   assert(proj2.z == test2.z);
+ * \endcode
+ */
+class ALVAR_EXPORT TrifocalTensor
+{
+private:
     double T[3][3][3];
-    double projectAxis(const CvPoint2D64f &p0, const CvPoint2D64f &p1, int l);
+    double projectAxis(const CvPoint2D64f& p0, const CvPoint2D64f& p1, int l);
 
-  public:
+public:
     TrifocalTensor();
 
     /** \brief Constructs a tensor from identity pose and two other known poses.
@@ -81,7 +83,7 @@ namespace alvar {
      * \param P1 The second pose relative to the first pose.
      * \param P2 The third pose relative to the first pose.
      */
-    TrifocalTensor(const Pose &P1, const Pose &P2);
+    TrifocalTensor(const Pose& P1, const Pose& P2);
 
     /** \brief Constructs a tensor from three known poses.
      * See \e computeTensor.
@@ -90,30 +92,30 @@ namespace alvar {
      * \param P1 The second pose relative to the first pose.
      * \param P2 The third pose relative to the first pose.
      */
-    TrifocalTensor(const Pose &P0, const Pose &P1, const Pose &P2);
+    TrifocalTensor(const Pose& P0, const Pose& P1, const Pose& P2);
 
     ~TrifocalTensor();
-  
-    /** \brief Initializes the tensor from identity pose and two other known 
+
+    /** \brief Initializes the tensor from identity pose and two other known
      * poses.
      *
-     * The first pose is identity and the two other poses are relative 
+     * The first pose is identity and the two other poses are relative
      * translations/rotation between the first and the second pose and
      * between the first and the third pose.
      *
      * \param P1 The second pose relative to the first pose.
      * \param P2 The third pose relative to the first pose.
      */
-    void computeTensor(const Pose &P1, const Pose &P2);
-  
+    void computeTensor(const Pose& P1, const Pose& P2);
+
     /** \brief Initializes the tensor from three known poses.
      *
      * \param P0 The first camera pose.
      * \param P1 The second pose relative to the first pose.
      * \param P2 The third pose relative to the first pose.
      */
-    void computeTensor(const Pose &P0, const Pose &P1, const Pose &P2);
-  
+    void computeTensor(const Pose& P0, const Pose& P1, const Pose& P2);
+
     /** \brief Computes the projection of a point in the third pose.
      *
      * When we have three images, each a projection of a scene from the three
@@ -125,8 +127,8 @@ namespace alvar {
      * \param p1 2D position in a image projected from the second pose.
      * \param p2 Computed 2D position in a image projected form the third pose.
      */
-    void project(const CvPoint2D64f &p0, const CvPoint2D64f &p1, CvPoint2D64f &p2);
-  
+    void project(const CvPoint2D64f& p0, const CvPoint2D64f& p1, CvPoint2D64f& p2);
+
     /** \brief Computes how much three points differ from the tensor.
      *
      * When we have three images, each a projection of a scene from the three
@@ -143,8 +145,8 @@ namespace alvar {
      * \param p2 2D position in a image projected form the third pose.
      * \return Squared projection error.
      */
-    double projectError(const CvPoint2D64f &p0, const CvPoint2D64f &p1, const CvPoint2D64f &p2);
-  };
+    double projectError(const CvPoint2D64f& p0, const CvPoint2D64f& p1, const CvPoint2D64f& p2);
+};
 
 } // namespace alvar
 

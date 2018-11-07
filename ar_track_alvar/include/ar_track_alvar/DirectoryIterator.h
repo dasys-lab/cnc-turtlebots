@@ -34,7 +34,8 @@
 
 #include <string>
 
-namespace alvar {
+namespace alvar
+{
 
 class DirectoryIteratorPrivate;
 
@@ -51,7 +52,7 @@ public:
      *
      * \param path The path on the filesystem to iterate.
      */
-    DirectoryIterator(const std::string &path);
+    DirectoryIterator(const std::string& path);
 
     /**
      * \brief Destructor.
@@ -82,7 +83,7 @@ public:
     std::string currentPath();
 
 private:
-    DirectoryIteratorPrivate *d;
+    DirectoryIteratorPrivate* d;
 };
 
 } // namespace alvar

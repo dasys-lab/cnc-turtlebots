@@ -32,7 +32,8 @@
 
 #include "Alvar.h"
 
-namespace alvar {
+namespace alvar
+{
 
 class MutexPrivate;
 
@@ -68,7 +69,7 @@ public:
     void unlock();
 
 private:
-    MutexPrivate *d;
+    MutexPrivate* d;
 };
 
 } // namespace alvar

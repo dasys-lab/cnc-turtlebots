@@ -6,81 +6,76 @@
 using namespace alvar;
 using namespace std;
 
-int visualize=0;
+int visualize = 0;
 bool detect_additional = false;
 const int nof_markers = 5;
 const double marker_size = 4;
 MarkerDetector<MarkerData> marker_detector;
-//MultiMarker<MarkerData> *multi_marker;
-MultiMarker *multi_marker;
+// MultiMarker<MarkerData> *multi_marker;
+MultiMarker* multi_marker;
 std::stringstream calibrationFilename;
 
-void videocallback(IplImage *image)
+void videocallback(IplImage* image)
 {
     static Camera cam;
     Pose pose;
-    bool flip_image = (image->origin?true:false);
+    bool flip_image = (image->origin ? true : false);
     if (flip_image) {
         cvFlip(image);
         image->origin = !image->origin;
     }
 
     static bool init = true;
-    if (init)
-    {
+    if (init) {
 
         init = false;
 
         // Initialize camera
-        cout<<"Loading calibration: "<<calibrationFilename.str();
+        cout << "Loading calibration: " << calibrationFilename.str();
 
-        if (cam.SetCalib(calibrationFilename.str().c_str(), image->width, image->height))
-        {
-            cout<<" [Ok]"<<endl;
-        }
-        else
-        {
+        if (cam.SetCalib(calibrationFilename.str().c_str(), image->width, image->height)) {
+            cout << " [Ok]" << endl;
+        } else {
             cam.SetRes(image->width, image->height);
-            cout<<" [Fail]"<<endl;
+            cout << " [Fail]" << endl;
         }
 
         vector<int> id_vector;
-        for(int i = 0; i < nof_markers; ++i)
+        for (int i = 0; i < nof_markers; ++i)
             id_vector.push_back(i);
 
         // We make the initialization for MultiMarkerBundle using a fixed marker field (can be printed from ALVAR.pdf)
         marker_detector.SetMarkerSize(marker_size);
-        marker_detector.SetMarkerSizeForId(0, marker_size*2);
+        marker_detector.SetMarkerSizeForId(0, marker_size * 2);
         multi_marker = new MultiMarker(id_vector);
         pose.Reset();
-        multi_marker->PointCloudAdd(0, marker_size*2, pose);
-        pose.SetTranslation(-marker_size*2.5, +marker_size*1.5, 0);
+        multi_marker->PointCloudAdd(0, marker_size * 2, pose);
+        pose.SetTranslation(-marker_size * 2.5, +marker_size * 1.5, 0);
         multi_marker->PointCloudAdd(1, marker_size, pose);
-        pose.SetTranslation(+marker_size*2.5, +marker_size*1.5, 0);
+        pose.SetTranslation(+marker_size * 2.5, +marker_size * 1.5, 0);
         multi_marker->PointCloudAdd(2, marker_size, pose);
-        pose.SetTranslation(-marker_size*2.5, -marker_size*1.5, 0);
+        pose.SetTranslation(-marker_size * 2.5, -marker_size * 1.5, 0);
         multi_marker->PointCloudAdd(3, marker_size, pose);
-        pose.SetTranslation(+marker_size*2.5, -marker_size*1.5, 0);
+        pose.SetTranslation(+marker_size * 2.5, -marker_size * 1.5, 0);
         multi_marker->PointCloudAdd(4, marker_size, pose);
     }
 
-    double error=-1;
+    double error = -1;
     if (marker_detector.Detect(image, &cam, true, (visualize == 1), 0.0)) {
         if (detect_additional) {
             error = multi_marker->Update(marker_detector.markers, &cam, pose);
             multi_marker->SetTrackMarkers(marker_detector, &cam, pose, visualize ? image : NULL);
             marker_detector.DetectAdditional(image, &cam, (visualize == 1));
         }
-        if (visualize == 2) 
+        if (visualize == 2)
             error = multi_marker->Update(marker_detector.markers, &cam, pose, image);
         else
             error = multi_marker->Update(marker_detector.markers, &cam, pose);
     }
 
     static Marker foo;
-    foo.SetMarkerSize(marker_size*4);
-    if ((error >= 0) && (error < 5))
-    {
+    foo.SetMarkerSize(marker_size * 4);
+    if ((error >= 0) && (error < 5)) {
         foo.pose = pose;
     }
     foo.Visualize(image, &cam);
@@ -93,33 +88,26 @@ void videocallback(IplImage *image)
 
 int keycallback(int key)
 {
-    if(key == 'v')
-    {
-        visualize = (visualize+1)%3;
-    }
-    else if(key == 'l')
-    {
-        if(multi_marker->Load("mmarker.xml", alvar::FILE_FORMAT_XML))
-        {
-            cout<<"Multi marker loaded"<<endl;
-        }
-        else
-            cout<<"Cannot load multi marker"<<endl;
-    }
-    else if(key == 'd')
-    {
+    if (key == 'v') {
+        visualize = (visualize + 1) % 3;
+    } else if (key == 'l') {
+        if (multi_marker->Load("mmarker.xml", alvar::FILE_FORMAT_XML)) {
+            cout << "Multi marker loaded" << endl;
+        } else
+            cout << "Cannot load multi marker" << endl;
+    } else if (key == 'd') {
         detect_additional = !detect_additional;
-        if(detect_additional)
-            cout<<"Unreadable marker detection enabled."<<endl;
+        if (detect_additional)
+            cout << "Unreadable marker detection enabled." << endl;
         else
-            cout<<"Unreadable marker detection disabled."<<endl;
-    }
-    else return key;
+            cout << "Unreadable marker detection disabled." << endl;
+    } else
+        return key;
 
     return 0;
 }
 
-int main(int argc, char *argv[])
+int main(int argc, char* argv[])
 {
     try {
         // Output usage message
@@ -175,17 +163,17 @@ int main(int argc, char *argv[])
         if (argc > 1) {
             selectedDevice = atoi(argv[1]);
         }
-        if (selectedDevice >= (int)devices.size()) {
+        if (selectedDevice >= (int) devices.size()) {
             selectedDevice = defaultDevice(devices);
         }
-        
+
         // Display capture devices
         std::cout << "Enumerated Capture Devices:" << std::endl;
         outputEnumeratedDevices(devices, selectedDevice);
         std::cout << std::endl;
-        
+
         // Create capture object from camera
-        Capture *cap = CaptureFactory::instance()->createCapture(devices[selectedDevice]);
+        Capture* cap = CaptureFactory::instance()->createCapture(devices[selectedDevice]);
         std::string uniqueName = devices[selectedDevice].uniqueName();
 
         // Handle capture lifecycle and start video capture
@@ -194,10 +182,10 @@ int main(int argc, char *argv[])
             std::stringstream settingsFilename;
             settingsFilename << "camera_settings_" << uniqueName << ".xml";
             calibrationFilename << "camera_calibration_" << uniqueName << ".xml";
-            
+
             cap->start();
             cap->setResolution(640, 480);
-            
+
             if (cap->loadSettings(settingsFilename.str())) {
                 std::cout << "Loading settings: " << settingsFilename.str() << std::endl;
             }
@@ -213,19 +201,15 @@ int main(int argc, char *argv[])
 
             cap->stop();
             delete cap;
-        }
-        else if (CvTestbed::Instance().StartVideo(0, argv[0])) {
-        }
-        else {
+        } else if (CvTestbed::Instance().StartVideo(0, argv[0])) {
+        } else {
             std::cout << "Could not initialize the selected capture backend." << std::endl;
         }
 
         return 0;
-    }
-    catch (const std::exception &e) {
+    } catch (const std::exception& e) {
         std::cout << "Exception: " << e.what() << endl;
-    }
-    catch (...) {
+    } catch (...) {
         std::cout << "Exception: unknown" << std::endl;
     }
 }

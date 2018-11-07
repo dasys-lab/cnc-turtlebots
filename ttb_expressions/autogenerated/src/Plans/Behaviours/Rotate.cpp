@@ -17,7 +17,7 @@ namespace alica
 /*PROTECTED REGION END*/
 
 Rotate::Rotate()
-    : DomainBehaviour("Rotate")
+        : DomainBehaviour("Rotate")
 {
     /*PROTECTED REGION ID(con1447068205139) ENABLED START*/
     // Add additional options here
@@ -30,7 +30,7 @@ Rotate::~Rotate()
     // Add additional options here
     /*PROTECTED REGION END*/
 }
-void Rotate::run(void *msg)
+void Rotate::run(void* msg)
 {
     /*PROTECTED REGION ID(run1447068205139) ENABLED START*/
     // Add additional options here
@@ -38,14 +38,11 @@ void Rotate::run(void *msg)
 
     rotate.angular.z = 3.141 / 2;
 
-    if (counter <= 30)
-    {
+    if (counter <= 30) {
         this->turtleBot->movement->send(rotate);
         counter++;
-    }
-    else
-    {
-        this->setSuccess(true);
+    } else {
+        this->setSuccess();
     }
 
     /*PROTECTED REGION END*/

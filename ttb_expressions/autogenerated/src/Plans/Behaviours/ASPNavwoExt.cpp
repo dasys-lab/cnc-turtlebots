@@ -6,11 +6,11 @@ using std::shared_ptr;
 
 /*PROTECTED REGION ID(inccpp1477229760910) ENABLED START*/
 // Add additional includes here
-#include <SolverType.h>
 #include <ttb/TTBWorldModel.h>
 
 #include <SystemConfig.h>
 #include <asp_commons/ASPQuery.h>
+#include <asp_commons/AnnotatedValVec.h>
 #include <asp_commons/IASPSolver.h>
 #include <asp_solver_wrapper/ASPSolverWrapper.h>
 /*PROTECTED REGION END*/
@@ -22,7 +22,7 @@ namespace alica
 /*PROTECTED REGION END*/
 
 ASPNavwoExt::ASPNavwoExt()
-    : DomainBehaviour("ASPNavwoExt")
+        : DomainBehaviour("ASPNavwoExt")
 {
     /*PROTECTED REGION ID(con1477229760910) ENABLED START*/
     // Add additional options here
@@ -39,52 +39,38 @@ ASPNavwoExt::~ASPNavwoExt()
     resultfile.close();
     /*PROTECTED REGION END*/
 }
-void ASPNavwoExt::run(void *msg)
+void ASPNavwoExt::run(void* msg)
 {
     /*PROTECTED REGION ID(run1477229760910) ENABLED START*/
     // Add additional options here
-    if (this->isSuccess())
-    {
+    if (this->isSuccess()) {
         return;
     }
 
     std::chrono::_V2::system_clock::time_point start = std::chrono::high_resolution_clock::now();
-    query->getSolution(SolverType::ASPSOLVER, runningPlan, result);
+    query->getSolution<reasoner::ASPSolverWrapper, ::reasoner::AnnotatedValVec*>(this->getPlanContext(), result);
     std::chrono::_V2::system_clock::time_point end = std::chrono::high_resolution_clock::now();
-    cout << "ASPNavigation: Measured Solving and Grounding Time: "
-         << std::chrono::duration_cast<chrono::nanoseconds>(end - start).count() / 1000000.0 << " ms" << endl;
+    cout << "ASPNavigation: Measured Solving and Grounding Time: " << std::chrono::duration_cast<chrono::nanoseconds>(end - start).count() / 1000000.0 << " ms"
+         << endl;
     resultfile << (end - start).count() / 1000000.0 << " ";
-    if (result.size() > 0)
-    {
+    if (result.size() > 0) {
         auto it = result.end();
-        if (this->doorConfig.compare("config1") == 0)
-        {
-            it = find_if(result.begin(), result.end(),
-                         [](::reasoner::AnnotatedValVec element) { return element.id == 1477229706852; });
-        }
-        else if (this->doorConfig.compare("config2") == 0)
-        {
-            it = find_if(result.begin(), result.end(),
-                         [](::reasoner::AnnotatedValVec element) { return element.id == 1477229712321; });
-        }
-        else
-        {
+        if (this->doorConfig.compare("config1") == 0) {
+            it = find_if(result.begin(), result.end(), [](::reasoner::AnnotatedValVec* element) { return element->id == 1477229706852; });
+        } else if (this->doorConfig.compare("config2") == 0) {
+            it = find_if(result.begin(), result.end(), [](::reasoner::AnnotatedValVec* element) { return element->id == 1477229712321; });
+        } else {
             cout << "ASPNavwoExt: wrong config" << endl;
         }
-        if (it != result.end())
-        {
-            if (it->variableQueryValues.size() > 0)
-            {
+        if (it != result.end()) {
+            if ((*it)->variableQueryValues.size() > 0) {
                 cout << "ASPNavwoExt: ASP result found!" << endl;
                 cout << "\tResult contains the predicates: " << endl;
                 cout << "\t\t";
-                for (int i = 0; i < result.size(); i++)
-                {
-                    for (int j = 0; j < result.at(i).variableQueryValues.size(); j++)
-                    {
-                        for (int k = 0; k < result.at(i).variableQueryValues.at(j).size(); k++)
-                        {
-                            cout << result.at(i).variableQueryValues.at(j).at(k) << " ";
+                for (size_t i = 0; i < result.size(); i++) {
+                    for (size_t j = 0; j < result.at(i)->variableQueryValues.size(); j++) {
+                        for (size_t k = 0; k < result.at(i)->variableQueryValues.at(j).size(); k++) {
+                            cout << result.at(i)->variableQueryValues.at(j).at(k) << " ";
                         }
                     }
                 }
@@ -96,9 +82,7 @@ void ASPNavwoExt::run(void *msg)
                 //                        cout << it->query->getCurrentModels()->at(0).at(i) << " ";
                 //                    }
                 //                    cout << endl;
-            }
-            else
-            {
+            } else {
                 cout << "ASPNavwoExt: no result found!" << endl;
                 //                    cout << "\tThe model contains the predicates: " << endl;
                 //                    cout << "\t\t";
@@ -108,25 +92,17 @@ void ASPNavwoExt::run(void *msg)
                 //                    }
                 //                    cout << endl;
             }
-        }
-        else
-        {
+        } else {
             cout << "ASPNavwoExt: no result found!" << endl;
         }
-    }
-    else
-    {
+    } else {
         cout << "ASPNavwoExt: no result found!" << endl;
     }
-    if (iterationCounter == 1)
-    {
-        this->setSuccess(true);
-        if (this->doorConfig.compare("config2") == 0)
-        {
+    if (iterationCounter == 1) {
+        this->setSuccess();
+        if (this->doorConfig.compare("config2") == 0) {
             resultfile << endl;
-        }
-        else
-        {
+        } else {
             resultfile << flush;
         }
     }
@@ -141,12 +117,9 @@ void ASPNavwoExt::initialiseParameters()
     query->clearStaticVariables();
     result.clear();
     this->doorConfig = this->getParameter("doorConfig");
-    if (this->doorConfig.compare("config1") == 0)
-    {
+    if (this->doorConfig.compare("config1") == 0) {
         query->addStaticVariable(getVariable("NavVar1"));
-    }
-    else
-    {
+    } else {
         query->addStaticVariable(getVariable("NavVar2"));
     }
 

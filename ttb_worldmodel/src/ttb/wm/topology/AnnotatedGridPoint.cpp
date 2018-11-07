@@ -6,15 +6,13 @@ namespace wm
 {
 
 AnnotatedGridPoint::AnnotatedGridPoint(std::shared_ptr<ttb::wm::Room> room, geometry_msgs::Point point)
-    : room(room)
+        : room(room)
 {
-	this->x = point.x;
-	this->y = point.y;
+    this->x = point.x;
+    this->y = point.y;
 }
 
-AnnotatedGridPoint::~AnnotatedGridPoint()
-{
-}
+AnnotatedGridPoint::~AnnotatedGridPoint() {}
 
 } /* namespace wm */
 } /* namespace ttb */

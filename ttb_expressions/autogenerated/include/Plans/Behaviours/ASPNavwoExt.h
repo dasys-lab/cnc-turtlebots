@@ -13,20 +13,20 @@ namespace alica
 {
 class ASPNavwoExt : public DomainBehaviour
 {
-  public:
+public:
     ASPNavwoExt();
     virtual ~ASPNavwoExt();
-    virtual void run(void *msg);
+    virtual void run(void* msg);
     /*PROTECTED REGION ID(pub1477229760910) ENABLED START*/
     // Add additional public methods here
-    vector<::reasoner::AnnotatedValVec> result;
+    vector<::reasoner::AnnotatedValVec*> result;
     /*PROTECTED REGION END*/
-  protected:
+protected:
     virtual void initialiseParameters();
     /*PROTECTED REGION ID(pro1477229760910) ENABLED START*/
     // Add additional protected methods here
     /*PROTECTED REGION END*/
-  private:
+private:
     /*PROTECTED REGION ID(prv1477229760910) ENABLED START*/
     // Add additional private methods here
     shared_ptr<alica::Query> query;

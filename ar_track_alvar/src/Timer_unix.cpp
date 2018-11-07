@@ -25,13 +25,14 @@
 
 #include <time.h>
 
-namespace alvar {
+namespace alvar
+{
 
 class TimerPrivateData
 {
 public:
     TimerPrivateData()
-        : mStart()
+            : mStart()
     {
     }
 
@@ -39,7 +40,7 @@ public:
 };
 
 TimerPrivate::TimerPrivate()
-    : d(new TimerPrivateData())
+        : d(new TimerPrivateData())
 {
 }
 
@@ -57,8 +58,7 @@ double TimerPrivate::stop()
 {
     timespec stop;
     clock_gettime(CLOCK_MONOTONIC, &stop);
-    return (stop.tv_sec - d->mStart.tv_sec) +
-           (stop.tv_nsec - d->mStart.tv_nsec) / 1000000000.0;
+    return (stop.tv_sec - d->mStart.tv_sec) + (stop.tv_nsec - d->mStart.tv_nsec) / 1000000000.0;
 }
 
 } // namespace alvar

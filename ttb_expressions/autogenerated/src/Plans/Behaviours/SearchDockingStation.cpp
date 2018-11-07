@@ -20,7 +20,7 @@ namespace alica
 /*PROTECTED REGION END*/
 
 SearchDockingStation::SearchDockingStation()
-    : DomainBehaviour("SearchDockingStation")
+        : DomainBehaviour("SearchDockingStation")
 {
     /*PROTECTED REGION ID(con1414681429307) ENABLED START*/
     // Add additional options here
@@ -32,7 +32,7 @@ SearchDockingStation::~SearchDockingStation()
     // Add additional options here
     /*PROTECTED REGION END*/
 }
-void SearchDockingStation::run(void *msg)
+void SearchDockingStation::run(void* msg)
 {
     /*PROTECTED REGION ID(run1414681429307) ENABLED START*/
     // Add additional options here
@@ -40,8 +40,7 @@ void SearchDockingStation::run(void *msg)
     auto core = wm->rawSensorData.getMobileBaseSensorStateBuffer()->getLastValidContent();
     auto infrRedDock = wm->rawSensorData.getDockInfrRedBuffer()->getLastValidContent();
 
-    if ((*core)->charger == kobuki_msgs::SensorState::DISCHARGING)
-    {
+    if ((*core)->charger == kobuki_msgs::SensorState::DISCHARGING) {
 
         KDL::Rotation rot;
         tf::quaternionMsgToKDL((*odom)->pose.pose.orientation, rot);
@@ -64,10 +63,8 @@ void SearchDockingStation::run(void *msg)
         cmd_vel.angular.z = dock.getWZ();
 
         this->turtleBot->movement->send(cmd_vel);
-    }
-    else
-    {
-        this->setSuccess(true);
+    } else {
+        this->setSuccess();
     }
 
     /*PROTECTED REGION END*/

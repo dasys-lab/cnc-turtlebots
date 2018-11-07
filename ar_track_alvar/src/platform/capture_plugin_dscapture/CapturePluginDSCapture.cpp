@@ -27,92 +27,91 @@
 
 using namespace std;
 
-namespace alvar {
-namespace plugins {
+namespace alvar
+{
+namespace plugins
+{
 
 CaptureDSCapture::CaptureDSCapture(const CaptureDevice captureDevice)
-    : Capture(captureDevice)
-    , sampler(this)
-    , m_pDSCapture(NULL)
-    , m_nBpp(0)
-    , m_nVideo_x_res(-1)
-    , m_nVideo_y_res(-1)
-    , imgBuffer(NULL)
-    , imgBufferForCallback(NULL)
-    , mReturnFrame(NULL)
+        : Capture(captureDevice)
+        , sampler(this)
+        , m_pDSCapture(NULL)
+        , m_nBpp(0)
+        , m_nVideo_x_res(-1)
+        , m_nVideo_y_res(-1)
+        , imgBuffer(NULL)
+        , imgBufferForCallback(NULL)
+        , mReturnFrame(NULL)
 {
-  InitializeCriticalSection(&crit);
-  next_event = CreateEvent(NULL, FALSE, FALSE, NULL);
-  m_pDSCapture = new CDSCapture(true, false);
+    InitializeCriticalSection(&crit);
+    next_event = CreateEvent(NULL, FALSE, FALSE, NULL);
+    m_pDSCapture = new CDSCapture(true, false);
 }
 
 CaptureDSCapture::~CaptureDSCapture()
 {
-  stop();
-  if (m_pDSCapture) {
-    m_pDSCapture->Stop();
-    delete m_pDSCapture; 
-  }
-  delete imgBuffer;
-  delete imgBufferForCallback;
-  DeleteCriticalSection(&crit);
+    stop();
+    if (m_pDSCapture) {
+        m_pDSCapture->Stop();
+        delete m_pDSCapture;
+    }
+    delete imgBuffer;
+    delete imgBufferForCallback;
+    DeleteCriticalSection(&crit);
 }
 
 bool CaptureDSCapture::start()
 {
     if (m_pDSCapture) {
-	HRESULT hr = m_pDSCapture->Init(true, false, mCaptureDevice.id().c_str(), NULL);
+        HRESULT hr = m_pDSCapture->Init(true, false, mCaptureDevice.id().c_str(), NULL);
 
-	if(SUCCEEDED(hr)){
-		// Set video grabber media type
-		AM_MEDIA_TYPE mt;
-		ZeroMemory(&mt, sizeof(AM_MEDIA_TYPE));
-		mt.majortype = MEDIATYPE_Video;
-		mt.subtype = MEDIASUBTYPE_RGB24;
-		hr = m_pDSCapture->SetVideoGrabberFormat(&mt);
-	}
+        if (SUCCEEDED(hr)) {
+            // Set video grabber media type
+            AM_MEDIA_TYPE mt;
+            ZeroMemory(&mt, sizeof(AM_MEDIA_TYPE));
+            mt.majortype = MEDIATYPE_Video;
+            mt.subtype = MEDIASUBTYPE_RGB24;
+            hr = m_pDSCapture->SetVideoGrabberFormat(&mt);
+        }
 
-	if(SUCCEEDED(hr))
-		hr = m_pDSCapture->ShowVideoCaptureFormatDialog();
+        if (SUCCEEDED(hr))
+            hr = m_pDSCapture->ShowVideoCaptureFormatDialog();
 
-	// We must connect filters before we can get connected media type from grabber(s)
-	if(SUCCEEDED(hr))
-		hr = m_pDSCapture->Connect();
+        // We must connect filters before we can get connected media type from grabber(s)
+        if (SUCCEEDED(hr))
+            hr = m_pDSCapture->Connect();
 
-	if(SUCCEEDED(hr)){
-		AM_MEDIA_TYPE mt;
-		ZeroMemory(&mt, sizeof(AM_MEDIA_TYPE));
-		HRESULT hr = m_pDSCapture->GetVideoGrabberFormat(&mt);
-		if(SUCCEEDED(hr)){
-			// Examine the format block.
-			if ((mt.formattype == FORMAT_VideoInfo) && 
-				(mt.cbFormat >= sizeof(VIDEOINFOHEADER)) &&
-				(mt.pbFormat != NULL) ) 
-			{
-				if(mt.subtype == MEDIASUBTYPE_RGB24)
-					m_nBpp = 24;
-				else if(mt.subtype == MEDIASUBTYPE_RGB32)
-					m_nBpp = 32;
+        if (SUCCEEDED(hr)) {
+            AM_MEDIA_TYPE mt;
+            ZeroMemory(&mt, sizeof(AM_MEDIA_TYPE));
+            HRESULT hr = m_pDSCapture->GetVideoGrabberFormat(&mt);
+            if (SUCCEEDED(hr)) {
+                // Examine the format block.
+                if ((mt.formattype == FORMAT_VideoInfo) && (mt.cbFormat >= sizeof(VIDEOINFOHEADER)) && (mt.pbFormat != NULL)) {
+                    if (mt.subtype == MEDIASUBTYPE_RGB24)
+                        m_nBpp = 24;
+                    else if (mt.subtype == MEDIASUBTYPE_RGB32)
+                        m_nBpp = 32;
 
-				VIDEOINFOHEADER *pVih = (VIDEOINFOHEADER*)mt.pbFormat;
-				//cout << "Video capture: "<<pVih->bmiHeader.biWidth<<"x"<<pVih->bmiHeader.biHeight<<" "<<pVih->bmiHeader.biBitCount<<" bpp "<<fps<<" fps";
-				m_nVideo_x_res = pVih->bmiHeader.biWidth;
-				m_nVideo_y_res = pVih->bmiHeader.biHeight;
-			}
-		}
-	}
+                    VIDEOINFOHEADER* pVih = (VIDEOINFOHEADER*) mt.pbFormat;
+                    // cout << "Video capture: "<<pVih->bmiHeader.biWidth<<"x"<<pVih->bmiHeader.biHeight<<" "<<pVih->bmiHeader.biBitCount<<" bpp "<<fps<<" fps";
+                    m_nVideo_x_res = pVih->bmiHeader.biWidth;
+                    m_nVideo_y_res = pVih->bmiHeader.biHeight;
+                }
+            }
+        }
 
-	if(FAILED(hr)){
-		return false;
-	}
+        if (FAILED(hr)) {
+            return false;
+        }
 
-	m_pDSCapture->AddVideoCallback(&sampler);
+        m_pDSCapture->AddVideoCallback(&sampler);
 
-        buffer_size = (int)(m_nVideo_x_res * m_nVideo_y_res * (m_nBpp/8.0));
+        buffer_size = (int) (m_nVideo_x_res * m_nVideo_y_res * (m_nBpp / 8.0));
         imgBuffer = new BYTE[buffer_size];
         imgBufferForCallback = new BYTE[buffer_size];
-        mReturnFrame = cvCreateImageHeader(cvSize(m_nVideo_x_res, m_nVideo_y_res), IPL_DEPTH_8U,m_nBpp / 8);
-        mReturnFrame->imageData = (char*)imgBuffer;
+        mReturnFrame = cvCreateImageHeader(cvSize(m_nVideo_x_res, m_nVideo_y_res), IPL_DEPTH_8U, m_nBpp / 8);
+        mReturnFrame->imageData = (char*) imgBuffer;
     }
     m_pDSCapture->Start();
     mIsCapturing = true;
@@ -122,26 +121,26 @@ bool CaptureDSCapture::start()
 void CaptureDSCapture::stop()
 {
     if (isCapturing()) {
-      HRESULT hr = m_pDSCapture->Stop();
-      mIsCapturing = false;
+        HRESULT hr = m_pDSCapture->Stop();
+        mIsCapturing = false;
     }
 }
 
-IplImage *CaptureDSCapture::captureImage()
+IplImage* CaptureDSCapture::captureImage()
 {
     if (!isCapturing()) {
         return NULL;
     }
 
-    IplImage *ret = NULL;
+    IplImage* ret = NULL;
     if (WaitForSingleObject(next_event, 1000) == WAIT_OBJECT_0) {
-      EnterCriticalSection(&crit);
-      ret = mReturnFrame;
-      ret->origin = 1;
-      memcpy(imgBuffer,imgBufferForCallback,buffer_size);
-      LeaveCriticalSection(&crit);
+        EnterCriticalSection(&crit);
+        ret = mReturnFrame;
+        ret->origin = 1;
+        memcpy(imgBuffer, imgBufferForCallback, buffer_size);
+        LeaveCriticalSection(&crit);
     }
-  return ret;
+    return ret;
 }
 
 bool CaptureDSCapture::showSettingsDialog()
@@ -155,32 +154,29 @@ string CaptureDSCapture::SerializeId()
     return "CaptureDSCapture";
 }
 
-bool CaptureDSCapture::Serialize(Serialization *serialization)
+bool CaptureDSCapture::Serialize(Serialization* serialization)
 {
     return false;
 }
 
 void CaptureDSCapture::OnVideoSample(BYTE* pBuffer, DWORD dwDataLen, REFERENCE_TIME t_start)
 {
-        EnterCriticalSection(&crit);
-	if(pBuffer){
-          if (dwDataLen <= buffer_size) {
-            memcpy(imgBufferForCallback,pBuffer,dwDataLen);
-          }
-          SetEvent(next_event);
-	}
-        LeaveCriticalSection(&crit);
+    EnterCriticalSection(&crit);
+    if (pBuffer) {
+        if (dwDataLen <= buffer_size) {
+            memcpy(imgBufferForCallback, pBuffer, dwDataLen);
+        }
+        SetEvent(next_event);
+    }
+    LeaveCriticalSection(&crit);
 }
 
-
-CapturePluginDSCapture::CapturePluginDSCapture(const string &captureType)
-    : CapturePlugin(captureType)
+CapturePluginDSCapture::CapturePluginDSCapture(const string& captureType)
+        : CapturePlugin(captureType)
 {
 }
 
-CapturePluginDSCapture::~CapturePluginDSCapture()
-{
-}
+CapturePluginDSCapture::~CapturePluginDSCapture() {}
 
 CapturePlugin::CaptureDeviceVector CapturePluginDSCapture::enumerateDevices()
 {
@@ -188,19 +184,19 @@ CapturePlugin::CaptureDeviceVector CapturePluginDSCapture::enumerateDevices()
     CDSCapture capture;
     device_map* vids = capture.GetVideoCaptureDevices();
     for (device_map::iterator i = vids->begin(); i != vids->end(); ++i) {
-      CaptureDevice dev("dscapture", i->first, i->second);
-      devices.push_back(dev);
+        CaptureDevice dev("dscapture", i->first, i->second);
+        devices.push_back(dev);
     }
-    
+
     return devices;
 }
 
-Capture *CapturePluginDSCapture::createCapture(const CaptureDevice captureDevice)
+Capture* CapturePluginDSCapture::createCapture(const CaptureDevice captureDevice)
 {
     return new CaptureDSCapture(captureDevice);
 }
 
-void registerPlugin(const string &captureType, alvar::CapturePlugin *&capturePlugin)
+void registerPlugin(const string& captureType, alvar::CapturePlugin*& capturePlugin)
 {
     capturePlugin = new CapturePluginDSCapture(captureType);
 }

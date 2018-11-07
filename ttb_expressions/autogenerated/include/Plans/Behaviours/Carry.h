@@ -11,21 +11,21 @@ namespace alica
 {
 class Carry : public DomainBehaviour
 {
-  public:
+public:
     Carry();
     virtual ~Carry();
-    virtual void run(void *msg);
+    virtual void run(void* msg);
     /*PROTECTED REGION ID(pub1468494621581) ENABLED START*/
     // Add additional public methods here
-    vector<::reasoner::AnnotatedValVec> result;
+    vector<::reasoner::AnnotatedValVec*> result;
     /*PROTECTED REGION END*/
-  protected:
+protected:
     virtual void initialiseParameters();
     /*PROTECTED REGION ID(pro1468494621581) ENABLED START*/
     // Add additional protected methods here
     shared_ptr<alica::Query> query;
     /*PROTECTED REGION END*/
-  private:
+private:
     /*PROTECTED REGION ID(prv1468494621581) ENABLED START*/
     // Add additional private methods here
     /*PROTECTED REGION END*/

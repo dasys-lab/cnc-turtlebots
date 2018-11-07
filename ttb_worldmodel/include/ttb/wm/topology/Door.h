@@ -12,7 +12,7 @@ class Area;
 class POI;
 class Door
 {
-  public:
+public:
     Door(std::string name);
     virtual ~Door();
     std::size_t hash() const;
@@ -35,18 +35,12 @@ class Door
 
 struct DoorComperator
 {
-    bool operator()(const std::shared_ptr<Door> a, std::shared_ptr<Door> b) const
-    {
-        return a->hash() == b->hash();
-    }
+    bool operator()(const std::shared_ptr<Door> a, std::shared_ptr<Door> b) const { return a->hash() == b->hash(); }
 };
 
 struct DoorHash
 {
-    std::size_t operator()(const std::shared_ptr<Door> obj) const
-    {
-        return obj->hash();
-    }
+    std::size_t operator()(const std::shared_ptr<Door> obj) const { return obj->hash(); }
 };
 
 } /* namespace wm */

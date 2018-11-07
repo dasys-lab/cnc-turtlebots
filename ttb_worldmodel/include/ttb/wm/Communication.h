@@ -5,14 +5,15 @@
 #include <ros/ros.h>
 // TODO: forward declare the message with the ros macro (see MSL WorldModel)
 #include <ar_track_alvar_msgs/AlvarMarkers.h>
+#include <engine/AlicaClock.h>
+#include <gazebo_msgs/ModelStates.h>
+#include <geometry_msgs/PoseWithCovarianceStamped.h>
 #include <geometry_msgs/Twist.h>
 #include <kobuki_msgs/BumperEvent.h>
-#include <geometry_msgs/Twist.h>
-#include <geometry_msgs/PoseWithCovarianceStamped.h>
-#include <sensor_msgs/JointState.h>
 #include <kobuki_msgs/CliffEvent.h>
 #include <kobuki_msgs/DockInfraRed.h>
 #include <kobuki_msgs/SensorState.h>
+#include <nav_msgs/Odometry.h>
 #include <robot_control/RobotCommand.h>
 #include <sensor_msgs/Image.h>
 #include <sensor_msgs/Imu.h>
@@ -20,11 +21,8 @@
 #include <sensor_msgs/LaserScan.h>
 #include <sensor_msgs/PointCloud2.h>
 #include <tf/transform_listener.h>
-#include <ttb_msgs/ServeTask.h>
 #include <ttb_msgs/LogicalCamera.h>
-#include <nav_msgs/Odometry.h>
-#include <gazebo_msgs/ModelStates.h>
-#include <engine/AlicaClock.h>
+#include <ttb_msgs/ServeTask.h>
 
 #define COMM_DEBUG
 
@@ -38,12 +36,12 @@ namespace wm
 
 class Communication
 {
-  public:
-    Communication(ttb::TTBWorldModel *wm);
+public:
+    Communication(ttb::TTBWorldModel* wm);
     virtual ~Communication();
     alica::AlicaTime getTimeLastSimMsgReceived();
 
-  private:
+private:
     void onAlvarMarkers(ar_track_alvar_msgs::AlvarMarkersPtr alvar);
     void onOdometry(nav_msgs::OdometryPtr odometry);
     void onLaserScan(sensor_msgs::LaserScanPtr laserScan);
@@ -61,11 +59,11 @@ class Communication
     void onLogicalCamera(ttb_msgs::LogicalCameraPtr logicalCamera);
     void onGazeboModelStates(gazebo_msgs::ModelStatesPtr modelStates);
 
-    ttb::TTBWorldModel *wm;
+    ttb::TTBWorldModel* wm;
 
     // ROS Stuff
     ros::NodeHandle n;
-    ros::AsyncSpinner *spinner;
+    ros::AsyncSpinner* spinner;
 
     alica::AlicaTime timeLastSimMsgReceived;
 
@@ -88,7 +86,7 @@ class Communication
     ros::Subscriber amclPoseSub;
     ros::Subscriber logicalCameraSensorSub;
 
-    WrappedMessageHandler *wrappedMessageHandler;
+    WrappedMessageHandler* wrappedMessageHandler;
 };
 
 } /* namespace wm */

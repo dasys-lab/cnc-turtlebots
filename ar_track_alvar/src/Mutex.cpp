@@ -25,10 +25,11 @@
 
 #include "ar_track_alvar/Mutex_private.h"
 
-namespace alvar {
+namespace alvar
+{
 
 Mutex::Mutex()
-    : d(new MutexPrivate())
+        : d(new MutexPrivate())
 {
 }
 

@@ -34,7 +34,8 @@
 #include "CaptureDevice.h"
 #include "Util.h"
 
-namespace alvar {
+namespace alvar
+{
 
 /**
  * \brief Capture interface that plugins must implement.
@@ -52,10 +53,10 @@ public:
      * \param captureDevice Information of which camera to create.
      */
     Capture(const CaptureDevice captureDevice)
-        : mCaptureDevice(captureDevice)
-        , mXResolution(0)
-        , mYResolution(0)
-        , mIsCapturing(false)
+            : mCaptureDevice(captureDevice)
+            , mXResolution(0)
+            , mYResolution(0)
+            , mIsCapturing(false)
     {
     }
 
@@ -67,22 +68,22 @@ public:
     /**
      * \brief The camera information associated to this capture object.
      */
-    CaptureDevice captureDevice() {return mCaptureDevice;}
+    CaptureDevice captureDevice() { return mCaptureDevice; }
 
     /**
      * \brief The resolution along the x axis (horizontal).
      */
-    unsigned long xResolution() {return mXResolution;}
+    unsigned long xResolution() { return mXResolution; }
 
     /**
      * \brief The resolution along the y axis (vertical).
      */
-    unsigned long yResolution() {return mYResolution;}
+    unsigned long yResolution() { return mYResolution; }
 
     /**
      * \brief Test if the camera was properly initialized.
      */
-    bool isCapturing() {return mIsCapturing;}
+    bool isCapturing() { return mIsCapturing; }
 
     /**
      * \brief Set the resolution.
@@ -90,9 +91,7 @@ public:
      * \param xResolution The resolution along the x axis (horizontal).
      * \param yResolution The resolution along the y axis (vertical).
      */
-    virtual void setResolution(const unsigned long xResolution, const unsigned long yResolution)
-    {
-    }
+    virtual void setResolution(const unsigned long xResolution, const unsigned long yResolution) {}
 
     /**
      * \brief Starts the camera capture.
@@ -113,7 +112,7 @@ public:
      *
      * \return The captured image.
      */
-    virtual IplImage *captureImage() = 0;
+    virtual IplImage* captureImage() = 0;
 
     /**
      * \brief Save camera settings to a file.
@@ -121,20 +120,20 @@ public:
      * \param filename The filename to write to.
      * \return True if the settings were sucessfully saved, false otherwise.
      */
-	virtual bool saveSettings(std::string filename) {
+    virtual bool saveSettings(std::string filename)
+    {
         if (!isCapturing()) {
             return false;
         }
 
-		Serialization serialization(filename);
-		try {
+        Serialization serialization(filename);
+        try {
             serialization << (*this);
-        }
-		catch (...) {
+        } catch (...) {
             return false;
         }
-		return true;
-	}
+        return true;
+    }
 
     /**
      * \brief Load camera settings from a file.
@@ -142,20 +141,20 @@ public:
      * \param filename The filename to read from.
      * \return True if the settings were sucessfully loaded, false otherwise.
      */
-    virtual bool loadSettings(std::string filename) {
+    virtual bool loadSettings(std::string filename)
+    {
         if (!isCapturing()) {
             return false;
         }
 
-		Serialization serialization(filename);
-		try {
+        Serialization serialization(filename);
+        try {
             serialization >> (*this);
-        }
-		catch (...) {
+        } catch (...) {
             return false;
         }
-		return true;
-	}
+        return true;
+    }
 
     /**
      * \brief Show the settings dialog of the camera.
@@ -163,18 +162,18 @@ public:
      */
     virtual bool showSettingsDialog() = 0;
 
-	/**
+    /**
      * \brief The identification of the class for serialization.
      */
-	virtual std::string SerializeId() = 0;
+    virtual std::string SerializeId() = 0;
 
-	/**
+    /**
      * \brief Performs serialization of the class members and configuration.
      *
      * \param serialization The Serialization object.
      * \return True if the serialization of the class was successful, false otherwise.
      */
-	virtual bool Serialize(Serialization *serialization) = 0;
+    virtual bool Serialize(Serialization* serialization) = 0;
 
 protected:
     CaptureDevice mCaptureDevice;

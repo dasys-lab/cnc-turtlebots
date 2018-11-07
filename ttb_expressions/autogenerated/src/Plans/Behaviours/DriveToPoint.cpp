@@ -6,8 +6,8 @@ using std::shared_ptr;
 
 /*PROTECTED REGION ID(inccpp1520850811997) ENABLED START*/
 // Add additional includes here
-#include <SolverType.h>
 #include <TurtleBot.h>
+#include <alica/reasoner/DummySolver.h>
 #include <robot/SimulatedArm.h>
 #include <ttb/TTBWorldModel.h>
 /*PROTECTED REGION END*/
@@ -19,7 +19,7 @@ namespace alica
 /*PROTECTED REGION END*/
 
 DriveToPoint::DriveToPoint()
-    : DomainBehaviour("DriveToPoint")
+        : DomainBehaviour("DriveToPoint")
 {
     /*PROTECTED REGION ID(con1520850811997) ENABLED START*/
     // Add additional options here
@@ -33,16 +33,15 @@ DriveToPoint::~DriveToPoint()
     // Add additional options here
     /*PROTECTED REGION END*/
 }
-void DriveToPoint::run(void *msg)
+void DriveToPoint::run(void* msg)
 {
     /*PROTECTED REGION ID(run1520850811997) ENABLED START*/
     // Add additional options here
     result.clear();
-    if (!this->query->getSolution(SolverType::DUMMYSOLVER, runningPlan, result))
-    {
-        std::cout << "DriveToPoint: Unable to get solution for variables: "
-                  << this->query->getUniqueVariableStore()->getAllRep()[0]->getName()
-                  << this->query->getUniqueVariableStore()->getAllRep()[1]->getName() << std::endl;
+    if (!this->query->getSolution<reasoner::DummySolver, alica::BBIdent>(this->getPlanContext(), result)) {
+        VariableGrp vars;
+        this->query->getUniqueVariableStore().getAllRep(vars);
+        std::cout << "DriveToPoint: Unable to get solution for variables: " << vars[0]->getName() << vars[1]->getName() << std::endl;
         return;
     }
 
@@ -51,24 +50,27 @@ void DriveToPoint::run(void *msg)
     //              << "for variable " << this->query->getUniqueVariableStore()->getAllRep()[1]->getName() << " is: " <<
     //              result[1] << "for variable " << std::endl;
 
-    if (this->wm->robot.isCloseTo(stod(result[0]), stod(result[1]), this->turtleBot->simulatedArm->getArmRange() / 2.0))
-    {
+    const auto& bbValueX = this->getPlanContext().getAlicaEngine()->getBlackBoard().getValue(result[0]);
+    string pointXStr = std::string(reinterpret_cast<const char*>(bbValueX.begin()), bbValueX.size());
+    const auto& bbValueY = this->getPlanContext().getAlicaEngine()->getBlackBoard().getValue(result[1]);
+    string pointYStr = std::string(reinterpret_cast<const char*>(bbValueY.begin()), bbValueY.size());
+
+    if (this->wm->robot.isCloseTo(stod(pointXStr), stod(pointYStr), this->turtleBot->simulatedArm->getArmRange() / 2.0)) {
         this->goalHandle.reset();
         this->turtleBot->movement->cancelAllGoals();
-        this->setSuccess(true);
+        this->setSuccess();
         return;
     }
 
-    if (isMoveBaseDone())
-    {
+    if (isMoveBaseDone()) {
         // MoveBase to nextPOI
         move_base_msgs::MoveBaseGoal mbg;
-        mbg.target_pose.pose.position.x = stod(result[0]);
-        mbg.target_pose.pose.position.y = stod(result[1]);
+        mbg.target_pose.pose.position.x = stod(pointXStr);
+        mbg.target_pose.pose.position.y = stod(pointYStr);
         mbg.target_pose.pose.orientation.w = 1;
         mbg.target_pose.header.frame_id = "/map";
         auto time = this->wm->getTime();
-        mbg.target_pose.header.stamp = ros::Time((uint32_t)(time / 1000000000UL), (uint32_t)(time % 1000000000UL));
+        mbg.target_pose.header.stamp = ros::Time((uint32_t)(time.inSeconds()), (uint32_t)(time.inNanoseconds() % 1000000000UL));
         this->goalHandle = this->turtleBot->movement->send(mbg);
     }
     /*PROTECTED REGION END*/
@@ -89,17 +91,13 @@ void DriveToPoint::initialiseParameters()
 // Add additional methods here
 bool DriveToPoint::isMoveBaseDone()
 {
-    if (!this->goalHandle.isExpired() && this->goalHandle.getCommState() == actionlib::CommState::DONE)
-    {
-        if (this->goalHandle.getTerminalState().state_ == actionlib::TerminalState::ABORTED)
-        {
-            this->setFailure(true);
+    if (!this->goalHandle.isExpired() && this->goalHandle.getCommState() == actionlib::CommState::DONE) {
+        if (this->goalHandle.getTerminalState().state_ == actionlib::TerminalState::ABORTED) {
+            this->setFailure();
         }
         this->goalHandle.reset();
         return true;
-    }
-    else if (this->goalHandle.isExpired())
-    {
+    } else if (this->goalHandle.isExpired()) {
         return true;
     }
     return false;

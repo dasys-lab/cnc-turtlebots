@@ -25,26 +25,27 @@
 
 #include <dirent.h>
 
-namespace alvar {
+namespace alvar
+{
 
 class DirectoryIteratorPrivateData
 {
 public:
     DirectoryIteratorPrivateData()
-        : mHandle(NULL)
-        , mData(NULL)
+            : mHandle(NULL)
+            , mData(NULL)
     {
     }
-    
-    DIR *mHandle;
-    dirent *mData;
+
+    DIR* mHandle;
+    dirent* mData;
 };
 
-DirectoryIteratorPrivate::DirectoryIteratorPrivate(const std::string &path)
-    : d(new DirectoryIteratorPrivateData())
-    , mDirectory(path)
-    , mEntry()
-    , mValid(false)
+DirectoryIteratorPrivate::DirectoryIteratorPrivate(const std::string& path)
+        : d(new DirectoryIteratorPrivateData())
+        , mDirectory(path)
+        , mEntry()
+        , mValid(false)
 {
     if (mDirectory.at(mDirectory.length() - 1) != '/') {
         mDirectory.append("/");
@@ -64,7 +65,7 @@ bool DirectoryIteratorPrivate::hasNext()
 
         if (d->mHandle != NULL) {
             d->mData = readdir(d->mHandle);
-            
+
             if (d->mData != NULL) {
                 mValid = true;
                 skip();
@@ -86,8 +87,7 @@ std::string DirectoryIteratorPrivate::next()
     d->mData = readdir(d->mHandle);
     if (d->mData == NULL) {
         mValid = false;
-    }
-    else {
+    } else {
         skip();
     }
 

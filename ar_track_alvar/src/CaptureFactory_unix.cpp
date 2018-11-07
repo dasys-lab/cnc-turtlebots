@@ -26,7 +26,8 @@
 #include <stdlib.h>
 #include <unistd.h> // for readlink()
 
-namespace alvar {
+namespace alvar
+{
 
 void CaptureFactoryPrivate::setupPluginPaths()
 {
@@ -40,7 +41,7 @@ void CaptureFactoryPrivate::setupPluginPaths()
         mPluginPaths.push_back(applicationPath);
         mPluginPaths.push_back(applicationPath + "/alvarplugins");
     }
-    
+
     // ALVAR library path
     parseEnvironmentVariable(std::string("ALVAR_LIBRARY_PATH"));
 
@@ -48,16 +49,16 @@ void CaptureFactoryPrivate::setupPluginPaths()
     parseEnvironmentVariable(std::string("ALVAR_PLUGIN_PATH"));
 }
 
-void CaptureFactoryPrivate::parseEnvironmentVariable(const std::string &variable)
+void CaptureFactoryPrivate::parseEnvironmentVariable(const std::string& variable)
 {
     // acquire environment variable
-    char *buffer;
+    char* buffer;
     std::string path("");
     buffer = getenv(variable.data());
     if (buffer) {
         path = std::string(buffer);
     }
-    
+
     // tokenize paths
     char delimitor = ':';
     if (!path.empty()) {

@@ -8,7 +8,7 @@ namespace alica
 
 class UtilityFunctionCreator : public IUtilityCreator
 {
-  public:
+public:
     virtual ~UtilityFunctionCreator();
     UtilityFunctionCreator();
     shared_ptr<BasicUtilityFunction> createUtility(long utilityfunctionConfId);
