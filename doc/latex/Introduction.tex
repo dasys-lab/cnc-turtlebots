@@ -43,7 +43,8 @@ The development environment recommended to develop software for the TurtleBots o
 
 \begin{description}
 	\item[1. Install Ubuntu] The currently used operating system is Ubuntu 18.04 LTS (long-term support) with all available updates installed.
-	\item[2. Install Ubuntu - Extra Packages] Simply install the package with the following command: \verb#sudo apt install vim git ssh myrepos capnproto#\\\verb# libcapnp-dev libqt5x11extras5-dev qtscript5-dev liblua5.1.0-dev #\\\verb#bison re2c libcanberra-gtk-module:i386#
+	\item[2. Install Ubuntu - Extra Packages] Simply install the package with the following command: \verb#sudo apt install vim git ssh myrepos capnproto#\\\verb# libcapnp-dev libqt5x11extras5-dev qtscript5-dev liblua5.1.0-dev #\\\verb#bison re2c libcanberra-gtk-module:i386 python-catkin-tools#
+	
 	\item[3. Install ZMQ] Execute the following lines in a terminal:\\
 \verb#sudo su#\\
 \verb#echo "deb http://download.opensuse.org/repositories/network:/#\\\verb#   messaging:/zeromq:/git-draft/xUbuntu_18.04/ ./" >> /etc#\\\verb#   /apt/sources.list#\\
@@ -57,6 +58,8 @@ The development environment recommended to develop software for the TurtleBots o
 	\begin{itemize}
 		\item \verb#cd#
 		\item \verb#mkdir -p rosws/src#
+		\item \verb#cd rosws#
+		\item \verb#catkin init#
 	\end{itemize}
 	\item[8. Checkout Github Repositories] You need access to our GIT repositories on GITHub. Therefore, please provide your GITHub Username to us. We will grant you the corresponding permissions. Furthermore, it is recommended to setup ssh access to your GITHub account, in order to avoid typing the passwords over and over again:
 	\begin{itemize}
@@ -66,11 +69,14 @@ The development environment recommended to develop software for the TurtleBots o
 	The next steps are for checking out the repositories under the assumption that you have the corresponding permissions:
 	\begin{itemize}
 		\item \verb#cd ~/rosws/src#
-		\item \verb#git clone git@github.com:carpe-noctem-cassel/alica.git#
-		\item \verb#git clone git@github.com:carpe-noctem-cassel/cnc-turtlebots.git#
-		\item \verb#git clone git@github.com:carpe-noctem-cassel/supplementary.git#
-		\item \verb#git clone git@github.com:carpe-noctem-cassel/symrock.git#
-		\item \verb#git clone git@github.com:carpe-noctem-cassel/turtlebot.git#
+		\item \verb#git clone git@github.com:dasys-lab/alica.git#
+		\item \verb#git clone git@github.com:dasys-lab/alica-supplementary.git#
+		\item \verb#git clone git@github.com:dasys-lab/essentials.git#
+		\item \verb#git clone git@github.com:dasys-lab/aspsuite.git#
+		\item \verb#git clone git@github.com:dasys-lab/capnzero.git#
+		\item \verb#git clone git@github.com:dasys-lab/turtlebot.git#
+		\item \verb#git clone git@github.com:dasys-lab/cnc-turtlebots.git#
+		\item \verb#git clone git@github.com:dasys-lab/telegram-client.git#
 	\end{itemize}
 	\item[9. General Configurations] You need to configure some of the installed tools:
 		\begin{itemize}
@@ -84,10 +90,13 @@ The development environment recommended to develop software for the TurtleBots o
 	\item[10. Switch Repository Branches] During the lecture, we are working on the following branches of the corresponding GIT repositories:
 	\begin{itemize}
 		\item alica - newPD
+		\item alica-supplementary - master
 		\item cnc-turtlebots - conversion2newPD
-		\item supplementary - ttb\_dev
-		\item symrock - zmq
 		\item turtlebot - pkvr
+		\item telegram-client - master
+		\item essentials - ttb\_dev
+		\item capnzero - master
+		\item aspsuite - asp\_dev
 	\end{itemize}
 	The main work will take place within cnc-turtlebots, supplementary, turtlebot, and symrock. That is why the master branch (incl. branch protection) for alica and clingo are ok for us. In order to switch a branch execute\\\verb#git checkout <branch name># within the repositories root folder.
 	\item[11. Compile Workspace] Within the 'rosws/src' folder execute \verb#catkin build#.
