@@ -7,7 +7,7 @@ using std::shared_ptr;
 /*PROTECTED REGION ID(inccpp1520850811997) ENABLED START*/
 // Add additional includes here
 #include <TurtleBot.h>
-#include <alica/reasoner/DummySolver.h>
+#include <alica/reasoner/SimpleSolver.h>
 #include <robot/SimulatedArm.h>
 #include <ttb/TTBWorldModel.h>
 /*PROTECTED REGION END*/
@@ -38,7 +38,7 @@ void DriveToPoint::run(void* msg)
     /*PROTECTED REGION ID(run1520850811997) ENABLED START*/
     // Add additional options here
     result.clear();
-    if (!this->query->getSolution<reasoner::DummySolver, alica::BBIdent>(this->getPlanContext(), result)) {
+    if (!this->query->getSolution<reasoner::SimpleSolver, alica::BBIdent>(this->getPlanContext(), result)) {
         VariableGrp vars;
         this->query->getUniqueVariableStore().getAllRep(vars);
         std::cout << "DriveToPoint: Unable to get solution for variables: " << vars[0]->getName() << vars[1]->getName() << std::endl;

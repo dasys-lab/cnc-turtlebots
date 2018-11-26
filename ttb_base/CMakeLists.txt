@@ -27,7 +27,7 @@ find_package(catkin REQUIRED COMPONENTS
   asp_commons
   asp_solver_wrapper
   asp_solver
-  alica_dummy_solver
+  alica_simple_solver
 )
 
 ###################################
@@ -42,7 +42,7 @@ find_package(catkin REQUIRED COMPONENTS
 catkin_package(
   INCLUDE_DIRS include
   LIBRARIES 
-  CATKIN_DEPENDS alica_engine alica_ros_proxy ttb_expressions ttb_worldmodel asp_commons asp_solver_wrapper asp_solver agent_id alica_dummy_solver
+  CATKIN_DEPENDS alica_engine alica_ros_proxy ttb_expressions ttb_worldmodel asp_commons asp_solver_wrapper asp_solver agent_id alica_simple_solver
 #  DEPENDS tinyxml
 )
 

@@ -7,8 +7,8 @@ using std::shared_ptr;
 /*PROTECTED REGION ID(inccpp1520438451345) ENABLED START*/
 // Add additional includes here
 #include <TurtleBot.h>
-#include <alica/reasoner/DummyVariable.h>
-#include <alica/reasoner/DummySolver.h>
+#include <alica/reasoner/SimpleVariable.h>
+#include <alica/reasoner/SimpleSolver.h>
 #include <robot/SimulatedArm.h>
 #include <ttb/TTBWorldModel.h>
 /*PROTECTED REGION END*/
@@ -39,7 +39,7 @@ void PickUp::run(void* msg)
     /*PROTECTED REGION ID(run1520438451345) ENABLED START*/
     // Add additional options here
     result.clear();
-    if (!this->query->getSolution<reasoner::DummySolver, alica::BBIdent>(this->getPlanContext(), result)) {
+    if (!this->query->getSolution<reasoner::SimpleSolver, alica::BBIdent>(this->getPlanContext(), result)) {
         VariableGrp vars;
         this->query->getUniqueVariableStore().getAllRep(vars);
         std::cout << "PickUp: Unable to get solution for variable: " << vars[0]->getName() << std::endl;
@@ -54,7 +54,7 @@ void PickUp::run(void* msg)
     string objectName = std::string(reinterpret_cast<const char *>(bbValue.begin()),bbValue.size());
 
     auto object = this->wm->logicalCameraData.getObject(objectName);
-    if (!object || objectName.compare(alica::reasoner::DummyVariable::NO_VALUE) == 0) {
+    if (!object || objectName.compare(alica::reasoner::SimpleVariable::NO_VALUE) == 0) {
         this->setFailure();
         return;
     }

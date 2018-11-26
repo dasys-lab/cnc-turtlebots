@@ -7,7 +7,7 @@ using std::shared_ptr;
 /*PROTECTED REGION ID(inccpp1519913953735) ENABLED START*/
 // Add additional includes here
 #include <TurtleBot.h>
-#include <alica/reasoner/DummySolver.h>
+#include <alica/reasoner/SimpleSolver.h>
 #include <robot/SimulatedArm.h>
 #include <ttb/TTBWorldModel.h>
 /*PROTECTED REGION END*/
@@ -45,7 +45,7 @@ void OpenDoor::run(void* msg)
     result.clear();
     VariableGrp vars;
     this->query->getUniqueVariableStore().getAllRep(vars);
-    if (!query->getSolution<reasoner::DummySolver, BBIdent>(this->getPlanContext(), result)) {
+    if (!query->getSolution<reasoner::SimpleSolver, BBIdent>(this->getPlanContext(), result)) {
         std::cout << "OpenDoor: Unable to get solution for variable: " << vars[0]->getName() << std::endl;
         return;
     }

@@ -7,8 +7,8 @@ using std::shared_ptr;
 /*PROTECTED REGION ID(inccpp1520521852939) ENABLED START*/
 // Add additional includes here
 #include <TurtleBot.h>
-#include <alica/reasoner/DummySolver.h>
-#include <alica/reasoner/DummyTerm.h>
+#include <alica/reasoner/SimpleSolver.h>
+#include <alica/reasoner/SimpleTerm.h>
 #include <robot/SimulatedArm.h>
 #include <ttb/TTBWorldModel.h>
 /*PROTECTED REGION END*/
@@ -39,7 +39,7 @@ void DriveCloseToObject::run(void* msg)
     /*PROTECTED REGION ID(run1520521852939) ENABLED START*/
     // Add additional options here
     result.clear();
-    if (!this->query->getSolution<reasoner::DummySolver, alica::BBIdent>(this->getPlanContext(), result)) {
+    if (!this->query->getSolution<reasoner::SimpleSolver, alica::BBIdent>(this->getPlanContext(), result)) {
         VariableGrp variableGrp;
         this->query->getUniqueVariableStore().getAllRep(variableGrp);
         std::cout << "DriveCloseToObject: Unable to get solution for variable: " << variableGrp[0]->getName() << std::endl;

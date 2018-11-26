@@ -1,8 +1,8 @@
 #include "Plans/Serve/constraints/DriveToPOI1519913821580Constraints.h"
 /*PROTECTED REGION ID(ch1519913821580) ENABLED START*/
 #include <TurtleBot.h>
-#include <alica/reasoner/DummyTerm.h>
-#include <alica/reasoner/DummyVariable.h>
+#include <alica/reasoner/SimpleTerm.h>
+#include <alica/reasoner/SimpleVariable.h>
 #include <engine/RunningPlan.h>
 #include <engine/constraintmodul/ProblemDescriptor.h>
 #include <alica_solver_interface/SolverTerm.h>
@@ -47,11 +47,11 @@ void Constraint1519914269940::getConstraint(shared_ptr<ProblemDescriptor> c, sha
     auto currentTask = wm->taskManager.getNextTask();
     if (!currentTask || currentTask->getInformation().type != ttb_msgs::ServeTask::DRIVE_TO) {
         // current task is not for driving to an POI, so don't specify any problem descriptor
-        auto constraint = new alica::reasoner::DummyTerm();
+        auto constraint = new alica::reasoner::SimpleTerm();
         for (auto var : c->getStaticVars()) {
-            auto dummyVar = reinterpret_cast<alica::reasoner::DummyVariable*>(var);
-            if (dummyVar) {
-                constraint->setVariable(dummyVar, alica::reasoner::DummyVariable::NO_VALUE);
+            auto SimpleVar = reinterpret_cast<alica::reasoner::SimpleVariable*>(var);
+            if (SimpleVar) {
+                constraint->setVariable(SimpleVar, alica::reasoner::SimpleVariable::NO_VALUE);
             }
         }
         c->setConstraint(constraint);
@@ -62,11 +62,11 @@ void Constraint1519914269940::getConstraint(shared_ptr<ProblemDescriptor> c, sha
     auto currentGoalPOI = wm->topologicalModel.getPOI(stoi(currentTask->getInformation().entity));
     if (!currentGoalPOI) {
         // unable to get the goalPOI
-        auto constraint = new alica::reasoner::DummyTerm();
+        auto constraint = new alica::reasoner::SimpleTerm();
         for (auto var : c->getStaticVars()) {
-            auto dummyVar = reinterpret_cast<alica::reasoner::DummyVariable*>(var);
-            if (dummyVar) {
-                constraint->setVariable(dummyVar, alica::reasoner::DummyVariable::NO_VALUE);
+            auto SimpleVar = reinterpret_cast<alica::reasoner::SimpleVariable*>(var);
+            if (SimpleVar) {
+                constraint->setVariable(SimpleVar, alica::reasoner::SimpleVariable::NO_VALUE);
             }
         }
         c->setConstraint(constraint);
@@ -77,40 +77,40 @@ void Constraint1519914269940::getConstraint(shared_ptr<ProblemDescriptor> c, sha
     auto nextPOI = robot->movement->getNextPOI(currentGoalPOI);
     if (!nextPOI) {
         // unable to get nextPOI
-        auto constraint = new alica::reasoner::DummyTerm();
+        auto constraint = new alica::reasoner::SimpleTerm();
         for (auto var : c->getStaticVars()) {
-            auto dummyVar = reinterpret_cast<alica::reasoner::DummyVariable*>(var);
-            if (dummyVar) {
-                constraint->setVariable(dummyVar, alica::reasoner::DummyVariable::NO_VALUE);
+            auto SimpleVar = reinterpret_cast<alica::reasoner::SimpleVariable*>(var);
+            if (SimpleVar) {
+                constraint->setVariable(SimpleVar, alica::reasoner::SimpleVariable::NO_VALUE);
             }
         }
         c->setConstraint(constraint);
         return;
     }
 
-    auto constraint = new alica::reasoner::DummyTerm();
-    auto dummyPOIVar = reinterpret_cast<alica::reasoner::DummyVariable*>(c->getStaticVars().at(1));
-    if (dummyPOIVar) {
-        constraint->setVariable(dummyPOIVar, std::to_string(nextPOI->id));
+    auto constraint = new alica::reasoner::SimpleTerm();
+    auto SimplePOIVar = reinterpret_cast<alica::reasoner::SimpleVariable*>(c->getStaticVars().at(1));
+    if (SimplePOIVar) {
+        constraint->setVariable(SimplePOIVar, std::to_string(nextPOI->id));
     } else {
         std::cerr << "Constraint1519914269940: Variable type of POI didn't fit!" << std::endl;
     }
 
     // DOOR Variable
-    auto dummyDoorVar = reinterpret_cast<alica::reasoner::DummyVariable*>(c->getStaticVars().at(0));
-    if (!dummyDoorVar) {
+    auto SimpleDoorVar = reinterpret_cast<alica::reasoner::SimpleVariable*>(c->getStaticVars().at(0));
+    if (!SimpleDoorVar) {
         std::cerr << "Constraint1519914269940: Variable type of door didn't fit!" << std::endl;
     } else {
         // is there a door between us and the next POI?
         if (!wm->robot.inSameRoom(nextPOI)) {
             auto nextDoor = robot->movement->getNextDoor(nextPOI);
             if (!nextDoor) {
-                constraint->setVariable(dummyDoorVar, alica::reasoner::DummyVariable::NO_VALUE);
+                constraint->setVariable(SimpleDoorVar, alica::reasoner::SimpleVariable::NO_VALUE);
                 return;
             }
-            constraint->setVariable(dummyDoorVar, nextDoor->name);
+            constraint->setVariable(SimpleDoorVar, nextDoor->name);
         } else {
-            constraint->setVariable(dummyDoorVar, alica::reasoner::DummyVariable::NO_VALUE);
+            constraint->setVariable(SimpleDoorVar, alica::reasoner::SimpleVariable::NO_VALUE);
         }
     }
     c->setConstraint(constraint);

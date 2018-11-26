@@ -5,8 +5,8 @@
 
 #include <ttb_msgs/ServeTask.h>
 
-#include <alica/reasoner/DummyTerm.h>
-#include <alica/reasoner/DummyVariable.h>
+#include <alica/reasoner/SimpleTerm.h>
+#include <alica/reasoner/SimpleVariable.h>
 
 #include <engine/constraintmodul/ProblemDescriptor.h>
 #include <alica_solver_interface/SolverTerm.h>
@@ -49,22 +49,22 @@ void Constraint1520438401434::getConstraint(shared_ptr<ProblemDescriptor> c, sha
     auto currentTask = wm->taskManager.getNextTask();
     if (!currentTask || currentTask->getInformation().type != ttb_msgs::ServeTask::PICK_UP) {
         // current task is not for picking up an object, so don't specify any problem descriptor
-        auto constraint = new alica::reasoner::DummyTerm();
+        auto constraint = new alica::reasoner::SimpleTerm();
         for (auto var : c->getStaticVars()) {
-            auto dummyVar = reinterpret_cast<alica::reasoner::DummyVariable*>(var);
-            if (dummyVar) {
-                constraint->setVariable(dummyVar, alica::reasoner::DummyVariable::NO_VALUE);
+            auto SimpleVar = reinterpret_cast<alica::reasoner::SimpleVariable*>(var);
+            if (SimpleVar) {
+                constraint->setVariable(SimpleVar, alica::reasoner::SimpleVariable::NO_VALUE);
             }
         }
         c->setConstraint(constraint);
         return;
     }
 
-    auto constraint = new alica::reasoner::DummyTerm();
-    auto dummyEntityVar = reinterpret_cast<alica::reasoner::DummyVariable*>(c->getStaticVars().at(0));
-    if (dummyEntityVar) {
+    auto constraint = new alica::reasoner::SimpleTerm();
+    auto SimpleEntityVar = reinterpret_cast<alica::reasoner::SimpleVariable*>(c->getStaticVars().at(0));
+    if (SimpleEntityVar) {
         auto entity = currentTask->getInformation().entity;
-        constraint->setVariable(dummyEntityVar, entity);
+        constraint->setVariable(SimpleEntityVar, entity);
     } else {
         std::cerr << "Constraint1520438401434: Variable type of Object Entity didn't fit!" << std::endl;
     }

@@ -7,8 +7,8 @@ using std::shared_ptr;
 /*PROTECTED REGION ID(inccpp1454329856163) ENABLED START*/
 // Add additional includes here
 #include <TurtleBot.h>
-#include <alica/reasoner/DummyVariable.h>
-#include <alica/reasoner/DummySolver.h>
+#include <alica/reasoner/SimpleVariable.h>
+#include <alica/reasoner/SimpleSolver.h>
 #include <robot/Movement.h>
 #include <robot/TTBEnums.h>
 #include <ttb/TTBWorldModel.h>
@@ -42,7 +42,7 @@ void DriveToPOI::run(void* msg)
     /*PROTECTED REGION ID(run1454329856163) ENABLED START*/
     // Add additional options here
     result.clear();
-    if (!this->query->getSolution<reasoner::DummySolver, BBIdent>(this->getPlanContext(), result)) {
+    if (!this->query->getSolution<reasoner::SimpleSolver, BBIdent>(this->getPlanContext(), result)) {
         VariableGrp variableGrp;
         this->query->getUniqueVariableStore().getAllRep(variableGrp);
         std::cout << "DriveToPOI: Unable to get solution for variable: " << variableGrp[0]->getName() << std::endl;
@@ -63,7 +63,7 @@ void DriveToPOI::run(void* msg)
     const auto& bbValue = this->getPlanContext().getAlicaEngine()->getBlackBoard().getValue(result[0]);
     std::string poiName = std::string(reinterpret_cast<const char*>(bbValue.begin()), bbValue.size());
 
-    if (poiName.compare(alica::reasoner::DummyVariable::NO_VALUE) == 0) {
+    if (poiName.compare(alica::reasoner::SimpleVariable::NO_VALUE) == 0) {
         std::cout << "DriveToPoi: no solution found result contains: " << poiName << std::endl;
         return;
     }

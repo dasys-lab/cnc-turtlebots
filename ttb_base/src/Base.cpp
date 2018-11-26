@@ -9,7 +9,7 @@
 #include <engine/AlicaEngine.h>
 #include <ttb/TTBWorldModel.h>
 
-#include <alica/reasoner/DummySolver.h>
+#include <alica/reasoner/SimpleSolver.h>
 #include <asp_commons/IASPSolver.h>
 #include <asp_solver/ASPSolver.h>
 #include <asp_solver_wrapper/ASPSolverWrapper.h>
@@ -46,8 +46,8 @@ Base::Base(string roleSetName, string masterPlanName, string roleSetDir, bool si
     solverWrapper->init(aspSolver);
     ae->addSolver<alica::reasoner::ASPSolverWrapper>(solverWrapper);
 
-    auto dummySolver = new alica::reasoner::DummySolver(ae);
-    ae->addSolver<alica::reasoner::DummySolver>(dummySolver);
+    auto SimpleSolver = new alica::reasoner::SimpleSolver(ae);
+    ae->addSolver<alica::reasoner::SimpleSolver>(SimpleSolver);
     ae->init(bc, cc, uc, crc);
 }
 
