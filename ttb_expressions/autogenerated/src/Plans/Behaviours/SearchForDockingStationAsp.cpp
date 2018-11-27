@@ -53,41 +53,41 @@ void SearchForDockingStationAsp::run(void* msg)
         std::chrono::_V2::system_clock::time_point start = std::chrono::high_resolution_clock::now();
         query->getSolution<alica::reasoner::ASPSolverWrapper, ::reasoner::AnnotatedValVec*>(this->getPlanContext(), result);
         std::chrono::_V2::system_clock::time_point end = std::chrono::high_resolution_clock::now();
-        cout << "SearchForDockingStationAsp: Measured Solving and Grounding Time: "
-             << std::chrono::duration_cast<chrono::nanoseconds>(end - start).count() / 1000000.0 << " ms" << endl;
-        shared_ptr<ttb::wm::POI> dockingStation = nullptr;
+        std::cout << "SearchForDockingStationAsp: Measured Solving and Grounding Time: "
+             << std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count() / 1000000.0 << " ms" << std::endl;
+        std::shared_ptr<ttb::wm::POI> dockingStation = nullptr;
         if (result.size() > 0) {
             auto it = find_if(result.begin(), result.end(), [](::reasoner::AnnotatedValVec* element) { return element->id == 1470042926317; });
             if (it != result.end()) {
                 if ((*it)->variableQueryValues.size() > 0) {
-                    cout << "SearchForDockingStationAsp: ASP result found!" << endl;
-                    stringstream ss;
+                    std::cout << "SearchForDockingStationAsp: ASP result found!" << std::endl;
+                    std::stringstream ss;
                     ss << (*it)->variableQueryValues.at(0).at(0);
-                    cout << (*it)->variableQueryValues.at(0).at(0) << endl;
+                    std::cout << (*it)->variableQueryValues.at(0).at(0) << std::endl;
                     // TODO fix after adding asp to topological model
                     //                    shared_ptr < ttb::wm::POI > dockingStation = this->wm->pois.getPOIByName(
                     //                            getPOIName(ss.str()));
                     //
-                    //                    cout << "SearchForDockingStationAsp: Docking station is located at (" <<
+                    //                    std::cout << "SearchForDockingStationAsp: Docking station is located at (" <<
                     //                    dockingStation->x << " | "
-                    //                            << dockingStation->y << ")" << endl;
+                    //                            << dockingStation->y << ")" << std::endl;
                 } else {
-                    cout << "SearchForDockingStationAsp: no result found!" << endl;
-                    cout << "\tThe model contains the predicates: " << endl;
-                    cout << "\t\t";
+                    std::cout << "SearchForDockingStationAsp: no result found!" << std::endl;
+                    std::cout << "\tThe model contains the predicates: " << std::endl;
+                    std::cout << "\t\t";
                     for (size_t i = 0; i < (*it)->query->getCurrentModels()->at(0).size(); i++) {
-                        cout << (*it)->query->getCurrentModels()->at(0).at(i) << " ";
+                        std::cout << (*it)->query->getCurrentModels()->at(0).at(i) << " ";
                     }
-                    cout << endl;
+                    std::cout << std::endl;
                 }
             } else {
-                cout << "SearchForDockingStationAsp: no result vector found!" << endl;
+                std::cout << "SearchForDockingStationAsp: no result vector found!" << std::endl;
             }
         } else {
-            cout << "SearchForDockingStationAsp: result empty!" << endl;
+            std::cout << "SearchForDockingStationAsp: result empty!" << std::endl;
         }
         if (dockingStation == nullptr) {
-            cout << "SearchForDockingStationAsp: no docking station found!" << endl;
+            std::cout << "SearchForDockingStationAsp: no docking station found!" << std::endl;
             return;
         }
         MoveBaseClient mbc("move_base", true);
@@ -144,11 +144,11 @@ void SearchForDockingStationAsp::initialiseParameters()
 }
 /*PROTECTED REGION ID(methods1470041810334) ENABLED START*/
 // Add additional methods here
-string alica::SearchForDockingStationAsp::getPOIName(string predicate)
+std::string alica::SearchForDockingStationAsp::getPOIName(std::string predicate)
 {
     size_t start = predicate.find("(");
     size_t end = predicate.find(",", start);
-    string p = predicate.substr(start + 1, end - start - 1);
+    std::string p = predicate.substr(start + 1, end - start - 1);
     return p;
 }
 /*PROTECTED REGION END*/

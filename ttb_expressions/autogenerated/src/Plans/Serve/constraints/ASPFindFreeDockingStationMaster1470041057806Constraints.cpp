@@ -49,7 +49,7 @@ void Constraint1470042926317::getConstraint(shared_ptr<ProblemDescriptor> c, sha
     // The query id has to be added to any predicate which is added to the program, naming ruleheads and facts!
     auto queryId = ((alica::reasoner::ASPSolverWrapper*) wm->getEngine()->getSolver<alica::reasoner::ASPSolverWrapper>())->getQueryCounter();
     constraint->setQueryId(queryId);
-    stringstream ss;
+    std::stringstream ss;
     ss << "freeDockingStation(X, " << queryId << ") :- poi(X), dockingStation(X, ";
     ss << queryId << "), not occupied(X, Y,  " << queryId << ") : agent(Y , " << queryId << ").";
     constraint->setQueryRule(ss.str());
@@ -67,7 +67,7 @@ void Constraint1470042926317::getConstraint(shared_ptr<ProblemDescriptor> c, sha
     constraint->addFact(ss.str());
     ss.str("");
     constraint->setProgramSection("distributedSystemsRooms");
-    constraint->setType(::reasoner::ASPQueryType::Variable);
+    constraint->setType(::reasoner::ASPQueryType::Extension);
     constraint->setId(1470042926317);
     c->setConstraint(constraint);
     /*PROTECTED REGION END*/

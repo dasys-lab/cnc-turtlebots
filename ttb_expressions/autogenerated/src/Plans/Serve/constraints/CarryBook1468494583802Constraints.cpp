@@ -46,11 +46,11 @@ void Constraint1468495216221::getConstraint(shared_ptr<ProblemDescriptor> c, sha
     // The query id has to be added to any predicate which is added to the program, naming ruleheads and facts!
     auto queryId = ((alica::reasoner::ASPSolverWrapper*) wm->getEngine()->getSolver<alica::reasoner::ASPSolverWrapper>())->getQueryCounter();
     constraint->setQueryId(queryId);
-    stringstream ss;
+    std::stringstream ss;
     ss << "freeFairyTailBook(X, " << queryId << ") :- book(X), genre(fairyTail), bookGenre(X, fairyTail), not on(X,Y) : agent(Y).";
     constraint->setQueryRule(ss.str());
     constraint->setProgramSection("bookExample");
-    constraint->setType(::reasoner::ASPQueryType::Variable);
+    constraint->setType(::reasoner::ASPQueryType::Extension);
     constraint->setId(1468495216221);
     // TODO fix after adding asp to topological model
     //        constraint->setExternals(wm->doors.getDoors());

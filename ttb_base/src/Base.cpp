@@ -24,7 +24,7 @@
 namespace ttb
 {
 
-Base::Base(string roleSetName, string masterPlanName, string roleSetDir, bool sim)
+Base::Base(std::string roleSetName, std::string masterPlanName, std::string roleSetDir, bool sim)
 {
     ae = new alica::AlicaEngine(new supplementary::AgentIDManager(new supplementary::AgentIDFactory()), roleSetName, masterPlanName, false);
     bc = new alica::BehaviourCreator();
@@ -72,7 +72,7 @@ Base::~Base()
 
 void printUsage()
 {
-    cout << "Usage: ./msl_base -m \"Masterplan\" [-rd \"RoleSetDirectory\"] [-rset \"RoleSet\"] [-sim]" << endl;
+    std::cout << "Usage: ./msl_base -m \"Masterplan\" [-rd \"RoleSetDirectory\"] [-rset \"RoleSet\"] [-sim]" << std::endl;
 }
 
 int main(int argc, char** argv)
@@ -82,32 +82,32 @@ int main(int argc, char** argv)
         return 0;
     }
 
-    cout << "Initialising ROS" << endl;
+    std::cout << "Initialising ROS" << std::endl;
 
     ros::init(argc, argv, supplementary::SystemConfig::getInstance()->getHostname() + "_Base");
 
-    cout << "Parsing command line parameters:" << endl;
+    std::cout << "Parsing command line parameters:" << std::endl;
 
-    string masterplan = "";
-    string rolesetdir = ".";
-    string roleset = "";
+    std::string masterplan = "";
+    std::string rolesetdir = ".";
+    std::string roleset = "";
     bool sim = false;
 
     for (int i = 1; i < argc; i++) {
-        if (string(argv[i]) == "-m" || string(argv[i]) == "-masterplan") {
+        if (std::string(argv[i]) == "-m" || std::string(argv[i]) == "-masterplan") {
             masterplan = argv[i + 1];
             i++;
         }
 
-        if (string(argv[i]) == "-rd" || string(argv[i]) == "-rolesetdir") {
+        if (std::string(argv[i]) == "-rd" || std::string(argv[i]) == "-rolesetdir") {
             rolesetdir = argv[i + 1];
             i++;
         }
-        if (string(argv[i]) == "-r" || string(argv[i]) == "-roleset") {
+        if (std::string(argv[i]) == "-r" || std::string(argv[i]) == "-roleset") {
             roleset = argv[i + 1];
             i++;
         }
-        if (string(argv[i]) == "-sim") {
+        if (std::string(argv[i]) == "-sim") {
             sim = true;
         }
     }
@@ -115,15 +115,15 @@ int main(int argc, char** argv)
         printUsage();
         return 0;
     }
-    cout << "\tMasterplan is:       \"" << masterplan << "\"" << endl;
-    cout << "\tRolset Directory is: \"" << rolesetdir << "\"" << endl;
-    cout << "\tRolset is:           \"" << (roleset.empty() ? "Default" : roleset) << "\"" << endl;
-    cout << "\tUsing Simulator:     \"" << (sim ? "TRUE" : "FALSE") << "\"" << endl;
+    std::cout << "\tMasterplan is:       \"" << masterplan << "\"" << std::endl;
+    std::cout << "\tRolset Directory is: \"" << rolesetdir << "\"" << std::endl;
+    std::cout << "\tRolset is:           \"" << (roleset.empty() ? "Default" : roleset) << "\"" << std::endl;
+    std::cout << "\tUsing Simulator:     \"" << (sim ? "TRUE" : "FALSE") << "\"" << std::endl;
 
-    cout << "\nConstructing Base ..." << endl;
+    std::cout << "\nConstructing Base ..." << std::endl;
     ttb::Base* base = new ttb::Base(roleset, masterplan, rolesetdir, sim);
 
-    cout << "\nStarting Base ..." << endl;
+    std::cout << "\nStarting Base ..." << std::endl;
     base->start();
 
     while (ros::ok()) {

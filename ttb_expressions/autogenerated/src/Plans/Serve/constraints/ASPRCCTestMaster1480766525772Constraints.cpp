@@ -49,7 +49,7 @@ void Constraint1480766551805::getConstraint(shared_ptr<ProblemDescriptor> c, sha
     // The query id has to be added to any predicate which is added to the program, naming ruleheads and facts!
     auto queryId = ((alica::reasoner::ASPSolverWrapper*) wm->getEngine()->getSolver<alica::reasoner::ASPSolverWrapper>())->getQueryCounter();
     constraint->setQueryId(queryId);
-    stringstream ss;
+    std::stringstream ss;
     ss << "goalReachable(X) :- reachable(X, Y), goal(X), start(Y), room(X), room(Y).";
     constraint->setQueryRule(ss.str());
     ss.str("");
@@ -59,7 +59,7 @@ void Constraint1480766551805::getConstraint(shared_ptr<ProblemDescriptor> c, sha
     ss << "start(0).";
     constraint->addFact(ss.str());
     constraint->setProgramSection("asprccgen");
-    constraint->setType(::reasoner::ASPQueryType::Variable);
+    constraint->setType(::reasoner::ASPQueryType::Extension);
     constraint->setId(1480766551805);
     c->setConstraint(constraint);
     /*PROTECTED REGION END*/

@@ -26,7 +26,7 @@ bool RunTimeCondition1470042926317::evaluate(shared_ptr<RunningPlan> rp)
 shared_ptr<UtilityFunction> UtilityFunction1470041057806::getUtilityFunction(Plan* plan)
 {
     /*PROTECTED REGION ID(1470041057806) ENABLED START*/
-    shared_ptr<UtilityFunction> defaultFunction = make_shared<DefaultUtilityFunction>(plan);
+    std::shared_ptr<UtilityFunction> defaultFunction = std::make_shared<DefaultUtilityFunction>(plan);
     return defaultFunction;
     /*PROTECTED REGION END*/
 }
@@ -48,7 +48,7 @@ shared_ptr<UtilityFunction> UtilityFunction1470041057806::getUtilityFunction(Pla
  *
  * Vars:
  */
-bool PreCondition1470041208746::evaluate(shared_ptr<RunningPlan> rp)
+bool PreCondition1470041208746::evaluate(std::shared_ptr<RunningPlan> rp)
 {
 /*PROTECTED REGION ID(1470041207327) ENABLED START*/
 #ifdef testWithoutTTB

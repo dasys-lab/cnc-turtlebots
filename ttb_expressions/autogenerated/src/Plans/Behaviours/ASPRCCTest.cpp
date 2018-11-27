@@ -31,7 +31,7 @@ ASPRCCTest::ASPRCCTest()
     // Add additional options here
     this->query = make_shared<alica::Query>();
     this->iterationCounter = 0;
-    resultfile.open("results_rcctest.txt", fstream::app);
+    resultfile.open("results_rcctest.txt", std::fstream::app);
     /*PROTECTED REGION END*/
 }
 ASPRCCTest::~ASPRCCTest()
@@ -61,14 +61,14 @@ void ASPRCCTest::run(void* msg)
     std::chrono::_V2::system_clock::time_point start = std::chrono::high_resolution_clock::now();
     query->getSolution<alica::reasoner::ASPSolverWrapper, ::reasoner::AnnotatedValVec*>(this->getPlanContext(), result);
     std::chrono::_V2::system_clock::time_point end = std::chrono::high_resolution_clock::now();
-    cout << "ASPNavigation: Measured Solving and Grounding Time: " << std::chrono::duration_cast<chrono::nanoseconds>(end - start).count() / 1000000.0
-         << /*" ms" <<*/ endl;
+    std::cout << "ASPNavigation: Measured Solving and Grounding Time: " << std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count() / 1000000.0
+         << /*" ms" <<*/ std::endl;
     resultfile << (end - start).count() / 1000000.0 << " ";
     if (result.size() > 0) {
         auto it = find_if(result.begin(), result.end(), [](::reasoner::AnnotatedValVec* element) { return element->id == 1480766551805; });
         if (it != result.end()) {
             if ((*it)->variableQueryValues.size() > 0) {
-                cout << "ASPNavigation: ASP result found!" << endl;
+                std::cout << "ASPNavigation: ASP result found!" << std::endl;
                 //					cout << "\tResult contains the predicates: " << endl;
                 //					cout << "\t\t";
                 //					for (int i = 0; i < result.size(); i++)
@@ -107,11 +107,11 @@ void ASPRCCTest::run(void* msg)
         //			cout << "ASPNavigation: no result found!" << endl;
     }
     if (this->iterationCounter % 2 == 1) {
-        resultfile << endl;
+        resultfile << std::endl;
     }
     if (this->iterationCounter == 19) {
         this->setSuccess();
-        cout << "DONE" << endl;
+        std::cout << "DONE" << std::endl;
     }
     this->iterationCounter++;
 

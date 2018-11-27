@@ -19,7 +19,7 @@ public:
     virtual void run(void* msg);
     /*PROTECTED REGION ID(pub1475693360605) ENABLED START*/
     // Add additional public methods here
-    vector<::reasoner::AnnotatedValVec*> result;
+    std::vector<::reasoner::AnnotatedValVec*> result;
     /*PROTECTED REGION END*/
 protected:
     virtual void initialiseParameters();
@@ -29,9 +29,9 @@ protected:
 private:
     /*PROTECTED REGION ID(prv1475693360605) ENABLED START*/
     // Add additional private methods here
-    shared_ptr<alica::Query> query;
+    std::shared_ptr<alica::Query> query;
     int iterationCounter;
-    fstream resultfile;
+    std::fstream resultfile;
     /*PROTECTED REGION END*/
 };
 } /* namespace alica */

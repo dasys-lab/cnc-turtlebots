@@ -21,7 +21,7 @@ Carry::Carry()
 {
     /*PROTECTED REGION ID(con1468494621581) ENABLED START*/
     // Add additional options here
-    this->query = make_shared<alica::Query>();
+    this->query = std::make_shared<alica::Query>();
     /*PROTECTED REGION END*/
 }
 Carry::~Carry()
@@ -39,31 +39,31 @@ void Carry::run(void* msg)
         auto it = find_if(result.begin(), result.end(), [](::reasoner::AnnotatedValVec* element) { return element->id == 1468495216221; });
         if (it != result.end()) {
             if ((*it)->variableQueryValues.size() > 0) {
-                cout << "Carry: ASP result found!" << endl;
-                cout << "\tResult contains the predicates: " << endl;
-                cout << "\t\t";
+                std::cout << "Carry: ASP result found!" << std::endl;
+                std::cout << "\tResult contains the predicates: " << std::endl;
+                std::cout << "\t\t";
                 for (size_t i = 0; i < result.size(); i++) {
                     for (size_t j = 0; j < result.at(i)->variableQueryValues.size(); j++) {
                         for (size_t k = 0; k < result.at(i)->variableQueryValues.at(j).size(); k++) {
-                            cout << result.at(i)->variableQueryValues.at(j).at(k) << " ";
+                            std::cout << result.at(i)->variableQueryValues.at(j).at(k) << " ";
                         }
                     }
                 }
             } else {
-                cout << "Carry: no result found!" << endl;
+                std::cout << "Carry: no result found!" << std::endl;
             }
         } else {
-            cout << "Carry: no result found!" << endl;
+            std::cout << "Carry: no result found!" << std::endl;
         }
     } else {
-        cout << "Result size == 0" << endl;
+        std::cout << "Result size == 0" << std::endl;
     }
     auto satisfied = query->existsSolution<alica::reasoner::ASPSolverWrapper>(this->getPlanContext());
     if (satisfied) {
-        cout << "Carry: query is satisfied!" << endl;
+        std::cout << "Carry: query is satisfied!" << std::endl;
         this->setSuccess();
     } else {
-        cout << "Carry: query isn't satisfied!" << endl;
+        std::cout << "Carry: query isn't satisfied!" << std::endl;
     }
     /*PROTECTED REGION END*/
 }

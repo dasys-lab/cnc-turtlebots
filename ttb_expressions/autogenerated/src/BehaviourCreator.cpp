@@ -23,6 +23,8 @@ using std::cout;
 using std::exception;
 using std::make_shared;
 using std::string;
+using std::cerr;
+using std::endl;
 
 namespace alica
 {

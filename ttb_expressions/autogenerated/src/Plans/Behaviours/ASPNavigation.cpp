@@ -30,7 +30,7 @@ ASPNavigation::ASPNavigation()
     // Add additional options here
     this->query = make_shared<alica::Query>();
     this->iterationCounter = 0;
-    resultfile.open("results_externals.txt", fstream::app);
+    resultfile.open("results_externals.txt", std::fstream::app);
     /*PROTECTED REGION END*/
 }
 ASPNavigation::~ASPNavigation()
@@ -52,9 +52,8 @@ void ASPNavigation::run(void* msg)
         auto s = (alica::reasoner::ASPSolverWrapper*) this->getPlanContext().getAlicaEngine()->getSolver<alica::reasoner::ASPSolverWrapper>();
         delete s;
         auto ae = this->getPlanContext().getAlicaEngine();
-        std::vector<char const*> args{"clingo", nullptr};
-        auto solver = new ::reasoner::ASPSolver(args);
-        auto solverWrapper = new alica::reasoner::ASPSolverWrapper(ae, args);
+        auto solver = new ::reasoner::ASPSolver({});
+        auto solverWrapper = new alica::reasoner::ASPSolverWrapper(ae, {});
         solverWrapper->init(solver);
         ae->addSolver<alica::reasoner::ASPSolverWrapper>(solverWrapper);
     }
@@ -134,22 +133,22 @@ void ASPNavigation::run(void* msg)
     std::chrono::_V2::system_clock::time_point start = std::chrono::high_resolution_clock::now();
     query->getSolution<alica::reasoner::ASPSolverWrapper, ::reasoner::AnnotatedValVec*>(this->getPlanContext(), result);
     std::chrono::_V2::system_clock::time_point end = std::chrono::high_resolution_clock::now();
-    cout << "ASPNavigation: Measured Solving and Grounding Time: " << std::chrono::duration_cast<chrono::milliseconds>(end - start).count() << " ms" << endl;
+    std::cout << "ASPNavigation: Measured Solving and Grounding Time: " << std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count() << " ms" << std::endl;
     if (result.size() > 0) {
         auto it = find_if(result.begin(), result.end(), [](::reasoner::AnnotatedValVec* element) { return element->id == 1475692986360; });
         if (it != result.end()) {
             if ((*it)->variableQueryValues.size() > 0) {
-                cout << "ASPNavigation: ASP result found!" << endl;
-                cout << "\tResult contains the predicates: " << endl;
-                cout << "\t\t";
+                std::cout << "ASPNavigation: ASP result found!" << std::endl;
+                std::cout << "\tResult contains the predicates: " << std::endl;
+                std::cout << "\t\t";
                 for (size_t i = 0; i < result.size(); i++) {
                     for (size_t j = 0; j < result.at(i)->variableQueryValues.size(); j++) {
                         for (size_t k = 0; k < result.at(i)->variableQueryValues.at(j).size(); k++) {
-                            cout << result.at(i)->variableQueryValues.at(j).at(k) << " ";
+                            std::cout << result.at(i)->variableQueryValues.at(j).at(k) << " ";
                         }
                     }
                 }
-                cout << endl;
+                std::cout << std::endl;
                 //					cout << "\tThe model contains the predicates: " << endl;
                 //					cout << "\t\t";
                 //					for (int i = 0; i < it->query->getCurrentModels()->at(0).size();
@@ -172,10 +171,10 @@ void ASPNavigation::run(void* msg)
                 //					cout << endl;
             }
         } else {
-            cout << "ASPNavigation: no result found!!" << endl;
+            std::cout << "ASPNavigation: no result found!!" << std::endl;
         }
     } else {
-        cout << "ASPNavigation: no result found!!!" << endl;
+        std::cout << "ASPNavigation: no result found!!!" << std::endl;
     }
     if (this->iterationCounter == 3) {
         this->setSuccess();

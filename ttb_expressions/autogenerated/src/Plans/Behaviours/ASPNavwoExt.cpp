@@ -29,7 +29,7 @@ ASPNavwoExt::ASPNavwoExt()
     this->query = std::make_shared<alica::Query>();
     this->doorConfig = "";
     this->iterationCounter = 0;
-    resultfile.open("results_woExternals.txt", fstream::app);
+    resultfile.open("results_woExternals.txt", std::fstream::app);
     /*PROTECTED REGION END*/
 }
 ASPNavwoExt::~ASPNavwoExt()
@@ -50,8 +50,8 @@ void ASPNavwoExt::run(void* msg)
     std::chrono::_V2::system_clock::time_point start = std::chrono::high_resolution_clock::now();
     query->getSolution<reasoner::ASPSolverWrapper, ::reasoner::AnnotatedValVec*>(this->getPlanContext(), result);
     std::chrono::_V2::system_clock::time_point end = std::chrono::high_resolution_clock::now();
-    cout << "ASPNavigation: Measured Solving and Grounding Time: " << std::chrono::duration_cast<chrono::nanoseconds>(end - start).count() / 1000000.0 << " ms"
-         << endl;
+    std::cout << "ASPNavigation: Measured Solving and Grounding Time: " << std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count() / 1000000.0 << " ms"
+         << std::endl;
     resultfile << (end - start).count() / 1000000.0 << " ";
     if (result.size() > 0) {
         auto it = result.end();
@@ -60,21 +60,21 @@ void ASPNavwoExt::run(void* msg)
         } else if (this->doorConfig.compare("config2") == 0) {
             it = find_if(result.begin(), result.end(), [](::reasoner::AnnotatedValVec* element) { return element->id == 1477229712321; });
         } else {
-            cout << "ASPNavwoExt: wrong config" << endl;
+            std::cout << "ASPNavwoExt: wrong config" << std::endl;
         }
         if (it != result.end()) {
             if ((*it)->variableQueryValues.size() > 0) {
-                cout << "ASPNavwoExt: ASP result found!" << endl;
-                cout << "\tResult contains the predicates: " << endl;
-                cout << "\t\t";
+                std::cout << "ASPNavwoExt: ASP result found!" << std::endl;
+                std::cout << "\tResult contains the predicates: " << std::endl;
+                std::cout << "\t\t";
                 for (size_t i = 0; i < result.size(); i++) {
                     for (size_t j = 0; j < result.at(i)->variableQueryValues.size(); j++) {
                         for (size_t k = 0; k < result.at(i)->variableQueryValues.at(j).size(); k++) {
-                            cout << result.at(i)->variableQueryValues.at(j).at(k) << " ";
+                            std::cout << result.at(i)->variableQueryValues.at(j).at(k) << " ";
                         }
                     }
                 }
-                cout << endl;
+                std::cout << std::endl;
                 //                    cout << "\tThe model contains the predicates: " << endl;
                 //                    cout << "\t\t";
                 //                    for (int i = 0; i < it->query->getCurrentModels()->at(0).size(); i++)
@@ -83,7 +83,7 @@ void ASPNavwoExt::run(void* msg)
                 //                    }
                 //                    cout << endl;
             } else {
-                cout << "ASPNavwoExt: no result found!" << endl;
+                std::cout << "ASPNavwoExt: no result found!" << std::endl;
                 //                    cout << "\tThe model contains the predicates: " << endl;
                 //                    cout << "\t\t";
                 //                    for (int i = 0; i < it->query->getCurrentModels()->at(0).size(); i++)
@@ -93,17 +93,17 @@ void ASPNavwoExt::run(void* msg)
                 //                    cout << endl;
             }
         } else {
-            cout << "ASPNavwoExt: no result found!" << endl;
+            std::cout << "ASPNavwoExt: no result found!" << std::endl;
         }
     } else {
-        cout << "ASPNavwoExt: no result found!" << endl;
+        std::cout << "ASPNavwoExt: no result found!" << std::endl;
     }
     if (iterationCounter == 1) {
         this->setSuccess();
         if (this->doorConfig.compare("config2") == 0) {
-            resultfile << endl;
+            resultfile << std::endl;
         } else {
-            resultfile << flush;
+            resultfile << std::flush;
         }
     }
     this->iterationCounter++;

@@ -49,7 +49,7 @@ void Constraint1477229706852::getConstraint(shared_ptr<ProblemDescriptor> c, sha
     auto constraint = new alica::reasoner::ASPTerm(-1);
     auto queryId = ((alica::reasoner::ASPSolverWrapper*) wm->getEngine()->getSolver<alica::reasoner::ASPSolverWrapper>())->getQueryCounter();
     constraint->setQueryId(queryId);
-    stringstream ss;
+    std::stringstream ss;
     ss << "goalReachable(X, 1) :- reachable(X, Y, 1), goal(X, 1), start(Y, 1), room(X, 1), room(Y, 1).";
     constraint->setQueryRule(ss.str());
     ss.str("");
@@ -60,7 +60,7 @@ void Constraint1477229706852::getConstraint(shared_ptr<ProblemDescriptor> c, sha
     constraint->addFact(ss.str());
     constraint->setProgramSection("distributedSystemsRooms1");
     constraint->setId(1477229706852);
-    constraint->setType(::reasoner::ASPQueryType::Variable);
+    constraint->setType(::reasoner::ASPQueryType::Extension);
     c->setConstraint(constraint);
     /*PROTECTED REGION END*/
 }

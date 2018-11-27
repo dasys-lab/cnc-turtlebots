@@ -21,7 +21,7 @@ public:
     virtual void run(void* msg);
     /*PROTECTED REGION ID(pub1470041810334) ENABLED START*/
     // Add additional public methods here
-    vector<::reasoner::AnnotatedValVec*> result;
+    std::vector<::reasoner::AnnotatedValVec*> result;
     /*PROTECTED REGION END*/
 protected:
     virtual void initialiseParameters();
@@ -34,8 +34,8 @@ private:
 #ifdef testWithoutTTB
     kobuki::DockDrive dock;
 #endif
-    shared_ptr<alica::Query> query;
-    string getPOIName(string predicate);
+    std::shared_ptr<alica::Query> query;
+    std::string getPOIName(std::string predicate);
     /*PROTECTED REGION END*/
 };
 } /* namespace alica */
