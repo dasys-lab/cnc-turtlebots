@@ -40,9 +40,9 @@ Base::Base(string roleSetName, string masterPlanName, string roleSetDir, bool si
     wm->setEngine(ae);
     wm->init();
     // "clingo", "-W", "no-atom-undefined",  "--number=0", nullptr
-    std::vector<char const*> args{"clingo", nullptr};
-    auto aspSolver = new ::reasoner::ASPSolver(args);
-    auto solverWrapper = new alica::reasoner::ASPSolverWrapper(ae, args);
+//    std::vector<char const*> args{"clingo", nullptr};
+    auto aspSolver = new ::reasoner::ASPSolver({});
+    auto solverWrapper = new alica::reasoner::ASPSolverWrapper(ae, {});
     solverWrapper->init(aspSolver);
     ae->addSolver<alica::reasoner::ASPSolverWrapper>(solverWrapper);
 
