@@ -3,13 +3,13 @@ project(voice)
 
 add_compile_options(-std=c++11)
 
-find_package(catkin REQUIRED sound_play)
+find_package(catkin REQUIRED)
 
 catkin_package(
 #  INCLUDE_DIRS include
 #  LIBRARIES voice
-  CATKIN_DEPENDS sound_play
-#  DEPENDS system_lib
+#  CATKIN_DEPENDS sound_play
+#  DEPENDS flite
 )
 
 include_directories(
@@ -20,6 +20,6 @@ include_directories(
 add_executable(${PROJECT_NAME} src/Voice.cpp)
 
 target_link_libraries(${PROJECT_NAME}
-   ${catkin_LIBRARIES}
+  ${catkin_LIBRARIES}
 )
 

@@ -8,7 +8,6 @@
 
   <license>GPLv3</license>
 
-  <depend>sound_play</depend>
   <buildtool_depend>catkin</buildtool_depend>
 
 
