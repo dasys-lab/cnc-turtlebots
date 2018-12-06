@@ -3,7 +3,11 @@ project(voice)
 
 add_compile_options(-std=c++11)
 
-find_package(catkin REQUIRED)
+find_package(catkin REQUIRED capnzero capnzero)
+
+add_definitions(-DZMQ_BUILD_DRAFT_API=1)
+
+find_package(CapnProto REQUIRED)
 
 catkin_package(
 #  INCLUDE_DIRS include
@@ -21,5 +25,7 @@ add_executable(${PROJECT_NAME} src/Voice.cpp)
 
 target_link_libraries(${PROJECT_NAME}
   ${catkin_LIBRARIES}
+  ${CAPNP_LIBRARIES}
+  pthread
 )
 

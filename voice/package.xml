@@ -8,6 +8,7 @@
 
   <license>GPLv3</license>
 
+  <depend>capnzero</depend>
   <buildtool_depend>catkin</buildtool_depend>
 
 
