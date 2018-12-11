@@ -9,9 +9,9 @@ using std::shared_ptr;
 #include <ttb/TTBWorldModel.h>
 
 #include <SystemConfig.h>
-#include <asp_commons/ASPQuery.h>
-#include <asp_commons/AnnotatedValVec.h>
-#include <asp_commons/IASPSolver.h>
+#include <reasoner/asp/Query.h>
+#include <reasoner/asp/AnnotatedValVec.h>
+#include <reasoner/asp/Solver.h>
 #include <asp_solver_wrapper/ASPSolverWrapper.h>
 /*PROTECTED REGION END*/
 
@@ -48,7 +48,7 @@ void ASPNavwoExt::run(void* msg)
     }
 
     std::chrono::_V2::system_clock::time_point start = std::chrono::high_resolution_clock::now();
-    query->getSolution<reasoner::ASPSolverWrapper, ::reasoner::AnnotatedValVec*>(this->getPlanContext(), result);
+    query->getSolution<reasoner::ASPSolverWrapper, ::reasoner::asp::AnnotatedValVec*>(this->getPlanContext(), result);
     std::chrono::_V2::system_clock::time_point end = std::chrono::high_resolution_clock::now();
     std::cout << "ASPNavigation: Measured Solving and Grounding Time: " << std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count() / 1000000.0 << " ms"
          << std::endl;
@@ -56,9 +56,9 @@ void ASPNavwoExt::run(void* msg)
     if (result.size() > 0) {
         auto it = result.end();
         if (this->doorConfig.compare("config1") == 0) {
-            it = find_if(result.begin(), result.end(), [](::reasoner::AnnotatedValVec* element) { return element->id == 1477229706852; });
+            it = find_if(result.begin(), result.end(), [](::reasoner::asp::AnnotatedValVec* element) { return element->id == 1477229706852; });
         } else if (this->doorConfig.compare("config2") == 0) {
-            it = find_if(result.begin(), result.end(), [](::reasoner::AnnotatedValVec* element) { return element->id == 1477229712321; });
+            it = find_if(result.begin(), result.end(), [](::reasoner::asp::AnnotatedValVec* element) { return element->id == 1477229712321; });
         } else {
             std::cout << "ASPNavwoExt: wrong config" << std::endl;
         }

@@ -3,9 +3,9 @@
 // Add additional using directives here
 #include <ttb/TTBWorldModel.h>
 
-#include <asp_commons/ASPCommonsTerm.h>
-#include <asp_commons/ASPQueryType.h>
-#include <asp_commons/IASPSolver.h>
+#include <reasoner/asp/Term.h>
+#include <reasoner/asp/Enums.h>
+#include <reasoner/asp/Solver.h>
 #include <asp_solver_wrapper/ASPSolverWrapper.h>
 
 #include <engine/AlicaEngine.h>
@@ -44,7 +44,7 @@ void Constraint1477125906086::getConstraint(shared_ptr<ProblemDescriptor> c, sha
 {
     /*PROTECTED REGION ID(cc1477125906086) ENABLED START*/
     ttb::TTBWorldModel* wm = ttb::TTBWorldModel::get();
-    auto constraint = new ::reasoner::ASPCommonsTerm();
+    auto constraint = new ::reasoner::asp::Term();
     // The query id has to be added to any predicate which is added to the program, naming ruleheads and facts!
     auto queryId = ((alica::reasoner::ASPSolverWrapper*) wm->getEngine()->getSolver<alica::reasoner::ASPSolverWrapper>())->getQueryCounter();
     constraint->setQueryId(queryId);
@@ -53,7 +53,7 @@ void Constraint1477125906086::getConstraint(shared_ptr<ProblemDescriptor> c, sha
     constraint->setQueryRule(ss.str());
     constraint->setNumberOfModels("1");
     constraint->setProgramSection("pathMinimize");
-    constraint->setType(::reasoner::ASPQueryType::Extension);
+    constraint->setType(::reasoner::asp::QueryType::Extension);
     constraint->setId(1477125906086);
     c->setConstraint(reinterpret_cast<SolverTerm*>(constraint));
     /*PROTECTED REGION END*/

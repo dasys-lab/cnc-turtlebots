@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<package>
+<package format="2">
   <name>ttb_expressions</name>
   <version>0.0.0</version>
   <description>The ttb_expressions package</description>
@@ -12,44 +12,24 @@
 
   <buildtool_depend>catkin</buildtool_depend>
   
-  <build_depend>alica_engine</build_depend>
-  <build_depend>system_config</build_depend>
-  <build_depend>roscpp</build_depend>
-  <build_depend>ttb_worldmodel</build_depend>
-  <build_depend>message_generation</build_depend>
-  <build_depend>system_util</build_depend>
-  <build_depend>autodiff</build_depend>
-  <build_depend>ecl_geometry</build_depend>
-  <build_depend>kobuki_dock_drive</build_depend>
-  <build_depend>kdl_conversions</build_depend>
-  <build_depend>sound_play</build_depend>
-  <build_depend>asp_commons</build_depend>
-  <build_depend>robot_control</build_depend>
-  <build_depend>ttb_msgs</build_depend>
-  <build_depend>asp_solver_wrapper</build_depend>
-  <build_depend>asp_solver</build_depend>
-  <build_depend>ttb_robot</build_depend>
-  <build_depend>alica_simple_solver</build_depend>
-	
-  <run_depend>alica_simple_solver</run_depend>	
-  <run_depend>ttb_robot</run_depend>
-  <run_depend>asp_solver</run_depend>
-  <run_depend>asp_solver_wrapper</run_depend>
-  <run_depend>asp_commons</run_depend>
-  <run_depend>ttb_worldmodel</run_depend>
-  <run_depend>roscpp</run_depend>
-  <run_depend>message_runtime</run_depend>
-  <run_depend>alica_engine</run_depend>
-  <run_depend>system_config</run_depend>
-  <run_depend>roscpp</run_depend>
-  <run_depend>system_util</run_depend>
-  <run_depend>autodiff</run_depend>
-  <run_depend>ecl_geometry</run_depend>
-  <run_depend>kobuki_dock_drive</run_depend>
-  <run_depend>kdl_conversions</run_depend>
-  <run_depend>sound_play</run_depend>
-  <run_depend>robot_control</run_depend>
-  <run_depend>ttb_msgs</run_depend>
+  <depend>alica_engine</depend>
+  <depend>system_config</depend>
+  <depend>roscpp</depend>
+  <depend>ttb_worldmodel</depend>
+  <depend>message_generation</depend>
+  <depend>system_util</depend>
+  <depend>autodiff</depend>
+  <depend>ecl_geometry</depend>
+  <depend>kobuki_dock_drive</depend>
+  <depend>kdl_conversions</depend>
+  <depend>sound_play</depend>
+  <depend>asp_commons</depend>
+  <depend>robot_control</depend>
+  <depend>ttb_msgs</depend>
+  <depend>asp_solver_wrapper</depend>
+  <depend>asp_solver</depend>
+  <depend>ttb_robot</depend>
+  <depend>alica_simple_solver</depend>
 
   <export>
   </export>

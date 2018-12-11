@@ -8,10 +8,9 @@ using std::shared_ptr;
 // Add additional includes here
 #include <ttb/TTBWorldModel.h>
 
-#include <asp_commons/ASPQuery.h>
-#include <asp_commons/AnnotatedValVec.h>
-#include <asp_commons/IASPSolver.h>
-#include <asp_solver/ASPSolver.h>
+#include <reasoner/asp/Query.h>
+#include <reasoner/asp/AnnotatedValVec.h>
+#include <reasoner/asp/Solver.h>
 #include <asp_solver_wrapper/ASPSolverWrapper.h>
 
 #include <actionlib/client/simple_action_client.h>
@@ -53,19 +52,19 @@ void ASPRCCTest::run(void* msg)
         delete s;
         auto ae = this->wm->getEngine();
         std::vector<char const*> args{"clingo", nullptr};
-        auto solver = new ::reasoner::ASPSolver(args);
+        auto solver = new ::reasoner::asp::Solver(args);
         auto solverWrapper = new alica::reasoner::ASPSolverWrapper(ae, args);
         solverWrapper->init(solver);
         ae->addSolver<reasoner::ASPSolverWrapper>(solverWrapper);
     }
     std::chrono::_V2::system_clock::time_point start = std::chrono::high_resolution_clock::now();
-    query->getSolution<alica::reasoner::ASPSolverWrapper, ::reasoner::AnnotatedValVec*>(this->getPlanContext(), result);
+    query->getSolution<alica::reasoner::ASPSolverWrapper, ::reasoner::asp::AnnotatedValVec*>(this->getPlanContext(), result);
     std::chrono::_V2::system_clock::time_point end = std::chrono::high_resolution_clock::now();
     std::cout << "ASPNavigation: Measured Solving and Grounding Time: " << std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count() / 1000000.0
          << /*" ms" <<*/ std::endl;
     resultfile << (end - start).count() / 1000000.0 << " ";
     if (result.size() > 0) {
-        auto it = find_if(result.begin(), result.end(), [](::reasoner::AnnotatedValVec* element) { return element->id == 1480766551805; });
+        auto it = find_if(result.begin(), result.end(), [](::reasoner::asp::AnnotatedValVec* element) { return element->id == 1480766551805; });
         if (it != result.end()) {
             if ((*it)->variableQueryValues.size() > 0) {
                 std::cout << "ASPNavigation: ASP result found!" << std::endl;

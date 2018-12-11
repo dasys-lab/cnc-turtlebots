@@ -3,7 +3,7 @@
 #include "DomainBehaviour.h"
 /*PROTECTED REGION ID(inc1470041810334) ENABLED START*/
 // Add additional includes here
-#include <asp_commons/AnnotatedValVec.h>
+#include <reasoner/asp/AnnotatedValVec.h>
 #include <engine/constraintmodul/Query.h>
 #include <kdl_conversions/kdl_msg.h>
 #include <kobuki_dock_drive/dock_drive.hpp>
@@ -21,7 +21,7 @@ public:
     virtual void run(void* msg);
     /*PROTECTED REGION ID(pub1470041810334) ENABLED START*/
     // Add additional public methods here
-    std::vector<::reasoner::AnnotatedValVec*> result;
+    std::vector<::reasoner::asp::AnnotatedValVec*> result;
     /*PROTECTED REGION END*/
 protected:
     virtual void initialiseParameters();

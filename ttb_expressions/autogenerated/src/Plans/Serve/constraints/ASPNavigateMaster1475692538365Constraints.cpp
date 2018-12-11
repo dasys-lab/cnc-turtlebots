@@ -1,8 +1,8 @@
 #include "Plans/Serve/constraints/ASPNavigateMaster1475692538365Constraints.h"
 /*PROTECTED REGION ID(ch1475692538365) ENABLED START*/
 // Add additional using directives here
-#include <asp_commons/ASPQueryType.h>
-#include <asp_commons/IASPSolver.h>
+#include <reasoner/asp/Enums.h>
+#include <reasoner/asp/Solver.h>
 #include <asp_solver_wrapper/ASPSolverWrapper.h>
 #include <asp_solver_wrapper/ASPTerm.h>
 #include <engine/AlicaEngine.h>
@@ -59,7 +59,7 @@ void Constraint1475692986360::getConstraint(shared_ptr<ProblemDescriptor> c, sha
     ss << "start(r1411).";
     constraint->addFact(ss.str());
     constraint->setProgramSection("distributedSystemsRoomsExternal");
-    constraint->setType(::reasoner::ASPQueryType::Extension);
+    constraint->setType(::reasoner::asp::QueryType::Extension);
     constraint->setId(1475692986360);
     // TODO fix after adding asp to topological model
     //        constraint->setExternals(wm->doors.getDoors());

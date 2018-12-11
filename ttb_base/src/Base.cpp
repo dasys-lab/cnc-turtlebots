@@ -10,8 +10,7 @@
 #include <ttb/TTBWorldModel.h>
 
 #include <alica/reasoner/SimpleSolver.h>
-#include <asp_commons/IASPSolver.h>
-#include <asp_solver/ASPSolver.h>
+#include <reasoner/asp/Solver.h>
 #include <asp_solver_wrapper/ASPSolverWrapper.h>
 #include <supplementary/AgentIDManager.h>
 
@@ -41,7 +40,7 @@ Base::Base(std::string roleSetName, std::string masterPlanName, std::string role
     wm->init();
     // "clingo", "-W", "no-atom-undefined",  "--number=0", nullptr
 //    std::vector<char const*> args{"clingo", nullptr};
-    auto aspSolver = new ::reasoner::ASPSolver({});
+    auto aspSolver = new ::reasoner::asp::Solver({});
     auto solverWrapper = new alica::reasoner::ASPSolverWrapper(ae, {});
     solverWrapper->init(aspSolver);
     ae->addSolver<alica::reasoner::ASPSolverWrapper>(solverWrapper);

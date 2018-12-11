@@ -34,9 +34,9 @@ void Carry::run(void* msg)
 {
     /*PROTECTED REGION ID(run1468494621581) ENABLED START*/
     // Add additional options here
-    query->getSolution<alica::reasoner::ASPSolverWrapper, ::reasoner::AnnotatedValVec*>(this->getPlanContext(), result);
+    query->getSolution<alica::reasoner::ASPSolverWrapper, ::reasoner::asp::AnnotatedValVec*>(this->getPlanContext(), result);
     if (result.size() > 0) {
-        auto it = find_if(result.begin(), result.end(), [](::reasoner::AnnotatedValVec* element) { return element->id == 1468495216221; });
+        auto it = find_if(result.begin(), result.end(), [](::reasoner::asp::AnnotatedValVec* element) { return element->id == 1468495216221; });
         if (it != result.end()) {
             if ((*it)->variableQueryValues.size() > 0) {
                 std::cout << "Carry: ASP result found!" << std::endl;

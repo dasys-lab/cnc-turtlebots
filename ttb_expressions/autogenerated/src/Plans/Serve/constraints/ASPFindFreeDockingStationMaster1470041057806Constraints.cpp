@@ -2,8 +2,8 @@
 /*PROTECTED REGION ID(ch1470041057806) ENABLED START*/
 #include <ttb/TTBWorldModel.h>
 
-#include <asp_commons/ASPQueryType.h>
-#include <asp_commons/IASPSolver.h>
+#include <reasoner/asp/Enums.h>
+#include <reasoner/asp/Solver.h>
 #include <asp_solver_wrapper/ASPSolverWrapper.h>
 #include <asp_solver_wrapper/ASPTerm.h>
 
@@ -67,7 +67,7 @@ void Constraint1470042926317::getConstraint(shared_ptr<ProblemDescriptor> c, sha
     constraint->addFact(ss.str());
     ss.str("");
     constraint->setProgramSection("distributedSystemsRooms");
-    constraint->setType(::reasoner::ASPQueryType::Extension);
+    constraint->setType(::reasoner::asp::QueryType::Extension);
     constraint->setId(1470042926317);
     c->setConstraint(constraint);
     /*PROTECTED REGION END*/

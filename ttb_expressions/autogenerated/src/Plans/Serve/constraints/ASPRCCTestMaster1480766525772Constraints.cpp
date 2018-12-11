@@ -6,8 +6,8 @@
 #include <engine/constraintmodul/ProblemDescriptor.h>
 #include <alica_solver_interface/SolverTerm.h>
 
-#include <asp_commons/ASPQueryType.h>
-#include <asp_commons/IASPSolver.h>
+#include <reasoner/asp/Enums.h>
+#include <reasoner/asp/Solver.h>
 #include <asp_solver_wrapper/ASPSolverWrapper.h>
 #include <asp_solver_wrapper/ASPTerm.h>
 
@@ -59,7 +59,7 @@ void Constraint1480766551805::getConstraint(shared_ptr<ProblemDescriptor> c, sha
     ss << "start(0).";
     constraint->addFact(ss.str());
     constraint->setProgramSection("asprccgen");
-    constraint->setType(::reasoner::ASPQueryType::Extension);
+    constraint->setType(::reasoner::asp::QueryType::Extension);
     constraint->setId(1480766551805);
     c->setConstraint(constraint);
     /*PROTECTED REGION END*/

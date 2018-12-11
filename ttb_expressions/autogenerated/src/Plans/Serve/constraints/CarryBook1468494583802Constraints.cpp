@@ -1,8 +1,8 @@
 #include "Plans/Serve/constraints/CarryBook1468494583802Constraints.h"
 /*PROTECTED REGION ID(ch1468494583802) ENABLED START*/
-#include <asp_commons/ASPCommonsTerm.h>
-#include <asp_commons/ASPQueryType.h>
-#include <asp_commons/IASPSolver.h>
+#include <reasoner/asp/Term.h>
+#include <reasoner/asp/Enums.h>
+#include <reasoner/asp/Solver.h>
 #include <asp_solver_wrapper/ASPSolverWrapper.h>
 #include <engine/AlicaEngine.h>
 #include <engine/constraintmodul/ProblemDescriptor.h>
@@ -42,7 +42,7 @@ void Constraint1468495216221::getConstraint(shared_ptr<ProblemDescriptor> c, sha
 {
     /*PROTECTED REGION ID(cc1468495216221) ENABLED START*/
     ttb::TTBWorldModel* wm = ttb::TTBWorldModel::get();
-    auto constraint = new ::reasoner::ASPCommonsTerm();
+    auto constraint = new ::reasoner::asp::Term();
     // The query id has to be added to any predicate which is added to the program, naming ruleheads and facts!
     auto queryId = ((alica::reasoner::ASPSolverWrapper*) wm->getEngine()->getSolver<alica::reasoner::ASPSolverWrapper>())->getQueryCounter();
     constraint->setQueryId(queryId);
@@ -50,7 +50,7 @@ void Constraint1468495216221::getConstraint(shared_ptr<ProblemDescriptor> c, sha
     ss << "freeFairyTailBook(X, " << queryId << ") :- book(X), genre(fairyTail), bookGenre(X, fairyTail), not on(X,Y) : agent(Y).";
     constraint->setQueryRule(ss.str());
     constraint->setProgramSection("bookExample");
-    constraint->setType(::reasoner::ASPQueryType::Extension);
+    constraint->setType(::reasoner::asp::QueryType::Extension);
     constraint->setId(1468495216221);
     // TODO fix after adding asp to topological model
     //        constraint->setExternals(wm->doors.getDoors());

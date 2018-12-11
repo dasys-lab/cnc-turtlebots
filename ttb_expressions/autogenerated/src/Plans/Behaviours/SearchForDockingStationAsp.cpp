@@ -6,7 +6,7 @@ using std::shared_ptr;
 
 /*PROTECTED REGION ID(inccpp1470041810334) ENABLED START*/
 // Add additional includes here
-#include <asp_commons/ASPQuery.h>
+#include <reasoner/asp/Query.h>
 #include <asp_solver_wrapper/ASPSolverWrapper.h>
 #include <ttb/TTBWorldModel.h>
 #include <ttb/wm/topology/POI.h>
@@ -51,13 +51,13 @@ void SearchForDockingStationAsp::run(void* msg)
     if ((*core)->charger == kobuki_msgs::SensorState::DISCHARGING) {
 #endif
         std::chrono::_V2::system_clock::time_point start = std::chrono::high_resolution_clock::now();
-        query->getSolution<alica::reasoner::ASPSolverWrapper, ::reasoner::AnnotatedValVec*>(this->getPlanContext(), result);
+        query->getSolution<alica::reasoner::ASPSolverWrapper, ::reasoner::asp::AnnotatedValVec*>(this->getPlanContext(), result);
         std::chrono::_V2::system_clock::time_point end = std::chrono::high_resolution_clock::now();
         std::cout << "SearchForDockingStationAsp: Measured Solving and Grounding Time: "
              << std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count() / 1000000.0 << " ms" << std::endl;
         std::shared_ptr<ttb::wm::POI> dockingStation = nullptr;
         if (result.size() > 0) {
-            auto it = find_if(result.begin(), result.end(), [](::reasoner::AnnotatedValVec* element) { return element->id == 1470042926317; });
+            auto it = find_if(result.begin(), result.end(), [](::reasoner::asp::AnnotatedValVec* element) { return element->id == 1470042926317; });
             if (it != result.end()) {
                 if ((*it)->variableQueryValues.size() > 0) {
                     std::cout << "SearchForDockingStationAsp: ASP result found!" << std::endl;

@@ -6,7 +6,7 @@ using std::shared_ptr;
 
 /*PROTECTED REGION ID(inccpp1477125924367) ENABLED START*/
 // Add additional includes here
-#include <asp_commons/ASPQuery.h>
+#include <reasoner/asp/Query.h>
 #include <asp_solver_wrapper/ASPSolverWrapper.h>
 #include <ttb/TTBWorldModel.h>
 /*PROTECTED REGION END*/
@@ -39,11 +39,11 @@ void ASPMinimizePath::run(void* msg)
         return;
     }
     auto start = std::chrono::high_resolution_clock::now();
-    query->getSolution<alica::reasoner::ASPSolverWrapper, ::reasoner::AnnotatedValVec*>(this->getPlanContext(), result);
+    query->getSolution<alica::reasoner::ASPSolverWrapper, ::reasoner::asp::AnnotatedValVec*>(this->getPlanContext(), result);
     auto end = std::chrono::high_resolution_clock::now();
     std::cout << "ASPMinimizePath: Measured Solving and Grounding Time: " << std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count() << " ms" << std::endl;
     if (result.size() > 0) {
-        auto it = find_if(result.begin(), result.end(), [](::reasoner::AnnotatedValVec* element) { return element->id == 1477125906086; });
+        auto it = find_if(result.begin(), result.end(), [](::reasoner::asp::AnnotatedValVec* element) { return element->id == 1477125906086; });
         if (it != result.end()) {
             if ((*it)->variableQueryValues.size() > 0) {
                 std::cout << "ASPMinimizePath: ASP result found!" << std::endl;

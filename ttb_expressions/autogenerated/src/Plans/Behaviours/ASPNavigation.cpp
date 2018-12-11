@@ -8,9 +8,8 @@ using std::shared_ptr;
 // Add additional includes here
 #include <ttb/TTBWorldModel.h>
 
-#include <asp_commons/ASPQuery.h>
-#include <asp_commons/IASPSolver.h>
-#include <asp_solver/ASPSolver.h>
+#include <reasoner/asp/Query.h>
+#include <reasoner/asp/Solver.h>
 #include <asp_solver_wrapper/ASPSolverWrapper.h>
 
 #include <actionlib/client/simple_action_client.h>
@@ -52,7 +51,7 @@ void ASPNavigation::run(void* msg)
         auto s = (alica::reasoner::ASPSolverWrapper*) this->getPlanContext().getAlicaEngine()->getSolver<alica::reasoner::ASPSolverWrapper>();
         delete s;
         auto ae = this->getPlanContext().getAlicaEngine();
-        auto solver = new ::reasoner::ASPSolver({});
+        auto solver = new ::reasoner::asp::Solver({});
         auto solverWrapper = new alica::reasoner::ASPSolverWrapper(ae, {});
         solverWrapper->init(solver);
         ae->addSolver<alica::reasoner::ASPSolverWrapper>(solverWrapper);
@@ -131,11 +130,11 @@ void ASPNavigation::run(void* msg)
     //      this->wm->doors.openDoor("doorClosed(offices, utility)");
 
     std::chrono::_V2::system_clock::time_point start = std::chrono::high_resolution_clock::now();
-    query->getSolution<alica::reasoner::ASPSolverWrapper, ::reasoner::AnnotatedValVec*>(this->getPlanContext(), result);
+    query->getSolution<alica::reasoner::ASPSolverWrapper, ::reasoner::asp::AnnotatedValVec*>(this->getPlanContext(), result);
     std::chrono::_V2::system_clock::time_point end = std::chrono::high_resolution_clock::now();
     std::cout << "ASPNavigation: Measured Solving and Grounding Time: " << std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count() << " ms" << std::endl;
     if (result.size() > 0) {
-        auto it = find_if(result.begin(), result.end(), [](::reasoner::AnnotatedValVec* element) { return element->id == 1475692986360; });
+        auto it = find_if(result.begin(), result.end(), [](::reasoner::asp::AnnotatedValVec* element) { return element->id == 1475692986360; });
         if (it != result.end()) {
             if ((*it)->variableQueryValues.size() > 0) {
                 std::cout << "ASPNavigation: ASP result found!" << std::endl;
