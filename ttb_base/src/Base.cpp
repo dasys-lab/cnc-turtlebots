@@ -25,7 +25,7 @@ namespace ttb
 
 Base::Base(std::string roleSetName, std::string masterPlanName, std::string roleSetDir, bool sim)
 {
-    ae = new alica::AlicaEngine(new supplementary::AgentIDManager(new supplementary::AgentIDFactory()), roleSetName, masterPlanName, false);
+    ae = new alica::AlicaEngine(new supplementary::AgentIDManager(new supplementary::AgentIDFactory()), roleSetName, masterPlanName, false, true);
     bc = new alica::BehaviourCreator();
     cc = new alica::ConditionCreator();
     uc = new alica::UtilityFunctionCreator();
