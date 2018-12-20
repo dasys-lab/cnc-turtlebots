@@ -17,14 +17,15 @@
 #include "Plans/Behaviours/SimpleDrive.h"
 #include "Plans/Behaviours/Stop.h"
 #include "Plans/Behaviours/Sweep.h"
+#include "Plans/Behaviours/PKVRHackedBehaviour.h"
 #include "engine/BasicBehaviour.h"
 
+using std::cerr;
 using std::cout;
+using std::endl;
 using std::exception;
 using std::make_shared;
 using std::string;
-using std::cerr;
-using std::endl;
 
 namespace alica
 {
@@ -89,6 +90,9 @@ std::shared_ptr<BasicBehaviour> BehaviourCreator::createBehaviour(long behaviour
         break;
     case 1520850811997:
         return make_shared<DriveToPoint>();
+        break;
+    case 3:
+        return make_shared<PKVRHackedBehaviour>();
         break;
     default:
         cerr << "BehaviourCreator: Unknown behaviour requested: " << behaviourConfId << endl;

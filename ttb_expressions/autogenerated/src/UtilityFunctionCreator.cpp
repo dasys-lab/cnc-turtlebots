@@ -14,6 +14,7 @@
 #include "Plans/Serve/Search1520437018620.h"
 #include "Plans/Serve/Serve1454331313621.h"
 #include "Plans/Serve/ServeMaster1454332108133.h"
+#include "Plans/Serve/HackedPlan1.h"
 #include <iostream>
 
 using std::cout;
@@ -75,6 +76,9 @@ shared_ptr<BasicUtilityFunction> UtilityFunctionCreator::createUtility(long util
         break;
     case 1520511951867:
         return make_shared<UtilityFunction1520511951867>();
+        break;
+    case 1:
+        return make_shared<UtilityFunction1>();
         break;
     default:
         std::cerr << "UtilityFunctionCreator: Unknown utility requested: " << utilityfunctionConfId << std::endl;
