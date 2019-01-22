@@ -1,0 +1,37 @@
+{
+  "plan" : "TestMasterPlan.pml#1528810473500",
+  "pmlUiExtensionMap" : {
+    "extensionHashMap" : {
+      "1528810473593" : {
+        "layoutedModelElementId" : 0,
+        "height" : 0,
+        "width" : 0,
+        "collapsed" : false,
+        "visible" : false,
+        "bendPoints" : [ ],
+        "x" : 112,
+        "y" : 7
+      },
+      "1528810473595" : {
+        "layoutedModelElementId" : 0,
+        "height" : 0,
+        "width" : 0,
+        "collapsed" : false,
+        "visible" : false,
+        "bendPoints" : [ ],
+        "x" : 46,
+        "y" : -108
+      },
+      "1528810473502" : {
+        "layoutedModelElementId" : 0,
+        "height" : 0,
+        "width" : 0,
+        "collapsed" : false,
+        "visible" : false,
+        "bendPoints" : [ ],
+        "x" : -110,
+        "y" : -19
+      }
+    }
+  }
+}

@@ -19,6 +19,7 @@
     "plan" : 1535539810067
   } ],
   "states" : [ {
+    "type" : "State",
     "id" : 1535539810077,
     "name" : "Stop",
     "comment" : "Stops the robot",
@@ -29,6 +30,7 @@
     "inTransitions" : [ ],
     "outTransitions" : [ 1535539810166 ]
   }, {
+    "type" : "State",
     "id" : 1535539810162,
     "name" : "Stop2",
     "comment" : "Stops the robot too",

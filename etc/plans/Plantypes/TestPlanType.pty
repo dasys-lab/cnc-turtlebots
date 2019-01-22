@@ -4,11 +4,5 @@
   "comment" : "abcde",
   "relativeDirectory" : "Plantypes",
   "parametrisations" : [ ],
-  "plans" : [ {
-    "id" : 1535024272960,
-    "name" : "Annotatedabc",
-    "comment" : null,
-    "activated" : true,
-    "plan" : "abc.pml#1534253305877"
-  } ]
+  "plans" : [ ]
 }

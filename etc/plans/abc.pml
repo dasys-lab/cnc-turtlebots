@@ -3,7 +3,7 @@
   "name" : "abc",
   "comment" : null,
   "relativeDirectory" : "",
-  "masterPlan" : false,
+  "masterPlan" : true,
   "utilityThreshold" : 0.0,
   "preCondition" : null,
   "runtimeCondition" : null,
