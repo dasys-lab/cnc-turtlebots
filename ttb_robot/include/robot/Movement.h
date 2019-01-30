@@ -1,6 +1,6 @@
 #pragma once
 
-#include <supplementary/Worker.h>
+#include <essentials/Worker.h>
 
 #include <cnc_geometry/CNPositionAllo.h>
 #include <robot/TTBEnums.h>
@@ -17,7 +17,7 @@
 #include <string>
 #include <vector>
 
-namespace supplementary
+namespace essentials
 {
 class SystemConfig;
 }
@@ -61,7 +61,7 @@ public:
     std::shared_ptr<ttb::wm::Door> getNextDoor(std::shared_ptr<ttb::wm::POI> goalPOI);
 
 private:
-    supplementary::SystemConfig* sc;
+    essentials::SystemConfig* sc;
     ttb::TTBWorldModel* wm;
     ttb::TurtleBot* turtleBot;
     ros::NodeHandle n;

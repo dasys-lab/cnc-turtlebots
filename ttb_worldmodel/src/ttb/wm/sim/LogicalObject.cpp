@@ -16,7 +16,7 @@ LogicalObject::LogicalObject(std::string modelName, std::string configSectionNam
         , maxValidityDuration(alica::AlicaTime::zero())
         , poses(nullptr)
 {
-    supplementary::SystemConfig* sc = supplementary::SystemConfig::getInstance();
+    essentials::SystemConfig* sc = essentials::SystemConfig::getInstance();
     this->maxValidityDuration =
             alica::AlicaTime::nanoseconds((*sc)["LogicalCamera"]->get<int64_t>("LogicalCamera", configSectionName.c_str(), "ValidityDuration", NULL));
     this->poses = new supplementary::InfoBuffer<geometry_msgs::Pose2D>(
@@ -29,7 +29,7 @@ LogicalObject::LogicalObject(ttb_msgs::LogicalCameraPtr logicalCameraData, std::
         , maxValidityDuration(alica::AlicaTime::zero())
         , poses(nullptr)
 {
-    supplementary::SystemConfig* sc = supplementary::SystemConfig::getInstance();
+    essentials::SystemConfig* sc = essentials::SystemConfig::getInstance();
     this->maxValidityDuration =
             alica::AlicaTime::nanoseconds((*sc)["LogicalCamera"]->get<int64_t>("LogicalCamera", configSectionName.c_str(), "ValidityDuration", NULL));
     this->poses = new supplementary::InfoBuffer<geometry_msgs::Pose2D>(

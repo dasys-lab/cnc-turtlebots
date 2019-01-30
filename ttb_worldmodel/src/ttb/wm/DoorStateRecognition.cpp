@@ -15,7 +15,7 @@ DoorStateRecognition::DoorStateRecognition(ttb::TTBWorldModel* wm)
         : Worker("DoorStateRecognition")
         , wm(wm)
 {
-    supplementary::SystemConfig* sc = supplementary::SystemConfig::getInstance();
+    essentials::SystemConfig* sc = essentials::SystemConfig::getInstance();
     this->ownPoseValidityDuration = alica::AlicaTime::nanoseconds((*sc)["TTBWorldModel"]->get<int64_t>("Data.AMCLPose.ValidityDuration", NULL));
     this->epsilon = (*sc)["TTBWorldModel"]->get<double>("Processing.DoorStateRecognition.Epsilon", NULL);
 }

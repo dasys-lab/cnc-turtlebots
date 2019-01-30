@@ -11,11 +11,11 @@
 #include "ttb/wm/topology/TopologicalModel.h"
 
 #include <SystemConfig.h>
-#include <supplementary/EventTrigger.h>
+#include <essentials/EventTrigger.h>
 #include <supplementary/InformationElement.h>
 #include <supplementary/WorldModel.h>
 
-namespace supplementary
+namespace essentials
 {
 class SystemConfig;
 }

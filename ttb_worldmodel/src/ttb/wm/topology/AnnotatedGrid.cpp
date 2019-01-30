@@ -10,7 +10,7 @@ namespace wm
 AnnotatedGrid::AnnotatedGrid(ttb::TTBWorldModel* wm)
         : wm(wm)
 {
-    auto sc = supplementary::SystemConfig::getInstance();
+    auto sc = essentials::SystemConfig::getInstance();
     std::string annotatedGridTopic = (*sc)["TTBWorldModel"]->get<std::string>("AnnotatedGrid.annotatedGridTopic", NULL);
     std::string gridTopic = (*sc)["TTBWorldModel"]->get<std::string>("AnnotatedGrid.gridTopic", NULL);
     ros::NodeHandle n;

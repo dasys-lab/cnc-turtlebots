@@ -46,7 +46,7 @@
 #include "kobuki_msgs/SensorState.h"
 #include "nav_msgs/Path.h"
 
-using namespace supplementary;
+using namespace essentials;
 
 using boost::asio::ip::udp;
 

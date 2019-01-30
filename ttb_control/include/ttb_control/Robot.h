@@ -23,11 +23,11 @@ namespace ttb_control
 {
 class TTBControl;
 
-class Robot : public QFrame, public supplementary::RobotMetaData
+class Robot : public QFrame, public essentials::RobotMetaData
 {
     Q_OBJECT
 public:
-    Robot(std::string robotName, const supplementary::AgentID* robotId, TTBControl* parentTTBControl);
+    Robot(std::string robotName, const essentials::AgentID* robotId, TTBControl* parentTTBControl);
 
     virtual ~Robot();
 

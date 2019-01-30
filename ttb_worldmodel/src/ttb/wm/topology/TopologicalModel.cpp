@@ -16,7 +16,7 @@ namespace wm
 TopologicalModel::TopologicalModel(TTBWorldModel* wm)
         : wm(wm)
 {
-    this->sc = supplementary::SystemConfig::getInstance();
+    this->sc = essentials::SystemConfig::getInstance();
     this->readTopologyFromConfig();
 }
 

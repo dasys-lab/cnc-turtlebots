@@ -4,7 +4,7 @@
 #include "ttb/wm/sim/LogicalCameraData.h"
 
 #include <cnc_geometry/Calculator.h>
-#include <supplementary/AgentID.h>
+#include <essentials/AgentID.h>
 #include <ttb_msgs/TopologicalInfo.h>
 
 #include <engine/AlicaClock.h>
@@ -17,10 +17,10 @@ namespace wm
 {
 
 TopologicalLocalization::TopologicalLocalization(ttb::TTBWorldModel* wm)
-        : supplementary::Worker("TopologicalLocalization")
+        : essentials::Worker("TopologicalLocalization")
         , wm(wm)
 {
-    supplementary::SystemConfig* sc = supplementary::SystemConfig::getInstance();
+    essentials::SystemConfig* sc = essentials::SystemConfig::getInstance();
     this->roomBuffer = new supplementary::InfoBuffer<std::shared_ptr<Room>>((*sc)["TopologicalLocalization"]->get<int>("Data.Room.BufferLength", NULL));
     this->roomValidityDuration = alica::AlicaTime::nanoseconds((*sc)["TopologicalLocalization"]->get<int>("Data.Room.ValidityDuration", NULL));
 

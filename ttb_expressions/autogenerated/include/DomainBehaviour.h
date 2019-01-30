@@ -25,7 +25,7 @@ public:
     virtual ~DomainBehaviour();
 
     /*PROTECTED REGION ID(domainBehaviourClassDecl) ENABLED START*/
-    supplementary::SystemConfig* sc;
+    essentials::SystemConfig* sc;
     ttb::TTBWorldModel* wm;
     ttb::TurtleBot* turtleBot;
     /*PROTECTED REGION END*/

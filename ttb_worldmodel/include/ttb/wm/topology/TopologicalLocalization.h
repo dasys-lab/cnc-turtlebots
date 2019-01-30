@@ -3,7 +3,7 @@
 #include "ttb/wm/topology/Room.h"
 
 #include <supplementary/InfoBuffer.h>
-#include <supplementary/Worker.h>
+#include <essentials/Worker.h>
 
 #define TOPOLOGICAL_LOCALIZATION_DEBUG
 
@@ -13,7 +13,7 @@ class TTBWorldModel;
 namespace wm
 {
 class LogicalCameraData;
-class TopologicalLocalization : public supplementary::Worker
+class TopologicalLocalization : public essentials::Worker
 {
 public:
     TopologicalLocalization(ttb::TTBWorldModel* wm);

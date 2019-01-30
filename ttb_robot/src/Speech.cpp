@@ -9,7 +9,7 @@ namespace robot
 
 Speech::Speech()
 {
-    sc = supplementary::SystemConfig::getInstance();
+    sc = essentials::SystemConfig::getInstance();
 }
 
 Speech::~Speech() {}

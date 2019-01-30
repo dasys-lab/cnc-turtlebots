@@ -19,7 +19,7 @@ Movement::Movement(ttb::TTBWorldModel* wm, ttb::TurtleBot* turtleBot)
     this->wm = wm;
     this->turtleBot = turtleBot;
     this->topoPlanner = new ttb::robot::pathPlanning::TopologicalPathPlanner(&(this->wm->topologicalModel));
-    this->sc = supplementary::SystemConfig::getInstance();
+    this->sc = essentials::SystemConfig::getInstance();
 
     this->directVelocityCmd = (*this->sc)["Drive"]->get<std::string>("Topics.DirectVelocityCmd", NULL);
     this->directVelocityCmdPub = n.advertise<geometry_msgs::Twist>(this->directVelocityCmd, 10);

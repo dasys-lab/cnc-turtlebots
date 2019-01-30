@@ -23,9 +23,9 @@ TTBControl::TTBControl()
     setObjectName("TTBControl");
     rosNode = new ros::NodeHandle();
 
-    this->sc = supplementary::SystemConfig::getInstance();
+    this->sc = essentials::SystemConfig::getInstance();
     TTBControl::msgTimeOut = std::chrono::duration<double>((*this->sc)["ProcessManaging"]->get<unsigned long>("PMControl.timeLastMsgReceivedTimeOut", NULL));
-    this->pmRegistry = supplementary::RobotExecutableRegistry::get();
+    this->pmRegistry = essentials::RobotExecutableRegistry::get();
 
     /* Initialise the registry data structure for better performance
      * with data from Globals.conf and Processes.conf file. */
@@ -95,7 +95,7 @@ void TTBControl::showContextMenu(const QPoint& pos)
 
         std::cout << "RC: '" << name << "'" << endl;
 
-        const supplementary::AgentID* robotId = this->pmRegistry->getRobotId(name);
+        const essentials::AgentID* robotId = this->pmRegistry->getRobotId(name);
         if (robotId != nullptr) {
             this->controlledRobotsMap[robotId]->toggle();
         } else {
@@ -156,7 +156,7 @@ void TTBControl::processMessages()
  * If the given robot ID is already known, nothing is done.
  * Otherwise a new entry in the controlled robot map is created.
  */
-void TTBControl::checkAndInit(const supplementary::AgentID* robotId)
+void TTBControl::checkAndInit(const essentials::AgentID* robotId)
 {
     auto pmEntry = this->controlledRobotsMap.find(robotId);
     if (pmEntry == this->controlledRobotsMap.end()) { // robot is not known, so create a corresponding instance

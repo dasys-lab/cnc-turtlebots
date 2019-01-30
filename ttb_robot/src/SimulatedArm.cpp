@@ -18,7 +18,7 @@ namespace robot
 SimulatedArm::SimulatedArm()
 {
     this->wm = ttb::TTBWorldModel::get();
-    this->sc = supplementary::SystemConfig::getInstance();
+    this->sc = essentials::SystemConfig::getInstance();
     this->carriedObjectName = "";
     this->requestedObject = "";
     this->armRange = (*this->sc)["TTBRobot"]->get<double>("SimulatedArm.Range", NULL);

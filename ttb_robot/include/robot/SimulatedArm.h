@@ -9,7 +9,7 @@
 #include <ros/ros.h>
 #include <string>
 
-namespace supplementary
+namespace essentials
 {
 class SystemConfig;
 }
@@ -54,7 +54,7 @@ private:
     double armRange;
 
     SimulatedArm::ArmState armState;
-    supplementary::SystemConfig* sc;
+    essentials::SystemConfig* sc;
     std::string robotName;
     ros::AsyncSpinner* spinner;
     ttb::TTBWorldModel* wm;

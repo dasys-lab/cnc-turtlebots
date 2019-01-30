@@ -7,7 +7,7 @@
 
 #include <string>
 
-namespace supplementary
+namespace essentials
 {
 class SystemConfig;
 }
@@ -26,7 +26,7 @@ public:
 
 protected:
 private:
-    supplementary::SystemConfig* sc;
+    essentials::SystemConfig* sc;
     sound_play::SoundClient soundClient;
 };
 

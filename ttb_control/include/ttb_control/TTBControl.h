@@ -4,7 +4,7 @@
 
 #include "ros/ros.h"
 #include <ros/macros.h>
-#include <supplementary/AgentID.h>
+#include <essentials/AgentID.h>
 #include <ttb_control/Robot.h>
 #include <ttb_msgs/TopologicalInfo.h>
 
@@ -18,7 +18,7 @@
 #include <queue>
 #include <utility>
 
-namespace supplementary
+namespace essentials
 {
 class SystemConfig;
 class RobotExecutableRegistry;
@@ -47,20 +47,20 @@ public:
     Ui::RobotControlWidget robotControlWidget_;
     QWidget* widget_;
 
-    supplementary::RobotExecutableRegistry* pmRegistry;
+    essentials::RobotExecutableRegistry* pmRegistry;
     ros::NodeHandle* rosNode;
 
 private:
-    supplementary::SystemConfig* sc;
+    essentials::SystemConfig* sc;
     ros::Subscriber topologicalInfoSub;
 
-    std::map<const supplementary::AgentID*, Robot*> controlledRobotsMap;
+    std::map<const essentials::AgentID*, Robot*> controlledRobotsMap;
     std::mutex topologicalInfoMsgQueueMutex;
     std::queue<std::pair<std::chrono::system_clock::time_point, ttb_msgs::TopologicalInfoPtr>> topologicalInfoMsgQueue;
 
     void receiveTopologicalInfo(ttb_msgs::TopologicalInfoPtr topoInfo);
     void processMessages();
-    void checkAndInit(const supplementary::AgentID* robotId);
+    void checkAndInit(const essentials::AgentID* robotId);
 
     QTimer* guiUpdateTimer;
 

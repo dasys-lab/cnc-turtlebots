@@ -5,7 +5,7 @@
 #include <geometry_msgs/Pose2D.h>
 #include <ros/ros.h>
 #include <supplementary/InfoBuffer.h>
-#include <supplementary/Worker.h>
+#include <essentials/Worker.h>
 
 namespace ttb
 {
@@ -14,7 +14,7 @@ namespace wm
 {
 class Door;
 
-class DoorStateRecognition : public supplementary::Worker
+class DoorStateRecognition : public essentials::Worker
 {
 public:
     DoorStateRecognition(ttb::TTBWorldModel* wm);

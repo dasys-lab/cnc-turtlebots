@@ -4,7 +4,7 @@
 #include "ttb/wm/topology/Door.h"
 
 #include <SystemConfig.h>
-#include <supplementary/AgentID.h>
+#include <essentials/AgentID.h>
 #include <ttb_msgs/TopologicalInfo.h>
 
 namespace ttb
@@ -13,10 +13,10 @@ namespace wm
 {
 
 TopologicalInfoPublisher::TopologicalInfoPublisher(ttb::TTBWorldModel* wm)
-        : supplementary::Worker("TopologicalInfoPublisher")
+        : essentials::Worker("TopologicalInfoPublisher")
         , wm(wm)
 {
-    supplementary::SystemConfig* sc = supplementary::SystemConfig::getInstance();
+    essentials::SystemConfig* sc = essentials::SystemConfig::getInstance();
     ros::NodeHandle n;
     this->topoInfoPub = n.advertise<ttb_msgs::TopologicalInfo>((*sc)["TTBWorldModel"]->get<std::string>("Debug.TopologicalInfoPublisher.Topic", NULL), 10);
 }

@@ -12,7 +12,7 @@
 #include <alica/reasoner/SimpleSolver.h>
 #include <reasoner/asp/Solver.h>
 #include <asp_solver_wrapper/ASPSolverWrapper.h>
-#include <supplementary/AgentIDManager.h>
+#include <essentials/AgentIDManager.h>
 
 #include <ros/ros.h>
 
@@ -25,7 +25,7 @@ namespace ttb
 
 Base::Base(std::string roleSetName, std::string masterPlanName, std::string roleSetDir, bool sim)
 {
-    ae = new alica::AlicaEngine(new supplementary::AgentIDManager(new supplementary::AgentIDFactory()), roleSetName, masterPlanName, false, true);
+    ae = new alica::AlicaEngine(new essentials::AgentIDManager(new essentials::AgentIDFactory()), roleSetName, masterPlanName, false, true);
     bc = new alica::BehaviourCreator();
     cc = new alica::ConditionCreator();
     uc = new alica::UtilityFunctionCreator();
@@ -83,7 +83,7 @@ int main(int argc, char** argv)
 
     std::cout << "Initialising ROS" << std::endl;
 
-    ros::init(argc, argv, supplementary::SystemConfig::getInstance()->getHostname() + "_Base");
+    ros::init(argc, argv, essentials::SystemConfig::getInstance()->getHostname() + "_Base");
 
     std::cout << "Parsing command line parameters:" << std::endl;
 

@@ -12,7 +12,7 @@ DomainBehaviour::DomainBehaviour(std::string name)
         : BasicBehaviour(name)
 {
     /*PROTECTED REGION ID(domainBehaviourConstructor) ENABLED START*/
-    sc = supplementary::SystemConfig::getInstance();
+    sc = essentials::SystemConfig::getInstance();
     wm = ttb::TTBWorldModel::get();
     turtleBot = ttb::TurtleBot::get(wm);
     /*PROTECTED REGION END*/

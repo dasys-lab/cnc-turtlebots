@@ -116,7 +116,7 @@ void ASPNavwoExt::initialiseParameters()
     // Add additional options here
     query->clearStaticVariables();
     result.clear();
-    this->doorConfig = this->getParameter("doorConfig");
+    this->getParameter("doorConfig", this->doorConfig);
     if (this->doorConfig.compare("config1") == 0) {
         query->addStaticVariable(getVariable("NavVar1"));
     } else {

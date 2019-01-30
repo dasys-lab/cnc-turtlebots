@@ -3,7 +3,7 @@
 #include "ttb/TTBWorldModel.h"
 #include "ttb/WrappedMessageHandler.h"
 
-#include <supplementary/AgentID.h>
+#include <essentials/AgentID.h>
 #include <supplementary/BroadcastID.h>
 
 using std::string;
@@ -164,7 +164,7 @@ void Communication::onServeTask(ttb_msgs::ServeTask serveTask)
     auto ownID = this->wm->getOwnId();
     auto senderId = this->wm->getEngine()->getIdFromBytes(serveTask.sender.id);
     auto receiverId = this->wm->getEngine()->getIdFromBytes(serveTask.receiver.id);
-    if (*senderId != *ownID && (*receiverId == *ownID || serveTask.receiver.type == supplementary::BroadcastID::BC_TYPE)) {
+    if (*senderId != *ownID && (*receiverId == *ownID || serveTask.receiver.type == essentials::BroadcastID::BC_TYPE)) {
         this->wm->rawSensorData.processServeTask(serveTask);
     }
 }

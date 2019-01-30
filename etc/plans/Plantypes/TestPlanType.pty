@@ -1,7 +1,7 @@
 {
   "id" : 1531473164094,
   "name" : "TestPlanType",
-  "comment" : "abcde",
+  "comment" : "abcded",
   "relativeDirectory" : "Plantypes",
   "parametrisations" : [ ],
   "plans" : [ ]

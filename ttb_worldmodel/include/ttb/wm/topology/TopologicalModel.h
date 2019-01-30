@@ -10,7 +10,7 @@
 
 //#define DS_TEST
 
-namespace supplementary
+namespace essentials
 {
 class SystemConfig;
 }
@@ -47,7 +47,7 @@ private:
     std::unordered_set<std::shared_ptr<Door>, DoorHash, DoorComperator> doors;
     std::unordered_set<std::shared_ptr<POI>, POIHash, POIComperator> pois;
 
-    supplementary::SystemConfig* sc;
+    essentials::SystemConfig* sc;
     void readTopologyFromConfig();
     TTBWorldModel* wm;
 };

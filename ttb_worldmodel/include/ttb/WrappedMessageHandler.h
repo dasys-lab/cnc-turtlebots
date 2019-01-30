@@ -7,7 +7,7 @@
 #include "ttb_msgs/GoalWrapped.h"
 #include "ttb_msgs/InitialPoseWrapped.h"
 #include <engine/AlicaEngine.h>
-#include <supplementary/AgentID.h>
+#include <essentials/AgentID.h>
 
 #include <ros/ros.h>
 
@@ -17,7 +17,7 @@ namespace ttb
 class WrappedMessageHandler
 {
 private:
-    const supplementary::AgentID* robotID;
+    const essentials::AgentID* robotID;
     alica::AlicaEngine* engine;
     ros::NodeHandle n;
     // get incoming wrapped messages and publish them (unwrapped) on the local ros core
@@ -81,7 +81,7 @@ public:
             pubPoseWithCovarianceStamped_initialpose.publish(message->msg);
         }
     }
-    void init(const supplementary::AgentID* id, alica::AlicaEngine* engine)
+    void init(const essentials::AgentID* id, alica::AlicaEngine* engine)
     {
         this->robotID = id;
 

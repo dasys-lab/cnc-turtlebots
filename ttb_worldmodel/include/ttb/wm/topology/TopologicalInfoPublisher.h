@@ -1,7 +1,7 @@
 #pragma once
 
 #include <ros/ros.h>
-#include <supplementary/Worker.h>
+#include <essentials/Worker.h>
 
 namespace ttb
 {
@@ -9,7 +9,7 @@ class TTBWorldModel;
 namespace wm
 {
 
-class TopologicalInfoPublisher : public supplementary::Worker
+class TopologicalInfoPublisher : public essentials::Worker
 {
 public:
     TopologicalInfoPublisher(ttb::TTBWorldModel* wm);
