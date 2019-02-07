@@ -3,34 +3,43 @@
   "pmlUiExtensionMap" : {
     "extensionHashMap" : {
       "1528810473593" : {
+        "id" : 1549530553833,
+        "name" : "1549530553833",
+        "comment" : null,
+        "x" : 112,
+        "y" : 7,
         "layoutedModelElementId" : 0,
         "height" : 0,
         "width" : 0,
         "collapsed" : false,
         "visible" : false,
-        "bendPoints" : [ ],
-        "x" : 112,
-        "y" : 7
+        "bendPoints" : [ ]
       },
       "1528810473595" : {
+        "id" : 1549530553834,
+        "name" : "1549530553834",
+        "comment" : null,
+        "x" : 46,
+        "y" : -108,
         "layoutedModelElementId" : 0,
         "height" : 0,
         "width" : 0,
         "collapsed" : false,
         "visible" : false,
-        "bendPoints" : [ ],
-        "x" : 46,
-        "y" : -108
+        "bendPoints" : [ ]
       },
       "1528810473502" : {
+        "id" : 1549530553835,
+        "name" : "1549530553835",
+        "comment" : null,
+        "x" : -110,
+        "y" : -19,
         "layoutedModelElementId" : 0,
         "height" : 0,
         "width" : 0,
         "collapsed" : false,
         "visible" : false,
-        "bendPoints" : [ ],
-        "x" : -110,
-        "y" : -19
+        "bendPoints" : [ ]
       }
     }
   }

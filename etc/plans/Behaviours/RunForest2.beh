@@ -8,5 +8,10 @@
   "preCondition" : null,
   "runtimeCondition" : null,
   "postCondition" : null,
-  "variables" : [ ]
+  "variables" : [ {
+    "id" : 1549539230832,
+    "name" : "a",
+    "comment" : "3",
+    "variableType" : "d"
+  } ]
 }
