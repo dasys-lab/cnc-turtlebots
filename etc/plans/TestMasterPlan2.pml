@@ -51,5 +51,15 @@
     "synchronization" : null
   } ],
   "synchronizations" : [ ],
-  "variables" : [ ]
+  "variables" : [ {
+    "id" : 1548951610618,
+    "name" : "NEW_VARIABLE",
+    "comment" : null,
+    "variableType" : null
+  }, {
+    "id" : 1548951613175,
+    "name" : "NEW_VARIABLE",
+    "comment" : null,
+    "variableType" : null
+  } ]
 }

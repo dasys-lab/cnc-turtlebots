@@ -2,19 +2,6 @@
   "plan" : "TestMasterPlan2.pml#1535539810067",
   "pmlUiExtensionMap" : {
     "extensionHashMap" : {
-      "1535539810162" : {
-        "id" : 1545230405075,
-        "name" : "1545230405075",
-        "comment" : null,
-        "x" : -203,
-        "y" : 9,
-        "layoutedModelElementId" : 0,
-        "height" : 0,
-        "width" : 0,
-        "collapsed" : false,
-        "visible" : false,
-        "bendPoints" : [ ]
-      },
       "1535539810163" : {
         "id" : 1545230403685,
         "name" : "1545230403685",
@@ -34,6 +21,19 @@
         "comment" : null,
         "x" : 90,
         "y" : -68,
+        "layoutedModelElementId" : 0,
+        "height" : 0,
+        "width" : 0,
+        "collapsed" : false,
+        "visible" : false,
+        "bendPoints" : [ ]
+      },
+      "1535539810162" : {
+        "id" : 1545230405075,
+        "name" : "1545230405075",
+        "comment" : null,
+        "x" : -203,
+        "y" : 9,
         "layoutedModelElementId" : 0,
         "height" : 0,
         "width" : 0,

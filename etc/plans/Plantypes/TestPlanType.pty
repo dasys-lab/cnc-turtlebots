@@ -4,5 +4,11 @@
   "comment" : "abcded",
   "relativeDirectory" : "Plantypes",
   "parametrisations" : [ ],
-  "plans" : [ ]
+  "plans" : [ {
+    "id" : 1548946790378,
+    "name" : "Annotatedddd",
+    "comment" : null,
+    "activated" : true,
+    "plan" : "ddd.pml#1548350359716"
+  } ]
 }
