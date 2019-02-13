@@ -42,9 +42,13 @@ With TexMaker you only have to open the \verb#Software_Reference_Book.tex# file 
 The development environment recommended to develop software for the TurtleBots of the Distributed Systems Department is the result of best practises over years and continuously under development. Nevertheless, we try to keep this section up-to-date. There also exist scripts for doing these steps, however for the purpose of getting hands on experience we recommend to drudge through the drudgery at least once and thereby trying to understand what is actually going.
 
 \begin{description}
-	\item[1. Install Ubuntu] The currently used operating system is Ubuntu 18.04 LTS (long-term support) with all available updates installed.
-	\item[2. Install Ubuntu - Extra Packages] Simply install the package with the following command: \verb#sudo apt install vim git ssh myrepos capnproto#\\\verb# libcapnp-dev libqt5x11extras5-dev qtscript5-dev liblua5.1-0-dev #\\\verb#bison re2c libcanberra-gtk-module:i386#
-	
+	\item[1. Install Ubuntu] The currently used operating system is Ubuntu 18.04 LTS (long-term support) with all available updates installed:\\
+	\verb#sudo apt update#\\
+  \verb#sudo apt upgrade#
+	\item[2. Install Ubuntu - Extra Packages] Simply install the package with the following command: \verb#sudo apt install g++ make binutils cmake libssl-dev#\\
+	\verb#libboost-system-dev vim git ssh myrepos capnproto#\\
+	\verb#libcapnp-dev libqt5x11extras5-dev qtscript5-dev liblua5.1-0-dev#\\
+	\verb#bison re2c libcanberra-gtk-module:i386#	
 	\item[3. Install ZMQ] Execute the following lines in a terminal:\\
 \verb#sudo su#\\
 \verb#echo "deb http://download.opensuse.org/repositories/network:/#\\\verb#   messaging:/zeromq:/git-draft/xUbuntu_18.04/ ./" >> /etc#\\\verb#   /apt/sources.list#\\
@@ -52,7 +56,17 @@ The development environment recommended to develop software for the TurtleBots o
 \verb#wget https://download.opensuse.org/repositories/network:/#\\\verb#   messaging:/zeromq:/git-draft/xUbuntu_18.04/Release#\\\verb#   .key -O- | sudo apt-key add#\\
 \verb#sudo apt update#\\
 \verb#sudo apt install libzmq3-dev#
-	\item[4. Install Clingo] Clone the \href{https://github.com/potassco/clingo}{Clingo Repository} and follow their installation instructions.
+	\item[4. Install Clingo] Clone the \href{https://github.com/potassco/clingo}{Clingo Repository} and follow their installation instructions:\\
+		\verb#cd#\\
+		\verb#git clone https://github.com/potassco/clingo#\\
+  	\verb#cd clingo#\\
+  	\verb#git submodule update --init --recursive#\\
+		\verb#mkdir build#\\
+  	\verb#cmake --build build --target install#\\
+  	\verb#cd build#\\
+  	\verb#cmake ..#\\
+  	\verb#make#\\
+  	\verb#sudo make install#\\
 	\item[5. Install ROS Desktop Full] The currently used ROS version is ROS Melodic Morenia with all available updates installed. Like Ubuntu 18.04 it is also a long-term support version. The instructions for installing ROS under Ubuntu can be found on the corresponding \href{http://wiki.ros.org/melodic/Installation/Ubuntu}{ROS Wikipage}.
 	\item[6. Install ROS - Extra Packages] Simply install the package with the following command: \verb#sudo apt install ros-melodic-costmap-2d ros-melodic-urg-node #\\\verb#ros-melodic-base-local-planner ros-melodic-nav-core#\\\verb#ros-melodic-kobuki-msgs ros-melodic-joy ros-melodic-ar-track-alvar#\\\verb#ros-melodic-move-base-msgs ros-melodic-sound-play#\\\verb#ros-melodic-ecl-geometry ros-melodic-kobuki-dock-drive#\\\verb#python-catkin-tools#
 	\item[7. Create ROS Workspace] We recommend to follow this folder structure, as things can get complicated otherwise. 
