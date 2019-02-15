@@ -43,7 +43,7 @@
     "comment" : "Stops the robot",
     "entryPoint" : null,
     "parentPlan" : 1535539810067,
-    "plans" : "Behaviours/RunForest2.beh#1530628964195, abe.pty#1548350321959, ",
+    "plans" : "",
     "parametrisations" : [ ],
     "inTransitions" : [ ],
     "outTransitions" : [ 1535539810166 ]
@@ -54,8 +54,15 @@
     "comment" : "Stops the robot too",
     "entryPoint" : 1535539810163,
     "parentPlan" : 1535539810067,
-    "plans" : "abc.pml#1534253305877, TestMasterPlan.pml#1528810473500, ddde.beh#1548350346715, ",
-    "parametrisations" : [ 1550238436272, 1550238436273 ],
+    "plans" : "abc.pml#1534253305877, ",
+    "parametrisations" : [ {
+      "id" : 1550249703548,
+      "name" : "1550249703548",
+      "comment" : null,
+      "subPlan" : "abc.pml#1534253305877",
+      "subVariable" : "abc.pml#1550244736864",
+      "variable" : null
+    } ],
     "inTransitions" : [ 1535539810166 ],
     "outTransitions" : [ ]
   }, {
@@ -115,6 +122,13 @@
     "id" : 1550238656475,
     "name" : "NEW_VARIABLE",
     "comment" : null,
-    "variableType" : null
+    "variableType" : null,
+    "parentPlan" : null
+  }, {
+    "id" : 1550249706341,
+    "name" : "NEW_VARIABLE",
+    "comment" : null,
+    "variableType" : null,
+    "parentPlan" : 1535539810067
   } ]
 }

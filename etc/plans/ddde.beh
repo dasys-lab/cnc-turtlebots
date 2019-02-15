@@ -8,5 +8,5 @@
   "preCondition" : null,
   "runtimeCondition" : null,
   "postCondition" : null,
-  "variables" : [ ]
+  "variables" : []
 }

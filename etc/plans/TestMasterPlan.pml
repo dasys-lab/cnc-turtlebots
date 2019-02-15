@@ -215,15 +215,5 @@
     "failOnSyncTimeout" : false,
     "syncedTransitions" : [ 1549540610150 ]
   } ],
-  "variables" : [ {
-    "id" : 1549536108736,
-    "name" : "2221",
-    "comment" : "asdf",
-    "variableType" : "a"
-  }, {
-    "id" : 1549538237387,
-    "name" : "NEW_VARIABLE",
-    "comment" : null,
-    "variableType" : null
-  } ]
+  "variables" : []
 }

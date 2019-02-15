@@ -11,5 +11,5 @@
   "states" : [ ],
   "transitions" : [ ],
   "synchronisations" : [ ],
-  "variables" : [ ]
+  "variables" : []
 }

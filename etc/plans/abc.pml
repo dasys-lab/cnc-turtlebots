@@ -32,5 +32,11 @@
   } ],
   "transitions" : [ ],
   "synchronisations" : [ ],
-  "variables" : [ ]
+  "variables" : [ {
+    "id" : 1550244736864,
+    "name" : "NEW_VARIABLE",
+    "comment" : null,
+    "variableType" : null,
+    "parentPlan" : 1534253305877
+  } ]
 }
