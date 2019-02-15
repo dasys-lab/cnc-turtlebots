@@ -213,7 +213,7 @@
     "talkTimeout" : 0,
     "syncTimeout" : 0,
     "failOnSyncTimeout" : false,
-    "syncedTransitions" : [ ]
+    "syncedTransitions" : [ 1549540610150 ]
   } ],
   "variables" : [ {
     "id" : 1549536108736,
