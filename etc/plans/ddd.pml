@@ -10,6 +10,6 @@
   "entryPoints" : [ ],
   "states" : [ ],
   "transitions" : [ ],
-  "synchronizations" : [ ],
+  "synchronisations" : [ ],
   "variables" : [ ]
 }

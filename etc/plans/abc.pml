@@ -31,6 +31,6 @@
     "outTransitions" : [ ]
   } ],
   "transitions" : [ ],
-  "synchronizations" : [ ],
+  "synchronisations" : [ ],
   "variables" : [ ]
 }

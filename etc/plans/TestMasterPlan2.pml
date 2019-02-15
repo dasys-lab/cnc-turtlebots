@@ -48,9 +48,9 @@
     "inState" : 1535539810162,
     "outState" : 1535539810077,
     "preCondition" : null,
-    "synchronization" : null
+    "synchronisation" : null
   } ],
-  "synchronizations" : [ ],
+  "synchronisations" : [ ],
   "variables" : [ {
     "id" : 1548951610618,
     "name" : "NEW_VARIABLE",

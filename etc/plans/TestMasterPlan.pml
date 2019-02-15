@@ -156,7 +156,7 @@
     "inState" : 1549540314646,
     "outState" : 1549540519918,
     "preCondition" : null,
-    "synchronization" : null
+    "synchronisation" : null
   }, {
     "id" : 1549540621720,
     "name" : "1549540621720",
@@ -164,7 +164,7 @@
     "inState" : 1549540521392,
     "outState" : 1549540326250,
     "preCondition" : null,
-    "synchronization" : null
+    "synchronisation" : null
   }, {
     "id" : 1549540625530,
     "name" : "1549540625530",
@@ -172,7 +172,7 @@
     "inState" : 1549540326250,
     "outState" : 1549540426195,
     "preCondition" : null,
-    "synchronization" : null
+    "synchronisation" : null
   }, {
     "id" : 1549540644716,
     "name" : "1549540644716",
@@ -180,7 +180,7 @@
     "inState" : 1549540314646,
     "outState" : 1528810473593,
     "preCondition" : null,
-    "synchronization" : null
+    "synchronisation" : null
   }, {
     "id" : 1549540649574,
     "name" : "1549540649574",
@@ -188,9 +188,9 @@
     "inState" : 1549540314646,
     "outState" : 1549540526226,
     "preCondition" : null,
-    "synchronization" : null
+    "synchronisation" : null
   } ],
-  "synchronizations" : [ {
+  "synchronisations" : [ {
     "id" : 1549540704303,
     "name" : "Sync Default",
     "comment" : "",
