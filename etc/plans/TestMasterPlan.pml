@@ -148,6 +148,17 @@
     "parametrisations" : [ ],
     "inTransitions" : [ ],
     "outTransitions" : [ ]
+  }, {
+    "type" : "State",
+    "id" : 1550492290337,
+    "name" : "Default Name",
+    "comment" : "",
+    "entryPoint" : null,
+    "parentPlan" : 1528810473500,
+    "plans" : "",
+    "parametrisations" : [ ],
+    "inTransitions" : [ ],
+    "outTransitions" : [ ]
   } ],
   "transitions" : [ {
     "id" : 1549540610150,
@@ -215,5 +226,5 @@
     "failOnSyncTimeout" : false,
     "syncedTransitions" : [ 1549540610150 ]
   } ],
-  "variables" : []
+  "variables" : [ ]
 }
