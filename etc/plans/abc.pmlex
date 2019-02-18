@@ -1,7 +1,6 @@
 {
   "plan" : "abc.pml#1534253305877",
-  "pmlUiExtensionMap" : {
-    "extensionHashMap" : {
+  "extensionMap" : {
       "1548352942191" : {
         "id" : 1548352942192,
         "name" : "1548352942192",
@@ -28,6 +27,5 @@
         "visible" : false,
         "bendPoints" : [ ]
       }
-    }
   }
 }

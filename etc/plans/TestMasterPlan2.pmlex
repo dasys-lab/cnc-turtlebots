@@ -1,7 +1,7 @@
 {
   "plan" : "TestMasterPlan2.pml#1535539810067",
-  "pmlUiExtensionMap" : {
-    "extensionHashMap" : {
+  "extensionMap" : {
+
       "1550238546974" : {
         "id" : 1550238546975,
         "name" : "1550238546975",
@@ -93,6 +93,5 @@
         "visible" : false,
         "bendPoints" : [ ]
       }
-    }
   }
 }
