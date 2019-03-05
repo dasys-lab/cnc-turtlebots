@@ -1,17 +1,12 @@
 {
   "plan" : "TestMasterPlan2.pml#1535539810067",
-  "extensionMap" : {
-
+  "uiElementMap" : {
       "1550238546974" : {
         "id" : 1550238546975,
         "name" : "1550238546975",
         "comment" : null,
         "x" : 0,
         "y" : 0,
-        "layoutedModelElementId" : 0,
-        "height" : 0,
-        "width" : 0,
-        "collapsed" : false,
         "visible" : false,
         "bendPoints" : [ ]
       },
@@ -21,10 +16,6 @@
         "comment" : null,
         "x" : 147,
         "y" : -144,
-        "layoutedModelElementId" : 0,
-        "height" : 0,
-        "width" : 0,
-        "collapsed" : false,
         "visible" : false,
         "bendPoints" : [ ]
       },
@@ -34,10 +25,6 @@
         "comment" : null,
         "x" : 406,
         "y" : -60,
-        "layoutedModelElementId" : 0,
-        "height" : 0,
-        "width" : 0,
-        "collapsed" : false,
         "visible" : false,
         "bendPoints" : [ ]
       },
@@ -47,10 +34,6 @@
         "comment" : null,
         "x" : 0,
         "y" : 0,
-        "layoutedModelElementId" : 0,
-        "height" : 0,
-        "width" : 0,
-        "collapsed" : false,
         "visible" : false,
         "bendPoints" : [ ]
       },
@@ -60,10 +43,6 @@
         "comment" : null,
         "x" : -74,
         "y" : -134,
-        "layoutedModelElementId" : 0,
-        "height" : 0,
-        "width" : 0,
-        "collapsed" : false,
         "visible" : false,
         "bendPoints" : [ ]
       },
@@ -73,10 +52,6 @@
         "comment" : null,
         "x" : 395,
         "y" : -238,
-        "layoutedModelElementId" : 0,
-        "height" : 0,
-        "width" : 0,
-        "collapsed" : false,
         "visible" : false,
         "bendPoints" : [ ]
       },
@@ -86,10 +61,6 @@
         "comment" : null,
         "x" : -255,
         "y" : -131,
-        "layoutedModelElementId" : 0,
-        "height" : 0,
-        "width" : 0,
-        "collapsed" : false,
         "visible" : false,
         "bendPoints" : [ ]
       }

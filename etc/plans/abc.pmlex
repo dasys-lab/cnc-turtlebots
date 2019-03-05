@@ -1,16 +1,12 @@
 {
   "plan" : "abc.pml#1534253305877",
-  "extensionMap" : {
+  "uiElementMap" : {
       "1548352942191" : {
         "id" : 1548352942192,
         "name" : "1548352942192",
         "comment" : null,
         "x" : -185,
         "y" : -212,
-        "layoutedModelElementId" : 0,
-        "height" : 0,
-        "width" : 0,
-        "collapsed" : false,
         "visible" : false,
         "bendPoints" : [ ]
       },
@@ -20,10 +16,6 @@
         "comment" : null,
         "x" : 118,
         "y" : -69,
-        "layoutedModelElementId" : 0,
-        "height" : 0,
-        "width" : 0,
-        "collapsed" : false,
         "visible" : false,
         "bendPoints" : [ ]
       }

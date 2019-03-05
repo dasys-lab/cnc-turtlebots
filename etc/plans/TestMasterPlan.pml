@@ -3,6 +3,7 @@
   "name" : "TestMasterPlan",
   "comment" : "Test Comment String",
   "relativeDirectory" : "",
+  "variables" : [ ],
   "masterPlan" : true,
   "utilityThreshold" : 0.5,
   "preCondition" : null,
@@ -202,29 +203,22 @@
     "synchronisation" : null
   } ],
   "synchronisations" : [ {
-    "id" : 1549540704303,
+    "id" : 1551776911589,
     "name" : "Sync Default",
     "comment" : "",
     "talkTimeout" : 0,
     "syncTimeout" : 0,
     "failOnSyncTimeout" : false,
-    "syncedTransitions" : [ 1549540625530 ]
+    "syncedTransitions" : [ ],
+    "plan" : 1528810473500
   }, {
-    "id" : 1549540705521,
+    "id" : 1551776919461,
     "name" : "Sync Default",
     "comment" : "",
     "talkTimeout" : 0,
     "syncTimeout" : 0,
     "failOnSyncTimeout" : false,
-    "syncedTransitions" : [ 1549540625530 ]
-  }, {
-    "id" : 1549540708914,
-    "name" : "Sync Default",
-    "comment" : "",
-    "talkTimeout" : 0,
-    "syncTimeout" : 0,
-    "failOnSyncTimeout" : false,
-    "syncedTransitions" : [ 1549540610150 ]
-  } ],
-  "variables" : [ ]
+    "syncedTransitions" : [ ],
+    "plan" : 1528810473500
+  } ]
 }
