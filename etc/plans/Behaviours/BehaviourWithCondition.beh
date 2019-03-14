@@ -1,0 +1,18 @@
+{
+  "id" : 1552579188529,
+  "name" : "BehaviourWithCondition",
+  "comment" : null,
+  "relativeDirectory" : "Behaviours",
+  "variables" : [ {
+    "id" : 1552579542419,
+    "name" : "B",
+    "comment" : "No Commet needed",
+    "variableType" : null,
+    "parentPlan" : 1552579188529
+  } ],
+  "frequency" : 0,
+  "deferring" : 0,
+  "preCondition" : null,
+  "runtimeCondition" : null,
+  "postCondition" : null
+}
