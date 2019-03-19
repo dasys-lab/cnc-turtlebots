@@ -1,0 +1,127 @@
+{
+  "plan" : "ServiceRobots/ServeMaster.pml#1552995667134",
+  "uiElementMap" : {
+    "1552999417491" : {
+      "id" : 1552999417493,
+      "name" : "1552999417493",
+      "comment" : null,
+      "x" : 0,
+      "y" : 0,
+      "visible" : false,
+      "bendPoints" : [ {
+        "id" : 1552999417495,
+        "name" : "1552999417495",
+        "comment" : null,
+        "x" : -315,
+        "y" : -402,
+        "transition" : 1552999417491
+      } ]
+    },
+    "1552996403396" : {
+      "id" : 1552996403397,
+      "name" : "1552996403397",
+      "comment" : null,
+      "x" : -351,
+      "y" : -269,
+      "visible" : false,
+      "bendPoints" : [ ]
+    },
+    "1552996404209" : {
+      "id" : 1552996404210,
+      "name" : "1552996404210",
+      "comment" : null,
+      "x" : -194,
+      "y" : -381,
+      "visible" : false,
+      "bendPoints" : [ ]
+    },
+    "1552996396322" : {
+      "id" : 1552996396324,
+      "name" : "1552996396324",
+      "comment" : null,
+      "x" : -453,
+      "y" : -268,
+      "visible" : false,
+      "bendPoints" : [ ]
+    },
+    "1552996591281" : {
+      "id" : 1552996591283,
+      "name" : "1552996591283",
+      "comment" : null,
+      "x" : 0,
+      "y" : 0,
+      "visible" : false,
+      "bendPoints" : [ ]
+    },
+    "1552996727776" : {
+      "id" : 1552996727777,
+      "name" : "1552996727777",
+      "comment" : null,
+      "x" : 0,
+      "y" : 0,
+      "visible" : false,
+      "bendPoints" : [ ]
+    },
+    "1552996595807" : {
+      "id" : 1552996595808,
+      "name" : "1552996595808",
+      "comment" : null,
+      "x" : 0,
+      "y" : 0,
+      "visible" : false,
+      "bendPoints" : [ ]
+    },
+    "1552999344041" : {
+      "id" : 1552999344042,
+      "name" : "1552999344042",
+      "comment" : null,
+      "x" : 0,
+      "y" : 0,
+      "visible" : false,
+      "bendPoints" : [ {
+        "id" : 1552999344044,
+        "name" : "1552999344044",
+        "comment" : null,
+        "x" : -311,
+        "y" : -187,
+        "transition" : 1552999344041
+      } ]
+    },
+    "1552996405055" : {
+      "id" : 1552996405056,
+      "name" : "1552996405056",
+      "comment" : null,
+      "x" : -191,
+      "y" : -178,
+      "visible" : false,
+      "bendPoints" : [ ]
+    },
+    "1552996598973" : {
+      "id" : 1552996598974,
+      "name" : "1552996598974",
+      "comment" : null,
+      "x" : 0,
+      "y" : 0,
+      "visible" : false,
+      "bendPoints" : [ ]
+    },
+    "1552996768903" : {
+      "id" : 1552996768904,
+      "name" : "1552996768904",
+      "comment" : null,
+      "x" : 0,
+      "y" : 0,
+      "visible" : false,
+      "bendPoints" : [ ]
+    },
+    "1552996778662" : {
+      "id" : 1552996778664,
+      "name" : "1552996778664",
+      "comment" : null,
+      "x" : 0,
+      "y" : 0,
+      "visible" : false,
+      "bendPoints" : [ ]
+    }
+  }
+}

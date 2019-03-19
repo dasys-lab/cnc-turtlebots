@@ -1,8 +1,9 @@
 {
-  "id" : 1548350359716,
-  "name" : "ddd",
+  "id" : 1552996829354,
+  "name" : "Charge",
   "comment" : null,
-  "relativeDirectory" : "",
+  "relativeDirectory" : "ServiceRobots",
+  "variables" : [ ],
   "masterPlan" : false,
   "utilityThreshold" : 0.0,
   "preCondition" : null,
@@ -10,6 +11,5 @@
   "entryPoints" : [ ],
   "states" : [ ],
   "transitions" : [ ],
-  "synchronisations" : [ ],
-  "variables" : []
+  "synchronisations" : [ ]
 }

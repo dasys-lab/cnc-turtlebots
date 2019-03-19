@@ -1,0 +1,12 @@
+{
+  "id" : 1552997370653,
+  "name" : "DriveSearchPattern",
+  "comment" : null,
+  "relativeDirectory" : "ServiceRobots",
+  "variables" : [ ],
+  "frequency" : 0,
+  "deferring" : 0,
+  "preCondition" : null,
+  "runtimeCondition" : null,
+  "postCondition" : null
+}

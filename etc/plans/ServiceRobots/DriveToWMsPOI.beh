@@ -1,0 +1,12 @@
+{
+  "id" : 1552997315918,
+  "name" : "DriveToWMsPOI",
+  "comment" : null,
+  "relativeDirectory" : "ServiceRobots",
+  "variables" : [ ],
+  "frequency" : 0,
+  "deferring" : 0,
+  "preCondition" : null,
+  "runtimeCondition" : null,
+  "postCondition" : null
+}

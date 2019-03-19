@@ -1,0 +1,12 @@
+{
+  "id" : 1528875085487,
+  "name" : "ServiceRobotsTasks",
+  "comment" : "The taskrepository for the service robot domain. (TurtleBots and Stummel)",
+  "relativeDirectory" : "",
+  "tasks" : [ {
+    "id" : 1528875085489,
+    "name" : "DefaultTask",
+    "comment" : null,
+    "taskRepository" : 1528875085487
+  } ]
+}
