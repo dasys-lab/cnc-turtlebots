@@ -26,10 +26,10 @@
     "comment" : "",
     "entryPoint" : 1552996396322,
     "parentPlan" : 1552995667134,
-    "plans" : "ServiceRobots/Stop.beh#1552996811900, ",
+    "abstractPlans" : "ServiceRobots/Stop.beh#1552996811900, ",
     "parametrisations" : [ ],
-    "inTransitions" : [ 1552999344041, 1552999417491 ],
-    "outTransitions" : [ 1552996591281 ]
+    "outTransitions" : [ 1552996591281 ],
+    "inTransitions" : [ 1552999344041, 1552999417491 ]
   }, {
     "type" : "State",
     "id" : 1552996404209,
@@ -37,10 +37,10 @@
     "comment" : "",
     "entryPoint" : null,
     "parentPlan" : 1552995667134,
-    "plans" : "ServiceRobots/Serve.pml#1552996823626, ",
+    "abstractPlans" : "ServiceRobots/Serve.pml#1552996823626, ",
     "parametrisations" : [ ],
-    "inTransitions" : [ 1552996591281, 1552996768903 ],
-    "outTransitions" : [ 1552999417491 ]
+    "outTransitions" : [ 1552999417491 ],
+    "inTransitions" : [ 1552996591281, 1552996768903 ]
   }, {
     "type" : "State",
     "id" : 1552996405055,
@@ -48,10 +48,10 @@
     "comment" : "",
     "entryPoint" : null,
     "parentPlan" : 1552995667134,
-    "plans" : "ServiceRobots/Charge.pml#1552996829354, ",
+    "abstractPlans" : "ServiceRobots/Charge.pml#1552996829354, ",
     "parametrisations" : [ ],
-    "inTransitions" : [ ],
-    "outTransitions" : [ 1552996768903, 1552999344041 ]
+    "outTransitions" : [ 1552996768903, 1552999344041 ],
+    "inTransitions" : [ ]
   } ],
   "transitions" : [ {
     "id" : 1552996591281,
@@ -63,9 +63,9 @@
       "id" : 1552999126699,
       "name" : "1552999126699",
       "comment" : "Start received",
+      "enabled" : true,
       "conditionString" : null,
       "pluginName" : "DefaultPlugin",
-      "enabled" : true,
       "variables" : [ ],
       "quantifiers" : [ ]
     },
@@ -80,9 +80,9 @@
       "id" : 1552997671153,
       "name" : "1552997671153",
       "comment" : "fully charged (child success)",
-      "conditionString" : null,
-      "pluginName" : "DefaultPlugin",
       "enabled" : true,
+      "conditionString" : "",
+      "pluginName" : "DefaultPlugin",
       "variables" : [ ],
       "quantifiers" : [ ]
     },
@@ -97,9 +97,9 @@
       "id" : 1552999379581,
       "name" : "1552999379581",
       "comment" : "Stop received",
+      "enabled" : true,
       "conditionString" : null,
       "pluginName" : "DefaultPlugin",
-      "enabled" : true,
       "variables" : [ ],
       "quantifiers" : [ ]
     },
@@ -114,9 +114,9 @@
       "id" : 1552999434614,
       "name" : "1552999434614",
       "comment" : "Stop received",
+      "enabled" : true,
       "conditionString" : null,
       "pluginName" : "DefaultPlugin",
-      "enabled" : true,
       "variables" : [ ],
       "quantifiers" : [ ]
     },
