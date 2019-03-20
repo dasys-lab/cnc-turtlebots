@@ -28,7 +28,7 @@
     "parentPlan" : 1552995667134,
     "abstractPlans" : "ServiceRobots/Stop.beh#1552996811900, ",
     "parametrisations" : [ ],
-    "outTransitions" : [ 1552996591281 ],
+    "outTransitions" : [ 1553086257494 ],
     "inTransitions" : [ 1552999344041, 1552999417491 ]
   }, {
     "type" : "State",
@@ -39,8 +39,8 @@
     "parentPlan" : 1552995667134,
     "abstractPlans" : "ServiceRobots/Serve.pml#1552996823626, ",
     "parametrisations" : [ ],
-    "outTransitions" : [ 1552999417491 ],
-    "inTransitions" : [ 1552996591281, 1552996768903 ]
+    "outTransitions" : [ 1552999417491, 1553086051443 ],
+    "inTransitions" : [ 1552996768903, 1553086257494 ]
   }, {
     "type" : "State",
     "id" : 1552996405055,
@@ -51,26 +51,9 @@
     "abstractPlans" : "ServiceRobots/Charge.pml#1552996829354, ",
     "parametrisations" : [ ],
     "outTransitions" : [ 1552996768903, 1552999344041 ],
-    "inTransitions" : [ ]
+    "inTransitions" : [ 1553086051443 ]
   } ],
   "transitions" : [ {
-    "id" : 1552996591281,
-    "name" : "MISSING_NAME",
-    "comment" : "FromStopToServe",
-    "inState" : 1552996403396,
-    "outState" : 1552996404209,
-    "preCondition" : {
-      "id" : 1552999126699,
-      "name" : "1552999126699",
-      "comment" : "Start received",
-      "enabled" : true,
-      "conditionString" : null,
-      "pluginName" : "DefaultPlugin",
-      "variables" : [ ],
-      "quantifiers" : [ ]
-    },
-    "synchronisation" : null
-  }, {
     "id" : 1552996768903,
     "name" : "MISSING_NAME",
     "comment" : "FromChargeToServe",
@@ -89,7 +72,7 @@
     "synchronisation" : null
   }, {
     "id" : 1552999344041,
-    "name" : "MISSING_NAME",
+    "name" : "FromChargeToStop",
     "comment" : "FromChargeToStop",
     "inState" : 1552996405055,
     "outState" : 1552996403396,
@@ -114,6 +97,40 @@
       "id" : 1552999434614,
       "name" : "1552999434614",
       "comment" : "Stop received",
+      "enabled" : true,
+      "conditionString" : null,
+      "pluginName" : "DefaultPlugin",
+      "variables" : [ ],
+      "quantifiers" : [ ]
+    },
+    "synchronisation" : null
+  }, {
+    "id" : 1553086051443,
+    "name" : "FromServeToCharge",
+    "comment" : null,
+    "inState" : 1552996404209,
+    "outState" : 1552996405055,
+    "preCondition" : {
+      "id" : 1553086059295,
+      "name" : "1553086059295",
+      "comment" : "low accu (not implemented, yet)",
+      "enabled" : true,
+      "conditionString" : null,
+      "pluginName" : "DefaultPlugin",
+      "variables" : [ ],
+      "quantifiers" : [ ]
+    },
+    "synchronisation" : null
+  }, {
+    "id" : 1553086257494,
+    "name" : "FromStopToServe",
+    "comment" : null,
+    "inState" : 1552996403396,
+    "outState" : 1552996404209,
+    "preCondition" : {
+      "id" : 1553086274283,
+      "name" : "1553086274283",
+      "comment" : "Start received",
       "enabled" : true,
       "conditionString" : null,
       "pluginName" : "DefaultPlugin",
