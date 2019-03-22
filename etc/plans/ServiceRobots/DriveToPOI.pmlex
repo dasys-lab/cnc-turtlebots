@@ -1,0 +1,102 @@
+{
+  "plan" : "ServiceRobots/DriveToPOI.pml#1553186299639",
+  "uiElementMap" : {
+    "1553249715180" : {
+      "id" : 1553249715181,
+      "name" : "1553249715181",
+      "comment" : null,
+      "x" : 0,
+      "y" : 0,
+      "visible" : false,
+      "bendPoints" : [ ]
+    },
+    "1553249723948" : {
+      "id" : 1553249723949,
+      "name" : "1553249723949",
+      "comment" : null,
+      "x" : 0,
+      "y" : 0,
+      "visible" : false,
+      "bendPoints" : [ {
+        "id" : 1553249723951,
+        "name" : "1553249723951",
+        "comment" : null,
+        "x" : -415,
+        "y" : -88,
+        "transition" : 1553249723948
+      } ]
+    },
+    "1553246730787" : {
+      "id" : 1553246730789,
+      "name" : "1553246730789",
+      "comment" : null,
+      "x" : -572,
+      "y" : -51,
+      "visible" : false,
+      "bendPoints" : [ ]
+    },
+    "1553246732403" : {
+      "id" : 1553246732404,
+      "name" : "1553246732404",
+      "comment" : null,
+      "x" : -382,
+      "y" : -195,
+      "visible" : false,
+      "bendPoints" : [ ]
+    },
+    "1553246733927" : {
+      "id" : 1553246733928,
+      "name" : "1553246733928",
+      "comment" : null,
+      "x" : -362,
+      "y" : 50,
+      "visible" : false,
+      "bendPoints" : [ ]
+    },
+    "1553249711754" : {
+      "id" : 1553249711756,
+      "name" : "1553249711756",
+      "comment" : null,
+      "x" : 0,
+      "y" : 0,
+      "visible" : false,
+      "bendPoints" : [ ]
+    },
+    "1553246738057" : {
+      "id" : 1553246738058,
+      "name" : "1553246738058",
+      "comment" : null,
+      "x" : -180,
+      "y" : -32,
+      "visible" : false,
+      "bendPoints" : [ ]
+    },
+    "1553246736188" : {
+      "id" : 1553246736189,
+      "name" : "1553246736189",
+      "comment" : null,
+      "x" : -199,
+      "y" : -172,
+      "visible" : false,
+      "bendPoints" : [ ]
+    },
+    "1553249685249" : {
+      "id" : 1553249685250,
+      "name" : "1553249685250",
+      "comment" : null,
+      "x" : 0,
+      "y" : 0,
+      "visible" : false,
+      "bendPoints" : [ ]
+    },
+    "1553247377749" : {
+      "id" : 1553247377750,
+      "name" : "1553247377750",
+      "comment" : null,
+      "x" : 0,
+      "y" : 0,
+      "visible" : false,
+      "bendPoints" : [ ]
+    }
+  }
+}

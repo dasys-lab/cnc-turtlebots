@@ -1,0 +1,86 @@
+{
+  "plan" : "ServiceRobots/PutDown.pml#1553186313956",
+  "uiElementMap" : {
+    "1553254969436" : {
+      "id" : 1553254969437,
+      "name" : "1553254969437",
+      "comment" : null,
+      "x" : -96,
+      "y" : 147,
+      "visible" : false,
+      "bendPoints" : [ ]
+    },
+    "1553251837742" : {
+      "id" : 1553251837743,
+      "name" : "1553251837743",
+      "comment" : null,
+      "x" : -345,
+      "y" : 69,
+      "visible" : false,
+      "bendPoints" : [ ]
+    },
+    "1553251833164" : {
+      "id" : 1553251833165,
+      "name" : "1553251833165",
+      "comment" : null,
+      "x" : -522,
+      "y" : -30,
+      "visible" : false,
+      "bendPoints" : [ ]
+    },
+    "1553251862908" : {
+      "id" : 1553251862909,
+      "name" : "1553251862909",
+      "comment" : null,
+      "x" : -100,
+      "y" : 39,
+      "visible" : false,
+      "bendPoints" : [ ]
+    },
+    "1553251878842" : {
+      "id" : 1553251878843,
+      "name" : "1553251878843",
+      "comment" : null,
+      "x" : 0,
+      "y" : 0,
+      "visible" : false,
+      "bendPoints" : [ ]
+    },
+    "1553251863897" : {
+      "id" : 1553251863898,
+      "name" : "1553251863898",
+      "comment" : null,
+      "x" : 231,
+      "y" : -67,
+      "visible" : false,
+      "bendPoints" : [ ]
+    },
+    "1553251883173" : {
+      "id" : 1553251883174,
+      "name" : "1553251883174",
+      "comment" : null,
+      "x" : 0,
+      "y" : 0,
+      "visible" : false,
+      "bendPoints" : [ ]
+    },
+    "1553251836208" : {
+      "id" : 1553251836209,
+      "name" : "1553251836209",
+      "comment" : null,
+      "x" : -346,
+      "y" : -103,
+      "visible" : false,
+      "bendPoints" : [ ]
+    },
+    "1553251860992" : {
+      "id" : 1553251860993,
+      "name" : "1553251860993",
+      "comment" : null,
+      "x" : -105,
+      "y" : -112,
+      "visible" : false,
+      "bendPoints" : [ ]
+    }
+  }
+}

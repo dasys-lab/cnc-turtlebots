@@ -1,0 +1,12 @@
+{
+  "id" : 1553251475582,
+  "name" : "PickUp",
+  "comment" : null,
+  "relativeDirectory" : "ServiceRobots/Behaviours",
+  "variables" : [ ],
+  "frequency" : 0,
+  "deferring" : 0,
+  "preCondition" : null,
+  "runtimeCondition" : null,
+  "postCondition" : null
+}

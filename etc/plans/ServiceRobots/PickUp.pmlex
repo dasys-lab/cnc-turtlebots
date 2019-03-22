@@ -1,0 +1,147 @@
+{
+  "plan" : "ServiceRobots/PickUp.pml#1553186320902",
+  "uiElementMap" : {
+    "1553250973427" : {
+      "id" : 1553250973428,
+      "name" : "1553250973428",
+      "comment" : null,
+      "x" : 0,
+      "y" : 0,
+      "visible" : false,
+      "bendPoints" : [ ]
+    },
+    "1553251090038" : {
+      "id" : 1553251090039,
+      "name" : "1553251090039",
+      "comment" : null,
+      "x" : 0,
+      "y" : 0,
+      "visible" : false,
+      "bendPoints" : [ {
+        "id" : 1553251090040,
+        "name" : "1553251090040",
+        "comment" : null,
+        "x" : -174,
+        "y" : -93,
+        "transition" : 1553251090038
+      } ]
+    },
+    "1553250909207" : {
+      "id" : 1553250909209,
+      "name" : "1553250909209",
+      "comment" : null,
+      "x" : -139,
+      "y" : -181,
+      "visible" : false,
+      "bendPoints" : [ ]
+    },
+    "1553250980249" : {
+      "id" : 1553250980250,
+      "name" : "1553250980250",
+      "comment" : null,
+      "x" : 0,
+      "y" : 0,
+      "visible" : false,
+      "bendPoints" : [ ]
+    },
+    "1553251071386" : {
+      "id" : 1553251071387,
+      "name" : "1553251071387",
+      "comment" : null,
+      "x" : 0,
+      "y" : 0,
+      "visible" : false,
+      "bendPoints" : [ ]
+    },
+    "1553251068088" : {
+      "id" : 1553251068089,
+      "name" : "1553251068089",
+      "comment" : null,
+      "x" : 0,
+      "y" : 0,
+      "visible" : false,
+      "bendPoints" : [ ]
+    },
+    "1553250965214" : {
+      "id" : 1553250965215,
+      "name" : "1553250965215",
+      "comment" : null,
+      "x" : 0,
+      "y" : 0,
+      "visible" : false,
+      "bendPoints" : [ ]
+    },
+    "1553250909709" : {
+      "id" : 1553250909710,
+      "name" : "1553250909710",
+      "comment" : null,
+      "x" : -132,
+      "y" : 15,
+      "visible" : false,
+      "bendPoints" : [ ]
+    },
+    "1553251064992" : {
+      "id" : 1553251064993,
+      "name" : "1553251064993",
+      "comment" : null,
+      "x" : 0,
+      "y" : 0,
+      "visible" : false,
+      "bendPoints" : [ ]
+    },
+    "1553250914917" : {
+      "id" : 1553250914918,
+      "name" : "1553250914918",
+      "comment" : null,
+      "x" : 61,
+      "y" : -269,
+      "visible" : false,
+      "bendPoints" : [ ]
+    },
+    "1553250907083" : {
+      "id" : 1553250907084,
+      "name" : "1553250907084",
+      "comment" : null,
+      "x" : -276,
+      "y" : -106,
+      "visible" : false,
+      "bendPoints" : [ ]
+    },
+    "1553250912679" : {
+      "id" : 1553250912680,
+      "name" : "1553250912680",
+      "comment" : null,
+      "x" : 71,
+      "y" : 47,
+      "visible" : false,
+      "bendPoints" : [ ]
+    },
+    "1553250911977" : {
+      "id" : 1553250911978,
+      "name" : "1553250911978",
+      "comment" : null,
+      "x" : 65,
+      "y" : -141,
+      "visible" : false,
+      "bendPoints" : [ ]
+    },
+    "1553251083850" : {
+      "id" : 1553251083851,
+      "name" : "1553251083851",
+      "comment" : null,
+      "x" : 0,
+      "y" : 0,
+      "visible" : false,
+      "bendPoints" : [ ]
+    },
+    "1553250967503" : {
+      "id" : 1553250967504,
+      "name" : "1553250967504",
+      "comment" : null,
+      "x" : 0,
+      "y" : 0,
+      "visible" : false,
+      "bendPoints" : [ ]
+    }
+  }
+}

@@ -1,8 +1,8 @@
 {
-  "id" : 1552997315918,
-  "name" : "DriveToWMsPOI",
+  "id" : 1553249804320,
+  "name" : "OpenDoor",
   "comment" : null,
-  "relativeDirectory" : "ServiceRobots",
+  "relativeDirectory" : "ServiceRobots/Behaviours",
   "variables" : [ ],
   "frequency" : 0,
   "deferring" : 0,
