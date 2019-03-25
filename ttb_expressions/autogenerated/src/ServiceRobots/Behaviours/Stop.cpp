@@ -2,7 +2,8 @@
 #include <memory>
 
 /*PROTECTED REGION ID(inccpp1553185137554) ENABLED START*/
-// Add additional includes here
+#include <TurtleBot.h>
+#include <geometry_msgs/Twist.h>
 /*PROTECTED REGION END*/
 
 namespace alica
@@ -27,7 +28,18 @@ Stop::~Stop()
 void Stop::run(void* msg)
 {
     /*PROTECTED REGION ID(run1553185137554) ENABLED START*/
-    // Add additional options here
+    geometry_msgs::Twist tw;
+    tw.linear.x = 0.0;
+    tw.linear.y = 0.0;
+    tw.linear.z = 0.0;
+
+    tw.angular.x = 0.0;
+    tw.angular.y = 0.0;
+    tw.angular.z = 0.0;
+    this->turtleBot->movement->send(tw);
+
+    // cancel move base goals
+    this->turtleBot->movement->cancelAllGoals();
     /*PROTECTED REGION END*/
 }
 void Stop::initialiseParameters()

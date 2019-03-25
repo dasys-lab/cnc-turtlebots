@@ -2,7 +2,9 @@
 
 #include "DomainBehaviour.h"
 /*PROTECTED REGION ID(inc1553508167181) ENABLED START*/
-// Add additional includes here
+#include <engine/constraintmodul/Query.h>
+#include <memory>
+#include <string>
 /*PROTECTED REGION END*/
 
 namespace alica
@@ -23,7 +25,9 @@ protected:
     /*PROTECTED REGION END*/
 private:
     /*PROTECTED REGION ID(prv1553508167181) ENABLED START*/
-    // Add additional private methods here
+    std::shared_ptr<alica::Query> query;
+    std::vector<alica::BBIdent> result;
+    bool isPuttingDown;
     /*PROTECTED REGION END*/
 };
 } /* namespace alica */

@@ -2,7 +2,13 @@
 
 #include "DomainBehaviour.h"
 /*PROTECTED REGION ID(inc1553251534505) ENABLED START*/
-// Add additional includes here
+#include <engine/constraintmodul/Query.h>
+
+#include <actionlib/client/action_client.h>
+#include <move_base_msgs/MoveBaseAction.h>
+
+#include <memory>
+#include <string>
 /*PROTECTED REGION END*/
 
 namespace alica
@@ -23,7 +29,10 @@ protected:
     /*PROTECTED REGION END*/
 private:
     /*PROTECTED REGION ID(prv1553251534505) ENABLED START*/
-    // Add additional private methods here
+    std::shared_ptr<alica::Query> query;
+    std::vector<alica::BBIdent> result;
+    actionlib::ClientGoalHandle<move_base_msgs::MoveBaseAction> goalHandle;
+    bool isMoveBaseDone();
     /*PROTECTED REGION END*/
 };
 } /* namespace alica */

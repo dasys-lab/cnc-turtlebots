@@ -2,7 +2,21 @@
 
 #include "DomainBehaviour.h"
 /*PROTECTED REGION ID(inc1553249791474) ENABLED START*/
-// Add additional includes here
+#include <engine/constraintmodul/Query.h>
+#include <supplementary/InformationElement.h>
+
+#include <actionlib/client/action_client.h>
+#include <move_base_msgs/MoveBaseAction.h>
+#include <ttb_msgs/ServeTask.h>
+
+#include <memory>
+namespace ttb
+{
+    namespace wm
+    {
+        class POI;
+    }
+} // namespace ttb
 /*PROTECTED REGION END*/
 
 namespace alica
@@ -23,7 +37,11 @@ protected:
     /*PROTECTED REGION END*/
 private:
     /*PROTECTED REGION ID(prv1553249791474) ENABLED START*/
-    // Add additional private methods here
+    bool isMoveBaseDone();
+    std::shared_ptr<alica::Query> query;
+    std::vector<BBIdent> result;
+    actionlib::ClientGoalHandle<move_base_msgs::MoveBaseAction> goalHandle;
+    std::shared_ptr<ttb::wm::POI> goalPOI;
     /*PROTECTED REGION END*/
 };
 } /* namespace alica */
