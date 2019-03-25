@@ -1,4 +1,3 @@
-#include <ttb_msgs/ServeTask.h>
 #include "ServiceRobots/Serve1553186258644.h"
 /*PROTECTED REGION ID(eph1553186258644) ENABLED START*/
 #include <ttb/TTBWorldModel.h>

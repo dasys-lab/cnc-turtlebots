@@ -3,8 +3,8 @@
 
 /*PROTECTED REGION ID(inccpp1553249791474) ENABLED START*/
 #include <TurtleBot.h>
-#include <alica/reasoner/SimpleVariable.h>
 #include <alica/reasoner/SimpleSolver.h>
+#include <alica/reasoner/SimpleVariable.h>
 #include <robot/Movement.h>
 #include <robot/TTBEnums.h>
 #include <ttb/TTBWorldModel.h>
@@ -89,30 +89,31 @@ void DriveToPOI::initialiseParameters()
     this->result.clear();
     this->query->addStaticVariable(getVariable("poi"));
     this->goalHandle.reset();
+
     /*PROTECTED REGION END*/
 }
 /*PROTECTED REGION ID(methods1553249791474) ENABLED START*/
-    bool DriveToPOI::isMoveBaseDone()
-    {
-        if (!this->goalHandle.isExpired() && this->goalHandle.getCommState() == actionlib::CommState::DONE) {
-            if (this->goalHandle.getTerminalState().state_ == actionlib::TerminalState::ABORTED) {
-                //            std::cout << "DriveToPOI: CommState: " << this->goalHandle.getCommState().toString()
-                //                      << " TerminalState: " << this->goalHandle.getTerminalState().toString() <<
-                //                      std::endl;
-                this->setFailure();
-            }
-            //        else if (this->goalHandle.getTerminalState().state_ == actionlib::TerminalState::SUCCEEDED)
-            //        {
+bool DriveToPOI::isMoveBaseDone()
+{
+    if (!this->goalHandle.isExpired() && this->goalHandle.getCommState() == actionlib::CommState::DONE) {
+        if (this->goalHandle.getTerminalState().state_ == actionlib::TerminalState::ABORTED) {
             //            std::cout << "DriveToPOI: CommState: " << this->goalHandle.getCommState().toString()
-            //                      << " TerminalState: " << this->goalHandle.getTerminalState().toString() << std::endl;
-            //        }
-            this->goalHandle.reset();
-            return true;
-        } else if (this->goalHandle.isExpired()) {
-            return true;
+            //                      << " TerminalState: " << this->goalHandle.getTerminalState().toString() <<
+            //                      std::endl;
+            this->setFailure();
         }
-        return false;
+        //        else if (this->goalHandle.getTerminalState().state_ == actionlib::TerminalState::SUCCEEDED)
+        //        {
+        //            std::cout << "DriveToPOI: CommState: " << this->goalHandle.getCommState().toString()
+        //                      << " TerminalState: " << this->goalHandle.getTerminalState().toString() << std::endl;
+        //        }
+        this->goalHandle.reset();
+        return true;
+    } else if (this->goalHandle.isExpired()) {
+        return true;
     }
+    return false;
+}
 /*PROTECTED REGION END*/
 
 } /* namespace alica */

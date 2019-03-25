@@ -8,9 +8,9 @@
 #include <alica/reasoner/SimpleTerm.h>
 #include <alica/reasoner/SimpleVariable.h>
 
-#include <engine/constraintmodul/ProblemDescriptor.h>
 #include <alica_solver_interface/SolverTerm.h>
 #include <alica_solver_interface/SolverVariable.h>
+#include <engine/constraintmodul/ProblemDescriptor.h>
 /*PROTECTED REGION END*/
 
 using namespace alica;

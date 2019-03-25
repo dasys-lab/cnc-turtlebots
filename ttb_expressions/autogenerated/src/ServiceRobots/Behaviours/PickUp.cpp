@@ -3,8 +3,8 @@
 
 /*PROTECTED REGION ID(inccpp1553251475582) ENABLED START*/
 #include <TurtleBot.h>
-#include <alica/reasoner/SimpleVariable.h>
 #include <alica/reasoner/SimpleSolver.h>
+#include <alica/reasoner/SimpleVariable.h>
 #include <robot/SimulatedArm.h>
 #include <ttb/TTBWorldModel.h>
 /*PROTECTED REGION END*/
@@ -45,7 +45,7 @@ void PickUp::run(void* msg)
     //                << std::endl;
 
     const auto& bbValue = this->getPlanContext().getAlicaEngine()->getBlackBoard().getValue(result[0]);
-    string objectName = std::string(reinterpret_cast<const char *>(bbValue.begin()),bbValue.size());
+    string objectName = std::string(reinterpret_cast<const char*>(bbValue.begin()), bbValue.size());
 
     auto object = this->wm->logicalCameraData.getObject(objectName);
     if (!object || objectName.compare(alica::reasoner::SimpleVariable::NO_VALUE) == 0) {
@@ -77,6 +77,7 @@ void PickUp::initialiseParameters()
     this->query->clearStaticVariables();
     this->result.clear();
     this->query->addStaticVariable(getVariable("entity"));
+
     /*PROTECTED REGION END*/
 }
 /*PROTECTED REGION ID(methods1553251475582) ENABLED START*/

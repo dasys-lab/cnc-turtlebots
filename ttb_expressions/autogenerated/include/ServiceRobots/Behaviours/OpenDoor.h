@@ -9,10 +9,10 @@
 #include <vector>
 namespace ttb
 {
-    namespace wm
-    {
-        class Door;
-    }
+namespace wm
+{
+class Door;
+}
 } // namespace ttb
 /*PROTECTED REGION END*/
 

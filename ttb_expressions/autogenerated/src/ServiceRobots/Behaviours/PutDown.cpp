@@ -53,7 +53,7 @@ void PutDown::run(void* msg)
     //              std::endl;
 
     const auto& bbValue = this->getPlanContext().getAlicaEngine()->getBlackBoard().getValue(result[3]);
-    string objectName = std::string(reinterpret_cast<const char *>(bbValue.begin()),bbValue.size());
+    string objectName = std::string(reinterpret_cast<const char*>(bbValue.begin()), bbValue.size());
 
     auto object = this->wm->logicalCameraData.getObject(objectName);
     if (!object || objectName.compare(alica::reasoner::SimpleVariable::NO_VALUE) == 0) {
@@ -62,11 +62,11 @@ void PutDown::run(void* msg)
     }
     if (!this->isPuttingDown) {
         const auto& bbXValue = this->getPlanContext().getAlicaEngine()->getBlackBoard().getValue(result[0]);
-        string objectXStr = std::string(reinterpret_cast<const char *>(bbXValue.begin()),bbXValue.size());
+        string objectXStr = std::string(reinterpret_cast<const char*>(bbXValue.begin()), bbXValue.size());
         const auto& bbYValue = this->getPlanContext().getAlicaEngine()->getBlackBoard().getValue(result[1]);
-        string objectYStr = std::string(reinterpret_cast<const char *>(bbYValue.begin()),bbYValue.size());
+        string objectYStr = std::string(reinterpret_cast<const char*>(bbYValue.begin()), bbYValue.size());
         const auto& bbZValue = this->getPlanContext().getAlicaEngine()->getBlackBoard().getValue(result[2]);
-        string objectZStr = std::string(reinterpret_cast<const char *>(bbZValue.begin()),bbZValue.size());
+        string objectZStr = std::string(reinterpret_cast<const char*>(bbZValue.begin()), bbZValue.size());
         geometry_msgs::Point point;
         point.x = stod(objectXStr);
         point.y = stod(objectYStr);
@@ -97,6 +97,7 @@ void PutDown::initialiseParameters()
     this->query->addStaticVariable(getVariable("y"));
     this->query->addStaticVariable(getVariable("z"));
     this->query->addStaticVariable(getVariable("entity"));
+
     /*PROTECTED REGION END*/
 }
 /*PROTECTED REGION ID(methods1553508167181) ENABLED START*/

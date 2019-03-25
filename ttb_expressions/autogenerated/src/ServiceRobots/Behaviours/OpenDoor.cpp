@@ -45,7 +45,7 @@ void OpenDoor::run(void* msg)
     }
 
     const auto& bbValue = this->getPlanContext().getAlicaEngine()->getBlackBoard().getValue(result[0]);
-    string doorName = std::string(reinterpret_cast<const char *>(bbValue.begin()),bbValue.size());
+    string doorName = std::string(reinterpret_cast<const char*>(bbValue.begin()), bbValue.size());
 
     std::cout << "OpenDoor: Solution for variable: " << vars[0]->getName() << " is: " << doorName << std::endl;
 
@@ -73,6 +73,7 @@ void OpenDoor::initialiseParameters()
     query->clearStaticVariables();
     result.clear();
     query->addStaticVariable(getVariable("door"));
+
     /*PROTECTED REGION END*/
 }
 /*PROTECTED REGION ID(methods1553249804320) ENABLED START*/

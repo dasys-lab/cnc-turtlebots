@@ -12,10 +12,10 @@
 #include <memory>
 namespace ttb
 {
-    namespace wm
-    {
-        class POI;
-    }
+namespace wm
+{
+class POI;
+}
 } // namespace ttb
 /*PROTECTED REGION END*/
 
