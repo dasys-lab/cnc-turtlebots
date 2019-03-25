@@ -16,7 +16,7 @@
     "minCardinality" : 0,
     "maxCardinality" : 0,
     "task" : "ServiceRobotsTasks.tsk#1528875085489",
-    "state" : null,
+    "state" : 1553251836208,
     "plan" : 1553186313956
   } ],
   "states" : [ {
@@ -24,12 +24,12 @@
     "id" : 1553251836208,
     "name" : "DriveToPoint",
     "comment" : "",
-    "entryPoint" : null,
+    "entryPoint" : 1553251833164,
     "parentPlan" : 1553186313956,
     "abstractPlans" : "",
     "parametrisations" : [ ],
-    "outTransitions" : [ 1553251878842 ],
-    "inTransitions" : [ ]
+    "outTransitions" : [ 1553251878842, 1553503372591 ],
+    "inTransitions" : [ 1553503358877 ]
   }, {
     "type" : "State",
     "id" : 1553251837742,
@@ -39,7 +39,7 @@
     "parentPlan" : 1553186313956,
     "abstractPlans" : "",
     "parametrisations" : [ ],
-    "outTransitions" : [ ],
+    "outTransitions" : [ 1553503358877, 1553503376373, 1553503379375 ],
     "inTransitions" : [ 1553251878842 ]
   }, {
     "type" : "TerminalState",
@@ -51,7 +51,7 @@
     "abstractPlans" : "",
     "parametrisations" : [ ],
     "outTransitions" : [ ],
-    "inTransitions" : [ ],
+    "inTransitions" : [ 1553503372591 ],
     "success" : false,
     "postCondition" : null
   }, {
@@ -64,7 +64,7 @@
     "abstractPlans" : "",
     "parametrisations" : [ ],
     "outTransitions" : [ ],
-    "inTransitions" : [ ],
+    "inTransitions" : [ 1553503376373 ],
     "success" : false,
     "postCondition" : null
   }, {
@@ -77,7 +77,7 @@
     "abstractPlans" : "",
     "parametrisations" : [ ],
     "outTransitions" : [ ],
-    "inTransitions" : [ ],
+    "inTransitions" : [ 1553503379375 ],
     "success" : true,
     "postCondition" : null
   } ],
@@ -87,7 +87,84 @@
     "comment" : "MISSING_COMMENT",
     "inState" : 1553251836208,
     "outState" : 1553251837742,
-    "preCondition" : null,
+    "preCondition" : {
+      "id" : 1553503395943,
+      "name" : "1553503395943",
+      "comment" : null,
+      "enabled" : true,
+      "conditionString" : "Arrived at point",
+      "pluginName" : "DefaultPlugin",
+      "variables" : [ ],
+      "quantifiers" : [ ]
+    },
+    "synchronisation" : null
+  }, {
+    "id" : 1553503358877,
+    "name" : "FromPutDownToDriveToPoint",
+    "comment" : "MISSING_COMMENT",
+    "inState" : 1553251837742,
+    "outState" : 1553251836208,
+    "preCondition" : {
+      "id" : 1553503411200,
+      "name" : "1553503411200",
+      "comment" : null,
+      "enabled" : true,
+      "conditionString" : "PutDown to DriveToPoint",
+      "pluginName" : "DefaultPlugin",
+      "variables" : [ ],
+      "quantifiers" : [ ]
+    },
+    "synchronisation" : null
+  }, {
+    "id" : 1553503372591,
+    "name" : "FromDriveToPointToDriveToFailed",
+    "comment" : "MISSING_COMMENT",
+    "inState" : 1553251836208,
+    "outState" : 1553251860992,
+    "preCondition" : {
+      "id" : 1553503428123,
+      "name" : "1553503428123",
+      "comment" : null,
+      "enabled" : true,
+      "conditionString" : "failed to drive to point",
+      "pluginName" : "DefaultPlugin",
+      "variables" : [ ],
+      "quantifiers" : [ ]
+    },
+    "synchronisation" : null
+  }, {
+    "id" : 1553503376373,
+    "name" : "FromPutDownToFailedToPlaceObject",
+    "comment" : "MISSING_COMMENT",
+    "inState" : 1553251837742,
+    "outState" : 1553251862908,
+    "preCondition" : {
+      "id" : 1553503439638,
+      "name" : "1553503439638",
+      "comment" : null,
+      "enabled" : true,
+      "conditionString" : "Failed putting down",
+      "pluginName" : "DefaultPlugin",
+      "variables" : [ ],
+      "quantifiers" : [ ]
+    },
+    "synchronisation" : null
+  }, {
+    "id" : 1553503379375,
+    "name" : "FromPutDownToObjectPlaced",
+    "comment" : "MISSING_COMMENT",
+    "inState" : 1553251837742,
+    "outState" : 1553254969436,
+    "preCondition" : {
+      "id" : 1553503451171,
+      "name" : "1553503451171",
+      "comment" : null,
+      "enabled" : true,
+      "conditionString" : "Putting down Successful",
+      "pluginName" : "DefaultPlugin",
+      "variables" : [ ],
+      "quantifiers" : [ ]
+    },
     "synchronisation" : null
   } ],
   "synchronisations" : [ ]
