@@ -13,5 +13,10 @@
     "name" : "Fetch",
     "comment" : null,
     "taskRepository" : 1528875085487
+  }, {
+    "id" : 1553508529074,
+    "name" : "Search",
+    "comment" : null,
+    "taskRepository" : 1528875085487
   } ]
 }

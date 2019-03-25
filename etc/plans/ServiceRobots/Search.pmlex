@@ -1,0 +1,41 @@
+{
+  "plan" : "ServiceRobots/Search.pml#1553186306469",
+  "uiElementMap" : {
+    "1553508561976" : {
+      "id" : 1553508561978,
+      "name" : "1553508561978",
+      "comment" : null,
+      "x" : -839,
+      "y" : -92,
+      "visible" : false,
+      "bendPoints" : [ ]
+    },
+    "1553508588008" : {
+      "id" : 1553508588009,
+      "name" : "1553508588009",
+      "comment" : null,
+      "x" : -675,
+      "y" : -92,
+      "visible" : false,
+      "bendPoints" : [ ]
+    },
+    "1553508681887" : {
+      "id" : 1553508681888,
+      "name" : "1553508681888",
+      "comment" : null,
+      "x" : 0,
+      "y" : 0,
+      "visible" : false,
+      "bendPoints" : [ ]
+    },
+    "1553508539549" : {
+      "id" : 1553508539550,
+      "name" : "1553508539550",
+      "comment" : null,
+      "x" : -1016,
+      "y" : -88,
+      "visible" : false,
+      "bendPoints" : [ ]
+    }
+  }
+}

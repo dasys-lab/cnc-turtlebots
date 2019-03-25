@@ -3,11 +3,40 @@
   "name" : "PutDown",
   "comment" : null,
   "relativeDirectory" : "ServiceRobots",
-  "variables" : [ ],
+  "variables" : [ {
+    "id" : 1553506228672,
+    "name" : "X",
+    "comment" : "x coordinate to putdown the entity",
+    "variableType" : null
+  }, {
+    "id" : 1553506233885,
+    "name" : "Y",
+    "comment" : "y coordinate to putdown the entity",
+    "variableType" : null
+  }, {
+    "id" : 1553506237542,
+    "name" : "Z",
+    "comment" : "z coordinate to putdown the entity",
+    "variableType" : null
+  }, {
+    "id" : 1553506241307,
+    "name" : "entity",
+    "comment" : "the thing that needs to be put down",
+    "variableType" : null
+  } ],
   "masterPlan" : false,
   "utilityThreshold" : 0.0,
   "preCondition" : null,
-  "runtimeCondition" : null,
+  "runtimeCondition" : {
+    "id" : 1553506204186,
+    "name" : "1553506204186",
+    "comment" : null,
+    "enabled" : true,
+    "conditionString" : null,
+    "pluginName" : "DefaultPlugin",
+    "variables" : [ 1553506228672, 1553506233885, 1553506237542, 1553506241307 ],
+    "quantifiers" : [ ]
+  },
   "entryPoints" : [ {
     "id" : 1553251833164,
     "name" : "1553251833164",
@@ -26,7 +55,7 @@
     "comment" : "",
     "entryPoint" : 1553251833164,
     "parentPlan" : 1553186313956,
-    "abstractPlans" : "",
+    "abstractPlans" : "ServiceRobots/Behaviours/DriveToPoint.beh#1553508193766, ",
     "parametrisations" : [ ],
     "outTransitions" : [ 1553251878842, 1553503372591 ],
     "inTransitions" : [ 1553503358877 ]
@@ -37,7 +66,7 @@
     "comment" : "",
     "entryPoint" : null,
     "parentPlan" : 1553186313956,
-    "abstractPlans" : "",
+    "abstractPlans" : "ServiceRobots/Behaviours/PutDown.beh#1553508167181, ",
     "parametrisations" : [ ],
     "outTransitions" : [ 1553503358877, 1553503376373, 1553503379375 ],
     "inTransitions" : [ 1553251878842 ]
