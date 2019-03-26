@@ -1,6 +1,9 @@
 #include "DomainBehaviour.h"
 /*PROTECTED REGION ID(domainBehaviourSrcHeaders) ENABLED START*/
-// Add additional options here
+#include <SystemConfig.h>
+#include <TurtleBot.h>
+#include <engine/AlicaEngine.h>
+#include <ttb/TTBWorldModel.h>
 /*PROTECTED REGION END*/
 
 namespace alica
@@ -9,7 +12,9 @@ DomainBehaviour::DomainBehaviour(std::string name)
         : BasicBehaviour(name)
 {
     /*PROTECTED REGION ID(domainBehaviourConstructor) ENABLED START*/
-    // Add additional options here
+    sc = essentials::SystemConfig::getInstance();
+    wm = ttb::TTBWorldModel::get();
+    turtleBot = ttb::TurtleBot::get(wm);
     /*PROTECTED REGION END*/
 }
 
