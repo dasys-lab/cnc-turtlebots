@@ -1,0 +1,50 @@
+{
+  "plan" : "TestPlans4Parsing/ParsingMaster.pml#1554119089093",
+  "uiElementMap" : {
+    "1554119152379" : {
+      "id" : 1554119152380,
+      "name" : "1554119152380",
+      "comment" : null,
+      "x" : -697,
+      "y" : -95,
+      "visible" : false,
+      "bendPoints" : [ ]
+    },
+    "1554121183572" : {
+      "id" : 1554121183573,
+      "name" : "1554121183573",
+      "comment" : null,
+      "x" : -390,
+      "y" : -290,
+      "visible" : false,
+      "bendPoints" : [ ]
+    },
+    "1554119147402" : {
+      "id" : 1554119147403,
+      "name" : "1554119147403",
+      "comment" : null,
+      "x" : -337,
+      "y" : -100,
+      "visible" : false,
+      "bendPoints" : [ ]
+    },
+    "1554121185525" : {
+      "id" : 1554121185526,
+      "name" : "1554121185526",
+      "comment" : null,
+      "x" : -21,
+      "y" : -213,
+      "visible" : false,
+      "bendPoints" : [ ]
+    },
+    "1554121191105" : {
+      "id" : 1554121191106,
+      "name" : "1554121191106",
+      "comment" : null,
+      "x" : 0,
+      "y" : 0,
+      "visible" : false,
+      "bendPoints" : [ ]
+    }
+  }
+}
