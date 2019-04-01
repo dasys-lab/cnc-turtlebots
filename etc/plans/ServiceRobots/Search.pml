@@ -40,7 +40,7 @@
     "comment" : "",
     "entryPoint" : 1553508539549,
     "parentPlan" : 1553186306469,
-    "abstractPlans" : "ServiceRobots/Behaviours/Sweep.beh#1553508619994, ",
+    "abstractPlans" : [ "ServiceRobots/Behaviours/Sweep.beh#1553508619994" ],
     "parametrisations" : [ ],
     "outTransitions" : [ 1553508681887 ],
     "inTransitions" : [ ]
@@ -51,7 +51,7 @@
     "comment" : "",
     "entryPoint" : null,
     "parentPlan" : 1553186306469,
-    "abstractPlans" : "",
+    "abstractPlans" : [ ],
     "parametrisations" : [ ],
     "outTransitions" : [ ],
     "inTransitions" : [ 1553508681887 ],

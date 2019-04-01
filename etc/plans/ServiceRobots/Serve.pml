@@ -26,7 +26,7 @@
     "comment" : "",
     "entryPoint" : 1553186334263,
     "parentPlan" : 1553186258644,
-    "abstractPlans" : "ServiceRobots/Behaviours/Stop.beh#1553185137554, ",
+    "abstractPlans" : [ "ServiceRobots/Behaviours/Stop.beh#1553185137554" ],
     "parametrisations" : [ ],
     "outTransitions" : [ 1553186806326, 1553186839271, 1553186914413, 1553186936424 ],
     "inTransitions" : [ 1553245775226, 1553246232965, 1553246237498, 1553246242651 ]
@@ -37,7 +37,7 @@
     "comment" : "",
     "entryPoint" : null,
     "parentPlan" : 1553186258644,
-    "abstractPlans" : "ServiceRobots/DriveToPOI.pml#1553186299639, ",
+    "abstractPlans" : [ "ServiceRobots/DriveToPOI.pml#1553186299639" ],
     "parametrisations" : [ ],
     "outTransitions" : [ 1553245775226 ],
     "inTransitions" : [ 1553186806326 ]
@@ -48,7 +48,7 @@
     "comment" : "",
     "entryPoint" : null,
     "parentPlan" : 1553186258644,
-    "abstractPlans" : "ServiceRobots/PickUp.pml#1553186320902, ",
+    "abstractPlans" : [ "ServiceRobots/PickUp.pml#1553186320902" ],
     "parametrisations" : [ ],
     "outTransitions" : [ 1553246232965 ],
     "inTransitions" : [ 1553186839271 ]
@@ -59,7 +59,7 @@
     "comment" : "",
     "entryPoint" : null,
     "parentPlan" : 1553186258644,
-    "abstractPlans" : "ServiceRobots/PutDown.pml#1553186313956, ",
+    "abstractPlans" : [ "ServiceRobots/PutDown.pml#1553186313956" ],
     "parametrisations" : [ ],
     "outTransitions" : [ 1553246237498 ],
     "inTransitions" : [ 1553186914413 ]
@@ -70,7 +70,7 @@
     "comment" : "",
     "entryPoint" : null,
     "parentPlan" : 1553186258644,
-    "abstractPlans" : "ServiceRobots/Search.pml#1553186306469, ",
+    "abstractPlans" : [ "ServiceRobots/Search.pml#1553186306469" ],
     "parametrisations" : [ ],
     "outTransitions" : [ 1553246242651 ],
     "inTransitions" : [ 1553186936424 ]
