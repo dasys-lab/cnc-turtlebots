@@ -27,7 +27,7 @@
     "entryPoint" : 1554119152379,
     "parentPlan" : 1554119089093,
     "abstractPlans" : [ "TestPlans4Parsing/PT1.pty#1554119168374" ],
-    "parametrisations" : [ ],
+    "variableBindings" : [ ],
     "outTransitions" : [ ],
     "inTransitions" : [ 1554121191105 ]
   }, {
@@ -38,7 +38,7 @@
     "entryPoint" : null,
     "parentPlan" : 1554119089093,
     "abstractPlans" : [ "ServiceRobots/Behaviours/DriveToPOI.beh#1553249791474" ],
-    "parametrisations" : [ ],
+    "variableBindings" : [ ],
     "outTransitions" : [ 1554121191105 ],
     "inTransitions" : [ ]
   } ],

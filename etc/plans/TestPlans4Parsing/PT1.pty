@@ -4,7 +4,7 @@
   "comment" : null,
   "relativeDirectory" : "TestPlans4Parsing",
   "variables" : [ ],
-  "parametrisations" : [ ],
+  "variableBindings" : [ ],
   "annotatedPlans" : [ {
     "id" : 1554119183429,
     "name" : "Annotated",

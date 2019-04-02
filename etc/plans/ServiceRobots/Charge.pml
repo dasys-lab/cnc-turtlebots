@@ -27,7 +27,7 @@
     "entryPoint" : 1553245568961,
     "parentPlan" : 1553186270535,
     "abstractPlans" : [ ],
-    "parametrisations" : [ ],
+    "variableBindings" : [ ],
     "outTransitions" : [ 1553245583942 ],
     "inTransitions" : [ ]
   }, {
@@ -38,7 +38,7 @@
     "entryPoint" : null,
     "parentPlan" : 1553186270535,
     "abstractPlans" : [ ],
-    "parametrisations" : [ ],
+    "variableBindings" : [ ],
     "outTransitions" : [ 1553245593163 ],
     "inTransitions" : [ 1553245583942 ]
   }, {
@@ -49,7 +49,7 @@
     "entryPoint" : null,
     "parentPlan" : 1553186270535,
     "abstractPlans" : [ ],
-    "parametrisations" : [ ],
+    "variableBindings" : [ ],
     "outTransitions" : [ ],
     "inTransitions" : [ 1553245593163 ],
     "success" : true,

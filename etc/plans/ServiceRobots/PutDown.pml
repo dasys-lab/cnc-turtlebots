@@ -56,7 +56,7 @@
     "entryPoint" : 1553251833164,
     "parentPlan" : 1553186313956,
     "abstractPlans" : [ "ServiceRobots/Behaviours/DriveToPoint.beh#1553508193766" ],
-    "parametrisations" : [ ],
+    "variableBindings" : [ ],
     "outTransitions" : [ 1553251878842, 1553503372591 ],
     "inTransitions" : [ 1553503358877 ]
   }, {
@@ -67,7 +67,7 @@
     "entryPoint" : null,
     "parentPlan" : 1553186313956,
     "abstractPlans" : [ "ServiceRobots/Behaviours/PutDown.beh#1553508167181" ],
-    "parametrisations" : [ ],
+    "variableBindings" : [ ],
     "outTransitions" : [ 1553503358877, 1553503376373, 1553503379375 ],
     "inTransitions" : [ 1553251878842 ]
   }, {
@@ -78,7 +78,7 @@
     "entryPoint" : null,
     "parentPlan" : 1553186313956,
     "abstractPlans" : [ ],
-    "parametrisations" : [ ],
+    "variableBindings" : [ ],
     "outTransitions" : [ ],
     "inTransitions" : [ 1553503372591 ],
     "success" : false,
@@ -91,7 +91,7 @@
     "entryPoint" : null,
     "parentPlan" : 1553186313956,
     "abstractPlans" : [ ],
-    "parametrisations" : [ ],
+    "variableBindings" : [ ],
     "outTransitions" : [ ],
     "inTransitions" : [ 1553503376373 ],
     "success" : false,
@@ -104,7 +104,7 @@
     "entryPoint" : null,
     "parentPlan" : 1553186313956,
     "abstractPlans" : [ ],
-    "parametrisations" : [ ],
+    "variableBindings" : [ ],
     "outTransitions" : [ ],
     "inTransitions" : [ 1553503379375 ],
     "success" : true,

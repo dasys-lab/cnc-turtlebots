@@ -46,7 +46,7 @@
     "entryPoint" : 1553246730787,
     "parentPlan" : 1553186299639,
     "abstractPlans" : [ "ServiceRobots/Behaviours/DriveToPOI.beh#1553249791474" ],
-    "parametrisations" : [ ],
+    "variableBindings" : [ ],
     "outTransitions" : [ 1553247377749, 1553249685249, 1553249715180 ],
     "inTransitions" : [ 1553249723948 ]
   }, {
@@ -57,7 +57,7 @@
     "entryPoint" : null,
     "parentPlan" : 1553186299639,
     "abstractPlans" : [ "ServiceRobots/Behaviours/OpenDoor.beh#1553249804320" ],
-    "parametrisations" : [ ],
+    "variableBindings" : [ ],
     "outTransitions" : [ 1553249711754, 1553249723948 ],
     "inTransitions" : [ 1553247377749 ]
   }, {
@@ -68,7 +68,7 @@
     "entryPoint" : null,
     "parentPlan" : 1553186299639,
     "abstractPlans" : [ ],
-    "parametrisations" : [ ],
+    "variableBindings" : [ ],
     "outTransitions" : [ ],
     "inTransitions" : [ 1553249685249 ],
     "success" : true,
@@ -81,7 +81,7 @@
     "entryPoint" : null,
     "parentPlan" : 1553186299639,
     "abstractPlans" : [ ],
-    "parametrisations" : [ ],
+    "variableBindings" : [ ],
     "outTransitions" : [ ],
     "inTransitions" : [ 1553249711754, 1553249715180 ],
     "success" : false,

@@ -27,7 +27,7 @@
     "entryPoint" : 1553185666788,
     "parentPlan" : 1553184964252,
     "abstractPlans" : [ "ServiceRobots/Behaviours/Stop.beh#1553185137554" ],
-    "parametrisations" : [ ],
+    "variableBindings" : [ ],
     "outTransitions" : [ 1553185745471 ],
     "inTransitions" : [ 1553185754607, 1553186159975 ]
   }, {
@@ -38,7 +38,7 @@
     "entryPoint" : null,
     "parentPlan" : 1553184964252,
     "abstractPlans" : [ "ServiceRobots/Serve.pml#1553186258644" ],
-    "parametrisations" : [ ],
+    "variableBindings" : [ ],
     "outTransitions" : [ 1553185750137, 1553186159975 ],
     "inTransitions" : [ 1553185745471, 1553186193775 ]
   }, {
@@ -49,7 +49,7 @@
     "entryPoint" : null,
     "parentPlan" : 1553184964252,
     "abstractPlans" : [ "ServiceRobots/Charge.pml#1553186270535" ],
-    "parametrisations" : [ ],
+    "variableBindings" : [ ],
     "outTransitions" : [ 1553185754607, 1553186193775 ],
     "inTransitions" : [ 1553185750137 ]
   } ],

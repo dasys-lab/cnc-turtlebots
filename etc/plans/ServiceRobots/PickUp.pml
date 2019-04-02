@@ -41,7 +41,7 @@
     "entryPoint" : null,
     "parentPlan" : 1553186320902,
     "abstractPlans" : [ "ServiceRobots/Behaviours/PickUp.beh#1553251475582" ],
-    "parametrisations" : [ ],
+    "variableBindings" : [ ],
     "outTransitions" : [ 1553251064992, 1553251068088, 1553251090038 ],
     "inTransitions" : [ 1553251083850 ]
   }, {
@@ -52,7 +52,7 @@
     "entryPoint" : 1553250907083,
     "parentPlan" : 1553186320902,
     "abstractPlans" : [ "ServiceRobots/Behaviours/DriveCloseToObject.beh#1553251534505" ],
-    "parametrisations" : [ ],
+    "variableBindings" : [ ],
     "outTransitions" : [ 1553251071386, 1553251083850 ],
     "inTransitions" : [ 1553251090038 ]
   }, {
@@ -63,7 +63,7 @@
     "entryPoint" : null,
     "parentPlan" : 1553186320902,
     "abstractPlans" : [ ],
-    "parametrisations" : [ ],
+    "variableBindings" : [ ],
     "outTransitions" : [ ],
     "inTransitions" : [ 1553251068088 ],
     "success" : false,
@@ -76,7 +76,7 @@
     "entryPoint" : null,
     "parentPlan" : 1553186320902,
     "abstractPlans" : [ ],
-    "parametrisations" : [ ],
+    "variableBindings" : [ ],
     "outTransitions" : [ ],
     "inTransitions" : [ 1553251071386 ],
     "success" : false,
@@ -89,7 +89,7 @@
     "entryPoint" : null,
     "parentPlan" : 1553186320902,
     "abstractPlans" : [ ],
-    "parametrisations" : [ ],
+    "variableBindings" : [ ],
     "outTransitions" : [ ],
     "inTransitions" : [ 1553251064992 ],
     "success" : true,
