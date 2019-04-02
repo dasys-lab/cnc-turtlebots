@@ -3,7 +3,12 @@
   "name" : "OpenDoor",
   "comment" : null,
   "relativeDirectory" : "ServiceRobots/Behaviours",
-  "variables" : [ ],
+  "variables" : [ {
+    "id" : 1554146721173,
+    "name" : "door",
+    "comment" : "MISSING_COMMENT",
+    "variableType" : null
+  } ],
   "frequency" : 0,
   "deferring" : 0,
   "preCondition" : null,

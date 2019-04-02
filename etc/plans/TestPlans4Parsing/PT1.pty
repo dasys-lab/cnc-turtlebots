@@ -3,17 +3,29 @@
   "name" : "PT1",
   "comment" : null,
   "relativeDirectory" : "TestPlans4Parsing",
-  "variables" : [ ],
-  "variableBindings" : [ ],
+  "variables" : [ {
+    "id" : 1554219723962,
+    "name" : "ARIABLE",
+    "comment" : "MISSING_COMMENT",
+    "variableType" : null
+  } ],
+  "variableBindings" : [ {
+    "id" : 1554234648058,
+    "name" : "1554234648058",
+    "comment" : null,
+    "variable" : 1554219723962,
+    "subPlan" : "ServiceRobots/PutDown.pml#1553186313956",
+    "subVariable" : "ServiceRobots/PutDown.pml#1553506228672"
+  } ],
   "annotatedPlans" : [ {
     "id" : 1554119183429,
-    "name" : "Annotated",
+    "name" : "AnnotatedCharge",
     "comment" : null,
-    "activated" : true,
+    "activated" : false,
     "plan" : "ServiceRobots/Charge.pml#1553186270535"
   }, {
     "id" : 1554119184893,
-    "name" : "Annotated",
+    "name" : "AnnotatedPutDown",
     "comment" : null,
     "activated" : true,
     "plan" : "ServiceRobots/PutDown.pml#1553186313956"

@@ -1,0 +1,23 @@
+{
+  "plan" : "TestPlans4Parsing/ParsingTestMaster.pml#1554234501483",
+  "uiElementMap" : {
+    "1554234527864" : {
+      "id" : 1554234527865,
+      "name" : "1554234527865",
+      "comment" : null,
+      "x" : -405,
+      "y" : -122,
+      "visible" : false,
+      "bendPoints" : [ ]
+    },
+    "1554234522334" : {
+      "id" : 1554234522335,
+      "name" : "1554234522335",
+      "comment" : null,
+      "x" : -183,
+      "y" : -78,
+      "visible" : false,
+      "bendPoints" : [ ]
+    }
+  }
+}

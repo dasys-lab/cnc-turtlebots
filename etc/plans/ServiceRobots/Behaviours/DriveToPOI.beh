@@ -3,7 +3,12 @@
   "name" : "DriveToPOI",
   "comment" : null,
   "relativeDirectory" : "ServiceRobots/Behaviours",
-  "variables" : [ ],
+  "variables" : [ {
+    "id" : 1554219723962,
+    "name" : "test",
+    "comment" : "MISSING_COMMENT",
+    "variableType" : null
+  }],
   "frequency" : 0,
   "deferring" : 0,
   "preCondition" : null,
