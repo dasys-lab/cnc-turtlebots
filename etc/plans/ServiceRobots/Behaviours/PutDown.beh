@@ -3,7 +3,27 @@
   "name" : "PutDown",
   "comment" : null,
   "relativeDirectory" : "ServiceRobots/Behaviours",
-  "variables" : [ ],
+  "variables" : [ {
+    "id" : 1554285268616,
+    "name" : "x",
+    "comment" : "MISSING_COMMENT",
+    "variableType" : null
+  }, {
+    "id" : 1554285270977,
+    "name" : "y",
+    "comment" : "MISSING_COMMENT",
+    "variableType" : null
+  }, {
+    "id" : 1554285273962,
+    "name" : "z",
+    "comment" : "MISSING_COMMENT",
+    "variableType" : null
+  }, {
+    "id" : 1554285277315,
+    "name" : "entity",
+    "comment" : "MISSING_COMMENT",
+    "variableType" : null
+  } ],
   "frequency" : 0,
   "deferring" : 0,
   "preCondition" : null,

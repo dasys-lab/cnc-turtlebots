@@ -3,7 +3,12 @@
   "name" : "PickUp",
   "comment" : null,
   "relativeDirectory" : "ServiceRobots/Behaviours",
-  "variables" : [ ],
+  "variables" : [ {
+    "id" : 1554283042472,
+    "name" : "entity",
+    "comment" : "MISSING_COMMENT",
+    "variableType" : null
+  } ],
   "frequency" : 0,
   "deferring" : 0,
   "preCondition" : null,

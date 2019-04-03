@@ -3,7 +3,12 @@
   "name" : "Sweep",
   "comment" : null,
   "relativeDirectory" : "ServiceRobots/Behaviours",
-  "variables" : [ ],
+  "variables" : [ {
+    "id" : 1554285365317,
+    "name" : "entity",
+    "comment" : "MISSING_COMMENT",
+    "variableType" : null
+  } ],
   "frequency" : 0,
   "deferring" : 0,
   "preCondition" : null,

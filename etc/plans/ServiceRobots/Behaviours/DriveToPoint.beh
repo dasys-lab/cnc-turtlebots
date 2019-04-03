@@ -3,7 +3,17 @@
   "name" : "DriveToPoint",
   "comment" : null,
   "relativeDirectory" : "ServiceRobots/Behaviours",
-  "variables" : [ ],
+  "variables" : [ {
+    "id" : 1554285207458,
+    "name" : "x",
+    "comment" : "MISSING_COMMENT",
+    "variableType" : null
+  }, {
+    "id" : 1554285210551,
+    "name" : "y",
+    "comment" : "MISSING_COMMENT",
+    "variableType" : null
+  } ],
   "frequency" : 0,
   "deferring" : 0,
   "preCondition" : null,

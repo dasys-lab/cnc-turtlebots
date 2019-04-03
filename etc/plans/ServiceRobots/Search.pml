@@ -41,7 +41,14 @@
     "entryPoint" : 1553508539549,
     "parentPlan" : 1553186306469,
     "abstractPlans" : [ "ServiceRobots/Behaviours/Sweep.beh#1553508619994" ],
-    "variableBindings" : [ ],
+    "variableBindings" : [ {
+      "id" : 1554285376584,
+      "name" : "1554285376584",
+      "comment" : null,
+      "variable" : 1553508638691,
+      "subPlan" : "ServiceRobots/Behaviours/Sweep.beh#1553508619994",
+      "subVariable" : "ServiceRobots/Behaviours/Sweep.beh#1554285365317"
+    } ],
     "outTransitions" : [ 1553508681887 ],
     "inTransitions" : [ ]
   }, {

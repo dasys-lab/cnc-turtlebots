@@ -7,6 +7,7 @@
 #include "ServiceRobots/constraints/Search1553186306469Constraints.h"
 #include "ServiceRobots/constraints/Serve1553186258644Constraints.h"
 #include "ServiceRobots/constraints/ServeMaster1553184964252Constraints.h"
+#include "TestPlans4Parsing/constraints/ParsingTestMaster1554234501483Constraints.h"
 
 #include <iostream>
 

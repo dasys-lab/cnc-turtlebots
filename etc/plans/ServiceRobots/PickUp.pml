@@ -41,7 +41,14 @@
     "entryPoint" : null,
     "parentPlan" : 1553186320902,
     "abstractPlans" : [ "ServiceRobots/Behaviours/PickUp.beh#1553251475582" ],
-    "variableBindings" : [ ],
+    "variableBindings" : [ {
+      "id" : 1554283061199,
+      "name" : "1554283061199",
+      "comment" : null,
+      "variable" : 1553251224214,
+      "subPlan" : "ServiceRobots/Behaviours/PickUp.beh#1553251475582",
+      "subVariable" : "ServiceRobots/Behaviours/PickUp.beh#1554283042472"
+    } ],
     "outTransitions" : [ 1553251064992, 1553251068088, 1553251090038 ],
     "inTransitions" : [ 1553251083850 ]
   }, {
@@ -52,7 +59,14 @@
     "entryPoint" : 1553250907083,
     "parentPlan" : 1553186320902,
     "abstractPlans" : [ "ServiceRobots/Behaviours/DriveCloseToObject.beh#1553251534505" ],
-    "variableBindings" : [ ],
+    "variableBindings" : [ {
+      "id" : 1554285186403,
+      "name" : "1554285186403",
+      "comment" : null,
+      "variable" : 1553251224214,
+      "subPlan" : "ServiceRobots/Behaviours/DriveCloseToObject.beh#1553251534505",
+      "subVariable" : "ServiceRobots/Behaviours/DriveCloseToObject.beh#1554285171831"
+    } ],
     "outTransitions" : [ 1553251071386, 1553251083850 ],
     "inTransitions" : [ 1553251090038 ]
   }, {

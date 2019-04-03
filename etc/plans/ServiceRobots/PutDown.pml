@@ -5,17 +5,17 @@
   "relativeDirectory" : "ServiceRobots",
   "variables" : [ {
     "id" : 1553506228672,
-    "name" : "X",
+    "name" : "x",
     "comment" : "x coordinate to putdown the entity",
     "variableType" : null
   }, {
     "id" : 1553506233885,
-    "name" : "Y",
+    "name" : "y",
     "comment" : "y coordinate to putdown the entity",
     "variableType" : null
   }, {
     "id" : 1553506237542,
-    "name" : "Z",
+    "name" : "z",
     "comment" : "z coordinate to putdown the entity",
     "variableType" : null
   }, {
@@ -56,7 +56,21 @@
     "entryPoint" : 1553251833164,
     "parentPlan" : 1553186313956,
     "abstractPlans" : [ "ServiceRobots/Behaviours/DriveToPoint.beh#1553508193766" ],
-    "variableBindings" : [ ],
+    "variableBindings" : [ {
+      "id" : 1554285243544,
+      "name" : "1554285243544",
+      "comment" : null,
+      "variable" : 1553506228672,
+      "subPlan" : "ServiceRobots/Behaviours/DriveToPoint.beh#1553508193766",
+      "subVariable" : "ServiceRobots/Behaviours/DriveToPoint.beh#1554285207458"
+    }, {
+      "id" : 1554285247311,
+      "name" : "1554285247311",
+      "comment" : null,
+      "variable" : 1553506233885,
+      "subPlan" : "ServiceRobots/Behaviours/DriveToPoint.beh#1553508193766",
+      "subVariable" : "ServiceRobots/Behaviours/DriveToPoint.beh#1554285210551"
+    } ],
     "outTransitions" : [ 1553251878842, 1553503372591 ],
     "inTransitions" : [ 1553503358877 ]
   }, {
@@ -67,7 +81,35 @@
     "entryPoint" : null,
     "parentPlan" : 1553186313956,
     "abstractPlans" : [ "ServiceRobots/Behaviours/PutDown.beh#1553508167181" ],
-    "variableBindings" : [ ],
+    "variableBindings" : [ {
+      "id" : 1554285289088,
+      "name" : "1554285289088",
+      "comment" : null,
+      "variable" : 1553506228672,
+      "subPlan" : "ServiceRobots/Behaviours/PutDown.beh#1553508167181",
+      "subVariable" : "ServiceRobots/Behaviours/PutDown.beh#1554285268616"
+    }, {
+      "id" : 1554285295261,
+      "name" : "1554285295261",
+      "comment" : null,
+      "variable" : 1553506233885,
+      "subPlan" : "ServiceRobots/Behaviours/PutDown.beh#1553508167181",
+      "subVariable" : "ServiceRobots/Behaviours/PutDown.beh#1554285270977"
+    }, {
+      "id" : 1554285299566,
+      "name" : "1554285299566",
+      "comment" : null,
+      "variable" : 1553506237542,
+      "subPlan" : "ServiceRobots/Behaviours/PutDown.beh#1553508167181",
+      "subVariable" : "ServiceRobots/Behaviours/PutDown.beh#1554285273962"
+    }, {
+      "id" : 1554285303967,
+      "name" : "1554285303967",
+      "comment" : null,
+      "variable" : 1553506241307,
+      "subPlan" : "ServiceRobots/Behaviours/PutDown.beh#1553508167181",
+      "subVariable" : "ServiceRobots/Behaviours/PutDown.beh#1554285277315"
+    } ],
     "outTransitions" : [ 1553503358877, 1553503376373, 1553503379375 ],
     "inTransitions" : [ 1553251878842 ]
   }, {

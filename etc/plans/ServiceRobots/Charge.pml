@@ -26,7 +26,7 @@
     "comment" : "",
     "entryPoint" : 1553245568961,
     "parentPlan" : 1553186270535,
-    "abstractPlans" : [ ],
+    "abstractPlans" : [ "ServiceRobots/Behaviours/Stop.beh#1553185137554" ],
     "variableBindings" : [ ],
     "outTransitions" : [ 1553245583942 ],
     "inTransitions" : [ ]
@@ -37,7 +37,7 @@
     "comment" : "",
     "entryPoint" : null,
     "parentPlan" : 1553186270535,
-    "abstractPlans" : [ ],
+    "abstractPlans" : [ "ServiceRobots/Behaviours/Stop.beh#1553185137554" ],
     "variableBindings" : [ ],
     "outTransitions" : [ 1553245593163 ],
     "inTransitions" : [ 1553245583942 ]

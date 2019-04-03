@@ -8,7 +8,12 @@
     "name" : "test",
     "comment" : "MISSING_COMMENT",
     "variableType" : null
-  }],
+  }, {
+    "id" : 1554282847422,
+    "name" : "poi",
+    "comment" : "MISSING_COMMENT",
+    "variableType" : null
+  } ],
   "frequency" : 0,
   "deferring" : 0,
   "preCondition" : null,
