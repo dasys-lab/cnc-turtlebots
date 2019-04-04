@@ -30,13 +30,6 @@
     "pluginName" : "DefaultPlugin",
     "variables" : [ 1554234508051, 1554234511544, 1554234514877 ],
     "quantifiers" : [ {
-      "id" : 1554289460359,
-      "name" : "NEW_QUANTIFIER",
-      "comment" : "MISSING_COMMENT",
-      "quantifierType" : "ALL",
-      "scope" : 1554234501483,
-      "sorts" : [ "X" ]
-    }, {
       "id" : 1554289489406,
       "name" : "NEW_QUANTIFIER",
       "comment" : "MISSING_COMMENT",
@@ -48,14 +41,21 @@
       "name" : "NEW_QUANTIFIER",
       "comment" : "MISSING_COMMENT",
       "quantifierType" : "ALL",
-      "scope" : 1528875085489,
+      "scope" : 1554234527864,
       "sorts" : [ "z" ]
+    }, {
+      "id" : 1554289460359,
+      "name" : "NEW_QUANTIFIER",
+      "comment" : "MISSING_COMMENT",
+      "quantifierType" : "ALL",
+      "scope" : 1554234501483,
+      "sorts" : [ "X" ]
     } ]
   },
   "runtimeCondition" : null,
   "entryPoints" : [ {
     "id" : 1554234527864,
-    "name" : "1554234527864",
+    "name" : "Ep",
     "comment" : null,
     "successRequired" : false,
     "minCardinality" : 0,
