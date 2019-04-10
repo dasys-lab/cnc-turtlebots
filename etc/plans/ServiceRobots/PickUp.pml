@@ -26,9 +26,9 @@
     "id" : 1553250907083,
     "name" : "1553250907083",
     "comment" : null,
-    "successRequired" : false,
+    "successRequired" : true,
     "minCardinality" : 0,
-    "maxCardinality" : 0,
+    "maxCardinality" : 100,
     "task" : "ServiceRobotsTasks.tsk#1553250786927",
     "state" : 1553250909709,
     "plan" : 1553186320902

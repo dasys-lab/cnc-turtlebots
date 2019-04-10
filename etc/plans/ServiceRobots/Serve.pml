@@ -14,7 +14,7 @@
     "comment" : null,
     "successRequired" : false,
     "minCardinality" : 0,
-    "maxCardinality" : 0,
+    "maxCardinality" : 100,
     "task" : "ServiceRobotsTasks.tsk#1528875085489",
     "state" : 1553186329060,
     "plan" : 1553186258644
