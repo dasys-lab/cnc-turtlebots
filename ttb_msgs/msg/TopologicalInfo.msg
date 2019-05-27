@@ -1,3 +1,3 @@
-agent_id/AgentID sender
+id_ros/ID sender
 string ownRoom
 string[] openDoors

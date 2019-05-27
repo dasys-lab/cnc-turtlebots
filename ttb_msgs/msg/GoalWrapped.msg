@@ -1,3 +1,3 @@
 # id of receiving robot
-agent_id/AgentID receiver
+id_ros/ID receiver
 geometry_msgs/PoseStamped msg

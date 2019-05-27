@@ -23,7 +23,7 @@
   <depend>robot_control</depend>
   <depend>asp_solver_wrapper</depend>
   <depend>asp_solver</depend>
-  <depend>agent_id</depend>
+  <depend>id_ros</depend>
   <depend>alica_simple_solver</depend>
 
   <export>

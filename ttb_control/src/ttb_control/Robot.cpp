@@ -15,7 +15,7 @@ using std::string;
 
 namespace ttb_control
 {
-Robot::Robot(string robotName, const essentials::AgentID* robotId, TTBControl* parentTTBControl)
+Robot::Robot(string robotName, const essentials::Identifier* robotId, TTBControl* parentTTBControl)
         : RobotMetaData(robotName, robotId)
         , parentTTBControl(parentTTBControl)
         , widget(new QFrame())

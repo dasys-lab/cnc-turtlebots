@@ -1,7 +1,7 @@
-agent_id/AgentID sender
+id_ros/ID sender
 
 # ReceiverID 0 is reserved as wildcard for all robots. If it is > 0, it represents the ID of the robot.
-agent_id/AgentID receiver
+id_ros/ID receiver
 
 # The type of task that is encoded with this message
 uint8 type

@@ -27,7 +27,7 @@ class Robot : public QFrame, public essentials::RobotMetaData
 {
     Q_OBJECT
 public:
-    Robot(std::string robotName, const essentials::AgentID* robotId, TTBControl* parentTTBControl);
+    Robot(std::string robotName, const essentials::Identifier* robotId, TTBControl* parentTTBControl);
 
     virtual ~Robot();
 

@@ -9,7 +9,7 @@ find_package(catkin REQUIRED COMPONENTS
   system_util 
   fsystem 
   autodiff 
-  agent_id
+  id_ros
   event_handling 
   alica_engine 
   alica_ros_proxy 
@@ -25,7 +25,7 @@ find_package(catkin REQUIRED COMPONENTS
 catkin_package(
   INCLUDE_DIRS include
   LIBRARIES 
-  CATKIN_DEPENDS alica_engine alica_ros_proxy ttb_expressions ttb_worldmodel asp_solver_wrapper asp_solver agent_id alica_simple_solver
+  CATKIN_DEPENDS alica_engine alica_ros_proxy ttb_expressions ttb_worldmodel asp_solver_wrapper asp_solver id_ros alica_simple_solver
 )
 
 include_directories(include ${catkin_INCLUDE_DIRS})

@@ -12,7 +12,7 @@
 #include <alica/reasoner/SimpleSolver.h>
 #include <reasoner/asp/Solver.h>
 #include <asp_solver_wrapper/ASPSolverWrapper.h>
-#include <essentials/AgentIDManager.h>
+#include <essentials/IDManager.h>
 
 #include <ros/ros.h>
 
@@ -25,7 +25,7 @@ namespace ttb
 
 Base::Base(std::string roleSetName, std::string masterPlanName, std::string roleSetDir, bool sim)
 {
-    ae = new alica::AlicaEngine(new essentials::AgentIDManager(new essentials::AgentIDFactory()), roleSetName, masterPlanName, false);
+    ae = new alica::AlicaEngine(new essentials::IDManager(), roleSetName, masterPlanName, false);
     bc = new alica::BehaviourCreator();
     cc = new alica::ConditionCreator();
     uc = new alica::UtilityFunctionCreator();

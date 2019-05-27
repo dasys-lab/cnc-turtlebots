@@ -3,8 +3,8 @@
 #include "ttb/TTBWorldModel.h"
 #include "ttb/WrappedMessageHandler.h"
 
-#include <essentials/AgentID.h>
-#include <essentials/BroadcastID.h>
+#include <essentials/Identifier.h>
+#include <essentials/WildcardID.h>
 
 using std::string;
 
@@ -162,9 +162,9 @@ void Communication::onDockInfrRed(kobuki_msgs::DockInfraRed dockInfrRed)
 void Communication::onServeTask(ttb_msgs::ServeTask serveTask)
 {
     auto ownID = this->wm->getOwnId();
-    auto senderId = this->wm->getEngine()->getIdFromBytes(serveTask.sender.id);
-    auto receiverId = this->wm->getEngine()->getIdFromBytes(serveTask.receiver.id);
-    if (*senderId != *ownID && (*receiverId == *ownID || serveTask.receiver.type == essentials::BroadcastID::BC_TYPE)) {
+    auto senderId = this->wm->getEngine()->getIDFromBytes(serveTask.sender.id.begin().base(), serveTask.sender.id.size(), serveTask.sender.type);
+    auto receiverId = this->wm->getEngine()->getIDFromBytes(serveTask.receiver.id.begin().base(), serveTask.receiver.id.size(), serveTask.receiver.type);
+    if (*senderId != *ownID && (*receiverId == *ownID || serveTask.receiver.type == essentials::WildcardID::WILDCARD_TYPE)) {
         this->wm->rawSensorData.processServeTask(serveTask);
     }
 }

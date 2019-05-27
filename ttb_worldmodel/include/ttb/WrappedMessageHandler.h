@@ -7,7 +7,7 @@
 #include "ttb_msgs/GoalWrapped.h"
 #include "ttb_msgs/InitialPoseWrapped.h"
 #include <engine/AlicaEngine.h>
-#include <essentials/AgentID.h>
+#include <essentials/Identifier.h>
 
 #include <ros/ros.h>
 
@@ -17,7 +17,7 @@ namespace ttb
 class WrappedMessageHandler
 {
 private:
-    const essentials::AgentID* robotID;
+    const essentials::Identifier* robotID;
     alica::AlicaEngine* engine;
     ros::NodeHandle n;
     // get incoming wrapped messages and publish them (unwrapped) on the local ros core
@@ -46,7 +46,7 @@ public:
     void onRosAMCLPoseWrapped2852345798(const ros::MessageEvent<ttb_msgs::AMCLPoseWrapped>& event)
     {
         const ttb_msgs::AMCLPoseWrapped::ConstPtr& message = event.getMessage();
-        auto receiverId = this->engine->getIdFromBytes(message->receiver.id);
+        auto receiverId = this->engine->getIDFromBytes(message->receiver.id.begin().base(), message->receiver.id.size(), message->receiver.type);
         if (*receiverId == *robotID && event.getPublisherName().compare(ros::this_node::getName()) != 0) {
             pubPoseWithCovarianceStamped_amcl_pose.publish(message->msg);
         }
@@ -61,7 +61,7 @@ public:
     void onRosGoalWrapped3037331423(const ros::MessageEvent<ttb_msgs::GoalWrapped>& event)
     {
         const ttb_msgs::GoalWrapped::ConstPtr& message = event.getMessage();
-        auto receiverId = this->engine->getIdFromBytes(message->receiver.id);
+        auto receiverId = this->engine->getIDFromBytes(message->receiver.id.begin().base(), message->receiver.id.size(), message->receiver.type);
         if (*receiverId == *robotID && event.getPublisherName().compare(ros::this_node::getName()) != 0) {
             pubPoseStamped_move_base_simple_goal.publish(message->msg);
         }
@@ -76,12 +76,12 @@ public:
     void onRosInitialPoseWrapped2637701444(const ros::MessageEvent<ttb_msgs::InitialPoseWrapped>& event)
     {
         const ttb_msgs::InitialPoseWrapped::ConstPtr& message = event.getMessage();
-        auto receiverId = this->engine->getIdFromBytes(message->receiver.id);
+        auto receiverId = this->engine->getIDFromBytes(message->receiver.id.begin().base(), message->receiver.id.size(), message->receiver.type);
         if (*receiverId == *robotID && event.getPublisherName().compare(ros::this_node::getName()) != 0) {
             pubPoseWithCovarianceStamped_initialpose.publish(message->msg);
         }
     }
-    void init(const essentials::AgentID* id, alica::AlicaEngine* engine)
+    void init(const essentials::Identifier* id, alica::AlicaEngine* engine)
     {
         this->robotID = id;
 

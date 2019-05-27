@@ -4,7 +4,7 @@
 
 #include "ros/ros.h"
 #include <ros/macros.h>
-#include <essentials/AgentID.h>
+#include <essentials/Identifier.h>
 #include <ttb_control/Robot.h>
 #include <ttb_msgs/TopologicalInfo.h>
 
@@ -54,13 +54,13 @@ private:
     essentials::SystemConfig* sc;
     ros::Subscriber topologicalInfoSub;
 
-    std::map<const essentials::AgentID*, Robot*> controlledRobotsMap;
+    std::map<const essentials::Identifier*, Robot*> controlledRobotsMap;
     std::mutex topologicalInfoMsgQueueMutex;
     std::queue<std::pair<std::chrono::system_clock::time_point, ttb_msgs::TopologicalInfoPtr>> topologicalInfoMsgQueue;
 
     void receiveTopologicalInfo(ttb_msgs::TopologicalInfoPtr topoInfo);
     void processMessages();
-    void checkAndInit(const essentials::AgentID* robotId);
+    void checkAndInit(const essentials::Identifier* robotId);
 
     QTimer* guiUpdateTimer;
 

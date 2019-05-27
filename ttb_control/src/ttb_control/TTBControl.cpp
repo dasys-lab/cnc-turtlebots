@@ -95,7 +95,7 @@ void TTBControl::showContextMenu(const QPoint& pos)
 
         std::cout << "RC: '" << name << "'" << endl;
 
-        const essentials::AgentID* robotId = this->pmRegistry->getRobotId(name);
+        const essentials::Identifier* robotId = this->pmRegistry->getRobotId(name);
         if (robotId != nullptr) {
             this->controlledRobotsMap[robotId]->toggle();
         } else {
@@ -156,7 +156,7 @@ void TTBControl::processMessages()
  * If the given robot ID is already known, nothing is done.
  * Otherwise a new entry in the controlled robot map is created.
  */
-void TTBControl::checkAndInit(const essentials::AgentID* robotId)
+void TTBControl::checkAndInit(const essentials::Identifier* robotId)
 {
     auto pmEntry = this->controlledRobotsMap.find(robotId);
     if (pmEntry == this->controlledRobotsMap.end()) { // robot is not known, so create a corresponding instance
