@@ -42,10 +42,10 @@ int main(int argc, char **argv)
 
     // setup capnzero
     void* ctx = zmq_ctx_new();
-    capnzero::Subscriber* sub = new capnzero::Subscriber(ctx, argv[1]);
-    sub->connect(capnzero::CommType::IPC, "@capnzero.ipc");
+    capnzero::Subscriber* sub = new capnzero::Subscriber(ctx, argv[1], &talk);
+    sub->addAddress(capnzero::CommType::IPC, "@capnzero.ipc");
+    sub->connect();
 //    sub->connect(capnzero::CommType::UDP, "*:5555");
-    sub->subscribe(&talk);
 
     // wait
     while (!interrupted) {

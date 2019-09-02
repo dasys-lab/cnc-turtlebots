@@ -10,7 +10,6 @@
 #include "ttb/wm/topology/TopologicalLocalization.h"
 #include "ttb/wm/topology/TopologicalModel.h"
 
-#include <SystemConfig.h>
 #include <essentials/EventTrigger.h>
 #include <supplementary/InformationElement.h>
 #include <supplementary/WorldModel.h>
